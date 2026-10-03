@@ -7,3 +7,5 @@ Every push to `main` is published automatically by Netlify.
 - The admin copy (`casebound-admin-LOCAL.html`) and `supabase-signals-setup.sql` are deliberately **not** in this repo.
 
 To roll back: Netlify → Deploys → pick an earlier deploy → "Publish deploy".
+
+This repository is public on purpose: it contains only files that are already served publicly on case-bound.com.
