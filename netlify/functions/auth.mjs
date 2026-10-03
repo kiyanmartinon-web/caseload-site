@@ -54,7 +54,11 @@ export default async (req, context) => {
     if (req.method !== "GET") return bad("Method not allowed", 405);
     const user = await currentUser(req);
     if (!user) return ok({ user: null });
-    return ok({ user: publicUser(user), subscription: await subscriptionFor(user) });
+    const subscription = await subscriptionFor(user);
+    // Paid features stay on during a trial and while Stripe retries a failed payment.
+    const st = subscription && subscription.status;
+    const tier = ["active", "trialing", "past_due"].includes(st) || (st === "unknown" && user.stripeCustomer) ? "pro" : "free";
+    return ok({ user: publicUser(user), subscription, tier });
   }
 
   if (req.method !== "POST") return bad("Method not allowed", 405);
