@@ -4,8 +4,9 @@ Every push to `main` is published automatically by Netlify.
 
 - `index.html` — the public research tool (no Intake / corpus admin).
 - `privacy.html`, `terms.html` — legal pages (EN/IT).
-- `pricing.html`, `account.html` — subscription plans and the post-checkout / manage-subscription page.
-- `netlify/functions/` — the Stripe back end (`/api/plans`, `/api/checkout`, `/api/session`, `/api/portal`). No npm packages, no build step.
+- `pricing.html`, `login.html`, `account.html` — plans, sign in / create account, and the account + subscription page.
+- `netlify/functions/` — back end: accounts (`/api/auth/register|login|logout|me|delete`) and Stripe (`/api/plans`, `/api/checkout`, `/api/session`, `/api/portal`).
+- Accounts are stored in Netlify Blobs (store `accounts`): passwords hashed with scrypt, sessions in an HttpOnly cookie. Buying a plan requires an account; the Stripe customer is linked to it after checkout.
 
 ## Subscriptions (Stripe)
 

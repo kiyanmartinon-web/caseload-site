@@ -1,6 +1,7 @@
 // GET /api/session?id=cs_…  — confirms a finished checkout for the thank-you page.
 // The checkout-session id is a long unguessable token that only the buyer receives.
 import { isConfigured, stripe, json, failure } from "../lib/stripe.mjs";
+import { currentUser, getUser, saveUser } from "../lib/auth.mjs";
 
 export default async (req) => {
   if (req.method !== "GET") return json({ error: "Method not allowed" }, 405);
@@ -15,6 +16,13 @@ export default async (req) => {
     } catch (e) {
       if (e.status === 404) return json({ error: "Session not found." }, 404);
       throw e;
+    }
+    // Remember the Stripe customer on the account that started this checkout.
+    if (s.status === "complete" && s.customer && s.client_reference_id) {
+      const viewer = await currentUser(req);
+      const owner = viewer && viewer.id === s.client_reference_id ? viewer : await getUser(s.client_reference_id);
+      const cust = typeof s.customer === "string" ? s.customer : s.customer.id;
+      if (owner && owner.stripeCustomer !== cust) { owner.stripeCustomer = cust; await saveUser(owner); }
     }
     const item = s.line_items && s.line_items.data && s.line_items.data[0];
     const sub = s.subscription && typeof s.subscription === "object" ? s.subscription : null;

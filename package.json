@@ -1,0 +1,8 @@
+{
+  "name": "casebound-site",
+  "private": true,
+  "description": "case-bound.com — static site plus Netlify Functions for accounts and Stripe subscriptions",
+  "dependencies": {
+    "@netlify/blobs": "^11.1.3"
+  }
+}

@@ -21,6 +21,12 @@
   status = 301
   force = true
 
+[[redirects]]
+  from = "/node_modules/*"
+  to = "/"
+  status = 301
+  force = true
+
 [[headers]]
   for = "/*"
   [headers.values]

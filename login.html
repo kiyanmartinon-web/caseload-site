@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign in — Casebound</title>
+<meta name="description" content="Sign in to Casebound or create an account.">
+<meta name="theme-color" content="#6E1F2A">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%236E1F2A'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='36' font-weight='700' text-anchor='middle' fill='%23fff'%3EC%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F7F7F4; --paper-2:#FFFFFF; --ink:#1A2438; --ink-soft:#5A6376;
+  --rule:#D8D7CF; --rule-soft:#E8E7E0;
+  --oxblood:#6E1F2A; --oxblood-wash:#F3EAEB;
+  --verdigris:#29565A; --verdigris-wash:#E7EFEF;
+  --amber:#8A5A12; --amber-wash:#F7EEDD;
+  --serif:"Source Serif 4",Georgia,serif; --sans:"Archivo",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--paper)}
+body{font-family:var(--serif);color:var(--ink);font-size:16.5px;line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:var(--verdigris)}
+a:hover{color:var(--oxblood)}
+:focus-visible{outline:2px solid var(--verdigris);outline-offset:2px}
+.masthead{border-bottom:1px solid var(--rule);background:var(--paper-2)}
+.masthead-in{max-width:820px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:16px;height:56px}
+.wordmark{font-family:var(--serif);font-size:21px;font-weight:600;letter-spacing:-.01em;line-height:1;text-decoration:none;color:var(--ink)}
+.wordmark span{color:var(--oxblood)}
+.lang{margin-left:auto;display:flex;gap:2px;background:var(--paper);border:1px solid var(--rule);border-radius:5px;padding:2px}
+.lang button{font-family:var(--sans);font-size:12.5px;font-weight:600;border:none;background:none;color:var(--ink-soft);padding:6px 12px;border-radius:3px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--ink);color:#fff}
+main{max-width:820px;margin:0 auto;padding:34px 20px 70px}
+.kicker{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--oxblood);margin:0 0 6px}
+h1{font-size:34px;line-height:1.15;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+.updated{font-family:var(--sans);font-size:12.5px;color:var(--ink-soft);margin:0 0 26px}
+h2{font-size:21px;font-weight:600;margin:38px 0 10px;padding-top:18px;border-top:1px solid var(--rule-soft)}
+h3{font-family:var(--sans);font-size:14px;font-weight:700;margin:22px 0 6px}
+p,li{margin:0 0 12px}
+ul{padding-left:22px;margin:0 0 14px}
+.summary{background:var(--paper-2);border:1px solid var(--rule);border-left:4px solid var(--verdigris);border-radius:6px;padding:18px 20px;margin:0 0 10px}
+.summary h2{border:none;padding:0;margin:0 0 10px;font-size:18px}
+.summary ul{margin:0}
+.summary li{margin-bottom:8px}
+table{width:100%;border-collapse:collapse;font-size:14.5px;margin:6px 0 16px;background:var(--paper-2)}
+th,td{text-align:left;vertical-align:top;border:1px solid var(--rule);padding:9px 11px}
+th{font-family:var(--sans);font-size:12px;font-weight:700;background:var(--paper);color:var(--ink-soft)}
+.tbl-wrap{overflow-x:auto}
+mark.ph{background:var(--amber-wash);color:var(--amber);font-family:var(--sans);font-size:.88em;font-weight:600;padding:1px 5px;border-radius:3px}
+.note{font-family:var(--sans);font-size:13.5px;color:var(--ink-soft)}
+footer{border-top:1px solid var(--rule);background:var(--paper-2);font-family:var(--sans);font-size:12.5px;color:var(--ink-soft)}
+footer div{max-width:820px;margin:0 auto;padding:18px 20px;display:flex;gap:16px;flex-wrap:wrap}
+
+main{max-width:460px}
+.tabs2{display:flex;border-bottom:1px solid var(--rule);margin:0 0 22px}
+.tabs2 button{font-family:var(--sans);font-size:14px;font-weight:700;background:none;border:none;border-bottom:2px solid transparent;color:var(--ink-soft);padding:10px 2px;margin-right:22px;cursor:pointer}
+.tabs2 button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--oxblood)}
+form{background:var(--paper-2);border:1px solid var(--rule);border-radius:6px;padding:22px 20px}
+label.f{display:block;font-family:var(--sans);font-size:13px;font-weight:600;margin:0 0 5px}
+input[type=email],input[type=password],input[type=text]{width:100%;font:inherit;font-size:16px;padding:10px 12px;border:1px solid var(--rule);border-radius:5px;background:#fff;color:var(--ink);margin:0 0 16px}
+input:focus{outline:2px solid var(--verdigris);outline-offset:0;border-color:var(--verdigris)}
+.check{display:flex;gap:10px;align-items:flex-start;font-family:var(--sans);font-size:13.5px;margin:0 0 12px;color:var(--ink)}
+.check input{margin-top:3px;flex:none;width:16px;height:16px}
+.hint{font-family:var(--sans);font-size:12px;color:var(--ink-soft);margin:-10px 0 16px}
+.btn{font-family:var(--sans);font-size:14px;font-weight:700;border:1px solid var(--ink);background:var(--ink);color:#fff;border-radius:5px;padding:12px 16px;cursor:pointer;width:100%;margin-top:6px}
+.btn:hover{background:var(--oxblood);border-color:var(--oxblood)}
+.btn[disabled]{opacity:.55;cursor:progress}
+.banner{font-family:var(--sans);font-size:13.5px;border-radius:6px;padding:11px 14px;margin:0 0 16px;background:var(--oxblood-wash);color:var(--oxblood);border:1px solid #E2C9CC}
+.alt{font-family:var(--sans);font-size:13px;color:var(--ink-soft);margin:14px 0 0}
+[hidden]{display:none!important}
+@media(max-width:600px){h1{font-size:28px}body{font-size:16px}}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-in">
+    <a class="wordmark" href="/">Case<span>bound</span></a>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">English</button>
+      <button type="button" data-lang="it" aria-pressed="false">Italiano</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <p class="kicker" data-t="kicker">Your account</p>
+  <h1 id="h1" data-t="titleLogin">Sign in</h1>
+  <p class="updated" data-t="lead">One account for Casebound and your subscription.</p>
+
+  <div class="tabs2" role="tablist">
+    <button type="button" role="tab" id="tab-login" aria-selected="true" data-t="tabLogin">Sign in</button>
+    <button type="button" role="tab" id="tab-register" aria-selected="false" data-t="tabRegister">Create account</button>
+  </div>
+
+  <div id="err" class="banner" role="alert" hidden></div>
+
+  <form id="f-login" novalidate>
+    <label class="f" for="l-email" data-t="email">Email</label>
+    <input type="email" id="l-email" autocomplete="email" required>
+    <label class="f" for="l-pw" data-t="password">Password</label>
+    <input type="password" id="l-pw" autocomplete="current-password" required>
+    <button class="btn" type="submit" data-t="tabLogin">Sign in</button>
+    <p class="alt"><span data-t="forgot">Forgot your password? Email</span> <a href="mailto:admin@case-bound.com?subject=Casebound%20password%20reset">admin@case-bound.com</a> <span data-t="forgot2">from your account's address.</span></p>
+  </form>
+
+  <form id="f-register" novalidate hidden>
+    <label class="f" for="r-name" data-t="name">Name (optional)</label>
+    <input type="text" id="r-name" autocomplete="name" maxlength="100">
+    <label class="f" for="r-email" data-t="email">Email</label>
+    <input type="email" id="r-email" autocomplete="email" required>
+    <label class="f" for="r-pw" data-t="password">Password</label>
+    <input type="password" id="r-pw" autocomplete="new-password" minlength="10" required>
+    <p class="hint" data-t="pwHint">At least 10 characters.</p>
+    <label class="check"><input type="checkbox" id="r-terms"> <span data-t="terms">I accept the <a href="/terms.html" target="_blank">Terms of use</a> and have read the <a href="/privacy.html#accounts" target="_blank">Privacy notice</a>.</span></label>
+    <label class="check"><input type="checkbox" id="r-adult"> <span data-t="adult">I am 18 or older.</span></label>
+    <button class="btn" type="submit" data-t="tabRegister">Create account</button>
+  </form>
+</main>
+
+<footer>
+  <div>
+    <a href="/" data-t="back">← Back to Casebound</a>
+    <a href="/pricing.html" data-t="plans">Plans</a>
+    <a href="/terms.html" data-t="termsL">Terms of use</a>
+    <a href="/privacy.html" data-t="privacyL">Privacy notice</a>
+    <a href="mailto:admin@case-bound.com">Contact / complaints: admin@case-bound.com</a>
+    <span>© 2026 Kiyan Martinon</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var T = {
+    en: { docLogin:"Sign in — Casebound", docRegister:"Create account — Casebound", kicker:"Your account",
+      titleLogin:"Sign in", titleRegister:"Create your account", lead:"One account for Casebound and your subscription.",
+      tabLogin:"Sign in", tabRegister:"Create account", email:"Email", password:"Password", name:"Name (optional)",
+      pwHint:"At least 10 characters.",
+      terms:'I accept the <a href="/terms.html#accounts" target="_blank">Terms of use</a> and have read the <a href="/privacy.html#accounts" target="_blank">Privacy notice</a>.',
+      adult:"I am 18 or older.", forgot:"Forgot your password? Email", forgot2:"from your account's address.",
+      back:"← Back to Casebound", plans:"Plans", termsL:"Terms of use", privacyL:"Privacy notice",
+      needTerms:"Please accept the Terms of use.", needAdult:"You must be at least 18 to create an account.",
+      generic:"Something went wrong. Please try again." },
+    it: { docLogin:"Accedi — Casebound", docRegister:"Crea un account — Casebound", kicker:"Il tuo account",
+      titleLogin:"Accedi", titleRegister:"Crea il tuo account", lead:"Un solo account per Casebound e per il tuo abbonamento.",
+      tabLogin:"Accedi", tabRegister:"Crea un account", email:"Email", password:"Password", name:"Nome (facoltativo)",
+      pwHint:"Almeno 10 caratteri.",
+      terms:'Accetto le <a href="/terms.html#accounts-it" target="_blank">Condizioni d\'uso</a> e ho letto l\'<a href="/privacy.html#accounts-it" target="_blank">Informativa privacy</a>.',
+      adult:"Ho almeno 18 anni.", forgot:"Password dimenticata? Scrivi a", forgot2:"dall'indirizzo del tuo account.",
+      back:"← Torna a Casebound", plans:"Piani", termsL:"Condizioni d'uso", privacyL:"Informativa privacy",
+      needTerms:"Accetta le Condizioni d'uso.", needAdult:"Devi avere almeno 18 anni per creare un account.",
+      generic:"Qualcosa è andato storto. Riprova." }
+  };
+  // Server messages are in English; translate the common ones.
+  var IT_ERR = {
+    "Enter a valid email address.":"Inserisci un indirizzo email valido.",
+    "Password must be at least 10 characters.":"La password deve avere almeno 10 caratteri.",
+    "An account with this email already exists. Sign in instead.":"Esiste già un account con questa email. Accedi.",
+    "Wrong email or password.":"Email o password errati.",
+    "Too many attempts. Try again in 15 minutes.":"Troppi tentativi. Riprova tra 15 minuti."
+  };
+  var $ = function(id){ return document.getElementById(id); };
+  var qs = new URLSearchParams(location.search);
+  var lang = (qs.get("lang") === "it" || location.hash === "#it" || (!qs.get("lang") && /^it\b/i.test(navigator.language || ""))) ? "it" : "en";
+  var mode = qs.get("mode") === "register" ? "register" : "login";
+  var next = qs.get("next") || "/account.html";
+  if (!/^\/[A-Za-z0-9._\-\/?=&#]*$/.test(next) || next.indexOf("//") === 0) next = "/account.html";
+  var btns = document.querySelectorAll(".lang button");
+
+  function render(){
+    var t = T[lang];
+    document.documentElement.lang = lang;
+    document.title = mode === "login" ? t.docLogin : t.docRegister;
+    document.querySelectorAll("[data-t]").forEach(function(el){
+      var v = t[el.getAttribute("data-t")]; if (typeof v !== "string") return;
+      if (/<a /.test(v)) el.innerHTML = v; else el.textContent = v;
+    });
+    $("h1").textContent = mode === "login" ? t.titleLogin : t.titleRegister;
+    $("tab-login").setAttribute("aria-selected", mode === "login");
+    $("tab-register").setAttribute("aria-selected", mode === "register");
+    $("f-login").hidden = mode !== "login"; $("f-register").hidden = mode !== "register";
+    btns.forEach(function(b){ b.setAttribute("aria-pressed", b.getAttribute("data-lang") === lang ? "true" : "false"); });
+  }
+  function err(m){ $("err").textContent = m ? (lang === "it" && IT_ERR[m] ? IT_ERR[m] : m) : ""; $("err").hidden = !m; }
+  function setMode(m){ mode = m; err(""); render(); }
+
+  function post(url, data, form){
+    var b = form.querySelector("button[type=submit]"); b.disabled = true; err("");
+    return fetch(url, { method:"POST", credentials:"same-origin", headers:{ "Content-Type":"application/json" }, body: JSON.stringify(data) })
+      .then(function(r){ return r.json().then(function(j){ if (!r.ok) throw new Error(j.error || T[lang].generic); return j; }); })
+      .then(function(){ location.href = next; })
+      .catch(function(e){ b.disabled = false; err(e.message || T[lang].generic); });
+  }
+
+  $("tab-login").addEventListener("click", function(){ setMode("login"); });
+  $("tab-register").addEventListener("click", function(){ setMode("register"); });
+  btns.forEach(function(b){ b.addEventListener("click", function(){ lang = b.getAttribute("data-lang"); render(); }); });
+
+  $("f-login").addEventListener("submit", function(e){
+    e.preventDefault();
+    post("/api/auth/login", { email: $("l-email").value, password: $("l-pw").value }, this);
+  });
+  $("f-register").addEventListener("submit", function(e){
+    e.preventDefault();
+    if (!$("r-terms").checked) return err(T[lang].needTerms);
+    if (!$("r-adult").checked) return err(T[lang].needAdult);
+    post("/api/auth/register", { name: $("r-name").value, email: $("r-email").value, password: $("r-pw").value, acceptTerms: true, adult: true, lang: lang }, this);
+  });
+
+  render();
+  // Already signed in? Go straight on.
+  fetch("/api/auth/me", { credentials:"same-origin" }).then(function(r){ return r.json(); }).then(function(j){ if (j && j.user) location.replace(next); }).catch(function(){});
+})();
+</script>
+</body>
+</html>
