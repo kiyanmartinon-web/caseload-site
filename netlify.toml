@@ -2,9 +2,21 @@
 [build]
   publish = "."
 
+# Subscription back end (Stripe). Each file serves one /api/... route.
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
 # Keep the database setup notes and repo files off the public site.
 [[redirects]]
   from = "/README.md"
+  to = "/"
+  status = 301
+  force = true
+
+# Function source code is not a web page.
+[[redirects]]
+  from = "/netlify/*"
   to = "/"
   status = 301
   force = true

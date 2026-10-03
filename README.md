@@ -4,6 +4,21 @@ Every push to `main` is published automatically by Netlify.
 
 - `index.html` — the public research tool (no Intake / corpus admin).
 - `privacy.html`, `terms.html` — legal pages (EN/IT).
+- `pricing.html`, `account.html` — subscription plans and the post-checkout / manage-subscription page.
+- `netlify/functions/` — the Stripe back end (`/api/plans`, `/api/checkout`, `/api/session`, `/api/portal`). No npm packages, no build step.
+
+## Subscriptions (Stripe)
+
+Plans, prices, trials and payment methods are all managed in the Stripe dashboard; the site reads them live.
+
+Netlify environment variables:
+- `STRIPE_SECRET_KEY` (required) — secret or restricted key. Restricted key needs: Products read, Prices read, Checkout Sessions write, Customer portal write.
+- `STRIPE_PORTAL_LOGIN_URL` (recommended) — Stripe → Settings → Billing → Customer portal → login link.
+- `STRIPE_AUTOMATIC_TAX` — set to `true` once Stripe Tax is configured.
+
+Optional product metadata in Stripe: `order`, `highlight=true`, `trial_days`, `hidden=true`, `name_it`, `description_it`, `features_it` (separated by `|`).
+
+Without `STRIPE_SECRET_KEY` the Plans page simply says paid plans are not available yet.
 - The admin copy (`casebound-admin-LOCAL.html`) and `supabase-signals-setup.sql` are deliberately **not** in this repo.
 
 To roll back: Netlify → Deploys → pick an earlier deploy → "Publish deploy".
