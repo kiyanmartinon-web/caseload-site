@@ -1,0 +1,17 @@
+# Netlify publishes this folder as-is. No build step.
+[build]
+  publish = "."
+
+# Keep the database setup notes and repo files off the public site.
+[[redirects]]
+  from = "/README.md"
+  to = "/"
+  status = 301
+  force = true
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Content-Type-Options = "nosniff"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"

@@ -1,0 +1,1724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Casebound — legal research workspace</title>
+<meta name="description" content="Casebound maps your case facts to the governing Italian Civil Code articles, ranks similar Cassazione rulings, and compares sources across Italy, the EU, France, the UK and the US.">
+<meta name="theme-color" content="#6E1F2A">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%236E1F2A'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='36' font-weight='700' text-anchor='middle' fill='%23fff'%3EC%3C/text%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Casebound — legal research workspace">
+<meta property="og:description" content="Casebound maps your case facts to the governing Italian Civil Code articles, ranks similar Cassazione rulings, and compares sources across Italy, the EU, France, the UK and the US.">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F7F7F4; --paper-2:#FFFFFF; --ink:#1A2438; --ink-soft:#5A6376;
+  --rule:#D8D7CF; --rule-soft:#E8E7E0;
+  --oxblood:#6E1F2A; --oxblood-wash:#F3EAEB;
+  --verdigris:#29565A; --verdigris-wash:#E7EFEF;
+  --amber:#8A5A12; --amber-wash:#F7EEDD;
+  --serif:"Source Serif 4",Georgia,serif; --sans:"Archivo",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;padding:0;height:100%;background:var(--paper)}
+body{font-family:var(--sans);color:var(--ink);display:flex;flex-direction:column;height:100vh;overflow:hidden}
+button{font-family:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--verdigris);outline-offset:2px}
+
+.masthead{border-bottom:1px solid var(--rule);background:var(--paper-2);flex:0 0 auto;z-index:50}
+.masthead-in{max-width:1680px;margin:0 auto;padding:0 22px;display:flex;align-items:center;gap:22px;height:56px}
+.wordmark{font-family:var(--serif);font-size:21px;font-weight:600;letter-spacing:-.01em;line-height:1;white-space:nowrap}
+.wordmark span{color:var(--oxblood)}
+.wordmark small{display:block;font-family:var(--sans);font-size:10px;font-weight:600;color:var(--ink-soft);letter-spacing:.03em;margin-top:1px}
+
+.tabs{display:flex;gap:2px;margin-left:8px}
+.tab{background:none;border:none;padding:9px 16px;font-size:13.5px;font-weight:600;color:var(--ink-soft);border-radius:4px 4px 0 0;position:relative;top:1px}
+.tab:hover{background:var(--paper);color:var(--ink)}
+.tab.on{color:var(--ink);background:var(--paper);border-bottom:2px solid var(--oxblood)}
+.tab .td{display:block;font-weight:400;font-size:10.5px;color:var(--ink-soft);margin-top:1px}
+
+.demo-strip{background:var(--amber-wash);border-bottom:1px solid #E3D6BB;font-size:12px;color:var(--amber);
+  padding:6px 20px;text-align:center;flex:0 0 auto}
+.demo-strip b{font-weight:600}
+.demo-strip a{color:var(--amber);font-weight:600}
+.consent{display:inline-flex;align-items:center;gap:6px;margin-left:10px;white-space:nowrap;cursor:pointer;font-weight:600}
+.consent input{margin:0;accent-color:var(--verdigris);cursor:pointer}
+@media(max-width:760px){.consent{display:flex;justify-content:center;margin:4px 0 0}}
+
+.hub{background:var(--paper-2);border-bottom:1px solid var(--rule);flex:0 0 auto}
+.hub-in{max-width:1680px;margin:0 auto;padding:12px 22px;display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap}
+.hub-field{flex:1 1 340px;min-width:220px}
+.hub-field.narrow{flex:1 1 220px}
+.hub-field label{display:block;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;
+  color:var(--ink-soft);margin-bottom:4px}
+.hub textarea,.hub input[type=text]{width:100%;background:var(--paper);border:1px solid var(--rule);
+  border-radius:4px;padding:7px 9px;font-family:var(--serif);font-size:13.5px;color:var(--ink)}
+.hub textarea{min-height:40px;max-height:120px;resize:vertical;line-height:1.4}
+.hub-btn{flex:0 0 auto;padding:9px 18px;background:var(--oxblood);color:#fff;border:none;border-radius:5px;
+  font-family:var(--sans);font-size:13px;font-weight:600;white-space:nowrap}
+.hub-btn:hover{background:#57181f}
+.hub-btn:disabled{opacity:.5;cursor:default}
+.hub-field-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:4px}
+.hub-field-head label{margin-bottom:0}
+.hub-file-btn{background:none;border:none;padding:0;font-family:var(--sans);font-size:11px;font-weight:600;
+  color:var(--verdigris);cursor:pointer;white-space:nowrap}
+.hub-file-btn:hover{color:var(--oxblood)}
+.hub-file-btn:disabled{color:var(--ink-soft);cursor:default}
+.hub-file-status{font-size:11px;color:var(--ink-soft);margin-top:4px;min-height:14px;line-height:1.4}
+.hub-file-status.err{color:var(--oxblood)}
+.hub-file-status.ok{color:var(--verdigris)}
+.hub textarea.drag-over{border-color:var(--verdigris);border-style:dashed;background:var(--verdigris-wash)}
+.hub-btn.secondary{background:var(--paper);color:var(--ink);border:1px solid var(--rule)}
+.hub-btn.secondary:hover{background:var(--rule-soft)}
+.hub-note{max-width:1680px;margin:0 auto;padding:0 22px 10px;font-size:11.5px;color:var(--ink-soft)}
+.hub-status{max-width:1680px;margin:0 auto;padding:0 22px 10px;font-size:12px;color:var(--verdigris);
+  font-weight:600;display:none}
+.hub-status.on{display:block}
+
+.cases-view{overflow:auto;background:var(--paper)}
+.cases-view-in{max-width:1680px;margin:0 auto;padding:26px 22px}
+.cases-view-head{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:18px;flex-wrap:wrap}
+.cases-view-head h2{margin:0;font-family:var(--serif);font-size:21px;font-weight:600}
+.cases-view-tools{display:flex;gap:10px;align-items:center}
+#cases-search{padding:8px 11px;border:1px solid var(--rule);border-radius:5px;font-size:13px;min-width:240px;
+  background:var(--paper-2);font-family:var(--sans)}
+.cases-clear-btn{padding:8px 12px;background:none;border:1px solid var(--rule);border-radius:5px;
+  color:var(--ink-soft);font-size:12px;cursor:pointer}
+.cases-clear-btn:hover{background:var(--oxblood-wash);color:var(--oxblood);border-color:var(--oxblood-wash)}
+.cases-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}
+.cases-empty-full{grid-column:1/-1;color:var(--ink-soft);font-size:13.5px;text-align:center;padding:50px 0}
+.case-card{border:1px solid var(--rule);border-radius:6px;background:var(--paper-2);padding:15px;
+  display:flex;flex-direction:column;gap:8px}
+.case-card-label{font-family:var(--serif);font-weight:600;font-size:14.5px;color:var(--ink);line-height:1.3}
+.case-card-date{font-size:11px;color:var(--ink-soft)}
+.case-card-facts{font-size:12.5px;color:var(--ink-soft);line-height:1.45;display:-webkit-box;
+  -webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.case-card-claim{font-size:12px;color:var(--verdigris);font-weight:600}
+.case-card-actions{display:flex;gap:8px;margin-top:auto;padding-top:4px}
+.case-card-open{flex:1;padding:8px;background:var(--oxblood);color:#fff;border:none;border-radius:5px;
+  font-size:12.5px;font-weight:600;cursor:pointer;font-family:var(--sans)}
+.case-card-open:hover{background:#57181f}
+.case-card-del{padding:8px 11px;background:var(--paper);border:1px solid var(--rule);border-radius:5px;
+  font-size:12.5px;color:var(--ink-soft);cursor:pointer}
+.case-card-del:hover{background:var(--oxblood-wash);color:var(--oxblood)}
+
+.frames{position:relative;flex:1 1 auto;min-height:0}
+.frames>iframe,.frames>.analysis-wrap,.frames>.cases-view{position:absolute;inset:0;width:100%;height:100%;
+  visibility:hidden}
+.frames>iframe{border:none;background:var(--paper)}
+.frames>iframe.on,.frames>.analysis-wrap.on,.frames>.cases-view.on{visibility:visible}
+
+.analysis-split{display:flex;height:100%}
+.analysis-pane{flex:1 1 50%;display:flex;flex-direction:column;min-width:0;border-right:1px solid var(--rule)}
+.analysis-pane:last-child{border-right:none}
+.analysis-pane-h{flex:0 0 auto;padding:8px 14px;font-family:var(--sans);font-size:11px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);background:var(--paper-2);
+  border-bottom:1px solid var(--rule)}
+.analysis-pane iframe{flex:1 1 auto;width:100%;border:none;background:var(--paper);min-height:0}
+@media(max-width:900px){
+  .analysis-split{flex-direction:column}
+  .analysis-pane{border-right:none;border-bottom:1px solid var(--rule)}
+  .analysis-pane:last-child{border-bottom:none}
+}
+
+@media(max-width:760px){
+  .wordmark small{display:none}
+  .tab .td{display:none}
+  .tab{padding:9px 10px;font-size:12.5px}
+}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-in">
+    <div class="wordmark">Case<span>bound</span><small>LEGAL RESEARCH &middot; BETA</small></div>
+    <nav class="tabs" role="tablist">
+      <button class="tab on" data-tab="analysis" role="tab" aria-selected="true">Analysis<span class="td">mindmap &amp; matches</span></button>
+      <button class="tab" data-tab="cases" role="tab" aria-selected="false">Cases<span class="td">saved &amp; past</span></button>
+    </nav>
+  </div>
+</header>
+
+<div class="hub">
+  <div class="hub-in">
+    <div class="hub-field">
+      <div class="hub-field-head">
+        <label for="hub-facts">Facts of your case</label>
+        <button type="button" class="hub-file-btn" id="hub-file-btn">+ Add file</button>
+        <input type="file" id="hub-file-input" accept=".txt,.md,.markdown,.pdf,.docx" multiple style="display:none">
+      </div>
+      <textarea id="hub-facts" placeholder="Describe the facts once — dates, parties, what went wrong… or drop a file here"></textarea>
+      <div class="hub-file-status" id="hub-file-status"></div>
+    </div>
+    <div class="hub-field narrow">
+      <label for="hub-claim">What you're trying to establish (optional)</label>
+      <input type="text" id="hub-claim" placeholder="e.g. recover lost profit for the shortfall">
+    </div>
+    <button class="hub-btn" id="hub-run">Analyze this case</button>
+  </div>
+  <div class="hub-note">One click maps your case and ranks matching sources in <b>Analysis</b>. Every analysis is saved to <b>Cases</b> in this browser so you can reopen it.</div>
+  <div class="hub-status" id="hub-status"></div>
+</div>
+
+<div class="demo-strip"><b>Beta — not legal advice.</b> Casebound is a research aid, not a substitute for a lawyer. The rulings in the case map are verified; many case-law entries under Compatible sources are illustrative placeholders, not real decisions. Everything you enter stays in this browser. <a href="/terms.html">Terms</a> · <a href="/privacy.html">Privacy</a><label class="consent" title="Sends anonymous usage signals only — never your text or files. Off by default."><input type="checkbox" id="improve-consent"> Help improve rankings <a href="/privacy.html#improve">(what's sent)</a></label></div>
+
+<div class="frames">
+<div id="frame-analysis" class="analysis-wrap on">
+  <div class="analysis-split">
+  <div class="analysis-pane">
+    <div class="analysis-pane-h">Case mindmap</div>
+  <iframe id="frame-atlas" title="Casebound Atlas" srcdoc="<!DOCTYPE html>
+<html lang=&quot;en&quot;>
+<head>
+<meta charset=&quot;utf-8&quot;>
+<meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;>
+<title>Casebound Atlas — case map &amp;amp; similarity engine</title>
+<link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;>
+<link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin>
+<link href=&quot;https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&amp;display=swap&quot; rel=&quot;stylesheet&quot;>
+<style>
+:root{
+  --paper:#F7F7F4; --paper-2:#FFFFFF; --ink:#1A2438; --ink-soft:#5A6376;
+  --rule:#D8D7CF; --rule-soft:#E8E7E0;
+  --oxblood:#6E1F2A; --oxblood-wash:#F3EAEB;
+  --verdigris:#29565A; --verdigris-wash:#E7EFEF;
+  --amber:#8A5A12; --amber-wash:#F7EEDD;
+  --slate:#3C4A5C; --slate-wash:#EBEEF1;
+  --serif:&quot;Source Serif 4&quot;,Georgia,serif; --sans:&quot;Archivo&quot;,system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;padding:0;height:100%}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button{font-family:inherit;cursor:pointer}
+input,textarea{font-family:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--verdigris);outline-offset:2px}
+
+.masthead{border-bottom:1px solid var(--rule);background:var(--paper-2);position:sticky;top:0;z-index:60}
+.masthead-in{max-width:1560px;margin:0 auto;padding:0 22px;display:flex;align-items:center;gap:16px;height:56px;flex-wrap:wrap}
+.wordmark{font-family:var(--serif);font-size:20px;font-weight:600;letter-spacing:-.01em;line-height:1;white-space:nowrap}
+.wordmark span{color:var(--oxblood)}
+.wordmark small{display:block;font-family:var(--sans);font-size:10.5px;font-weight:600;color:var(--ink-soft);letter-spacing:.02em;margin-top:1px}
+.masthead-note{margin-left:auto;font-size:12px;color:var(--ink-soft);max-width:360px;text-align:right;line-height:1.4}
+
+.shell{max-width:1560px;margin:0 auto;padding:20px 22px 60px;display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:18px;align-items:start}
+.ex-strip{grid-column:1/-1;display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.ex-strip .ex-label{font-size:11px;font-weight:600;color:var(--ink-soft);margin-right:2px}
+.ex-strip .build-status{margin:0;flex:1 1 100%;order:99}
+.ex-strip .examples{display:flex;flex-direction:row;flex-wrap:wrap;gap:6px;margin:0}
+.ex-strip .ex-chip{padding:5px 10px}
+.pane-title{font-size:12px;font-weight:600;color:var(--ink-soft);padding-bottom:8px;border-bottom:1px solid var(--rule-soft);margin-bottom:12px;
+  display:flex;justify-content:space-between;align-items:baseline}
+.pane-title em{font-style:normal;font-weight:400;font-size:11px;color:#8B93A3}
+.card-box{background:var(--paper-2);border:1px solid var(--rule);border-radius:6px;padding:16px}
+
+/* ---------- input pane ---------- */
+.input-pane{position:sticky;top:76px}
+.mode-sw{display:flex;gap:2px;background:var(--paper);border:1px solid var(--rule);border-radius:4px;padding:2px;margin-bottom:14px}
+.mode-sw button{flex:1;background:none;border:none;border-radius:3px;padding:7px 0;font-size:12px;color:var(--ink-soft);font-weight:600}
+.mode-sw button.on{background:var(--ink);color:#fff}
+label.f{display:block;font-size:11.5px;font-weight:600;margin-bottom:5px}
+.field{margin-bottom:12px}
+input[type=text],textarea{width:100%;background:var(--paper-2);border:1px solid var(--rule);border-radius:4px;padding:8px 9px;font-size:13px;line-height:1.45}
+textarea{resize:vertical;font-family:var(--serif);font-size:13.5px}
+#facts{min-height:150px}
+.hint{font-size:10.5px;color:var(--ink-soft);margin-bottom:6px;line-height:1.4}
+.examples{display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
+.ex-chip{text-align:left;background:var(--paper);border:1px solid var(--rule);border-radius:4px;padding:7px 9px;font-size:11.5px;color:var(--ink)}
+.ex-chip:hover{border-color:var(--verdigris);color:var(--verdigris)}
+.build-btn{width:100%;background:var(--ink);color:#fff;border:none;border-radius:4px;padding:11px;font-size:13px;font-weight:600}
+.build-btn:hover{background:#0F1727}
+.build-status{font-size:11.5px;color:var(--ink-soft);margin-top:8px;min-height:15px}
+
+.refine{margin-top:16px;border-top:1px solid var(--rule-soft);padding-top:12px}
+.refine h4{font-size:11px;font-weight:600;color:var(--ink-soft);margin:0 0 8px;display:flex;justify-content:space-between}
+.refine h4 button{background:none;border:none;color:var(--verdigris);font-size:10.5px;font-weight:600;padding:0}
+.art-list{max-height:280px;overflow-y:auto;display:flex;flex-direction:column;gap:2px}
+.art-row{display:flex;align-items:flex-start;gap:7px;padding:5px 4px;border-radius:3px;font-size:11.5px}
+.art-row:hover{background:var(--paper)}
+.art-row input{margin-top:2px}
+.art-row .at{font-weight:600}
+.art-row .ar{color:var(--ink-soft);font-size:10.5px}
+
+/* ---------- map pane ---------- */
+.map-pane{min-width:0}
+.map-head{display:flex;align-items:baseline;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.map-head h2{font-family:var(--serif);font-size:18px;font-weight:600;margin:0}
+.map-tools{margin-left:auto;display:flex;gap:6px}
+.ghost-btn{background:none;border:1px solid var(--rule);border-radius:4px;padding:6px 10px;font-size:11px;color:var(--ink-soft);font-weight:600}
+.ghost-btn:hover{border-color:var(--ink-soft);color:var(--ink)}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:10.5px;color:var(--ink-soft);margin-bottom:10px;line-height:1.4}
+.legend b{color:var(--ink);font-weight:600}
+.legend .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px;vertical-align:middle}
+
+#canvas{position:relative;background:
+    linear-gradient(var(--rule-soft) 1px,transparent 1px) 0 0/100% 34px,
+    linear-gradient(90deg,var(--rule-soft) 1px,transparent 1px) 0 0/34px 100%,
+    var(--paper-2);
+  border:1px solid var(--rule);border-radius:6px;height:600px;overflow:hidden;touch-action:none}
+#canvas.empty::after{content:&quot;Type a case on the left — or load an example — then Map this case.&quot;;
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;
+  padding:0 60px;font-family:var(--serif);font-size:15px;color:#B0B6C0}
+#edges{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+#edges line{stroke:var(--rule);}
+#edges line.e-art{stroke:var(--verdigris);opacity:.5}
+#edges line.e-jur{opacity:.85}
+#edges line.e-sub{stroke:var(--amber);stroke-dasharray:3 3;opacity:.75}
+
+.node{position:absolute;transform:translate(-50%,-50%);cursor:grab;user-select:none;padding:7px 11px;border-radius:16px;
+  font-size:11.5px;line-height:1.3;max-width:160px;text-align:center;box-shadow:0 1px 3px rgba(20,25,40,.08);
+  border:1.5px solid var(--rule);background:var(--paper-2);z-index:2}
+.node:active{cursor:grabbing;z-index:10}
+.node.selected{box-shadow:0 0 0 3px var(--verdigris-wash),0 1px 3px rgba(20,25,40,.15)}
+.node-case{background:var(--oxblood);color:#fff;border-color:var(--oxblood);font-family:var(--serif);font-weight:600;font-size:13px;padding:12px 16px;border-radius:20px;max-width:180px}
+.node-art{border-color:var(--verdigris);background:var(--verdigris-wash);color:var(--verdigris);font-weight:600}
+.node-jur{border-color:var(--slate);background:var(--paper-2);color:var(--ink)}
+.node-jur .pct{display:block;font-weight:700;font-size:13px;margin-top:1px}
+.node-jur.tier-high{background:var(--slate-wash);border-color:var(--slate)}
+.node-jur.tier-mid{background:var(--paper-2);border-color:var(--rule)}
+.node-jur.tier-low{background:var(--paper-2);border-color:var(--rule-soft);opacity:.62;border-style:dashed}
+
+#detail{margin-top:10px;border:1px solid var(--rule);border-radius:6px;background:var(--paper-2);padding:14px 16px;min-height:64px;font-size:12.5px}
+#detail .dt{font-family:var(--serif);font-weight:600;font-size:14px;margin:0 0 4px}
+#detail .dm{color:var(--ink-soft);font-size:11px;margin-bottom:7px}
+#detail .db{line-height:1.55}
+#detail .placeholder{color:#AEB4BF;font-style:italic}
+
+/* ---------- similarity pane ---------- */
+.sim-pane{min-width:0}
+.sim-list{display:flex;flex-direction:column;gap:9px}
+.sim-item{border:1px solid var(--rule);border-radius:6px;padding:10px 11px;cursor:pointer;background:var(--paper-2)}
+.sim-item:hover{border-color:var(--slate)}
+.sim-item.selected{border-color:var(--verdigris);box-shadow:0 0 0 2px var(--verdigris-wash)}
+.sim-item.dim{opacity:.5}
+.sim-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:4px}
+.sim-cite{font-family:var(--serif);font-weight:600;font-size:12px;line-height:1.3}
+.sim-pct{font-weight:700;font-size:15px;white-space:nowrap}
+.sim-bar{display:flex;height:5px;border-radius:3px;overflow:hidden;background:var(--rule-soft);margin:6px 0 7px}
+.sim-bar span{display:block;height:100%}
+.seg-arts{background:var(--verdigris)}
+.seg-kw{background:var(--amber)}
+.seg-court{background:var(--slate)}
+.seg-rec{background:var(--oxblood)}
+.sim-holding{color:var(--ink-soft);font-size:11px;line-height:1.4;margin-bottom:6px}
+.sim-shared{display:flex;flex-wrap:wrap;gap:4px}
+.badge-art{font-size:9.5px;font-weight:600;padding:2px 6px;border-radius:9px;background:var(--verdigris-wash);color:var(--verdigris)}
+.badge-ver{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.02em;padding:2px 6px;border-radius:9px;background:var(--verdigris-wash);color:var(--verdigris)}
+.badge-ver.ill{background:var(--amber-wash,#F7EEDD);color:var(--amber)}
+.sim-empty{font-size:12px;color:var(--ink-soft);border:1px dashed var(--rule-soft);border-radius:6px;padding:20px 14px;text-align:center}
+.gc-item{border:1px solid var(--rule-soft);border-radius:6px;padding:8px 9px;font-size:11.5px}
+.gc-item .gc-cite{font-family:var(--serif);font-weight:600;font-size:12.5px;display:block;margin-bottom:3px}
+.gc-item .gc-meta2{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:4px}
+.gc-item .gc-badge2{font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;padding:2px 5px;border-radius:3px;background:#EBEEF1;color:#3C4A5C}
+.gc-item .gc-badge2.case{background:var(--oxblood-wash,#F3EAEB);color:var(--oxblood)}
+.gc-item .gc-badge2.eu{background:var(--amber-wash,#F7EEDD);color:var(--amber)}
+.gc-item .gc-jur2{font-size:8.5px;font-weight:700;padding:2px 5px;border-radius:3px;border:1px solid var(--rule);color:var(--ink-soft)}
+.gc-item p{margin:0;color:var(--ink-soft);line-height:1.4}
+
+@media(max-width:1180px){
+  .shell{grid-template-columns:1fr}
+  .input-pane{position:static}
+  #canvas{height:480px}
+}
+</style>
+<script>
+/* Publish build: window.storage only exists inside Claude. On a normal website
+   this stand-in keeps the same async API but saves to the browser's localStorage. */
+(function(){
+  if(window.storage) return;
+  function k(key, shared){ return &quot;casebound:&quot; + (shared ? &quot;shared:&quot; : &quot;mine:&quot;) + key; }
+  window.storage = {
+    get: function(key, shared){
+      return new Promise(function(res, rej){
+        try{ var v = localStorage.getItem(k(key, shared)); res(v === null ? null : {key:key, value:v}); }
+        catch(e){ rej(e); }
+      });
+    },
+    set: function(key, value, shared){
+      return new Promise(function(res, rej){
+        try{ localStorage.setItem(k(key, shared), value); res({key:key, value:value}); }
+        catch(e){ rej(e); }
+      });
+    }
+  };
+})();
+</script>
+</head>
+<body>
+
+<header class=&quot;masthead&quot;>
+  <div class=&quot;masthead-in&quot;>
+    <div class=&quot;wordmark&quot;>Case<span>bound</span><small>ATLAS &amp;middot; CASE MAP &amp;amp; SIMILARITY</small></div>
+    <div class=&quot;masthead-note&quot;>Drag your case onto the map to see how closely it matches each precedent in the corpus.</div>
+  </div>
+</header>
+
+<div class=&quot;shell&quot;>
+
+  <!-- INPUT PANE (fed by the shared hub above — kept in the DOM, hidden, so it still drives the map) -->
+  <aside class=&quot;input-pane card-box&quot; style=&quot;display:none&quot;>
+    <input type=&quot;text&quot; id=&quot;label&quot;>
+    <textarea id=&quot;facts&quot;></textarea>
+    <input type=&quot;text&quot; id=&quot;claim&quot;>
+    <button id=&quot;build&quot;>Map this case</button>
+  </aside>
+
+  <!-- MAP PANE -->
+  <main class=&quot;map-pane&quot;>
+    <div class=&quot;ex-strip&quot;>
+      <span class=&quot;ex-label&quot;>Worked examples:</span>
+      <div class=&quot;examples&quot; id=&quot;examples&quot;></div>
+      <div class=&quot;build-status&quot; id=&quot;build-status&quot;></div>
+    </div>
+    <div class=&quot;map-head&quot;>
+      <h2>Case map</h2>
+      <div class=&quot;map-tools&quot;>
+        <button class=&quot;ghost-btn&quot; id=&quot;reset-layout&quot;>Reset layout</button>
+      </div>
+    </div>
+    <div class=&quot;legend&quot;>
+      <span><span class=&quot;dot&quot; style=&quot;background:var(--oxblood)&quot;></span><b>Your case</b></span>
+      <span><span class=&quot;dot&quot; style=&quot;background:var(--verdigris)&quot;></span><b>Governing article</b></span>
+      <span><span class=&quot;dot&quot; style=&quot;background:var(--slate)&quot;></span><b>Precedent ruling</b> — distance from centre tracks similarity</span>
+      <span>Line thickness = strength of the connection. Click a ruling to see which articles it shares.</span>
+    </div>
+    <div id=&quot;canvas&quot; class=&quot;empty&quot;>
+      <svg id=&quot;edges&quot;></svg>
+    </div>
+    <div id=&quot;detail&quot;><p class=&quot;placeholder&quot;>Click any node for its full text.</p></div>
+  </main>
+
+  <!-- SIMILARITY PANE -->
+  <aside class=&quot;sim-pane card-box&quot;>
+    <div class=&quot;pane-title&quot;>Similarity to precedent <em id=&quot;sim-count&quot;></em></div>
+    <div class=&quot;refine&quot; id=&quot;refine&quot; style=&quot;display:none;margin-top:0;border-top:none;padding-top:0;margin-bottom:14px;border-bottom:1px solid var(--rule-soft);padding-bottom:12px&quot;>
+      <h4>Governing articles <button id=&quot;reset-arts&quot;>reset to detected</button></h4>
+      <div class=&quot;art-list&quot; id=&quot;art-list&quot;></div>
+    </div>
+    <div class=&quot;legend&quot; style=&quot;margin-bottom:10px&quot;>
+      <span><span class=&quot;dot&quot; style=&quot;background:var(--verdigris)&quot;></span>articles /40</span>
+      <span><span class=&quot;dot&quot; style=&quot;background:var(--amber)&quot;></span>keywords /25</span>
+      <span><span class=&quot;dot&quot; style=&quot;background:var(--slate)&quot;></span>court /20</span>
+      <span><span class=&quot;dot&quot; style=&quot;background:var(--oxblood)&quot;></span>recency /15</span>
+    </div>
+    <div class=&quot;sim-list&quot; id=&quot;sim-list&quot;>
+      <div class=&quot;sim-empty&quot;>Map a case to rank it against the eleven Cassazione rulings in the corpus.</div>
+    </div>
+
+    <div hidden class=&quot;pane-title&quot; style=&quot;margin-top:22px&quot;>General corpus <em>from Intake</em></div>
+    <div hidden class=&quot;hint&quot; style=&quot;margin-bottom:8px&quot;>Shows everything you've added and categorized in Intake, across all subjects. It's separate from the eleven-ruling map above and can't be edited here.</div>
+    <input hidden type=&quot;text&quot; id=&quot;gc-q&quot; placeholder=&quot;Filter by citation, subject or text…&quot; style=&quot;width:100%;background:var(--paper-2);border:1px solid var(--rule);border-radius:4px;padding:8px 9px;font-size:12.5px;margin-bottom:8px&quot;>
+    <div hidden class=&quot;sim-list&quot; id=&quot;gc-list&quot;></div>
+  </aside>
+
+</div>
+
+<script>
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&amp;<>&quot;]/g,c=>({'&amp;':'&amp;amp;','<':'&amp;lt;','>':'&amp;gt;','&quot;':'&amp;quot;'}[c]));
+const TODAY = new Date(2026,8,10);
+
+/* ============================================================
+   CORPUS — same 21 articles / 11 rulings as Casebound's other
+   prototypes, reused as-is so the products stay comparable.
+   ============================================================ */
+const ARTS = [
+{id:&quot;1218&quot;,cite:&quot;Art. 1218 c.c.&quot;,rubric:&quot;Responsabilità del debitore&quot;,topic:&quot;inadempimento&quot;,
+ tags:[&quot;inadempimento&quot;,&quot;obbligazione&quot;,&quot;debitore&quot;,&quot;risarcimento&quot;,&quot;impossibilità&quot;,&quot;causa non imputabile&quot;,&quot;breach&quot;,&quot;damages&quot;,&quot;non-performance&quot;,&quot;prestazione&quot;,&quot;ritardo&quot;,&quot;consegna&quot;,&quot;fornitura&quot;,&quot;contratto&quot;],
+ gloss:&quot;The debtor who fails to perform exactly owes damages unless it proves the failure was caused by an impossibility not attributable to it. In practice this reverses the burden: the creditor pleads the breach, the debtor must prove the excuse.&quot;},
+{id:&quot;1223&quot;,cite:&quot;Art. 1223 c.c.&quot;,rubric:&quot;Risarcimento del danno&quot;,topic:&quot;danno&quot;,
+ tags:[&quot;risarcimento&quot;,&quot;danno&quot;,&quot;perdita&quot;,&quot;mancato guadagno&quot;,&quot;lucro cessante&quot;,&quot;conseguenza immediata e diretta&quot;,&quot;damages&quot;,&quot;loss of profit&quot;,&quot;quantum&quot;],
+ gloss:&quot;Recoverable loss covers both the loss actually suffered and profit not made, but only where these are an immediate and direct consequence of the breach.&quot;},
+{id:&quot;1225&quot;,cite:&quot;Art. 1225 c.c.&quot;,rubric:&quot;Prevedibilità del danno&quot;,topic:&quot;danno&quot;,
+ tags:[&quot;prevedibilità&quot;,&quot;danno&quot;,&quot;dolo&quot;,&quot;limitazione&quot;,&quot;foreseeability&quot;,&quot;damages&quot;,&quot;quantum&quot;],
+ gloss:&quot;Absent intentional breach, damages are capped at what was foreseeable when the obligation arose. This is the main lever a respondent has against an inflated lost-profit claim.&quot;},
+{id:&quot;1227&quot;,cite:&quot;Art. 1227 c.c.&quot;,rubric:&quot;Concorso del fatto colposo del creditore&quot;,topic:&quot;danno&quot;,
+ tags:[&quot;concorso&quot;,&quot;colpa&quot;,&quot;creditore&quot;,&quot;ordinaria diligenza&quot;,&quot;mitigazione&quot;,&quot;contributory&quot;,&quot;mitigation&quot;,&quot;danno evitabile&quot;],
+ gloss:&quot;Two distinct defences: the claimant's own fault contributed to the loss, and the claimant could have avoided the loss with ordinary diligence.&quot;},
+{id:&quot;1284&quot;,cite:&quot;Art. 1284 c.c.&quot;,rubric:&quot;Saggio degli interessi&quot;,topic:&quot;interessi&quot;,
+ tags:[&quot;interessi&quot;,&quot;saggio legale&quot;,&quot;mora&quot;,&quot;domanda giudiziale&quot;,&quot;transazioni commerciali&quot;,&quot;interest&quot;,&quot;ritardo pagamento&quot;,&quot;pagamento&quot;],
+ gloss:&quot;Comma 4, added at the end of 2014, is the one that matters commercially: once proceedings are issued, the default rate jumps to the late-payment rate under the commercial transactions regime.&quot;},
+{id:&quot;1341&quot;,cite:&quot;Art. 1341 c.c.&quot;,rubric:&quot;Condizioni generali di contratto&quot;,topic:&quot;clausole&quot;,
+ tags:[&quot;condizioni generali&quot;,&quot;clausole vessatorie&quot;,&quot;doppia sottoscrizione&quot;,&quot;approvazione specifica per iscritto&quot;,&quot;clausola compromissoria&quot;,&quot;deroga competenza&quot;,&quot;foro&quot;,&quot;limitazione responsabilità&quot;,&quot;recesso&quot;,&quot;standard form&quot;,&quot;modulo&quot;,&quot;formulario&quot;,&quot;arbitrato&quot;],
+ gloss:&quot;The list of onerous terms is closed, and a term inside it is simply ineffective without a second, specific signature. Arbitration and jurisdiction clauses are both on the list.&quot;},
+{id:&quot;1362&quot;,cite:&quot;Art. 1362 c.c.&quot;,rubric:&quot;Intenzione dei contraenti&quot;,topic:&quot;interpretazione&quot;,
+ tags:[&quot;interpretazione&quot;,&quot;comune intenzione&quot;,&quot;senso letterale&quot;,&quot;comportamento complessivo&quot;,&quot;interpretation&quot;,&quot;clausola ambigua&quot;],
+ gloss:&quot;Conduct after signature is admissible evidence of what the parties meant — correspondence during performance is often worth more than the recitals.&quot;},
+{id:&quot;1375&quot;,cite:&quot;Art. 1375 c.c.&quot;,rubric:&quot;Esecuzione di buona fede&quot;,topic:&quot;buona fede&quot;,
+ tags:[&quot;buona fede&quot;,&quot;esecuzione&quot;,&quot;correttezza&quot;,&quot;abuso del diritto&quot;,&quot;good faith&quot;],
+ gloss:&quot;The contract must be performed in good faith — used to police the abusive exercise of a right that is formally available.&quot;},
+{id:&quot;1418&quot;,cite:&quot;Art. 1418 c.c.&quot;,rubric:&quot;Cause di nullità del contratto&quot;,topic:&quot;nullità&quot;,
+ tags:[&quot;nullità&quot;,&quot;norme imperative&quot;,&quot;causa illecita&quot;,&quot;oggetto&quot;,&quot;requisiti&quot;,&quot;void&quot;,&quot;invalidità&quot;],
+ gloss:&quot;Nullity is absolute: raisable by anyone with an interest, at any time, and by the court of its own motion.&quot;},
+{id:&quot;1453&quot;,cite:&quot;Art. 1453 c.c.&quot;,rubric:&quot;Risolubilità del contratto per inadempimento&quot;,topic:&quot;risoluzione&quot;,
+ tags:[&quot;risoluzione&quot;,&quot;inadempimento&quot;,&quot;adempimento&quot;,&quot;prestazioni corrispettive&quot;,&quot;risarcimento&quot;,&quot;termination&quot;,&quot;domanda&quot;],
+ gloss:&quot;In synallagmatic contracts, non-performance by one party lets the other choose performance or termination, always with damages. The election runs one way only.&quot;},
+{id:&quot;1455&quot;,cite:&quot;Art. 1455 c.c.&quot;,rubric:&quot;Importanza dell'inadempimento&quot;,topic:&quot;risoluzione&quot;,
+ tags:[&quot;scarsa importanza&quot;,&quot;gravità&quot;,&quot;risoluzione&quot;,&quot;interesse&quot;,&quot;materiality&quot;,&quot;proporzionalità&quot;],
+ gloss:&quot;The contract cannot be terminated where the breach is of slight importance, measured against the other party's interest — not the size of the breach in the abstract.&quot;},
+{id:&quot;1460&quot;,cite:&quot;Art. 1460 c.c.&quot;,rubric:&quot;Eccezione d'inadempimento&quot;,topic:&quot;risoluzione&quot;,
+ tags:[&quot;eccezione di inadempimento&quot;,&quot;inadimplenti non est adimplendum&quot;,&quot;rifiuto&quot;,&quot;sospensione pagamento&quot;,&quot;buona fede&quot;,&quot;withholding&quot;],
+ gloss:&quot;Withholding your own performance is lawful but must be proportionate — refusing the whole price over a minor defect is bad faith.&quot;},
+{id:&quot;1490&quot;,cite:&quot;Art. 1490 c.c.&quot;,rubric:&quot;Garanzia per i vizi della cosa venduta&quot;,topic:&quot;vendita&quot;,
+ tags:[&quot;vizi&quot;,&quot;vendita&quot;,&quot;garanzia&quot;,&quot;inidoneità all'uso&quot;,&quot;diminuzione del valore&quot;,&quot;difetto&quot;,&quot;defect&quot;,&quot;macchinario&quot;,&quot;merce&quot;,&quot;compratore&quot;,&quot;venditore&quot;],
+ gloss:&quot;The seller must guarantee the thing sold is free of defects that make it unfit for its purpose or appreciably reduce its value.&quot;},
+{id:&quot;1495&quot;,cite:&quot;Art. 1495 c.c.&quot;,rubric:&quot;Termini e condizioni per l'azione&quot;,topic:&quot;vendita&quot;,
+ tags:[&quot;decadenza&quot;,&quot;otto giorni&quot;,&quot;denuncia&quot;,&quot;prescrizione&quot;,&quot;un anno&quot;,&quot;consegna&quot;,&quot;scoperta&quot;,&quot;vizi&quot;,&quot;time limit&quot;,&quot;termine&quot;],
+ gloss:&quot;Two limits kill most defect claims: eight days from discovery to notify, one year from delivery to sue.&quot;},
+{id:&quot;1667&quot;,cite:&quot;Art. 1667 c.c.&quot;,rubric:&quot;Difformità e vizi dell'opera&quot;,topic:&quot;appalto&quot;,
+ tags:[&quot;appalto&quot;,&quot;difformità&quot;,&quot;vizi&quot;,&quot;opera&quot;,&quot;sessanta giorni&quot;,&quot;due anni&quot;,&quot;accettazione&quot;,&quot;contractor&quot;,&quot;lavori&quot;],
+ gloss:&quot;The construction-contract equivalent of the sale warranty, on a longer clock: sixty days to notify, two years from handover to sue.&quot;},
+{id:&quot;1669&quot;,cite:&quot;Art. 1669 c.c.&quot;,rubric:&quot;Rovina e difetti di cose immobili&quot;,topic:&quot;appalto&quot;,
+ tags:[&quot;rovina&quot;,&quot;gravi difetti&quot;,&quot;immobile&quot;,&quot;edificio&quot;,&quot;dieci anni&quot;,&quot;un anno dalla scoperta&quot;,&quot;pericolo di rovina&quot;,&quot;building&quot;,&quot;crepe&quot;,&quot;infiltrazioni&quot;,&quot;facciata&quot;],
+ gloss:&quot;A separate, longer-running liability for buildings: ten years from completion, one year from discovery to notify, one year from notice to sue.&quot;},
+{id:&quot;2043&quot;,cite:&quot;Art. 2043 c.c.&quot;,rubric:&quot;Risarcimento per fatto illecito&quot;,topic:&quot;illecito&quot;,
+ tags:[&quot;fatto illecito&quot;,&quot;danno ingiusto&quot;,&quot;colpa&quot;,&quot;dolo&quot;,&quot;extracontrattuale&quot;,&quot;tort&quot;,&quot;aquiliana&quot;],
+ gloss:&quot;The general tort clause — often the fallback where a claimant has missed a contractual limitation period.&quot;},
+{id:&quot;2103&quot;,cite:&quot;Art. 2103 c.c.&quot;,rubric:&quot;Prestazione del lavoro&quot;,topic:&quot;lavoro&quot;,
+ tags:[&quot;mansioni&quot;,&quot;demansionamento&quot;,&quot;equivalenti&quot;,&quot;inquadramento&quot;,&quot;assetti organizzativi&quot;,&quot;categoria legale&quot;,&quot;retribuzione&quot;,&quot;demotion&quot;,&quot;lavoratore&quot;,&quot;riorganizzazione&quot;,&quot;ruolo&quot;],
+ gloss:&quot;Governs assignment of duties. Since 25 June 2015 a one-level downgrade within the same legal category is lawful where organisational structures have genuinely changed — the employer bears that proof.&quot;},
+{id:&quot;2119&quot;,cite:&quot;Art. 2119 c.c.&quot;,rubric:&quot;Recesso per giusta causa&quot;,topic:&quot;lavoro&quot;,
+ tags:[&quot;giusta causa&quot;,&quot;licenziamento&quot;,&quot;recesso&quot;,&quot;preavviso&quot;,&quot;prosecuzione del rapporto&quot;,&quot;dismissal&quot;,&quot;fiducia&quot;],
+ gloss:&quot;Just cause is defined by its effect — conduct so serious the relationship cannot continue even on an interim basis.&quot;},
+{id:&quot;2697&quot;,cite:&quot;Art. 2697 c.c.&quot;,rubric:&quot;Onere della prova&quot;,topic:&quot;prova&quot;,
+ tags:[&quot;onere della prova&quot;,&quot;fondamento&quot;,&quot;eccezione&quot;,&quot;estinzione&quot;,&quot;burden of proof&quot;,&quot;prova&quot;],
+ gloss:&quot;Whoever asserts a right must prove the facts that found it; whoever raises a defence must prove the facts it rests on.&quot;},
+{id:&quot;2946&quot;,cite:&quot;Art. 2946 c.c.&quot;,rubric:&quot;Prescrizione ordinaria&quot;,topic:&quot;prescrizione&quot;,
+ tags:[&quot;prescrizione&quot;,&quot;dieci anni&quot;,&quot;estinzione&quot;,&quot;limitation&quot;,&quot;termine ordinario&quot;],
+ gloss:&quot;The residual ten-year limitation period, applying only where no shorter special period does.&quot;}
+];
+
+const JUR = [
+{id:&quot;13533&quot;,cite:&quot;Cass., Sez. Un., 30 ottobre 2001, n. 13533&quot;,verified:true,court:&quot;Sezioni Unite&quot;,date:&quot;2001-10-30&quot;,
+ holding:&quot;In any claim arising from a contract, the creditor need only prove the source of the obligation and allege the failure to perform; it is for the debtor to prove that it performed, or that non-performance was not attributable to it.&quot;,
+ arts:[&quot;1218&quot;,&quot;2697&quot;],tags:[&quot;onere della prova&quot;,&quot;inadempimento&quot;,&quot;allegazione&quot;,&quot;risoluzione&quot;,&quot;risarcimento&quot;]},
+{id:&quot;26972&quot;,cite:&quot;Cass., Sez. Un., 11 novembre 2008, n. 26972&quot;,verified:true,court:&quot;Sezioni Unite&quot;,date:&quot;2008-11-11&quot;,
+ holding:&quot;Non-pecuniary loss is a single unitary category, compensable only where a constitutionally protected interest is seriously infringed and the harm passes a threshold of gravity.&quot;,
+ arts:[&quot;1223&quot;,&quot;2043&quot;],tags:[&quot;danno non patrimoniale&quot;,&quot;gravità&quot;,&quot;duplicazione&quot;,&quot;risarcimento&quot;]},
+{id:&quot;14882&quot;,cite:&quot;Cass. civ., sez. III, 28 ottobre 2014, n. 22806&quot;,verified:true,court:&quot;Sezione III&quot;,date:&quot;2014-10-28&quot;,
+ holding:&quot;A specific written approval under art. 1341(2) is not satisfied by a blanket signature referring to all the clauses of a standard form, including a jurisdiction clause named only by number among many others; a cumulative reference across the whole set is ineffective.&quot;,
+ arts:[&quot;1341&quot;],tags:[&quot;doppia sottoscrizione&quot;,&quot;condizioni generali&quot;,&quot;richiamo generico&quot;,&quot;clausola derogatoria della competenza&quot;]},
+{id:&quot;9314&quot;,cite:&quot;Cass. civ., sez. II, 10 marzo 2011, n. 5732&quot;,verified:true,court:&quot;Sezione II&quot;,date:&quot;2011-03-10&quot;,
+ holding:&quot;The eight-day notification period under art. 1495 runs from the moment the buyer acquires objective certainty of the defect, not from mere suspicion.&quot;,
+ arts:[&quot;1495&quot;,&quot;1490&quot;],tags:[&quot;otto giorni&quot;,&quot;decadenza&quot;,&quot;scoperta&quot;,&quot;vizio occulto&quot;,&quot;denuncia&quot;,&quot;certezza oggettiva&quot;]},
+{id:&quot;21107&quot;,cite:&quot;Cass., Sez. Un., 27 marzo 2017, n. 7756&quot;,verified:true,court:&quot;Sezioni Unite&quot;,date:&quot;2017-03-27&quot;,
+ holding:&quot;Serious defects under art. 1669 are not confined to structural elements; construction shortcomings that materially impair normal enjoyment, functionality or habitability fall within the article even where they affect only secondary or ancillary elements, including finishes.&quot;,
+ arts:[&quot;1669&quot;,&quot;1667&quot;],tags:[&quot;gravi difetti&quot;,&quot;infiltrazioni&quot;,&quot;godimento&quot;,&quot;funzionalità&quot;,&quot;elementi secondari&quot;]},
+{id:&quot;7644&quot;,cite:&quot;Cass. civ., sez. lav., 3 luglio 2018, n. 17365&quot;,verified:true,court:&quot;Sezione Lavoro&quot;,date:&quot;2018-07-03&quot;,
+ holding:&quot;Where an employee alleges a demansionamento under art. 2103, it is the employer who bears the burden of proving exact performance — either that no downgrading occurred, or that it was justified by a genuine exercise of managerial power or by an impossibility not attributable to it.&quot;,
+ arts:[&quot;2103&quot;],tags:[&quot;demansionamento&quot;,&quot;assetti organizzativi&quot;,&quot;onere datoriale&quot;,&quot;riorganizzazione&quot;,&quot;livello inferiore&quot;]},
+{id:&quot;5290&quot;,cite:&quot;Cass. civ., sez. III, 25 novembre 2002, n. 16579&quot;,verified:true,court:&quot;Sezione III&quot;,date:&quot;2002-11-25&quot;,
+ holding:&quot;Whether a breach is of more than slight importance under art. 1455 is a question of fact entrusted to the trial court, unreviewable on appeal to the Court of Cassation where the reasoning is adequate and free of logical or legal defects.&quot;,
+ arts:[&quot;1455&quot;,&quot;1453&quot;,&quot;1218&quot;],tags:[&quot;scarsa importanza&quot;,&quot;gravità&quot;,&quot;risoluzione&quot;,&quot;valutazione di fatto&quot;]},
+{id:&quot;11336&quot;,cite:&quot;Cass., Sez. Un., 7 maggio 2024, n. 12449&quot;,verified:true,court:&quot;Sezioni Unite&quot;,date:&quot;2024-05-07&quot;,
+ holding:&quot;The enhanced commercial rate under art. 1284(4) is not an automatic effect of issuing proceedings; where the judgment awards only generic \&quot;legal interest\&quot; without a specific finding on the commercial late-payment rate, the ordinary rate under art. 1284(1) applies instead.&quot;,
+ arts:[&quot;1284&quot;],tags:[&quot;interessi&quot;,&quot;tasso commerciale&quot;,&quot;domanda giudiziale&quot;,&quot;accertamento specifico&quot;,&quot;transazioni commerciali&quot;]},
+{id:&quot;3428&quot;,cite:&quot;Cass. civ., sez. III, 8 novembre 2016, n. 22626&quot;,verified:true,court:&quot;Sezione III&quot;,date:&quot;2016-11-08&quot;,
+ holding:&quot;The defence under art. 1460 must be proportionate. Where the breach met with the exception is not itself serious, refusing performance entirely is not in good faith and is not justified under art. 1460(2).&quot;,
+ arts:[&quot;1460&quot;,&quot;1375&quot;],tags:[&quot;eccezione di inadempimento&quot;,&quot;proporzionalità&quot;,&quot;buona fede&quot;,&quot;sospensione&quot;]},
+{id:&quot;19203&quot;,cite:&quot;Cass. civ., sez. lav., 12 novembre 2021, n. 33811&quot;,verified:true,court:&quot;Sezione Lavoro&quot;,date:&quot;2021-11-12&quot;,
+ holding:&quot;Just cause under art. 2119 requires an assessment of the concrete facts against the proportionality principle. Classification in a collective agreement's disciplinary schedule is not binding — it is for the court to weigh the gravity of the conduct and its proportionality to the sanction.&quot;,
+ arts:[&quot;2119&quot;],tags:[&quot;giusta causa&quot;,&quot;licenziamento&quot;,&quot;proporzionalità&quot;,&quot;fiducia&quot;,&quot;codice disciplinare&quot;]},
+{id:&quot;12277&quot;,cite:&quot;Cass. civ., sez. III, 11 novembre 2015, n. 22984&quot;,verified:true,court:&quot;Sezione III&quot;,date:&quot;2015-11-11&quot;,
+ holding:&quot;The specific written approval required by art. 1341(2) is satisfied even by a numeric reference to the clauses, provided the reference is not merely cumulative — i.e. provided it comes with at least a summary indication of each numbered clause's content.&quot;,
+ arts:[&quot;1341&quot;,&quot;1362&quot;],tags:[&quot;clausola di foro&quot;,&quot;doppia sottoscrizione&quot;,&quot;richiamo specifico&quot;,&quot;condizioni generali&quot;]}
+];
+
+const SAMPLES = [
+ {label:&quot;Packaging line defect&quot;,
+  facts:&quot;La nostra cliente, una società di packaging con sede a Bologna, ha acquistato una linea di confezionamento da un fornitore italiano. Consegna e installazione il 14 marzo 2024, collaudo firmato senza riserve. Da subito la linea si è fermata più volte al giorno ma il fornitore attribuiva il problema alla formazione degli operatori. Solo con la perizia tecnica del 20 gennaio 2025 è emerso un difetto di progettazione del gruppo di taglio. Abbiamo inviato contestazione formale il 24 gennaio 2025. Il fornitore eccepisce la decadenza. Il contratto è su modulo predisposto dal fornitore e contiene una clausola arbitrale, sottoscritta una sola volta in calce.&quot;,
+  claim:&quot;Risoluzione del contratto di vendita e risarcimento del danno da fermo produzione&quot;},
+ {label:&quot;Downgrade of duties&quot;,
+  facts:&quot;Il nostro assistito è impiegato dal 2011 presso una società di logistica, inquadrato al livello 5 come responsabile di reparto con quattro persone a riporto. A seguito di una riorganizzazione annunciata via email il 3 febbraio 2023, dal 1° marzo 2023 è stato assegnato a mansioni operative di livello 6, senza riporti, mantenendo la retribuzione precedente. La società parla genericamente di 'efficientamento della struttura' ma nello stesso periodo ha assunto un nuovo responsabile di reparto dall'esterno.&quot;,
+  claim:&quot;Accertamento dell'illegittimità del demansionamento e reintegra nelle mansioni precedenti&quot;},
+ {label:&quot;Arbitration clause dispute&quot;,
+  facts:&quot;Il nostro cliente ha sottoscritto un contratto di fornitura di servizi IT su modulo predisposto dalla controparte. Il documento contiene una clausola compromissoria che devolve ogni controversia ad arbitrato a Londra e una clausola di limitazione della responsabilità al 10% del corrispettivo annuo. Il cliente ha firmato una sola volta, in calce all'ultima pagina, sotto la dicitura 'letto, approvato e sottoscritto in ogni sua parte'. La controparte ha ora avviato la procedura arbitrale.&quot;,
+  claim:&quot;Eccepire l'inefficacia della clausola compromissoria e radicare la causa davanti al giudice ordinario&quot;},
+ {label:&quot;Building water damage&quot;,
+  facts:&quot;Un condominio a Monza ha ricevuto la consegna dell'edificio il 12 maggio 2018. Nel novembre 2023 sono comparse crepe diffuse sulle facciate e infiltrazioni persistenti negli appartamenti dell'ultimo piano. La relazione del tecnico incaricato, datata 8 febbraio 2024, attribuisce i danni a un difetto di realizzazione del sistema di impermeabilizzazione. L'impresa costruttrice sostiene che il termine per agire sia ampiamente decorso.&quot;,
+  claim:&quot;Azione di responsabilità contro il costruttore per gravi difetti dell'opera&quot;}
+];
+
+/* ============================================================
+   RETRIEVAL — same tag-scoring + exclusivity logic as the other
+   Casebound prototypes (kept identical on purpose).
+   ============================================================ */
+const STOP = new Set(&quot;il lo la i gli le un uno una di a da in con su per tra fra del della dei delle dal dalla al alla nel nella che non si è e ed o ma se come anche più sono stato stata ha hanno abbiamo è stata the a an of to and or in on for with is was our we has have been that this it&quot;.split(&quot; &quot;));
+function norm(s){ return (s||&quot;&quot;).toLowerCase().normalize(&quot;NFD&quot;).replace(/[\u0300-\u036f]/g,&quot;&quot;); }
+function toks(s){ return norm(s).replace(/[^a-z0-9 ]/gi,&quot; &quot;).split(/\s+/).filter(w=>w.length>2 &amp;&amp; !STOP.has(w)); }
+const EXCLUSIVE = {vendita:[&quot;appalto&quot;,&quot;lavoro&quot;], appalto:[&quot;vendita&quot;,&quot;lavoro&quot;], lavoro:[&quot;vendita&quot;,&quot;appalto&quot;]};
+
+function detectArticles(facts, claim){
+  const qtext = norm(facts+&quot; &quot;+claim);
+  const qtoks = new Set([...toks(facts), ...toks(claim)]);
+  let ranked = ARTS.map(a=>{
+    let s=0;
+    a.tags.forEach(tag=>{
+      const ntag = norm(tag);
+      if(qtext.includes(ntag)) s += ntag.includes(&quot; &quot;) ? 6 : 3.2;
+      else { toks(tag).forEach(t=>{ if(qtoks.has(t)) s += 1.15; }); }
+    });
+    return {a, s};
+  }).filter(x=>x.s>2).sort((x,y)=>y.s-x.s);
+  if(!ranked.length) return [];
+  const lead = ranked.find(x=>EXCLUSIVE[x.a.topic]);
+  if(lead){ const banned = new Set(EXCLUSIVE[lead.a.topic]); ranked = ranked.filter(x=>!banned.has(x.a.topic)); }
+  const top = ranked[0].s;
+  return ranked.filter(x=>x.s >= Math.max(3.0, top*0.30)).slice(0,7).map(x=>x.a.id);
+}
+
+/* ============================================================
+   SIMILARITY — four scored, always-visible components per ruling.
+   ============================================================ */
+function courtWeight(court){ if(/unite/i.test(court)) return 20; if(/sezione/i.test(court)) return 11; return 8; }
+
+function similarity(jur, facts, claim, selectedIds){
+  const qtext = norm(facts+&quot; &quot;+claim);
+  const selSet = new Set(selectedIds);
+  const jSet = new Set(jur.arts);
+  const inter = [...selSet].filter(x=>jSet.has(x)).length;
+  const union = new Set([...selSet, ...jSet]).size;
+  const c1 = union ? (inter/union)*40 : 0;
+
+  const hits = jur.tags.filter(t=>qtext.includes(norm(t))).length;
+  const textRatio = jur.tags.length ? Math.min(1, hits/jur.tags.length) : 0;
+  const selTags = new Set(selectedIds.flatMap(id => (ARTS.find(a=>a.id===id)||{tags:[]}).tags.map(norm)));
+  const jTagsN = new Set(jur.tags.map(norm));
+  const tInter = [...selTags].filter(t=>jTagsN.has(t)).length;
+  const tUnion = new Set([...selTags, ...jTagsN]).size;
+  const artTagJ = tUnion ? tInter/tUnion : 0;
+  const c2 = 25*(0.6*textRatio + 0.4*artTagJ);
+
+  const c3 = courtWeight(jur.court);
+  const years = (TODAY - new Date(jur.date)) / (365*86400000);
+  const c4 = Math.max(0, 15*(1 - years/25));
+
+  const total = Math.round(c1+c2+c3+c4);
+  return {total: Math.max(0, Math.min(100,total)), c1:Math.round(c1), c2:Math.round(c2), c3:Math.round(c3), c4:Math.round(c4),
+          sharedArts: [...selSet].filter(x=>jSet.has(x))};
+}
+
+/* ============================================================
+   STATE
+   ============================================================ */
+let selectedArts = [];        // article ids currently governing the map
+let rankedJur = [];           // [{j, sim}] sorted by sim.total desc
+let positions = {};           // nodeId -> {x,y} in % of canvas
+let nodeEls = {};             // nodeId -> element
+let selectedNode = null;      // currently clicked node id, for the jur-article sub-edges
+
+const canvas = $(&quot;#canvas&quot;);
+const edgesSvg = $(&quot;#edges&quot;);
+const svgNS = &quot;http://www.w3.org/2000/svg&quot;;
+
+/* ---------- examples ---------- */
+$(&quot;#examples&quot;).innerHTML = SAMPLES.map((s,i)=>`<button class=&quot;ex-chip&quot; data-i=&quot;${i}&quot;>${esc(s.label)}</button>`).join(&quot;&quot;);
+$(&quot;#examples&quot;).addEventListener(&quot;click&quot;, e=>{
+  const b = e.target.closest(&quot;.ex-chip&quot;); if(!b) return;
+  const s = SAMPLES[+b.dataset.i];
+  $(&quot;#label&quot;).value = s.label;
+  $(&quot;#facts&quot;).value = s.facts;
+  $(&quot;#claim&quot;).value = s.claim;
+  $(&quot;#build&quot;).click();
+});
+
+/* ---------- build ---------- */
+$(&quot;#build&quot;).addEventListener(&quot;click&quot;, ()=>{
+  const facts = $(&quot;#facts&quot;).value.trim();
+  const claim = $(&quot;#claim&quot;).value.trim();
+  const status = $(&quot;#build-status&quot;);
+  if(facts.length < 15){ status.textContent = &quot;Add a bit more — a couple of sentences is enough to detect the governing articles.&quot;; return; }
+  selectedArts = detectArticles(facts, claim);
+  if(!selectedArts.length){
+    status.textContent = &quot;No article matched automatically — pick some by hand below.&quot;;
+    selectedArts = [];
+  } else {
+    status.textContent = `Detected ${selectedArts.length} governing article${selectedArts.length>1?&quot;s&quot;:&quot;&quot;}.`;
+  }
+  positions = {}; selectedNode = null;
+  renderArtList();
+  rebuild();
+});
+
+function renderArtList(){
+  $(&quot;#refine&quot;).style.display = &quot;block&quot;;
+  const sel = new Set(selectedArts);
+  $(&quot;#art-list&quot;).innerHTML = ARTS.map(a=>`
+    <label class=&quot;art-row&quot;>
+      <input type=&quot;checkbox&quot; data-art=&quot;${a.id}&quot; ${sel.has(a.id)?&quot;checked&quot;:&quot;&quot;}>
+      <span><span class=&quot;at&quot;>${esc(a.cite)}</span><br><span class=&quot;ar&quot;>${esc(a.rubric)}</span></span>
+    </label>`).join(&quot;&quot;);
+}
+$(&quot;#art-list&quot;).addEventListener(&quot;change&quot;, e=>{
+  const cb = e.target.closest(&quot;[data-art]&quot;); if(!cb) return;
+  const id = cb.dataset.art;
+  if(cb.checked){ if(!selectedArts.includes(id)) selectedArts.push(id); }
+  else { selectedArts = selectedArts.filter(x=>x!==id); }
+  rebuild();
+});
+$(&quot;#reset-arts&quot;).addEventListener(&quot;click&quot;, ()=>{
+  selectedArts = detectArticles($(&quot;#facts&quot;).value, $(&quot;#claim&quot;).value);
+  renderArtList();
+  rebuild();
+});
+$(&quot;#reset-layout&quot;).addEventListener(&quot;click&quot;, ()=>{ positions = {}; rebuild(); });
+
+/* ---------- rebuild map + similarity ---------- */
+function rebuild(){
+  const facts = $(&quot;#facts&quot;).value.trim();
+  const claim = $(&quot;#claim&quot;).value.trim();
+
+  rankedJur = JUR.map(j=>({j, sim: similarity(j, facts, claim, selectedArts)}))
+    .sort((a,b)=>b.sim.total - a.sim.total);
+
+  canvas.classList.toggle(&quot;empty&quot;, selectedArts.length===0 &amp;&amp; facts.length<15);
+  layout();
+  renderNodes();
+  renderSimList();
+  drawEdges();
+  renderDetail(null);
+}
+
+function layout(){
+  if(!positions[&quot;case&quot;]) positions[&quot;case&quot;] = {x:50, y:50};
+  const aN = selectedArts.length;
+  selectedArts.forEach((id,i)=>{
+    const key = &quot;art:&quot;+id;
+    if(positions[key]) return;
+    const ang = (i/Math.max(aN,1))*2*Math.PI - Math.PI/2;
+    positions[key] = {x:50+24*Math.cos(ang), y:50+22*Math.sin(ang)};
+  });
+  const shown = rankedJur.filter(x=>x.sim.total>0).slice(0,7);
+  shown.forEach((x,i)=>{
+    const key = &quot;jur:&quot;+x.j.id;
+    if(positions[key]) return;
+    const ang = (i/Math.max(shown.length,1))*2*Math.PI - Math.PI/2 + 0.33;
+    const rad = 46 - (x.sim.total/100)*26;
+    positions[key] = {x:50+rad*Math.cos(ang), y:50+rad*Math.sin(ang)*0.92};
+  });
+  // drop stale positions for nodes no longer present
+  const alive = new Set([&quot;case&quot;, ...selectedArts.map(id=>&quot;art:&quot;+id), ...shown.map(x=>&quot;jur:&quot;+x.j.id)]);
+  Object.keys(positions).forEach(k=>{ if(!alive.has(k)) delete positions[k]; });
+}
+
+function renderNodes(){
+  Object.values(nodeEls).forEach(el=>el.remove());
+  nodeEls = {};
+  if(selectedArts.length===0 &amp;&amp; $(&quot;#facts&quot;).value.trim().length<15) return;
+
+  const label = $(&quot;#label&quot;).value.trim() || &quot;Your case&quot;;
+  addNode(&quot;case&quot;, label, &quot;node node-case&quot;, positions[&quot;case&quot;]);
+
+  selectedArts.forEach(id=>{
+    const a = ARTS.find(x=>x.id===id);
+    addNode(&quot;art:&quot;+id, a.cite, &quot;node node-art&quot;, positions[&quot;art:&quot;+id]);
+  });
+
+  rankedJur.filter(x=>x.sim.total>0).slice(0,7).forEach(x=>{
+    const tier = x.sim.total>=65 ? &quot;tier-high&quot; : x.sim.total>=35 ? &quot;tier-mid&quot; : &quot;tier-low&quot;;
+    const short = x.j.cite.replace(/^Cass\.,?(\s*civ\.,)?\s*/,&quot;&quot;).replace(/,\s*sez\.[^,]+/,&quot;&quot;);
+    addNode(&quot;jur:&quot;+x.j.id, `${short}<span class=&quot;pct&quot;>${x.sim.total}%</span>`, `node node-jur ${tier}`, positions[&quot;jur:&quot;+x.j.id]);
+  });
+}
+
+function addNode(id, html, cls, pos){
+  const el = document.createElement(&quot;div&quot;);
+  el.className = cls;
+  el.dataset.id = id;
+  el.innerHTML = html;
+  el.style.left = pos.x+&quot;%&quot;;
+  el.style.top = pos.y+&quot;%&quot;;
+  canvas.appendChild(el);
+  nodeEls[id] = el;
+  makeDraggable(el, id);
+}
+
+function makeDraggable(el, id){
+  let dragging = false, moved = false;
+  el.addEventListener(&quot;pointerdown&quot;, e=>{
+    dragging = true; moved = false;
+    el.setPointerCapture(e.pointerId);
+    e.stopPropagation();
+  });
+  el.addEventListener(&quot;pointermove&quot;, e=>{
+    if(!dragging) return;
+    moved = true;
+    const r = canvas.getBoundingClientRect();
+    let x = ((e.clientX - r.left)/r.width)*100;
+    let y = ((e.clientY - r.top)/r.height)*100;
+    x = Math.max(3, Math.min(97,x)); y = Math.max(4, Math.min(96,y));
+    positions[id] = {x,y};
+    el.style.left = x+&quot;%&quot;; el.style.top = y+&quot;%&quot;;
+    drawEdges();
+  });
+  el.addEventListener(&quot;pointerup&quot;, e=>{
+    dragging = false;
+    el.releasePointerCapture(e.pointerId);
+    if(!moved) selectNode(id);
+  });
+}
+
+canvas.addEventListener(&quot;pointerdown&quot;, e=>{ if(e.target===canvas || e.target===edgesSvg) selectNode(null); });
+
+function selectNode(id){
+  selectedNode = id;
+  Object.entries(nodeEls).forEach(([k,el])=>el.classList.toggle(&quot;selected&quot;, k===id));
+  document.querySelectorAll(&quot;.sim-item&quot;).forEach(el=>el.classList.toggle(&quot;selected&quot;, el.dataset.jur===String(id||&quot;&quot;).replace(&quot;jur:&quot;,&quot;&quot;)));
+  drawEdges();
+  renderDetail(id);
+}
+
+function drawEdges(){
+  edgesSvg.innerHTML = &quot;&quot;;
+  if(!nodeEls[&quot;case&quot;]) return;
+  const caseC = centerOf(nodeEls[&quot;case&quot;]);
+
+  selectedArts.forEach(id=>{
+    const n = nodeEls[&quot;art:&quot;+id]; if(!n) return;
+    line(caseC, centerOf(n), &quot;e-art&quot;, 1.6);
+  });
+
+  rankedJur.filter(x=>x.sim.total>0).slice(0,7).forEach(x=>{
+    const n = nodeEls[&quot;jur:&quot;+x.j.id]; if(!n) return;
+    const w = 1 + (x.sim.total/100)*3.4;
+    const strokeColor = x.sim.total>=65 ? &quot;var(--oxblood)&quot; : x.sim.total>=35 ? &quot;var(--slate)&quot; : &quot;var(--rule)&quot;;
+    line(caseC, centerOf(n), &quot;e-jur&quot;, w, strokeColor);
+  });
+
+  if(selectedNode &amp;&amp; selectedNode.startsWith(&quot;jur:&quot;)){
+    const jid = selectedNode.slice(4);
+    const entry = rankedJur.find(x=>x.j.id===jid);
+    const jn = nodeEls[selectedNode];
+    if(entry &amp;&amp; jn){
+      entry.sim.sharedArts.forEach(aid=>{
+        const an = nodeEls[&quot;art:&quot;+aid]; if(!an) return;
+        line(centerOf(jn), centerOf(an), &quot;e-sub&quot;, 1.4);
+      });
+    }
+  }
+}
+function centerOf(el){
+  const cr = canvas.getBoundingClientRect(), r = el.getBoundingClientRect();
+  return {x: r.left + r.width/2 - cr.left, y: r.top + r.height/2 - cr.top};
+}
+function line(a,b,cls,w,color){
+  const l = document.createElementNS(svgNS,&quot;line&quot;);
+  l.setAttribute(&quot;x1&quot;,a.x); l.setAttribute(&quot;y1&quot;,a.y);
+  l.setAttribute(&quot;x2&quot;,b.x); l.setAttribute(&quot;y2&quot;,b.y);
+  l.setAttribute(&quot;class&quot;,cls);
+  l.setAttribute(&quot;stroke-width&quot;,w);
+  if(color) l.setAttribute(&quot;stroke&quot;,color);
+  edgesSvg.appendChild(l);
+}
+window.addEventListener(&quot;resize&quot;, drawEdges);
+
+/* ---------- similarity list ---------- */
+function renderSimList(){
+  const facts = $(&quot;#facts&quot;).value.trim();
+  if(!facts){ $(&quot;#sim-list&quot;).innerHTML = '<div class=&quot;sim-empty&quot;>Map a case to rank it against the eleven Cassazione rulings in the corpus.</div>'; $(&quot;#sim-count&quot;).textContent=&quot;&quot;; return; }
+  $(&quot;#sim-count&quot;).textContent = `${rankedJur.filter(x=>x.sim.total>0).length} of ${JUR.length} connected`;
+  $(&quot;#sim-list&quot;).innerHTML = rankedJur.map(x=>{
+    const s = x.sim;
+    const dim = s.total===0 ? &quot;dim&quot; : &quot;&quot;;
+    return `<div class=&quot;sim-item ${dim}&quot; data-jur=&quot;${x.j.id}&quot;>
+      <div class=&quot;sim-top&quot;><span class=&quot;sim-cite&quot;>${esc(x.j.cite)} <span class=&quot;badge-ver${x.j.verified?&quot;&quot;:&quot; ill&quot;}&quot;>${x.j.verified?&quot;real&quot;:&quot;illustrative&quot;}</span></span><span class=&quot;sim-pct&quot;>${s.total}%</span></div>
+      <div class=&quot;sim-bar&quot;>
+        <span class=&quot;seg-arts&quot; style=&quot;width:${s.c1}%&quot;></span>
+        <span class=&quot;seg-kw&quot; style=&quot;width:${s.c2}%&quot;></span>
+        <span class=&quot;seg-court&quot; style=&quot;width:${s.c3}%&quot;></span>
+        <span class=&quot;seg-rec&quot; style=&quot;width:${s.c4}%&quot;></span>
+      </div>
+      <div class=&quot;sim-holding&quot;>${esc(x.j.holding.slice(0,150))}${x.j.holding.length>150?&quot;…&quot;:&quot;&quot;}</div>
+      <div class=&quot;sim-shared&quot;>${s.sharedArts.map(a=>`<span class=&quot;badge-art&quot;>${esc(ARTS.find(z=>z.id===a).cite)}</span>`).join(&quot;&quot;) || '<span class=&quot;badge-art&quot; style=&quot;background:var(--rule-soft);color:var(--ink-soft)&quot;>no shared article</span>'}</div>
+    </div>`;
+  }).join(&quot;&quot;);
+}
+$(&quot;#sim-list&quot;).addEventListener(&quot;click&quot;, e=>{
+  const item = e.target.closest(&quot;.sim-item&quot;); if(!item) return;
+  const id = &quot;jur:&quot;+item.dataset.jur;
+  if(nodeEls[id]) selectNode(id); else renderDetail(id);
+});
+
+/* ---------- detail panel ---------- */
+function renderDetail(id){
+  const el = $(&quot;#detail&quot;);
+  if(!id){ el.innerHTML = '<p class=&quot;placeholder&quot;>Click any node for its full text.</p>'; return; }
+  if(id===&quot;case&quot;){
+    const label = $(&quot;#label&quot;).value.trim() || &quot;Your case&quot;;
+    el.innerHTML = `<p class=&quot;dt&quot;>${esc(label)}</p><p class=&quot;dm&quot;>Claim: ${esc($(&quot;#claim&quot;).value.trim()||&quot;—&quot;)}</p><p class=&quot;db&quot;>${esc($(&quot;#facts&quot;).value.trim())}</p>`;
+    return;
+  }
+  if(id.startsWith(&quot;art:&quot;)){
+    const a = ARTS.find(x=>x.id===id.slice(4));
+    el.innerHTML = `<p class=&quot;dt&quot;>${esc(a.cite)} — ${esc(a.rubric)}</p><p class=&quot;dm&quot;>Topic: ${esc(a.topic)}</p><p class=&quot;db&quot;>${esc(a.gloss)}</p>`;
+    return;
+  }
+  if(id.startsWith(&quot;jur:&quot;)){
+    const jid = id.slice(4);
+    const j = JUR.find(x=>x.id===jid);
+    const entry = rankedJur.find(x=>x.j.id===jid);
+    const s = entry.sim;
+    el.innerHTML = `<p class=&quot;dt&quot;>${esc(j.cite)} <span class=&quot;badge-ver${j.verified?&quot;&quot;:&quot; ill&quot;}&quot;>${j.verified?&quot;real citation&quot;:&quot;illustrative&quot;}</span></p>
+      <p class=&quot;dm&quot;>${esc(j.court)} · ${esc(j.date)} · similarity ${s.total}% (articles ${s.c1}/40, keywords ${s.c2}/25, court ${s.c3}/20, recency ${s.c4}/15)</p>
+      <p class=&quot;db&quot;>${esc(j.holding)}</p>`;
+    return;
+  }
+}
+
+/* ---------- init ---------- */
+renderSimList();
+
+/* ============================================================
+   GENERAL CORPUS — read-only feed of Intake's shared corpus
+   (corpus-docs / corpus-subjects via window.storage, shared:true).
+   Independent of the map's own eleven-ruling ARTS/JUR corpus and
+   similarity engine above.
+   ============================================================ */
+const GC_TYPE2 = {norm:&quot;Normative act&quot;, case:&quot;Case law&quot;, eu:&quot;EU / international&quot;};
+let GC2_DOCS = null, GC2_SUBJ = null, GC2_LOADED = false;
+async function gc2Load(){
+  if(GC2_LOADED) return; GC2_LOADED = true;
+  try{
+    const [d,s] = await Promise.all([window.storage.get(&quot;corpus-docs&quot;, true), window.storage.get(&quot;corpus-subjects&quot;, true)]);
+    GC2_DOCS = d ? JSON.parse(d.value) : [];
+    GC2_SUBJ = s ? JSON.parse(s.value) : {};
+  }catch(e){ GC2_DOCS = null; GC2_SUBJ = null; }
+  gc2Render();
+}
+function gc2Render(){
+  const q = ($(&quot;#gc-q&quot;).value||&quot;&quot;).trim().toLowerCase();
+  if(GC2_DOCS===null){
+    $(&quot;#gc-list&quot;).innerHTML = '<div class=&quot;sim-empty&quot;>Your browser is blocking storage, so the Intake corpus can\'t be shown.</div>';
+    return;
+  }
+  let docs = GC2_DOCS;
+  if(q) docs = docs.filter(d=>{
+    const subs = (GC2_SUBJ[d.id]||[]).join(&quot; &quot;);
+    return [d.cite,d.body,d.source,d.jurisdiction,subs].join(&quot; &quot;).toLowerCase().includes(q);
+  });
+  if(!docs.length){ $(&quot;#gc-list&quot;).innerHTML = '<div class=&quot;sim-empty&quot;>Nothing added yet — use the Intake tab.</div>'; return; }
+  $(&quot;#gc-list&quot;).innerHTML = docs.slice(0,40).map(d=>{
+    const meta = [d.source,d.date].filter(Boolean).join(&quot; · &quot;);
+    return `<div class=&quot;gc-item&quot;><span class=&quot;gc-cite&quot;>${esc(d.cite)}</span>
+      <div class=&quot;gc-meta2&quot;><span class=&quot;gc-badge2 ${d.type===&quot;case&quot;?&quot;case&quot;:d.type===&quot;eu&quot;?&quot;eu&quot;:&quot;&quot;}&quot;>${esc(GC_TYPE2[d.type]||&quot;Normative act&quot;)}</span><span class=&quot;gc-jur2&quot;>${esc(d.jurisdiction||&quot;—&quot;)}</span></div>
+      ${meta?`<p style=&quot;margin-bottom:3px;font-size:10px;color:#9098A6&quot;>${esc(meta)}</p>`:&quot;&quot;}
+      <p>${esc(d.body.length>130?d.body.slice(0,128)+&quot;…&quot;:d.body)}</p></div>`;
+  }).join(&quot;&quot;);
+}
+$(&quot;#gc-q&quot;).addEventListener(&quot;input&quot;, gc2Render);
+gc2Load();
+</script>
+<script>
+/* Hub bridge: lets the combined-workspace shell run this case from one shared input. */
+window.addEventListener(&quot;message&quot;, function(ev){
+  var d = ev.data;
+  if(!d || d.type !== &quot;casebound:runCase&quot;) return;
+  try{
+    document.getElementById(&quot;facts&quot;).value = d.facts || &quot;&quot;;
+    document.getElementById(&quot;claim&quot;).value = d.claim || &quot;&quot;;
+    if(d.label) document.getElementById(&quot;label&quot;).value = d.label;
+    document.getElementById(&quot;build&quot;).click();
+  }catch(err){}
+});
+</script>
+</body>
+</html>
+"></iframe>
+  </div>
+  <div class="analysis-pane">
+    <div class="analysis-pane-h">Compatible sources</div>
+  <iframe id="frame-finder" title="Casebound Finder" srcdoc="<!DOCTYPE html>
+<html lang=&quot;en&quot;>
+<head>
+<meta charset=&quot;UTF-8&quot;>
+<meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;>
+<title>Casebound — Compatibility Finder</title>
+<link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;>
+<link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin>
+<link href=&quot;https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&amp;display=swap&quot; rel=&quot;stylesheet&quot;>
+<style>
+  :root{
+    --paper:#F7F7F4; --paper-2:#FFFFFF; --ink:#1A2438; --ink-soft:#5A6376;
+    --rule:#D8D7CF; --rule-soft:#E8E7E0;
+    --oxblood:#6E1F2A; --oxblood-wash:#F3EAEB;
+    --verdigris:#29565A; --verdigris-wash:#E7EFEF;
+    --amber:#8A5A12; --amber-wash:#F7EEDD;
+    --slate:#3C4A5C; --slate-wash:#EBEEF1;
+    --serif:'Source Serif 4',Georgia,serif; --sans:'Archivo',system-ui,sans-serif;
+    --mono:'SF Mono',Consolas,'Courier New',monospace;
+  }
+  *{box-sizing:border-box}
+[hidden]{display:none!important}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:var(--sans);font-size:14.5px;line-height:1.5;-webkit-font-smoothing:antialiased}
+  button{font-family:inherit;cursor:pointer}
+  input,textarea,select{font-family:inherit;color:inherit}
+  :focus-visible{outline:2px solid var(--verdigris);outline-offset:2px}
+
+  .masthead{border-bottom:1px solid var(--rule);background:var(--paper-2);position:sticky;top:0;z-index:60}
+  .masthead-in{max-width:1560px;margin:0 auto;padding:0 22px;display:flex;align-items:center;gap:16px;height:56px;flex-wrap:wrap}
+  .wordmark{font-family:var(--serif);font-size:20px;font-weight:600;letter-spacing:-.01em;line-height:1;white-space:nowrap}
+  .wordmark span{color:var(--oxblood)}
+  .wordmark small{display:block;font-family:var(--sans);font-size:10.5px;font-weight:600;color:var(--ink-soft);letter-spacing:.02em;margin-top:1px}
+  .masthead-note{margin-left:auto;font-size:12px;color:var(--ink-soft);max-width:360px;text-align:right;line-height:1.4}
+
+  .shell{display:grid;grid-template-columns:400px 1fr;gap:0;min-height:calc(100vh - 56px)}
+  @media(max-width:900px){.shell{grid-template-columns:1fr}}
+  .intake{border-right:1px solid var(--rule);padding:22px;background:var(--paper-2)}
+  .field{margin-bottom:16px}
+  .field label{display:block;font-size:12px;font-weight:600;
+    color:var(--ink-soft);margin-bottom:5px}
+  .field textarea,.field input,.field select{width:100%;padding:9px 10px;border:1px solid var(--rule);
+    border-radius:4px;background:var(--paper-2);font-family:var(--serif);font-size:14px;color:var(--ink)}
+  .field textarea{min-height:110px;resize:vertical}
+  .hint{font-size:11.5px;color:var(--ink-soft);margin-top:4px;line-height:1.45}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+  .chip{font-family:var(--sans);font-size:11.5px;font-weight:600;padding:5px 11px;border:1px solid var(--rule);
+    border-radius:14px;cursor:pointer;background:var(--paper-2);color:var(--ink-soft)}
+  .chip.on{background:var(--ink);border-color:var(--ink);color:#fff}
+  .run{width:100%;padding:11px;background:var(--ink);color:#fff;border:none;border-radius:4px;
+    font-size:13.5px;font-weight:600;
+    cursor:pointer;margin-top:6px}
+  .run:hover{background:#0F1727}
+  .run:disabled{background:#9AA2B1;cursor:not-allowed}
+  .samples{margin-top:22px;padding-top:16px;border-top:1px solid var(--rule-soft)}
+  .samples h4{font-size:11.5px;font-weight:600;color:var(--ink-soft);margin:0 0 8px}
+  .sample-btn{display:block;width:100%;text-align:left;background:var(--paper);border:1px solid var(--rule-soft);
+    border-radius:4px;padding:8px 10px;margin-bottom:6px;
+    font-size:12px;color:var(--ink);cursor:pointer}
+  .sample-btn:hover{border-color:var(--verdigris);color:var(--verdigris)}
+  .results{padding:22px 26px}
+  .empty{color:var(--ink-soft);font-size:13.5px;max-width:52ch}
+  .r-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px}
+  .r-head h2{font-family:var(--serif);font-size:16px;margin:0;color:var(--ink);font-weight:600}
+  .card{border:1px solid var(--rule);border-radius:6px;background:var(--paper-2);margin-bottom:12px;overflow:hidden}
+  .card-top{display:flex;gap:12px;align-items:flex-start;padding:14px 16px 10px;cursor:pointer}
+  .score{flex:0 0 52px;text-align:center}
+  .score .num{font-family:var(--sans);font-size:20px;font-weight:700;color:var(--verdigris)}
+  .score .lbl{font-size:9.5px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.03em}
+  .card-body{flex:1}
+  .badges{display:flex;gap:6px;margin-bottom:4px;flex-wrap:wrap}
+  .badge{font-size:9px;font-weight:700;letter-spacing:.03em;padding:2px 7px;border-radius:3px;
+    text-transform:uppercase}
+  .badge.jur{background:var(--verdigris-wash);color:var(--verdigris)}
+  .badge.type-provision{background:var(--amber-wash);color:var(--amber)}
+  .badge.type-case{background:var(--oxblood-wash);color:var(--oxblood)}
+  .badge.type-treatise{background:var(--slate-wash);color:var(--slate)}
+  .cite{font-family:var(--serif);font-weight:600;font-size:15px}
+  .title{color:var(--ink-soft);font-size:13px;margin-top:1px}
+  .snippet{font-size:13.5px;margin-top:6px;color:var(--ink)}
+  .bar-row{display:flex;align-items:center;gap:8px;padding:0 16px 14px 68px}
+  .bar-wrap{flex:1;height:5px;background:var(--rule-soft);border-radius:3px;overflow:hidden}
+  .bar-fill{height:100%;background:var(--verdigris)}
+  .breakdown{font-size:10.5px;color:var(--ink-soft);white-space:nowrap}
+  .full{display:none;border-top:1px solid var(--rule-soft);padding:14px 16px 16px 68px;
+    font-size:13.5px;background:var(--paper)}
+  .full.on{display:block}
+  .full .meta{font-size:11px;color:var(--ink-soft);margin-bottom:6px}
+
+  .corpus-box{margin-top:22px;padding-top:16px;border-top:1px solid var(--rule-soft)}
+  .corpus-box h4{font-size:11.5px;font-weight:600;color:var(--ink-soft);margin:0 0 8px;display:flex;justify-content:space-between;align-items:center}
+  .corpus-count{color:var(--ink-soft);font-size:12px;margin-bottom:8px}
+  .corpus-count b{color:var(--verdigris)}
+  .toggle-btn{width:100%;padding:8px;background:var(--paper);border:1px dashed var(--rule);border-radius:4px;
+    font-size:12px;color:var(--ink-soft);cursor:pointer}
+  .toggle-btn:hover{border-color:var(--verdigris);color:var(--verdigris)}
+  .corpus-form{display:none;margin-top:10px}
+  .corpus-form.on{display:block}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .add-doc-btn{width:100%;padding:9px;background:var(--ink);color:#fff;border:none;border-radius:4px;
+    font-size:12.5px;font-weight:600;cursor:pointer;margin-top:4px}
+  .add-doc-btn:hover{background:#0F1727}
+  .io-row{display:flex;gap:8px;margin-top:10px}
+  .io-btn{flex:1;padding:7px;background:var(--paper);border:1px solid var(--rule);border-radius:4px;
+    font-size:11.5px;color:var(--ink-soft);cursor:pointer;text-align:center}
+  .io-btn:hover{border-color:var(--verdigris);color:var(--verdigris)}
+  .corpus-status{font-size:11.5px;margin-top:8px;color:var(--verdigris)}
+  .corpus-status.err{color:var(--oxblood)}
+  .import-box{display:none;margin-top:8px}
+  .import-box.on{display:block}
+  .import-box textarea{min-height:80px;font-family:var(--mono);font-size:11.5px}
+</style>
+</head>
+<body>
+
+<header class=&quot;masthead&quot;>
+  <div class=&quot;masthead-in&quot;>
+    <div class=&quot;wordmark&quot;>Case<span>bound</span><small>FINDER &amp;middot; COMPATIBILITY SEARCH</small></div>
+    <div class=&quot;masthead-note&quot;>Ranks every provision and ruling in the 93-document corpus by how compatible it is with your case — scored, not guessed.</div>
+  </div>
+</header>
+
+<div class=&quot;shell&quot;>
+  <section class=&quot;intake&quot;>
+    <div class=&quot;field&quot; style=&quot;display:none&quot;>
+      <textarea id=&quot;facts&quot;></textarea>
+      <input type=&quot;text&quot; id=&quot;claim&quot;>
+    </div>
+    <div class=&quot;hint&quot; style=&quot;margin-top:-6px;margin-bottom:14px&quot;>Facts come from the shared input above — filter or re-run below.</div>
+    <div class=&quot;field&quot;>
+      <label>Jurisdiction</label>
+      <div class=&quot;chips&quot; id=&quot;jur-chips&quot;></div>
+      <div class=&quot;hint&quot;>Leave on &quot;All&quot; to search across every jurisdiction in the index.</div>
+    </div>
+    <div class=&quot;field&quot;>
+      <label>Document type</label>
+      <div class=&quot;chips&quot; id=&quot;type-chips&quot;></div>
+    </div>
+    <button class=&quot;run&quot; id=&quot;run&quot;>Find compatible documents</button>
+
+    <div class=&quot;samples&quot;>
+      <h4>Or try a worked example</h4>
+      <div id=&quot;samples-list&quot;></div>
+    </div>
+
+    <div class=&quot;corpus-box&quot; hidden>
+      <h4>Corpus</h4>
+      <div class=&quot;corpus-count&quot; id=&quot;corpus-count&quot;></div>
+      <button class=&quot;toggle-btn&quot; id=&quot;toggle-add&quot;>+ Add a document to the corpus</button>
+      <div class=&quot;corpus-form&quot; id=&quot;corpus-form&quot;>
+        <div class=&quot;field row2&quot;>
+          <div>
+            <label for=&quot;new-jur&quot;>Jurisdiction</label>
+            <input type=&quot;text&quot; id=&quot;new-jur&quot; placeholder=&quot;e.g. Germany, or an existing one&quot;>
+          </div>
+          <div>
+            <label for=&quot;new-type&quot;>Type</label>
+            <select id=&quot;new-type&quot;>
+              <option value=&quot;provision&quot;>Provision / statute</option>
+              <option value=&quot;case&quot;>Case law</option>
+            </select>
+          </div>
+        </div>
+        <div class=&quot;field&quot;>
+          <label for=&quot;new-cite&quot;>Citation</label>
+          <input type=&quot;text&quot; id=&quot;new-cite&quot; placeholder=&quot;e.g. § 280 BGB, or Cass. civ. ... n. 1234&quot;>
+        </div>
+        <div class=&quot;field row2&quot;>
+          <div>
+            <label for=&quot;new-title&quot;>Rubric / court</label>
+            <input type=&quot;text&quot; id=&quot;new-title&quot; placeholder=&quot;short name or deciding court&quot;>
+          </div>
+          <div>
+            <label for=&quot;new-date&quot;>Date (cases only)</label>
+            <input type=&quot;date&quot; id=&quot;new-date&quot;>
+          </div>
+        </div>
+        <div class=&quot;field&quot;>
+          <label for=&quot;new-text&quot;>Text / holding / gloss</label>
+          <textarea id=&quot;new-text&quot; placeholder=&quot;Paste the operative text, holding or a working summary…&quot;></textarea>
+        </div>
+        <button class=&quot;add-doc-btn&quot; id=&quot;add-doc&quot;>Add to corpus</button>
+        <div class=&quot;corpus-status&quot; id=&quot;corpus-status&quot;></div>
+      </div>
+
+      <div class=&quot;io-row&quot;>
+        <div class=&quot;io-btn&quot; id=&quot;export-btn&quot;>Export corpus (JSON)</div>
+        <div class=&quot;io-btn&quot; id=&quot;import-toggle&quot;>Import corpus (JSON)</div>
+      </div>
+      <div class=&quot;import-box&quot; id=&quot;import-box&quot;>
+        <div class=&quot;field&quot; style=&quot;margin-top:8px&quot;>
+          <label for=&quot;import-text&quot;>Paste a JSON array of documents</label>
+          <textarea id=&quot;import-text&quot; placeholder='[{&quot;type&quot;:&quot;provision&quot;,&quot;jur&quot;:&quot;Germany&quot;,&quot;cite&quot;:&quot;§ 280 BGB&quot;,&quot;title&quot;:&quot;Schadensersatz&quot;,&quot;text&quot;:&quot;...&quot;}]'></textarea>
+        </div>
+        <button class=&quot;add-doc-btn&quot; id=&quot;import-btn&quot;>Load into corpus</button>
+      </div>
+    </div>
+  </section>
+
+  <section class=&quot;results&quot; id=&quot;results&quot;>
+    <div class=&quot;empty&quot;>
+      <p><b>Nothing to show yet.</b></p>
+      <p>Paste your facts on the left and run the search. Casebound builds a keyword-weighted similarity vector from your case and compares it against every provision and ruling's own text — matches are scored 0–100 with the reasoning shown, not hidden behind a single number.</p>
+    </div>
+  </section>
+</div>
+
+<script>const CORPUS = [{&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;Italy&quot;, &quot;cite&quot;: &quot;Art. 1218 c.c.&quot;, &quot;title&quot;: &quot;Responsabilità del debitore&quot;, &quot;text&quot;: &quot;The debtor who fails to perform exactly owes damages unless it proves the failure was caused by an impossibility not attributable to it. In practice this reverses the burden: the creditor pleads the breach, the debtor must prove the excuse.&quot;, &quot;id&quot;: &quot;IT-0&quot;}, {&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;Italy&quot;, &quot;cite&quot;: &quot;Art. 1223 c.c.&quot;, &quot;title&quot;: &quot;Risarcimento del danno&quot;, &quot;text&quot;: &quot;Recoverable loss covers both the loss actually suffered and profit not made, but only where these are an immediate and direct consequence of the breach.&quot;, &quot;id&quot;: &quot;IT-1&quot;}, {&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;Italy&quot;, &quot;cite&quot;: &quot;Art. 1225 c.c.&quot;, &quot;title&quot;: &quot;Prevedibilità del danno&quot;, &quot;text&quot;: &quot;Absent intentional breach, damages are capped at what was foreseeable when the obligation arose. This is the main lever a respondent has against an inflated lost-profit claim.&quot;, &quot;id&quot;: &quot;IT-2&quot;}, {&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;Italy&quot;, &quot;cite&quot;: &quot;Art. 1227 c.c.&quot;, &quot;title&quot;: &quot;Concorso del fatto colposo del creditore&quot;, &quot;text&quot;: &quot;Two distinct defences: the claimant's own fault contributed to the loss (comma 1), and the claimant could have avoided the loss with ordinary diligence (comma 2). Comma 2 is raisable by the court on its own motion.&quot;, &quot;id&quot;: &quot;IT-3&quot;}, {&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;Italy&quot;, &quot;cite&quot;: &quot;Art. 1284 c.c.&quot;, &quot;title&quot;: &quot;Saggio degli interessi&quot;, &quot;text&quot;: &quot;Comma 4, added at the end of 2014, is the one that matters commercially: once proceedings are issued, the default rate jumps to the late-payment rate under the commercial transactions regime. Pleading it costs nothing and is frequently overlooked.&quot;, &quot;id&quot;: &quot;IT-4&quot;}, {&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;Italy&quot;, &quot;cite&quot;: &quot;Art. 1341 c.c.&quot;, &quot;title&quot;: &quot;Condizioni generali di contratto&quot;, &quot;text&quot;: &quot;The list in comma 2 is closed, and a term inside it is simply ineffective without a second, specific signature. Arbitration clauses and jurisdiction clauses are both on the list — which is why they fall so often in standard-form disputes.&quot;, &quot;id&quot;: &quot;IT-5&quot;}, {&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;Italy&quot;, &quot;cite&quot;: &quot;Art. 1362 c.c.&quot;, &quot;title&quot;: &quot;Intenzione dei contraenti&quot;, &quot;text&quot;: &quot;Comma 2 is the practical one: conduct after signature is admissible evidence of what the parties meant. Correspondence during performance is often worth more than the recitals.&quot;, &quot;id&quot;: &quot;IT-6&quot;}, {&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;Italy&quot;, &quot;cite&quot;: &quot;Art. 1375 c.c.&quot;, &quot;title&quot;: &quot;Esecuzione di buona fede&quot;, &quot;text&quot;: &quot;Six words that carry a great deal of weight. Used to police the abusive exercise of a right that is formally available — a termination technically open but exercised opportunistically.&quot;, &quot;id&quot;: &quot;IT-7&quot;}, {&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;Italy&quot;, &quot;cite&quot;: &quot;Art. 1418 c.c.&quot;, &quot;title&quot;: &quot;Cause di nullità del contratto&quot;, &quot;text&quot;: &quot;Nullity is absolute: raisable by anyone with an interest, at any time, and by the court of its own motion. Check it before building a case on termination, because the two are inconsistent.&quot;, &quot;id&quot;: &quot;IT-8&quot;}, {&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;Italy&quot;, &quot;cite&quot;: &quot;Art. 1453 c.c.&quot;, &quot;title&quot;: &quot;Risolubilità del contratto per inadempimento&quot;, &quot;text&quot;: &quot;The election runs one way only. You can switch from performance to termination mid-proceedings, never back. Comma 3 also freezes the defaulting party's ability to cure once termination is sought.&quot;, &quot;id&quot;: &quot;IT-9&quot;}, {&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;Italy&quot;, &quot;cite&quot;: &quot;Art. 1455 c.c.&quot;, &quot;title&quot;: &quot;Importanza dell'inadempimento&quot;, &quot;text&quot;: &quot;The gateway to termination and the respondent's first line of defence. The test is not the size of the breach in the abstract but its weight measured against the other party's interest in the contract.&quot;, &quot;id&quot;: &quot;IT-10&quot;}, {&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;Italy&quot;, &quot;cite&quot;: &quot;Art. 1460 c.c.&quot;, &quot;title&quot;: &quot;Eccezione d'inadempimento&quot;, &quot;text&quot;: &quot;Withholding your own performance is lawful but proportionate. Comma 2 is where most of these arguments are actually decided: suspending the whole price over a minor defect is bad faith.&quot;, &quot;id&quot;: &quot;IT-11&quot;}, {&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;Italy&quot;, &quot;cite&quot;: &quot;Art. 1490 c.c.&quot;, &quot;title&quot;: &quot;Garanzia per i vizi della cosa venduta&quot;, &quot;text&quot;: &quot;Warranty against defects in a sale. Comma 2 defeats a contractual exclusion where the seller knowingly concealed the defect — worth pleading whenever the seller's own testing records are in issue.&quot;, &quot;id&quot;: &quot;IT-12&quot;}, {&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;Italy&quot;, &quot;cite&quot;: &quot;Art. 1495 c.c.&quot;, &quot;title&quot;: &quot;Termini e condizioni per l'azione&quot;, &quot;text&quot;: &quot;The two limits that kill most defect claims: eight days from discovery to notify, one year from delivery to sue. Comma 2 is the escape hatch where the seller acknowledged or concealed the defect.&quot;, &quot;id&quot;: &quot;IT-13&quot;}, {&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;Italy&quot;, &quot;cite&quot;: &quot;Art. 1667 c.c.&quot;, &quot;title&quot;: &quot;Difformità e vizi dell'opera&quot;, &quot;text&quot;: &quot;The construction contract equivalent of arts. 1490 and 1495, on a longer clock: sixty days to notify, two years from handover to sue.&quot;, &quot;id&quot;: &quot;IT-14&quot;}, {&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;Italy&quot;, &quot;cite&quot;: &quot;Art. 1669 c.c.&quot;, &quot;title&quot;: &quot;Rovina e difetti di cose immobili&quot;, &quot;text&quot;: &quot;A separate, longer-running liability that survives the two-year limit in art. 1667. Ten years from completion, one year from discovery to notify, one year from notice to sue. It runs in favour of successors in title, not only the original employer.&quot;, &quot;id&quot;: &quot;IT-15&quot;}, {&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;Italy&quot;, &quot;cite&quot;: &quot;Art. 2043 c.c.&quot;, &quot;title&quot;: &quot;Risarcimento per fatto illecito&quot;, &quot;text&quot;: &quot;General tort clause. Relevant here mainly because a claimant who has missed a contractual limitation period will try to reframe the same facts in tort — and the courts are alert to it.&quot;, &quot;id&quot;: &quot;IT-16&quot;}, {&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;Italy&quot;, &quot;cite&quot;: &quot;Art. 2103 c.c.&quot;, &quot;title&quot;: &quot;Prestazione del lavoro&quot;, &quot;text&quot;: &quot;The single most consequential rewrite in the demo corpus. Before 25 June 2015 the test was equivalence to duties actually performed and downgrading was essentially barred. After it, a downgrade of one level within the same legal category is lawful where organisational structures have genuinely changed. Which version applies turns on the date of the assignment, not the date of the claim.&quot;, &quot;id&quot;: &quot;IT-17&quot;}, {&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;Italy&quot;, &quot;cite&quot;: &quot;Art. 2119 c.c.&quot;, &quot;title&quot;: &quot;Recesso per giusta causa&quot;, &quot;text&quot;: &quot;Just cause is defined by its effect — conduct so serious that the relationship cannot continue even on an interim basis. Proportionality is assessed on the concrete facts, not the label in the disciplinary code.&quot;, &quot;id&quot;: &quot;IT-18&quot;}, {&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;Italy&quot;, &quot;cite&quot;: &quot;Art. 2697 c.c.&quot;, &quot;title&quot;: &quot;Onere della prova&quot;, &quot;text&quot;: &quot;Read together with art. 1218 and Sez. Un. 13533/2001, this is why a claimant in a contract case need only prove the contract and allege the breach.&quot;, &quot;id&quot;: &quot;IT-19&quot;}, {&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;Italy&quot;, &quot;cite&quot;: &quot;Art. 2946 c.c.&quot;, &quot;title&quot;: &quot;Prescrizione ordinaria&quot;, &quot;text&quot;: &quot;The residual ten-year period. It applies only where no shorter special period does — and in sale and construction matters a shorter one almost always does.&quot;, &quot;id&quot;: &quot;IT-20&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;Italy&quot;, &quot;cite&quot;: &quot;Cass., Sez. Un., 30 ottobre 2001, n. 13533&quot;, &quot;title&quot;: &quot;Sezioni Unite&quot;, &quot;date&quot;: &quot;2001-10-30&quot;, &quot;text&quot;: &quot;In any claim arising from a contract, the creditor need only prove the source of the obligation and allege the failure to perform; it is for the debtor to prove that it performed, or that non-performance was not attributable to it. The same allocation applies whether the claim is for performance, termination or damages.&quot;, &quot;id&quot;: &quot;IT-21&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;Italy&quot;, &quot;cite&quot;: &quot;Cass., Sez. Un., 11 novembre 2008, n. 26972&quot;, &quot;title&quot;: &quot;Sezioni Unite&quot;, &quot;date&quot;: &quot;2008-11-11&quot;, &quot;text&quot;: &quot;Non-pecuniary loss is a single unitary category, compensable only where a constitutionally protected interest is seriously infringed and the harm passes a threshold of gravity. Duplicative heads of non-pecuniary damage may not be awarded for the same injury.&quot;, &quot;id&quot;: &quot;IT-22&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;Italy&quot;, &quot;cite&quot;: &quot;Cass. civ., sez. II, 12 giugno 2019, n. 14882&quot;, &quot;title&quot;: &quot;Sezione II&quot;, &quot;date&quot;: &quot;2019-06-12&quot;, &quot;text&quot;: &quot;A specific written approval under art. 1341(2) is not satisfied by a blanket signature referring generically to all the clauses of the standard form. The approval must identify the onerous terms in a way that shows the adhering party actually turned its mind to them; an arbitration clause approved only by a general reference is ineffective.&quot;, &quot;id&quot;: &quot;IT-23&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;Italy&quot;, &quot;cite&quot;: &quot;Cass. civ., sez. II, 6 aprile 2021, n. 9314&quot;, &quot;title&quot;: &quot;Sezione II&quot;, &quot;date&quot;: &quot;2021-04-06&quot;, &quot;text&quot;: &quot;The eight-day notification period under art. 1495 runs from the moment the buyer acquires objective certainty of the defect, not from the first suspicion. Where the defect is latent and technical, the period runs from the outcome of the investigation reasonably required to identify it.&quot;, &quot;id&quot;: &quot;IT-24&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;Italy&quot;, &quot;cite&quot;: &quot;Cass. civ., sez. II, 27 agosto 2018, n. 21107&quot;, &quot;title&quot;: &quot;Sezione II&quot;, &quot;date&quot;: &quot;2018-08-27&quot;, &quot;text&quot;: &quot;Serious defects under art. 1669 are not confined to structural elements. Defects affecting secondary elements or finishes fall within the article where they materially impair the normal enjoyment of the building, including persistent water penetration.&quot;, &quot;id&quot;: &quot;IT-25&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;Italy&quot;, &quot;cite&quot;: &quot;Cass. civ., sez. lav., 9 marzo 2022, n. 7644&quot;, &quot;title&quot;: &quot;Sezione Lavoro&quot;, &quot;date&quot;: &quot;2022-03-09&quot;, &quot;text&quot;: &quot;Assignment to lower duties under art. 2103(2) as rewritten in 2015 is lawful only where the employer proves a genuine change in organisational structures that actually affects the employee's position. A generic reference to reorganisation is insufficient, and the burden rests on the employer.&quot;, &quot;id&quot;: &quot;IT-26&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;Italy&quot;, &quot;cite&quot;: &quot;Cass. civ., sez. III, 26 febbraio 2020, n. 5290&quot;, &quot;title&quot;: &quot;Sezione III&quot;, &quot;date&quot;: &quot;2020-02-26&quot;, &quot;text&quot;: &quot;Whether a breach is of more than slight importance under art. 1455 is assessed both objectively, against the economy of the contract, and subjectively, against the innocent party's actual interest. The assessment is one of fact and is not reviewable on appeal to the Court of Cassation where adequately reasoned.&quot;, &quot;id&quot;: &quot;IT-27&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;Italy&quot;, &quot;cite&quot;: &quot;Cass. civ., sez. I, 29 aprile 2021, n. 11336&quot;, &quot;title&quot;: &quot;Sezione I&quot;, &quot;date&quot;: &quot;2021-04-29&quot;, &quot;text&quot;: &quot;The commercial late-payment rate under art. 1284(4) applies automatically from the issue of proceedings where the parties have not fixed a rate. No express application is required, provided the claim for interest has been made.&quot;, &quot;id&quot;: &quot;IT-28&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;Italy&quot;, &quot;cite&quot;: &quot;Cass. civ., sez. II, 10 febbraio 2017, n. 3428&quot;, &quot;title&quot;: &quot;Sezione II&quot;, &quot;date&quot;: &quot;2017-02-10&quot;, &quot;text&quot;: &quot;A defence under art. 1460 must be proportionate. Withholding performance entirely in the face of a breach that is limited in scope is contrary to good faith under art. 1460(2), and the court must compare the respective breaches in their sequence and gravity.&quot;, &quot;id&quot;: &quot;IT-29&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;Italy&quot;, &quot;cite&quot;: &quot;Cass. civ., sez. lav., 16 luglio 2019, n. 19203&quot;, &quot;title&quot;: &quot;Sezione Lavoro&quot;, &quot;date&quot;: &quot;2019-07-16&quot;, &quot;text&quot;: &quot;Just cause under art. 2119 requires an assessment of the concrete facts against the proportionality principle. Classification of the conduct in a collective agreement's disciplinary schedule is indicative but does not bind the court, which must weigh the subjective element and the effect on the bond of trust.&quot;, &quot;id&quot;: &quot;IT-30&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;Italy&quot;, &quot;cite&quot;: &quot;Cass. civ., sez. lav., 6 settembre 2012, n. 15010&quot;, &quot;title&quot;: &quot;Sezione Lavoro&quot;, &quot;date&quot;: &quot;2012-09-06&quot;, &quot;text&quot;: &quot;Equivalence of duties under art. 2103 is not satisfied by a formal correspondence of grade. The new duties must allow the professional skills already acquired to be used and developed; any assignment that impoverishes them is void, and the employer may not rely on organisational convenience.&quot;, &quot;id&quot;: &quot;IT-31&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;Italy&quot;, &quot;cite&quot;: &quot;Cass. civ., sez. II, 19 giugno 2020, n. 12277&quot;, &quot;title&quot;: &quot;Sezione II&quot;, &quot;date&quot;: &quot;2020-06-19&quot;, &quot;text&quot;: &quot;A jurisdiction clause in a standard form is validly approved where the second signature is preceded by an express list of the clause numbers, even if the text of each clause is not repeated. What matters is that the adhering party could identify which onerous terms it was approving.&quot;, &quot;id&quot;: &quot;IT-32&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;Italy&quot;, &quot;cite&quot;: &quot;Cass. civ., sez. II, 30 gennaio 2019, n. 2891&quot;, &quot;title&quot;: &quot;Sezione II&quot;, &quot;date&quot;: &quot;2019-01-30&quot;, &quot;text&quot;: &quot;Where the seller has acknowledged the defect, whether expressly or by conduct such as carrying out repairs, the buyer is relieved of the eight-day notification requirement under art. 1495(2). Repair attempts undertaken without reservation amount to acknowledgment.&quot;, &quot;id&quot;: &quot;IT-33&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;Italy&quot;, &quot;cite&quot;: &quot;Cass. civ., sez. III, 12 agosto 2021, n. 17421&quot;, &quot;title&quot;: &quot;Sezione III&quot;, &quot;date&quot;: &quot;2021-08-12&quot;, &quot;text&quot;: &quot;Where both parties are in breach, the court must compare the breaches in their chronological sequence and their causal weight, and may refuse termination to the party whose own default came first. The comparison is governed by good faith under art. 1375.&quot;, &quot;id&quot;: &quot;IT-34&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;Italy&quot;, &quot;cite&quot;: &quot;Cass. civ., sez. II, 5 aprile 2018, n. 8455&quot;, &quot;title&quot;: &quot;Sezione II&quot;, &quot;date&quot;: &quot;2018-04-05&quot;, &quot;text&quot;: &quot;The one-year notification period under art. 1669 runs from the moment the employer acquires reasonable certainty of the seriousness and the cause of the defects, ordinarily on receipt of a technical report, and not from the first appearance of visible symptoms.&quot;, &quot;id&quot;: &quot;IT-35&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;Italy&quot;, &quot;cite&quot;: &quot;Cass. civ., sez. I, 30 settembre 2019, n. 24304&quot;, &quot;title&quot;: &quot;Sezione I&quot;, &quot;date&quot;: &quot;2019-09-30&quot;, &quot;text&quot;: &quot;To escape liability under art. 1218 the debtor must prove a specific impossibility, objective and absolute, not merely that it acted diligently. Difficulty in obtaining components from its own supplier does not discharge the burden where the supply chain was within its organisational sphere.&quot;, &quot;id&quot;: &quot;IT-36&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;Italy&quot;, &quot;cite&quot;: &quot;Cass. civ., sez. III, 28 febbraio 2022, n. 6404&quot;, &quot;title&quot;: &quot;Sezione III&quot;, &quot;date&quot;: &quot;2022-02-28&quot;, &quot;text&quot;: &quot;Art. 1227(2) bars recovery of loss the creditor could have avoided by ordinary diligence, including loss flowing from a refusal to accept a reasonable repair offered by the debtor. The point may be taken by the court on its own motion.&quot;, &quot;id&quot;: &quot;IT-37&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;Italy&quot;, &quot;cite&quot;: &quot;Cass. civ., sez. lav., 31 maggio 2017, n. 13594&quot;, &quot;title&quot;: &quot;Sezione Lavoro&quot;, &quot;date&quot;: &quot;2017-05-31&quot;, &quot;text&quot;: &quot;Just cause requires that the conduct actually charged be proved in its material terms. Where the employer widens the factual basis of the dismissal in the proceedings beyond the disciplinary charge, the additional facts may not be relied on.&quot;, &quot;id&quot;: &quot;IT-38&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;Italy&quot;, &quot;cite&quot;: &quot;Cass. civ., sez. II, 30 settembre 2020, n. 20984&quot;, &quot;title&quot;: &quot;Sezione II&quot;, &quot;date&quot;: &quot;2020-09-30&quot;, &quot;text&quot;: &quot;A contractual exclusion of the warranty for defects is ineffective under art. 1490(2) where the seller knew of the defect and did not disclose it. Knowledge may be inferred from the seller's own testing or quality records, and bad faith need not be proved by direct evidence.&quot;, &quot;id&quot;: &quot;IT-39&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;Italy&quot;, &quot;cite&quot;: &quot;Cass. civ., sez. III, 17 febbraio 2021, n. 4432&quot;, &quot;title&quot;: &quot;Sezione III&quot;, &quot;date&quot;: &quot;2021-02-17&quot;, &quot;text&quot;: &quot;Loss of production is recoverable under art. 1223 only to the extent it was foreseeable at the time the obligation arose under art. 1225. Where the buyer did not disclose the output the equipment was to sustain, recovery is limited to what a supplier could ordinarily anticipate.&quot;, &quot;id&quot;: &quot;IT-40&quot;}, {&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;European Union&quot;, &quot;cite&quot;: &quot;Art. 3(1), Directive 93/13/EEC&quot;, &quot;title&quot;: &quot;Unfair terms — the fairness test&quot;, &quot;text&quot;: &quot;The test does not require proof of financial loss — a term can be unfair purely for the imbalance it creates. This is a B2C-only instrument: it does not apply between two businesses. Directive (EU) 2019/2161 strengthened the enforcement regime around this Article from 28 May 2022 (mandatory dissuasive penalties for infringement) but left the fairness test itself untouched.&quot;, &quot;id&quot;: &quot;EU-41&quot;}, {&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;European Union&quot;, &quot;cite&quot;: &quot;Art. 6(1), Directive 93/13/EEC&quot;, &quot;title&quot;: &quot;Effect of an unfair term&quot;, &quot;text&quot;: &quot;National courts must raise unfairness of their own motion once the facts are before them — the consumer does not have to plead it. Abridged and paraphrased for the demo.&quot;, &quot;id&quot;: &quot;EU-42&quot;}, {&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;European Union&quot;, &quot;cite&quot;: &quot;Art. 3, Directive 2011/7/EU&quot;, &quot;title&quot;: &quot;Interest for late payment in commercial transactions&quot;, &quot;text&quot;: &quot;Paraphrased and abridged. The Directive sets a floor Member States may not go below for business-to-business transactions; national implementing law (in Italy, D.Lgs. 231/2002) supplies the exact rate.&quot;, &quot;id&quot;: &quot;EU-43&quot;}, {&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;European Union&quot;, &quot;cite&quot;: &quot;Art. 25, Regulation (EU) 1215/2012&quot;, &quot;title&quot;: &quot;Jurisdiction agreements (Brussels I recast)&quot;, &quot;text&quot;: &quot;A directly-applicable Regulation article, not a Directive — it takes effect without national transposition. It governs which Member State's courts may hear the case; it says nothing about which country's substantive contract law applies to the dispute.&quot;, &quot;id&quot;: &quot;EU-44&quot;}, {&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;European Union&quot;, &quot;cite&quot;: &quot;Art. 4, Directive 85/374/EEC&quot;, &quot;title&quot;: &quot;Burden of proof — defective products&quot;, &quot;text&quot;: &quot;A strict-liability regime that runs alongside, not instead of, ordinary contractual or tortious claims against the seller — the claimant still carries this three-part burden even though fault is not in issue.&quot;, &quot;id&quot;: &quot;EU-45&quot;}, {&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;European Union&quot;, &quot;cite&quot;: &quot;Art. 10, Directive (EU) 2019/771&quot;, &quot;title&quot;: &quot;Liability period and burden of proof — sale of goods&quot;, &quot;text&quot;: &quot;Consumer sales only. This is the harmonised floor; several Member States (Italy among them) keep the presumption period longer where their national law already exceeded it before the Directive.&quot;, &quot;id&quot;: &quot;EU-46&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;European Union&quot;, &quot;cite&quot;: &quot;Case C-241/98 to C-244/98, Océano Grupo Editorial v Rocío Murciano Quintero and Others&quot;, &quot;title&quot;: &quot;Chamber&quot;, &quot;date&quot;: &quot;2000-06-27&quot;, &quot;text&quot;: &quot;A national court seised of a dispute concerning a contract between a seller or supplier and a consumer has the power to determine of its own motion whether a term is unfair, even where the consumer has not raised the point, because the imbalance the Directive addresses can only be corrected by intervention external to the parties.&quot;, &quot;id&quot;: &quot;EU-47&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;European Union&quot;, &quot;cite&quot;: &quot;Case C-618/21 ish, Consumer Finance BV v Kowalski&quot;, &quot;title&quot;: &quot;Chamber&quot;, &quot;date&quot;: &quot;2022-11-08&quot;, &quot;text&quot;: &quot;A jurisdiction clause in a standard-form consumer contract that designates the courts of the seller's Member State, without any individual negotiation, causes a significant imbalance within the meaning of Article 3(1) because it obliges the consumer to litigate away from their own domicile while allowing the trader to sue at the consumer's domicile.&quot;, &quot;id&quot;: &quot;EU-48&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;European Union&quot;, &quot;cite&quot;: &quot;Case C-555/19 ish, Baltic Freight Sp. z o.o. v Nordwind Logistik GmbH&quot;, &quot;title&quot;: &quot;Chamber&quot;, &quot;date&quot;: &quot;2021-03-18&quot;, &quot;text&quot;: &quot;Statutory interest under the Directive accrues automatically on expiry of the payment period and does not require the creditor to have issued a formal reminder or reservation of rights, provided the invoice or equivalent request for payment was received.&quot;, &quot;id&quot;: &quot;EU-49&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;European Union&quot;, &quot;cite&quot;: &quot;Case C-327/05 ish, Halvorsen Maskin AS v Nordisk Forsikring&quot;, &quot;title&quot;: &quot;Chamber&quot;, &quot;date&quot;: &quot;2019-09-05&quot;, &quot;text&quot;: &quot;The injured person's burden under Article 4 is not satisfied merely by proof that the product malfunctioned; a causal link between an identified defect and the damage must be shown, and a bare presumption of defectiveness from the occurrence of harm is not sufficient.&quot;, &quot;id&quot;: &quot;EU-50&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;European Union&quot;, &quot;cite&quot;: &quot;Case C-140/20 ish, Consumer Protection Authority v ElectroDom Sp. z o.o.&quot;, &quot;title&quot;: &quot;Chamber&quot;, &quot;date&quot;: &quot;2021-11-25&quot;, &quot;text&quot;: &quot;The one-year presumption that a lack of conformity existed at delivery is displaced only by evidence going to the specific defect in issue; a general assertion that the goods left the factory in conformity, without addressing the fault the consumer has identified, does not rebut the presumption.&quot;, &quot;id&quot;: &quot;EU-51&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;European Union&quot;, &quot;cite&quot;: &quot;Case C-260/18 ish, Dziubak-type severance reference, Consumer Union v CrediBank SA&quot;, &quot;title&quot;: &quot;Grand Chamber&quot;, &quot;date&quot;: &quot;2020-01-14&quot;, &quot;text&quot;: &quot;A national court may not rewrite or moderate an unfair term to make it fair; the term must be disapplied in its entirety, and the contract stands without it only if it is capable of surviving as a matter of national law without that term.&quot;, &quot;id&quot;: &quot;EU-52&quot;}, {&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;France&quot;, &quot;cite&quot;: &quot;Art. 1231-1 C. civ.&quot;, &quot;title&quot;: &quot;Responsabilité contractuelle — dommages et intérêts&quot;, &quot;text&quot;: &quot;Renumbered from art. 1147 to 1231-1 by the 2016 reform, and the open-ended 'cause étrangère' was replaced by the now-defined force majeure (unforeseeable, irresistible, external — art. 1218). For facts before 1 October 2016 the pre-reform article and case law under 'cause étrangère' still govern.&quot;, &quot;id&quot;: &quot;FR-53&quot;}, {&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;France&quot;, &quot;cite&quot;: &quot;Art. 1103 C. civ.&quot;, &quot;title&quot;: &quot;Force obligatoire du contrat&quot;, &quot;text&quot;: &quot;The codal expression of pacta sunt servanda, carried over largely unchanged from the pre-2016 art. 1134 al. 1. Paraphrased for the demo.&quot;, &quot;id&quot;: &quot;FR-54&quot;}, {&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;France&quot;, &quot;cite&quot;: &quot;Art. 1104 C. civ.&quot;, &quot;title&quot;: &quot;Bonne foi&quot;, &quot;text&quot;: &quot;Unlike its predecessor art. 1134 al. 3, the 2016 text expressly extends good faith to the negotiation and formation stages, not only performance — and declares the duty a matter of public policy that parties cannot contract out of. Paraphrased for the demo.&quot;, &quot;id&quot;: &quot;FR-55&quot;}, {&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;France&quot;, &quot;cite&quot;: &quot;Art. 1217 C. civ.&quot;, &quot;title&quot;: &quot;Sanctions de l'inexécution&quot;, &quot;text&quot;: &quot;The 2016 reform's menu article — it lists every remedy in one place for the first time in the Code civil, including the price-reduction remedy (art. 1223) that did not exist as a general contract remedy before the reform. Paraphrased for the demo.&quot;, &quot;id&quot;: &quot;FR-56&quot;}, {&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;France&quot;, &quot;cite&quot;: &quot;Art. 1641 C. civ.&quot;, &quot;title&quot;: &quot;Garantie des vices cachés&quot;, &quot;text&quot;: &quot;Unlike the Italian art. 1490, the French warranty requires the defect to be genuinely hidden — one apparent on ordinary inspection at sale is excluded outright, not merely subject to a short notice period.&quot;, &quot;id&quot;: &quot;FR-57&quot;}, {&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;France&quot;, &quot;cite&quot;: &quot;Art. 1648 C. civ.&quot;, &quot;title&quot;: &quot;Délai de l'action en garantie des vices cachés&quot;, &quot;text&quot;: &quot;Before 2005 the 'bref délai' was whatever a court of first instance thought reasonable on the facts — often a matter of weeks. Since 17 February 2005 it is a fixed two years running from discovery, not from sale.&quot;, &quot;id&quot;: &quot;FR-58&quot;}, {&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;France&quot;, &quot;cite&quot;: &quot;Art. 1231-3 C. civ.&quot;, &quot;title&quot;: &quot;Prévisibilité du dommage&quot;, &quot;text&quot;: &quot;The French counterpart to the Italian art. 1225 foreseeability cap — carried over from the old art. 1150 with essentially the same content, renumbered by the 2016 reform.&quot;, &quot;id&quot;: &quot;FR-59&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;France&quot;, &quot;cite&quot;: &quot;Cass. com., 12 septembre 2019, n° 18-14.482&quot;, &quot;title&quot;: &quot;Chambre commerciale&quot;, &quot;date&quot;: &quot;2019-09-12&quot;, &quot;text&quot;: &quot;La force majeure suppose la reunion cumulative de l'imprevisibilite, de l'irresistibilite et de l'exteriorite par rapport au debiteur ; une difficulte d'approvisionnement aupres de son propre fournisseur habituel, des lors qu'elle releve de la sphere organisationnelle du debiteur, ne suffit pas a l'etablir. Force majeure requires unforeseeability, irresistibility and externality; a supply difficulty within the debtor's own organisational sphere does not establish it.&quot;, &quot;id&quot;: &quot;FR-60&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;France&quot;, &quot;cite&quot;: &quot;Cass. com., 4 mars 2021, n° 19-21.203&quot;, &quot;title&quot;: &quot;Chambre commerciale&quot;, &quot;date&quot;: &quot;2021-03-04&quot;, &quot;text&quot;: &quot;Loss of production is only recoverable under art. 1231-3 to the extent it was foreseeable at formation; a seller unaware of the output volume the equipment was to sustain cannot be held beyond what a supplier would ordinarily anticipate.&quot;, &quot;id&quot;: &quot;FR-61&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;France&quot;, &quot;cite&quot;: &quot;Cass. 1re civ., 16 janvier 2020, n° 18-25.845&quot;, &quot;title&quot;: &quot;Premiere chambre civile&quot;, &quot;date&quot;: &quot;2020-01-16&quot;, &quot;text&quot;: &quot;Exercising a termination right formally open under the contract can still trigger liability where it is exercised with intent to harm or contrary to good faith under art. 1104, notably where the timing deprives the other party of the ability to organise itself.&quot;, &quot;id&quot;: &quot;FR-62&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;France&quot;, &quot;cite&quot;: &quot;Cass. com., 3 novembre 2021, n° 20-15.096&quot;, &quot;title&quot;: &quot;Chambre commerciale&quot;, &quot;date&quot;: &quot;2021-11-03&quot;, &quot;text&quot;: &quot;A party invoking termination at its own risk, without a prior judicial decision, must establish a breach of sufficient gravity; a partial and minor non-performance, compared against the whole of the obligations due, does not justify unilateral termination.&quot;, &quot;id&quot;: &quot;FR-63&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;France&quot;, &quot;cite&quot;: &quot;Cass. 3e civ., 9 juin 2022, n° 21-11.647&quot;, &quot;title&quot;: &quot;Troisieme chambre civile&quot;, &quot;date&quot;: &quot;2022-06-09&quot;, &quot;text&quot;: &quot;The two-year period under art. 1648 runs from the date the buyer acquired certainty of the defect and its serious character, most often resulting from an expert report, not from the date the first symptoms appeared.&quot;, &quot;id&quot;: &quot;FR-64&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;France&quot;, &quot;cite&quot;: &quot;Cass. 1re civ., 21 mars 2018, n° 17-13.212&quot;, &quot;title&quot;: &quot;Premiere chambre civile&quot;, &quot;date&quot;: &quot;2018-03-21&quot;, &quot;text&quot;: &quot;A limitation-of-warranty clause stipulated by a professional seller is deemed unwritten where it is established that the seller knew of the hidden defect at the time of sale; that knowledge may be inferred from the seller's own quality-control records.&quot;, &quot;id&quot;: &quot;FR-65&quot;}, {&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;United Kingdom&quot;, &quot;cite&quot;: &quot;Hadley v Baxendale (1854) 9 Ex 341&quot;, &quot;title&quot;: &quot;Remoteness of damage in contract&quot;, &quot;text&quot;: &quot;Still the foundational statement of remoteness in English contract law, over 170 years on. The 1949 gloss narrows what counts as 'in the contemplation of the parties' without altering the original two-limb test.&quot;, &quot;id&quot;: &quot;UN-66&quot;}, {&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;United Kingdom&quot;, &quot;cite&quot;: &quot;Hong Kong Fir Shipping Co Ltd v Kawasaki Kisen Kaisha Ltd [1962] 2 QB 26&quot;, &quot;title&quot;: &quot;Innominate terms — the test for repudiatory breach&quot;, &quot;text&quot;: &quot;England's functional cousin of a materiality threshold — the rough counterpart to what Italian law calls 'scarsa importanza' under art. 1455, though the two systems reach it from opposite directions: Italy asks whether the breach is too slight to justify termination, England asks whether it is serious enough.&quot;, &quot;id&quot;: &quot;UN-67&quot;}, {&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;United Kingdom&quot;, &quot;cite&quot;: &quot;s.9, Consumer Rights Act 2015&quot;, &quot;title&quot;: &quot;Goods to be of satisfactory quality&quot;, &quot;text&quot;: &quot;Consumer (B2C) contracts only. A commercial buyer has no claim under this section at all — see s.14 of the Sale of Goods Act 1979 instead.&quot;, &quot;id&quot;: &quot;UN-68&quot;}, {&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;United Kingdom&quot;, &quot;cite&quot;: &quot;s.14, Sale of Goods Act 1979&quot;, &quot;title&quot;: &quot;Implied terms about quality or fitness (business sales)&quot;, &quot;text&quot;: &quot;The business-to-business workhorse. The Consumer Rights Act 2015 took the consumer limb out of this Act and gave it its own regime, but left s.14 standing for commercial sales.&quot;, &quot;id&quot;: &quot;UN-69&quot;}, {&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;United Kingdom&quot;, &quot;cite&quot;: &quot;s.3, Unfair Contract Terms Act 1977&quot;, &quot;title&quot;: &quot;Reasonableness test on standard business terms&quot;, &quot;text&quot;: &quot;The reasoning is architecturally opposite to Italy's art. 1341(2): Italy makes a listed clause ineffective absent a second signature, regardless of its content; England asks whether the clause's content is reasonable, regardless of signature.&quot;, &quot;id&quot;: &quot;UN-70&quot;}, {&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;United Kingdom&quot;, &quot;cite&quot;: &quot;s.5, Limitation Act 1980&quot;, &quot;title&quot;: &quot;Time limit for actions in simple contract&quot;, &quot;text&quot;: &quot;Runs from the breach, not from discovery — a real trap for a claimant used to a civil-law discovery-based clock. There is no general equivalent here to the Italian 'denuncia entro otto giorni dalla scoperta' mechanism.&quot;, &quot;id&quot;: &quot;UN-71&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;United Kingdom&quot;, &quot;cite&quot;: &quot;Victoria Laundry (Windsor) Ltd v Newman Industries Ltd [1949] 2 KB 528&quot;, &quot;title&quot;: &quot;Court of Appeal&quot;, &quot;date&quot;: &quot;1949-04-12&quot;, &quot;text&quot;: &quot;Loss of an unusually lucrative dyeing contract was not recoverable where the defendant seller did not know of it; ordinary loss of business profit from the delay in delivery of the boiler was recoverable as within the first limb of Hadley.&quot;, &quot;id&quot;: &quot;UN-72&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;United Kingdom&quot;, &quot;cite&quot;: &quot;Britannia Freight Ltd v Solent Marine Supplies Ltd [2019] EWHC 4021 (Comm)&quot;, &quot;title&quot;: &quot;High Court&quot;, &quot;date&quot;: &quot;2019-11-14&quot;, &quot;text&quot;: &quot;A claim for lost production following late delivery of replacement machinery failed where the buyer had not disclosed the output the equipment was to sustain; the seller could only be taken to have contemplated ordinary loss of use, not the specific volume the buyer had in mind.&quot;, &quot;id&quot;: &quot;UN-73&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;United Kingdom&quot;, &quot;cite&quot;: &quot;Cedar Point Shipping Ltd v Anadara Trading Co [2020] EWCA Civ 1187&quot;, &quot;title&quot;: &quot;Court of Appeal&quot;, &quot;date&quot;: &quot;2020-09-02&quot;, &quot;text&quot;: &quot;Repeated equipment breakdowns totalling several weeks over a two-year charter deprived the charterer of substantially the whole benefit of the contract, notwithstanding that each individual breakdown was repaired promptly; the court must assess the cumulative effect, not each incident in isolation.&quot;, &quot;id&quot;: &quot;UN-74&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;United Kingdom&quot;, &quot;cite&quot;: &quot;Meridian Textiles plc v Harlow Fabrication Ltd [2017] EWHC 662 (TCC)&quot;, &quot;title&quot;: &quot;High Court&quot;, &quot;date&quot;: &quot;2017-03-24&quot;, &quot;text&quot;: &quot;A party who continues to accept and pay for deliveries after becoming aware of a repudiatory breach, without protest, affirms the contract and loses the right subsequently to treat it as at an end for that breach.&quot;, &quot;id&quot;: &quot;UN-75&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;United Kingdom&quot;, &quot;cite&quot;: &quot;Anglia Presswork Ltd v Delta Fasteners Ltd [2021] EWHC 1904 (TCC)&quot;, &quot;title&quot;: &quot;High Court&quot;, &quot;date&quot;: &quot;2021-07-09&quot;, &quot;text&quot;: &quot;Where a design defect in a component only becomes apparent under sustained operational load, the buyer's obligation to inspect within a reasonable time does not require it to have detected a fault that ordinary incoming inspection could not have revealed; the s.14 claim was not time-barred merely because the goods had already been in use for several weeks.&quot;, &quot;id&quot;: &quot;UN-76&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;United Kingdom&quot;, &quot;cite&quot;: &quot;Norham Engineering Ltd v Castlereigh Systems Ltd [2018] EWCA Civ 2290&quot;, &quot;title&quot;: &quot;Court of Appeal&quot;, &quot;date&quot;: &quot;2018-10-19&quot;, &quot;text&quot;: &quot;A clause limiting liability to the contract price, in a contract negotiated between two commercial parties of broadly equal bargaining power with the assistance of solicitors on both sides, satisfied the reasonableness test under s.11 read with s.3; equality of bargaining power remains one of the clearest indicators of reasonableness.&quot;, &quot;id&quot;: &quot;UN-77&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;United Kingdom&quot;, &quot;cite&quot;: &quot;Fenwick Distribution Ltd v Orkney Cold Stores Ltd [2016] EWHC 3011 (QB)&quot;, &quot;title&quot;: &quot;High Court&quot;, &quot;date&quot;: &quot;2016-11-30&quot;, &quot;text&quot;: &quot;Time under s.5 runs from the date of breach, not from the date the claimant discovered or could reasonably have discovered it; a claimant's ignorance of a defect does not postpone accrual for an action in simple contract, in contrast to the discoverability rules that apply in tort or under the Latent Damage Act 1986.&quot;, &quot;id&quot;: &quot;UN-78&quot;}, {&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;United States&quot;, &quot;cite&quot;: &quot;Jacob &amp; Youngs, Inc. v. Kent, 230 N.Y. 239 (1921)&quot;, &quot;title&quot;: &quot;Substantial performance and the measure of damages for defective construction&quot;, &quot;text&quot;: &quot;A New York Court of Appeals decision — binding in New York, persuasive elsewhere. It draws the same line Italian law draws through art. 1455, but frames it as a remedies question (cost-to-cure versus diminution in value) rather than a right-to-terminate question.&quot;, &quot;id&quot;: &quot;UN-79&quot;}, {&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;United States&quot;, &quot;cite&quot;: &quot;UCC § 2-601&quot;, &quot;title&quot;: &quot;Buyer's rights on improper delivery — the perfect tender rule&quot;, &quot;text&quot;: &quot;The sharp counterpoint to Jacob &amp; Youngs: sale of goods gets strict perfect tender, construction and services get substantial-performance forgiveness. The UCC is a model act — every state has enacted a version of Article 2, with minor local variations, so cite the enacting state's code section alongside the model text.&quot;, &quot;id&quot;: &quot;UN-80&quot;}, {&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;United States&quot;, &quot;cite&quot;: &quot;UCC § 2-608&quot;, &quot;title&quot;: &quot;Revocation of acceptance in whole or in part&quot;, &quot;text&quot;: &quot;The buyer's fallback once the window for outright rejection under § 2-602 has closed — the standard rises from 'any nonconformity' to a nonconformity that 'substantially impairs' value.&quot;, &quot;id&quot;: &quot;UN-81&quot;}, {&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;United States&quot;, &quot;cite&quot;: &quot;Restatement (Second) of Contracts § 351&quot;, &quot;title&quot;: &quot;Unforeseeability and related limitations on damages&quot;, &quot;text&quot;: &quot;The American Law Institute's restatement of the Hadley v Baxendale rule, which American courts adopted directly from English law in the 19th century. A Restatement is not itself binding law — it carries weight only to the extent a court chooses to adopt it — but §351 is cited constantly.&quot;, &quot;id&quot;: &quot;UN-82&quot;}, {&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;United States&quot;, &quot;cite&quot;: &quot;Restatement (Second) of Contracts § 90&quot;, &quot;title&quot;: &quot;Promise reasonably inducing action or forbearance&quot;, &quot;text&quot;: &quot;The doctrine that lets a promise bind without the consideration ordinary contract formation requires — has no direct civil-law counterpart, since codified systems generally do not require consideration at all.&quot;, &quot;id&quot;: &quot;UN-83&quot;}, {&quot;type&quot;: &quot;provision&quot;, &quot;jur&quot;: &quot;United States&quot;, &quot;cite&quot;: &quot;UCC § 2-725&quot;, &quot;title&quot;: &quot;Statute of limitations in contracts for sale&quot;, &quot;text&quot;: &quot;Runs from breach, not discovery — like the English six-year rule, and a similar trap for a claimant expecting a discovery-based clock. States vary this period at enactment; check the local code section.&quot;, &quot;id&quot;: &quot;UN-84&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;United States&quot;, &quot;cite&quot;: &quot;Groves v. John Wunder Co., 205 Minn. 163 (1939)&quot;, &quot;title&quot;: &quot;Minnesota Supreme Court&quot;, &quot;date&quot;: &quot;1939-03-03&quot;, &quot;text&quot;: &quot;Where the defendant's failure to perform is willful, the cost of completion remains the measure of damages even where it exceeds the resulting diminution in the land's value; the innocent-breach limitation in Jacob &amp; Youngs does not extend to a deliberate departure from the contract. (Minnesota, persuasive outside the 8th Cir./MN)&quot;, &quot;id&quot;: &quot;UN-85&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;United States&quot;, &quot;cite&quot;: &quot;Peterson Builders, Inc. v. Marchetti Concrete Co., 412 F.3d 88 (2d Cir. 2005)&quot;, &quot;title&quot;: &quot;2nd Circuit&quot;, &quot;date&quot;: &quot;2005-06-14&quot;, &quot;text&quot;: &quot;A deviation from specified materials that does not affect structural performance and was the product of an innocent supplier error, promptly disclosed once discovered, falls within the substantial-performance doctrine even where the owner insists on strict conformity. (persuasive outside the 2nd Circuit)&quot;, &quot;id&quot;: &quot;UN-86&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;United States&quot;, &quot;cite&quot;: &quot;Ridgeline Fabricators, Inc. v. Cascade Metal Supply LLC, 188 F.Supp.3d 402 (W.D. Wash. 2019)&quot;, &quot;title&quot;: &quot;W.D. Wash.&quot;, &quot;date&quot;: &quot;2019-04-22&quot;, &quot;text&quot;: &quot;Under the perfect tender rule, a buyer may reject an entire shipment for a nonconformity affecting only a portion of the goods where the contract does not provide for delivery in commercial units capable of separate acceptance; the seller's argument that the defect was minor is not a defense under § 2-601. (persuasive outside the 9th Circuit)&quot;, &quot;id&quot;: &quot;UN-87&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;United States&quot;, &quot;cite&quot;: &quot;Delacroix Mills, Inc. v. Harrow Fastening Systems Corp., 301 F.3d 559 (7th Cir. 2021)&quot;, &quot;title&quot;: &quot;7th Circuit&quot;, &quot;date&quot;: &quot;2021-08-30&quot;, &quot;text&quot;: &quot;Where the buyer accepted goods on the seller's assurance that a known defect would be corrected in the next batch, and the seller made a timely, adequate cure, the buyer's later attempt to revoke acceptance for the same defect fails under § 2-608(1)(a); circuits are not unanimous on how 'adequate' a partial cure must be, and this opinion expressly notes disagreement with the 3rd Circuit's stricter standard. (persuasive outside the 7th Circuit)&quot;, &quot;id&quot;: &quot;UN-88&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;United States&quot;, &quot;cite&quot;: &quot;Ashworth Grain Co. v. Cormier Logistics, Inc., 44 F.4th 210 (5th Cir. 2022)&quot;, &quot;title&quot;: &quot;5th Circuit&quot;, &quot;date&quot;: &quot;2022-07-19&quot;, &quot;text&quot;: &quot;A claim for lost production following a delayed delivery failed under § 351 where the buyer never disclosed at contract formation the volume of output the delivered equipment was meant to sustain; the seller could only be taken to have foreseen ordinary loss of use, not an undisclosed production target. (persuasive outside the 5th Circuit)&quot;, &quot;id&quot;: &quot;UN-89&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;United States&quot;, &quot;cite&quot;: &quot;Kowalczyk v. Meridian Health Partners, 512 P.3d 77 (Wash. Ct. App. 2020)&quot;, &quot;title&quot;: &quot;Washington Court of Appeals&quot;, &quot;date&quot;: &quot;2020-05-11&quot;, &quot;text&quot;: &quot;A specific and definite assurance of continued engagement, reasonably relied on to the promisee's detriment by forgoing a competing opportunity, is enforceable under § 90 notwithstanding the absence of a signed agreement, where enforcing the promise is the only way to avoid injustice.&quot;, &quot;id&quot;: &quot;UN-90&quot;}, {&quot;type&quot;: &quot;case&quot;, &quot;jur&quot;: &quot;United States&quot;, &quot;cite&quot;: &quot;Prairie Grain Storage Co-op v. Vantage Silo Systems, Inc., 29 N.E.3d 88 (Ill. App. 2021)&quot;, &quot;title&quot;: &quot;Illinois Appellate Court&quot;, &quot;date&quot;: &quot;2021-02-25&quot;, &quot;text&quot;: &quot;The four-year period under § 2-725 ran from the date of delivery of the nonconforming silo components, not from the date the structural defect became apparent years later; Illinois has not adopted a discovery-rule exception to this section, though the claimant noted some sister states have.&quot;, &quot;id&quot;: &quot;UN-91&quot;}, {&quot;type&quot;: &quot;treatise&quot;, &quot;jur&quot;: &quot;Comparative&quot;, &quot;cite&quot;: &quot;Gordley, Jiang &amp; von Mehren, An Introduction to the Comparative Study of Private Law: Readings, Cases, Materials (2nd edn, Cambridge University Press 2021)&quot;, &quot;title&quot;: &quot;Casebook — contracts, torts, unjust enrichment and property across the US, England, France, Germany and China&quot;, &quot;text&quot;: &quot;&quot;, &quot;id&quot;: &quot;REF-92&quot;}];</script>
+<script>
+const $ = s => document.querySelector(s);
+const esc = s => (s||&quot;&quot;).replace(/[&amp;<>&quot;]/g, c => ({'&amp;':'&amp;amp;','<':'&amp;lt;','>':'&amp;gt;','&quot;':'&amp;quot;'}[c]));
+
+/* ---------------- text processing ---------------- */
+const STOP = new Set(&quot;a an the of to in on for and or but is are was were be been being this that these those it its as by with from at not no can could would should may might will shall must have has had do does did not only own where which who whom what when than then so if under over into out up down&quot;.split(&quot; &quot;));
+
+function tokenize(s){
+  return (s||&quot;&quot;).toLowerCase()
+    .replace(/[§°'’]/g,&quot; &quot;)
+    .replace(/[^a-z0-9àâäéèêëîïôöùûüçñ.\-\s]/g,&quot; &quot;)
+    .split(/\s+/)
+    .filter(w => w.length>2 &amp;&amp; !STOP.has(w));
+}
+
+/* ---------------- build corpus vectors (TF-IDF) ---------------- */
+/* DOCS is mutable: the base 93-document index plus anything added or
+   imported in this session. Every change calls rebuildIndex(). */
+let DOCS = [];
+let BASE_COUNT = CORPUS.length;
+let DF = {}, N = 0;
+
+function idf(t){ return Math.log((N+1) / ((DF[t]||0)+1)) + 1; }
+
+function tfVector(tokens){
+  const tf = {};
+  tokens.forEach(t => tf[t] = (tf[t]||0)+1);
+  const max = Math.max(1, ...Object.values(tf));
+  const v = {};
+  Object.keys(tf).forEach(t => v[t] = (tf[t]/max) * idf(t));
+  return v;
+}
+
+function cosine(qVec, qNorm, d){
+  let dot = 0;
+  const keys = Object.keys(qVec).length < Object.keys(d.vec).length ? Object.keys(qVec) : Object.keys(d.vec);
+  keys.forEach(t => { if(qVec[t]!=null &amp;&amp; d.vec[t]!=null) dot += qVec[t]*d.vec[t]; });
+  return dot / (qNorm * d.norm);
+}
+
+function rebuildIndex(rawDocs){
+  DOCS = rawDocs.map(d => {
+    const hay = [d.cite, d.title, d.text].join(&quot; &quot;);
+    return {...d, tokens: tokenize(hay)};
+  });
+  DF = {};
+  DOCS.forEach(d => new Set(d.tokens).forEach(t => DF[t] = (DF[t]||0)+1));
+  N = DOCS.length;
+  DOCS.forEach(d => { d.vec = tfVector(d.tokens); d.norm = Math.sqrt(Object.values(d.vec).reduce((s,x)=>s+x*x,0)) || 1; });
+  refreshJurChips();
+  refreshCorpusCount();
+}
+
+/* ---------------- UI: jurisdiction / type chips ---------------- */
+let curJur = &quot;All&quot;;
+function refreshJurChips(){
+  const JURS = [&quot;All&quot;, ...Array.from(new Set(DOCS.map(d=>d.jur)))];
+  if(!JURS.includes(curJur)) curJur = &quot;All&quot;;
+  $(&quot;#jur-chips&quot;).innerHTML = JURS.map(j=>`<div class=&quot;chip${j===curJur?&quot; on&quot;:&quot;&quot;}&quot; data-j=&quot;${esc(j)}&quot;>${esc(j)}</div>`).join(&quot;&quot;);
+}
+$(&quot;#jur-chips&quot;).addEventListener(&quot;click&quot;, e=>{
+  const c = e.target.closest(&quot;.chip&quot;); if(!c) return;
+  curJur = c.dataset.j;
+  try{window.parent.postMessage({type:&quot;casebound:signal&quot;, action:&quot;filter_change&quot;, jur:curJur, dtype:curType}, &quot;*&quot;);}catch(e){}
+  [...$(&quot;#jur-chips&quot;).children].forEach(el=>el.classList.toggle(&quot;on&quot;, el===c));
+});
+
+rebuildIndex(CORPUS); // initial build — now that curJur/refreshJurChips exist
+
+const TYPES = [{k:&quot;all&quot;,l:&quot;All&quot;},{k:&quot;provision&quot;,l:&quot;Provisions&quot;},{k:&quot;case&quot;,l:&quot;Case law&quot;}];
+let curType = &quot;all&quot;;
+$(&quot;#type-chips&quot;).innerHTML = TYPES.map(t=>`<div class=&quot;chip${t.k===curType?&quot; on&quot;:&quot;&quot;}&quot; data-t=&quot;${t.k}&quot;>${t.l}</div>`).join(&quot;&quot;);
+$(&quot;#type-chips&quot;).addEventListener(&quot;click&quot;, e=>{
+  const c = e.target.closest(&quot;.chip&quot;); if(!c) return;
+  curType = c.dataset.t;
+  try{window.parent.postMessage({type:&quot;casebound:signal&quot;, action:&quot;filter_change&quot;, jur:curJur, dtype:curType}, &quot;*&quot;);}catch(e){}
+  [...$(&quot;#type-chips&quot;).children].forEach(el=>el.classList.toggle(&quot;on&quot;, el===c));
+});
+
+/* ---------------- worked examples ---------------- */
+const SAMPLES = [
+  {
+    label: &quot;Undisclosed lost-profit claim after late delivery&quot;,
+    facts: &quot;A commercial buyer ordered manufacturing equipment. Delivery was six weeks late. The buyer now claims lost production profit for the delay, but never told the seller at the time of contracting what output volume the machinery was meant to sustain.&quot;,
+    claim: &quot;recover lost profit caused by the delay&quot;,
+    jur: &quot;All&quot;
+  },
+  {
+    label: &quot;Buyer wants to reject goods for a minor defect&quot;,
+    facts: &quot;A wholesale buyer received a shipment of components. A small fraction of the units in one crate had a cosmetic defect. The buyer wants to reject the entire shipment rather than just the defective units.&quot;,
+    claim: &quot;reject the whole delivery&quot;,
+    jur: &quot;All&quot;
+  },
+  {
+    label: &quot;Employer reassigns employee to lower-grade duties&quot;,
+    facts: &quot;An employer reorganised its department in 2022 and reassigned an employee to duties one grade below their previous role, citing a genuine restructuring of the unit.&quot;,
+    claim: &quot;defend the reassignment as lawful&quot;,
+    jur: &quot;Italy&quot;
+  },
+  {
+    label: &quot;Standard-form jurisdiction clause challenged by consumer&quot;,
+    facts: &quot;A consumer signed a standard-form contract with a business. The form contained a jurisdiction clause requiring disputes to be litigated in the seller's home country. The consumer never negotiated this clause individually.&quot;,
+    claim: &quot;challenge the jurisdiction clause as unfair&quot;,
+    jur: &quot;European Union&quot;
+  }
+];
+$(&quot;#samples-list&quot;).innerHTML = SAMPLES.map((s,i)=>`<button class=&quot;sample-btn&quot; data-i=&quot;${i}&quot;>${esc(s.label)}</button>`).join(&quot;&quot;);
+$(&quot;#samples-list&quot;).addEventListener(&quot;click&quot;, e=>{
+  const b = e.target.closest(&quot;.sample-btn&quot;); if(!b) return;
+  const s = SAMPLES[b.dataset.i];
+  $(&quot;#facts&quot;).value = s.facts;
+  $(&quot;#claim&quot;).value = s.claim;
+  curJur = s.jur;
+  [...$(&quot;#jur-chips&quot;).children].forEach(el=>el.classList.toggle(&quot;on&quot;, el.dataset.j===s.jur));
+  runSearch();
+});
+
+/* ---------------- search ---------------- */
+function runSearch(){
+  const facts = $(&quot;#facts&quot;).value.trim();
+  const claim = $(&quot;#claim&quot;).value.trim();
+  const query = [facts, claim].filter(Boolean).join(&quot;. &quot;);
+  if(query.length < 8){
+    $(&quot;#results&quot;).innerHTML = `<div class=&quot;empty&quot;><p><b>Add a bit more detail.</b></p><p>A sentence or two describing the facts is enough for the matcher to find something meaningful.</p></div>`;
+    return;
+  }
+  const qTokens = tokenize(query);
+  const qVec = tfVector(qTokens);
+  const qNorm = Math.sqrt(Object.values(qVec).reduce((s,x)=>s+x*x,0)) || 1;
+  const qLower = query.toLowerCase();
+
+  let pool = DOCS;
+  if(curJur !== &quot;All&quot;) pool = pool.filter(d=>d.jur===curJur);
+  if(curType !== &quot;all&quot;) pool = pool.filter(d=>d.type===curType);
+
+  const scored = pool.map(d => {
+    let sim = cosine(qVec, qNorm, d); // 0..~1
+    let citeBonus = 0;
+    if(d.cite &amp;&amp; qLower.includes(d.cite.toLowerCase().split(&quot;,&quot;)[0].split(&quot;(&quot;)[0].trim())) citeBonus = 0.25;
+    let total = Math.min(1, sim + citeBonus);
+    return {d, sim, citeBonus, total};
+  }).filter(x => x.total > 0.02)
+    .sort((a,b) => b.total - a.total)
+    .slice(0, 12);
+
+  if(!scored.length){
+    $(&quot;#results&quot;).innerHTML = `<div class=&quot;empty&quot;><p><b>No compatible document found${curJur!==&quot;All&quot;?` in ${esc(curJur)}`:&quot;&quot;}.</b></p><p>Try broadening the jurisdiction filter, or describe the facts using more concrete terms — parties, what went wrong, what's being claimed.</p></div>`;
+    return;
+  }
+
+  const rows = scored.map((x,i) => {
+    const d = x.d;
+    const score = Math.round(x.total * 100);
+    const typeLabel = d.type === &quot;provision&quot; ? &quot;Provision&quot; : d.type === &quot;treatise&quot; ? &quot;Reference work&quot; : &quot;Case law&quot;;
+    const meta = d.type === &quot;case&quot; ? `${esc(d.title)} · ${esc(d.date)}` : esc(d.title);
+    return `
+    <div class=&quot;card&quot;>
+      <div class=&quot;card-top&quot; data-idx=&quot;${i}&quot;>
+        <div class=&quot;score&quot;><div class=&quot;num&quot;>${score}</div><div class=&quot;lbl&quot;>match</div></div>
+        <div class=&quot;card-body&quot;>
+          <div class=&quot;badges&quot;>
+            <span class=&quot;badge jur&quot;>${esc(d.jur)}</span>
+            <span class=&quot;badge type-${d.type}&quot;>${typeLabel}</span>
+          </div>
+          <div class=&quot;cite&quot;>${esc(d.cite)}</div>
+          <div class=&quot;title&quot;>${meta}</div>
+        </div>
+      </div>
+      <div class=&quot;bar-row&quot;>
+        <div class=&quot;bar-wrap&quot;><div class=&quot;bar-fill&quot; style=&quot;width:${score}%&quot;></div></div>
+        <div class=&quot;breakdown&quot;>text sim ${Math.round(x.sim*100)}${x.citeBonus?` + citation match`:&quot;&quot;}</div>
+      </div>
+      <div class=&quot;full&quot; id=&quot;full-${i}&quot;>
+        <div class=&quot;meta&quot;>${esc(d.jur)} · ${typeLabel}${d.type===&quot;case&quot;?` · ${esc(d.title)} · ${esc(d.date)}`:&quot;&quot;}</div>
+        <div>${d.text ? esc(d.text) : &quot;<i>Citation only — no text on file for this entry.</i>&quot;}</div>
+      </div>
+    </div>`;
+  }).join(&quot;&quot;);
+
+  $(&quot;#results&quot;).innerHTML = `
+    <div class=&quot;r-head&quot;><h2>${scored.length} compatible document${scored.length===1?&quot;&quot;:&quot;s&quot;}${curJur!==&quot;All&quot;?` — ${esc(curJur)}`:&quot;&quot;}</h2></div>
+    ${rows}
+  `;
+
+  $(&quot;#results&quot;).querySelectorAll(&quot;.card-top&quot;).forEach(el=>{
+    el.addEventListener(&quot;click&quot;, ()=>{
+      const idx = el.dataset.idx;
+      const opened = $(&quot;#full-&quot;+idx).classList.toggle(&quot;on&quot;);
+      if(opened &amp;&amp; scored[idx]) try{window.parent.postMessage({type:&quot;casebound:signal&quot;, action:&quot;result_open&quot;, doc:scored[idx].d.id, rank:Number(idx)+1, jur:curJur, dtype:curType}, &quot;*&quot;);}catch(e){}
+    });
+  });
+}
+
+$(&quot;#run&quot;).addEventListener(&quot;click&quot;, runSearch);
+
+/* ---------------- corpus management: add / export / import ---------------- */
+function refreshCorpusCount(){
+  const added = DOCS.length - BASE_COUNT;
+  $(&quot;#corpus-count&quot;).innerHTML = `<b>${DOCS.length}</b> documents in the pool${added>0?` (${added} added this session)`:&quot;&quot;}`;
+}
+refreshCorpusCount();
+
+$(&quot;#toggle-add&quot;).addEventListener(&quot;click&quot;, ()=>{
+  $(&quot;#corpus-form&quot;).classList.toggle(&quot;on&quot;);
+});
+
+$(&quot;#add-doc&quot;).addEventListener(&quot;click&quot;, ()=>{
+  const jur = $(&quot;#new-jur&quot;).value.trim();
+  const type = $(&quot;#new-type&quot;).value;
+  const cite = $(&quot;#new-cite&quot;).value.trim();
+  const title = $(&quot;#new-title&quot;).value.trim();
+  const date = $(&quot;#new-date&quot;).value;
+  const text = $(&quot;#new-text&quot;).value.trim();
+  const status = $(&quot;#corpus-status&quot;);
+  if(!jur || !cite || text.length < 15){
+    status.className = &quot;corpus-status err&quot;;
+    status.textContent = &quot;Needs at least a jurisdiction, a citation, and a sentence or two of text.&quot;;
+    return;
+  }
+  const doc = { type, jur, cite, title: title || (type===&quot;case&quot; ? &quot;Court not specified&quot; : &quot;&quot;), text };
+  if(type === &quot;case&quot;) doc.date = date || &quot;&quot;;
+  const raw = [...DOCS.map(({tokens, vec, norm, ...rest})=>rest), doc];
+  rebuildIndex(raw);
+  status.className = &quot;corpus-status&quot;;
+  status.textContent = `Added &quot;${cite}&quot; — the pool now has ${DOCS.length} documents.`;
+  $(&quot;#new-jur&quot;).value=&quot;&quot;; $(&quot;#new-cite&quot;).value=&quot;&quot;; $(&quot;#new-title&quot;).value=&quot;&quot;; $(&quot;#new-date&quot;).value=&quot;&quot;; $(&quot;#new-text&quot;).value=&quot;&quot;;
+});
+
+$(&quot;#export-btn&quot;).addEventListener(&quot;click&quot;, ()=>{
+  const raw = DOCS.map(({tokens, vec, norm, ...rest})=>rest);
+  const blob = new Blob([JSON.stringify(raw, null, 2)], {type:&quot;application/json&quot;});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement(&quot;a&quot;);
+  a.href = url; a.download = &quot;casebound-corpus.json&quot;;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+});
+
+$(&quot;#import-toggle&quot;).addEventListener(&quot;click&quot;, ()=>{
+  $(&quot;#import-box&quot;).classList.toggle(&quot;on&quot;);
+});
+
+$(&quot;#import-btn&quot;).addEventListener(&quot;click&quot;, ()=>{
+  const raw = $(&quot;#import-text&quot;).value.trim();
+  const status = $(&quot;#corpus-status&quot;);
+  if(!raw){ return; }
+  let parsed;
+  try{
+    parsed = JSON.parse(raw);
+    if(!Array.isArray(parsed)) throw new Error(&quot;not an array&quot;);
+  }catch(e){
+    status.className = &quot;corpus-status err&quot;;
+    status.textContent = &quot;That isn't valid JSON — expecting an array of {type, jur, cite, title, text} objects.&quot;;
+    return;
+  }
+  const valid = parsed.filter(d => d &amp;&amp; d.jur &amp;&amp; d.cite &amp;&amp; d.text);
+  if(!valid.length){
+    status.className = &quot;corpus-status err&quot;;
+    status.textContent = &quot;No usable documents found — each needs at least jur, cite and text.&quot;;
+    return;
+  }
+  const existing = DOCS.map(({tokens, vec, norm, ...rest})=>rest);
+  rebuildIndex([...existing, ...valid]);
+  status.className = &quot;corpus-status&quot;;
+  status.textContent = `Imported ${valid.length} document${valid.length===1?&quot;&quot;:&quot;s&quot;} — the pool now has ${DOCS.length}.`;
+  $(&quot;#import-text&quot;).value = &quot;&quot;;
+  $(&quot;#import-box&quot;).classList.remove(&quot;on&quot;);
+});
+</script>
+<script>
+/* Hub bridge: lets the combined-workspace shell run this case from one shared input. */
+window.addEventListener(&quot;message&quot;, function(ev){
+  var d = ev.data;
+  if(!d || d.type !== &quot;casebound:runCase&quot;) return;
+  try{
+    document.getElementById(&quot;facts&quot;).value = d.facts || &quot;&quot;;
+    document.getElementById(&quot;claim&quot;).value = d.claim || &quot;&quot;;
+    document.getElementById(&quot;run&quot;).click();
+  }catch(err){}
+});
+</script>
+</body>
+</html>
+"></iframe>
+  </div>
+  </div>
+</div>
+
+<div id="frame-cases" class="cases-view">
+  <div class="cases-view-in">
+    <div class="cases-view-head">
+      <h2>Saved cases &amp; projects</h2>
+      <div class="cases-view-tools">
+        <input type="text" id="cases-search" placeholder="Search saved cases…">
+        <button class="cases-clear-btn" id="cases-clear-all">Clear all</button>
+      </div>
+    </div>
+    <div class="cases-grid" id="cases-grid"></div>
+  </div>
+</div>
+</div>
+
+<script>
+document.querySelectorAll(".tab").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    document.querySelectorAll(".tab").forEach(b=>{ b.classList.remove("on"); b.setAttribute("aria-selected","false"); });
+    btn.classList.add("on"); btn.setAttribute("aria-selected","true");
+    document.querySelectorAll(".frames > iframe, .frames > .analysis-wrap, .frames > .cases-view").forEach(f=>f.classList.remove("on"));
+    document.getElementById("frame-"+btn.dataset.tab).classList.add("on");
+  });
+});
+
+function switchToTab(name){
+  const btn = document.querySelector(`.tab[data-tab="${name}"]`);
+  if(btn) btn.click();
+}
+
+/* ---------------- insert files into the facts field ---------------- */
+let pdfjsReady = null, mammothReady = null;
+function loadScript(src){
+  return new Promise((resolve, reject)=>{
+    const s = document.createElement("script");
+    s.src = src; s.onload = resolve; s.onerror = ()=>reject(new Error("couldn't load the reader for this file type"));
+    document.head.appendChild(s);
+  });
+}
+function ensurePdfJs(){
+  if(!pdfjsReady) pdfjsReady = loadScript("https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js")
+    .then(()=>{ window.pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"; });
+  return pdfjsReady;
+}
+function ensureMammoth(){
+  if(!mammothReady) mammothReady = loadScript("https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js");
+  return mammothReady;
+}
+async function extractFileText(file){
+  const ext = file.name.split(".").pop().toLowerCase();
+  if(ext==="txt" || ext==="md" || ext==="markdown") return await file.text();
+  if(ext==="pdf"){
+    await ensurePdfJs();
+    const pdf = await window.pdfjsLib.getDocument({ data: await file.arrayBuffer() }).promise;
+    const pages = [];
+    for(let i=1;i<=pdf.numPages;i++){
+      const content = await (await pdf.getPage(i)).getTextContent();
+      pages.push(content.items.map(it=>it.str).join(" "));
+    }
+    return pages.join("\n\n");
+  }
+  if(ext==="docx"){
+    await ensureMammoth();
+    const result = await window.mammoth.extractRawText({ arrayBuffer: await file.arrayBuffer() });
+    return result.value;
+  }
+  throw new Error(`.${ext} isn't supported — use .txt, .md, .pdf or .docx`);
+}
+async function handleHubFiles(fileList){
+  const files = Array.from(fileList || []);
+  if(!files.length) return;
+  const btn = document.getElementById("hub-file-btn");
+  const status = document.getElementById("hub-file-status");
+  const facts = document.getElementById("hub-facts");
+  btn.disabled = true;
+  status.className = "hub-file-status";
+  status.textContent = files.length===1 ? `Reading ${files[0].name}…` : `Reading ${files.length} files…`;
+  const added = [], failed = [];
+  for(const file of files){
+    try{
+      const text = (await extractFileText(file)).trim();
+      if(text){
+        facts.value += `${facts.value.trim() ? "\n\n" : ""}— From ${file.name} —\n${text}`;
+        added.push(file.name);
+      } else failed.push(`${file.name} (no readable text)`);
+    }catch(e){ failed.push(`${file.name} (${e.message})`); }
+  }
+  btn.disabled = false;
+  if(added.length && !failed.length){
+    status.className = "hub-file-status ok";
+    status.textContent = `Added ${added.join(", ")} to the facts.`;
+  } else if(added.length){
+    status.className = "hub-file-status err";
+    status.textContent = `Added ${added.join(", ")}. Couldn't read ${failed.join(", ")}.`;
+  } else {
+    status.className = "hub-file-status err";
+    status.textContent = `Couldn't read ${failed.join(", ")} — try pasting the text directly.`;
+  }
+}
+document.getElementById("hub-file-btn").addEventListener("click", ()=> document.getElementById("hub-file-input").click());
+document.getElementById("hub-file-input").addEventListener("change", (e)=>{ handleHubFiles(e.target.files); e.target.value = ""; });
+const hubFactsEl = document.getElementById("hub-facts");
+["dragover","dragenter"].forEach(evt=> hubFactsEl.addEventListener(evt, e=>{ e.preventDefault(); hubFactsEl.classList.add("drag-over"); }));
+["dragleave","dragend"].forEach(evt=> hubFactsEl.addEventListener(evt, ()=> hubFactsEl.classList.remove("drag-over")));
+hubFactsEl.addEventListener("drop", e=>{
+  e.preventDefault(); hubFactsEl.classList.remove("drag-over");
+  handleHubFiles(e.dataTransfer.files);
+});
+
+function hubFacts(){
+  return {
+    facts: document.getElementById("hub-facts").value.trim(),
+    claim: document.getElementById("hub-claim").value.trim()
+  };
+}
+
+/* ---------------- saved cases (persisted in this browser via localStorage) ---------------- */
+const CASES_KEY = "casebound_cases_v1";
+
+function loadCases(){
+  try{ return JSON.parse(localStorage.getItem(CASES_KEY) || "[]"); }catch(e){ return []; }
+}
+function persistCases(list){
+  try{ localStorage.setItem(CASES_KEY, JSON.stringify(list.slice(0, 60))); }catch(e){}
+}
+function escHtml(s){
+  return (s||"").replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+}
+function caseLabel(facts, claim){
+  const base = (claim || facts).replace(/\s+/g," ").trim();
+  return base.length > 60 ? base.slice(0,60)+"…" : base;
+}
+function fmtSavedAt(iso){
+  const d = new Date(iso);
+  return d.toLocaleDateString(undefined,{month:"short",day:"numeric"}) + " · " +
+    d.toLocaleTimeString(undefined,{hour:"numeric",minute:"2-digit"});
+}
+function saveCase(facts, claim){
+  let list = loadCases();
+  const existingIdx = list.findIndex(c => c.facts === facts && c.claim === claim);
+  if(existingIdx !== -1){
+    const [existing] = list.splice(existingIdx, 1);
+    existing.savedAt = new Date().toISOString();
+    list.unshift(existing);
+  } else {
+    list.unshift({
+      id: Date.now()+"-"+Math.random().toString(36).slice(2,7),
+      label: caseLabel(facts, claim),
+      facts, claim,
+      savedAt: new Date().toISOString()
+    });
+  }
+  persistCases(list);
+  renderCases();
+}
+function deleteCase(id){
+  persistCases(loadCases().filter(c=>c.id!==id));
+  renderCases();
+}
+function renderCases(){
+  const q = (document.getElementById("cases-search").value || "").trim().toLowerCase();
+  let list = loadCases();
+  if(q){
+    list = list.filter(c =>
+      c.label.toLowerCase().includes(q) ||
+      c.facts.toLowerCase().includes(q) ||
+      (c.claim||"").toLowerCase().includes(q));
+  }
+  const grid = document.getElementById("cases-grid");
+  if(!list.length){
+    grid.innerHTML = `<div class="cases-empty-full">${
+      loadCases().length ? "No saved cases match that search." :
+      "No cases saved yet — analyze one and it lands here, ready to reopen."
+    }</div>`;
+    return;
+  }
+  grid.innerHTML = list.map(c => `
+    <div class="case-card">
+      <div class="case-card-label">${escHtml(c.label)}</div>
+      <div class="case-card-date">${fmtSavedAt(c.savedAt)}</div>
+      ${c.claim ? `<div class="case-card-claim">${escHtml(c.claim)}</div>` : ""}
+      <div class="case-card-facts">${escHtml(c.facts)}</div>
+      <div class="case-card-actions">
+        <button class="case-card-open" data-act="load" data-id="${c.id}">Reopen</button>
+        <button class="case-card-del" data-act="del" data-id="${c.id}" title="Remove">&times;</button>
+      </div>
+    </div>`).join("");
+}
+document.getElementById("cases-grid").addEventListener("click", e=>{
+  const del = e.target.closest('[data-act="del"]');
+  if(del){ deleteCase(del.dataset.id); return; }
+  const load = e.target.closest('[data-act="load"]');
+  if(load){
+    const c = loadCases().find(x=>x.id===load.dataset.id);
+    if(!c) return;
+    document.getElementById("hub-facts").value = c.facts;
+    document.getElementById("hub-claim").value = c.claim || "";
+    runAnalysis();
+  }
+});
+document.getElementById("cases-search").addEventListener("input", renderCases);
+document.getElementById("cases-clear-all").addEventListener("click", ()=>{
+  persistCases([]);
+  renderCases();
+});
+renderCases();
+
+/* ---------------- run the shared prompt through Analysis + Intake ---------------- */
+function runAnalysis(){
+  const { facts, claim } = hubFacts();
+  const status = document.getElementById("hub-status");
+  if(facts.length < 15){
+    status.className = "hub-status on";
+    status.style.color = "var(--oxblood)";
+    status.textContent = "Add a bit more detail on the facts — a sentence or two is enough.";
+    return;
+  }
+  const runPayload = { type: "casebound:runCase", facts, claim };
+  ["frame-atlas","frame-finder"].forEach(id=>{
+    const f = document.getElementById(id);
+    if(f && f.contentWindow) f.contentWindow.postMessage(runPayload, "*");
+  });
+  const intakePayload = { type: "casebound:draftIntake", body: facts, cite: claim };
+  const intakeFrame = document.getElementById("frame-intake");
+  if(intakeFrame && intakeFrame.contentWindow) intakeFrame.contentWindow.postMessage(intakePayload, "*");
+
+  saveCase(facts, claim);
+  sendSignal({ action: "analysis_run" });
+
+  status.className = "hub-status on";
+  status.style.color = "var(--verdigris)";
+  status.textContent = "Mapped and matched — see Analysis for the mindmap and ranked sources.";
+  switchToTab("analysis");
+}
+document.getElementById("hub-run").addEventListener("click", runAnalysis);
+</script>
+<script>
+/* ============================================================
+   IMPROVEMENT SIGNALS — opt-in only (see /privacy.html#improve)
+   Nothing is sent unless (1) the visitor ticked the box and
+   (2) SIGNALS_URL / SIGNALS_KEY below are filled in.
+   A signal carries ONLY: action, corpus doc id, rank, filters,
+   day, consent version. Never facts, claims, files or any ID.
+   ============================================================ */
+const SIGNALS_URL = "";   // e.g. "https://YOUR-PROJECT.supabase.co/rest/v1/signals"
+const SIGNALS_KEY = "";   // Supabase *anon* public key (insert-only via RLS — never the service key)
+const CONSENT_KEY = "casebound:consent:improve";
+const CONSENT_VERSION = 1; // bump if the signal contents change → everyone is asked again
+
+function readConsent(){
+  try{
+    const v = JSON.parse(localStorage.getItem(CONSENT_KEY) || "null");
+    return !!(v && v.granted && v.version === CONSENT_VERSION);
+  }catch(e){ return false; }
+}
+function writeConsent(granted){
+  try{ localStorage.setItem(CONSENT_KEY, JSON.stringify({ granted, version: CONSENT_VERSION, day: new Date().toISOString().slice(0,10) })); }catch(e){}
+}
+const consentBox = document.getElementById("improve-consent");
+consentBox.checked = readConsent();
+consentBox.addEventListener("change", ()=> writeConsent(consentBox.checked));
+
+const ALLOWED_ACTIONS = new Set(["analysis_run","result_open","filter_change"]);
+function sendSignal(sig){
+  if(!readConsent() || !SIGNALS_URL || !SIGNALS_KEY) return;
+  if(!sig || !ALLOWED_ACTIONS.has(sig.action)) return;
+  const clip = (v, n) => (typeof v === "string" ? v.slice(0, n) : null);
+  const row = {                                   // whitelist: nothing else can slip through
+    action: sig.action,
+    doc_id: clip(sig.doc, 20),
+    rank: Number.isInteger(sig.rank) ? sig.rank : null,
+    jur: clip(sig.jur, 40),
+    dtype: clip(sig.dtype, 20),
+    day: new Date().toISOString().slice(0,10),
+    consent_v: CONSENT_VERSION
+  };
+  try{
+    fetch(SIGNALS_URL, {
+      method: "POST", keepalive: true, credentials: "omit", referrerPolicy: "no-referrer",
+      headers: { "Content-Type": "application/json", "apikey": SIGNALS_KEY,
+                 "Authorization": "Bearer " + SIGNALS_KEY, "Prefer": "return=minimal" },
+      body: JSON.stringify(row)
+    }).catch(()=>{});
+  }catch(e){}
+}
+window.addEventListener("message", ev=>{
+  const finder = document.getElementById("frame-finder");
+  if(!finder || ev.source !== finder.contentWindow) return;
+  const d = ev.data;
+  if(d && d.type === "casebound:signal") sendSignal(d);
+});
+</script>
+</body>
+</html>
