@@ -130,6 +130,10 @@ footer div{max-width:820px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
 <script src="/plan-limits.js"></script>
 <script>
 (function(){
+  // Stripe Payment Link for Casebound Pro. Used whenever the live plan list
+  // (/api/plans, which needs STRIPE_SECRET_KEY in Netlify) is not switched on.
+  var PAY_LINK = "https://buy.stripe.com/bJe28tgMmcoF85E5oE63K00";
+  var LINK_PLAN = { name:"Casebound Pro", amount:999, currency:"eur", interval:"month", intervalCount:1 };
   var FREE = window.CASEBOUND_FREE || { analysesPerDay: 3, savedCases: 3, fileUpload: false };
   var T = {
     en: {
@@ -214,7 +218,15 @@ footer div{max-width:820px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       '<p class="price"><b>' + esc(money(0, cur)) + '</b></p>' +
       '<ul>' + t.freeFeats(FREE).map(function(f){ return '<li>' + esc(f) + '</li>'; }).join("") + '</ul>' +
       '<div class="grow"></div><a class="btn ghost" href="/">' + esc(t.startFree) + '</a></article>';
-    if (!data || !data.enabled || !data.plans.length) { box.innerHTML = freeCard; return; }
+    if (!data || !data.enabled || !data.plans.length) {
+      var lp = LINK_PLAN;
+      box.innerHTML = freeCard + (PAY_LINK ? '<article class="plan hl"><span class="tag">' + esc(t.recommended) + '</span>' +
+        '<h2>' + esc(lp.name) + '</h2>' +
+        '<p class="price"><b>' + esc(money(lp.amount, lp.currency)) + '</b> <span>' + esc(period(lp)) + '</span></p>' +
+        '<ul>' + t.proFeats.map(function(f){ return '<li>' + esc(f) + '</li>'; }).join("") + '</ul>' +
+        '<div class="grow"></div><button type="button" class="btn" data-paylink="1">' + esc(t.subscribe) + '</button></article>' : '');
+      return;
+    }
     box.innerHTML = freeCard + data.plans.map(function(p){
       var name = (lang === "it" && p.name_it) || p.name;
       var desc = (lang === "it" && p.description_it) || p.description;
@@ -234,6 +246,27 @@ footer div{max-width:820px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
   }
 
   function setLang(l){ lang = l; render(); history.replaceState(null, "", location.pathname + location.search + (l === "it" ? "#it" : "")); }
+
+  // Payment Link checkout: the buyer must be signed in so the payment is tied to their account
+  // (client_reference_id = account id, email pre-filled).
+  $("plans").addEventListener("click", function(e){
+    var b = e.target.closest("button[data-paylink]");
+    if (!b) return;
+    showErr("");
+    b.disabled = true; var label = b.textContent; b.textContent = T[lang].redirecting;
+    fetch("/api/auth/me", { credentials:"same-origin" })
+      .then(function(r){ return r.json(); })
+      .then(function(j){
+        if (!j || !j.user) { location.href = "/login.html?mode=register&next=" + encodeURIComponent("/pricing.html") + (lang === "it" ? "&lang=it" : ""); return; }
+        if (j.tier === "pro") { location.href = "/account.html" + (lang === "it" ? "?lang=it" : ""); return; }
+        var u = new URL(PAY_LINK);
+        u.searchParams.set("client_reference_id", j.user.id);
+        if (j.user.email) u.searchParams.set("prefilled_email", j.user.email);
+        u.searchParams.set("locale", lang);
+        location.href = u.toString();
+      })
+      .catch(function(){ showErr(T[lang].ckErr); b.disabled = false; b.textContent = label; });
+  });
 
   $("plans").addEventListener("click", function(e){
     var b = e.target.closest("button[data-price]");
@@ -269,7 +302,7 @@ footer div{max-width:820px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
     .then(function(j){
       data = j;
       $("loading").hidden = true;
-      if (!j.enabled) { $("closed").hidden = false; return; }
+      if (!j.enabled) { if (!PAY_LINK) $("closed").hidden = false; return; }
       if (j.testMode) $("banner-test").hidden = false;
       if (!j.plans.length) { $("empty").hidden = false; return; }
       render();
