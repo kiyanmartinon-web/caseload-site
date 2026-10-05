@@ -3,10 +3,16 @@
 // /api/auth/logout    POST
 // /api/auth/me        GET   → {user, subscription} or {user:null}
 // /api/auth/delete    POST {password}
+// /api/auth/update    POST {name, lang}                  profile details
+// /api/auth/email     POST {password, email}             change sign-in email
+// /api/auth/password  POST {password, newPassword}       change password (signs out other devices)
+// /api/auth/logout-all POST {}                           sign out on every device
+// /api/auth/export    GET   → JSON download of everything stored about the account
 import {
   normEmail, validEmail, passwordProblem, findUserByEmail, createUser, verifyPassword,
   isLocked, recordFailure, recordSuccess, createSession, sessionCookie, currentUser,
-  endSession, sameOrigin, publicUser, deleteUser,
+  endSession, sameOrigin, publicUser, deleteUser, saveUser, changeEmail, changePassword,
+  revokeSessions,
 } from "../lib/auth.mjs";
 import { json, isConfigured, stripe } from "../lib/stripe.mjs";
 
@@ -61,6 +67,28 @@ export default async (req, context) => {
     return ok({ user: publicUser(user), subscription, tier });
   }
 
+  if (action === "export") {
+    if (req.method !== "GET") return bad("Method not allowed", 405);
+    const user = await currentUser(req);
+    if (!user) return bad("Please sign in again.", 401);
+    const subscription = await subscriptionFor(user);
+    const data = {
+      exportedAt: new Date().toISOString(),
+      service: "Casebound (case-bound.com)",
+      controller: "Kiyan Martinon — admin@case-bound.com",
+      account: {
+        id: user.id, email: user.email, name: user.name, language: user.lang,
+        createdAt: user.createdAt, lastLoginAt: user.lastLoginAt || null,
+        passwordChangedAt: user.passwordChangedAt || null,
+        termsAcceptedAt: user.termsAcceptedAt, termsVersion: user.termsVersion,
+        stripeCustomerLinked: !!user.stripeCustomer,
+      },
+      subscription,
+      note: "Your password is stored only as a one-way hash and is not included. Case facts and saved cases are kept in your browser, not on our servers; the account page adds the ones in this browser to the download.",
+    };
+    return ok(data);
+  }
+
   if (req.method !== "POST") return bad("Method not allowed", 405);
   if (!sameOrigin(req)) return bad("Request blocked.", 403);
 
@@ -96,6 +124,53 @@ export default async (req, context) => {
     await recordSuccess(user);
     const s = await createSession(user.id);
     return ok({ user: publicUser(user) }, sessionCookie(req, s.token, s.exp));
+  }
+
+  if (["update", "email", "password", "logout-all"].includes(action)) {
+    const user = await currentUser(req);
+    if (!user) return bad("Please sign in again.", 401);
+
+    if (action === "update") {
+      if (typeof b.name === "string") user.name = b.name.trim().slice(0, 100);
+      if (b.lang === "it" || b.lang === "en") user.lang = b.lang;
+      await saveUser(user);
+      return ok({ user: publicUser(user) });
+    }
+
+    if (action === "logout-all") {
+      await revokeSessions(user);
+      return ok({ ok: true }, sessionCookie(req, ""));
+    }
+
+    // Email and password changes need the current password.
+    if (isLocked(user)) return bad("Too many attempts. Try again in 15 minutes.", 429);
+    if (!(await verifyPassword(String(b.password || ""), user.passwordHash))) {
+      await recordFailure(user);
+      return bad("Wrong password.", 401);
+    }
+
+    if (action === "email") {
+      const email = normEmail(b.email);
+      if (!validEmail(email)) return bad("Enter a valid email address.");
+      if (email === user.email) return bad("That is already your email address.");
+      if (await findUserByEmail(email)) return bad("An account with this email already exists.", 409);
+      await changeEmail(user, email);
+      // Keep Stripe receipts going to the new address (best effort; needs Customers write).
+      if (user.stripeCustomer && isConfigured()) {
+        try { await stripe("POST", `customers/${user.stripeCustomer}`, { email }); }
+        catch (e) { console.error("[auth] stripe email update failed", e && e.message); }
+      }
+      return ok({ user: publicUser(user) });
+    }
+
+    if (action === "password") {
+      const pw = passwordProblem(b.newPassword);
+      if (pw) return bad(pw);
+      if (b.newPassword === b.password) return bad("Choose a password different from the current one.");
+      await changePassword(user, b.newPassword);
+      const s = await createSession(user.id);   // stay signed in here; every other device is signed out
+      return ok({ user: publicUser(user) }, sessionCookie(req, s.token, s.exp));
+    }
   }
 
   if (action === "delete") {

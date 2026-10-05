@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/theme.js"></script>
 <title>Your account — Casebound</title>
 <meta name="description" content="Your Casebound account and subscription.">
 <meta name="robots" content="noindex">
@@ -77,7 +78,26 @@ summary{cursor:pointer;color:var(--ink-soft)}
 details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(--rule);border-radius:5px;width:100%;max-width:320px;margin:10px 0}
 .banner{font-family:var(--sans);font-size:13.5px;border-radius:6px;padding:11px 14px;margin:0 0 18px;background:var(--oxblood-wash);color:var(--oxblood);border:1px solid #E2C9CC}
 [hidden]{display:none!important}
-@media(max-width:600px){h1{font-size:28px}body{font-size:16px}dl{grid-template-columns:1fr}dt{padding-top:6px}}
+.card-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 0 10px}
+.card-head h2{margin:0}
+.linkbtn{background:none;border:none;padding:0;font-family:var(--sans);font-size:13.5px;font-weight:700;color:var(--verdigris);cursor:pointer}
+.linkbtn:hover{color:var(--oxblood)}
+.form{display:grid;gap:12px;margin-top:6px;max-width:420px}
+.form label{display:block;font-family:var(--sans);font-size:12.5px;font-weight:700;color:var(--ink-soft)}
+.form input,.form select{display:block;width:100%;font:inherit;font-family:var(--sans);font-size:16px;padding:9px 11px;margin-top:5px;border:1px solid var(--rule);border-radius:5px;background:var(--paper);color:var(--ink)}
+.form .actions{margin-top:2px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:14px 0;border-top:1px solid var(--rule-soft)}
+.row:first-of-type{border-top:none;padding-top:4px}
+.row-t{font-family:var(--sans);font-size:14.5px;font-weight:700;margin:0}
+.row-d{font-family:var(--sans);font-size:13px;color:var(--ink-soft);margin:2px 0 0}
+.row .btn{padding:9px 14px;font-size:13.5px}
+.row-body{flex:1 1 260px;min-width:0}
+.sub-form{flex:1 1 100%}
+.okmsg{font-family:var(--sans);font-size:13.5px;border-radius:6px;padding:11px 14px;margin:0 0 18px;background:var(--verdigris-wash);color:var(--verdigris)}
+.seg{display:inline-grid;grid-template-columns:repeat(3,auto);gap:2px;background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:2px}
+.seg button{font-family:var(--sans);font-size:13px;font-weight:600;border:none;background:none;color:var(--ink-soft);padding:8px 16px;border-radius:4px;cursor:pointer}
+.seg button[aria-checked="true"]{background:var(--paper-2);color:var(--ink);box-shadow:0 0 0 1px var(--rule)}
+@media(max-width:600px){.row .btn{width:100%;text-align:center}.seg{display:grid;width:100%}h1{font-size:28px}body{font-size:16px}dl{grid-template-columns:1fr}dt{padding-top:6px}}
 </style>
 </head>
 <body>
@@ -98,6 +118,7 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
   <p class="updated" id="hello"></p>
 
   <div id="err" class="banner" role="alert" hidden></div>
+  <div id="okmsg" class="okmsg" role="status" hidden></div>
   <p id="loading" class="note" data-t="loading">Loading…</p>
 
   <!-- Straight after checkout -->
@@ -124,12 +145,58 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
 
   <!-- Signed in -->
   <section id="profile" class="card" hidden>
-    <h2 data-t="profileH">Profile</h2>
-    <dl>
+    <div class="card-head"><h2 data-t="profileH">Profile</h2><button type="button" class="linkbtn" id="edit-profile" data-t="edit">Edit</button></div>
+    <dl id="profile-view">
       <dt data-t="nameL">Name</dt><dd id="p-name"></dd>
       <dt data-t="emailL">Email</dt><dd id="p-email"></dd>
+      <dt data-t="langL">Email language</dt><dd id="p-lang"></dd>
       <dt data-t="sinceL">Member since</dt><dd id="p-since"></dd>
+      <dt data-t="lastL">Last sign-in</dt><dd id="p-last"></dd>
     </dl>
+    <form class="form" id="profile-form" hidden>
+      <label><span data-t="nameL">Name</span><input type="text" id="f-name" maxlength="100" autocomplete="name"></label>
+      <label><span data-t="langL">Email language</span>
+        <select id="f-lang"><option value="en">English</option><option value="it">Italiano</option></select></label>
+      <div class="actions"><button type="submit" class="btn" data-t="save">Save changes</button><button type="button" class="btn ghost" id="cancel-profile" data-t="cancel">Cancel</button></div>
+    </form>
+  </section>
+
+  <section id="security" class="card" hidden>
+    <h2 data-t="secH">Sign-in &amp; security</h2>
+    <div class="row">
+      <div class="row-body"><p class="row-t" data-t="emailT">Email address</p><p class="row-d" id="sec-email"></p></div>
+      <button type="button" class="btn ghost" data-open="email-form" data-t="change">Change</button>
+      <form class="form sub-form" id="email-form" hidden>
+        <label><span data-t="newEmail">New email</span><input type="email" id="f-email" autocomplete="email" required></label>
+        <label><span data-t="curPw">Current password</span><input type="password" id="f-email-pw" autocomplete="current-password" required></label>
+        <div class="actions"><button type="submit" class="btn" data-t="updEmail">Update email</button><button type="button" class="btn ghost" data-close="email-form" data-t="cancel">Cancel</button></div>
+      </form>
+    </div>
+    <div class="row">
+      <div class="row-body"><p class="row-t" data-t="pwT">Password</p><p class="row-d" id="sec-pw"></p></div>
+      <button type="button" class="btn ghost" data-open="pw-form" data-t="change">Change</button>
+      <form class="form sub-form" id="pw-form" hidden>
+        <label><span data-t="curPw">Current password</span><input type="password" id="f-pw-cur" autocomplete="current-password" required></label>
+        <label><span data-t="newPw">New password (at least 10 characters)</span><input type="password" id="f-pw-new" autocomplete="new-password" minlength="10" required></label>
+        <label><span data-t="newPw2">Repeat new password</span><input type="password" id="f-pw-new2" autocomplete="new-password" minlength="10" required></label>
+        <p class="note" style="margin:0" data-t="pwNote">Changing your password signs you out on every other device.</p>
+        <div class="actions"><button type="submit" class="btn" data-t="updPw">Update password</button><button type="button" class="btn ghost" data-close="pw-form" data-t="cancel">Cancel</button></div>
+      </form>
+    </div>
+    <div class="row">
+      <div class="row-body"><p class="row-t" data-t="devT">Signed-in devices</p><p class="row-d" data-t="devD">Lost a phone or used a shared computer? Sign out everywhere, including here.</p></div>
+      <button type="button" class="btn ghost" id="logout-all" data-t="devBtn">Sign out everywhere</button>
+    </div>
+  </section>
+
+  <section id="prefs" class="card" hidden>
+    <h2 data-t="prefH">Appearance</h2>
+    <p class="note" data-t="prefP">Choose how Casebound looks on this device. Also available any time from Settings in the top bar.</p>
+    <div class="seg" role="radiogroup" aria-label="Appearance">
+      <button type="button" role="radio" data-theme-pick="light" data-t="light">Light</button>
+      <button type="button" role="radio" data-theme-pick="dark" data-t="dark">Dark</button>
+      <button type="button" role="radio" data-theme-pick="system" data-t="system">Auto</button>
+    </div>
   </section>
 
   <section id="sub" class="card" hidden>
@@ -143,18 +210,28 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
     <p class="note" id="portal-note" style="margin-top:12px" hidden data-t="portalNote">Change your card, switch plan, download invoices or cancel in Stripe's secure billing portal.</p>
   </section>
 
+  <section id="data" class="card" hidden>
+    <h2 data-t="dataH">Your data</h2>
+    <div class="row">
+      <div class="row-body"><p class="row-t" data-t="expT">Download your data</p><p class="row-d" data-t="expD">A copy of your account details, subscription status and the cases saved in this browser, as a JSON file.</p></div>
+      <button type="button" class="btn ghost" id="export" data-t="expBtn">Download</button>
+    </div>
+    <div class="row">
+      <div class="row-body"><p class="row-t" data-t="delSummary">Delete my account</p><p class="row-d" data-t="delP">This permanently deletes your account. Billing records Stripe must keep by law are not affected. Cancel any subscription first.</p></div>
+      <button type="button" class="btn danger" data-open="del-form" data-t="delOpen">Delete account</button>
+      <form class="form sub-form" id="del-form" hidden>
+        <label><span data-t="curPw">Current password</span><input type="password" id="del-pw" autocomplete="current-password"></label>
+        <div class="actions"><button type="submit" class="btn danger" id="del" data-t="delBtn">Delete account permanently</button><button type="button" class="btn ghost" data-close="del-form" data-t="cancel">Cancel</button></div>
+      </form>
+    </div>
+  </section>
+
   <section id="session" class="card" hidden>
     <h2 data-t="sessionH">Session</h2>
     <div class="actions" style="margin-top:0">
       <a class="btn ghost" href="/" data-t="open">Open Casebound</a>
       <button type="button" class="btn ghost" id="logout" data-t="logout">Sign out</button>
     </div>
-    <details>
-      <summary data-t="delSummary">Delete my account</summary>
-      <p style="margin:10px 0 0" data-t="delP">This permanently deletes your account. Billing records Stripe must keep by law are not affected. Cancel any subscription first.</p>
-      <input type="password" id="del-pw" autocomplete="current-password" aria-label="Password">
-      <div><button type="button" class="btn danger" id="del" data-t="delBtn">Delete account permanently</button></div>
-    </details>
   </section>
 </main>
 
@@ -197,6 +274,20 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
         return s.trim();
       },
       verifyErr:"We couldn't confirm this checkout. If you were charged, you'll receive a Stripe receipt by email — or write to admin@case-bound.com.",
+      edit:"Edit", save:"Save changes", cancel:"Cancel", change:"Change", langL:"Email language", lastL:"Last sign-in",
+      langName:{en:"English",it:"Italiano"},
+      secH:"Sign-in & security", emailT:"Email address", newEmail:"New email", curPw:"Current password", updEmail:"Update email",
+      pwT:"Password", newPw:"New password (at least 10 characters)", newPw2:"Repeat new password", updPw:"Update password",
+      pwNote:"Changing your password signs you out on every other device.",
+      pwSet:function(d){ return d ? "Last changed " + d + "." : "Set when you created your account."; },
+      devT:"Signed-in devices", devD:"Lost a phone or used a shared computer? Sign out everywhere, including here.", devBtn:"Sign out everywhere",
+      devConfirm:"Sign out on every device, including this one?",
+      prefH:"Appearance", prefP:"Choose how Casebound looks on this device. Also available any time from Settings in the top bar.",
+      light:"Light", dark:"Dark", system:"Auto",
+      dataH:"Your data", expT:"Download your data", expD:"A copy of your account details, subscription status and the cases saved in this browser, as a JSON file.", expBtn:"Download",
+      delOpen:"Delete account", delConfirm:"Delete your Casebound account permanently? This cannot be undone.",
+      savedProfile:"Profile saved.", savedEmail:"Email updated. Use the new address next time you sign in.", savedPw:"Password updated. Other devices have been signed out.",
+      pwMismatch:"The two new passwords don't match.", exported:"Your data has been downloaded.",
       portalErr:"The billing portal could not be opened."
     },
     it: {
@@ -224,13 +315,35 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
         return s.trim();
       },
       verifyErr:"Non siamo riusciti a confermare il pagamento. Se ti è stato addebitato, riceverai una ricevuta di Stripe via email — oppure scrivi a admin@case-bound.com.",
+      edit:"Modifica", save:"Salva modifiche", cancel:"Annulla", change:"Cambia", langL:"Lingua delle email", lastL:"Ultimo accesso",
+      langName:{en:"English",it:"Italiano"},
+      secH:"Accesso e sicurezza", emailT:"Indirizzo email", newEmail:"Nuova email", curPw:"Password attuale", updEmail:"Aggiorna email",
+      pwT:"Password", newPw:"Nuova password (almeno 10 caratteri)", newPw2:"Ripeti la nuova password", updPw:"Aggiorna password",
+      pwNote:"Cambiando la password esci da tutti gli altri dispositivi.",
+      pwSet:function(d){ return d ? "Ultima modifica il " + d + "." : "Impostata alla creazione dell'account."; },
+      devT:"Dispositivi connessi", devD:"Hai perso il telefono o usato un computer condiviso? Esci ovunque, anche qui.", devBtn:"Esci da tutti i dispositivi",
+      devConfirm:"Uscire da tutti i dispositivi, compreso questo?",
+      prefH:"Aspetto", prefP:"Scegli l'aspetto di Casebound su questo dispositivo. Disponibile anche da Impostazioni nella barra in alto.",
+      light:"Chiaro", dark:"Scuro", system:"Auto",
+      dataH:"I tuoi dati", expT:"Scarica i tuoi dati", expD:"Una copia dei dati dell'account, dello stato dell'abbonamento e dei casi salvati in questo browser, in formato JSON.", expBtn:"Scarica",
+      delOpen:"Elimina account", delConfirm:"Eliminare definitivamente il tuo account Casebound? L'operazione non è reversibile.",
+      savedProfile:"Profilo salvato.", savedEmail:"Email aggiornata. Usa il nuovo indirizzo al prossimo accesso.", savedPw:"Password aggiornata. Gli altri dispositivi sono stati disconnessi.",
+      pwMismatch:"Le due nuove password non coincidono.", exported:"I tuoi dati sono stati scaricati.",
       portalErr:"Impossibile aprire il portale di fatturazione."
     }
   };
   var IT_ERR = {
     "Wrong password.":"Password errata.",
     "Cancel your subscription first (Manage subscription), then delete the account.":"Disdici prima l'abbonamento (Gestisci abbonamento), poi elimina l'account.",
-    "No subscription found on this account.":"Nessun abbonamento trovato per questo account."
+    "No subscription found on this account.":"Nessun abbonamento trovato per questo account.",
+    "Please sign in again.":"Accedi di nuovo.",
+    "Enter a valid email address.":"Inserisci un indirizzo email valido.",
+    "That is already your email address.":"È già il tuo indirizzo email.",
+    "An account with this email already exists.":"Esiste già un account con questa email.",
+    "Password must be at least 10 characters.":"La password deve avere almeno 10 caratteri.",
+    "Password is too long.":"La password è troppo lunga.",
+    "Choose a password different from the current one.":"Scegli una password diversa da quella attuale.",
+    "Too many attempts. Try again in 15 minutes.":"Troppi tentativi. Riprova tra 15 minuti."
   };
   var ZERO_DEC = ["bif","clp","djf","gnf","jpy","kmf","krw","mga","pyg","rwf","ugx","vnd","vuv","xaf","xof","xpf"];
   var $ = function(id){ return document.getElementById(id); };
@@ -255,7 +368,7 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
     document.title = t.docTitle;
     document.querySelectorAll("[data-t]").forEach(function(el){ var v = t[el.getAttribute("data-t")]; if (typeof v === "string") el.textContent = v; });
     btns.forEach(function(b){ b.setAttribute("aria-pressed", b.getAttribute("data-lang") === lang ? "true" : "false"); });
-    $("del-pw").placeholder = t.delPw;
+    document.querySelectorAll("[data-theme-pick]").forEach(function(b){ b.setAttribute("aria-checked", window.CBTheme && CBTheme.get() === b.getAttribute("data-theme-pick") ? "true" : "false"); });
     if (checkout) $("summary").textContent = t.summary(checkout.plan, checkout.email, checkout.trialEnd ? day(checkout.trialEnd * 1000) : "");
     if (!me) return;
     var u = me.user;
@@ -263,6 +376,10 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
     $("p-name").textContent = u.name || "—";
     $("p-email").textContent = u.email;
     $("p-since").textContent = day(u.createdAt);
+    $("p-lang").textContent = t.langName[u.lang] || u.lang || "—";
+    $("p-last").textContent = u.lastLoginAt ? day(u.lastLoginAt) : "—";
+    $("sec-email").textContent = u.email;
+    $("sec-pw").textContent = t.pwSet(u.passwordChangedAt ? day(u.passwordChangedAt) : "");
     var s = me.subscription, has = s && s.status && s.status !== "none";
     $("sub-none").hidden = has; $("see-plans").hidden = has;
     $("portal").hidden = !has || s.status === "unknown"; $("portal-note").hidden = $("portal").hidden;
@@ -281,7 +398,7 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
     $("loading").hidden = true;
     var signed = !!(me && me.user);
     $("out").hidden = signed;
-    ["profile","sub","session"].forEach(function(id){ $(id).hidden = !signed; });
+    ["profile","security","prefs","sub","data","session"].forEach(function(id){ $(id).hidden = !signed; });
     render();
   }
 
@@ -296,13 +413,87 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
   $("logout").addEventListener("click", function(){
     api("/api/auth/logout", {}).then(function(){ location.href = "/"; }).catch(function(){ location.href = "/"; });
   });
-  $("del").addEventListener("click", function(){
-    var b = this; err("");
+  function ok(m){ $("okmsg").textContent = m || ""; $("okmsg").hidden = !m; if (m) $("okmsg").scrollIntoView({ block:"nearest", behavior:"smooth" }); }
+  function busy(form, v){ form.querySelectorAll("button").forEach(function(b){ b.disabled = v; }); }
+  function toggle(id, v){
+    var f = $(id); f.hidden = !v;
+    var opener = document.querySelector('[data-open="' + id + '"]'); if (opener) opener.hidden = v;
+    if (v) { var i = f.querySelector("input,select"); if (i) i.focus(); } else f.reset();
+  }
+  document.querySelectorAll("[data-open]").forEach(function(b){ b.addEventListener("click", function(){ err(""); ok(""); toggle(b.getAttribute("data-open"), true); }); });
+  document.querySelectorAll("[data-close]").forEach(function(b){ b.addEventListener("click", function(){ toggle(b.getAttribute("data-close"), false); }); });
+
+  // Profile: name + email language
+  function editProfile(v){
+    $("profile-view").hidden = v; $("profile-form").hidden = !v; $("edit-profile").hidden = v;
+    if (v && me) { $("f-name").value = me.user.name || ""; $("f-lang").value = me.user.lang || lang; $("f-name").focus(); }
+  }
+  $("edit-profile").addEventListener("click", function(){ err(""); ok(""); editProfile(true); });
+  $("cancel-profile").addEventListener("click", function(){ editProfile(false); });
+  $("profile-form").addEventListener("submit", function(e){
+    e.preventDefault(); var f = this; err(""); busy(f, true);
+    api("/api/auth/update", { name: $("f-name").value, lang: $("f-lang").value })
+      .then(function(j){ me.user = j.user; busy(f, false); editProfile(false); render(); ok(T[lang].savedProfile); })
+      .catch(function(x){ busy(f, false); err(x.message); });
+  });
+
+  $("email-form").addEventListener("submit", function(e){
+    e.preventDefault(); var f = this; err(""); busy(f, true);
+    api("/api/auth/email", { email: $("f-email").value, password: $("f-email-pw").value })
+      .then(function(j){ me.user = j.user; busy(f, false); toggle("email-form", false); render(); ok(T[lang].savedEmail); })
+      .catch(function(x){ busy(f, false); err(x.message); });
+  });
+
+  $("pw-form").addEventListener("submit", function(e){
+    e.preventDefault(); var f = this; err("");
+    if ($("f-pw-new").value !== $("f-pw-new2").value) { err(T[lang].pwMismatch); return; }
+    busy(f, true);
+    api("/api/auth/password", { password: $("f-pw-cur").value, newPassword: $("f-pw-new").value })
+      .then(function(j){ me.user = j.user; busy(f, false); toggle("pw-form", false); render(); ok(T[lang].savedPw); })
+      .catch(function(x){ busy(f, false); err(x.message); });
+  });
+
+  $("logout-all").addEventListener("click", function(){
+    if (!confirm(T[lang].devConfirm)) return;
+    var b = this; b.disabled = true;
+    api("/api/auth/logout-all", {}).then(function(){ location.href = "/login.html?next=/account.html"; })
+      .catch(function(x){ b.disabled = false; err(x.message); });
+  });
+
+  document.querySelectorAll("[data-theme-pick]").forEach(function(b){
+    b.addEventListener("click", function(){ if (window.CBTheme) CBTheme.set(b.getAttribute("data-theme-pick")); });
+  });
+  if (window.CBTheme) CBTheme.onChange(render);
+
+  $("export").addEventListener("click", function(){
+    var b = this; b.disabled = true; err(""); ok("");
+    api("/api/auth/export").then(function(j){
+      var local = {};
+      try {
+        var cases = localStorage.getItem("casebound_cases_v1");
+        local.savedCases = cases ? JSON.parse(cases) : [];
+        local.appearance = localStorage.getItem("casebound:theme") || "light";
+        local.improveRankingsConsent = localStorage.getItem("casebound:consent:improve");
+      } catch (x) {}
+      j.thisBrowser = local;
+      var blob = new Blob([JSON.stringify(j, null, 2)], { type:"application/json" });
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "casebound-data-" + new Date().toISOString().slice(0,10) + ".json";
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(function(){ URL.revokeObjectURL(a.href); }, 2000);
+      b.disabled = false; ok(T[lang].exported);
+    }).catch(function(x){ b.disabled = false; err(x.message); });
+  });
+
+  $("del-form").addEventListener("submit", function(e){
+    e.preventDefault(); var f = this; err("");
     if (!$("del-pw").value) { err(T[lang].delPw); return; }
-    b.disabled = true;
+    if (!confirm(T[lang].delConfirm)) return;
+    busy(f, true);
     api("/api/auth/delete", { password: $("del-pw").value })
       .then(function(){ location.href = "/"; })
-      .catch(function(e){ b.disabled = false; err(e.message); });
+      .catch(function(x){ busy(f, false); err(x.message); });
   });
 
   render();

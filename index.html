@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script src="/theme.js"></script>
 <title>Casebound — legal research workspace</title>
 <meta name="apple-mobile-web-app-title" content="Casebound">
 <meta name="format-detection" content="telephone=no">
@@ -1598,6 +1599,7 @@ function styleFrame(f){
     if(d && d.head && !d.getElementById("cb-embed")){
       const s = d.createElement("style"); s.id = "cb-embed"; s.textContent = EMBED_CSS; d.head.appendChild(s);
     }
+    if(d && window.CBTheme) window.CBTheme.attach(d);
   }catch(e){}
 }
 function fitFrame(f){

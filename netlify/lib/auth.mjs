@@ -67,6 +67,28 @@ export async function createUser({ email, password, name, lang }) {
   return user;
 }
 
+export async function changeEmail(user, email) {
+  const old = user.email;
+  user.email = email;
+  await putJSON(emailKey(email), { id: user.id });
+  await saveUser(user);
+  if (old && old !== email) await del(emailKey(old));
+  return user;
+}
+
+export async function changePassword(user, pw) {
+  user.passwordHash = await hashPassword(pw);
+  user.passwordChangedAt = new Date().toISOString();
+  return revokeSessions(user);
+}
+
+// Ends every session that exists right now (all devices, including this one).
+export async function revokeSessions(user) {
+  user.sessionsValidAfter = Date.now();
+  await saveUser(user);
+  return user;
+}
+
 export async function deleteUser(user) {
   await del(emailKey(user.email));
   await del(userKey(user.id));
@@ -91,7 +113,7 @@ const COOKIE = "cb_session";
 export async function createSession(userId) {
   const token = crypto.randomBytes(32).toString("base64url");
   const exp = Date.now() + SESSION_DAYS * 864e5;
-  await putJSON(`session/${sha(token)}`, { uid: userId, exp });
+  await putJSON(`session/${sha(token)}`, { uid: userId, exp, iat: Date.now() });
   return { token, exp };
 }
 
@@ -109,7 +131,10 @@ export async function currentUser(req) {
   if (!/^[A-Za-z0-9_-]{30,60}$/.test(token)) return null;
   const s = await getJSON(`session/${sha(token)}`);
   if (!s || s.exp < Date.now()) return null;
-  return getUser(s.uid);
+  const user = await getUser(s.uid);
+  // "Sign out everywhere" and password changes invalidate every older session.
+  if (user && user.sessionsValidAfter && (s.iat || 0) < user.sessionsValidAfter) return null;
+  return user;
 }
 
 export async function endSession(req) {
@@ -131,5 +156,8 @@ export function sameOrigin(req) {
 }
 
 export function publicUser(u) {
-  return { id: u.id, email: u.email, name: u.name, createdAt: u.createdAt, lang: u.lang };
+  return {
+    id: u.id, email: u.email, name: u.name, createdAt: u.createdAt, lang: u.lang,
+    lastLoginAt: u.lastLoginAt || null, passwordChangedAt: u.passwordChangedAt || null,
+  };
 }
