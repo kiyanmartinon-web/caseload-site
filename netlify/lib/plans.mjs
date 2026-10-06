@@ -45,13 +45,7 @@ export function buildSessionParams(price, origin, lang) {
     allow_promotion_codes: true,
     billing_address_collection: "required",
     tax_id_collection: { enabled: true },
-    custom_text: {
-      submit: {
-        message: it
-          ? `Abbonandoti accetti le Condizioni d'uso (${origin}/terms.html#subscriptions-it). Rinnovo automatico, disdici quando vuoi.`
-          : `By subscribing you agree to the Terms of use (${origin}/terms.html#subscriptions). Renews automatically; cancel any time.`,
-      },
-    },
+    // No custom_text: it is not allowed when Stripe Managed Payments is on (the account default).
     subscription_data: trial > 0 ? { trial_period_days: trial } : undefined,
   };
   if (process.env.STRIPE_AUTOMATIC_TAX === "true") {
