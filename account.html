@@ -382,7 +382,7 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
     $("sec-pw").textContent = t.pwSet(u.passwordChangedAt ? day(u.passwordChangedAt) : "");
     var s = me.subscription, has = s && s.status && s.status !== "none";
     $("sub-none").hidden = has; $("see-plans").hidden = has;
-    $("portal").hidden = !has || s.status === "unknown"; $("portal-note").hidden = $("portal").hidden;
+    $("portal").hidden = !has; $("portal-note").hidden = $("portal").hidden;
     if (!has) { $("sub-dl").innerHTML = ""; return; }
     var rows = [];
     if (s.plan) rows.push([t.planL, esc((lang === "it" && s.plan_it) || s.plan)]);

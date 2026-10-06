@@ -14,7 +14,7 @@ Every push to `main` is published automatically by Netlify.
 Plans, prices, trials and payment methods are all managed in the Stripe dashboard; the site reads them live.
 
 Netlify environment variables:
-- `STRIPE_SECRET_KEY` (required) — secret or restricted key. Restricted key needs: Products read, Prices read, Checkout Sessions write, Customer portal write.
+- `STRIPE_SECRET_KEY` (required) — secret or restricted key. Restricted key needs: Products read, Prices read, Checkout Sessions write, Customer portal write, **Subscriptions read** and **Customers write** (without Subscriptions read the account page can only show what was bought at checkout, not renewals or cancellations).
 - `STRIPE_PORTAL_LOGIN_URL` (recommended) — Stripe → Settings → Billing → Customer portal → login link.
 - `STRIPE_AUTOMATIC_TAX` — set to `true` once Stripe Tax is configured.
 
