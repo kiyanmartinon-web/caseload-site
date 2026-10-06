@@ -32,25 +32,174 @@ html,body{margin:0;padding:0;height:100%;background:var(--paper)}
 body{font-family:var(--sans);color:var(--ink);display:flex;flex-direction:column;height:100vh;overflow:hidden}
 button{font-family:inherit;cursor:pointer}
 :focus-visible{outline:2px solid var(--verdigris);outline-offset:2px}
+button,a{-webkit-tap-highlight-color:rgba(110,31,42,.12)}
 
+/* ---------- top bar ---------- */
 .masthead{border-bottom:1px solid var(--rule);background:var(--paper-2);flex:0 0 auto;z-index:50}
 .masthead-in{max-width:1680px;margin:0 auto;padding:0 22px;display:flex;align-items:center;gap:22px;height:56px}
-.wordmark{font-family:var(--serif);font-size:21px;font-weight:600;letter-spacing:-.01em;line-height:1;white-space:nowrap}
+.wordmark{font-family:var(--serif);font-size:21px;font-weight:600;letter-spacing:-.01em;line-height:1;white-space:nowrap;
+  color:var(--ink);text-decoration:none}
 .wordmark span{color:var(--oxblood)}
 .wordmark small{display:block;font-family:var(--sans);font-size:10px;font-weight:600;color:var(--ink-soft);letter-spacing:.03em;margin-top:1px}
-
-.tabs{display:flex;gap:2px;margin-left:8px}
-.tab{background:none;border:none;padding:9px 16px;font-size:13.5px;font-weight:600;color:var(--ink-soft);border-radius:4px 4px 0 0;position:relative;top:1px}
-.tab:hover{background:var(--paper);color:var(--ink)}
-.tab.on{color:var(--ink);background:var(--paper);border-bottom:2px solid var(--oxblood)}
-.tab .td{display:block;font-weight:400;font-size:10.5px;color:var(--ink-soft);margin-top:1px}
-
+.tabs{display:flex;gap:2px;margin-left:8px;align-self:stretch}
+.tab{background:none;border:none;border-bottom:2px solid transparent;padding:0 14px;font-size:13.5px;font-weight:600;
+  color:var(--ink-soft);display:flex;align-items:center;white-space:nowrap}
+.tab:hover:not(:disabled){color:var(--ink)}
+.tab.on{color:var(--ink);border-bottom-color:var(--oxblood)}
+.tab:disabled{opacity:.45;cursor:default}
+.tab .n{margin-right:7px;font-size:10.5px;font-weight:700;width:18px;height:18px;border-radius:50%;display:inline-grid;place-items:center;
+  border:1px solid var(--rule);color:var(--ink-soft)}
+.tab.on .n{background:var(--oxblood);border-color:var(--oxblood);color:#fff}
 .top-links{margin-left:auto;display:flex;gap:16px;align-items:center}
 .top-links a{font-size:13px;font-weight:600;color:var(--ink-soft);text-decoration:none;white-space:nowrap}
 .top-links a:hover{color:var(--oxblood)}
 .top-links a#top-account{color:var(--paper-2);background:var(--ink);padding:7px 12px;border-radius:5px}
 .top-links a#top-account:hover{background:var(--oxblood)}
 
+/* ---------- views ---------- */
+.views{position:relative;flex:1 1 auto;min-height:0}
+.view{position:absolute;inset:0;overflow:auto;visibility:hidden}
+.view.on{visibility:visible}
+#view-results{display:flex;flex-direction:column;overflow:hidden}
+
+/* ---------- page 1: new case ---------- */
+.start{max-width:860px;margin:0 auto;padding:40px 22px 56px}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--oxblood);margin-bottom:10px}
+.start h1{font-family:var(--serif);font-weight:600;font-size:34px;line-height:1.15;letter-spacing:-.015em;margin:0 0 10px}
+.start-lede{font-family:var(--serif);font-size:16.5px;line-height:1.55;color:var(--ink-soft);margin:0 0 28px;max-width:640px}
+.start-card{background:var(--paper-2);border:1px solid var(--rule);border-radius:10px;padding:8px 28px 26px}
+.step{display:grid;grid-template-columns:30px 1fr;gap:16px;padding:22px 0;border-bottom:1px solid var(--rule-soft)}
+.step:last-of-type{border-bottom:none}
+.step-n{width:30px;height:30px;border-radius:50%;background:var(--oxblood-wash);color:var(--oxblood);font-weight:700;
+  font-size:13.5px;display:grid;place-items:center}
+.step-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.step-head label,.step-head .lbl{font-size:16px;font-weight:600;color:var(--ink)}
+.opt{font-weight:500;color:var(--ink-soft);font-size:13px;margin-left:4px}
+.step-hint{font-size:13px;color:var(--ink-soft);margin:4px 0 12px;line-height:1.45}
+.start textarea,.start input[type=text]{width:100%;background:var(--paper);border:1px solid var(--rule);border-radius:7px;
+  padding:12px 14px;font-family:var(--serif);font-size:15px;line-height:1.5;color:var(--ink)}
+.start textarea{min-height:170px;resize:vertical}
+.start textarea:focus,.start input[type=text]:focus{outline:none;border-color:var(--verdigris);box-shadow:0 0 0 3px var(--verdigris-wash)}
+.start textarea.drag-over{border-color:var(--verdigris);border-style:dashed;background:var(--verdigris-wash)}
+.field-foot{display:flex;justify-content:space-between;gap:12px;margin-top:6px;min-height:16px}
+.count{font-size:11.5px;color:var(--ink-soft);white-space:nowrap}
+.hub-file-btn{background:none;border:1px solid var(--rule);border-radius:5px;padding:5px 10px;font-size:12px;font-weight:600;
+  color:var(--verdigris);white-space:nowrap}
+.hub-file-btn:hover{border-color:var(--verdigris);background:var(--verdigris-wash)}
+.hub-file-btn:disabled{color:var(--ink-soft);cursor:default}
+.hub-file-status{font-size:11.5px;color:var(--ink-soft);line-height:1.4}
+.hub-file-status.err{color:var(--oxblood)}
+.hub-file-status.ok{color:var(--verdigris)}
+.hub-file-status a{color:var(--oxblood);font-weight:700}
+.examples{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:12px;font-size:12px;color:var(--ink-soft)}
+.examples button{background:var(--paper);border:1px solid var(--rule);border-radius:999px;padding:5px 11px;font-size:12px;color:var(--ink)}
+.examples button:hover{border-color:var(--oxblood);color:var(--oxblood)}
+
+.out-opts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.out-opt{position:relative;display:block;cursor:pointer}
+.out-opt input{position:absolute;opacity:0;pointer-events:none}
+.out-opt .box{display:block;height:100%;border:1px solid var(--rule);border-radius:8px;padding:14px 14px 13px;background:var(--paper);
+  transition:border-color .12s,box-shadow .12s}
+.out-opt:hover .box{border-color:var(--ink-soft)}
+.out-opt input:checked + .box{border-color:var(--oxblood);box-shadow:0 0 0 1px var(--oxblood);background:var(--paper-2)}
+.out-opt input:focus-visible + .box{outline:2px solid var(--verdigris);outline-offset:2px}
+.out-opt .ic{display:block;color:var(--oxblood);margin-bottom:8px}
+.out-opt b{display:block;font-size:14px;font-weight:600;margin-bottom:3px}
+.out-opt small{display:block;font-size:12px;color:var(--ink-soft);line-height:1.4}
+.out-opt .rec{position:absolute;top:10px;right:10px;font-size:9.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--verdigris);background:var(--verdigris-wash);padding:2px 6px;border-radius:3px}
+
+.refine{margin-top:16px;display:grid;gap:10px}
+.refine-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.refine-l{font-size:12px;font-weight:600;color:var(--ink-soft);width:86px;flex:0 0 auto}
+.pills{display:flex;flex-wrap:wrap;gap:6px}
+.pill{position:relative;cursor:pointer}
+.pill input{position:absolute;opacity:0;pointer-events:none}
+.pill span{display:inline-block;padding:5px 12px;border:1px solid var(--rule);border-radius:999px;font-size:12.5px;color:var(--ink);background:var(--paper)}
+.pill:hover span{border-color:var(--ink-soft)}
+.pill input:checked + span{background:var(--ink);border-color:var(--ink);color:var(--paper-2)}
+.pill input:focus-visible + span{outline:2px solid var(--verdigris);outline-offset:2px}
+.refine.off{opacity:.45}
+.refine.off .pill{pointer-events:none}
+
+.start-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding-top:6px;margin-left:46px}
+.hub-btn{padding:13px 26px;background:var(--oxblood);color:#fff;border:none;border-radius:7px;font-size:15px;font-weight:600;white-space:nowrap}
+.hub-btn:hover{background:#57181f}
+.hub-btn:disabled{opacity:.5;cursor:default}
+.hub-btn.secondary{background:var(--paper);color:var(--ink);border:1px solid var(--rule);padding:8px 14px;font-size:13px;border-radius:6px}
+.hub-btn.secondary:hover{background:var(--rule-soft)}
+.hub-status{font-size:13px;font-weight:600;color:var(--oxblood);flex:1 1 240px}
+.hub-status a,.res-note a{color:var(--oxblood);font-weight:700}
+.plan-bar{margin:16px 0 0 46px;font-size:12px;color:var(--ink-soft);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.plan-bar .pb-tag{font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:3px;
+  background:var(--paper);border:1px solid var(--rule);color:var(--ink-soft)}
+.plan-bar .pb-tag.pro{background:var(--verdigris-wash);border-color:transparent;color:var(--verdigris)}
+.plan-bar a{color:var(--oxblood);font-weight:700}
+.start-foot{font-size:12px;color:var(--ink-soft);margin:14px 2px 0;line-height:1.5}
+
+.recent{margin-top:34px}
+.recent-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
+.recent-head h2{font-family:var(--serif);font-size:18px;font-weight:600;margin:0}
+.link-btn{background:none;border:none;padding:0;font-size:13px;font-weight:600;color:var(--oxblood)}
+.recent-list{display:grid;gap:8px}
+.recent-item{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:var(--paper-2);border:1px solid var(--rule);
+  border-radius:8px;padding:12px 14px;color:var(--ink)}
+.recent-item:hover{border-color:var(--oxblood)}
+.recent-item .ri-main{flex:1;min-width:0}
+.recent-item .ri-t{font-family:var(--serif);font-weight:600;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.recent-item .ri-m{font-size:11.5px;color:var(--ink-soft);margin-top:2px}
+.recent-item .ri-go{font-size:12.5px;font-weight:600;color:var(--oxblood);white-space:nowrap}
+
+/* ---------- page 2: results ---------- */
+.res-bar{flex:0 0 auto;background:var(--paper-2);border-bottom:1px solid var(--rule)}
+.res-bar-in{max-width:1680px;margin:0 auto;padding:10px 22px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.back-btn{background:none;border:1px solid var(--rule);border-radius:6px;padding:8px 12px;font-size:13px;font-weight:600;color:var(--ink);white-space:nowrap}
+.back-btn:hover{border-color:var(--ink-soft)}
+.res-summary{flex:1 1 280px;min-width:0}
+.res-title{font-family:var(--serif);font-size:16px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.res-meta{font-size:12px;color:var(--ink-soft);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.res-meta b{color:var(--verdigris);font-weight:600}
+.seg{display:inline-flex;border:1px solid var(--rule);border-radius:7px;padding:2px;background:var(--paper)}
+.seg button{border:none;background:none;padding:6px 12px;border-radius:5px;font-size:12.5px;font-weight:600;color:var(--ink-soft);white-space:nowrap}
+.seg button[aria-checked="true"]{background:var(--paper-2);color:var(--ink);box-shadow:0 1px 2px rgba(26,36,56,.14)}
+.res-note{max-width:1680px;margin:0 auto;padding:0 22px 10px;font-size:12.5px;color:var(--oxblood);font-weight:600}
+.res-note:empty{display:none}
+
+.frames{position:relative;flex:1 1 auto;min-height:0}
+.analysis-split{display:flex;height:100%}
+.analysis-pane{flex:1 1 50%;display:flex;flex-direction:column;min-width:0;border-right:1px solid var(--rule)}
+.analysis-pane:last-child{border-right:none}
+.analysis-split[data-show="map"] .pane-sources,.analysis-split[data-show="sources"] .pane-map{display:none}
+.analysis-pane-h{flex:0 0 auto;padding:8px 14px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;
+  color:var(--ink-soft);background:var(--paper-2);border-bottom:1px solid var(--rule)}
+.analysis-pane iframe{flex:1 1 auto;width:100%;border:none;background:var(--paper);min-height:0}
+.res-empty{position:absolute;inset:0;display:grid;place-items:center;background:var(--paper);z-index:2;text-align:center;padding:24px}
+.res-empty h2{font-family:var(--serif);font-weight:600;font-size:22px;margin:0 0 8px}
+.res-empty p{color:var(--ink-soft);font-size:14px;margin:0 0 18px}
+
+/* ---------- saved cases ---------- */
+.cases-view-in{max-width:1680px;margin:0 auto;padding:26px 22px}
+.cases-view-head{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:18px;flex-wrap:wrap}
+.cases-view-head h2{margin:0;font-family:var(--serif);font-size:21px;font-weight:600}
+.cases-view-tools{display:flex;gap:10px;align-items:center}
+#cases-search{padding:8px 11px;border:1px solid var(--rule);border-radius:5px;font-size:13px;min-width:240px;background:var(--paper-2);font-family:var(--sans);color:var(--ink)}
+.cases-clear-btn{padding:8px 12px;background:none;border:1px solid var(--rule);border-radius:5px;color:var(--ink-soft);font-size:12px}
+.cases-clear-btn:hover{background:var(--oxblood-wash);color:var(--oxblood);border-color:var(--oxblood-wash)}
+.cases-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}
+.cases-empty-full{grid-column:1/-1;color:var(--ink-soft);font-size:13.5px;text-align:center;padding:50px 0}
+.case-card{border:1px solid var(--rule);border-radius:8px;background:var(--paper-2);padding:15px;display:flex;flex-direction:column;gap:8px}
+.case-card-label{font-family:var(--serif);font-weight:600;font-size:14.5px;line-height:1.3}
+.case-card-date{font-size:11px;color:var(--ink-soft)}
+.case-card-facts{font-size:12.5px;color:var(--ink-soft);line-height:1.45;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.case-card-claim{font-size:12px;color:var(--verdigris);font-weight:600}
+.case-card-actions{display:flex;gap:8px;margin-top:auto;padding-top:4px}
+.case-card-open{flex:1;padding:8px;background:var(--oxblood);color:#fff;border:none;border-radius:5px;font-size:12.5px;font-weight:600}
+.case-card-open:hover{background:#57181f}
+.case-card-del{padding:8px 11px;background:var(--paper);border:1px solid var(--rule);border-radius:5px;font-size:12.5px;color:var(--ink-soft)}
+.case-card-del:hover{background:var(--oxblood-wash);color:var(--oxblood)}
+.cases-empty-full button{margin-top:14px}
+
+/* ---------- footer ---------- */
 .site-foot{flex:0 0 auto;border-top:1px solid var(--rule);background:var(--paper-2);font-size:11.5px;color:var(--ink-soft)}
 .site-foot-in{max-width:1680px;margin:0 auto;padding:7px 22px;display:flex;gap:6px 18px;align-items:center;flex-wrap:wrap}
 .site-foot b{font-weight:600;color:var(--ink)}
@@ -61,125 +210,58 @@ button{font-family:inherit;cursor:pointer}
 .consent{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;cursor:pointer;font-weight:600}
 .consent input{margin:0;accent-color:var(--verdigris);cursor:pointer;width:15px;height:15px}
 
-.hub{background:var(--paper-2);border-bottom:1px solid var(--rule);flex:0 0 auto}
-.hub-in{max-width:1680px;margin:0 auto;padding:12px 22px;display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap}
-.hub-field{flex:1 1 340px;min-width:220px}
-.hub-field.narrow{flex:1 1 220px}
-.hub-field label{display:block;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;
-  color:var(--ink-soft);margin-bottom:4px}
-.hub textarea,.hub input[type=text]{width:100%;background:var(--paper);border:1px solid var(--rule);
-  border-radius:4px;padding:7px 9px;font-family:var(--serif);font-size:13.5px;color:var(--ink)}
-.hub textarea{min-height:40px;max-height:120px;resize:vertical;line-height:1.4}
-.hub-btn{flex:0 0 auto;padding:9px 18px;background:var(--oxblood);color:#fff;border:none;border-radius:5px;
-  font-family:var(--sans);font-size:13px;font-weight:600;white-space:nowrap}
-.hub-btn:hover{background:#57181f}
-.hub-btn:disabled{opacity:.5;cursor:default}
-.hub-field-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:4px}
-.hub-field-head label{margin-bottom:0}
-.hub-file-btn{background:none;border:none;padding:0;font-family:var(--sans);font-size:11px;font-weight:600;
-  color:var(--verdigris);cursor:pointer;white-space:nowrap}
-.hub-file-btn:hover{color:var(--oxblood)}
-.hub-file-btn:disabled{color:var(--ink-soft);cursor:default}
-.hub-file-status{font-size:11px;color:var(--ink-soft);margin-top:4px;min-height:14px;line-height:1.4}
-.hub-file-status.err{color:var(--oxblood)}
-.hub-file-status.ok{color:var(--verdigris)}
-.hub textarea.drag-over{border-color:var(--verdigris);border-style:dashed;background:var(--verdigris-wash)}
-.hub-btn.secondary{background:var(--paper);color:var(--ink);border:1px solid var(--rule)}
-.hub-btn.secondary:hover{background:var(--rule-soft)}
-.hub-note{max-width:1680px;margin:0 auto;padding:0 22px 10px;font-size:11.5px;color:var(--ink-soft)}
-.hub-status{max-width:1680px;margin:0 auto;padding:0 22px 10px;font-size:12px;color:var(--verdigris);
-  font-weight:600;display:none}
-.hub-status.on{display:block}
-.plan-bar{max-width:1680px;margin:0 auto;padding:0 22px 10px;font-family:var(--sans);font-size:12px;color:var(--ink-soft);display:flex;gap:10px;align-items:center;flex-wrap:wrap;min-height:1px}
-.plan-bar .pb-tag{font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:3px;background:var(--paper);border:1px solid var(--rule);color:var(--ink-soft)}
-.plan-bar .pb-tag.pro{background:var(--verdigris-wash);border-color:transparent;color:var(--verdigris)}
-.plan-bar a{color:var(--oxblood);font-weight:700}
-.limit-note{display:block;margin-top:6px;font-family:var(--sans);font-size:12px;color:var(--oxblood)}
-.limit-note a{color:var(--oxblood);font-weight:700}
+/* dark theme: solid accent buttons get dark labels (theme.js lifts the accent colours) */
+html[data-theme="dark"] .tab.on .n,html[data-theme="dark"] .pill input:checked + span{color:var(--paper)!important}
+html[data-theme="dark"] .seg button[aria-checked="true"]{box-shadow:0 1px 2px rgba(0,0,0,.5)}
 
-.cases-view{overflow:auto;background:var(--paper)}
-.cases-view-in{max-width:1680px;margin:0 auto;padding:26px 22px}
-.cases-view-head{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:18px;flex-wrap:wrap}
-.cases-view-head h2{margin:0;font-family:var(--serif);font-size:21px;font-weight:600}
-.cases-view-tools{display:flex;gap:10px;align-items:center}
-#cases-search{padding:8px 11px;border:1px solid var(--rule);border-radius:5px;font-size:13px;min-width:240px;
-  background:var(--paper-2);font-family:var(--sans)}
-.cases-clear-btn{padding:8px 12px;background:none;border:1px solid var(--rule);border-radius:5px;
-  color:var(--ink-soft);font-size:12px;cursor:pointer}
-.cases-clear-btn:hover{background:var(--oxblood-wash);color:var(--oxblood);border-color:var(--oxblood-wash)}
-.cases-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}
-.cases-empty-full{grid-column:1/-1;color:var(--ink-soft);font-size:13.5px;text-align:center;padding:50px 0}
-.case-card{border:1px solid var(--rule);border-radius:6px;background:var(--paper-2);padding:15px;
-  display:flex;flex-direction:column;gap:8px}
-.case-card-label{font-family:var(--serif);font-weight:600;font-size:14.5px;color:var(--ink);line-height:1.3}
-.case-card-date{font-size:11px;color:var(--ink-soft)}
-.case-card-facts{font-size:12.5px;color:var(--ink-soft);line-height:1.45;display:-webkit-box;
-  -webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
-.case-card-claim{font-size:12px;color:var(--verdigris);font-weight:600}
-.case-card-actions{display:flex;gap:8px;margin-top:auto;padding-top:4px}
-.case-card-open{flex:1;padding:8px;background:var(--oxblood);color:#fff;border:none;border-radius:5px;
-  font-size:12.5px;font-weight:600;cursor:pointer;font-family:var(--sans)}
-.case-card-open:hover{background:#57181f}
-.case-card-del{padding:8px 11px;background:var(--paper);border:1px solid var(--rule);border-radius:5px;
-  font-size:12.5px;color:var(--ink-soft);cursor:pointer}
-.case-card-del:hover{background:var(--oxblood-wash);color:var(--oxblood)}
-
-.frames{position:relative;flex:1 1 auto;min-height:0}
-.frames>iframe,.frames>.analysis-wrap,.frames>.cases-view{position:absolute;inset:0;width:100%;height:100%;
-  visibility:hidden}
-.frames>iframe{border:none;background:var(--paper)}
-.frames>iframe.on,.frames>.analysis-wrap.on,.frames>.cases-view.on{visibility:visible}
-
-.analysis-split{display:flex;height:100%}
-.analysis-pane{flex:1 1 50%;display:flex;flex-direction:column;min-width:0;border-right:1px solid var(--rule)}
-.analysis-pane:last-child{border-right:none}
-.analysis-pane-h{flex:0 0 auto;padding:8px 14px;font-family:var(--sans);font-size:11px;font-weight:600;
-  text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);background:var(--paper-2);
-  border-bottom:1px solid var(--rule)}
-.analysis-pane iframe{flex:1 1 auto;width:100%;border:none;background:var(--paper);min-height:0}
 @media(max-width:900px){
   .analysis-split{flex-direction:column}
   .analysis-pane{border-right:none;border-bottom:1px solid var(--rule)}
   .analysis-pane:last-child{border-bottom:none}
-}
-
-@media(max-width:760px){
-  .wordmark small{display:none}
-  .tab .td{display:none}
-  .tab{padding:9px 10px;font-size:12.5px}
-}
-
-/* ---- phones & small tablets (iPhone): one scrolling page, no nested scroll areas ---- */
-@media(max-width:900px){
+  /* phones & small tablets: one scrolling page, no nested scroll areas */
   html,body{height:auto}
   body{display:block;height:auto;min-height:100%;overflow:visible;overflow-x:hidden;-webkit-text-size-adjust:100%}
   .masthead{position:sticky;top:0;padding-top:env(safe-area-inset-top)}
+  .views{min-height:calc(100vh - 140px)}
+  .view{position:static;visibility:visible;display:none;overflow:visible}
+  .view.on,#view-results.on{display:block}
+  .view:not(.on){display:none!important}
   .frames{flex:none}
-  .frames>iframe,.frames>.analysis-wrap,.frames>.cases-view{position:static;height:auto;visibility:visible;display:none}
-  .frames>.on{display:block}
   .analysis-split{height:auto}
   .analysis-pane iframe{flex:none;height:640px;display:block}
-  .cases-view{overflow:visible}
+  .res-empty{position:static;min-height:50vh}
   .site-foot-in{padding-bottom:calc(14px + env(safe-area-inset-bottom))}
 }
 @media(max-width:760px){
   .masthead-in{padding:0 max(14px, env(safe-area-inset-left));gap:10px;height:54px}
   .wordmark{font-size:19px}
+  .wordmark small{display:none}
   .tabs{margin-left:0;gap:0}
-  .tab{padding:8px 9px;font-size:13px}
+  .tab{padding:0 8px;font-size:13px}
+  .tab .n{display:none}
+  .tab .long{display:none}
   .top-links{gap:10px}
   .top-links a[href="/pricing.html"]{display:none}
   .top-links a#top-account{padding:6px 10px;font-size:12.5px}
-  .hub-in{padding:12px 16px;gap:12px}
-  .hub-field,.hub-field.narrow{flex:1 1 100%;min-width:0}
-  .hub-field label{font-size:11px}
+  .start{padding:26px 16px 40px}
+  .start h1{font-size:27px}
+  .start-lede{font-size:15.5px;margin-bottom:20px}
+  .start-card{padding:4px 16px 20px;border-radius:8px}
+  .step{grid-template-columns:1fr;gap:10px;padding:18px 0}
+  .step-n{width:26px;height:26px;font-size:12px}
+  .out-opts{grid-template-columns:1fr}
+  .refine-l{width:100%}
+  .start-actions,.plan-bar{margin-left:0}
+  .hub-btn{width:100%;padding:15px 18px;font-size:16px}
+  .hub-btn.secondary{width:auto}
   /* 16px stops iPhone Safari from zooming into the field on tap */
-  .hub textarea,.hub input[type=text],#cases-search{font-size:16px;padding:10px 12px;border-radius:6px}
-  .hub textarea{min-height:96px;max-height:220px}
-  .hub-btn{width:100%;padding:13px 18px;font-size:15px;border-radius:6px}
-  .hub-file-btn{font-size:13px;padding:4px 0}
-  .hub-note{padding:0 16px 10px;font-size:12.5px}
-  .hub-status,.plan-bar{padding:0 16px 10px;font-size:13px}
+  .start textarea,.start input[type=text],#cases-search{font-size:16px}
+  .res-bar-in{padding:10px 16px;gap:10px}
+  .res-summary{order:-1;flex-basis:100%}
+  .seg{flex:1}
+  .seg button{flex:1;padding:8px 6px}
+  #res-new{display:none}
+  .res-note{padding:0 16px 10px}
   .analysis-pane-h{padding:10px 16px;font-size:11.5px}
   .cases-view-in{padding:20px 16px}
   .cases-view-tools{width:100%}
@@ -190,17 +272,17 @@ button{font-family:inherit;cursor:pointer}
   .site-foot-in{padding:14px 16px calc(16px + env(safe-area-inset-bottom));flex-direction:column;align-items:flex-start;gap:10px}
   .sf-note{flex:none}
 }
-button,a{-webkit-tap-highlight-color:rgba(110,31,42,.12)}
 </style>
 </head>
 <body>
 
 <header class="masthead">
   <div class="masthead-in">
-    <div class="wordmark">Case<span>bound</span><small>LEGAL RESEARCH</small></div>
-    <nav class="tabs" role="tablist">
-      <button class="tab on" data-tab="analysis" role="tab" aria-selected="true">Analysis<span class="td">mindmap &amp; matches</span></button>
-      <button class="tab" data-tab="cases" role="tab" aria-selected="false">Cases<span class="td">saved &amp; past</span></button>
+    <a class="wordmark" href="#" data-go="start">Case<span>bound</span><small>LEGAL RESEARCH</small></a>
+    <nav class="tabs" aria-label="Sections">
+      <button class="tab on" data-go="start"><span class="n">1</span>New case</button>
+      <button class="tab" data-go="results" id="tab-results" disabled><span class="n">2</span>Results</button>
+      <button class="tab" data-go="cases">Saved<span class="long">&nbsp;cases</span></button>
     </nav>
     <nav class="top-links" aria-label="Account">
       <a href="/pricing.html">Plans</a>
@@ -209,33 +291,113 @@ button,a{-webkit-tap-highlight-color:rgba(110,31,42,.12)}
   </div>
 </header>
 
-<div class="hub">
-  <div class="hub-in">
-    <div class="hub-field">
-      <div class="hub-field-head">
-        <label for="hub-facts">Facts of your case</label>
-        <button type="button" class="hub-file-btn" id="hub-file-btn">+ Add file</button>
-        <input type="file" id="hub-file-input" accept=".txt,.md,.markdown,.pdf,.docx" multiple style="display:none">
+<main class="views">
+
+<!-- ================= PAGE 1 — describe the case ================= -->
+<section id="view-start" class="view on" aria-label="New case">
+  <div class="start">
+    <div class="eyebrow">New case</div>
+    <h1>Tell us about your case.</h1>
+    <p class="start-lede">Describe what happened and choose what you need back. Casebound maps the facts to the governing Italian Civil Code articles and ranks matching provisions and rulings from Italy, the EU, France, the UK and the US.</p>
+
+    <form class="start-card" id="start-form" novalidate>
+      <div class="step">
+        <div class="step-n">1</div>
+        <div>
+          <div class="step-head">
+            <label for="hub-facts">What happened?</label>
+            <button type="button" class="hub-file-btn" id="hub-file-btn">+ Add file</button>
+            <input type="file" id="hub-file-input" accept=".txt,.md,.markdown,.pdf,.docx" multiple hidden>
+          </div>
+          <p class="step-hint">The parties, what was agreed, the dates, and what went wrong. Plain language is fine. You can also drop a PDF, Word or text file into the box.</p>
+          <textarea id="hub-facts" placeholder="e.g. A buyer ordered manufacturing equipment. Delivery was six weeks late, and the buyer now claims the profit it lost while waiting…"></textarea>
+          <div class="field-foot"><span class="hub-file-status" id="hub-file-status"></span><span class="count" id="facts-count"></span></div>
+          <div class="examples" id="examples">Or try an example:</div>
+        </div>
       </div>
-      <textarea id="hub-facts" placeholder="Describe the facts once — dates, parties, what went wrong… or drop a file here"></textarea>
-      <div class="hub-file-status" id="hub-file-status"></div>
+
+      <div class="step">
+        <div class="step-n">2</div>
+        <div>
+          <div class="step-head"><label for="hub-claim">What do you want to establish? <span class="opt">optional</span></label></div>
+          <p class="step-hint">The outcome you are arguing for. It sharpens the ranking.</p>
+          <input type="text" id="hub-claim" placeholder="e.g. recover lost profit for the delay">
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n">3</div>
+        <div>
+          <div class="step-head"><span class="lbl" id="out-label">What should the result show?</span></div>
+          <p class="step-hint">You can switch between these on the results page too.</p>
+          <div class="out-opts" role="radiogroup" aria-labelledby="out-label">
+            <label class="out-opt"><input type="radio" name="output" value="both" checked><span class="box">
+              <span class="rec">Recommended</span>
+              <svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="4" width="8" height="16" rx="1.5"/><rect x="13" y="4" width="8" height="16" rx="1.5"/></svg>
+              <b>Full analysis</b><small>Mindmap and ranked sources side by side.</small></span></label>
+            <label class="out-opt"><input type="radio" name="output" value="map"><span class="box">
+              <svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="3"/><circle cx="4.5" cy="5" r="2"/><circle cx="19.5" cy="5" r="2"/><circle cx="4.5" cy="19" r="2"/><circle cx="19.5" cy="19" r="2"/><path d="M6 6.4 9.8 10M18 6.4 14.2 10M6 17.6 9.8 14M18 17.6 14.2 14"/></svg>
+              <b>Case mindmap</b><small>The legal issues and governing articles, laid out visually.</small></span></label>
+            <label class="out-opt"><input type="radio" name="output" value="sources"><span class="box">
+              <svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M8 6h12M8 12h12M8 18h12"/><path d="M3.5 6h.01M3.5 12h.01M3.5 18h.01" stroke-width="2.6" stroke-linecap="round"/></svg>
+              <b>Compatible sources</b><small>Provisions and rulings ranked by how well they fit.</small></span></label>
+          </div>
+          <div class="refine" id="refine">
+            <div class="refine-row"><span class="refine-l" id="jur-label">Jurisdiction</span>
+              <div class="pills" role="radiogroup" aria-labelledby="jur-label">
+                <label class="pill"><input type="radio" name="jur" value="All" checked><span>All</span></label>
+                <label class="pill"><input type="radio" name="jur" value="Italy"><span>Italy</span></label>
+                <label class="pill"><input type="radio" name="jur" value="European Union"><span>EU</span></label>
+                <label class="pill"><input type="radio" name="jur" value="France"><span>France</span></label>
+                <label class="pill"><input type="radio" name="jur" value="United Kingdom"><span>UK</span></label>
+                <label class="pill"><input type="radio" name="jur" value="United States"><span>US</span></label>
+              </div></div>
+            <div class="refine-row"><span class="refine-l" id="type-label">Source type</span>
+              <div class="pills" role="radiogroup" aria-labelledby="type-label">
+                <label class="pill"><input type="radio" name="dtype" value="all" checked><span>Everything</span></label>
+                <label class="pill"><input type="radio" name="dtype" value="provision"><span>Provisions</span></label>
+                <label class="pill"><input type="radio" name="dtype" value="case"><span>Case law</span></label>
+              </div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="start-actions">
+        <button type="submit" class="hub-btn" id="hub-run">Analyze case &rarr;</button>
+        <div class="hub-status" id="hub-status" role="status" aria-live="polite"></div>
+      </div>
+      <div class="plan-bar" id="plan-bar" aria-live="polite"></div>
+    </form>
+    <p class="start-foot">Every analysis is saved in this browser under <b>Saved cases</b>, so you can reopen it later.</p>
+
+    <div class="recent" id="recent" hidden>
+      <div class="recent-head"><h2>Recent cases</h2><button type="button" class="link-btn" data-go="cases">View all</button></div>
+      <div class="recent-list" id="recent-list"></div>
     </div>
-    <div class="hub-field narrow">
-      <label for="hub-claim">What you're trying to establish (optional)</label>
-      <input type="text" id="hub-claim" placeholder="e.g. recover lost profit for the shortfall">
-    </div>
-    <button class="hub-btn" id="hub-run">Analyze this case</button>
   </div>
-  <div class="hub-note">One click maps your case and ranks matching sources in <b>Analysis</b>. Every analysis is saved to <b>Cases</b> in this browser so you can reopen it.</div>
-  <div class="hub-status" id="hub-status"></div>
-  <div class="plan-bar" id="plan-bar" aria-live="polite"></div>
-</div>
-<div class="frames">
-<div id="frame-analysis" class="analysis-wrap on">
-  <div class="analysis-split">
-  <div class="analysis-pane">
-    <div class="analysis-pane-h">Case mindmap</div>
-  <iframe id="frame-atlas" title="Casebound Atlas" srcdoc="<!DOCTYPE html>
+</section>
+
+<!-- ================= PAGE 2 — results ================= -->
+<section id="view-results" class="view" aria-label="Results">
+  <div class="res-bar">
+    <div class="res-bar-in">
+      <button type="button" class="back-btn" data-go="start">&larr; Edit case</button>
+      <div class="res-summary"><div class="res-title" id="res-title">Your case</div><div class="res-meta" id="res-meta"></div></div>
+      <div class="seg" role="radiogroup" aria-label="Show" id="res-output">
+        <button type="button" role="radio" data-out="both" aria-checked="true">Both</button>
+        <button type="button" role="radio" data-out="map" aria-checked="false">Mindmap</button>
+        <button type="button" role="radio" data-out="sources" aria-checked="false">Sources</button>
+      </div>
+      <button type="button" class="hub-btn secondary" id="res-new">New case</button>
+    </div>
+    <div class="res-note" id="res-note"></div>
+  </div>
+  <div class="frames">
+    <div class="res-empty" id="res-empty" hidden><div><h2>No case analyzed yet</h2><p>Describe your case first and the results will appear here.</p><button type="button" class="hub-btn" data-go="start">Start a case</button></div></div>
+    <div class="analysis-split" id="analysis-split" data-show="both">
+      <div class="analysis-pane pane-map">
+        <div class="analysis-pane-h">Case mindmap</div>
+        <iframe id="frame-atlas" title="Casebound Atlas" srcdoc="<!DOCTYPE html>
 <html lang=&quot;en&quot;>
 <head>
 <meta charset=&quot;utf-8&quot;>
@@ -994,10 +1156,10 @@ window.addEventListener(&quot;message&quot;, function(ev){
 </body>
 </html>
 "></iframe>
-  </div>
-  <div class="analysis-pane">
-    <div class="analysis-pane-h">Compatible sources</div>
-  <iframe id="frame-finder" title="Casebound Finder" srcdoc="<!DOCTYPE html>
+      </div>
+      <div class="analysis-pane pane-sources">
+        <div class="analysis-pane-h">Compatible sources</div>
+        <iframe id="frame-finder" title="Casebound Finder" srcdoc="<!DOCTYPE html>
 <html lang=&quot;en&quot;>
 <head>
 <meta charset=&quot;UTF-8&quot;>
@@ -1482,6 +1644,17 @@ window.addEventListener(&quot;message&quot;, function(ev){
   try{
     document.getElementById(&quot;facts&quot;).value = d.facts || &quot;&quot;;
     document.getElementById(&quot;claim&quot;).value = d.claim || &quot;&quot;;
+    if(d.jur){
+      var jc = document.getElementById(&quot;jur-chips&quot;);
+      var hasJ = Array.prototype.some.call(jc.children, function(el){ return el.dataset.j === d.jur; });
+      curJur = hasJ ? d.jur : &quot;All&quot;;
+      Array.prototype.forEach.call(jc.children, function(el){ el.classList.toggle(&quot;on&quot;, el.dataset.j === curJur); });
+    }
+    if(d.dtype){
+      var tc = document.getElementById(&quot;type-chips&quot;);
+      curType = /^(all|provision|case)$/.test(d.dtype) ? d.dtype : &quot;all&quot;;
+      Array.prototype.forEach.call(tc.children, function(el){ el.classList.toggle(&quot;on&quot;, el.dataset.t === curType); });
+    }
     document.getElementById(&quot;run&quot;).click();
   }catch(err){}
 });
@@ -1489,23 +1662,26 @@ window.addEventListener(&quot;message&quot;, function(ev){
 </body>
 </html>
 "></iframe>
+      </div>
+    </div>
   </div>
-  </div>
-</div>
+</section>
 
-<div id="frame-cases" class="cases-view">
+<!-- ================= Saved cases ================= -->
+<section id="view-cases" class="view" aria-label="Saved cases">
   <div class="cases-view-in">
     <div class="cases-view-head">
-      <h2>Saved cases &amp; projects</h2>
+      <h2>Saved cases</h2>
       <div class="cases-view-tools">
-        <input type="text" id="cases-search" placeholder="Search saved cases…">
+        <input type="text" id="cases-search" placeholder="Search saved cases…" aria-label="Search saved cases">
         <button class="cases-clear-btn" id="cases-clear-all">Clear all</button>
       </div>
     </div>
     <div class="cases-grid" id="cases-grid"></div>
   </div>
-</div>
-</div>
+</section>
+
+</main>
 
 <footer class="site-foot">
   <div class="site-foot-in">
@@ -1517,21 +1693,45 @@ window.addEventListener(&quot;message&quot;, function(ev){
 
 <script src="/plan-limits.js"></script>
 <script>
-document.querySelectorAll(".tab").forEach(btn=>{
-  btn.addEventListener("click", ()=>{
-    document.querySelectorAll(".tab").forEach(b=>{ b.classList.remove("on"); b.setAttribute("aria-selected","false"); });
-    btn.classList.add("on"); btn.setAttribute("aria-selected","true");
-    document.querySelectorAll(".frames > iframe, .frames > .analysis-wrap, .frames > .cases-view").forEach(f=>f.classList.remove("on"));
-    document.getElementById("frame-"+btn.dataset.tab).classList.add("on");
-    if(typeof refitPanes === "function") setTimeout(refitPanes, 0);
-  });
-});
-
-function switchToTab(name){
-  const btn = document.querySelector(`.tab[data-tab="${name}"]`);
-  if(btn) btn.click();
+const $id = (id) => document.getElementById(id);
+function escHtml(s){
+  return String(s||"").replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 }
 
+/* ---------------- pages: New case → Results (+ Saved cases) ----------------
+   Each page has its own address (#results, #cases) so the browser's Back
+   button returns from the results to the case form. */
+const VIEWS = ["start","results","cases"];
+let CURRENT = null;          // the case currently shown on the results page
+const CURRENT_KEY = "casebound:current";
+
+function showView(name, opts){
+  if(!VIEWS.includes(name)) name = "start";
+  VIEWS.forEach(v => $id("view-"+v).classList.toggle("on", v === name));
+  document.querySelectorAll(".tab").forEach(t => {
+    const on = t.dataset.go === name;
+    t.classList.toggle("on", on);
+    if(on) t.setAttribute("aria-current","page"); else t.removeAttribute("aria-current");
+  });
+  $id("res-empty").hidden = !(name === "results" && !CURRENT);
+  const hash = name === "start" ? "" : "#" + name;
+  if(!(opts && opts.fromHash) && location.hash !== hash){
+    history.pushState(null, "", hash || location.pathname + location.search);
+  }
+  if(name === "cases") renderCases();
+  if(name === "start") renderRecent();
+  const v = $id("view-"+name); if(v) v.scrollTop = 0;
+  window.scrollTo(0, 0);
+  if(name === "results") setTimeout(refitPanes, 0);
+  if(name === "start" && !(opts && opts.keepFocus)) setTimeout(()=>{ if(!$id("hub-facts").value) $id("hub-facts").focus({preventScroll:true}); }, 0);
+}
+document.addEventListener("click", e => {
+  const g = e.target.closest("[data-go]");
+  if(!g || g.disabled) return;
+  e.preventDefault();
+  showView(g.dataset.go);
+});
+window.addEventListener("popstate", () => showView((location.hash||"").slice(1) || "start", { fromHash: true }));
 
 /* ---------------- plan: free (limited) vs paid (unlimited) ----------------
    Limits live in /plan-limits.js. A signed-in subscriber gets tier "pro"
@@ -1556,75 +1756,86 @@ function countAnalysis(){
   try{ localStorage.setItem(USAGE_KEY, JSON.stringify({ day: today(), n: usedToday() + 1 })); }catch(e){}
 }
 const upgradeLink = (txt) => `<a href="/pricing.html">${txt || "Upgrade for unlimited use"}</a>`;
-function limitNote(el, html){
-  el.className = "hub-status on"; el.style.color = "var(--oxblood)"; el.innerHTML = html;
-}
 function renderPlanBar(){
-  const top = document.getElementById("top-account");
+  const top = $id("top-account");
   if(top) top.textContent = SIGNED_IN ? "Account" : "Sign in";
-  const bar = document.getElementById("plan-bar");
+  const bar = $id("plan-bar");
   if(!bar) return;
   if(isPro()){
-    bar.innerHTML = `<span class="pb-tag pro">Full access</span><span>Unlimited analyses, saved cases and file reading.</span><a href="/account.html">Account</a>`;
+    bar.innerHTML = `<span class="pb-tag pro">Full access</span><span>Unlimited analyses, saved cases and file reading.</span>`;
     return;
   }
   const left = Math.max(0, FREE.analysesPerDay - usedToday());
   bar.innerHTML = `<span class="pb-tag">Free plan</span>` +
-    `<span>${left} of ${FREE.analysesPerDay} analyses left today · up to ${FREE.savedCases} saved cases${FREE.fileUpload ? "" : " · file reading not included"}</span>` +
+    `<span>${left} of ${FREE.analysesPerDay} analyses left today · up to ${FREE.savedCases} saved cases${FREE.fileUpload ? "" : " · file reading on paid plans"}</span>` +
     upgradeLink("Upgrade") + (SIGNED_IN ? "" : ` <a href="/login.html?next=/">Sign in</a>`);
 }
 renderPlanBar();
 
-
-/* ---------------- embedded panes: tidy styling + phone layout ----------------
-   The two panes are same-origin iframes. Their own headers duplicate the page
-   header, so they are hidden; on phones each pane grows to its full height so
-   the whole page scrolls as one (no small scroll boxes inside the page). */
-const PHONE = window.matchMedia("(max-width:900px)");
-const EMBED_CSS = `
-.masthead{display:none!important}
-@media(max-width:900px){
-  html,body{height:auto!important;min-height:0!important;overflow:visible!important;-webkit-text-size-adjust:100%}
-  .shell{min-height:0!important;padding-left:16px!important;padding-right:16px!important}
-  input,textarea,select{font-size:16px!important}
-  #canvas{height:460px!important}
-  .node{max-width:110px!important;font-size:10.5px!important;padding:5px 8px!important}
-  .node-case{max-width:120px!important;font-size:12px!important;padding:9px 12px!important}
-  .node-jur .pct{font-size:11.5px!important}
-  button,a{-webkit-tap-highlight-color:rgba(110,31,42,.12)}
-}`;
-function styleFrame(f){
-  try{
-    const d = f.contentDocument;
-    if(d && d.head && !d.getElementById("cb-embed")){
-      const s = d.createElement("style"); s.id = "cb-embed"; s.textContent = EMBED_CSS; d.head.appendChild(s);
-    }
-    if(d && window.CBTheme) window.CBTheme.attach(d);
-  }catch(e){}
+/* ---------------- the form on page 1 ---------------- */
+const OUTPUT_LABEL = { both: "Mindmap + sources", map: "Mindmap", sources: "Sources" };
+const JUR_SHORT = { "All": "all jurisdictions", "European Union": "EU", "United Kingdom": "UK", "United States": "US" };
+const TYPE_LABEL = { all: "", provision: "provisions only", case: "case law only" };
+const radioVal = (name) => (document.querySelector(`input[name="${name}"]:checked`) || {}).value;
+function setRadio(name, value){
+  const el = document.querySelector(`input[name="${name}"][value="${CSS.escape(value||"")}"]`);
+  if(el) el.checked = true;
 }
-function fitFrame(f){
-  try{
-    if(!PHONE.matches){ f.style.height = ""; return; }
-    const d = f.contentDocument; if(!d || !d.body) return;
-    const cs = d.defaultView.getComputedStyle(d.body);
-    const h = Math.ceil(d.body.getBoundingClientRect().height + parseFloat(cs.marginTop||0) + parseFloat(cs.marginBottom||0));
-    if(h > 50 && Math.abs(h - f.offsetHeight) > 1) f.style.height = h + "px";
-  }catch(e){}
-}
-const paneFrames = ["frame-atlas","frame-finder"].map(id => document.getElementById(id)).filter(Boolean);
-paneFrames.forEach(f => {
-  const setup = () => {
-    styleFrame(f); fitFrame(f);
-    try{ new f.contentWindow.ResizeObserver(() => fitFrame(f)).observe(f.contentDocument.body); }catch(e){}
+function readForm(){
+  return {
+    facts: $id("hub-facts").value.trim(),
+    claim: $id("hub-claim").value.trim(),
+    output: radioVal("output") || "both",
+    jur: radioVal("jur") || "All",
+    dtype: radioVal("dtype") || "all"
   };
-  f.addEventListener("load", setup);
-  try{ if(f.contentDocument && f.contentDocument.readyState === "complete") setup(); }catch(e){}
-});
-const refitPanes = () => paneFrames.forEach(fitFrame);
-(PHONE.addEventListener ? PHONE.addEventListener("change", refitPanes) : PHONE.addListener(refitPanes));
-window.addEventListener("orientationchange", () => setTimeout(refitPanes, 300));
+}
+function fillForm(c){
+  $id("hub-facts").value = c.facts || "";
+  $id("hub-claim").value = c.claim || "";
+  setRadio("output", c.output || "both");
+  setRadio("jur", c.jur || "All");
+  setRadio("dtype", c.dtype || "all");
+  syncRefine(); updateCount();
+}
+function syncRefine(){
+  // jurisdiction / type filters only affect the sources list
+  const off = radioVal("output") === "map";
+  $id("refine").classList.toggle("off", off);
+  $id("refine").setAttribute("aria-disabled", off ? "true" : "false");
+}
+document.querySelectorAll('input[name="output"]').forEach(r => r.addEventListener("change", syncRefine));
+function updateCount(){
+  const n = $id("hub-facts").value.trim().split(/\s+/).filter(Boolean).length;
+  $id("facts-count").textContent = n ? `${n} word${n===1?"":"s"}` : "";
+}
+$id("hub-facts").addEventListener("input", () => { updateCount(); $id("hub-status").textContent = ""; });
 
-/* ---------------- insert files into the facts field ---------------- */
+const EXAMPLES = [
+  { tag: "Late delivery, lost profit", jur: "All",
+    facts: "A commercial buyer ordered manufacturing equipment. Delivery was six weeks late. The buyer now claims lost production profit for the delay, but never told the seller at the time of contracting what output volume the machinery was meant to sustain.",
+    claim: "recover lost profit caused by the delay" },
+  { tag: "Rejecting goods for a minor defect", jur: "All",
+    facts: "A wholesale buyer received a shipment of components. A small fraction of the units in one crate had a cosmetic defect. The buyer wants to reject the entire shipment rather than just the defective units.",
+    claim: "reject the whole delivery" },
+  { tag: "Employee moved to lower-grade duties", jur: "Italy",
+    facts: "An employer reorganised its department in 2022 and reassigned an employee to duties one grade below their previous role, citing a genuine restructuring of the unit.",
+    claim: "defend the reassignment as lawful" },
+  { tag: "Unfair jurisdiction clause", jur: "European Union",
+    facts: "A consumer signed a standard-form contract with a business. The form contained a jurisdiction clause requiring disputes to be litigated in the seller's home country. The consumer never negotiated this clause individually.",
+    claim: "challenge the jurisdiction clause as unfair" }
+];
+$id("examples").insertAdjacentHTML("beforeend",
+  EXAMPLES.map((x,i)=>`<button type="button" data-ex="${i}">${escHtml(x.tag)}</button>`).join(""));
+$id("examples").addEventListener("click", e => {
+  const b = e.target.closest("[data-ex]"); if(!b) return;
+  const x = EXAMPLES[b.dataset.ex];
+  fillForm({ facts: x.facts, claim: x.claim, output: radioVal("output"), jur: x.jur, dtype: "all" });
+  $id("hub-file-status").textContent = "";
+  $id("hub-run").focus();
+});
+
+/* ---------------- read files into the facts box ---------------- */
 let pdfjsReady = null, mammothReady = null;
 function loadScript(src){
   return new Promise((resolve, reject)=>{
@@ -1665,15 +1876,14 @@ async function extractFileText(file){
 async function handleHubFiles(fileList){
   const files = Array.from(fileList || []);
   if(!files.length) return;
-  const btn = document.getElementById("hub-file-btn");
-  const status = document.getElementById("hub-file-status");
+  const btn = $id("hub-file-btn"), status = $id("hub-file-status");
   await tierReady;
   if(!isPro() && !FREE.fileUpload){
     status.className = "hub-file-status err";
-    status.innerHTML = `Reading PDF, Word and text files is part of the paid plans. ${upgradeLink("See plans")} — or paste the text into the box.`;
+    status.innerHTML = `Reading files is part of the paid plans. ${upgradeLink("See plans")}, or paste the text into the box.`;
     return;
   }
-  const facts = document.getElementById("hub-facts");
+  const facts = $id("hub-facts");
   btn.disabled = true;
   status.className = "hub-file-status";
   status.textContent = files.length===1 ? `Reading ${files[0].name}…` : `Reading ${files.length} files…`;
@@ -1687,7 +1897,7 @@ async function handleHubFiles(fileList){
       } else failed.push(`${file.name} (no readable text)`);
     }catch(e){ failed.push(`${file.name} (${e.message})`); }
   }
-  btn.disabled = false;
+  btn.disabled = false; updateCount();
   if(added.length && !failed.length){
     status.className = "hub-file-status ok";
     status.textContent = `Added ${added.join(", ")} to the facts.`;
@@ -1696,159 +1906,279 @@ async function handleHubFiles(fileList){
     status.textContent = `Added ${added.join(", ")}. Couldn't read ${failed.join(", ")}.`;
   } else {
     status.className = "hub-file-status err";
-    status.textContent = `Couldn't read ${failed.join(", ")} — try pasting the text directly.`;
+    status.textContent = `Couldn't read ${failed.join(", ")}. Try pasting the text directly.`;
   }
 }
-document.getElementById("hub-file-btn").addEventListener("click", ()=> document.getElementById("hub-file-input").click());
-document.getElementById("hub-file-input").addEventListener("change", (e)=>{ handleHubFiles(e.target.files); e.target.value = ""; });
-const hubFactsEl = document.getElementById("hub-facts");
+$id("hub-file-btn").addEventListener("click", ()=> $id("hub-file-input").click());
+$id("hub-file-input").addEventListener("change", (e)=>{ handleHubFiles(e.target.files); e.target.value = ""; });
+const hubFactsEl = $id("hub-facts");
 ["dragover","dragenter"].forEach(evt=> hubFactsEl.addEventListener(evt, e=>{ e.preventDefault(); hubFactsEl.classList.add("drag-over"); }));
 ["dragleave","dragend"].forEach(evt=> hubFactsEl.addEventListener(evt, ()=> hubFactsEl.classList.remove("drag-over")));
-hubFactsEl.addEventListener("drop", e=>{
-  e.preventDefault(); hubFactsEl.classList.remove("drag-over");
-  handleHubFiles(e.dataTransfer.files);
-});
+hubFactsEl.addEventListener("drop", e=>{ e.preventDefault(); hubFactsEl.classList.remove("drag-over"); handleHubFiles(e.dataTransfer.files); });
 
-function hubFacts(){
-  return {
-    facts: document.getElementById("hub-facts").value.trim(),
-    claim: document.getElementById("hub-claim").value.trim()
+/* ---------------- embedded panes: tidy styling + phone layout ----------------
+   The two panes are same-origin iframes. Their own headers duplicate the page
+   header, so they are hidden; on phones each pane grows to its full height so
+   the whole page scrolls as one (no small scroll boxes inside the page). */
+const PHONE = window.matchMedia("(max-width:900px)");
+const EMBED_CSS = `
+.masthead{display:none!important}
+/* the case is entered on page 1, so the panes' own examples and input hints are hidden */
+.ex-label,#examples,.samples,.intake>.hint{display:none!important}
+@media(max-width:900px){
+  html,body{height:auto!important;min-height:0!important;overflow:visible!important;-webkit-text-size-adjust:100%}
+  .shell{min-height:0!important;padding-left:16px!important;padding-right:16px!important}
+  input,textarea,select{font-size:16px!important}
+  #canvas{height:460px!important}
+  .node{max-width:110px!important;font-size:10.5px!important;padding:5px 8px!important}
+  .node-case{max-width:120px!important;font-size:12px!important;padding:9px 12px!important}
+  .node-jur .pct{font-size:11.5px!important}
+  button,a{-webkit-tap-highlight-color:rgba(110,31,42,.12)}
+}`;
+function styleFrame(f){
+  try{
+    const d = f.contentDocument;
+    if(d && d.head && !d.getElementById("cb-embed")){
+      const s = d.createElement("style"); s.id = "cb-embed"; s.textContent = EMBED_CSS; d.head.appendChild(s);
+      const run = d.getElementById("run"); if(run) run.textContent = "Apply filters";
+    }
+    if(d && window.CBTheme) window.CBTheme.attach(d);
+  }catch(e){}
+}
+function fitFrame(f){
+  try{
+    if(!PHONE.matches){ f.style.height = ""; return; }
+    const d = f.contentDocument; if(!d || !d.body) return;
+    const cs = d.defaultView.getComputedStyle(d.body);
+    const h = Math.ceil(d.body.getBoundingClientRect().height + parseFloat(cs.marginTop||0) + parseFloat(cs.marginBottom||0));
+    if(h > 50 && Math.abs(h - f.offsetHeight) > 1) f.style.height = h + "px";
+  }catch(e){}
+}
+const PANES = { map: $id("frame-atlas"), sources: $id("frame-finder") };
+const paneFrames = Object.values(PANES).filter(Boolean);
+const framesReady = Promise.all(paneFrames.map(f => new Promise(res => {
+  const setup = () => {
+    styleFrame(f); fitFrame(f);
+    try{ new f.contentWindow.ResizeObserver(() => fitFrame(f)).observe(f.contentDocument.body); }catch(e){}
+    res();
   };
+  let done = false;
+  const once = () => { if(!done){ done = true; setup(); } };
+  f.addEventListener("load", once);
+  try{ if(f.contentDocument && f.contentDocument.readyState === "complete" && f.contentDocument.body && f.contentDocument.body.childElementCount) once(); }catch(e){}
+})));
+const refitPanes = () => paneFrames.forEach(fitFrame);
+(PHONE.addEventListener ? PHONE.addEventListener("change", refitPanes) : PHONE.addListener(refitPanes));
+window.addEventListener("orientationchange", () => setTimeout(refitPanes, 300));
+
+function sendToPane(key, c){
+  const f = PANES[key];
+  if(!f || !f.contentWindow) return;
+  f.contentWindow.postMessage({ type: "casebound:runCase", facts: c.facts, claim: c.claim, jur: c.jur, dtype: c.dtype }, "*");
 }
 
-/* ---------------- saved cases (persisted in this browser via localStorage) ---------------- */
-const CASES_KEY = "casebound_cases_v1";
+/* ---------------- results page: which output is showing ---------------- */
+function setOutput(out, rerun){
+  out = OUTPUT_LABEL[out] ? out : "both";
+  $id("analysis-split").dataset.show = out;
+  document.querySelectorAll("#res-output [data-out]").forEach(b => b.setAttribute("aria-checked", b.dataset.out === out ? "true" : "false"));
+  if(CURRENT){
+    const was = CURRENT.output;
+    CURRENT.output = out;
+    rememberCurrent();
+    renderSummary();
+    // a pane that was hidden while the case ran is re-run so its layout fits its new size
+    const visible = (mode, k) => mode === "both" || mode === k;
+    if(rerun) ["map","sources"].forEach(k => {
+      if(visible(out, k) && !visible(was, k)) setTimeout(() => sendToPane(k, CURRENT), 30);
+    });
+  }
+  setTimeout(()=>{
+    refitPanes();
+    paneFrames.forEach(f => { try{ f.contentWindow.dispatchEvent(new Event("resize")); }catch(e){} });
+  }, 0);
+}
+$id("res-output").addEventListener("click", e => {
+  const b = e.target.closest("[data-out]"); if(b) setOutput(b.dataset.out, true);
+});
+$id("res-output").addEventListener("keydown", e => {
+  if(e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+  const btns = [...document.querySelectorAll("#res-output [data-out]")];
+  const i = btns.findIndex(b => b.getAttribute("aria-checked") === "true");
+  const n = btns[(i + (e.key === "ArrowRight" ? 1 : btns.length - 1)) % btns.length];
+  n.focus(); setOutput(n.dataset.out, true);
+});
+$id("res-new").addEventListener("click", () => {
+  fillForm({ output: radioVal("output") });
+  $id("hub-file-status").textContent = ""; $id("hub-status").textContent = "";
+  showView("start");
+});
 
+function renderSummary(){
+  if(!CURRENT) return;
+  $id("res-title").textContent = caseLabel(CURRENT.facts, "");
+  const bits = [];
+  if(CURRENT.claim) bits.push(`Goal: <b>${escHtml(CURRENT.claim)}</b>`);
+  if(CURRENT.output !== "map"){
+    bits.push("Sources from " + escHtml(JUR_SHORT[CURRENT.jur] || CURRENT.jur) + (TYPE_LABEL[CURRENT.dtype] ? ", " + TYPE_LABEL[CURRENT.dtype] : ""));
+  }
+  $id("res-meta").innerHTML = bits.join(" · ");
+}
+function rememberCurrent(){
+  try{ sessionStorage.setItem(CURRENT_KEY, JSON.stringify(CURRENT)); }catch(e){}
+}
+
+/* ---------------- saved cases (kept in this browser) ---------------- */
+const CASES_KEY = "casebound_cases_v1";
 function loadCases(){
   try{ return JSON.parse(localStorage.getItem(CASES_KEY) || "[]"); }catch(e){ return []; }
 }
 function persistCases(list){
   try{ localStorage.setItem(CASES_KEY, JSON.stringify(list.slice(0, 60))); }catch(e){}
 }
-function escHtml(s){
-  return (s||"").replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-}
 function caseLabel(facts, claim){
-  const base = (claim || facts).replace(/\s+/g," ").trim();
-  return base.length > 60 ? base.slice(0,60)+"…" : base;
+  const base = (claim || facts).replace(/\s+/g," ").replace(/^— From .+? —\s*/,"").trim();
+  return base.length > 70 ? base.slice(0,70)+"…" : base;
 }
 function fmtSavedAt(iso){
   const d = new Date(iso);
   return d.toLocaleDateString(undefined,{month:"short",day:"numeric"}) + " · " +
     d.toLocaleTimeString(undefined,{hour:"numeric",minute:"2-digit"});
 }
-function saveCase(facts, claim){
+/* returns "" when saved, or a note explaining why it wasn't */
+function saveCase(c){
   let list = loadCases();
-  const existingIdx = list.findIndex(c => c.facts === facts && c.claim === claim);
-  if(existingIdx !== -1){
-    const [existing] = list.splice(existingIdx, 1);
-    existing.savedAt = new Date().toISOString();
-    list.unshift(existing);
+  const i = list.findIndex(x => x.facts === c.facts && x.claim === c.claim);
+  const rec = { output: c.output, jur: c.jur, dtype: c.dtype, savedAt: new Date().toISOString() };
+  if(i !== -1){
+    const [existing] = list.splice(i, 1);
+    list.unshift(Object.assign(existing, rec));
   } else {
     if(!isPro() && list.length >= FREE.savedCases){
-      const st = document.getElementById("hub-status");
-      st.insertAdjacentHTML("beforeend", `<span class="limit-note">Not saved: the free plan keeps ${FREE.savedCases} cases. Delete one in Cases, or ${upgradeLink("upgrade to keep them all")}.</span>`);
-      return;
+      return `Not saved: the free plan keeps ${FREE.savedCases} cases. Delete one in Saved cases, or ${upgradeLink("upgrade to keep them all")}.`;
     }
-    list.unshift({
+    list.unshift(Object.assign({
       id: Date.now()+"-"+Math.random().toString(36).slice(2,7),
-      label: caseLabel(facts, claim),
-      facts, claim,
-      savedAt: new Date().toISOString()
-    });
+      label: caseLabel(c.facts, c.claim), facts: c.facts, claim: c.claim
+    }, rec));
   }
   persistCases(list);
-  renderCases();
+  return "";
 }
 function deleteCase(id){
   persistCases(loadCases().filter(c=>c.id!==id));
-  renderCases();
+  renderCases(); renderRecent();
 }
 function renderCases(){
-  const q = (document.getElementById("cases-search").value || "").trim().toLowerCase();
-  let list = loadCases();
-  if(q){
-    list = list.filter(c =>
-      c.label.toLowerCase().includes(q) ||
-      c.facts.toLowerCase().includes(q) ||
-      (c.claim||"").toLowerCase().includes(q));
-  }
-  const grid = document.getElementById("cases-grid");
+  const q = ($id("cases-search").value || "").trim().toLowerCase();
+  const all = loadCases();
+  const list = q ? all.filter(c =>
+      c.label.toLowerCase().includes(q) || c.facts.toLowerCase().includes(q) || (c.claim||"").toLowerCase().includes(q)) : all;
+  $id("cases-clear-all").hidden = !all.length;
+  const grid = $id("cases-grid");
   if(!list.length){
     grid.innerHTML = `<div class="cases-empty-full">${
-      loadCases().length ? "No saved cases match that search." :
-      "No cases saved yet — analyze one and it lands here, ready to reopen."
+      all.length ? "No saved cases match that search." :
+      `No cases saved yet. Analyze one and it lands here, ready to reopen.<br><button type="button" class="hub-btn" data-go="start">Start a case</button>`
     }</div>`;
     return;
   }
   grid.innerHTML = list.map(c => `
     <div class="case-card">
       <div class="case-card-label">${escHtml(c.label)}</div>
-      <div class="case-card-date">${fmtSavedAt(c.savedAt)}</div>
+      <div class="case-card-date">${fmtSavedAt(c.savedAt)} · ${OUTPUT_LABEL[c.output] || OUTPUT_LABEL.both}</div>
       ${c.claim ? `<div class="case-card-claim">${escHtml(c.claim)}</div>` : ""}
       <div class="case-card-facts">${escHtml(c.facts)}</div>
       <div class="case-card-actions">
-        <button class="case-card-open" data-act="load" data-id="${c.id}">Reopen</button>
-        <button class="case-card-del" data-act="del" data-id="${c.id}" title="Remove">&times;</button>
+        <button class="case-card-open" data-act="load" data-id="${c.id}">Open results</button>
+        <button class="case-card-open" data-act="edit" data-id="${c.id}" style="flex:0 0 auto;background:var(--paper);color:var(--ink);border:1px solid var(--rule)">Edit</button>
+        <button class="case-card-del" data-act="del" data-id="${c.id}" title="Remove" aria-label="Remove">&times;</button>
       </div>
     </div>`).join("");
 }
-document.getElementById("cases-grid").addEventListener("click", e=>{
-  const del = e.target.closest('[data-act="del"]');
-  if(del){ deleteCase(del.dataset.id); return; }
-  const load = e.target.closest('[data-act="load"]');
-  if(load){
-    const c = loadCases().find(x=>x.id===load.dataset.id);
-    if(!c) return;
-    document.getElementById("hub-facts").value = c.facts;
-    document.getElementById("hub-claim").value = c.claim || "";
-    runAnalysis({ reopen: true });
-  }
+function renderRecent(){
+  const list = loadCases().slice(0, 3);
+  $id("recent").hidden = !list.length;
+  $id("recent-list").innerHTML = list.map(c => `
+    <button type="button" class="recent-item" data-act="load" data-id="${c.id}">
+      <span class="ri-main"><span class="ri-t">${escHtml(c.label)}</span>
+      <span class="ri-m">${fmtSavedAt(c.savedAt)}${c.claim ? " · " + escHtml(c.claim) : ""}</span></span>
+      <span class="ri-go">Open &rarr;</span>
+    </button>`).join("");
+}
+function onCaseAction(e){
+  const b = e.target.closest("[data-act]"); if(!b) return;
+  if(b.dataset.act === "del"){ deleteCase(b.dataset.id); return; }
+  const c = loadCases().find(x => x.id === b.dataset.id); if(!c) return;
+  fillForm(c);
+  if(b.dataset.act === "edit"){ showView("start"); return; }
+  runAnalysis({ reopen: true });
+}
+$id("cases-grid").addEventListener("click", onCaseAction);
+$id("recent-list").addEventListener("click", onCaseAction);
+$id("cases-search").addEventListener("input", renderCases);
+$id("cases-clear-all").addEventListener("click", ()=>{
+  if(!confirm("Remove all saved cases from this browser?")) return;
+  persistCases([]); renderCases(); renderRecent();
 });
-document.getElementById("cases-search").addEventListener("input", renderCases);
-document.getElementById("cases-clear-all").addEventListener("click", ()=>{
-  persistCases([]);
-  renderCases();
-});
-renderCases();
 
-/* ---------------- run the shared prompt through Analysis + Intake ---------------- */
+/* ---------------- run: page 1 → page 2 ---------------- */
 async function runAnalysis(opts){
   const reopen = !!(opts && opts.reopen);
-  const { facts, claim } = hubFacts();
-  const status = document.getElementById("hub-status");
-  await tierReady;
-  if(facts.length < 15){
-    status.className = "hub-status on";
-    status.style.color = "var(--oxblood)";
-    status.textContent = "Add a bit more detail on the facts — a sentence or two is enough.";
+  const c = readForm();
+  const status = $id("hub-status");
+  const btn = $id("hub-run");
+  status.textContent = "";
+  if(c.facts.length < 15){
+    status.textContent = "Add a bit more detail on what happened. A sentence or two is enough.";
+    showView("start", { keepFocus: true });
+    $id("hub-facts").focus();
     return;
   }
-  const known = loadCases().some(c => c.facts === facts && c.claim === claim);
+  btn.disabled = true; btn.textContent = "Analyzing…";
+  await tierReady;
+  const known = loadCases().some(x => x.facts === c.facts && x.claim === c.claim);
   const counts = !isPro() && !reopen && !known;
   if(counts && usedToday() >= FREE.analysesPerDay){
-    limitNote(status, `You've used today's ${FREE.analysesPerDay} free analyses. Saved cases still reopen for free. ${upgradeLink()}, or come back tomorrow.`);
+    btn.disabled = false; btn.innerHTML = "Analyze case &rarr;";
+    status.innerHTML = `You've used today's ${FREE.analysesPerDay} free analyses. Saved cases still reopen for free. ${upgradeLink()}, or come back tomorrow.`;
+    showView("start", { keepFocus: true });
     return;
   }
-  const runPayload = { type: "casebound:runCase", facts, claim };
-  ["frame-atlas","frame-finder"].forEach(id=>{
-    const f = document.getElementById(id);
-    if(f && f.contentWindow) f.contentWindow.postMessage(runPayload, "*");
-  });
-  const intakePayload = { type: "casebound:draftIntake", body: facts, cite: claim };
-  const intakeFrame = document.getElementById("frame-intake");
-  if(intakeFrame && intakeFrame.contentWindow) intakeFrame.contentWindow.postMessage(intakePayload, "*");
-
+  await framesReady;
+  CURRENT = c;
+  rememberCurrent();
   if(counts) countAnalysis();
-  status.className = "hub-status on";
-  status.style.color = "var(--verdigris)";
-  status.textContent = "Mapped and matched — see Analysis for the mindmap and ranked sources.";
-  saveCase(facts, claim);
+  $id("res-note").innerHTML = saveCase(c);
   sendSignal({ action: "analysis_run" });
   renderPlanBar();
-  switchToTab("analysis");
+  setOutput(c.output, false);
+  $id("tab-results").disabled = false;
+  btn.disabled = false; btn.innerHTML = "Analyze case &rarr;";
+  showView("results");
+  // run the panes once the results page is laid out, so the mindmap fits its pane
+  requestAnimationFrame(() => { sendToPane("map", c); sendToPane("sources", c); });
 }
-document.getElementById("hub-run").addEventListener("click", ()=> runAnalysis());
+$id("start-form").addEventListener("submit", e => { e.preventDefault(); runAnalysis(); });
+$id("hub-facts").addEventListener("keydown", e => {
+  if(e.key === "Enter" && (e.metaKey || e.ctrlKey)){ e.preventDefault(); runAnalysis(); }
+});
+
+/* ---------------- first load ---------------- */
+(function init(){
+  syncRefine(); updateCount(); renderRecent();
+  let saved = null;
+  try{ saved = JSON.parse(sessionStorage.getItem(CURRENT_KEY) || "null"); }catch(e){}
+  if(saved && saved.facts) fillForm(saved);
+  const want = (location.hash || "").slice(1);
+  if(want === "results" && saved && saved.facts){
+    // a reload on the results page: show the same case again (doesn't use up an analysis)
+    runAnalysis({ reopen: true });
+  } else {
+    showView(VIEWS.includes(want) && want !== "results" ? want : "start", { fromHash: true });
+    if(want === "results") history.replaceState(null, "", location.pathname + location.search);
+  }
+})();
 </script>
 <script>
 /* ============================================================
