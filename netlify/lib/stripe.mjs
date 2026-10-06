@@ -55,7 +55,7 @@ export async function stripe(method, path, params) {
     method,
     headers: {
       Authorization: `Bearer ${secretKey()}`,
-      "Stripe-Version": "2024-06-20",
+      "Stripe-Version": "2025-03-31.basil",
     },
   };
   if (method === "GET") {
