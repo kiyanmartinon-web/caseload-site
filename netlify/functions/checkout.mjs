@@ -36,19 +36,31 @@ export default async (req) => {
       return json({ error: "This plan is no longer available." }, 400);
     }
     if (user.stripeCustomer) {
-      const existing = await stripe("GET", "subscriptions", { customer: user.stripeCustomer, status: "all", limit: 10 });
+      // A failed look-up (e.g. a restricted key without Subscriptions read) must not block checkout.
+      let existing = { data: [] };
+      try {
+        existing = await stripe("GET", "subscriptions", { customer: user.stripeCustomer, status: "all", limit: 10 });
+      } catch (e) {
+        console.error("[stripe] subscription look-up failed", e && e.message);
+      }
       if (existing.data.some((s) => ["active", "trialing", "past_due", "unpaid"].includes(s.status))) {
         return json({ error: "You already have a subscription. Change plan from your account page.", hasSubscription: true }, 409);
       }
     }
     const params = buildSessionParams(price, siteOrigin(req), body.lang === "it" ? "it" : "en");
     params.client_reference_id = user.id;
-    if (user.stripeCustomer) params.customer = user.stripeCustomer;
-    else params.customer_email = user.email;
+    if (user.stripeCustomer) {
+      params.customer = user.stripeCustomer;
+      // Stripe requires this when collecting address / tax ID for an existing customer.
+      params.customer_update = { name: "auto", address: "auto" };
+    } else {
+      params.customer_email = user.email;
+    }
     const session = await stripe("POST", "checkout/sessions", params);
     return json({ url: session.url });
   } catch (err) {
-    return failure(err);
+    // Show Stripe's own reason so a configuration problem can be spotted and fixed.
+    return failure(err, `Payments are temporarily unavailable (Stripe: ${err && err.message ? err.message : "unknown error"}).`);
   }
 };
 
