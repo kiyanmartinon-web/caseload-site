@@ -23,7 +23,26 @@ async function body(req) {
   try { return await req.json(); } catch { return null; }
 }
 
+// If the buyer never landed back on the account page after paying, the Stripe
+// customer was never linked. Find a completed checkout that THIS account started
+// (client_reference_id = account id) and link it now.
+async function linkFromCheckout(user) {
+  if (user.stripeCustomer || !isConfigured() || !user.email) return;
+  try {
+    const res = await stripe("GET", "checkout/sessions", {
+      status: "complete", limit: 20, customer_details: { email: user.email },
+    });
+    const s = (res.data || []).find((x) => x.client_reference_id === user.id && x.customer);
+    if (!s) return;
+    user.stripeCustomer = typeof s.customer === "string" ? s.customer : s.customer.id;
+    await saveUser(user);
+  } catch (e) {
+    console.error("[auth] checkout look-up failed", e && e.message);
+  }
+}
+
 async function subscriptionFor(user) {
+  await linkFromCheckout(user);
   if (!user.stripeCustomer || !isConfigured()) return null;
   try {
     const res = await stripe("GET", "subscriptions", {
