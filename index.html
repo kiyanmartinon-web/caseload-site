@@ -64,6 +64,12 @@ button,a{-webkit-tap-highlight-color:rgba(110,31,42,.12)}
 
 /* ---------- page 1: new case ---------- */
 .start{max-width:860px;margin:0 auto;padding:40px 22px 56px}
+.brand-lockup{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.brand-mark{width:52px;height:52px;flex:0 0 auto;display:block}
+.brand-name{font-family:var(--serif);font-size:30px;font-weight:600;letter-spacing:-.01em;line-height:1;color:var(--ink)}
+.brand-name span{color:var(--oxblood)}
+.brand-name small{display:block;font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin-top:5px}
+html[data-theme="dark"] .brand-mark text{fill:var(--paper)}
 .eyebrow{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--oxblood);margin-bottom:10px}
 .start h1{font-family:var(--serif);font-weight:600;font-size:34px;line-height:1.15;letter-spacing:-.015em;margin:0 0 10px}
 .start-lede{font-family:var(--serif);font-size:16.5px;line-height:1.55;color:var(--ink-soft);margin:0 0 28px;max-width:640px}
@@ -245,6 +251,9 @@ html[data-theme="dark"] .seg button[aria-checked="true"]{box-shadow:0 1px 2px rg
   .top-links a#top-account{padding:6px 10px;font-size:12.5px}
   .start{padding:26px 16px 40px}
   .start h1{font-size:27px}
+  .brand-lockup{gap:11px;margin-bottom:16px}
+  .brand-mark{width:42px;height:42px}
+  .brand-name{font-size:25px}
   .start-lede{font-size:15.5px;margin-bottom:20px}
   .start-card{padding:4px 16px 20px;border-radius:8px}
   .step{grid-template-columns:1fr;gap:10px;padding:18px 0}
@@ -296,7 +305,10 @@ html[data-theme="dark"] .seg button[aria-checked="true"]{box-shadow:0 1px 2px rg
 <!-- ================= PAGE 1 — describe the case ================= -->
 <section id="view-start" class="view on" aria-label="New case">
   <div class="start">
-    <div class="eyebrow">New case</div>
+    <div class="brand-lockup" aria-label="Casebound">
+      <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="12" fill="var(--oxblood)"/><text x="32" y="44" font-family="Georgia,serif" font-size="36" font-weight="700" text-anchor="middle" fill="#fff">C</text></svg>
+      <div class="brand-name">Case<span>bound</span><small>Legal research</small></div>
+    </div>
     <h1>Tell us about your case.</h1>
     <p class="start-lede">Describe what happened and choose what you need back. Casebound maps the facts to the governing Italian Civil Code articles and ranks matching provisions and rulings from Italy, the EU, France, the UK and the US.</p>
 
