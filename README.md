@@ -3,6 +3,7 @@
 Every push to `main` is published automatically by Netlify.
 
 - `index.html` — the public research tool (no Intake / corpus admin).
+- Matching (Finder list and the Atlas map's /25 component) is by **legal concepts**, not shared words: a multilingual (EN/IT/FR/DE) concept tree of ~150 concepts is embedded in `index.html`; each document carries curated `concepts` tags plus concepts detected in its text, and similarity is a rarity-weighted cosine over concept vectors, with broader parent concepts giving partial credit. The corpus and the concept tree are the `CORPUS` and `CONCEPTS` constants inside the Finder's `srcdoc` in `index.html`; a document's optional `concepts` array lists concept ids.
 - `privacy.html`, `terms.html` — legal pages (EN/IT).
 - `pricing.html`, `login.html`, `account.html` — plans, sign in / create account, and the account + subscription page.
 - `theme.js` — light/dark/auto appearance (saved in the browser) and the Settings menu in the top bar of every page.
