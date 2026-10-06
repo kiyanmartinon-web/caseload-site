@@ -7,6 +7,7 @@ Every push to `main` is published automatically by Netlify.
 - `privacy.html`, `terms.html` — legal pages (EN/IT).
 - `pricing.html`, `login.html`, `account.html` — plans, sign in / create account, and the account + subscription page.
 - `theme.js` — light/dark/auto appearance (saved in the browser) and the Settings menu in the top bar of every page.
+- **Self-improving rankings** — `netlify/functions/learn.mjs` (`/api/learn`). The Finder lets users rate results (Relevant / Not relevant) and correct the recognised concepts. Ratings and corrections act immediately in that browser (local storage); with the opt-in "Help improve rankings" box ticked, ratings and opened results are also sent as concept ids + document id and pooled into per-document totals in Netlify Blobs (store `learning`). Every visitor downloads the pooled model, which adds concepts users found a document useful for, demotes ones they rejected, and nudges scores by at most ±18 points. Taught words (vocabulary) never leave the browser. No env vars needed.
 - `netlify/functions/` — back end: accounts (`/api/auth/register|login|logout|me|delete|update|email|password|logout-all|export`) and Stripe (`/api/plans`, `/api/checkout`, `/api/session`, `/api/portal`).
 - Accounts are stored in Netlify Blobs (store `accounts`): passwords hashed with scrypt, sessions in an HttpOnly cookie. Buying a plan requires an account; the Stripe customer is linked to it after checkout.
 

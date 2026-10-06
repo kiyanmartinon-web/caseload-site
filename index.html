@@ -753,21 +753,62 @@ function ancestors(id){
 }
 function areaOf(id){ const a = ancestors(id); return a.length ? a[a.length-1] : id; }
 
-/* detect concepts in free text → {id: strength 0..1} */
-function detectConcepts(text){
+/* optional learning hooks (set by the Finder): words a user taught, phrases a user rejected */
+let LEARNED_VOCAB = null;   // {term: {conceptId: count}}
+let BLOCKED = null;         // {&quot;matched phrase|conceptId&quot;: count}
+let LAST_LEARNED_HITS = new Set();
+const VOCAB_STOP = new Set((&quot;the and for with that this from have has had was were are been being into onto over under about after before their there they them then than when what which while would could should shall will also very more most some such only other into upon your yours ours our its it's per via &quot;+
+  &quot;della delle dello degli dei del nella nelle negli con per tra fra che non come anche sono stato stata hanno abbiamo aveva questo questa quello quella loro dopo prima senza sulla sulle sugli &quot;+
+  &quot;dans pour avec sans sont etait cette entre apres avant leurs nous vous elle elles &quot;+
+  &quot;und oder eine einer einem einen nicht sind wird wurde werden nach durch&quot;).split(&quot; &quot;));
+/* content words + bigrams of a text, skipping capitalised words (likely names) */
+function candidateTerms(raw){
+  const words = String(raw||&quot;&quot;).split(/[^A-Za-zÀ-ÿ'-]+/).filter(Boolean);
+  const keep = [];
+  words.forEach((w,i) => {
+    if(/^[A-ZÀ-Þ]/.test(w) &amp;&amp; i>0) { keep.push(null); return; }
+    const n = normText(w).trim();
+    keep.push(/^[a-z]{4,24}$/.test(n) &amp;&amp; !VOCAB_STOP.has(n) ? n : null);
+  });
+  const out = new Set();
+  keep.forEach((w,i) => { if(w){ out.add(w); if(keep[i+1]) out.add(w+&quot; &quot;+keep[i+1]); } });
+  return [...out];
+}
+const vocabActive = (term, cnt) => cnt >= (term.includes(&quot; &quot;) ? 1 : 2);
+
+/* detect concepts in free text → {id: strength 0..1}; learn=true also applies taught words */
+function detectConcepts(text, learn){
   const t = normText(text);
   const hits = {};
+  if(learn) LAST_LEARNED_HITS = new Set();
   CONCEPTS.forEach(c => {
     c.re.lastIndex = 0;
-    const m = t.match(c.re);
-    if(m){
+    let m = t.match(c.re);
+    if(m &amp;&amp; learn &amp;&amp; BLOCKED) m = m.filter(x => !(BLOCKED[x.trim()+&quot;|&quot;+c.id] > 0));
+    if(m &amp;&amp; m.length){
       const n = m.length;
       // areas count for less than specific concepts when found directly
       const base = c.depth === 0 ? 0.45 : 0.8;
       hits[c.id] = Math.min(1, base + 0.1*(n-1));
     }
   });
+  if(learn &amp;&amp; LEARNED_VOCAB){
+    candidateTerms(text).forEach(term => {
+      const v = LEARNED_VOCAB[term]; if(!v) return;
+      Object.entries(v).forEach(([id,cnt]) => {
+        if(CONCEPT_BY_ID[id] &amp;&amp; vocabActive(term,cnt) &amp;&amp; !(BLOCKED &amp;&amp; BLOCKED[term+&quot;|&quot;+id] > 0) &amp;&amp; !hits[id]){
+          hits[id] = 0.7; LAST_LEARNED_HITS.add(id);
+        }
+      });
+    });
+  }
   return hits;
+}
+/* phrases in a text that triggered a concept (used when a user removes a concept) */
+function matchedPhrases(text, id){
+  const c = CONCEPT_BY_ID[id]; if(!c) return [];
+  c.re.lastIndex = 0;
+  return (normText(text).match(c.re) || []).map(x => x.trim());
 }
 
 /* expand to ancestors: parent gets 0.5× child, grandparent 0.25× */
@@ -786,6 +827,10 @@ function docConcepts(d){
   const det = detectConcepts([d.cite, d.title, d.text].join(&quot; &quot;));
   Object.entries(det).forEach(([id,w]) => direct[id] = w*0.75);
   (d.concepts||[]).forEach(id => { if(CONCEPT_BY_ID[id]) direct[id] = 1; });
+  // learned from user feedback: concepts users found this document useful for,
+  // and detected concepts users repeatedly said it was NOT useful for
+  Object.entries(d.learnAdd||{}).forEach(([id,w]) => { if(CONCEPT_BY_ID[id] &amp;&amp; !(direct[id] >= w)) direct[id] = w; });
+  Object.entries(d.learnDamp||{}).forEach(([id,f]) => { if(direct[id] &amp;&amp; !(d.concepts||[]).includes(id)) direct[id] *= f; });
   return {direct, vec: expand(direct)};
 }
 
@@ -818,8 +863,9 @@ function conceptMatch(q, d){
   const areas = contrib.filter(([id]) => CONCEPT_BY_ID[id].depth===0).map(([id])=>id);
   return {sim, shared, related, areas};
 }
-function queryProfile(text){
-  const direct = detectConcepts(text);
+function queryProfile(text, adjust){
+  const direct = detectConcepts(text, true);
+  if(adjust){ (adjust.rm||[]).forEach(id => delete direct[id]); (adjust.add||[]).forEach(id => { if(CONCEPT_BY_ID[id]) direct[id] = 1; }); }
   // in the query, the user's own words are the signal: treat every detected concept as strong
   Object.keys(direct).forEach(id => direct[id] = CONCEPT_BY_ID[id].depth===0 ? 0.5 : 1);
   const k = weighVec(expand(direct));
@@ -1445,6 +1491,25 @@ window.addEventListener(&quot;message&quot;, function(ev){
   .full.on{display:block}
   .full .meta{font-size:11px;color:var(--ink-soft);margin-bottom:6px}
   .doc-concepts{margin-top:10px;font-size:11.5px;color:var(--ink-soft)}
+  .fb{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:0 16px 12px 68px;margin-top:-4px}
+  .fb-l{font-size:11px;color:var(--ink-soft)}
+  .fb-b{font-size:11px;font-weight:600;padding:3px 10px;border-radius:12px;border:1px solid var(--rule);background:var(--paper-2);color:var(--ink-soft)}
+  .fb-b:hover{border-color:var(--verdigris);color:var(--verdigris)}
+  .fb-b.on{background:var(--verdigris);border-color:var(--verdigris);color:#fff}
+  .fb-b.neg.on{background:var(--oxblood);border-color:var(--oxblood);color:#fff}
+  .fb-b.neg:hover:not(.on){border-color:var(--oxblood);color:var(--oxblood)}
+  .fb-msg{font-size:11px;color:var(--verdigris)}
+  .cx{border:none;background:none;color:inherit;opacity:.55;font-size:13px;line-height:1;padding:0 0 0 5px;cursor:pointer}
+  .cx:hover{opacity:1;color:var(--oxblood)}
+  .cpill.learned{box-shadow:inset 0 0 0 1px var(--amber);}
+  .qc-hint{font-weight:400}
+  .qc-add input{font-family:var(--sans);font-size:11px;padding:3px 9px;border:1px dashed var(--rule);border-radius:11px;background:var(--paper);color:var(--ink);width:150px}
+  .qc-add input:focus{border-style:solid;border-color:var(--verdigris);outline:none}
+  .learn-box{margin-top:22px;padding-top:16px;border-top:1px solid var(--rule-soft);font-size:12px;color:var(--ink-soft);line-height:1.5}
+  .learn-box h4{font-size:11.5px;font-weight:600;color:var(--ink-soft);margin:0 0 6px}
+  .learn-box p{margin:0 0 8px}
+  .learn-box b{color:var(--verdigris)}
+  .learn-box .ls{color:var(--ink)}
   .doc-concepts b{color:var(--ink);font-weight:600}
   .qc{border:1px solid var(--rule);border-radius:6px;background:var(--paper-2);padding:12px 14px;margin-bottom:16px}
   .qc-l{font-size:11px;font-weight:600;color:var(--ink-soft);margin-bottom:7px}
@@ -1509,6 +1574,8 @@ window.addEventListener(&quot;message&quot;, function(ev){
       <div class=&quot;chips&quot; id=&quot;type-chips&quot;></div>
     </div>
     <button class=&quot;run&quot; id=&quot;run&quot;>Find compatible documents</button>
+
+    <div class=&quot;learn-box&quot; id=&quot;learn-box&quot;></div>
 
     <div class=&quot;samples&quot;>
       <h4>Or try a worked example</h4>
@@ -1620,21 +1687,62 @@ function ancestors(id){
 }
 function areaOf(id){ const a = ancestors(id); return a.length ? a[a.length-1] : id; }
 
-/* detect concepts in free text → {id: strength 0..1} */
-function detectConcepts(text){
+/* optional learning hooks (set by the Finder): words a user taught, phrases a user rejected */
+let LEARNED_VOCAB = null;   // {term: {conceptId: count}}
+let BLOCKED = null;         // {&quot;matched phrase|conceptId&quot;: count}
+let LAST_LEARNED_HITS = new Set();
+const VOCAB_STOP = new Set((&quot;the and for with that this from have has had was were are been being into onto over under about after before their there they them then than when what which while would could should shall will also very more most some such only other into upon your yours ours our its it's per via &quot;+
+  &quot;della delle dello degli dei del nella nelle negli con per tra fra che non come anche sono stato stata hanno abbiamo aveva questo questa quello quella loro dopo prima senza sulla sulle sugli &quot;+
+  &quot;dans pour avec sans sont etait cette entre apres avant leurs nous vous elle elles &quot;+
+  &quot;und oder eine einer einem einen nicht sind wird wurde werden nach durch&quot;).split(&quot; &quot;));
+/* content words + bigrams of a text, skipping capitalised words (likely names) */
+function candidateTerms(raw){
+  const words = String(raw||&quot;&quot;).split(/[^A-Za-zÀ-ÿ'-]+/).filter(Boolean);
+  const keep = [];
+  words.forEach((w,i) => {
+    if(/^[A-ZÀ-Þ]/.test(w) &amp;&amp; i>0) { keep.push(null); return; }
+    const n = normText(w).trim();
+    keep.push(/^[a-z]{4,24}$/.test(n) &amp;&amp; !VOCAB_STOP.has(n) ? n : null);
+  });
+  const out = new Set();
+  keep.forEach((w,i) => { if(w){ out.add(w); if(keep[i+1]) out.add(w+&quot; &quot;+keep[i+1]); } });
+  return [...out];
+}
+const vocabActive = (term, cnt) => cnt >= (term.includes(&quot; &quot;) ? 1 : 2);
+
+/* detect concepts in free text → {id: strength 0..1}; learn=true also applies taught words */
+function detectConcepts(text, learn){
   const t = normText(text);
   const hits = {};
+  if(learn) LAST_LEARNED_HITS = new Set();
   CONCEPTS.forEach(c => {
     c.re.lastIndex = 0;
-    const m = t.match(c.re);
-    if(m){
+    let m = t.match(c.re);
+    if(m &amp;&amp; learn &amp;&amp; BLOCKED) m = m.filter(x => !(BLOCKED[x.trim()+&quot;|&quot;+c.id] > 0));
+    if(m &amp;&amp; m.length){
       const n = m.length;
       // areas count for less than specific concepts when found directly
       const base = c.depth === 0 ? 0.45 : 0.8;
       hits[c.id] = Math.min(1, base + 0.1*(n-1));
     }
   });
+  if(learn &amp;&amp; LEARNED_VOCAB){
+    candidateTerms(text).forEach(term => {
+      const v = LEARNED_VOCAB[term]; if(!v) return;
+      Object.entries(v).forEach(([id,cnt]) => {
+        if(CONCEPT_BY_ID[id] &amp;&amp; vocabActive(term,cnt) &amp;&amp; !(BLOCKED &amp;&amp; BLOCKED[term+&quot;|&quot;+id] > 0) &amp;&amp; !hits[id]){
+          hits[id] = 0.7; LAST_LEARNED_HITS.add(id);
+        }
+      });
+    });
+  }
   return hits;
+}
+/* phrases in a text that triggered a concept (used when a user removes a concept) */
+function matchedPhrases(text, id){
+  const c = CONCEPT_BY_ID[id]; if(!c) return [];
+  c.re.lastIndex = 0;
+  return (normText(text).match(c.re) || []).map(x => x.trim());
 }
 
 /* expand to ancestors: parent gets 0.5× child, grandparent 0.25× */
@@ -1653,6 +1761,10 @@ function docConcepts(d){
   const det = detectConcepts([d.cite, d.title, d.text].join(&quot; &quot;));
   Object.entries(det).forEach(([id,w]) => direct[id] = w*0.75);
   (d.concepts||[]).forEach(id => { if(CONCEPT_BY_ID[id]) direct[id] = 1; });
+  // learned from user feedback: concepts users found this document useful for,
+  // and detected concepts users repeatedly said it was NOT useful for
+  Object.entries(d.learnAdd||{}).forEach(([id,w]) => { if(CONCEPT_BY_ID[id] &amp;&amp; !(direct[id] >= w)) direct[id] = w; });
+  Object.entries(d.learnDamp||{}).forEach(([id,f]) => { if(direct[id] &amp;&amp; !(d.concepts||[]).includes(id)) direct[id] *= f; });
   return {direct, vec: expand(direct)};
 }
 
@@ -1685,8 +1797,9 @@ function conceptMatch(q, d){
   const areas = contrib.filter(([id]) => CONCEPT_BY_ID[id].depth===0).map(([id])=>id);
   return {sim, shared, related, areas};
 }
-function queryProfile(text){
-  const direct = detectConcepts(text);
+function queryProfile(text, adjust){
+  const direct = detectConcepts(text, true);
+  if(adjust){ (adjust.rm||[]).forEach(id => delete direct[id]); (adjust.add||[]).forEach(id => { if(CONCEPT_BY_ID[id]) direct[id] = 1; }); }
   // in the query, the user's own words are the signal: treat every detected concept as strong
   Object.keys(direct).forEach(id => direct[id] = CONCEPT_BY_ID[id].depth===0 ? 0.5 : 1);
   const k = weighVec(expand(direct));
@@ -1699,18 +1812,128 @@ const esc = s => (s||&quot;&quot;).replace(/[&amp;<>&quot;]/g, c => ({'&amp;':'&
 
 /* ---------------- concept index ----------------
    DOCS is mutable: the base index plus anything added or imported in this
-   session. Every change calls rebuildIndex(), which recomputes each
-   document's concept profile and the corpus-wide concept rarity. */
+   session. Every change calls rebuildIndex(), which applies what has been
+   learned from feedback, then recomputes each document's concept profile
+   and the corpus-wide concept rarity. */
 let DOCS = [];
 let BASE_COUNT = CORPUS.length;
-const stripIndex = ({cdirect, cvec, cw, cnorm, ...rest}) => rest;
+const stripIndex = ({cdirect, cvec, cw, cnorm, learnAdd, learnDamp, ...rest}) => rest;
 const clabel = id => (CONCEPT_BY_ID[id] || {label:id}).label;
+/* ================================================================
+   LEARNING — Casebound improves itself from feedback
+   1. Relevance votes (Relevant / Not relevant) and opened results teach
+      which documents are useful for which legal concepts. Your own votes
+      act immediately in this browser; if you ticked &quot;Help improve
+      rankings&quot;, they are also pooled (concept ids + document id only)
+      with everyone else's, and the pooled model is sent back to every
+      visitor.
+   2. Concept corrections (remove a wrong concept, add a missed one) teach
+      the concept reader new words and phrases. That vocabulary stays in
+      this browser — your text is never sent.
+   ================================================================ */
+const LKEY = &quot;casebound:learn:v1&quot;;
+const LEARN = { shared: { docs: {}, events: 0 }, local: loadLocalLearning() };
+function loadLocalLearning(){
+  try{ const v = JSON.parse(localStorage.getItem(LKEY) || &quot;null&quot;); if(v &amp;&amp; v.votes &amp;&amp; v.vocab &amp;&amp; v.blocked) return v; }catch(e){}
+  return { votes: {}, vocab: {}, blocked: {} };
+}
+function saveLocalLearning(){ try{ localStorage.setItem(LKEY, JSON.stringify(LEARN.local)); }catch(e){} }
+function syncLearningHooks(){ LEARNED_VOCAB = LEARN.local.vocab; BLOCKED = LEARN.local.blocked; }
+syncLearningHooks();
+
+const LOCAL_VOTE_WEIGHT = 2;
+/* evidence for one doc: {concept: [positive, negative]} = pooled + your own votes */
+function evidenceFor(id){
+  const out = {};
+  const sh = LEARN.shared.docs[id];
+  if(sh) Object.entries(sh).forEach(([c,[p,n]]) => out[c] = [p,n]);
+  Object.values(LEARN.local.votes).forEach(v => {
+    if(v.doc !== id) return;
+    v.q.forEach(c => { const e = out[c] || [0,0]; if(v.s > 0) e[0] += LOCAL_VOTE_WEIGHT; else e[1] += LOCAL_VOTE_WEIGHT; out[c] = e; });
+  });
+  return out;
+}
+const ratio = ([p,n]) => (p - n) / (p + n + 4);   // shrunk towards 0 until there is enough evidence
+
+/* turn evidence into concept changes on each document, before indexing */
+function applyLearningToDocs(docs){
+  docs.forEach(d => {
+    delete d.learnAdd; delete d.learnDamp;
+    if(!d.id) return;
+    const ev = evidenceFor(d.id);
+    Object.entries(ev).forEach(([c,e]) => {
+      if(!CONCEPT_BY_ID[c] || CONCEPT_BY_ID[c].depth === 0) return;
+      const r = ratio(e);
+      if(e[0] >= 2 &amp;&amp; r >= 0.3) (d.learnAdd = d.learnAdd || {})[c] = Math.min(0.85, 0.4 + 0.4*r);
+      if(e[1] >= 2 &amp;&amp; r <= -0.3) (d.learnDamp = d.learnDamp || {})[c] = 0.4;
+    });
+  });
+}
+
+/* ranking nudge: how users rated this document for the concepts in this case */
+function learnedBonus(q, d){
+  if(!d.id) return { b: 0 };
+  const ev = evidenceFor(d.id);
+  let num = 0, den = 0;
+  Object.keys(q.direct).forEach(c => {
+    const C = CONCEPT_BY_ID[c]; if(!C || C.depth === 0) return;
+    const w = cidf(c); den += w;
+    if(ev[c]) num += w * ratio(ev[c]);
+  });
+  return { b: den ? 0.18 * num / den : 0 };
+}
+
+/* ---- teaching the concept reader ---- */
+function teachAdd(query, id){
+  const v = LEARN.local.vocab;
+  // words in the case that don't already explain a recognised concept
+  const known = new Set();
+  CONCEPTS.forEach(c => matchedPhrases(query, c.id).forEach(p => p.split(&quot; &quot;).forEach(w => known.add(w))));
+  candidateTerms(query).filter(t => !t.split(&quot; &quot;).some(w => known.has(w))).slice(0, 40).forEach(t => {
+    v[t] = v[t] || {}; v[t][id] = (v[t][id] || 0) + 1;
+  });
+  delete LEARN.local.blocked[id];
+  saveLocalLearning();
+}
+function teachRemove(query, id){
+  matchedPhrases(query, id).forEach(p => LEARN.local.blocked[p + &quot;|&quot; + id] = (LEARN.local.blocked[p + &quot;|&quot; + id] || 0) + 1);
+  // and forget any taught word that produced it
+  candidateTerms(query).forEach(t => {
+    if(LEARN.local.vocab[t] &amp;&amp; LEARN.local.vocab[t][id]){ delete LEARN.local.vocab[t][id]; LEARN.local.blocked[t + &quot;|&quot; + id] = 1; }
+  });
+  saveLocalLearning();
+}
+function resetLocalLearning(){
+  LEARN.local = { votes: {}, vocab: {}, blocked: {} };
+  saveLocalLearning(); syncLearningHooks();
+}
+function localStats(){
+  const votes = Object.keys(LEARN.local.votes).length;
+  const words = Object.entries(LEARN.local.vocab).filter(([t,v]) => Object.values(v).some(n => vocabActive(t,n))).length;
+  const blocked = Object.keys(LEARN.local.blocked).length;
+  return { votes, words, blocked };
+}
+
+/* pooled model arrives from the hub page */
+window.addEventListener(&quot;message&quot;, ev => {
+  const d = ev.data;
+  if(!d || d.type !== &quot;casebound:learned&quot; || !d.model || typeof d.model.docs !== &quot;object&quot;) return;
+  LEARN.shared = { docs: d.model.docs, events: Number(d.model.events) || 0 };
+  relearn();
+});
 
 function rebuildIndex(rawDocs){
   DOCS = rawDocs.map(d => ({...d}));
+  applyLearningToDocs(DOCS);
   indexConcepts(DOCS);
   refreshJurChips();
   refreshCorpusCount();
+  renderLearningBox();
+}
+function relearn(){
+  syncLearningHooks();
+  rebuildIndex(DOCS.map(stripIndex));
+  if(LAST_QUERY) runSearch();
 }
 
 /* ---------------- UI: jurisdiction / type chips ---------------- */
@@ -1796,6 +2019,11 @@ $(&quot;#samples-list&quot;).addEventListener(&quot;click&quot;, e=>{
 });
 
 /* ---------------- search ---------------- */
+let LAST_QUERY = &quot;&quot;;
+let QADJ = { key: &quot;&quot;, add: new Set(), rm: new Set() };   // concept corrections for the current case
+let LAST_Q = null;
+const ALL_CONCEPT_OPTIONS = CONCEPTS.filter(c => c.depth > 0).sort((a,b) => a.label.localeCompare(b.label));
+
 function runSearch(){
   const facts = $(&quot;#facts&quot;).value.trim();
   const claim = $(&quot;#claim&quot;).value.trim();
@@ -1804,15 +2032,26 @@ function runSearch(){
     $(&quot;#results&quot;).innerHTML = `<div class=&quot;empty&quot;><p><b>Add a bit more detail.</b></p><p>A sentence or two describing the facts is enough for the matcher to find something meaningful.</p></div>`;
     return;
   }
-  const q = queryProfile(query);
+  if(query !== QADJ.key) QADJ = { key: query, add: new Set(), rm: new Set() };
+  LAST_QUERY = query;
+  const q = queryProfile(query, { add: [...QADJ.add], rm: [...QADJ.rm] });
+  LAST_Q = q;
   const qLower = query.toLowerCase();
   const found = Object.keys(q.direct).sort((a,b) => CONCEPT_BY_ID[b].depth - CONCEPT_BY_ID[a].depth);
   const specific = found.filter(id => CONCEPT_BY_ID[id].depth > 0);
-  const conceptBar = found.length ? `
+  const pill = id => {
+    const area = CONCEPT_BY_ID[id].depth === 0;
+    const learned = LAST_LEARNED_HITS.has(id) || QADJ.add.has(id);
+    return `<span class=&quot;cpill${area?&quot; area&quot;:&quot;&quot;}${learned?&quot; learned&quot;:&quot;&quot;}&quot;${learned?` title=&quot;${QADJ.add.has(id)?&quot;Added by you&quot;:&quot;Recognised from words you taught Casebound&quot;}&quot;`:&quot;&quot;}>${esc(clabel(id))}${area?&quot;&quot;:`<button class=&quot;cx&quot; data-rm=&quot;${id}&quot; aria-label=&quot;Remove ${esc(clabel(id))}&quot; title=&quot;Not about this — remove and teach Casebound&quot;>×</button>`}</span>`;
+  };
+  const conceptBar = `
     <div class=&quot;qc&quot;>
-      <div class=&quot;qc-l&quot;>Legal concepts recognised in your case</div>
-      <div class=&quot;qc-row&quot;>${found.map(id => `<span class=&quot;cpill${CONCEPT_BY_ID[id].depth===0?&quot; area&quot;:&quot;&quot;}&quot;>${esc(clabel(id))}</span>`).join(&quot;&quot;)}</div>
-    </div>` : &quot;&quot;;
+      <div class=&quot;qc-l&quot;>Legal concepts recognised in your case <span class=&quot;qc-hint&quot;>— wrong or missing? Remove one with × or add one; Casebound learns from it.</span></div>
+      <div class=&quot;qc-row&quot;>${found.map(pill).join(&quot;&quot;)}
+        <span class=&quot;qc-add&quot;><input id=&quot;add-concept&quot; list=&quot;concept-options&quot; placeholder=&quot;+ add a concept&quot; aria-label=&quot;Add a legal concept Casebound missed&quot;></span>
+      </div>
+      <datalist id=&quot;concept-options&quot;>${ALL_CONCEPT_OPTIONS.map(c => `<option value=&quot;${esc(c.label)}&quot;>`).join(&quot;&quot;)}</datalist>
+    </div>`;
 
   let pool = DOCS;
   if(curJur !== &quot;All&quot;) pool = pool.filter(d=>d.jur===curJur);
@@ -1823,31 +2062,39 @@ function runSearch(){
     let citeBonus = 0;
     const head = d.cite ? d.cite.toLowerCase().split(&quot;,&quot;)[0].split(&quot;(&quot;)[0].trim() : &quot;&quot;;
     if(head.length > 4 &amp;&amp; qLower.includes(head)) citeBonus = 0.25;
-    const total = Math.min(1, m.sim + citeBonus);
-    return {d, ...m, citeBonus, total};
+    const lb = (m.shared.length || m.related.length) ? learnedBonus(q, d).b : 0;
+    const total = Math.max(0, Math.min(1, m.sim + citeBonus + lb));
+    return {d, ...m, citeBonus, lb, total};
   }).filter(x => x.total > 0.12 &amp;&amp; (x.shared.length || x.related.length || x.citeBonus))
     .sort((a,b) => b.total - a.total)
     .slice(0, 15);
+  LAST_SCORED = scored;
 
   if(!specific.length &amp;&amp; !scored.length){
-    $(&quot;#results&quot;).innerHTML = `<div class=&quot;empty&quot;><p><b>No legal concept recognised yet.</b></p><p>Casebound matches on legal concepts — breach, delay, lost profit, dismissal, data breach, cartel, defective product, tax avoidance… Describe what happened and what is being claimed in a little more detail, in English, Italian, French or German.</p></div>`;
+    $(&quot;#results&quot;).innerHTML = conceptBar + `<div class=&quot;empty&quot;><p><b>No legal concept recognised yet.</b></p><p>Casebound matches on legal concepts — breach, delay, lost profit, dismissal, data breach, cartel, defective product, tax avoidance… Describe what happened in a little more detail, or add the concept above: Casebound will remember the words you used.</p></div>`;
+    wireConceptBar();
     return;
   }
   if(!scored.length){
     $(&quot;#results&quot;).innerHTML = conceptBar + `<div class=&quot;empty&quot;><p><b>No compatible document found${curJur!==&quot;All&quot;?` in ${esc(curJur)}`:&quot;&quot;}.</b></p><p>None of the documents${curJur!==&quot;All&quot;?&quot; in this jurisdiction&quot;:&quot;&quot;} share these concepts. Try broadening the jurisdiction or document-type filter.</p></div>`;
+    wireConceptBar();
     return;
   }
 
+  const qkey = specific.slice().sort().join(&quot;,&quot;);
   const rows = scored.map((x,i) => {
     const d = x.d;
     const score = Math.round(x.total * 100);
     const typeLabel = d.type === &quot;provision&quot; ? &quot;Provision&quot; : d.type === &quot;treatise&quot; ? &quot;Reference work&quot; : &quot;Case law&quot;;
     const meta = d.type === &quot;case&quot; ? `${esc(d.title)}${d.date?` · ${esc(d.date)}`:&quot;&quot;}` : esc(d.title);
-    const sharedHtml = x.shared.slice(0,4).map(id => `<span class=&quot;cpill on&quot;>${esc(clabel(id))}</span>`).join(&quot;&quot;);
+    const learnedC = d.learnAdd || {};
+    const sharedHtml = x.shared.slice(0,4).map(id => `<span class=&quot;cpill on${learnedC[id]?&quot; learned&quot;:&quot;&quot;}&quot;${learnedC[id]?` title=&quot;Learned from users' feedback&quot;`:&quot;&quot;}>${esc(clabel(id))}</span>`).join(&quot;&quot;);
     const relHtml = !x.shared.length ? x.related.slice(0,3).map(id => `<span class=&quot;cpill&quot;>${esc(clabel(id))}</span>`).join(&quot;&quot;) : &quot;&quot;;
     const areaTxt = x.areas.slice(0,2).map(clabel).join(&quot; · &quot;);
     const docConcepts = Object.keys(d.cdirect).filter(id => CONCEPT_BY_ID[id].depth>0)
       .sort((a,b)=>d.cdirect[b]-d.cdirect[a]).slice(0,8).map(clabel).join(&quot; · &quot;);
+    const my = d.id ? LEARN.local.votes[d.id + &quot;|&quot; + qkey] : null;
+    const lbTxt = Math.abs(x.lb) >= 0.005 ? ` ${x.lb>0?&quot;+&quot;:&quot;−&quot;} ${Math.max(1,Math.round(Math.abs(x.lb)*100))} from feedback` : &quot;&quot;;
     return `
     <div class=&quot;card&quot;>
       <div class=&quot;card-top&quot; data-idx=&quot;${i}&quot;>
@@ -1864,8 +2111,14 @@ function runSearch(){
       </div>
       <div class=&quot;bar-row&quot;>
         <div class=&quot;bar-wrap&quot;><div class=&quot;bar-fill&quot; style=&quot;width:${score}%&quot;></div></div>
-        <div class=&quot;breakdown&quot;>concept match ${Math.round(x.sim*100)}${x.citeBonus?` + citation match`:&quot;&quot;}${areaTxt?` · ${esc(areaTxt)}`:&quot;&quot;}</div>
+        <div class=&quot;breakdown&quot;>concept match ${Math.round(x.sim*100)}${x.citeBonus?` + citation match`:&quot;&quot;}${lbTxt}${areaTxt?` · ${esc(areaTxt)}`:&quot;&quot;}</div>
       </div>
+      ${d.id ? `<div class=&quot;fb&quot; data-idx=&quot;${i}&quot;>
+        <span class=&quot;fb-l&quot;>Useful for this case?</span>
+        <button class=&quot;fb-b${my&amp;&amp;my.s>0?&quot; on&quot;:&quot;&quot;}&quot; data-v=&quot;1&quot; aria-pressed=&quot;${my&amp;&amp;my.s>0}&quot;>Relevant</button>
+        <button class=&quot;fb-b neg${my&amp;&amp;my.s<0?&quot; on&quot;:&quot;&quot;}&quot; data-v=&quot;-1&quot; aria-pressed=&quot;${my&amp;&amp;my.s<0}&quot;>Not relevant</button>
+        <span class=&quot;fb-msg&quot;></span>
+      </div>` : &quot;&quot;}
       <div class=&quot;full&quot; id=&quot;full-${i}&quot;>
         <div class=&quot;meta&quot;>${esc(d.jur)} · ${typeLabel}${d.type===&quot;case&quot;?` · ${esc(d.title)}${d.date?` · ${esc(d.date)}`:&quot;&quot;}`:&quot;&quot;}</div>
         <div>${d.text ? esc(d.text) : &quot;<i>Citation only — no text on file for this entry.</i>&quot;}</div>
@@ -1878,14 +2131,65 @@ function runSearch(){
     <div class=&quot;r-head&quot;><h2>${scored.length} compatible document${scored.length===1?&quot;&quot;:&quot;s&quot;}${curJur!==&quot;All&quot;?` — ${esc(curJur)}`:&quot;&quot;}</h2></div>
     ${rows}
   `;
+  wireConceptBar();
 
   $(&quot;#results&quot;).querySelectorAll(&quot;.card-top&quot;).forEach(el=>{
     el.addEventListener(&quot;click&quot;, ()=>{
       const idx = el.dataset.idx;
       const opened = $(&quot;#full-&quot;+idx).classList.toggle(&quot;on&quot;);
-      if(opened &amp;&amp; scored[idx]) try{window.parent.postMessage({type:&quot;casebound:signal&quot;, action:&quot;result_open&quot;, doc:scored[idx].d.id, rank:Number(idx)+1, jur:curJur, dtype:curType}, &quot;*&quot;);}catch(e){}
+      if(opened &amp;&amp; scored[idx]) try{window.parent.postMessage({type:&quot;casebound:signal&quot;, action:&quot;result_open&quot;, doc:scored[idx].d.id, rank:Number(idx)+1, jur:curJur, dtype:curType, q:specific}, &quot;*&quot;);}catch(e){}
     });
   });
+  $(&quot;#results&quot;).querySelectorAll(&quot;.fb&quot;).forEach(el=>{
+    el.addEventListener(&quot;click&quot;, e=>{
+      const b = e.target.closest(&quot;.fb-b&quot;); if(!b) return;
+      const x = scored[el.dataset.idx]; if(!x || !x.d.id) return;
+      const key = x.d.id + &quot;|&quot; + qkey;
+      const v = Number(b.dataset.v);
+      const prev = LEARN.local.votes[key];
+      if(prev &amp;&amp; prev.s === v){ delete LEARN.local.votes[key]; }      // click again to undo
+      else LEARN.local.votes[key] = { doc: x.d.id, q: specific, s: v, day: new Date().toISOString().slice(0,10) };
+      saveLocalLearning();
+      const now = LEARN.local.votes[key];
+      el.querySelectorAll(&quot;.fb-b&quot;).forEach(btn => { const on = !!now &amp;&amp; Number(btn.dataset.v) === now.s; btn.classList.toggle(&quot;on&quot;, on); btn.setAttribute(&quot;aria-pressed&quot;, on); });
+      el.querySelector(&quot;.fb-msg&quot;).textContent = now ? (now.s > 0 ? &quot;Thanks — documents like this will rank higher for cases like yours.&quot; : &quot;Thanks — this will rank lower for cases like yours.&quot;) : &quot;Vote removed.&quot;;
+      if(now) try{window.parent.postMessage({type:&quot;casebound:signal&quot;, action:&quot;vote&quot;, doc:x.d.id, vote:now.s, rank:Number(el.dataset.idx)+1, jur:curJur, dtype:curType, q:specific}, &quot;*&quot;);}catch(e){}
+      // re-learn quietly; the new order shows on the next search so the list doesn't jump under the cursor
+      syncLearningHooks(); rebuildIndex(DOCS.map(stripIndex));
+    });
+  });
+}
+let LAST_SCORED = [];
+
+function wireConceptBar(){
+  $(&quot;#results&quot;).querySelectorAll(&quot;.cx&quot;).forEach(b => b.addEventListener(&quot;click&quot;, e => {
+    e.stopPropagation();
+    const id = b.dataset.rm;
+    if(QADJ.add.has(id)) QADJ.add.delete(id); else QADJ.rm.add(id);
+    teachRemove(LAST_QUERY, id);
+    syncLearningHooks(); runSearch(); renderLearningBox();
+  }));
+  const inp = $(&quot;#add-concept&quot;);
+  if(inp) inp.addEventListener(&quot;change&quot;, () => {
+    const val = inp.value.trim().toLowerCase();
+    const c = ALL_CONCEPT_OPTIONS.find(c => c.label.toLowerCase() === val) || ALL_CONCEPT_OPTIONS.find(c => c.label.toLowerCase().startsWith(val));
+    if(!c) return;
+    QADJ.rm.delete(c.id); QADJ.add.add(c.id);
+    teachAdd(LAST_QUERY, c.id);
+    syncLearningHooks(); runSearch(); renderLearningBox();
+  });
+}
+
+function renderLearningBox(){
+  const el = $(&quot;#learn-box&quot;); if(!el) return;
+  const s = localStats();
+  const shared = LEARN.shared.events;
+  el.innerHTML = `<h4>Learning</h4>
+    <p>Casebound improves as it is used. Rate results and correct the recognised concepts: your feedback re-ranks documents straight away in this browser${shared ? `, and the rankings already reflect <b>${Math.round(shared)}</b> feedback signal${Math.round(shared)===1?&quot;&quot;:&quot;s&quot;} shared by users` : &quot;&quot;}.</p>
+    <p class=&quot;ls&quot;>In this browser: <b>${s.votes}</b> vote${s.votes===1?&quot;&quot;:&quot;s&quot;} · <b>${s.words}</b> word${s.words===1?&quot;&quot;:&quot;s&quot;} taught · <b>${s.blocked}</b> correction${s.blocked===1?&quot;&quot;:&quot;s&quot;}</p>
+    ${s.votes||s.words||s.blocked ? `<button class=&quot;toggle-btn&quot; id=&quot;learn-reset&quot;>Forget what I've taught in this browser</button>` : &quot;&quot;}`;
+  const r = $(&quot;#learn-reset&quot;);
+  if(r) r.addEventListener(&quot;click&quot;, () => { resetLocalLearning(); relearn(); });
 }
 
 $(&quot;#run&quot;).addEventListener(&quot;click&quot;, runSearch);
@@ -2019,7 +2323,7 @@ window.addEventListener(&quot;message&quot;, function(ev){
   <div class="site-foot-in">
     <span class="sf-note"><b>Research aid, not legal advice.</b> Check every source; some case-law entries under Compatible sources are illustrative examples. What you type stays in this browser.</span>
     <span class="sf-links"><a href="/pricing.html">Plans</a><a href="/account.html">Account</a><a href="/terms.html">Terms</a><a href="/privacy.html">Privacy</a><a href="mailto:admin@case-bound.com?subject=Casebound%20%E2%80%94%20contact%20or%20complaint">Contact</a></span>
-    <label class="consent" title="Sends anonymous usage signals only — never your text or files. Off by default."><input type="checkbox" id="improve-consent"> Help improve rankings <a href="/privacy.html#improve">(what's sent)</a></label>
+    <label class="consent" title="Shares your result ratings and the legal concepts recognised in your case — never your text or files. Off by default."><input type="checkbox" id="improve-consent"> Help improve rankings <a href="/privacy.html#improve">(what's sent)</a></label>
   </div>
 </footer>
 
@@ -2742,13 +3046,13 @@ $id("hub-facts").addEventListener("keydown", e => {
    IMPROVEMENT SIGNALS — opt-in only (see /privacy.html#improve)
    Nothing is sent unless (1) the visitor ticked the box and
    (2) SIGNALS_URL / SIGNALS_KEY below are filled in.
-   A signal carries ONLY: action, corpus doc id, rank, filters,
-   day, consent version. Never facts, claims, files or any ID.
+   A signal carries ONLY: action, corpus doc id, rank, filters, the
+   legal-concept ids recognised in the case (e.g. "dismissal"), the
+   vote, day, consent version. Never facts, claims, files or any ID.
    ============================================================ */
-const SIGNALS_URL = "";   // e.g. "https://YOUR-PROJECT.supabase.co/rest/v1/signals"
-const SIGNALS_KEY = "";   // Supabase *anon* public key (insert-only via RLS — never the service key)
+const SIGNALS_URL = "/api/learn";   // Netlify Function (netlify/functions/learn.mjs)
 const CONSENT_KEY = "casebound:consent:improve";
-const CONSENT_VERSION = 1; // bump if the signal contents change → everyone is asked again
+const CONSENT_VERSION = 2; // 2: signals also carry the legal-concept ids recognised in the case
 
 function readConsent(){
   try{
@@ -2763,9 +3067,9 @@ const consentBox = document.getElementById("improve-consent");
 consentBox.checked = readConsent();
 consentBox.addEventListener("change", ()=> writeConsent(consentBox.checked));
 
-const ALLOWED_ACTIONS = new Set(["analysis_run","result_open","filter_change"]);
+const ALLOWED_ACTIONS = new Set(["result_open","vote"]);   // the actions the rankings learn from
 function sendSignal(sig){
-  if(!readConsent() || !SIGNALS_URL || !SIGNALS_KEY) return;
+  if(!readConsent() || !SIGNALS_URL) return;
   if(!sig || !ALLOWED_ACTIONS.has(sig.action)) return;
   const clip = (v, n) => (typeof v === "string" ? v.slice(0, n) : null);
   const row = {                                   // whitelist: nothing else can slip through
@@ -2774,15 +3078,15 @@ function sendSignal(sig){
     rank: Number.isInteger(sig.rank) ? sig.rank : null,
     jur: clip(sig.jur, 40),
     dtype: clip(sig.dtype, 20),
-    day: new Date().toISOString().slice(0,10),
-    consent_v: CONSENT_VERSION
+    q: Array.isArray(sig.q) ? sig.q.filter(c => typeof c === "string" && /^[a-z][a-z0-9_]{1,31}$/.test(c)).slice(0, 12) : [],
+    vote: sig.vote === 1 || sig.vote === -1 ? sig.vote : null,
+    day: new Date().toISOString().slice(0,10)
   };
   try{
     fetch(SIGNALS_URL, {
       method: "POST", keepalive: true, credentials: "omit", referrerPolicy: "no-referrer",
-      headers: { "Content-Type": "application/json", "apikey": SIGNALS_KEY,
-                 "Authorization": "Bearer " + SIGNALS_KEY, "Prefer": "return=minimal" },
-      body: JSON.stringify(row)
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ v: CONSENT_VERSION, events: [row] })
     }).catch(()=>{});
   }catch(e){}
 }
@@ -2792,6 +3096,20 @@ window.addEventListener("message", ev=>{
   const d = ev.data;
   if(d && d.type === "casebound:signal") sendSignal(d);
 });
+/* pooled learning model: what all users' feedback has taught the rankings so far.
+   Downloading it sends nothing about you; it is the same file for everyone. */
+(function loadLearned(){
+  let model = null;
+  const push = () => {
+    const f = document.getElementById("frame-finder");
+    if(model && f && f.contentWindow) f.contentWindow.postMessage({ type: "casebound:learned", model }, "*");
+  };
+  fetch("/api/learn", { credentials: "omit" }).then(r => r.ok ? r.json() : null).then(m => {
+    if(m && m.docs) { model = m; push(); }
+  }).catch(()=>{});
+  const f = document.getElementById("frame-finder");
+  if(f) f.addEventListener("load", push);
+})();
 </script>
 </body>
 </html>

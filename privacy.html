@@ -74,13 +74,13 @@ footer div{max-width:820px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
 <main lang="en" data-lang-block="en">
   <p class="kicker">Privacy notice</p>
   <h1>How Casebound handles your data</h1>
-  <p class="updated">Last updated: 3 October 2026 · Notice under Articles 13 and 14 of Regulation (EU) 2016/679 (GDPR)</p>
+  <p class="updated">Last updated: 6 October 2026 · Notice under Articles 13 and 14 of Regulation (EU) 2016/679 (GDPR)</p>
 
   <section class="summary">
     <h2>The short version</h2>
     <ul>
       <li><b>Your case stays with you.</b> The facts you type, the files you add and the cases you save are kept in your own browser. They are never sent to us, and we cannot see them.</li>
-      <li><b>Helping us improve is optional and off by default.</b> If you tick “Help improve rankings”, Casebound sends anonymous signals: which kind of action you took and which corpus document you opened. It never sends your words, your files, or anything that identifies you.</li>
+      <li><b>Helping us improve is optional and off by default.</b> If you tick “Help improve rankings”, Casebound sends anonymous signals: which corpus document you opened or rated, and the legal-concept labels it recognised in your case (such as “dismissal”). It never sends your words, your files, or anything that identifies you.</li>
       <li><b>Like any website</b>, our hosting provider sees your IP address so it can deliver the page to you.</li>
       <li><b>If you buy a subscription</b>, Stripe processes the payment. We receive your name, email, billing address and plan details, but never your full card number (<a href="#payments">details</a>).</li>
       <li><b>If you create an account</b>, we store your email, optional name and a scrambled (hashed) version of your password. You can delete the account yourself at any time (<a href="#accounts">details</a>).</li>
@@ -149,24 +149,28 @@ footer div{max-width:820px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
   <p>The checkbox “Help improve rankings” is unticked by default. Casebound sends nothing for this purpose unless you tick it.</p>
   <h3>If you tick it, each signal contains only:</h3>
   <ul>
-    <li>the type of action, such as “an analysis was run”, “a result was opened” or “a filter was changed”;</li>
+    <li>the type of action: “a result was opened” or “a result was rated relevant / not relevant”;</li>
     <li>the corpus ID of the document involved (for example <i>IT-24</i>), its position in the results, and the filters in use (jurisdiction and document type);</li>
+    <li>the identifiers of the legal concepts Casebound recognised in your case, from its fixed list (for example <i>dismissal</i>, <i>data_breach</i>) — not the words you used;</li>
     <li>the date (day only) and the version of the consent you gave.</li>
   </ul>
   <h3>It never contains:</h3>
   <ul>
     <li>the facts, claims or any other text you type, or any file you add;</li>
     <li>your name, email, account or any identifier that links one visit to another;</li>
-    <li>your IP address. The receiving service is configured not to store it with the signal.</li>
+    <li>your IP address. It is not stored with the signal. To stop one visitor flooding the system, a one-way fingerprint of the connection, made with a random key that changes every day, counts how many signals arrive per day; the fingerprint and the key are deleted after two days.</li>
   </ul>
+  <p><b>How Casebound learns from them.</b> Signals are added up into running totals per document and concept (for example, “IT-24 was rated relevant 5 times for cases about notice of defects”). Only those totals are kept, and they are used to re-rank results for everyone. The totals contain no personal data and are published to every visitor so their browser can use them.</p>
+  <p><b>Learning that stays in your browser.</b> Whether or not you tick the box, your own ratings and your corrections to the recognised concepts (removing a wrong one, adding a missed one) are saved in your browser's local storage so your results improve straight away. When you add a missed concept, Casebound remembers the ordinary words of that case — skipping capitalised words such as names — so it recognises the concept next time. This stays on your device and is never sent; you can erase it with “Forget what I've taught in this browser”.</p>
   <p>Signals are used only to improve how Casebound ranks and suggests sources. They are not used for advertising, profiling or any decision about you.</p>
   <p><b>Withdrawing consent:</b> untick the box at any time. Signals stop immediately. Withdrawing does not affect signals already sent.</p>
 
   <h2>5. Cookies and local storage</h2>
-  <p>Casebound sets one cookie, <code>cb_session</code>, and only when you sign in. It keeps you signed in for up to 30 days and is deleted when you sign out. It is not used for tracking. Casebound also uses your browser's local storage for four things:</p>
+  <p>Casebound sets one cookie, <code>cb_session</code>, and only when you sign in. It keeps you signed in for up to 30 days and is deleted when you sign out. It is not used for tracking. Casebound also uses your browser's local storage for five things:</p>
   <ul>
     <li>to make the tool work, by keeping your saved cases;</li>
     <li>to remember your choice on the improvement checkbox;</li>
+    <li>to keep your own result ratings and concept corrections, so results adapt to them (see section 4; never sent to us);</li>
     <li>to count how many analyses you have run today, for the free plan's daily limit (a date and a number, never sent to us);</li>
     <li>to remember your appearance setting (light, dark or automatic).</li>
   </ul>
@@ -175,7 +179,7 @@ footer div{max-width:820px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
   <h2>6. Who receives data, and international transfers</h2>
   <ul>
     <li><b>Netlify, Inc.</b> (United States) hosts the website, processes connection data and stores account data on our behalf under its Data Processing Agreement. Transfers to the US rely on Netlify's certification under the EU-U.S. Data Privacy Framework, backed by Standard Contractual Clauses.</li>
-    <li>If the improvement programme is active, a database provider hosted in the European Union stores improvement signals on our behalf, under its Data Processing Agreement.</li>
+    <li>If you opt in to the improvement programme, Netlify, Inc. also receives the signals and stores the running totals described in section 4, under the same Data Processing Agreement and transfer safeguards.</li>
     <li><b>Stripe Payments Europe, Ltd.</b> (Dublin, Ireland) processes subscription payments. For fraud prevention and its own legal duties (such as anti-money-laundering rules), Stripe acts as an independent controller under its own privacy policy. Stripe may transfer data to Stripe, Inc. in the United States under the EU-U.S. Data Privacy Framework and Standard Contractual Clauses.</li>
     <li><b>Google</b> and <b>Cloudflare</b> receive connection data when your browser loads fonts or file readers, as described in section 3. Both participate in the EU-U.S. Data Privacy Framework.</li>
   </ul>
@@ -209,13 +213,13 @@ footer div{max-width:820px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
 <main lang="it" data-lang-block="it" hidden>
   <p class="kicker">Informativa privacy</p>
   <h1>Come Casebound tratta i tuoi dati</h1>
-  <p class="updated">Ultimo aggiornamento: 3 ottobre 2026 · Informativa ai sensi degli artt. 13 e 14 del Regolamento (UE) 2016/679 (GDPR)</p>
+  <p class="updated">Ultimo aggiornamento: 6 ottobre 2026 · Informativa ai sensi degli artt. 13 e 14 del Regolamento (UE) 2016/679 (GDPR)</p>
 
   <section class="summary">
     <h2>In breve</h2>
     <ul>
       <li><b>Il tuo caso resta tuo.</b> I fatti che scrivi, i file che aggiungi e i casi che salvi restano nel tuo browser. Non ci vengono mai inviati e non possiamo vederli.</li>
-      <li><b>Aiutarci a migliorare è facoltativo e disattivato di default.</b> Se spunti «Aiuta a migliorare i risultati», Casebound invia segnali anonimi: il tipo di azione compiuta e quale documento del corpus hai aperto. Non invia mai il tuo testo, i tuoi file o dati che ti identificano.</li>
+      <li><b>Aiutarci a migliorare è facoltativo e disattivato di default.</b> Se spunti «Aiuta a migliorare i risultati», Casebound invia segnali anonimi: quale documento del corpus hai aperto o valutato e le etichette dei concetti giuridici riconosciuti nel tuo caso (ad esempio «licenziamento»). Non invia mai il tuo testo, i tuoi file o dati che ti identificano.</li>
       <li><b>Come ogni sito web</b>, il nostro fornitore di hosting vede il tuo indirizzo IP per poterti mostrare la pagina.</li>
       <li><b>Se acquisti un abbonamento</b>, il pagamento è gestito da Stripe. Riceviamo nome, email, indirizzo di fatturazione e dati del piano, ma mai il numero completo della tua carta (<a href="#payments-it">dettagli</a>).</li>
       <li><b>Se crei un account</b>, conserviamo email, nome (facoltativo) e una versione cifrata (hash) della password. Puoi eliminare l'account da solo in qualsiasi momento (<a href="#accounts-it">dettagli</a>).</li>
@@ -284,24 +288,28 @@ footer div{max-width:820px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
   <p>La casella «Aiuta a migliorare i risultati» è deselezionata di default. Casebound non invia nulla per questa finalità finché non la spunti.</p>
   <h3>Se la spunti, ogni segnale contiene soltanto:</h3>
   <ul>
-    <li>il tipo di azione, ad esempio «è stata eseguita un'analisi», «è stato aperto un risultato» o «è stato cambiato un filtro»;</li>
+    <li>il tipo di azione: «è stato aperto un risultato» o «un risultato è stato valutato pertinente / non pertinente»;</li>
     <li>l'identificativo nel corpus del documento coinvolto (ad esempio <i>IT-24</i>), la sua posizione tra i risultati e i filtri attivi (giurisdizione e tipo di documento);</li>
+    <li>gli identificativi dei concetti giuridici che Casebound ha riconosciuto nel tuo caso, tratti dal suo elenco fisso (ad esempio <i>dismissal</i>, <i>data_breach</i>) — non le parole che hai usato;</li>
     <li>la data (solo il giorno) e la versione del consenso prestato.</li>
   </ul>
   <h3>Non contiene mai:</h3>
   <ul>
     <li>i fatti, le domande o qualsiasi altro testo che scrivi, né i file che aggiungi;</li>
     <li>nome, email, account o qualsiasi identificativo che colleghi una visita all'altra;</li>
-    <li>il tuo indirizzo IP. Il servizio che riceve i segnali è configurato per non memorizzarlo insieme al segnale.</li>
+    <li>il tuo indirizzo IP. Non viene memorizzato con il segnale. Per impedire che un singolo visitatore inondi il sistema, un'impronta non reversibile della connessione, calcolata con una chiave casuale che cambia ogni giorno, conta quanti segnali arrivano al giorno; impronta e chiave vengono cancellate dopo due giorni.</li>
   </ul>
+  <p><b>Come Casebound impara dai segnali.</b> I segnali vengono sommati in totali per documento e concetto (ad esempio «IT-24 è stato valutato pertinente 5 volte per casi sulla denuncia dei vizi»). Si conservano solo questi totali, usati per riordinare i risultati per tutti. I totali non contengono dati personali e vengono inviati a ogni visitatore perché il suo browser possa usarli.</p>
+  <p><b>Apprendimento che resta nel tuo browser.</b> Che tu spunti o no la casella, le tue valutazioni e le tue correzioni ai concetti riconosciuti (rimuovere un concetto errato, aggiungerne uno mancante) sono salvate nella memoria locale del browser, così i risultati migliorano subito. Quando aggiungi un concetto mancante, Casebound ricorda le parole comuni di quel caso — escluse quelle con l'iniziale maiuscola, come i nomi — per riconoscerlo la volta successiva. Tutto ciò resta sul tuo dispositivo e non viene mai inviato; puoi cancellarlo con «Forget what I've taught in this browser».</p>
   <p>I segnali servono solo a migliorare il modo in cui Casebound ordina e suggerisce le fonti. Non sono usati per pubblicità, profilazione o decisioni che ti riguardano.</p>
   <p><b>Revoca del consenso:</b> togli la spunta in qualsiasi momento. I segnali si interrompono subito. La revoca non pregiudica i segnali già inviati.</p>
 
   <h2>5. Cookie e memoria locale</h2>
-  <p>Casebound installa un solo cookie, <code>cb_session</code>, e solo quando accedi. Ti mantiene connesso per un massimo di 30 giorni e viene cancellato quando esci. Non è usato per tracciarti. Casebound usa inoltre la memoria locale del browser per quattro scopi:</p>
+  <p>Casebound installa un solo cookie, <code>cb_session</code>, e solo quando accedi. Ti mantiene connesso per un massimo di 30 giorni e viene cancellato quando esci. Non è usato per tracciarti. Casebound usa inoltre la memoria locale del browser per cinque scopi:</p>
   <ul>
     <li>far funzionare lo strumento, conservando i casi salvati;</li>
     <li>ricordare la tua scelta sulla casella di miglioramento;</li>
+    <li>conservare le tue valutazioni dei risultati e le correzioni dei concetti, perché i risultati si adattino (vedi sezione 4; mai inviate a noi);</li>
     <li>contare quante analisi hai eseguito oggi, per il limite giornaliero del piano gratuito (una data e un numero, mai inviati a noi);</li>
     <li>ricordare l'aspetto scelto (chiaro, scuro o automatico).</li>
   </ul>
@@ -310,7 +318,7 @@ footer div{max-width:820px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
   <h2>6. Destinatari e trasferimenti internazionali</h2>
   <ul>
     <li><b>Netlify, Inc.</b> (Stati Uniti) ospita il sito, tratta i dati di connessione e conserva i dati degli account per nostro conto, in base al proprio accordo sul trattamento dei dati (DPA). I trasferimenti verso gli USA si basano sulla certificazione di Netlify all'EU-U.S. Data Privacy Framework, con Clausole contrattuali standard come garanzia aggiuntiva.</li>
-    <li>Se il programma di miglioramento è attivo, un fornitore di database con sede nell'Unione europea conserva i segnali di miglioramento per nostro conto, in base al proprio DPA.</li>
+    <li>Se aderisci al programma di miglioramento, anche Netlify, Inc. riceve i segnali e conserva i totali descritti nella sezione 4, in base allo stesso DPA e alle stesse garanzie per il trasferimento.</li>
     <li><b>Stripe Payments Europe, Ltd.</b> (Dublino, Irlanda) gestisce i pagamenti degli abbonamenti. Per la prevenzione delle frodi e i propri obblighi di legge (ad esempio la normativa antiriciclaggio), Stripe agisce come titolare autonomo secondo la propria informativa. Stripe può trasferire dati a Stripe, Inc. negli Stati Uniti sulla base dell'EU-U.S. Data Privacy Framework e delle Clausole contrattuali standard.</li>
     <li><b>Google</b> e <b>Cloudflare</b> ricevono dati di connessione quando il tuo browser carica caratteri o lettori di file, come descritto nella sezione 3. Entrambe aderiscono all'EU-U.S. Data Privacy Framework.</li>
   </ul>
