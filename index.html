@@ -205,6 +205,47 @@ html[data-theme="dark"] .brand-mark text{fill:var(--paper)}
 .case-card-del:hover{background:var(--oxblood-wash);color:var(--oxblood)}
 .cases-empty-full button{margin-top:14px}
 
+/* ---------- projects + titles ---------- */
+.proj-bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.proj-chip{display:inline-flex;align-items:center;gap:7px;padding:7px 12px;border:1px solid var(--rule);border-radius:999px;background:var(--paper-2);
+  font-size:12.5px;font-weight:600;color:var(--ink-soft);max-width:260px}
+.proj-chip span.nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.proj-chip .ct{font-weight:500;font-size:11px;color:var(--ink-soft);opacity:.85}
+.proj-chip:hover{border-color:var(--ink-soft);color:var(--ink)}
+.proj-chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.proj-chip[aria-pressed="true"] .ct{color:var(--paper)}
+.proj-chip.add{border-style:dashed;color:var(--oxblood)}
+.proj-new{display:inline-flex;gap:6px;align-items:center}
+.proj-new input,.proj-head input{padding:7px 11px;border:1px solid var(--verdigris);border-radius:999px;font-size:13px;font-family:var(--sans);
+  background:var(--paper-2);color:var(--ink);min-width:180px}
+.proj-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 16px;padding:12px 14px;border:1px solid var(--rule);
+  border-radius:8px;background:var(--paper-2)}
+.proj-head h3{margin:0;font-family:var(--serif);font-size:17px;font-weight:600;flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.proj-head .meta{font-size:12px;color:var(--ink-soft)}
+.mini-btn{padding:6px 10px;background:var(--paper);border:1px solid var(--rule);border-radius:5px;font-size:12px;font-weight:600;color:var(--ink)}
+.mini-btn:hover{border-color:var(--ink-soft)}
+.mini-btn.danger:hover{background:var(--oxblood-wash);color:var(--oxblood);border-color:var(--oxblood-wash)}
+.mini-btn.primary{background:var(--oxblood);border-color:var(--oxblood);color:#fff}
+.mini-btn.primary:hover{background:#57181f}
+.case-card-top{display:flex;gap:6px;align-items:flex-start}
+.case-card-top .case-card-label{flex:1;min-width:0}
+.case-card-rename{flex:0 0 auto;background:none;border:none;padding:2px 4px;color:var(--ink-soft);font-size:13px;line-height:1;border-radius:4px}
+.case-card-rename:hover{color:var(--oxblood);background:var(--oxblood-wash)}
+.case-card-title-in{width:100%;font-family:var(--serif);font-weight:600;font-size:14.5px;padding:5px 7px;border:1px solid var(--verdigris);
+  border-radius:5px;background:var(--paper);color:var(--ink)}
+.case-card-proj{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--ink-soft)}
+.proj-select{max-width:100%;padding:5px 8px;border:1px solid var(--rule);border-radius:5px;background:var(--paper);color:var(--ink);
+  font-family:var(--sans);font-size:12px;min-width:0}
+.case-card-proj .proj-select{flex:1}
+.res-title-in{width:100%;font-family:var(--serif);font-size:16px;font-weight:600;color:var(--ink);background:transparent;border:1px solid transparent;
+  border-radius:5px;padding:2px 6px;margin-left:-7px;text-overflow:ellipsis}
+.res-title-in:hover{border-color:var(--rule)}
+.res-title-in:focus{border-color:var(--verdigris);background:var(--paper);outline:none}
+.res-file{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink-soft);white-space:nowrap}
+.res-file .proj-select{max-width:200px}
+.hub-file{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink-soft);white-space:nowrap}
+.hub-file .proj-select{max-width:220px;font-size:12.5px;padding:7px 9px}
+
 /* ---------- footer ---------- */
 .site-foot{flex:0 0 auto;border-top:1px solid var(--rule);background:var(--paper-2);font-size:11.5px;color:var(--ink-soft)}
 .site-foot-in{max-width:1680px;margin:0 auto;padding:7px 22px;display:flex;gap:6px 18px;align-items:center;flex-wrap:wrap}
@@ -276,6 +317,13 @@ html[data-theme="dark"] .seg button[aria-checked="true"]{box-shadow:0 1px 2px rg
   .cases-view-tools{width:100%}
   #cases-search{min-width:0;flex:1}
   .cases-grid{grid-template-columns:1fr}
+  .proj-bar{flex-wrap:nowrap;overflow-x:auto;margin-left:-16px;margin-right:-16px;padding:0 16px 4px;scrollbar-width:none}
+  .proj-chip{flex:0 0 auto}
+  .proj-select,.proj-new input,.proj-head input,.case-card-title-in,.res-title-in{font-size:16px}
+  .res-file{flex:1 1 100%}
+  .res-file .proj-select{max-width:none;flex:1}
+  .hub-file{width:100%}
+  .hub-file .proj-select{max-width:none;flex:1}
   .case-card-open,.case-card-del{padding:11px;font-size:14px}
   .site-foot{font-size:12.5px}
   .site-foot-in{padding:14px 16px calc(16px + env(safe-area-inset-bottom));flex-direction:column;align-items:flex-start;gap:10px}
@@ -376,11 +424,12 @@ html[data-theme="dark"] .seg button[aria-checked="true"]{box-shadow:0 1px 2px rg
 
       <div class="start-actions">
         <button type="submit" class="hub-btn" id="hub-run">Analyze case &rarr;</button>
+        <label class="hub-file">Save to <select class="proj-select" id="hub-project" aria-label="Project to save this case in"></select></label>
         <div class="hub-status" id="hub-status" role="status" aria-live="polite"></div>
       </div>
       <div class="plan-bar" id="plan-bar" aria-live="polite"></div>
     </form>
-    <p class="start-foot">Every analysis is saved in this browser under <b>Saved cases</b>, so you can reopen it later.</p>
+    <p class="start-foot">Every analysis is saved in this browser under <b>Saved cases</b>, so you can reopen it later. Give it a title and file it in a project from the results page or Saved cases.</p>
 
     <div class="recent" id="recent" hidden>
       <div class="recent-head"><h2>Recent cases</h2><button type="button" class="link-btn" data-go="cases">View all</button></div>
@@ -394,7 +443,8 @@ html[data-theme="dark"] .seg button[aria-checked="true"]{box-shadow:0 1px 2px rg
   <div class="res-bar">
     <div class="res-bar-in">
       <button type="button" class="back-btn" data-go="start">&larr; Edit case</button>
-      <div class="res-summary"><div class="res-title" id="res-title">Your case</div><div class="res-meta" id="res-meta"></div></div>
+      <div class="res-summary"><input type="text" class="res-title-in" id="res-title" value="Your case" maxlength="120" aria-label="Case title (click to rename)" title="Click to rename"><div class="res-meta" id="res-meta"></div></div>
+      <label class="res-file">Project <select class="proj-select" id="res-project" aria-label="Project for this case"></select></label>
       <div class="seg" role="radiogroup" aria-label="Show" id="res-output">
         <button type="button" role="radio" data-out="both" aria-checked="true">Both</button>
         <button type="button" role="radio" data-out="map" aria-checked="false">Mindmap</button>
@@ -1685,10 +1735,12 @@ window.addEventListener(&quot;message&quot;, function(ev){
     <div class="cases-view-head">
       <h2>Saved cases</h2>
       <div class="cases-view-tools">
-        <input type="text" id="cases-search" placeholder="Search saved cases…" aria-label="Search saved cases">
+        <input type="text" id="cases-search" placeholder="Search titles, facts, projects…" aria-label="Search saved cases">
         <button class="cases-clear-btn" id="cases-clear-all">Clear all</button>
       </div>
     </div>
+    <div class="proj-bar" id="proj-bar" role="toolbar" aria-label="Projects"></div>
+    <div class="proj-head" id="proj-head" hidden></div>
     <div class="cases-grid" id="cases-grid"></div>
   </div>
 </section>
@@ -2028,7 +2080,13 @@ $id("res-new").addEventListener("click", () => {
 
 function renderSummary(){
   if(!CURRENT) return;
-  $id("res-title").textContent = caseLabel(CURRENT.facts, "");
+  const saved = findSaved(CURRENT);
+  const ti = $id("res-title");
+  ti.value = saved ? saved.label : caseLabel(CURRENT.facts, CURRENT.claim);
+  ti.disabled = !saved;
+  ti.title = saved ? "Click to rename" : "";
+  $id("res-project").parentNode.hidden = !saved;
+  if(saved) fillProjectSelect($id("res-project"), saved.projectId);
   const bits = [];
   if(CURRENT.claim) bits.push(`Goal: <b>${escHtml(CURRENT.claim)}</b>`);
   if(CURRENT.output !== "map"){
@@ -2040,14 +2098,74 @@ function rememberCurrent(){
   try{ sessionStorage.setItem(CURRENT_KEY, JSON.stringify(CURRENT)); }catch(e){}
 }
 
-/* ---------------- saved cases (kept in this browser) ---------------- */
+/* ---------------- saved cases + projects (kept in this browser) ----------------
+   A case has a title (label, editable) and an optional projectId.
+   Projects are their own list so an empty project can exist. */
 const CASES_KEY = "casebound_cases_v1";
+const PROJECTS_KEY = "casebound_projects_v1";
+const PROJ_FILTER_KEY = "casebound:proj-filter";
+const NEW_PROJ = "__new__";
+let PROJ_FILTER = "all";     // "all" | "none" (unfiled) | project id
+try{ PROJ_FILTER = sessionStorage.getItem(PROJ_FILTER_KEY) || "all"; }catch(e){}
+let EDITING_PROJECT = false, ADDING_PROJECT = false, RENAMING_CASE = null;
+
 function loadCases(){
   try{ return JSON.parse(localStorage.getItem(CASES_KEY) || "[]"); }catch(e){ return []; }
 }
 function persistCases(list){
   try{ localStorage.setItem(CASES_KEY, JSON.stringify(list.slice(0, 60))); }catch(e){}
 }
+function loadProjects(){
+  try{ const l = JSON.parse(localStorage.getItem(PROJECTS_KEY) || "[]"); return Array.isArray(l) ? l : []; }catch(e){ return []; }
+}
+function persistProjects(list){
+  try{ localStorage.setItem(PROJECTS_KEY, JSON.stringify(list)); }catch(e){}
+}
+function projectById(id){ return id ? loadProjects().find(p => p.id === id) || null : null; }
+function projectName(id){ const p = projectById(id); return p ? p.name : ""; }
+function cleanName(n, max){ return String(n || "").replace(/\s+/g," ").trim().slice(0, max || 60); }
+function createProject(name){
+  name = cleanName(name);
+  if(!name) return null;
+  const list = loadProjects();
+  const dup = list.find(p => p.name.toLowerCase() === name.toLowerCase());
+  if(dup) return dup;
+  const p = { id: "p" + Date.now().toString(36) + Math.random().toString(36).slice(2,5), name, createdAt: new Date().toISOString() };
+  list.push(p); persistProjects(list);
+  return p;
+}
+function renameProject(id, name){
+  name = cleanName(name); if(!name) return;
+  persistProjects(loadProjects().map(p => p.id === id ? Object.assign(p, { name }) : p));
+}
+function deleteProject(id){
+  persistProjects(loadProjects().filter(p => p.id !== id));
+  persistCases(loadCases().map(c => c.projectId === id ? Object.assign(c, { projectId: null }) : c));
+}
+function updateCase(id, patch){
+  persistCases(loadCases().map(c => c.id === id ? Object.assign(c, patch) : c));
+}
+function findSaved(c){
+  return c ? loadCases().find(x => x.facts === c.facts && x.claim === c.claim) || null : null;
+}
+/* fills a <select> with Unfiled + projects + "New project…" */
+function fillProjectSelect(sel, current){
+  const opts = [`<option value="">No project</option>`]
+    .concat(loadProjects().slice().sort((a,b)=>a.name.localeCompare(b.name))
+      .map(p => `<option value="${p.id}">${escHtml(p.name)}</option>`))
+    .concat([`<option value="${NEW_PROJ}">+ New project…</option>`]);
+  sel.innerHTML = opts.join("");
+  sel.value = current && projectById(current) ? current : "";
+}
+/* handles the "New project…" choice in any select; returns the chosen id (or null) */
+function resolveProjectChoice(sel, previous){
+  if(sel.value !== NEW_PROJ) return sel.value || null;
+  const name = prompt("Name the new project:");
+  const p = createProject(name);
+  if(!p){ sel.value = previous || ""; return undefined; }
+  return p.id;
+}
+
 function caseLabel(facts, claim){
   const base = (claim || facts).replace(/\s+/g," ").replace(/^— From .+? —\s*/,"").trim();
   return base.length > 70 ? base.slice(0,70)+"…" : base;
@@ -2058,12 +2176,13 @@ function fmtSavedAt(iso){
     d.toLocaleTimeString(undefined,{hour:"numeric",minute:"2-digit"});
 }
 /* returns "" when saved, or a note explaining why it wasn't */
-function saveCase(c){
+function saveCase(c, projectId){
   let list = loadCases();
   const i = list.findIndex(x => x.facts === c.facts && x.claim === c.claim);
   const rec = { output: c.output, jur: c.jur, dtype: c.dtype, savedAt: new Date().toISOString() };
   if(i !== -1){
     const [existing] = list.splice(i, 1);
+    if(projectId !== undefined && projectId !== null) rec.projectId = projectId;
     list.unshift(Object.assign(existing, rec));
   } else {
     if(!isPro() && list.length >= FREE.savedCases){
@@ -2071,7 +2190,8 @@ function saveCase(c){
     }
     list.unshift(Object.assign({
       id: Date.now()+"-"+Math.random().toString(36).slice(2,7),
-      label: caseLabel(c.facts, c.claim), facts: c.facts, claim: c.claim
+      label: caseLabel(c.facts, c.claim), facts: c.facts, claim: c.claim,
+      projectId: projectId && projectById(projectId) ? projectId : null
     }, rec));
   }
   persistCases(list);
@@ -2081,57 +2201,213 @@ function deleteCase(id){
   persistCases(loadCases().filter(c=>c.id!==id));
   renderCases(); renderRecent();
 }
+function setProjFilter(f){
+  PROJ_FILTER = f; EDITING_PROJECT = false;
+  try{ sessionStorage.setItem(PROJ_FILTER_KEY, f); }catch(e){}
+  renderCases();
+}
+function renderProjectBar(all){
+  const projects = loadProjects().slice().sort((a,b)=>a.name.localeCompare(b.name));
+  if(PROJ_FILTER !== "all" && PROJ_FILTER !== "none" && !projects.some(p => p.id === PROJ_FILTER)) PROJ_FILTER = "all";
+  const count = (f) => all.filter(f).length;
+  const chip = (id, name, n) =>
+    `<button type="button" class="proj-chip" data-proj="${id}" aria-pressed="${PROJ_FILTER === id}"><span class="nm">${name}</span><span class="ct">${n}</span></button>`;
+  let html = chip("all", "All cases", all.length);
+  const unfiled = count(c => !c.projectId || !projects.some(p => p.id === c.projectId));
+  if(projects.length) html += chip("none", "No project", unfiled);
+  html += projects.map(p => chip(p.id, escHtml(p.name), count(c => c.projectId === p.id))).join("");
+  html += ADDING_PROJECT
+    ? `<span class="proj-new"><input type="text" id="proj-new-name" maxlength="60" placeholder="Project name, e.g. Contract law essay" aria-label="New project name"><button type="button" class="mini-btn primary" data-pact="create">Add</button><button type="button" class="mini-btn" data-pact="cancel-add">Cancel</button></span>`
+    : `<button type="button" class="proj-chip add" data-pact="add">+ New project</button>`;
+  $id("proj-bar").innerHTML = html;
+  if(ADDING_PROJECT) setTimeout(()=>{ const i = $id("proj-new-name"); if(i) i.focus(); }, 0);
+
+  const head = $id("proj-head");
+  const p = projects.find(x => x.id === PROJ_FILTER);
+  head.hidden = !p;
+  if(p){
+    const n = count(c => c.projectId === p.id);
+    head.innerHTML = EDITING_PROJECT
+      ? `<input type="text" id="proj-rename" maxlength="60" value="${escHtml(p.name)}" aria-label="Project name"><button type="button" class="mini-btn primary" data-pact="save-name">Save</button><button type="button" class="mini-btn" data-pact="cancel-name">Cancel</button>`
+      : `<h3 title="${escHtml(p.name)}">${escHtml(p.name)}</h3><span class="meta">${n} case${n===1?"":"s"}</span>
+         <button type="button" class="mini-btn primary" data-pact="new-case">+ New case here</button>
+         <button type="button" class="mini-btn" data-pact="rename">Rename</button>
+         <button type="button" class="mini-btn danger" data-pact="delete">Delete project</button>`;
+    if(EDITING_PROJECT) setTimeout(()=>{ const i = $id("proj-rename"); if(i){ i.focus(); i.select(); } }, 0);
+  }
+}
 function renderCases(){
   const q = ($id("cases-search").value || "").trim().toLowerCase();
   const all = loadCases();
-  const list = q ? all.filter(c =>
-      c.label.toLowerCase().includes(q) || c.facts.toLowerCase().includes(q) || (c.claim||"").toLowerCase().includes(q)) : all;
+  renderProjectBar(all);
+  const projIds = new Set(loadProjects().map(p => p.id));
+  let list = all;
+  if(PROJ_FILTER === "none") list = list.filter(c => !c.projectId || !projIds.has(c.projectId));
+  else if(PROJ_FILTER !== "all") list = list.filter(c => c.projectId === PROJ_FILTER);
+  if(q) list = list.filter(c =>
+      c.label.toLowerCase().includes(q) || c.facts.toLowerCase().includes(q) || (c.claim||"").toLowerCase().includes(q) ||
+      projectName(c.projectId).toLowerCase().includes(q));
   $id("cases-clear-all").hidden = !all.length;
   const grid = $id("cases-grid");
   if(!list.length){
     grid.innerHTML = `<div class="cases-empty-full">${
-      all.length ? "No saved cases match that search." :
+      q ? "No saved cases match that search." :
+      PROJ_FILTER === "none" ? "Every case is filed in a project." :
+      PROJ_FILTER !== "all" ? `No cases in this project yet. Start one with <b>+ New case here</b>, or move a case in from <b>All cases</b> using its Project menu.` :
       `No cases saved yet. Analyze one and it lands here, ready to reopen.<br><button type="button" class="hub-btn" data-go="start">Start a case</button>`
     }</div>`;
     return;
   }
   grid.innerHTML = list.map(c => `
     <div class="case-card">
-      <div class="case-card-label">${escHtml(c.label)}</div>
+      <div class="case-card-top">${RENAMING_CASE === c.id
+        ? `<input type="text" class="case-card-title-in" data-title-for="${c.id}" maxlength="120" value="${escHtml(c.label)}" aria-label="Case title">`
+        : `<div class="case-card-label">${escHtml(c.label)}</div><button type="button" class="case-card-rename" data-act="rename" data-id="${c.id}" title="Rename" aria-label="Rename case">&#9998;</button>`}</div>
       <div class="case-card-date">${fmtSavedAt(c.savedAt)} · ${OUTPUT_LABEL[c.output] || OUTPUT_LABEL.both}</div>
       ${c.claim ? `<div class="case-card-claim">${escHtml(c.claim)}</div>` : ""}
       <div class="case-card-facts">${escHtml(c.facts)}</div>
+      <label class="case-card-proj">Project <select class="proj-select" data-proj-for="${c.id}" aria-label="Project for this case"></select></label>
       <div class="case-card-actions">
         <button class="case-card-open" data-act="load" data-id="${c.id}">Open results</button>
         <button class="case-card-open" data-act="edit" data-id="${c.id}" style="flex:0 0 auto;background:var(--paper);color:var(--ink);border:1px solid var(--rule)">Edit</button>
         <button class="case-card-del" data-act="del" data-id="${c.id}" title="Remove" aria-label="Remove">&times;</button>
       </div>
     </div>`).join("");
+  grid.querySelectorAll("select[data-proj-for]").forEach(sel => {
+    const c = list.find(x => x.id === sel.dataset.projFor);
+    fillProjectSelect(sel, c && c.projectId);
+  });
+  const ti = grid.querySelector(".case-card-title-in");
+  if(ti){ ti.focus(); ti.select(); }
 }
 function renderRecent(){
   const list = loadCases().slice(0, 3);
   $id("recent").hidden = !list.length;
-  $id("recent-list").innerHTML = list.map(c => `
+  $id("recent-list").innerHTML = list.map(c => {
+    const pn = projectName(c.projectId);
+    return `
     <button type="button" class="recent-item" data-act="load" data-id="${c.id}">
       <span class="ri-main"><span class="ri-t">${escHtml(c.label)}</span>
-      <span class="ri-m">${fmtSavedAt(c.savedAt)}${c.claim ? " · " + escHtml(c.claim) : ""}</span></span>
+      <span class="ri-m">${fmtSavedAt(c.savedAt)}${pn ? " · " + escHtml(pn) : ""}${c.claim ? " · " + escHtml(c.claim) : ""}</span></span>
       <span class="ri-go">Open &rarr;</span>
-    </button>`).join("");
+    </button>`; }).join("");
+}
+function renderHubProject(pref){
+  const sel = $id("hub-project");
+  const cur = pref !== undefined ? pref : sel.value;
+  fillProjectSelect(sel, cur);
 }
 function onCaseAction(e){
   const b = e.target.closest("[data-act]"); if(!b) return;
   if(b.dataset.act === "del"){ deleteCase(b.dataset.id); return; }
+  if(b.dataset.act === "rename"){ RENAMING_CASE = b.dataset.id; renderCases(); return; }
   const c = loadCases().find(x => x.id === b.dataset.id); if(!c) return;
   fillForm(c);
+  renderHubProject(c.projectId || "");
   if(b.dataset.act === "edit"){ showView("start"); return; }
   runAnalysis({ reopen: true });
 }
+function commitCaseTitle(input){
+  const id = input.dataset.titleFor;
+  const t = cleanName(input.value, 120);
+  RENAMING_CASE = null;
+  if(t) updateCase(id, { label: t });
+  renderCases(); renderRecent();
+  if(CURRENT){ const s = findSaved(CURRENT); if(s && s.id === id) renderSummary(); }
+}
 $id("cases-grid").addEventListener("click", onCaseAction);
+$id("cases-grid").addEventListener("keydown", e => {
+  const i = e.target.closest(".case-card-title-in"); if(!i) return;
+  if(e.key === "Enter"){ e.preventDefault(); i.blur(); }
+  if(e.key === "Escape"){ i.value = ""; i.blur(); }
+});
+$id("cases-grid").addEventListener("focusout", e => {
+  const i = e.target.closest(".case-card-title-in"); if(i) commitCaseTitle(i);
+});
+$id("cases-grid").addEventListener("change", e => {
+  const sel = e.target.closest("select[data-proj-for]"); if(!sel) return;
+  const c = loadCases().find(x => x.id === sel.dataset.projFor); if(!c) return;
+  const v = resolveProjectChoice(sel, c.projectId);
+  if(v === undefined) return;
+  updateCase(c.id, { projectId: v });
+  renderCases(); renderRecent(); renderHubProject();
+});
 $id("recent-list").addEventListener("click", onCaseAction);
 $id("cases-search").addEventListener("input", renderCases);
 $id("cases-clear-all").addEventListener("click", ()=>{
-  if(!confirm("Remove all saved cases from this browser?")) return;
+  if(!confirm("Remove all saved cases from this browser? Your projects stay, empty.")) return;
   persistCases([]); renderCases(); renderRecent();
+});
+
+/* project bar + project header */
+function onProjAction(e){
+  const chip = e.target.closest("[data-proj]");
+  if(chip){ setProjFilter(chip.dataset.proj); return; }
+  const b = e.target.closest("[data-pact]"); if(!b) return;
+  const act = b.dataset.pact;
+  if(act === "add"){ ADDING_PROJECT = true; renderCases(); }
+  else if(act === "cancel-add"){ ADDING_PROJECT = false; renderCases(); }
+  else if(act === "create"){
+    const p = createProject($id("proj-new-name").value);
+    ADDING_PROJECT = false;
+    if(p){ renderHubProject(); setProjFilter(p.id); } else renderCases();
+  }
+  else if(act === "rename"){ EDITING_PROJECT = true; renderCases(); }
+  else if(act === "cancel-name"){ EDITING_PROJECT = false; renderCases(); }
+  else if(act === "save-name"){
+    renameProject(PROJ_FILTER, $id("proj-rename").value);
+    EDITING_PROJECT = false; renderCases(); renderRecent(); renderHubProject(); if(CURRENT) renderSummary();
+  }
+  else if(act === "delete"){
+    const p = projectById(PROJ_FILTER); if(!p) return;
+    if(!confirm(`Delete the project "${p.name}"? Its cases are kept and moved to No project.`)) return;
+    deleteProject(p.id); renderHubProject(); renderRecent(); if(CURRENT) renderSummary();
+    setProjFilter("all");
+  }
+  else if(act === "new-case"){
+    const pid = PROJ_FILTER;
+    fillForm({ output: radioVal("output") });
+    $id("hub-file-status").textContent = ""; $id("hub-status").textContent = "";
+    renderHubProject(pid);
+    showView("start");
+  }
+}
+$id("proj-bar").addEventListener("click", onProjAction);
+$id("proj-head").addEventListener("click", onProjAction);
+["proj-bar","proj-head"].forEach(id => $id(id).addEventListener("keydown", e => {
+  if(e.target.id === "proj-new-name"){
+    if(e.key === "Enter"){ e.preventDefault(); $id("proj-bar").querySelector('[data-pact="create"]').click(); }
+    if(e.key === "Escape"){ ADDING_PROJECT = false; renderCases(); }
+  }
+  if(e.target.id === "proj-rename"){
+    if(e.key === "Enter"){ e.preventDefault(); $id("proj-head").querySelector('[data-pact="save-name"]').click(); }
+    if(e.key === "Escape"){ EDITING_PROJECT = false; renderCases(); }
+  }
+}));
+
+/* start page: which project the next case goes into */
+$id("hub-project").addEventListener("change", e => {
+  const v = resolveProjectChoice(e.target, "");
+  if(v === undefined) return;
+  renderHubProject(v || "");
+});
+
+/* results page: rename the case + move it to a project */
+$id("res-title").addEventListener("keydown", e => {
+  if(e.key === "Enter"){ e.preventDefault(); e.target.blur(); }
+  if(e.key === "Escape"){ renderSummary(); e.target.blur(); }
+});
+$id("res-title").addEventListener("change", e => {
+  const s = findSaved(CURRENT); const t = cleanName(e.target.value, 120);
+  if(s && t){ updateCase(s.id, { label: t }); renderRecent(); }
+  renderSummary();
+});
+$id("res-project").addEventListener("change", e => {
+  const s = findSaved(CURRENT); if(!s){ renderSummary(); return; }
+  const v = resolveProjectChoice(e.target, s.projectId);
+  if(v === undefined) return;
+  updateCase(s.id, { projectId: v });
+  renderRecent(); renderHubProject(); renderSummary();
 });
 
 /* ---------------- run: page 1 → page 2 ---------------- */
@@ -2161,7 +2437,8 @@ async function runAnalysis(opts){
   CURRENT = c;
   rememberCurrent();
   if(counts) countAnalysis();
-  $id("res-note").innerHTML = saveCase(c);
+  $id("res-note").innerHTML = saveCase(c, reopen ? undefined : ($id("hub-project").value || null));
+  renderSummary();
   sendSignal({ action: "analysis_run" });
   renderPlanBar();
   setOutput(c.output, false);
@@ -2178,7 +2455,7 @@ $id("hub-facts").addEventListener("keydown", e => {
 
 /* ---------------- first load ---------------- */
 (function init(){
-  syncRefine(); updateCount(); renderRecent();
+  syncRefine(); updateCount(); renderRecent(); renderHubProject("");
   let saved = null;
   try{ saved = JSON.parse(sessionStorage.getItem(CURRENT_KEY) || "null"); }catch(e){}
   if(saved && saved.facts) fillForm(saved);
