@@ -3,6 +3,9 @@
 export function toPlan(price) {
   const p = price.product || {};
   const m = p.metadata || {};
+  // Per-price metadata (set on one price, e.g. the yearly one) wins over product metadata.
+  const pm = price.metadata || {};
+  const pick = (k) => (pm[k] !== undefined && pm[k] !== "" ? pm[k] : m[k]);
   const r = price.recurring || {};
   return {
     id: price.id,
@@ -17,9 +20,9 @@ export function toPlan(price) {
     currency: price.currency,
     interval: r.interval,
     intervalCount: r.interval_count || 1,
-    trialDays: parseInt(m.trial_days, 10) > 0 ? parseInt(m.trial_days, 10) : 0,
-    highlight: m.highlight === "true",
-    order: Number.isFinite(parseFloat(m.order)) ? parseFloat(m.order) : 1e6,
+    trialDays: parseInt(pick("trial_days"), 10) > 0 ? parseInt(pick("trial_days"), 10) : 0,
+    highlight: pick("highlight") === "true",
+    order: Number.isFinite(parseFloat(pick("order"))) ? parseFloat(pick("order")) : 1e6,
   };
 }
 
@@ -27,14 +30,15 @@ export function selectPlans(prices) {
   return prices
     .filter((pr) => pr.active && pr.type === "recurring" && typeof pr.unit_amount === "number")
     .filter((pr) => pr.product && typeof pr.product === "object" && pr.product.active && !pr.product.deleted)
-    .filter((pr) => (pr.product.metadata || {}).hidden !== "true")
+    .filter((pr) => (pr.product.metadata || {}).hidden !== "true" && (pr.metadata || {}).hidden !== "true")
     .map(toPlan)
     .sort((a, b) => a.order - b.order || a.amount - b.amount);
 }
 
 export function buildSessionParams(price, origin, lang) {
   const m = (price.product && price.product.metadata) || {};
-  const trial = parseInt(m.trial_days, 10);
+  const pm = price.metadata || {};
+  const trial = parseInt(pm.trial_days || m.trial_days, 10);
   const it = lang === "it";
   const params = {
     mode: "subscription",

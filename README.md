@@ -21,7 +21,7 @@ Netlify environment variables:
 - `STRIPE_PORTAL_LOGIN_URL` (recommended) — Stripe → Settings → Billing → Customer portal → login link.
 - `STRIPE_AUTOMATIC_TAX` — set to `true` once Stripe Tax is configured.
 
-Optional product metadata in Stripe: `order`, `highlight=true`, `trial_days`, `hidden=true`, `name_it`, `description_it`, `features_it` (separated by `|`).
+Optional product metadata in Stripe: `order`, `highlight=true`, `trial_days`, `hidden=true`, `name_it`, `description_it`, `features_it` (separated by `|`). `order`, `highlight`, `trial_days` and `hidden` can also be set on an individual **price** (it wins over the product), e.g. `highlight=true` on the yearly price only.
 
 Without `STRIPE_SECRET_KEY` the Plans page simply says paid plans are not available yet.
 - The admin copy (`casebound-admin-LOCAL.html`) and `supabase-signals-setup.sql` are deliberately **not** in this repo.

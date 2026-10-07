@@ -5,6 +5,8 @@
 //   name_it, description_it, features_it (features separated by "|")  Italian copy
 //   trial_days   free-trial length applied at checkout
 //   hidden       "true" to keep a product off the pricing page
+// order, highlight, trial_days and hidden can also be set on a single price
+// (price metadata wins), e.g. highlight=true on the yearly price only.
 import { isConfigured, isTestMode, stripe, json, portalLoginUrl, failure } from "../lib/stripe.mjs";
 import { selectPlans } from "../lib/plans.mjs";
 
