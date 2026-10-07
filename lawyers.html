@@ -251,7 +251,7 @@ footer div{max-width:1300px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
   /* For cases sent before clients chose a region: work it out from the city where we can. */
   var CITY_REGION = {milano:"Lombardia",milan:"Lombardia",bergamo:"Lombardia",brescia:"Lombardia",monza:"Lombardia",como:"Lombardia",pavia:"Lombardia",varese:"Lombardia",roma:"Lazio",rome:"Lazio",latina:"Lazio",napoli:"Campania",naples:"Campania",salerno:"Campania",caserta:"Campania",torino:"Piemonte",turin:"Piemonte",novara:"Piemonte",genova:"Liguria",genoa:"Liguria","la spezia":"Liguria",bologna:"Emilia-Romagna",modena:"Emilia-Romagna",parma:"Emilia-Romagna","reggio emilia":"Emilia-Romagna",rimini:"Emilia-Romagna",ferrara:"Emilia-Romagna",firenze:"Toscana",florence:"Toscana",pisa:"Toscana",livorno:"Toscana",siena:"Toscana",prato:"Toscana",lucca:"Toscana",venezia:"Veneto",venice:"Veneto",verona:"Veneto",padova:"Veneto",padua:"Veneto",vicenza:"Veneto",treviso:"Veneto",trieste:"Friuli-Venezia Giulia",udine:"Friuli-Venezia Giulia",trento:"Trentino-Alto Adige",bolzano:"Trentino-Alto Adige",aosta:"Valle d'Aosta",palermo:"Sicilia",catania:"Sicilia",messina:"Sicilia",siracusa:"Sicilia",cagliari:"Sardegna",sassari:"Sardegna",bari:"Puglia",lecce:"Puglia",taranto:"Puglia",foggia:"Puglia",brindisi:"Puglia","reggio calabria":"Calabria",cosenza:"Calabria",catanzaro:"Calabria",potenza:"Basilicata",matera:"Basilicata",perugia:"Umbria",terni:"Umbria",ancona:"Marche",pesaro:"Marche",pescara:"Abruzzo","l'aquila":"Abruzzo",chieti:"Abruzzo",campobasso:"Molise"};
   function region(c){ return c.region || CITY_REGION[String(c.city || "").trim().toLowerCase()] || ""; }
-  var ADMIN_VIEW = false;
+  var ADMIN_VIEW = false, PREVIEW = false;
 
   function esc(s){ return String(s == null ? "" : s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
   function eur(n){ return n ? "€" + Number(n).toLocaleString("it-IT") : "—"; }
@@ -452,7 +452,7 @@ footer div{max-width:1300px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
       '<div><p class="sec-h">Evidence</p><div class="tags">' + (c.evidence.length ? c.evidence.map(function(e){ return '<span class="tag">' + esc(e) + '</span>'; }).join("") : '<span class="tag none">None listed</span>') + '</div>' + (c.evidenceNote ? '<p class="ev-note">' + esc(c.evidenceNote) + '</p>' : '') + '</div>' +
       '<div><p class="sec-h">Automatic checks</p><ul class="flags">' + flags(c).map(function(f){ return '<li class="' + f[0] + '">' + esc(f[1]) + '</li>'; }).join("") + '</ul></div>' +
       (ADMIN_VIEW ? '<p class="note"><b>Admin view.</b> You can read every open case. Only verified lawyers can rate cases or contact clients.</p>' :
-      '<div class="rate"><p class="sec-h" style="margin:0">Your rating (only you see it)</p>' +
+      '<div class="rate">' + (PREVIEW ? '<p class="note" style="margin:0"><b>Admin preview.</b> This is exactly what a verified lawyer sees. Your ratings and choices stay in this browser and are not sent to the client.</p>' : '') + '<p class="sec-h" style="margin:0">Your rating (only you see it)</p>' +
         '<div><span class="lbl">How strong is the claim?</span>' + scaleHTML("strength", m.strength) + '<div class="scale-ends"><span>Weak</span><span>Strong</span></div></div>' +
         '<div><span class="lbl">How good is the evidence?</span>' + scaleHTML("quality", m.quality) + '<div class="scale-ends"><span>Thin</span><span>Solid</span></div></div>' +
         '<div class="breakdown">' + bd.map(function(b){ return '<div class="bd"><span>' + b[0] + '</span><span class="bar"><i style="width:' + Math.round(b[1]/b[2]*100) + '%"></i></span><b>' + Math.round(b[1]) + '/' + b[2] + '</b></div>'; }).join("") + '</div>' +
@@ -469,6 +469,15 @@ footer div{max-width:1300px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
   function renderAll(){ renderStats(); renderList(); renderPanel(); }
 
   function review(data){
+    if(PREVIEW){
+      // Admin preview: show the result here, send nothing to the client.
+      cases = cases.map(function(c){
+        if(c.id !== selected) return c;
+        var m = Object.assign({}, c.mine || {}, data, { at: new Date().toISOString() });
+        return Object.assign({}, c, { mine: m });
+      });
+      renderAll(); return;
+    }
     if(saving) return; saving = true;
     data.id = selected;
     fetch("/api/cases/review", { method:"POST", credentials:"same-origin", headers:{"Content-Type":"application/json"}, body: JSON.stringify(data) })
@@ -519,9 +528,13 @@ footer div{max-width:1300px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
     var u = j && j.user;
     if(!u){ $("top-account").textContent = "Sign in";
       return gate('<h2>For lawyers registered in Italy</h2><p>Create a free lawyer account to review cases sent by Casebound clients. We verify every lawyer against the official register before they can see any case.</p><div class="actions"><a class="btn" href="/login.html?mode=register&amp;role=lawyer&amp;next=%2Faccount.html">Create a lawyer account</a><a class="btn ghost" href="/login.html?next=%2Flawyers.html">Sign in</a></div>'); }
-    ADMIN_VIEW = !!u.isAdmin && !(u.role === "lawyer" && u.lawyer && u.lawyer.status === "verified");
+    var view = window.CBView ? window.CBView.get(u) : "admin";
+    // Admin previewing as a lawyer: full lawyer screen, but ratings stay in this browser.
+    PREVIEW = !!u.isAdmin && view === "lawyer" && !(u.role === "lawyer" && u.lawyer && u.lawyer.status === "verified");
+    ADMIN_VIEW = !!u.isAdmin && view === "admin" && !(u.role === "lawyer" && u.lawyer && u.lawyer.status === "verified");
+    if(u.isAdmin && view === "client") return gate('<h2>This board is for lawyers</h2><p>Your account is a client profile. If you are a lawyer, switch to a lawyer profile on your account page and we will verify your details.</p><div class="actions"><a class="btn" href="/account.html">Go to my account</a></div>');
     if(u.role !== "lawyer" && !u.isAdmin) return gate('<h2>This board is for lawyers</h2><p>Your account is a client profile. If you are a lawyer, switch to a lawyer profile on your account page and we will verify your details.</p><div class="actions"><a class="btn" href="/account.html">Go to my account</a></div>');
-    if(!ADMIN_VIEW && (!u.lawyer || u.lawyer.status !== "verified")) return gate('<h2>' + (u.lawyer && u.lawyer.status === "rejected" ? "We couldn't verify your details" : "Waiting for verification") + '</h2><p>' + (u.lawyer && u.lawyer.status === "rejected" ? "We couldn't match your name and register number with the official register. Check them on your account page, or write to admin@case-bound.com." : "We are checking your name and register number on the official register of lawyers. You'll be able to see cases once that's done, usually within one or two working days.") + '</p><div class="actions"><a class="btn ghost" href="/account.html">My account</a></div>');
+    if(!ADMIN_VIEW && !PREVIEW && (!u.lawyer || u.lawyer.status !== "verified")) return gate('<h2>' + (u.lawyer && u.lawyer.status === "rejected" ? "We couldn't verify your details" : "Waiting for verification") + '</h2><p>' + (u.lawyer && u.lawyer.status === "rejected" ? "We couldn't match your name and register number with the official register. Check them on your account page, or write to admin@case-bound.com." : "We are checking your name and register number on the official register of lawyers. You'll be able to see cases once that's done, usually within one or two working days.") + '</p><div class="actions"><a class="btn ghost" href="/account.html">My account</a></div>');
     return fetch("/api/cases/board", { credentials:"same-origin" }).then(function(r){ return r.json(); }).then(function(b){
       cases = b.cases || []; ORDER = b.order || [];
       loadPrefs(); sortHint();

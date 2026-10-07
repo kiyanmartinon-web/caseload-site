@@ -61,7 +61,7 @@ export default async (req, context) => {
   if (!b) return bad("Invalid request.");
 
   if (action === "submit") {
-    if (user.role === "lawyer") return bad("Switch your profile to client to send a case.", 403);
+    if (user.role === "lawyer" && !isAdmin(user)) return bad("Switch your profile to client to send a case.", 403);
     const tier = tierOf(user, await subscriptionFor(user));
     if (tier !== "pro") return bad("Connecting with a lawyer is part of Casebound Pro.", 402);
     const mineOpen = (await allCases()).filter((c) => c.clientId === user.id && c.status === "open").length;

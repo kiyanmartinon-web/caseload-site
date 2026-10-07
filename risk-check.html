@@ -519,7 +519,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
   var done = false;
   fetch("/api/auth/me", { credentials:"same-origin" })
     .then(function(r){ return r.ok ? r.json() : {}; })
-    .then(function(j){ if(!done){ done = true; ROLE = (j && j.user && j.user.role) || "client"; show(j && j.tier, !!(j && j.user)); } })
+    .then(function(j){ if(!done){ done = true; ROLE = j && j.user ? (window.CBView ? window.CBView.role(j.user) : (j.user.role || "client")) : "client"; show(j && j.tier, !!(j && j.user)); } })
     .catch(function(){ if(!done){ done = true; show("free", false); } });
   setTimeout(function(){ if(!done){ done = true; show("free", false); } }, 5000);
 })();

@@ -683,7 +683,7 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
   /* ---- client: cases sent to lawyers ---- */
   function renderCases(){
     var u = me && me.user;
-    if(!u || u.role === "lawyer"){ $("mycases").hidden = true; return; }
+    if(!u || viewRole() === "lawyer"){ $("mycases").hidden = true; return; }
     var x = t(); $("mycases").hidden = false; $("mc-h").textContent = x.mcH;
     if(!cases.length){ $("mc-list").innerHTML = '<p class="note">' + x.mcEmpty + '</p>'; return; }
     $("mc-list").innerHTML = cases.map(function(c){
@@ -719,13 +719,16 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
     api("POST", "/api/cases/addinfo", { id:f.dataset.info, text:f.querySelector("textarea").value }).then(function(){ openInfo = null; loadCases(); }).catch(function(er){ msg(er.message, true); });
   });
   function loadCases(){
-    if(!me || !me.user || me.user.role === "lawyer"){ renderCases(); return; }
+    if(!me || !me.user || viewRole() === "lawyer"){ renderCases(); return; }
     api("GET", "/api/cases/mine").then(function(j){ cases = j.cases || []; renderCases(); }).catch(function(){ cases = []; renderCases(); });
   }
 
   /* ---- admin: verify lawyers ---- */
+  // Admins can preview the site as a client or a lawyer (Settings menu → view pages as).
+  function viewAs(){ return me && me.user && window.CBView ? window.CBView.get(me.user) : "admin"; }
+  function viewRole(){ return me && me.user ? (window.CBView ? window.CBView.role(me.user) : me.user.role) : "client"; }
   function renderAdmin(){
-    if(!me || !me.user || !me.user.isAdmin){ $("admin").hidden = true; return; }
+    if(!me || !me.user || !me.user.isAdmin || viewAs() !== "admin"){ $("admin").hidden = true; return; }
     $("admin").hidden = false;
     var lab = {pending:"Waiting", verified:"Verified", rejected:"Rejected"};
     $("ad-list").innerHTML = lawyers.length ? lawyers.map(function(l){
@@ -748,7 +751,11 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
   new MutationObserver(renderAll).observe(document.documentElement, { attributes:true, attributeFilter:["lang"] });
   fetch("/api/auth/me", { credentials:"same-origin" }).then(function(r){ return r.json(); }).then(function(j){
     me = j; if(!j || !j.user) return;
-    if(j.user.isAdmin){
+    if(j.user.isAdmin && viewAs() === "lawyer"){
+      var lb2 = document.createElement("a"); lb2.className = "btn"; lb2.href = "/lawyers.html"; lb2.textContent = "Open the case board";
+      var kd = $("kind"); kd.appendChild(lb2); lb2.style.marginTop = "14px";
+    }
+    if(j.user.isAdmin && viewAs() === "admin"){
       document.body.classList.add("is-admin"); $("admin-pro").hidden = false;
       if(!(j.subscription && j.subscription.status && j.subscription.status !== "none")) $("sub").hidden = false;
       var lb = document.createElement("a"); lb.className = "btn ghost"; lb.href = "/lawyers.html"; lb.textContent = "Open the case board";
