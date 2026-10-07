@@ -371,7 +371,7 @@ footer div{max-width:1300px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
     if(db){ review({ decision: db.dataset.decision, note: ($("note") || {}).value || "" }); }
   });
   ["t-q","t-area","t-status","t-sort"].forEach(function(id){ $(id).addEventListener("input", renderList); });
-  $("t-area").innerHTML = '<option value="all">All areas</option>' + Object.keys(AREAS).map(function(k){ return '<option value="' + k + '">' + esc(AREAS[k].label) + '</option>'; }).join("");
+  $("t-area").innerHTML = '<option value="all">All areas</option>' + Object.keys(AREAS).sort(function(a,b){ return (a === "other") - (b === "other") || AREAS[a].label.localeCompare(AREAS[b].label); }).map(function(k){ return '<option value="' + k + '">' + esc(AREAS[k].label) + '</option>'; }).join("");
 
   function gate(html){ $("loading").hidden = true; $("gate").innerHTML = html; $("gate").hidden = false; }
   fetch("/api/auth/me", { credentials:"same-origin" }).then(function(r){ return r.json(); }).then(function(j){

@@ -236,7 +236,7 @@ textarea.f-in{width:100%;font:inherit;font-size:15px;padding:10px 12px;border:1p
     $("f-login").hidden = mode !== "login"; $("f-register").hidden = mode !== "register";
     btns.forEach(function(b){ b.setAttribute("aria-pressed", b.getAttribute("data-lang") === lang ? "true" : "false"); });
     var picked = Array.prototype.map.call(document.querySelectorAll("#r-areas input:checked"), function(x){ return x.value; });
-    $("r-areas").innerHTML = Object.keys(t.AREAS).map(function(k){ return '<label><input type="checkbox" value="' + k + '"' + (picked.indexOf(k) >= 0 ? " checked" : "") + '> ' + t.AREAS[k] + '</label>'; }).join("");
+    $("r-areas").innerHTML = Object.keys(t.AREAS).sort(function(a,b){ return (a === "other") - (b === "other") || t.AREAS[a].localeCompare(t.AREAS[b]); }).map(function(k){ return '<label><input type="checkbox" value="' + k + '"' + (picked.indexOf(k) >= 0 ? " checked" : "") + '> ' + t.AREAS[k] + '</label>'; }).join("");
     renderRole();
   }
   function role(){ return (document.querySelector('input[name="role"]:checked') || {}).value || "client"; }

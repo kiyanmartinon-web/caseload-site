@@ -633,7 +633,7 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
 
   /* ---- profile type ---- */
   function areasHTML(sel){
-    return AREA_KEYS.map(function(k){ return '<label><input type="checkbox" value="' + k + '"' + (sel.indexOf(k) >= 0 ? " checked" : "") + '> ' + esc(t().AREAS[k]) + '</label>'; }).join("");
+    return AREA_KEYS.slice().sort(function(a,b){ return (a === "other") - (b === "other") || t().AREAS[a].localeCompare(t().AREAS[b]); }).map(function(k){ return '<label><input type="checkbox" value="' + k + '"' + (sel.indexOf(k) >= 0 ? " checked" : "") + '> ' + esc(t().AREAS[k]) + '</label>'; }).join("");
   }
   function renderKind(){
     var u = me && me.user; if(!u){ $("kind").hidden = true; return; }

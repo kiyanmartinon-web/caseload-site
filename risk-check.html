@@ -444,11 +444,11 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
   };
 
   function buildForm(){
-    $("rc-area").innerHTML = Object.keys(AREAS).map(function(k){ return '<option value="' + k + '">' + esc(AREAS[k].label) + '</option>'; }).join("");
+    $("rc-area").innerHTML = '<option value="" disabled selected>Choose one…</option>' + Object.keys(AREAS).sort(function(a,b){ return (a === "other") - (b === "other") || AREAS[a].label.localeCompare(AREAS[b].label); }).map(function(k){ return '<option value="' + k + '">' + esc(AREAS[k].label) + '</option>'; }).join("");
     $("rc-evidence").innerHTML = EVIDENCE.map(function(e,i){ return '<label class="check"><input type="checkbox" id="rc-ev-' + i + '" value="' + esc(e) + '"> ' + esc(e) + '</label>'; }).join("");
     var setLabel = function(){
       var k = $("rc-area").value, wasHidden = $("rc-other-wrap").hidden;
-      $("rc-date-label").textContent = AREAS[k].dateLabel;
+      $("rc-date-label").textContent = k ? AREAS[k].dateLabel : "When did it happen?";
       $("rc-other-wrap").hidden = k !== "other";
       if(k === "other" && wasHidden) $("rc-other").focus();
     };
@@ -472,6 +472,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       e.preventDefault();
       var facts = $("rc-facts").value.trim();
       if(facts.length < 40){ $("rc-err").textContent = "Describe what happened in a few sentences first."; $("rc-facts").focus(); return; }
+      if(!$("rc-area").value){ $("rc-err").textContent = "Choose what kind of problem it is."; $("rc-area").focus(); return; }
       var other = $("rc-other").value.trim();
       if($("rc-area").value === "other" && other.length < 3){ $("rc-err").textContent = "Tell us in a few words what kind of problem it is."; $("rc-other").focus(); return; }
       $("rc-err").textContent = "";
