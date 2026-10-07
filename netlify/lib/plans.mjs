@@ -32,7 +32,16 @@ export function selectPlans(prices) {
     .filter((pr) => pr.product && typeof pr.product === "object" && pr.product.active && !pr.product.deleted)
     .filter((pr) => (pr.product.metadata || {}).hidden !== "true" && (pr.metadata || {}).hidden !== "true")
     .map(toPlan)
-    .sort((a, b) => a.order - b.order || a.amount - b.amount);
+    .sort((a, b) => a.order - b.order || a.amount - b.amount)
+    .map(autoHighlightYearly);
+}
+
+// If no plan is marked as recommended in Stripe, recommend the first yearly plan
+// (only when there is also a shorter plan to compare it with).
+function autoHighlightYearly(plan, i, all) {
+  if (all.some((p) => p.highlight) || all.length < 2) return plan;
+  const firstYearly = all.find((p) => p.interval === "year");
+  return plan === firstYearly ? { ...plan, highlight: true } : plan;
 }
 
 export function buildSessionParams(price, origin, lang) {
