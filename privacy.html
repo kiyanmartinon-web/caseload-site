@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/i18n.js"></script>
 <script src="/theme.js"></script>
 <title>Privacy — Casebound</title>
 <meta name="description" content="How Casebound handles your data: what stays in your browser, what reaches us, and your rights under the GDPR.">
@@ -30,9 +31,6 @@ a:hover{color:var(--oxblood)}
 .masthead-in{max-width:820px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:16px;height:56px}
 .wordmark{font-family:var(--serif);font-size:21px;font-weight:600;letter-spacing:-.01em;line-height:1;text-decoration:none;color:var(--ink)}
 .wordmark span{color:var(--oxblood)}
-.lang{margin-left:auto;display:flex;gap:2px;background:var(--paper);border:1px solid var(--rule);border-radius:5px;padding:2px}
-.lang button{font-family:var(--sans);font-size:12.5px;font-weight:600;border:none;background:none;color:var(--ink-soft);padding:6px 12px;border-radius:3px;cursor:pointer}
-.lang button[aria-pressed="true"]{background:var(--ink);color:#fff}
 main{max-width:820px;margin:0 auto;padding:34px 20px 70px}
 .kicker{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--oxblood);margin:0 0 6px}
 h1{font-size:34px;line-height:1.15;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
@@ -40,14 +38,15 @@ h1{font-size:34px;line-height:1.15;font-weight:600;margin:0 0 6px;letter-spacing
 h2{font-size:21px;font-weight:600;margin:38px 0 10px;padding-top:18px;border-top:1px solid var(--rule-soft)}
 h3{font-family:var(--sans);font-size:14px;font-weight:700;margin:22px 0 6px}
 p,li{margin:0 0 12px}
-ul{padding-left:22px;margin:0 0 14px}
-.summary{background:var(--paper-2);border:1px solid var(--rule);border-left:4px solid var(--verdigris);border-radius:6px;padding:18px 20px;margin:0 0 10px}
+ul{padding-inline-start:22px;margin:0 0 14px}
+.summary{background:var(--paper-2);border:1px solid var(--rule);border-inline-start:4px solid var(--verdigris);border-radius:6px;padding:18px 20px;margin:0 0 10px}
+.tr-note{font-family:var(--sans);font-size:13.5px;line-height:1.5;color:var(--ink);background:var(--amber-wash);border:1px solid var(--rule);border-inline-start:4px solid var(--amber);border-radius:6px;padding:12px 16px;margin:0 0 22px}
 .summary h2{border:none;padding:0;margin:0 0 10px;font-size:18px}
 .summary ul{margin:0}
 .summary li{margin-bottom:8px}
 table{width:100%;border-collapse:collapse;font-size:14.5px;margin:6px 0 16px;background:var(--paper-2)}
 @media(max-width:560px){table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;font-size:13.5px}}
-th,td{text-align:left;vertical-align:top;border:1px solid var(--rule);padding:9px 11px}
+th,td{text-align:start;vertical-align:top;border:1px solid var(--rule);padding:9px 11px}
 th{font-family:var(--sans);font-size:12px;font-weight:700;background:var(--paper);color:var(--ink-soft)}
 .tbl-wrap{overflow-x:auto}
 mark.ph{background:var(--amber-wash);color:var(--amber);font-family:var(--sans);font-size:.88em;font-weight:600;padding:1px 5px;border-radius:3px}
@@ -56,7 +55,7 @@ footer{border-top:1px solid var(--rule);background:var(--paper-2);font-family:va
 footer div{max-width:820px;margin:0 auto;padding:18px 20px;display:flex;gap:16px;flex-wrap:wrap}
 [hidden]{display:none!important}
 @media(max-width:600px){h1{font-size:28px}body{font-size:16px}}
-@media print{.lang,footer{display:none}body{background:#fff}.summary{border-left-width:2px}}
+@media print{footer{display:none}body{background:#fff}.summary{border-inline-start-width:2px}}
 </style>
 </head>
 <body>
@@ -64,10 +63,6 @@ footer div{max-width:820px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
 <header class="masthead">
   <div class="masthead-in">
     <a class="wordmark" href="/">Case<span>bound</span></a>
-    <div class="lang" role="group" aria-label="Language">
-      <button type="button" data-lang="en" aria-pressed="true">English</button>
-      <button type="button" data-lang="it" aria-pressed="false">Italiano</button>
-    </div>
   </div>
 </header>
 
@@ -369,35 +364,999 @@ footer div{max-width:820px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
   <p>Se cambiamo il modo in cui trattiamo i dati, aggiorneremo questa pagina e la sua data. Se il programma di miglioramento cambia in un modo che richiede un nuovo consenso, la casella si azzererà e ti verrà chiesto di nuovo.</p>
 </main>
 
+<!-- ======================= ESPAÑOL ======================= -->
+<main lang="es" data-lang-block="es" hidden>
+  <p class="tr-note" role="note">Esta traducción se ofrece por comodidad. Si difiere de la versión en inglés, prevalece la versión en inglés.</p>
+  <p class="kicker">Aviso de privacidad</p>
+  <h1>Cómo trata Casebound tus datos</h1>
+  <p class="updated">Última actualización: 7 de octubre de 2026 · Información conforme a los artículos 13 y 14 del Reglamento (UE) 2016/679 (RGPD)</p>
+
+  <section class="summary">
+    <h2>En resumen</h2>
+    <ul>
+      <li><b>Tu caso se queda contigo.</b> Los hechos que escribes, los archivos que añades y los casos que guardas se conservan en tu propio navegador. Nunca se nos envían y no podemos verlos, salvo que decidas enviar un caso a abogados (<a href="#connect-es">detalles</a>).</li>
+      <li><b>Ayudarnos a mejorar es opcional y está desactivado por defecto.</b> Si marcas «Ayuda a mejorar los resultados», Casebound envía señales anónimas: qué documento del corpus abriste o valoraste y las etiquetas de los conceptos jurídicos que reconoció en tu caso (como «despido»). Nunca envía tus palabras, tus archivos ni nada que te identifique.</li>
+      <li><b>Como cualquier sitio web</b>, nuestro proveedor de alojamiento ve tu dirección IP para poder mostrarte la página.</li>
+      <li><b>Si compras una suscripción</b>, Stripe procesa el pago. Recibimos tu nombre, tu correo electrónico, tu dirección de facturación y los datos del plan, pero nunca el número completo de tu tarjeta (<a href="#payments-es">detalles</a>).</li>
+      <li><b>Si creas una cuenta</b>, guardamos tu correo electrónico, tu nombre (opcional) y una versión codificada (hash) de tu contraseña. Puedes eliminar la cuenta tú mismo en cualquier momento (<a href="#accounts-es">detalles</a>).</li>
+      <li>Sin publicidad y sin venta de datos. La única cookie es la que mantiene tu sesión iniciada, y solo si inicias sesión.</li>
+    </ul>
+  </section>
+
+  <h2>1. Quién es el responsable</h2>
+  <p>El responsable del tratamiento es Kiyan Martinon, persona física residente en Italia que gestiona Casebound (case-bound.com). Contacto: <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>.</p>
+  <p>No se ha designado un delegado de protección de datos porque la ley no lo exige para un servicio de este tipo. Escribe a la dirección anterior para cualquier cuestión relacionada con este aviso.</p>
+
+  <h2>2. Lo que se queda en tu navegador</h2>
+  <p>Todo lo que introduces en Casebound se guarda en el almacenamiento local (local storage) del navegador, en tu propio dispositivo. Esto incluye los hechos del caso, las pretensiones, los archivos que añades y los casos guardados. Los archivos se leen dentro del navegador y no se suben a ningún sitio.</p>
+  <p>La única excepción es un caso que decidas enviar a abogados, descrita en <a href="#connect-es">Contacto con un abogado</a>. Por lo demás, esta información nunca nos llega, por lo que no la tratamos como responsables del tratamiento. Puedes borrarla en cualquier momento con <b>Borrar todo</b> en la pestaña Casos, o borrando los datos de este sitio en la configuración del navegador.</p>
+
+  <h2>3. Lo que nos llega a nosotros o a nuestros proveedores</h2>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>Datos</th><th>Finalidad</th><th>Base jurídica</th><th>Plazo de conservación</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><b>Datos de conexión</b>: dirección IP, tipo de navegador, hora de la solicitud, página solicitada</td>
+        <td>Ofrecer el sitio web, mantenerlo seguro y prevenir abusos. Los trata nuestro proveedor de alojamiento.</td>
+        <td>Interés legítimo en mantener un sitio que funcione y sea seguro (art. 6.1.f)</td>
+        <td>Durante el periodo en que el proveedor de alojamiento conserva los registros del servidor por motivos de seguridad y funcionamiento</td>
+      </tr>
+      <tr>
+        <td><b>Señales de mejora</b>, solo si das tu consentimiento (ver sección 4)</td>
+        <td>Saber qué fuentes son útiles y mejorar la clasificación de los resultados</td>
+        <td>Tu consentimiento (art. 6.1.a), que puedes retirar en cualquier momento</td>
+        <td>Los eventos individuales se eliminan a los 12 meses. Los totales anónimos pueden conservarse más tiempo.</td>
+      </tr>
+      <tr>
+        <td><b>Correspondencia por correo electrónico</b>, si nos escribes</td>
+        <td>Responderte</td>
+        <td>Aplicación de medidas a petición tuya (art. 6.1.b) e interés legítimo en responder (art. 6.1.f)</td>
+        <td>Hasta 24 meses después de terminar la conversación</td>
+      </tr>
+      <tr>
+        <td><b>Datos de la cuenta</b>, solo si creas una cuenta: correo electrónico, nombre (opcional), contraseña en forma de hash, fecha de registro, fecha de aceptación de las condiciones, último inicio de sesión, idioma</td>
+        <td>Darte una cuenta, mantenerla segura y vincularla a tu suscripción</td>
+        <td>Ejecución del contrato (art. 6.1.b); interés legítimo en la seguridad, por ejemplo bloquear intentos repetidos con contraseñas incorrectas (art. 6.1.f)</td>
+        <td>Hasta que elimines tu cuenta. Las sesiones caducan a los 30 días.</td>
+      </tr>
+      <tr>
+        <td><b>Datos de suscripción y facturación</b>, solo si compras un plan (ver más abajo)</td>
+        <td>Vender y gestionar tu suscripción, emitir recibos y facturas, y tramitar reembolsos y desistimientos</td>
+        <td>Ejecución del contrato (art. 6.1.b); obligaciones legales contables y fiscales (art. 6.1.c)</td>
+        <td>Mientras dure la suscripción. Después, los registros contables se conservan durante 10 años (art. 2220 del Código Civil italiano).</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3 id="accounts-es">Cuentas</h3>
+  <p>Tu contraseña nunca se guarda tal como la escribes: solo conservamos una versión codificada de forma irreversible (hash scrypt), a partir de la cual no se puede recuperar la contraseña. Puedes eliminar tu cuenta en cualquier momento en <b>Tu cuenta → Eliminar mi cuenta</b>. Esto borra de inmediato los datos de tu cuenta. Los registros de facturación que deben conservarse por ley (ver más abajo) no se ven afectados.</p>
+
+  <h3 id="payments-es">Suscripciones de pago</h3>
+  <p>Si te suscribes, el pago se realiza en una página segura gestionada por <b>Stripe</b>. Stripe recoge directamente tus datos de pago. Nosotros solo recibimos lo necesario para gestionar tu suscripción: tu nombre, tu dirección de correo electrónico, tu dirección de facturación, tu número de IVA o de identificación fiscal (si lo introduces), el plan y su estado, las fechas e importes de los pagos e información limitada de la tarjeta, como la marca, los cuatro últimos dígitos y la fecha de caducidad. Nunca recibimos el número completo de la tarjeta ni el código de seguridad.</p>
+  <p>La página de Planes y el proceso de pago no instalan cookies en case-bound.com. Las páginas de Stripe pueden usar cookies y tecnología de prevención del fraude conforme a la <a href="https://stripe.com/privacy">política de privacidad de Stripe</a>.</p>
+
+  <h3 id="connect-es">Contacto con un abogado (Pro)</h3>
+  <p>Si, tras una evaluación de riesgo, eliges <b>Enviar a abogados verificados</b>, guardamos el caso en nuestros servidores: el resumen de una línea, lo que ocurrió, el tipo de problema, la fecha clave, el importe, las pruebas que marcaste y tu descripción de ellas, la otra parte (por ejemplo, «mi empleador»), tu región y ciudad, el resultado de tu evaluación de riesgo y del análisis de las pruebas, lo que quieres conseguir y los detalles que añadas más adelante. Lo vinculamos a tu cuenta para que puedas seguir las respuestas y retirarlo.</p>
+  <ul>
+    <li><b>Quién lo ve.</b> Solo abogados cuyo nombre y número de colegiado hemos comprobado en el registro oficial de abogados. Ven el caso sin tu nombre ni tu correo electrónico. Tu nombre y tu correo electrónico solo llegan a un abogado cuando pulsas <b>Compartir mis datos de contacto</b> para ese abogado. A partir de ese momento, ese abogado trata tus datos como responsable del tratamiento independiente, sujeto al secreto profesional.</li>
+    <li><b>Información sensible.</b> La descripción de un caso puede revelar datos de salud, datos penales u otras categorías especiales de datos. Incluye solo lo que un abogado necesita. Tratamos el caso sobre la base de tu consentimiento explícito, que das con la casilla al enviarlo (arts. 6.1.a y 9.2.a del RGPD).</li>
+    <li><b>Durante cuánto tiempo.</b> Hasta que retires el caso o elimines tu cuenta, lo que lo borra de inmediato. Puedes retirar tu consentimiento en cualquier momento retirando el caso.</li>
+    <li><b>Perfiles de abogados.</b> Si te registras como abogado, guardamos tu nombre completo, tu colegio de abogados, tu número de colegiado, tu ciudad, tus áreas de práctica y tu presentación, y los comprobamos en el registro público (art. 6.1.b y f). Los clientes ven tu nombre, tu colegio, tu ciudad, tus áreas, tu presentación y tu mensaje cuando muestras interés en su caso, y tu correo electrónico una vez que te comparten el suyo. Los clientes nunca ven tu valoración de su caso.</li>
+  </ul>
+
+  <h3>Recursos de terceros que carga tu navegador</h3>
+  <p>Para mostrar las tipografías del sitio, tu navegador se conecta a Google Fonts (Google Ireland Ltd / Google LLC). Cuando añades un archivo PDF o Word, descarga el software de lectura desde cdnjs (Cloudflare, Inc.). Estos proveedores reciben tu dirección IP como parte de esa conexión, conforme a sus propias políticas de privacidad. Nos basamos en nuestro interés legítimo en tener un sitio legible que pueda abrir los formatos de archivo habituales (art. 6.1.f).</p>
+
+  <h2 id="improve-es">4. El programa de mejora (opcional)</h2>
+  <p>La casilla «Ayuda a mejorar los resultados» está desmarcada por defecto. Casebound no envía nada con esta finalidad a menos que la marques.</p>
+  <h3>Si la marcas, cada señal contiene únicamente:</h3>
+  <ul>
+    <li>el tipo de acción: «se abrió un resultado» o «un resultado se valoró como pertinente / no pertinente»;</li>
+    <li>el identificador en el corpus del documento afectado (por ejemplo, <i>IT-24</i>), su posición en los resultados y los filtros aplicados (jurisdicción y tipo de documento);</li>
+    <li>los identificadores de los conceptos jurídicos que Casebound reconoció en tu caso, tomados de su lista fija (por ejemplo, <i>dismissal</i>, <i>data_breach</i>), no las palabras que usaste;</li>
+    <li>la fecha (solo el día) y la versión del consentimiento que diste.</li>
+  </ul>
+  <h3>Nunca contiene:</h3>
+  <ul>
+    <li>los hechos, las pretensiones ni ningún otro texto que escribas, ni ningún archivo que añadas;</li>
+    <li>tu nombre, tu correo electrónico, tu cuenta ni ningún identificador que vincule una visita con otra;</li>
+    <li>tu dirección IP. No se guarda junto con la señal. Para evitar que un solo visitante sature el sistema, una huella irreversible de la conexión, generada con una clave aleatoria que cambia cada día, cuenta cuántas señales llegan al día; la huella y la clave se eliminan a los dos días.</li>
+  </ul>
+  <p><b>Cómo aprende Casebound de ellas.</b> Las señales se suman en totales acumulados por documento y concepto (por ejemplo, «IT-24 se valoró como pertinente 5 veces en casos sobre denuncia de defectos»). Solo se conservan esos totales, que se usan para reordenar los resultados para todos. Los totales no contienen datos personales y se publican para todos los visitantes, de modo que su navegador pueda usarlos.</p>
+  <p><b>Aprendizaje que se queda en tu navegador.</b> Marques o no la casilla, tus propias valoraciones y tus correcciones a los conceptos reconocidos (quitar uno erróneo, añadir uno que faltaba) se guardan en el almacenamiento local del navegador para que tus resultados mejoren al instante. Cuando añades un concepto que faltaba, Casebound recuerda las palabras corrientes de ese caso (omitiendo las que empiezan con mayúscula, como los nombres) para reconocer el concepto la próxima vez. Esto se queda en tu dispositivo y nunca se envía; puedes borrarlo con «Olvidar lo que he enseñado en este navegador».</p>
+  <p>Las señales solo se usan para mejorar cómo Casebound clasifica y sugiere fuentes. No se usan para publicidad, elaboración de perfiles ni ninguna decisión sobre ti.</p>
+  <p><b>Retirar el consentimiento:</b> desmarca la casilla en cualquier momento. Las señales se detienen de inmediato. La retirada no afecta a las señales ya enviadas.</p>
+
+  <h2>5. Cookies y almacenamiento local</h2>
+  <p>Casebound instala una sola cookie, <code>cb_session</code>, y solo cuando inicias sesión. Mantiene tu sesión iniciada hasta 30 días y se elimina cuando cierras sesión. No se usa para rastrearte. Casebound también usa el almacenamiento local del navegador para cinco cosas:</p>
+  <ul>
+    <li>hacer que la herramienta funcione, conservando tus casos guardados;</li>
+    <li>recordar tu elección en la casilla de mejora;</li>
+    <li>conservar tus propias valoraciones de resultados y correcciones de conceptos, para que los resultados se adapten a ellas (ver sección 4; nunca se nos envían);</li>
+    <li>contar cuántos análisis has hecho hoy, para el límite diario del plan gratuito (una fecha y un número, nunca se nos envían);</li>
+    <li>recordar tu ajuste de apariencia (claro, oscuro o automático).</li>
+  </ul>
+  <p>La cookie y el almacenamiento local son estrictamente necesarios para prestar el servicio que has solicitado. Conforme al artículo 122 del Código italiano de protección de datos personales, no requieren consentimiento.</p>
+
+  <h2>6. Quién recibe los datos y transferencias internacionales</h2>
+  <ul>
+    <li><b>Netlify, Inc.</b> (Estados Unidos) aloja el sitio web, trata los datos de conexión y almacena los datos de las cuentas por cuenta nuestra en virtud de su acuerdo de tratamiento de datos. Las transferencias a EE. UU. se basan en la certificación de Netlify en el Marco de Privacidad de Datos UE-EE. UU. (EU-U.S. Data Privacy Framework), respaldada por cláusulas contractuales tipo.</li>
+    <li>Si te adhieres al programa de mejora, Netlify, Inc. también recibe las señales y almacena los totales acumulados descritos en la sección 4, en virtud del mismo acuerdo de tratamiento de datos y con las mismas garantías para las transferencias.</li>
+    <li>Los <b>abogados verificados</b> reciben los casos que les envías, como se describe en <a href="#connect-es">Contacto con un abogado</a>, y tu nombre y tu correo electrónico solo si los compartes.</li>
+    <li><b>Stripe Payments Europe, Ltd.</b> (Dublín, Irlanda) procesa los pagos de las suscripciones. Para la prevención del fraude y sus propias obligaciones legales (como la normativa contra el blanqueo de capitales), Stripe actúa como responsable del tratamiento independiente conforme a su propia política de privacidad. Stripe puede transferir datos a Stripe, Inc. en Estados Unidos con base en el Marco de Privacidad de Datos UE-EE. UU. y en cláusulas contractuales tipo.</li>
+    <li><b>Google</b> y <b>Cloudflare</b> reciben datos de conexión cuando tu navegador carga tipografías o lectores de archivos, como se describe en la sección 3. Ambas participan en el Marco de Privacidad de Datos UE-EE. UU.</li>
+  </ul>
+  <p>No vendemos ni alquilamos datos a nadie.</p>
+
+  <h2>7. Sin decisiones automatizadas sobre ti</h2>
+  <p>Casebound ordena las fuentes jurídicas por similitud textual para ayudarte en tu investigación. No toma ninguna decisión sobre ti que produzca efectos jurídicos o te afecte de forma similarmente significativa en el sentido del artículo 22 del RGPD. Sus resultados son una herramienta de investigación, no asesoramiento jurídico.</p>
+
+  <h2>8. Tus derechos</h2>
+  <p>Tienes derecho a:</p>
+  <ul>
+    <li>acceder a tus datos personales;</li>
+    <li>obtener su rectificación o supresión;</li>
+    <li>limitar su tratamiento;</li>
+    <li>recibirlos en un formato portable;</li>
+    <li>oponerte al tratamiento basado en el interés legítimo;</li>
+    <li>retirar tu consentimiento en cualquier momento (artículos 15 a 22 y 7.3 del RGPD).</li>
+  </ul>
+  <p>Si tienes una cuenta, puedes consultar y corregir tus datos, descargar una copia de ellos y eliminar tu cuenta tú mismo en la <a href="/account.html">página de la cuenta</a>. Para cualquier otra cosa, escribe a <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>. Te responderemos en el plazo de un mes.</p>
+  <p>Las señales de mejora no contienen ningún identificador, por lo que normalmente no podemos saber cuáles proceden de ti. En ese caso no podemos aislarlas para darte acceso a ellas o suprimirlas (artículo 11 del RGPD). Desmarcar la casilla detiene todas las señales futuras.</p>
+  <p>También puedes presentar una reclamación ante la autoridad de control italiana, el Garante per la protezione dei dati personali (Piazza Venezia 11, 00187 Roma, <a href="https://www.garanteprivacy.it">garanteprivacy.it</a>), o ante la autoridad del país de la UE en el que vivas o trabajes.</p>
+
+  <h2>9. Edad</h2>
+  <p>Casebound está dirigido a personas adultas (mayores de 18 años), como estudiantes de Derecho y profesionales del ámbito jurídico.</p>
+
+  <h2>10. Cambios en este aviso</h2>
+  <p>Si cambiamos la forma en que se tratan los datos, actualizaremos esta página y su fecha. Si el programa de mejora cambia de un modo que requiera un nuevo consentimiento, la casilla se restablecerá y te lo volveremos a pedir.</p>
+</main>
+
+<!-- ======================= FRANÇAIS ======================= -->
+<main lang="fr" data-lang-block="fr" hidden>
+  <p class="tr-note" role="note">Cette traduction est fournie pour plus de commodité. En cas de divergence avec la version anglaise, la version anglaise prévaut.</p>
+  <p class="kicker">Politique de confidentialité</p>
+  <h1>Comment Casebound traite vos données</h1>
+  <p class="updated">Dernière mise à jour&nbsp;: 7 octobre 2026 · Information au titre des articles 13 et 14 du règlement (UE) 2016/679 (RGPD)</p>
+
+  <section class="summary">
+    <h2>L'essentiel</h2>
+    <ul>
+      <li><b>Votre affaire reste chez vous.</b> Les faits que vous saisissez, les fichiers que vous ajoutez et les dossiers que vous enregistrez sont conservés dans votre propre navigateur. Ils ne nous sont jamais envoyés et nous ne pouvons pas les voir, sauf si vous choisissez d'envoyer une affaire à des avocats (<a href="#connect-fr">détails</a>).</li>
+      <li><b>Nous aider à nous améliorer est facultatif et désactivé par défaut.</b> Si vous cochez «&nbsp;Aider à améliorer les résultats&nbsp;», Casebound envoie des signaux anonymes&nbsp;: le document du corpus que vous avez ouvert ou évalué, et les étiquettes des concepts juridiques reconnus dans votre affaire (par exemple «&nbsp;licenciement&nbsp;»). Il n'envoie jamais vos mots, vos fichiers ni quoi que ce soit qui vous identifie.</li>
+      <li><b>Comme tout site web</b>, notre hébergeur voit votre adresse IP afin de pouvoir vous afficher la page.</li>
+      <li><b>Si vous souscrivez un abonnement</b>, le paiement est traité par Stripe. Nous recevons votre nom, votre adresse e-mail, votre adresse de facturation et les détails de votre offre, mais jamais le numéro complet de votre carte (<a href="#payments-fr">détails</a>).</li>
+      <li><b>Si vous créez un compte</b>, nous conservons votre adresse e-mail, votre nom (facultatif) et une version brouillée (hachée) de votre mot de passe. Vous pouvez supprimer le compte vous-même à tout moment (<a href="#accounts-fr">détails</a>).</li>
+      <li>Aucune publicité, aucune vente de données. Le seul cookie est celui qui maintient votre session ouverte, et uniquement si vous vous connectez.</li>
+    </ul>
+  </section>
+
+  <h2>1. Qui est responsable</h2>
+  <p>Le responsable du traitement est Kiyan Martinon, personne physique établie en Italie, qui exploite Casebound (case-bound.com). Contact&nbsp;: <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>.</p>
+  <p>Aucun délégué à la protection des données n'a été désigné, car la loi ne l'exige pas pour un service de ce type. Pour toute question relative à la présente politique, écrivez à l'adresse ci-dessus.</p>
+
+  <h2>2. Ce qui reste dans votre navigateur</h2>
+  <p>Tout ce que vous saisissez dans Casebound est conservé dans le stockage local (local storage) de votre navigateur, sur votre propre appareil. Cela comprend les faits de l'affaire, les prétentions, les fichiers que vous ajoutez et les dossiers enregistrés. Les fichiers sont lus dans votre navigateur et ne sont envoyés nulle part.</p>
+  <p>La seule exception est une affaire que vous choisissez d'envoyer à des avocats, décrite sous <a href="#connect-fr">Mise en relation avec un avocat</a>. Sinon, ces informations ne nous parviennent jamais et nous ne les traitons donc pas en tant que responsable du traitement. Vous pouvez les effacer à tout moment avec <b>Tout effacer</b> dans l'onglet Dossiers, ou en effaçant les données de ce site dans les paramètres de votre navigateur.</p>
+
+  <h2>3. Ce qui nous parvient, à nous ou à nos prestataires</h2>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>Données</th><th>Finalité</th><th>Base légale</th><th>Durée de conservation</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><b>Données de connexion</b>&nbsp;: adresse IP, type de navigateur, heure de la requête, page demandée</td>
+        <td>Fournir le site, en assurer la sécurité et prévenir les abus. Traitées par notre hébergeur.</td>
+        <td>Intérêt légitime à exploiter un site fonctionnel et sûr (art.&nbsp;6, par.&nbsp;1, point&nbsp;f)</td>
+        <td>Pendant la durée de conservation des journaux du serveur par l'hébergeur à des fins de sécurité et de fonctionnement</td>
+      </tr>
+      <tr>
+        <td><b>Signaux d'amélioration</b>, uniquement si vous y consentez (voir section 4)</td>
+        <td>Savoir quelles sources sont utiles et améliorer le classement des résultats</td>
+        <td>Votre consentement (art.&nbsp;6, par.&nbsp;1, point&nbsp;a), que vous pouvez retirer à tout moment</td>
+        <td>Les événements individuels sont supprimés au bout de 12 mois. Les totaux anonymes peuvent être conservés plus longtemps.</td>
+      </tr>
+      <tr>
+        <td><b>Correspondance par e-mail</b>, si vous nous écrivez</td>
+        <td>Vous répondre</td>
+        <td>Mesures prises à votre demande (art.&nbsp;6, par.&nbsp;1, point&nbsp;b) et intérêt légitime à vous répondre (art.&nbsp;6, par.&nbsp;1, point&nbsp;f)</td>
+        <td>Jusqu'à 24 mois après la fin de l'échange</td>
+      </tr>
+      <tr>
+        <td><b>Données du compte</b>, uniquement si vous créez un compte&nbsp;: adresse e-mail, nom (facultatif), mot de passe haché, date d'inscription, date d'acceptation des conditions, dernière connexion, langue</td>
+        <td>Vous fournir un compte, le sécuriser et le lier à votre abonnement</td>
+        <td>Exécution du contrat (art.&nbsp;6, par.&nbsp;1, point&nbsp;b)&nbsp;; intérêt légitime à la sécurité, par exemple bloquer les tentatives répétées avec un mauvais mot de passe (art.&nbsp;6, par.&nbsp;1, point&nbsp;f)</td>
+        <td>Jusqu'à la suppression de votre compte. Les sessions de connexion expirent au bout de 30 jours.</td>
+      </tr>
+      <tr>
+        <td><b>Données d'abonnement et de facturation</b>, uniquement si vous achetez une offre (voir ci-dessous)</td>
+        <td>Vendre et gérer votre abonnement, émettre des reçus et des factures, et traiter les remboursements et les rétractations</td>
+        <td>Exécution du contrat (art.&nbsp;6, par.&nbsp;1, point&nbsp;b)&nbsp;; obligations légales en matière comptable et fiscale (art.&nbsp;6, par.&nbsp;1, point&nbsp;c)</td>
+        <td>Pendant toute la durée de l'abonnement. Les documents comptables sont ensuite conservés 10 ans (art.&nbsp;2220 du Code civil italien).</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3 id="accounts-fr">Comptes</h3>
+  <p>Votre mot de passe n'est jamais conservé tel quel&nbsp;: nous ne gardons qu'une version brouillée à sens unique (hachage scrypt), qui ne permet pas de retrouver le mot de passe. Supprimez votre compte à tout moment via <b>Votre compte → Supprimer mon compte</b>. Les données de votre compte sont alors effacées immédiatement. Les données de facturation que la loi impose de conserver (voir ci-dessous) ne sont pas concernées.</p>
+
+  <h3 id="payments-fr">Abonnements payants</h3>
+  <p>Si vous vous abonnez, le paiement s'effectue sur une page sécurisée gérée par <b>Stripe</b>. Stripe collecte directement vos données de paiement. Nous ne recevons que ce dont nous avons besoin pour gérer votre abonnement&nbsp;: votre nom, votre adresse e-mail, votre adresse de facturation, votre numéro de TVA ou d'identification fiscale (si vous en saisissez un), l'offre et son statut, les dates et montants des paiements, ainsi que des informations limitées sur la carte, comme le réseau, les quatre derniers chiffres et la date d'expiration. Nous ne recevons jamais le numéro complet de votre carte ni son cryptogramme.</p>
+  <p>La page Offres et le paiement ne déposent aucun cookie sur case-bound.com. Les pages de Stripe peuvent utiliser des cookies et des technologies de prévention de la fraude conformément à la <a href="https://stripe.com/privacy">politique de confidentialité de Stripe</a>.</p>
+
+  <h3 id="connect-fr">Mise en relation avec un avocat (Pro)</h3>
+  <p>Si, après une évaluation du risque, vous choisissez <b>Envoyer à des avocats vérifiés</b>, nous conservons l'affaire sur nos serveurs&nbsp;: le résumé en une ligne, ce qui s'est passé, le type de problème, la date clé, le montant, les preuves que vous avez cochées et la description que vous en faites, la partie adverse (par exemple «&nbsp;mon employeur&nbsp;»), votre région et votre ville, le résultat de votre évaluation du risque et de l'analyse des preuves, l'issue que vous recherchez et tout détail ajouté ultérieurement. Nous la lions à votre compte pour que vous puissiez suivre les réponses et la retirer.</p>
+  <ul>
+    <li><b>Qui la voit.</b> Uniquement des avocats dont nous avons vérifié le nom et le numéro d'inscription au tableau officiel des avocats. Ils voient l'affaire sans votre nom ni votre adresse e-mail. Votre nom et votre adresse e-mail ne parviennent à un avocat que lorsque vous appuyez sur <b>Partager mes coordonnées</b> pour cet avocat. À partir de ce moment, cet avocat traite vos données en tant que responsable du traitement indépendant, tenu au secret professionnel.</li>
+    <li><b>Informations sensibles.</b> La description d'une affaire peut révéler des données de santé, des données pénales ou d'autres catégories particulières de données. N'indiquez que ce dont un avocat a besoin. Nous traitons l'affaire sur la base de votre consentement explicite, que vous donnez en cochant la case lors de l'envoi (art.&nbsp;6, par.&nbsp;1, point&nbsp;a, et art.&nbsp;9, par.&nbsp;2, point&nbsp;a, du RGPD).</li>
+    <li><b>Durée.</b> Jusqu'à ce que vous retiriez l'affaire ou supprimiez votre compte, ce qui l'efface immédiatement. Vous pouvez retirer votre consentement à tout moment en retirant l'affaire.</li>
+    <li><b>Profils d'avocats.</b> Si vous vous inscrivez en tant qu'avocat, nous conservons vos nom et prénom, votre barreau, votre numéro d'inscription, votre ville, vos domaines d'activité et votre présentation, et nous les vérifions auprès du tableau public (art.&nbsp;6, par.&nbsp;1, points&nbsp;b et f). Les clients voient votre nom, votre barreau, votre ville, vos domaines, votre présentation et votre message lorsque vous manifestez votre intérêt pour leur affaire, et votre adresse e-mail une fois qu'ils vous ont communiqué la leur. Les clients ne voient jamais votre évaluation de leur affaire.</li>
+  </ul>
+
+  <h3>Ressources tierces chargées par votre navigateur</h3>
+  <p>Pour afficher les polices du site, votre navigateur se connecte à Google Fonts (Google Ireland Ltd / Google LLC). Lorsque vous ajoutez un fichier PDF ou Word, il télécharge le logiciel de lecture depuis cdnjs (Cloudflare, Inc.). Ces prestataires reçoivent votre adresse IP dans le cadre de cette connexion, conformément à leurs propres politiques de confidentialité. Nous nous fondons sur notre intérêt légitime à disposer d'un site lisible, capable d'ouvrir les formats de fichiers courants (art.&nbsp;6, par.&nbsp;1, point&nbsp;f).</p>
+
+  <h2 id="improve-fr">4. Le programme d'amélioration (sur option)</h2>
+  <p>La case «&nbsp;Aider à améliorer les résultats&nbsp;» est décochée par défaut. Casebound n'envoie rien à cette fin tant que vous ne l'avez pas cochée.</p>
+  <h3>Si vous la cochez, chaque signal contient uniquement&nbsp;:</h3>
+  <ul>
+    <li>le type d'action&nbsp;: «&nbsp;un résultat a été ouvert&nbsp;» ou «&nbsp;un résultat a été jugé pertinent / non pertinent&nbsp;»&nbsp;;</li>
+    <li>l'identifiant dans le corpus du document concerné (par exemple <i>IT-24</i>), sa position dans les résultats et les filtres utilisés (juridiction et type de document)&nbsp;;</li>
+    <li>les identifiants des concepts juridiques que Casebound a reconnus dans votre affaire, issus de sa liste fixe (par exemple <i>dismissal</i>, <i>data_breach</i>), et non les mots que vous avez employés&nbsp;;</li>
+    <li>la date (le jour uniquement) et la version du consentement que vous avez donné.</li>
+  </ul>
+  <h3>Il ne contient jamais&nbsp;:</h3>
+  <ul>
+    <li>les faits, les prétentions ou tout autre texte que vous saisissez, ni aucun fichier que vous ajoutez&nbsp;;</li>
+    <li>votre nom, votre adresse e-mail, votre compte ou tout identifiant permettant de relier une visite à une autre&nbsp;;</li>
+    <li>votre adresse IP. Elle n'est pas conservée avec le signal. Pour éviter qu'un seul visiteur ne submerge le système, une empreinte à sens unique de la connexion, calculée avec une clé aléatoire qui change chaque jour, compte le nombre de signaux reçus par jour&nbsp;; l'empreinte et la clé sont supprimées au bout de deux jours.</li>
+  </ul>
+  <p><b>Comment Casebound en tire des enseignements.</b> Les signaux sont additionnés en totaux cumulés par document et par concept (par exemple «&nbsp;IT-24 a été jugé pertinent 5 fois pour des affaires portant sur la dénonciation des vices&nbsp;»). Seuls ces totaux sont conservés, et ils servent à reclasser les résultats pour tout le monde. Les totaux ne contiennent aucune donnée personnelle et sont publiés pour tous les visiteurs afin que leur navigateur puisse les utiliser.</p>
+  <p><b>Un apprentissage qui reste dans votre navigateur.</b> Que vous cochiez la case ou non, vos propres évaluations et vos corrections des concepts reconnus (retirer un concept erroné, ajouter un concept manquant) sont enregistrées dans le stockage local de votre navigateur afin que vos résultats s'améliorent immédiatement. Lorsque vous ajoutez un concept manquant, Casebound mémorise les mots courants de cette affaire (en ignorant les mots commençant par une majuscule, comme les noms) afin de reconnaître le concept la fois suivante. Ces données restent sur votre appareil et ne sont jamais envoyées&nbsp;; vous pouvez les effacer avec «&nbsp;Oublier ce que j'ai appris à ce navigateur&nbsp;».</p>
+  <p>Les signaux servent uniquement à améliorer la façon dont Casebound classe et suggère les sources. Ils ne sont utilisés ni à des fins publicitaires, ni pour du profilage, ni pour une quelconque décision vous concernant.</p>
+  <p><b>Retrait du consentement&nbsp;:</b> décochez la case à tout moment. Les signaux cessent immédiatement. Le retrait n'affecte pas les signaux déjà envoyés.</p>
+
+  <h2>5. Cookies et stockage local</h2>
+  <p>Casebound dépose un seul cookie, <code>cb_session</code>, et uniquement lorsque vous vous connectez. Il maintient votre session ouverte pendant 30 jours au maximum et est supprimé lorsque vous vous déconnectez. Il ne sert pas au suivi. Casebound utilise également le stockage local de votre navigateur pour cinq choses&nbsp;:</p>
+  <ul>
+    <li>faire fonctionner l'outil, en conservant vos dossiers enregistrés&nbsp;;</li>
+    <li>mémoriser votre choix concernant la case d'amélioration&nbsp;;</li>
+    <li>conserver vos propres évaluations de résultats et corrections de concepts, afin que les résultats s'y adaptent (voir section 4&nbsp;; jamais envoyées)&nbsp;;</li>
+    <li>compter le nombre d'analyses effectuées aujourd'hui, pour la limite quotidienne de l'offre gratuite (une date et un nombre, jamais envoyés)&nbsp;;</li>
+    <li>mémoriser votre réglage d'apparence (clair, sombre ou automatique).</li>
+  </ul>
+  <p>Le cookie et le stockage local sont strictement nécessaires pour fournir le service que vous avez demandé. En vertu de l'article 122 du Code italien en matière de protection des données personnelles, ils ne nécessitent pas de consentement.</p>
+
+  <h2>6. Destinataires des données et transferts internationaux</h2>
+  <ul>
+    <li><b>Netlify, Inc.</b> (États-Unis) héberge le site, traite les données de connexion et stocke les données des comptes pour notre compte, dans le cadre de son accord de traitement des données. Les transferts vers les États-Unis reposent sur la certification de Netlify au titre du cadre de protection des données UE-États-Unis (EU-U.S. Data Privacy Framework), complétée par des clauses contractuelles types.</li>
+    <li>Si vous adhérez au programme d'amélioration, Netlify, Inc. reçoit également les signaux et stocke les totaux cumulés décrits à la section 4, dans le cadre du même accord de traitement des données et avec les mêmes garanties pour les transferts.</li>
+    <li>Les <b>avocats vérifiés</b> reçoivent les affaires que vous leur envoyez, comme décrit sous <a href="#connect-fr">Mise en relation avec un avocat</a>, ainsi que votre nom et votre adresse e-mail uniquement si vous les partagez.</li>
+    <li><b>Stripe Payments Europe, Ltd.</b> (Dublin, Irlande) traite les paiements des abonnements. Pour la prévention de la fraude et ses propres obligations légales (comme la réglementation contre le blanchiment de capitaux), Stripe agit en tant que responsable du traitement indépendant, conformément à sa propre politique de confidentialité. Stripe peut transférer des données à Stripe, Inc. aux États-Unis sur la base du cadre de protection des données UE-États-Unis et de clauses contractuelles types.</li>
+    <li><b>Google</b> et <b>Cloudflare</b> reçoivent des données de connexion lorsque votre navigateur charge des polices ou des lecteurs de fichiers, comme décrit à la section 3. Tous deux participent au cadre de protection des données UE-États-Unis.</li>
+  </ul>
+  <p>Nous ne vendons ni ne louons de données à qui que ce soit.</p>
+
+  <h2>7. Aucune décision automatisée vous concernant</h2>
+  <p>Casebound classe les sources juridiques par similarité textuelle pour faciliter vos recherches. Il ne prend à votre égard aucune décision produisant des effets juridiques ou vous affectant de manière significative de façon similaire, au sens de l'article 22 du RGPD. Ses résultats sont une aide à la recherche, pas un conseil juridique.</p>
+
+  <h2>8. Vos droits</h2>
+  <p>Vous avez le droit&nbsp;:</p>
+  <ul>
+    <li>d'accéder à vos données personnelles&nbsp;;</li>
+    <li>de les faire rectifier ou effacer&nbsp;;</li>
+    <li>d'en faire limiter le traitement&nbsp;;</li>
+    <li>de les recevoir dans un format portable&nbsp;;</li>
+    <li>de vous opposer au traitement fondé sur l'intérêt légitime&nbsp;;</li>
+    <li>de retirer votre consentement à tout moment (articles 15 à 22 et article 7, paragraphe 3, du RGPD).</li>
+  </ul>
+  <p>Si vous avez un compte, vous pouvez consulter et corriger vos informations, télécharger une copie de vos données et supprimer vous-même votre compte sur la <a href="/account.html">page du compte</a>. Pour toute autre demande, écrivez à <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>. Nous vous répondrons dans un délai d'un mois.</p>
+  <p>Les signaux d'amélioration ne comportent aucun identifiant&nbsp;; en général, nous ne pouvons donc pas savoir lesquels proviennent de vous. Dans ce cas, nous ne pouvons pas les isoler pour y donner accès ou les effacer (article 11 du RGPD). Décocher la case met fin à tous les signaux futurs.</p>
+  <p>Vous pouvez également introduire une réclamation auprès de l'autorité de contrôle italienne, le Garante per la protezione dei dati personali (Piazza Venezia 11, 00187 Rome, <a href="https://www.garanteprivacy.it">garanteprivacy.it</a>), ou auprès de l'autorité du pays de l'UE où vous résidez ou travaillez.</p>
+
+  <h2>9. Âge</h2>
+  <p>Casebound s'adresse aux adultes (18 ans et plus), tels que les étudiants en droit et les professionnels du droit.</p>
+
+  <h2>10. Modifications de la présente politique</h2>
+  <p>Si nous modifions la manière dont les données sont traitées, nous mettrons à jour cette page et sa date. Si le programme d'amélioration change d'une manière qui nécessite un nouveau consentement, la case sera réinitialisée et votre accord vous sera de nouveau demandé.</p>
+</main>
+
+<!-- ======================= DEUTSCH ======================= -->
+<main lang="de" data-lang-block="de" hidden>
+  <p class="tr-note" role="note">Diese Übersetzung dient nur der leichteren Lesbarkeit. Weicht sie von der englischen Fassung ab, ist die englische Fassung maßgeblich.</p>
+  <p class="kicker">Datenschutzhinweis</p>
+  <h1>Wie Casebound mit deinen Daten umgeht</h1>
+  <p class="updated">Zuletzt aktualisiert: 7. Oktober 2026 · Informationen nach Art. 13 und 14 der Verordnung (EU) 2016/679 (DSGVO)</p>
+
+  <section class="summary">
+    <h2>Das Wichtigste in Kürze</h2>
+    <ul>
+      <li><b>Dein Fall bleibt bei dir.</b> Die Sachverhalte, die du eingibst, die Dateien, die du hinzufügst, und die Fälle, die du speicherst, bleiben in deinem eigenen Browser. Sie werden nie an uns gesendet und wir können sie nicht sehen – es sei denn, du entscheidest dich, einen Fall an Anwälte zu senden (<a href="#connect-de">Details</a>).</li>
+      <li><b>Uns bei Verbesserungen zu helfen ist freiwillig und standardmäßig deaktiviert.</b> Wenn du „Hilf mit, die Ergebnisse zu verbessern“ anhakst, sendet Casebound anonyme Signale: welches Korpusdokument du geöffnet oder bewertet hast und die Bezeichnungen der Rechtsbegriffe, die in deinem Fall erkannt wurden (etwa „Kündigung“). Es sendet nie deine Worte, deine Dateien oder irgendetwas, das dich identifiziert.</li>
+      <li><b>Wie bei jeder Website</b> sieht unser Hosting-Anbieter deine IP-Adresse, damit er dir die Seite ausliefern kann.</li>
+      <li><b>Wenn du ein Abo abschließt</b>, wickelt Stripe die Zahlung ab. Wir erhalten deinen Namen, deine E-Mail-Adresse, deine Rechnungsadresse und die Tarifdaten, aber nie deine vollständige Kartennummer (<a href="#payments-de">Details</a>).</li>
+      <li><b>Wenn du ein Konto erstellst</b>, speichern wir deine E-Mail-Adresse, optional deinen Namen und eine unkenntlich gemachte (gehashte) Fassung deines Passworts. Du kannst das Konto jederzeit selbst löschen (<a href="#accounts-de">Details</a>).</li>
+      <li>Keine Werbung und kein Verkauf von Daten. Das einzige Cookie ist das, mit dem du angemeldet bleibst – und auch nur, wenn du dich anmeldest.</li>
+    </ul>
+  </section>
+
+  <h2>1. Wer verantwortlich ist</h2>
+  <p>Verantwortlicher ist Kiyan Martinon, eine Privatperson mit Sitz in Italien, die Casebound (case-bound.com) betreibt. Kontakt: <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>.</p>
+  <p>Ein Datenschutzbeauftragter wurde nicht benannt, da das Gesetz dies für einen Dienst dieser Art nicht vorschreibt. Bei allen Fragen zu diesem Hinweis schreib an die oben genannte Adresse.</p>
+
+  <h2>2. Was in deinem Browser bleibt</h2>
+  <p>Alles, was du in Casebound eingibst, wird im lokalen Speicher (Local Storage) deines Browsers auf deinem eigenen Gerät gespeichert. Dazu gehören Sachverhalte, Ansprüche, hinzugefügte Dateien und gespeicherte Fälle. Dateien werden in deinem Browser gelesen und nirgendwohin hochgeladen.</p>
+  <p>Die einzige Ausnahme ist ein Fall, den du an Anwälte sendest, wie unter <a href="#connect-de">Kontakt zu einem Anwalt</a> beschrieben. Ansonsten erreichen uns diese Informationen nie, sodass wir sie nicht als Verantwortlicher verarbeiten. Du kannst sie jederzeit mit <b>Alle löschen</b> im Tab „Fälle“ entfernen oder indem du die Daten dieser Website in deinen Browsereinstellungen löschst.</p>
+
+  <h2>3. Was uns oder unsere Dienstleister erreicht</h2>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>Daten</th><th>Zweck</th><th>Rechtsgrundlage</th><th>Speicherdauer</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><b>Verbindungsdaten</b>: IP-Adresse, Browsertyp, Zeitpunkt der Anfrage, aufgerufene Seite</td>
+        <td>Um die Website bereitzustellen, sie sicher zu halten und Missbrauch zu verhindern. Verarbeitet durch unseren Hosting-Anbieter.</td>
+        <td>Berechtigtes Interesse am Betrieb einer funktionierenden, sicheren Website (Art. 6 Abs. 1 lit. f)</td>
+        <td>So lange, wie der Hosting-Anbieter Serverprotokolle für Sicherheit und Betrieb aufbewahrt</td>
+      </tr>
+      <tr>
+        <td><b>Verbesserungssignale</b>, nur wenn du einwilligst (siehe Abschnitt 4)</td>
+        <td>Um herauszufinden, welche Quellen nützlich sind, und die Reihenfolge der Ergebnisse zu verbessern</td>
+        <td>Deine Einwilligung (Art. 6 Abs. 1 lit. a), die du jederzeit widerrufen kannst</td>
+        <td>Einzelne Ereignisse werden nach 12 Monaten gelöscht. Anonyme Summen können länger aufbewahrt werden.</td>
+      </tr>
+      <tr>
+        <td><b>E-Mail-Korrespondenz</b>, wenn du uns schreibst</td>
+        <td>Um dir zu antworten</td>
+        <td>Durchführung von Maßnahmen auf deine Anfrage (Art. 6 Abs. 1 lit. b) und berechtigtes Interesse an einer Antwort (Art. 6 Abs. 1 lit. f)</td>
+        <td>Bis zu 24 Monate nach Ende der Korrespondenz</td>
+      </tr>
+      <tr>
+        <td><b>Kontodaten</b>, nur wenn du ein Konto erstellst: E-Mail-Adresse, Name (optional), gehashtes Passwort, Registrierungsdatum, Datum der Annahme der Bedingungen, letzte Anmeldung, Sprache</td>
+        <td>Um dir ein Konto bereitzustellen, es zu schützen und mit deinem Abo zu verknüpfen</td>
+        <td>Vertragserfüllung (Art. 6 Abs. 1 lit. b); berechtigtes Interesse an Sicherheit, etwa dem Sperren wiederholter Versuche mit falschem Passwort (Art. 6 Abs. 1 lit. f)</td>
+        <td>Bis du dein Konto löschst. Anmeldesitzungen laufen nach 30 Tagen ab.</td>
+      </tr>
+      <tr>
+        <td><b>Abo- und Abrechnungsdaten</b>, nur wenn du einen Tarif kaufst (siehe unten)</td>
+        <td>Um dein Abo zu verkaufen und zu verwalten, Quittungen und Rechnungen auszustellen sowie Erstattungen und Widerrufe abzuwickeln</td>
+        <td>Vertragserfüllung (Art. 6 Abs. 1 lit. b); gesetzliche Buchführungs- und Steuerpflichten (Art. 6 Abs. 1 lit. c)</td>
+        <td>Für die Laufzeit des Abos. Buchhaltungsunterlagen werden danach 10 Jahre aufbewahrt (Art. 2220 des italienischen Zivilgesetzbuchs).</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3 id="accounts-de">Konten</h3>
+  <p>Dein Passwort wird nie im Klartext gespeichert: Wir bewahren nur eine unumkehrbar umgewandelte Fassung (scrypt-Hash) auf, aus der sich das Passwort nicht zurückgewinnen lässt. Du kannst dein Konto jederzeit unter <b>Dein Konto → Mein Konto löschen</b> löschen. Dadurch werden deine Kontodaten sofort gelöscht. Abrechnungsunterlagen, die gesetzlich aufbewahrt werden müssen (siehe unten), sind davon nicht betroffen.</p>
+
+  <h3 id="payments-de">Kostenpflichtige Abos</h3>
+  <p>Wenn du ein Abo abschließt, erfolgt der Bezahlvorgang auf einer sicheren Seite, die von <b>Stripe</b> betrieben wird. Stripe erhebt deine Zahlungsdaten direkt. Wir erhalten nur, was wir für die Verwaltung deines Abos brauchen: deinen Namen, deine E-Mail-Adresse, deine Rechnungsadresse, deine USt-IdNr. oder Steuernummer (falls du eine angibst), den Tarif und seinen Status, Zahlungstermine und -beträge sowie eingeschränkte Karteninformationen wie Kartenmarke, die letzten vier Ziffern und das Ablaufdatum. Deine vollständige Kartennummer oder deinen Sicherheitscode erhalten wir nie.</p>
+  <p>Die Tarifseite und der Bezahlvorgang setzen keine Cookies auf case-bound.com. Die Seiten von Stripe selbst können gemäß der <a href="https://stripe.com/privacy">Datenschutzerklärung von Stripe</a> Cookies und Technologien zur Betrugsprävention verwenden.</p>
+
+  <h3 id="connect-de">Kontakt zu einem Anwalt (Pro)</h3>
+  <p>Wenn du nach einem Risikocheck <b>An verifizierte Anwälte senden</b> wählst, speichern wir den Fall auf unseren Servern: die einzeilige Zusammenfassung, was passiert ist, die Art des Problems, das maßgebliche Datum, den Betrag, die Beweismittel, die du angehakt hast, und deine Beschreibung dazu, die Gegenseite (zum Beispiel „mein Arbeitgeber“), deine Region und Stadt, das Ergebnis deines Risikochecks und der Beweisanalyse, das Ergebnis, das du anstrebst, und alle Details, die du später hinzufügst. Wir verknüpfen ihn mit deinem Konto, damit du Antworten verfolgen und ihn zurückziehen kannst.</p>
+  <ul>
+    <li><b>Wer ihn sieht.</b> Nur Anwälte, deren Namen und Registernummer wir im offiziellen Anwaltsverzeichnis überprüft haben. Sie sehen den Fall ohne deinen Namen und deine E-Mail-Adresse. Dein Name und deine E-Mail-Adresse erreichen einen Anwalt erst, wenn du für diesen Anwalt auf <b>Meine Kontaktdaten teilen</b> klickst. Ab dann verarbeitet dieser Anwalt deine Daten als eigenständiger Verantwortlicher und ist an die berufliche Schweigepflicht gebunden.</li>
+    <li><b>Sensible Informationen.</b> Eine Fallbeschreibung kann Gesundheitsdaten, Daten über Straftaten oder andere besondere Kategorien personenbezogener Daten offenlegen. Gib bitte nur an, was ein Anwalt braucht. Wir verarbeiten den Fall auf Grundlage deiner ausdrücklichen Einwilligung, die du beim Senden über das Kontrollkästchen erteilst (Art. 6 Abs. 1 lit. a und Art. 9 Abs. 2 lit. a DSGVO).</li>
+    <li><b>Wie lange.</b> Bis du den Fall zurückziehst oder dein Konto löschst; beides löscht ihn sofort. Du kannst deine Einwilligung jederzeit widerrufen, indem du den Fall zurückziehst.</li>
+    <li><b>Anwaltsprofile.</b> Wenn du dich als Anwalt registrierst, speichern wir deinen vollständigen Namen, deine Rechtsanwaltskammer, deine Registernummer, deine Stadt, deine Tätigkeitsbereiche und deine Kurzbiografie und gleichen sie mit dem öffentlichen Register ab (Art. 6 Abs. 1 lit. b und f). Mandanten sehen deinen Namen, deine Kammer, deine Stadt, deine Bereiche, deine Kurzbiografie und deine Nachricht, wenn du Interesse an ihrem Fall bekundest, und deine E-Mail-Adresse, sobald sie dir ihre mitgeteilt haben. Mandanten sehen nie deine Einschätzung ihres Falls.</li>
+  </ul>
+
+  <h3>Ressourcen von Drittanbietern, die dein Browser lädt</h3>
+  <p>Um die Schriftarten der Website anzuzeigen, verbindet sich dein Browser mit Google Fonts (Google Ireland Ltd / Google LLC). Wenn du eine PDF- oder Word-Datei hinzufügst, lädt er die Lesesoftware von cdnjs (Cloudflare, Inc.) herunter. Diese Anbieter erhalten im Rahmen dieser Verbindung deine IP-Adresse, gemäß ihren eigenen Datenschutzerklärungen. Wir stützen uns auf unser berechtigtes Interesse an einer gut lesbaren Website, die gängige Dateiformate öffnen kann (Art. 6 Abs. 1 lit. f).</p>
+
+  <h2 id="improve-de">4. Das Verbesserungsprogramm (freiwillig)</h2>
+  <p>Das Kontrollkästchen „Hilf mit, die Ergebnisse zu verbessern“ ist standardmäßig nicht angehakt. Casebound sendet zu diesem Zweck nichts, solange du es nicht anhakst.</p>
+  <h3>Wenn du es anhakst, enthält jedes Signal nur:</h3>
+  <ul>
+    <li>die Art der Aktion: „ein Ergebnis wurde geöffnet“ oder „ein Ergebnis wurde als relevant / nicht relevant bewertet“;</li>
+    <li>die Korpus-ID des betreffenden Dokuments (zum Beispiel <i>IT-24</i>), seine Position in den Ergebnissen und die verwendeten Filter (Rechtsordnung und Dokumenttyp);</li>
+    <li>die Kennungen der Rechtsbegriffe, die Casebound in deinem Fall erkannt hat, aus seiner festen Liste (zum Beispiel <i>dismissal</i>, <i>data_breach</i>) – nicht die Worte, die du verwendet hast;</li>
+    <li>das Datum (nur der Tag) und die Version deiner Einwilligung.</li>
+  </ul>
+  <h3>Es enthält nie:</h3>
+  <ul>
+    <li>die Sachverhalte, Ansprüche oder sonstigen Texte, die du eingibst, oder Dateien, die du hinzufügst;</li>
+    <li>deinen Namen, deine E-Mail-Adresse, dein Konto oder eine Kennung, die einen Besuch mit einem anderen verknüpft;</li>
+    <li>deine IP-Adresse. Sie wird nicht mit dem Signal gespeichert. Damit ein einzelner Besucher das System nicht überflutet, zählt ein unumkehrbarer Fingerabdruck der Verbindung, gebildet mit einem täglich wechselnden Zufallsschlüssel, wie viele Signale pro Tag eingehen; Fingerabdruck und Schlüssel werden nach zwei Tagen gelöscht.</li>
+  </ul>
+  <p><b>Wie Casebound daraus lernt.</b> Die Signale werden zu laufenden Summen pro Dokument und Begriff addiert (zum Beispiel „IT-24 wurde bei Fällen zur Mängelanzeige 5-mal als relevant bewertet“). Nur diese Summen werden aufbewahrt, und sie dienen dazu, die Ergebnisse für alle neu zu ordnen. Die Summen enthalten keine personenbezogenen Daten und werden allen Besuchern bereitgestellt, damit ihr Browser sie nutzen kann.</p>
+  <p><b>Lernen, das in deinem Browser bleibt.</b> Ob du das Kästchen anhakst oder nicht: Deine eigenen Bewertungen und deine Korrekturen an den erkannten Begriffen (einen falschen entfernen, einen fehlenden hinzufügen) werden im lokalen Speicher deines Browsers gespeichert, damit sich deine Ergebnisse sofort verbessern. Wenn du einen fehlenden Begriff hinzufügst, merkt sich Casebound die gewöhnlichen Wörter dieses Falls (großgeschriebene Wörter wie Namen werden übersprungen), um den Begriff beim nächsten Mal zu erkennen. Das bleibt auf deinem Gerät und wird nie gesendet; du kannst es mit „Vergessen, was ich diesem Browser beigebracht habe“ löschen.</p>
+  <p>Die Signale werden nur verwendet, um zu verbessern, wie Casebound Quellen ordnet und vorschlägt. Sie werden nicht für Werbung, Profiling oder Entscheidungen über dich verwendet.</p>
+  <p><b>Widerruf der Einwilligung:</b> Entferne den Haken jederzeit. Die Signale enden sofort. Der Widerruf berührt bereits gesendete Signale nicht.</p>
+
+  <h2>5. Cookies und lokaler Speicher</h2>
+  <p>Casebound setzt ein einziges Cookie, <code>cb_session</code>, und nur, wenn du dich anmeldest. Es hält dich bis zu 30 Tage angemeldet und wird gelöscht, wenn du dich abmeldest. Es wird nicht zum Tracking verwendet. Außerdem nutzt Casebound den lokalen Speicher deines Browsers für fünf Dinge:</p>
+  <ul>
+    <li>damit das Tool funktioniert, indem es deine gespeicherten Fälle aufbewahrt;</li>
+    <li>um sich deine Entscheidung beim Verbesserungs-Kontrollkästchen zu merken;</li>
+    <li>um deine eigenen Ergebnisbewertungen und Begriffskorrekturen aufzubewahren, damit sich die Ergebnisse daran anpassen (siehe Abschnitt 4; nie an uns gesendet);</li>
+    <li>um zu zählen, wie viele Analysen du heute durchgeführt hast, für das Tageslimit des kostenlosen Tarifs (ein Datum und eine Zahl, nie an uns gesendet);</li>
+    <li>um sich deine Darstellungseinstellung zu merken (hell, dunkel oder automatisch).</li>
+  </ul>
+  <p>Das Cookie und der lokale Speicher sind unbedingt erforderlich, um den von dir gewünschten Dienst bereitzustellen. Nach Art. 122 des italienischen Datenschutzgesetzbuchs (Codice in materia di protezione dei dati personali) ist dafür keine Einwilligung erforderlich.</p>
+
+  <h2>6. Empfänger der Daten und internationale Übermittlungen</h2>
+  <ul>
+    <li><b>Netlify, Inc.</b> (USA) hostet die Website, verarbeitet Verbindungsdaten und speichert Kontodaten in unserem Auftrag auf Grundlage seines Auftragsverarbeitungsvertrags. Übermittlungen in die USA stützen sich auf die Zertifizierung von Netlify nach dem EU-US-Datenschutzrahmen (EU-U.S. Data Privacy Framework), abgesichert durch Standardvertragsklauseln.</li>
+    <li>Wenn du am Verbesserungsprogramm teilnimmst, erhält Netlify, Inc. auch die Signale und speichert die in Abschnitt 4 beschriebenen laufenden Summen, auf Grundlage desselben Auftragsverarbeitungsvertrags und derselben Garantien für die Übermittlung.</li>
+    <li><b>Verifizierte Anwälte</b> erhalten Fälle, die du ihnen sendest, wie unter <a href="#connect-de">Kontakt zu einem Anwalt</a> beschrieben, und deinen Namen und deine E-Mail-Adresse nur, wenn du sie teilst.</li>
+    <li><b>Stripe Payments Europe, Ltd.</b> (Dublin, Irland) wickelt die Abo-Zahlungen ab. Zur Betrugsprävention und für eigene gesetzliche Pflichten (etwa Vorschriften zur Bekämpfung der Geldwäsche) handelt Stripe als eigenständiger Verantwortlicher nach seiner eigenen Datenschutzerklärung. Stripe kann Daten auf Grundlage des EU-US-Datenschutzrahmens und von Standardvertragsklauseln an Stripe, Inc. in den USA übermitteln.</li>
+    <li><b>Google</b> und <b>Cloudflare</b> erhalten Verbindungsdaten, wenn dein Browser Schriftarten oder Dateileser lädt, wie in Abschnitt 3 beschrieben. Beide nehmen am EU-US-Datenschutzrahmen teil.</li>
+  </ul>
+  <p>Wir verkaufen oder vermieten keine Daten an andere.</p>
+
+  <h2>7. Keine automatisierten Entscheidungen über dich</h2>
+  <p>Casebound ordnet Rechtsquellen nach textlicher Ähnlichkeit, um dich bei der Recherche zu unterstützen. Es trifft keine Entscheidung über dich, die dir gegenüber rechtliche Wirkung entfaltet oder dich in ähnlicher Weise erheblich beeinträchtigt, im Sinne von Art. 22 DSGVO. Seine Ergebnisse sind eine Recherchehilfe, keine Rechtsberatung.</p>
+
+  <h2>8. Deine Rechte</h2>
+  <p>Du hast das Recht,</p>
+  <ul>
+    <li>Auskunft über deine personenbezogenen Daten zu erhalten;</li>
+    <li>sie berichtigen oder löschen zu lassen;</li>
+    <li>ihre Verarbeitung einschränken zu lassen;</li>
+    <li>sie in einem übertragbaren Format zu erhalten;</li>
+    <li>einer Verarbeitung auf Grundlage berechtigter Interessen zu widersprechen;</li>
+    <li>deine Einwilligung jederzeit zu widerrufen (Art. 15–22 und Art. 7 Abs. 3 DSGVO).</li>
+  </ul>
+  <p>Wenn du ein Konto hast, kannst du deine Angaben auf der <a href="/account.html">Kontoseite</a> selbst einsehen und korrigieren, eine Kopie deiner Daten herunterladen und dein Konto löschen. Für alles andere schreib an <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>. Wir antworten innerhalb eines Monats.</p>
+  <p>Verbesserungssignale enthalten keine Kennung, daher können wir in der Regel nicht erkennen, welche Signale von dir stammen. In diesem Fall können wir sie nicht für eine Auskunft oder Löschung herausfiltern (Art. 11 DSGVO). Wenn du den Haken entfernst, werden keine weiteren Signale gesendet.</p>
+  <p>Du kannst außerdem Beschwerde bei der italienischen Aufsichtsbehörde, dem Garante per la protezione dei dati personali (Piazza Venezia 11, 00187 Rom, <a href="https://www.garanteprivacy.it">garanteprivacy.it</a>), oder bei der Behörde des EU-Landes einlegen, in dem du lebst oder arbeitest.</p>
+
+  <h2>9. Alter</h2>
+  <p>Casebound richtet sich an Erwachsene (ab 18 Jahren), etwa Jurastudierende und Fachleute aus dem Rechtsbereich.</p>
+
+  <h2>10. Änderungen dieses Hinweises</h2>
+  <p>Wenn wir ändern, wie Daten verarbeitet werden, aktualisieren wir diese Seite und ihr Datum. Ändert sich das Verbesserungsprogramm so, dass eine neue Einwilligung nötig ist, wird das Kontrollkästchen zurückgesetzt und du wirst erneut gefragt.</p>
+</main>
+
+<!-- ======================= PORTUGUÊS ======================= -->
+<main lang="pt" data-lang-block="pt" hidden>
+  <p class="tr-note" role="note">Esta tradução é disponibilizada por conveniência. Se divergir da versão em inglês, prevalece a versão em inglês.</p>
+  <p class="kicker">Aviso de privacidade</p>
+  <h1>Como o Casebound trata os seus dados</h1>
+  <p class="updated">Última atualização: 7 de outubro de 2026 · Informação prestada nos termos dos artigos 13.º e 14.º do Regulamento (UE) 2016/679 (RGPD)</p>
+
+  <section class="summary">
+    <h2>Em resumo</h2>
+    <ul>
+      <li><b>O seu caso fica consigo.</b> Os factos que escreve, os ficheiros que adiciona e os casos que guarda ficam no seu próprio navegador. Nunca nos são enviados e não os podemos ver, a menos que opte por enviar um caso a advogados (<a href="#connect-pt">detalhes</a>).</li>
+      <li><b>Ajudar-nos a melhorar é opcional e está desativado por predefinição.</b> Se assinalar «Ajudar a melhorar os resultados», o Casebound envia sinais anónimos: o documento do corpus que abriu ou avaliou e as etiquetas dos conceitos jurídicos reconhecidos no seu caso (como «despedimento»). Nunca envia as suas palavras, os seus ficheiros nem nada que o identifique.</li>
+      <li><b>Como em qualquer site</b>, o nosso fornecedor de alojamento vê o seu endereço IP para lhe poder apresentar a página.</li>
+      <li><b>Se comprar uma subscrição</b>, o pagamento é processado pela Stripe. Recebemos o seu nome, e-mail, morada de faturação e os dados do plano, mas nunca o número completo do seu cartão (<a href="#payments-pt">detalhes</a>).</li>
+      <li><b>Se criar uma conta</b>, guardamos o seu e-mail, o seu nome (opcional) e uma versão codificada (hash) da sua palavra-passe. Pode eliminar a conta por si próprio a qualquer momento (<a href="#accounts-pt">detalhes</a>).</li>
+      <li>Sem publicidade e sem venda de dados. O único cookie é o que mantém a sua sessão iniciada, e apenas se iniciar sessão.</li>
+    </ul>
+  </section>
+
+  <h2>1. Quem é o responsável</h2>
+  <p>O responsável pelo tratamento é Kiyan Martinon, pessoa singular residente em Itália, que gere o Casebound (case-bound.com). Contacto: <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>.</p>
+  <p>Não foi designado um encarregado da proteção de dados, porque a lei não o exige para um serviço deste tipo. Para qualquer questão sobre este aviso, escreva para o endereço acima.</p>
+
+  <h2>2. O que fica no seu navegador</h2>
+  <p>Tudo o que introduz no Casebound é guardado no armazenamento local (local storage) do navegador, no seu próprio dispositivo. Isto inclui os factos do caso, as pretensões, os ficheiros que adiciona e os casos guardados. Os ficheiros são lidos dentro do navegador e não são carregados para lado nenhum.</p>
+  <p>A única exceção é um caso que opte por enviar a advogados, descrito em <a href="#connect-pt">Contacto com um advogado</a>. De resto, esta informação nunca nos chega, pelo que não a tratamos na qualidade de responsável pelo tratamento. Pode apagá-la a qualquer momento com <b>Limpar tudo</b> no separador Casos, ou apagando os dados deste site nas definições do navegador.</p>
+
+  <h2>3. O que chega até nós ou aos nossos fornecedores</h2>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>Dados</th><th>Finalidade</th><th>Fundamento jurídico</th><th>Prazo de conservação</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><b>Dados de ligação</b>: endereço IP, tipo de navegador, hora do pedido, página pedida</td>
+        <td>Disponibilizar o site, mantê-lo seguro e prevenir abusos. Tratados pelo nosso fornecedor de alojamento.</td>
+        <td>Interesse legítimo em manter um site funcional e seguro (art. 6.º, n.º 1, alínea f))</td>
+        <td>Durante o período em que o fornecedor de alojamento conserva os registos do servidor para efeitos de segurança e funcionamento</td>
+      </tr>
+      <tr>
+        <td><b>Sinais de melhoria</b>, apenas se der o seu consentimento (ver secção 4)</td>
+        <td>Perceber que fontes são úteis e melhorar a ordenação dos resultados</td>
+        <td>O seu consentimento (art. 6.º, n.º 1, alínea a)), que pode retirar a qualquer momento</td>
+        <td>Os eventos individuais são apagados ao fim de 12 meses. Os totais anónimos podem ser conservados durante mais tempo.</td>
+      </tr>
+      <tr>
+        <td><b>Correspondência por e-mail</b>, se nos escrever</td>
+        <td>Responder-lhe</td>
+        <td>Diligências a seu pedido (art. 6.º, n.º 1, alínea b)) e interesse legítimo em responder (art. 6.º, n.º 1, alínea f))</td>
+        <td>Até 24 meses após o fim da conversa</td>
+      </tr>
+      <tr>
+        <td><b>Dados da conta</b>, apenas se criar uma conta: e-mail, nome (opcional), palavra-passe em hash, data de registo, data de aceitação dos termos, último início de sessão, idioma</td>
+        <td>Fornecer-lhe uma conta, mantê-la segura e associá-la à sua subscrição</td>
+        <td>Execução do contrato (art. 6.º, n.º 1, alínea b)); interesse legítimo na segurança, como bloquear tentativas repetidas com palavras-passe erradas (art. 6.º, n.º 1, alínea f))</td>
+        <td>Até eliminar a sua conta. As sessões expiram ao fim de 30 dias.</td>
+      </tr>
+      <tr>
+        <td><b>Dados de subscrição e faturação</b>, apenas se comprar um plano (ver abaixo)</td>
+        <td>Vender e gerir a sua subscrição, emitir recibos e faturas e tratar reembolsos e exercícios do direito de livre resolução</td>
+        <td>Execução do contrato (art. 6.º, n.º 1, alínea b)); obrigações legais contabilísticas e fiscais (art. 6.º, n.º 1, alínea c))</td>
+        <td>Durante a vigência da subscrição. Os registos contabilísticos são depois conservados durante 10 anos (art. 2220.º do Código Civil italiano).</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3 id="accounts-pt">Contas</h3>
+  <p>A sua palavra-passe nunca é guardada tal como a escreveu: guardamos apenas uma versão codificada de forma irreversível (hash scrypt), que não permite recuperar a palavra-passe. Elimine a sua conta a qualquer momento em <b>A sua conta → Eliminar a minha conta</b>. Isto apaga de imediato os dados da sua conta. Os registos de faturação que a lei obriga a conservar (ver abaixo) não são afetados.</p>
+
+  <h3 id="payments-pt">Subscrições pagas</h3>
+  <p>Se subscrever, o pagamento decorre numa página segura gerida pela <b>Stripe</b>. A Stripe recolhe diretamente os seus dados de pagamento. Recebemos apenas o necessário para gerir a sua subscrição: o seu nome, endereço de e-mail, morada de faturação, número de IVA ou de contribuinte (se o indicar), o plano e o respetivo estado, as datas e montantes dos pagamentos e informação limitada do cartão, como a marca, os últimos quatro dígitos e a data de validade. Nunca recebemos o número completo do cartão nem o código de segurança.</p>
+  <p>A página de Planos e o pagamento não definem cookies em case-bound.com. As páginas da própria Stripe podem utilizar cookies e tecnologia de prevenção de fraude, nos termos da <a href="https://stripe.com/privacy">política de privacidade da Stripe</a>.</p>
+
+  <h3 id="connect-pt">Contacto com um advogado (Pro)</h3>
+  <p>Se, após uma avaliação de risco, escolher <b>Enviar a advogados verificados</b>, guardamos o caso nos nossos servidores: o resumo numa linha, o que aconteceu, o tipo de problema, a data principal, o montante, as provas que assinalou e a sua descrição das mesmas, a outra parte (por exemplo, «o meu empregador»), a sua região e cidade, o resultado da sua avaliação de risco e da análise das provas, o desfecho que pretende e quaisquer detalhes que acrescente mais tarde. Associamo-lo à sua conta para que possa acompanhar as respostas e retirá-lo.</p>
+  <ul>
+    <li><b>Quem o vê.</b> Apenas advogados cujo nome e número de inscrição verificámos no registo oficial de advogados. Veem o caso sem o seu nome nem o seu e-mail. O seu nome e e-mail só chegam a um advogado quando carrega em <b>Partilhar os meus contactos</b> para esse advogado. A partir daí, esse advogado trata os seus dados como responsável pelo tratamento independente, sujeito a sigilo profissional.</li>
+    <li><b>Informação sensível.</b> A descrição de um caso pode revelar dados de saúde, dados relativos a infrações penais ou outras categorias especiais de dados. Inclua apenas o que um advogado precisa. Tratamos o caso com base no seu consentimento explícito, que dá ao assinalar a caixa quando o envia (art. 6.º, n.º 1, alínea a), e art. 9.º, n.º 2, alínea a), do RGPD).</li>
+    <li><b>Durante quanto tempo.</b> Até retirar o caso ou eliminar a sua conta, o que o apaga de imediato. Pode retirar o seu consentimento a qualquer momento retirando o caso.</li>
+    <li><b>Perfis de advogados.</b> Se se registar como advogado, guardamos o seu nome completo, a ordem dos advogados em que está inscrito, o número de inscrição, a cidade, as áreas de prática e a apresentação, e verificamo-los no registo público (art. 6.º, n.º 1, alíneas b) e f)). Os clientes veem o seu nome, ordem, cidade, áreas, apresentação e mensagem quando manifesta interesse no caso deles, e o seu e-mail depois de lhe partilharem o deles. Os clientes nunca veem a sua avaliação do caso deles.</li>
+  </ul>
+
+  <h3>Recursos de terceiros carregados pelo seu navegador</h3>
+  <p>Para apresentar os tipos de letra do site, o seu navegador liga-se ao Google Fonts (Google Ireland Ltd / Google LLC). Quando adiciona um ficheiro PDF ou Word, descarrega o software de leitura a partir do cdnjs (Cloudflare, Inc.). Estes fornecedores recebem o seu endereço IP no âmbito dessa ligação, nos termos das respetivas políticas de privacidade. Baseamo-nos no nosso interesse legítimo em ter um site legível e capaz de abrir os formatos de ficheiro mais comuns (art. 6.º, n.º 1, alínea f)).</p>
+
+  <h2 id="improve-pt">4. O programa de melhoria (opcional)</h2>
+  <p>A caixa «Ajudar a melhorar os resultados» está desmarcada por predefinição. O Casebound não envia nada para esta finalidade a menos que a assinale.</p>
+  <h3>Se a assinalar, cada sinal contém apenas:</h3>
+  <ul>
+    <li>o tipo de ação: «foi aberto um resultado» ou «um resultado foi avaliado como relevante / não relevante»;</li>
+    <li>o identificador no corpus do documento em causa (por exemplo, <i>IT-24</i>), a sua posição nos resultados e os filtros em uso (jurisdição e tipo de documento);</li>
+    <li>os identificadores dos conceitos jurídicos que o Casebound reconheceu no seu caso, retirados da sua lista fixa (por exemplo, <i>dismissal</i>, <i>data_breach</i>), e não as palavras que utilizou;</li>
+    <li>a data (apenas o dia) e a versão do consentimento que deu.</li>
+  </ul>
+  <h3>Nunca contém:</h3>
+  <ul>
+    <li>os factos, as pretensões ou qualquer outro texto que escreva, nem qualquer ficheiro que adicione;</li>
+    <li>o seu nome, e-mail, conta ou qualquer identificador que ligue uma visita a outra;</li>
+    <li>o seu endereço IP. Não é guardado com o sinal. Para impedir que um único visitante sobrecarregue o sistema, uma impressão digital irreversível da ligação, criada com uma chave aleatória que muda todos os dias, conta quantos sinais chegam por dia; a impressão digital e a chave são apagadas ao fim de dois dias.</li>
+  </ul>
+  <p><b>Como o Casebound aprende com eles.</b> Os sinais são somados em totais acumulados por documento e conceito (por exemplo, «IT-24 foi avaliado como relevante 5 vezes em casos sobre denúncia de defeitos»). Só esses totais são conservados, e são usados para reordenar os resultados para todos. Os totais não contêm dados pessoais e são publicados para todos os visitantes, para que o navegador de cada um os possa usar.</p>
+  <p><b>Aprendizagem que fica no seu navegador.</b> Quer assinale a caixa quer não, as suas próprias avaliações e as suas correções aos conceitos reconhecidos (remover um errado, acrescentar um em falta) são guardadas no armazenamento local do navegador, para que os seus resultados melhorem de imediato. Quando acrescenta um conceito em falta, o Casebound memoriza as palavras comuns desse caso (ignorando as palavras com inicial maiúscula, como nomes) para reconhecer o conceito da próxima vez. Isto fica no seu dispositivo e nunca é enviado; pode apagá-lo com «Esquecer o que ensinei neste navegador».</p>
+  <p>Os sinais são usados apenas para melhorar a forma como o Casebound ordena e sugere fontes. Não são usados para publicidade, definição de perfis ou qualquer decisão sobre si.</p>
+  <p><b>Retirar o consentimento:</b> desmarque a caixa a qualquer momento. Os sinais param de imediato. A retirada não afeta os sinais já enviados.</p>
+
+  <h2>5. Cookies e armazenamento local</h2>
+  <p>O Casebound define um único cookie, <code>cb_session</code>, e apenas quando inicia sessão. Mantém a sua sessão iniciada até 30 dias e é apagado quando termina sessão. Não é usado para rastreamento. O Casebound usa também o armazenamento local do navegador para cinco fins:</p>
+  <ul>
+    <li>fazer a ferramenta funcionar, conservando os seus casos guardados;</li>
+    <li>memorizar a sua escolha na caixa de melhoria;</li>
+    <li>guardar as suas próprias avaliações de resultados e correções de conceitos, para que os resultados se adaptem a elas (ver secção 4; nunca nos são enviadas);</li>
+    <li>contar quantas análises fez hoje, para o limite diário do plano gratuito (uma data e um número, nunca nos são enviados);</li>
+    <li>memorizar a sua definição de aparência (claro, escuro ou automático).</li>
+  </ul>
+  <p>O cookie e o armazenamento local são estritamente necessários para prestar o serviço que pediu. Nos termos do artigo 122.º do Código italiano da proteção de dados pessoais, não requerem consentimento.</p>
+
+  <h2>6. Quem recebe os dados e transferências internacionais</h2>
+  <ul>
+    <li>A <b>Netlify, Inc.</b> (Estados Unidos) aloja o site, trata os dados de ligação e conserva os dados das contas em nosso nome, ao abrigo do seu acordo de tratamento de dados. As transferências para os EUA baseiam-se na certificação da Netlify ao abrigo do Quadro de Privacidade de Dados UE-EUA (EU-U.S. Data Privacy Framework), complementada por cláusulas contratuais-tipo.</li>
+    <li>Se aderir ao programa de melhoria, a Netlify, Inc. recebe também os sinais e conserva os totais acumulados descritos na secção 4, ao abrigo do mesmo acordo de tratamento de dados e das mesmas garantias de transferência.</li>
+    <li>Os <b>advogados verificados</b> recebem os casos que lhes envia, conforme descrito em <a href="#connect-pt">Contacto com um advogado</a>, e o seu nome e e-mail apenas se os partilhar.</li>
+    <li>A <b>Stripe Payments Europe, Ltd.</b> (Dublin, Irlanda) processa os pagamentos das subscrições. Para efeitos de prevenção de fraude e das suas próprias obrigações legais (como as regras de combate ao branqueamento de capitais), a Stripe atua como responsável pelo tratamento independente, nos termos da sua própria política de privacidade. A Stripe pode transferir dados para a Stripe, Inc. nos Estados Unidos ao abrigo do Quadro de Privacidade de Dados UE-EUA e de cláusulas contratuais-tipo.</li>
+    <li>A <b>Google</b> e a <b>Cloudflare</b> recebem dados de ligação quando o seu navegador carrega tipos de letra ou leitores de ficheiros, conforme descrito na secção 3. Ambas participam no Quadro de Privacidade de Dados UE-EUA.</li>
+  </ul>
+  <p>Não vendemos nem alugamos dados a ninguém.</p>
+
+  <h2>7. Nenhuma decisão automatizada sobre si</h2>
+  <p>O Casebound ordena fontes jurídicas por semelhança textual para o ajudar na sua pesquisa. Não toma nenhuma decisão sobre si que produza efeitos jurídicos ou que o afete significativamente de forma similar, na aceção do artigo 22.º do RGPD. Os seus resultados são um auxiliar de pesquisa, não aconselhamento jurídico.</p>
+
+  <h2>8. Os seus direitos</h2>
+  <p>Tem o direito de:</p>
+  <ul>
+    <li>aceder aos seus dados pessoais;</li>
+    <li>obter a sua retificação ou apagamento;</li>
+    <li>limitar o seu tratamento;</li>
+    <li>recebê-los num formato portável;</li>
+    <li>opor-se ao tratamento baseado no interesse legítimo;</li>
+    <li>retirar o consentimento a qualquer momento (artigos 15.º a 22.º e artigo 7.º, n.º 3, do RGPD).</li>
+  </ul>
+  <p>Se tiver uma conta, pode consultar e corrigir os seus dados, descarregar uma cópia dos mesmos e eliminar a sua conta por si próprio na <a href="/account.html">página da conta</a>. Para tudo o resto, escreva para <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>. Responderemos no prazo de um mês.</p>
+  <p>Os sinais de melhoria não contêm nenhum identificador, pelo que normalmente não conseguimos saber quais vieram de si. Nesse caso, não os podemos isolar para efeitos de acesso ou apagamento (artigo 11.º do RGPD). Desmarcar a caixa interrompe todos os sinais futuros.</p>
+  <p>Pode ainda apresentar reclamação à autoridade de controlo italiana, o Garante per la protezione dei dati personali (Piazza Venezia 11, 00187 Roma, <a href="https://www.garanteprivacy.it">garanteprivacy.it</a>), ou à autoridade do país da UE onde vive ou trabalha.</p>
+
+  <h2>9. Idade</h2>
+  <p>O Casebound destina-se a adultos (maiores de 18 anos), como estudantes de Direito e profissionais da área jurídica.</p>
+
+  <h2>10. Alterações a este aviso</h2>
+  <p>Se alterarmos a forma como os dados são tratados, atualizaremos esta página e a respetiva data. Se o programa de melhoria mudar de uma forma que exija um novo consentimento, a caixa será reposta e ser-lhe-á pedido novamente.</p>
+</main>
+
+<!-- ======================= POLSKI ======================= -->
+<main lang="pl" data-lang-block="pl" hidden>
+  <p class="tr-note" role="note">To tłumaczenie udostępniamy dla wygody. W razie rozbieżności z wersją angielską pierwszeństwo ma wersja angielska.</p>
+  <p class="kicker">Informacja o prywatności</p>
+  <h1>Jak Casebound przetwarza Twoje dane</h1>
+  <p class="updated">Ostatnia aktualizacja: 7 października 2026 r. · Informacja na podstawie art. 13 i 14 rozporządzenia (UE) 2016/679 (RODO)</p>
+
+  <section class="summary">
+    <h2>W skrócie</h2>
+    <ul>
+      <li><b>Twoja sprawa zostaje u Ciebie.</b> Fakty, które wpisujesz, pliki, które dodajesz, i sprawy, które zapisujesz, są przechowywane w Twojej własnej przeglądarce. Nigdy nie są do nas wysyłane i nie możemy ich zobaczyć, chyba że zdecydujesz się wysłać sprawę do prawników (<a href="#connect-pl">szczegóły</a>).</li>
+      <li><b>Pomoc w ulepszaniu jest dobrowolna i domyślnie wyłączona.</b> Jeśli zaznaczysz „Pomóż ulepszyć wyniki”, Casebound wysyła anonimowe sygnały: który dokument z korpusu został otwarty lub oceniony oraz etykiety pojęć prawnych rozpoznanych w Twojej sprawie (np. „zwolnienie”). Nigdy nie wysyła Twoich słów, Twoich plików ani niczego, co pozwala Cię zidentyfikować.</li>
+      <li><b>Jak w przypadku każdej strony internetowej</b>, nasz dostawca hostingu widzi Twój adres IP, aby móc wyświetlić Ci stronę.</li>
+      <li><b>Jeśli kupisz subskrypcję</b>, płatność obsługuje Stripe. Otrzymujemy Twoje imię i nazwisko, e-mail, adres rozliczeniowy i dane planu, ale nigdy pełnego numeru Twojej karty (<a href="#payments-pl">szczegóły</a>).</li>
+      <li><b>Jeśli utworzysz konto</b>, przechowujemy Twój e-mail, imię i nazwisko (opcjonalnie) oraz zakodowaną (zahaszowaną) wersję hasła. Możesz samodzielnie usunąć konto w dowolnym momencie (<a href="#accounts-pl">szczegóły</a>).</li>
+      <li>Bez reklam i bez sprzedaży danych. Jedyny plik cookie to ten, który podtrzymuje Twoje zalogowanie, i to tylko wtedy, gdy się zalogujesz.</li>
+    </ul>
+  </section>
+
+  <h2>1. Kto odpowiada za dane</h2>
+  <p>Administratorem danych jest Kiyan Martinon, osoba fizyczna mieszkająca we Włoszech, która prowadzi Casebound (case-bound.com). Kontakt: <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>.</p>
+  <p>Nie wyznaczono inspektora ochrony danych, ponieważ przepisy nie wymagają tego w przypadku usługi tego rodzaju. We wszystkich sprawach dotyczących tej informacji napisz na powyższy adres.</p>
+
+  <h2>2. Co zostaje w Twojej przeglądarce</h2>
+  <p>Wszystko, co wprowadzasz do Casebound, jest przechowywane w pamięci lokalnej (local storage) przeglądarki na Twoim własnym urządzeniu. Obejmuje to fakty sprawy, roszczenia, dodane pliki i zapisane sprawy. Pliki są odczytywane w przeglądarce i nigdzie nie są przesyłane.</p>
+  <p>Jedynym wyjątkiem jest sprawa, którą zdecydujesz się wysłać do prawników, opisana w części <a href="#connect-pl">Kontakt z prawnikiem</a>. Poza tym te informacje nigdy do nas nie trafiają, więc nie przetwarzamy ich jako administrator danych. Możesz je w każdej chwili usunąć przyciskiem <b>Wyczyść wszystko</b> na karcie Sprawy albo usuwając dane tej witryny w ustawieniach przeglądarki.</p>
+
+  <h2>3. Co trafia do nas lub do naszych dostawców</h2>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>Dane</th><th>Cel</th><th>Podstawa prawna</th><th>Okres przechowywania</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><b>Dane połączenia</b>: adres IP, typ przeglądarki, czas żądania, żądana strona</td>
+        <td>Udostępnianie strony, dbanie o jej bezpieczeństwo i zapobieganie nadużyciom. Przetwarzane przez naszego dostawcę hostingu.</td>
+        <td>Prawnie uzasadniony interes w prowadzeniu działającej i bezpiecznej strony (art. 6 ust. 1 lit. f)</td>
+        <td>Przez okres, w którym dostawca hostingu przechowuje logi serwera do celów bezpieczeństwa i działania</td>
+      </tr>
+      <tr>
+        <td><b>Sygnały ulepszające</b>, tylko jeśli wyrazisz zgodę (zob. sekcja 4)</td>
+        <td>Ustalenie, które źródła są przydatne, i ulepszenie kolejności wyników</td>
+        <td>Twoja zgoda (art. 6 ust. 1 lit. a), którą możesz w każdej chwili wycofać</td>
+        <td>Pojedyncze zdarzenia są usuwane po 12 miesiącach. Anonimowe sumy mogą być przechowywane dłużej.</td>
+      </tr>
+      <tr>
+        <td><b>Korespondencja e-mail</b>, jeśli do nas napiszesz</td>
+        <td>Udzielenie Ci odpowiedzi</td>
+        <td>Podjęcie działań na Twoje żądanie (art. 6 ust. 1 lit. b) i prawnie uzasadniony interes w udzieleniu odpowiedzi (art. 6 ust. 1 lit. f)</td>
+        <td>Do 24 miesięcy od zakończenia korespondencji</td>
+      </tr>
+      <tr>
+        <td><b>Dane konta</b>, tylko jeśli utworzysz konto: e-mail, imię i nazwisko (opcjonalnie), zahaszowane hasło, data rejestracji, data akceptacji warunków, ostatnie logowanie, język</td>
+        <td>Zapewnienie Ci konta, jego ochrona i powiązanie z Twoją subskrypcją</td>
+        <td>Wykonanie umowy (art. 6 ust. 1 lit. b); prawnie uzasadniony interes w zapewnieniu bezpieczeństwa, np. blokowaniu powtarzających się prób z błędnym hasłem (art. 6 ust. 1 lit. f)</td>
+        <td>Do czasu usunięcia konta. Sesje logowania wygasają po 30 dniach.</td>
+      </tr>
+      <tr>
+        <td><b>Dane subskrypcji i rozliczeń</b>, tylko jeśli kupisz plan (zob. niżej)</td>
+        <td>Sprzedaż subskrypcji i zarządzanie nią, wystawianie potwierdzeń i faktur oraz obsługa zwrotów i odstąpień od umowy</td>
+        <td>Wykonanie umowy (art. 6 ust. 1 lit. b); obowiązki prawne w zakresie rachunkowości i podatków (art. 6 ust. 1 lit. c)</td>
+        <td>Przez czas trwania subskrypcji. Następnie dokumentacja księgowa jest przechowywana przez 10 lat (art. 2220 włoskiego kodeksu cywilnego).</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3 id="accounts-pl">Konta</h3>
+  <p>Twoje hasło nigdy nie jest przechowywane w postaci, w jakiej zostało wpisane: zachowujemy tylko jednokierunkowo przekształconą wersję (hash scrypt), z której nie da się odtworzyć hasła. Konto możesz usunąć w dowolnym momencie w sekcji <b>Twoje konto → Usuń moje konto</b>. Spowoduje to natychmiastowe usunięcie danych konta. Nie dotyczy to dokumentacji rozliczeniowej, którą musimy przechowywać zgodnie z prawem (zob. niżej).</p>
+
+  <h3 id="payments-pl">Płatne subskrypcje</h3>
+  <p>Jeśli wykupisz subskrypcję, płatność odbywa się na bezpiecznej stronie obsługiwanej przez <b>Stripe</b>. Stripe zbiera Twoje dane płatnicze bezpośrednio. My otrzymujemy tylko to, czego potrzebujemy do obsługi subskrypcji: Twoje imię i nazwisko, adres e-mail, adres rozliczeniowy, numer VAT lub numer identyfikacji podatkowej (jeśli go podasz), plan i jego status, daty i kwoty płatności oraz ograniczone informacje o karcie, takie jak jej marka, cztery ostatnie cyfry i data ważności. Nigdy nie otrzymujemy pełnego numeru karty ani kodu zabezpieczającego.</p>
+  <p>Strona Plany i proces płatności nie zapisują żadnych plików cookie w domenie case-bound.com. Strony Stripe mogą używać plików cookie i technologii zapobiegania oszustwom zgodnie z <a href="https://stripe.com/privacy">polityką prywatności Stripe</a>.</p>
+
+  <h3 id="connect-pl">Kontakt z prawnikiem (Pro)</h3>
+  <p>Jeśli po ocenie ryzyka wybierzesz <b>Wyślij do zweryfikowanych prawników</b>, przechowujemy sprawę na naszych serwerach: jednozdaniowe podsumowanie, opis tego, co się stało, rodzaj problemu, kluczową datę, kwotę, zaznaczone przez Ciebie dowody i ich opis, drugą stronę (np. „mój pracodawca”), Twój region i miasto, wynik oceny ryzyka i analizy dowodów, rezultat, do którego dążysz, oraz wszelkie szczegóły dodane później. Łączymy ją z Twoim kontem, dzięki czemu możesz śledzić odpowiedzi i wycofać sprawę.</p>
+  <ul>
+    <li><b>Kto ją widzi.</b> Tylko prawnicy, których imię i nazwisko oraz numer wpisu sprawdziliśmy w oficjalnym rejestrze prawników. Widzą sprawę bez Twojego imienia i nazwiska oraz adresu e-mail. Twoje imię i nazwisko oraz e-mail trafiają do prawnika dopiero wtedy, gdy klikniesz <b>Udostępnij moje dane kontaktowe</b> przy tym prawniku. Od tego momentu prawnik ten przetwarza Twoje dane jako niezależny administrator danych, związany tajemnicą zawodową.</li>
+    <li><b>Informacje wrażliwe.</b> Opis sprawy może ujawniać dane o zdrowiu, dane dotyczące wyroków skazujących i czynów zabronionych lub inne szczególne kategorie danych. Podawaj tylko to, czego potrzebuje prawnik. Przetwarzamy sprawę na podstawie Twojej wyraźnej zgody, którą wyrażasz, zaznaczając pole przy wysyłaniu (art. 6 ust. 1 lit. a i art. 9 ust. 2 lit. a RODO).</li>
+    <li><b>Jak długo.</b> Do czasu wycofania sprawy lub usunięcia konta; każde z tych działań natychmiast ją usuwa. Możesz w każdej chwili wycofać zgodę, wycofując sprawę.</li>
+    <li><b>Profile prawników.</b> Jeśli zarejestrujesz się jako prawnik, przechowujemy Twoje imię i nazwisko, izbę adwokacką lub radcowską, numer wpisu, miasto, obszary praktyki i opis, i sprawdzamy je w publicznym rejestrze (art. 6 ust. 1 lit. b i f). Klienci widzą Twoje imię i nazwisko, izbę, miasto, obszary, opis i wiadomość, gdy zgłosisz zainteresowanie ich sprawą, a Twój e-mail, gdy udostępnią Ci swój. Klienci nigdy nie widzą Twojej oceny ich sprawy.</li>
+  </ul>
+
+  <h3>Zasoby zewnętrzne ładowane przez Twoją przeglądarkę</h3>
+  <p>Aby wyświetlić kroje pisma używane na stronie, Twoja przeglądarka łączy się z Google Fonts (Google Ireland Ltd / Google LLC). Gdy dodajesz plik PDF lub Word, pobiera ona oprogramowanie do jego odczytu z cdnjs (Cloudflare, Inc.). Ci dostawcy otrzymują w ramach tego połączenia Twój adres IP, zgodnie z własnymi politykami prywatności. Opieramy się na naszym prawnie uzasadnionym interesie w posiadaniu czytelnej strony, która potrafi otwierać popularne formaty plików (art. 6 ust. 1 lit. f).</p>
+
+  <h2 id="improve-pl">4. Program ulepszania (dobrowolny)</h2>
+  <p>Pole „Pomóż ulepszyć wyniki” jest domyślnie niezaznaczone. Casebound nie wysyła niczego w tym celu, dopóki go nie zaznaczysz.</p>
+  <h3>Jeśli je zaznaczysz, każdy sygnał zawiera wyłącznie:</h3>
+  <ul>
+    <li>rodzaj działania: „otwarto wynik” lub „wynik oceniono jako trafny / nietrafny”;</li>
+    <li>identyfikator dokumentu w korpusie (np. <i>IT-24</i>), jego pozycję w wynikach i użyte filtry (jurysdykcja i rodzaj dokumentu);</li>
+    <li>identyfikatory pojęć prawnych rozpoznanych przez Casebound w Twojej sprawie, pochodzące z jego stałej listy (np. <i>dismissal</i>, <i>data_breach</i>), a nie użyte przez Ciebie słowa;</li>
+    <li>datę (tylko dzień) i wersję udzielonej zgody.</li>
+  </ul>
+  <h3>Nigdy nie zawiera:</h3>
+  <ul>
+    <li>faktów, roszczeń ani żadnego innego wpisanego przez Ciebie tekstu, ani żadnych dodanych plików;</li>
+    <li>Twojego imienia i nazwiska, e-maila, konta ani żadnego identyfikatora, który łączyłby jedną wizytę z inną;</li>
+    <li>Twojego adresu IP. Nie jest on zapisywany razem z sygnałem. Aby jeden odwiedzający nie zalał systemu, jednokierunkowy odcisk połączenia, tworzony z użyciem losowego klucza zmienianego codziennie, liczy, ile sygnałów napływa dziennie; odcisk i klucz są usuwane po dwóch dniach.</li>
+  </ul>
+  <p><b>Jak Casebound się z nich uczy.</b> Sygnały są sumowane w bieżące sumy dla każdego dokumentu i pojęcia (np. „IT-24 został oceniony jako trafny 5 razy w sprawach dotyczących zawiadomienia o wadach”). Przechowywane są tylko te sumy i służą one do zmiany kolejności wyników dla wszystkich. Sumy nie zawierają danych osobowych i są udostępniane każdemu odwiedzającemu, aby jego przeglądarka mogła z nich korzystać.</p>
+  <p><b>Nauka, która zostaje w Twojej przeglądarce.</b> Niezależnie od tego, czy zaznaczysz pole, Twoje własne oceny i poprawki rozpoznanych pojęć (usunięcie błędnego, dodanie pominiętego) są zapisywane w pamięci lokalnej przeglądarki, dzięki czemu Twoje wyniki od razu się poprawiają. Gdy dodasz pominięte pojęcie, Casebound zapamiętuje zwykłe słowa z tej sprawy (z pominięciem słów pisanych wielką literą, takich jak imiona i nazwy), aby następnym razem rozpoznać to pojęcie. Pozostaje to na Twoim urządzeniu i nigdy nie jest wysyłane; możesz to usunąć przyciskiem „Zapomnij wszystko, czego nauczono w tej przeglądarce”.</p>
+  <p>Sygnały służą wyłącznie do ulepszania sposobu, w jaki Casebound porządkuje i podpowiada źródła. Nie są wykorzystywane do reklamy, profilowania ani do podejmowania jakichkolwiek decyzji dotyczących Ciebie.</p>
+  <p><b>Wycofanie zgody:</b> odznacz pole w dowolnym momencie. Sygnały przestają być wysyłane natychmiast. Wycofanie zgody nie wpływa na sygnały już wysłane.</p>
+
+  <h2>5. Pliki cookie i pamięć lokalna</h2>
+  <p>Casebound ustawia jeden plik cookie, <code>cb_session</code>, i tylko wtedy, gdy się zalogujesz. Podtrzymuje on Twoje zalogowanie przez maksymalnie 30 dni i jest usuwany po wylogowaniu. Nie służy do śledzenia. Casebound korzysta też z pamięci lokalnej przeglądarki w pięciu celach:</p>
+  <ul>
+    <li>aby narzędzie działało, przechowując Twoje zapisane sprawy;</li>
+    <li>aby zapamiętać Twój wybór dotyczący pola ulepszania;</li>
+    <li>aby przechowywać Twoje własne oceny wyników i poprawki pojęć, tak by wyniki się do nich dostosowywały (zob. sekcja 4; nigdy nie są do nas wysyłane);</li>
+    <li>aby liczyć, ile analiz wykonano dziś, na potrzeby dziennego limitu darmowego planu (data i liczba, nigdy nie są do nas wysyłane);</li>
+    <li>aby zapamiętać ustawienie wyglądu (jasny, ciemny lub automatyczny).</li>
+  </ul>
+  <p>Plik cookie i pamięć lokalna są niezbędne do świadczenia usługi, o którą prosisz. Zgodnie z art. 122 włoskiego kodeksu ochrony danych osobowych nie wymagają one zgody.</p>
+
+  <h2>6. Odbiorcy danych i międzynarodowe przekazywanie danych</h2>
+  <ul>
+    <li><b>Netlify, Inc.</b> (Stany Zjednoczone) hostuje stronę, przetwarza dane połączenia i przechowuje dane kont w naszym imieniu na podstawie swojej umowy powierzenia przetwarzania danych. Przekazywanie danych do USA opiera się na certyfikacji Netlify w ramach Ramowego porozumienia UE-USA w sprawie ochrony danych (EU-U.S. Data Privacy Framework), wspartej standardowymi klauzulami umownymi.</li>
+    <li>Jeśli przystąpisz do programu ulepszania, Netlify, Inc. otrzymuje także sygnały i przechowuje bieżące sumy opisane w sekcji 4, na podstawie tej samej umowy powierzenia i z tymi samymi zabezpieczeniami przekazywania danych.</li>
+    <li><b>Zweryfikowani prawnicy</b> otrzymują sprawy, które im wysyłasz, zgodnie z opisem w części <a href="#connect-pl">Kontakt z prawnikiem</a>, a Twoje imię i nazwisko oraz e-mail tylko wtedy, gdy je udostępnisz.</li>
+    <li><b>Stripe Payments Europe, Ltd.</b> (Dublin, Irlandia) obsługuje płatności za subskrypcje. W zakresie zapobiegania oszustwom i własnych obowiązków prawnych (np. przepisów o przeciwdziałaniu praniu pieniędzy) Stripe działa jako niezależny administrator danych zgodnie z własną polityką prywatności. Stripe może przekazywać dane do Stripe, Inc. w Stanach Zjednoczonych na podstawie Ramowego porozumienia UE-USA w sprawie ochrony danych i standardowych klauzul umownych.</li>
+    <li><b>Google</b> i <b>Cloudflare</b> otrzymują dane połączenia, gdy Twoja przeglądarka ładuje czcionki lub czytniki plików, jak opisano w sekcji 3. Obie firmy uczestniczą w Ramowym porozumieniu UE-USA w sprawie ochrony danych.</li>
+  </ul>
+  <p>Nie sprzedajemy ani nie wynajmujemy nikomu danych.</p>
+
+  <h2>7. Brak zautomatyzowanych decyzji dotyczących Ciebie</h2>
+  <p>Casebound porządkuje źródła prawa według podobieństwa tekstu, aby pomóc Ci w badaniach. Nie podejmuje wobec Ciebie żadnych decyzji wywołujących skutki prawne lub w podobny sposób istotnie na Ciebie wpływających w rozumieniu art. 22 RODO. Jego wyniki to narzędzie badawcze, a nie porada prawna.</p>
+
+  <h2>8. Twoje prawa</h2>
+  <p>Masz prawo:</p>
+  <ul>
+    <li>dostępu do swoich danych osobowych;</li>
+    <li>do ich sprostowania lub usunięcia;</li>
+    <li>do ograniczenia ich przetwarzania;</li>
+    <li>do otrzymania ich w przenośnym formacie;</li>
+    <li>do sprzeciwu wobec przetwarzania opartego na prawnie uzasadnionym interesie;</li>
+    <li>do wycofania zgody w dowolnym momencie (art. 15–22 i art. 7 ust. 3 RODO).</li>
+  </ul>
+  <p>Jeśli masz konto, możesz samodzielnie przeglądać i poprawiać swoje dane, pobrać ich kopię i usunąć konto na <a href="/account.html">stronie konta</a>. W pozostałych sprawach napisz na <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>. Odpowiemy w ciągu miesiąca.</p>
+  <p>Sygnały ulepszające nie zawierają identyfikatora, więc zwykle nie możemy ustalić, które z nich pochodzą od Ciebie. W takim przypadku nie możemy ich wyodrębnić w celu udzielenia dostępu lub usunięcia (art. 11 RODO). Odznaczenie pola zatrzymuje wszystkie przyszłe sygnały.</p>
+  <p>Możesz również wnieść skargę do włoskiego organu nadzorczego, Garante per la protezione dei dati personali (Piazza Venezia 11, 00187 Rzym, <a href="https://www.garanteprivacy.it">garanteprivacy.it</a>), lub do organu nadzorczego w państwie UE, w którym mieszkasz lub pracujesz.</p>
+
+  <h2>9. Wiek</h2>
+  <p>Casebound jest przeznaczony dla osób pełnoletnich (18+), takich jak studenci prawa i profesjonaliści z branży prawniczej.</p>
+
+  <h2>10. Zmiany tej informacji</h2>
+  <p>Jeśli zmienimy sposób przetwarzania danych, zaktualizujemy tę stronę i jej datę. Jeśli program ulepszania zmieni się w sposób wymagający nowej zgody, pole zostanie zresetowane i ponownie poprosimy Cię o zgodę.</p>
+</main>
+
+<!-- ======================= العربية ======================= -->
+<main lang="ar" dir="rtl" data-lang-block="ar" hidden>
+  <p class="tr-note" role="note">هذه الترجمة مقدَّمة للتيسير فقط. وإذا اختلفت عن النسخة الإنجليزية، تسود النسخة الإنجليزية.</p>
+  <p class="kicker">إشعار الخصوصية</p>
+  <h1>كيف يتعامل Casebound مع بياناتك</h1>
+  <p class="updated">آخر تحديث: 7 أكتوبر 2026 · إشعار بموجب المادتين 13 و14 من اللائحة (الاتحاد الأوروبي) 2016/679 (اللائحة العامة لحماية البيانات، GDPR)</p>
+
+  <section class="summary">
+    <h2>باختصار</h2>
+    <ul>
+      <li><b>قضيتك تبقى معك.</b> الوقائع التي تكتبها والملفات التي تضيفها والقضايا التي تحفظها تبقى في متصفحك أنت. لا تُرسَل إلينا أبدًا ولا يمكننا رؤيتها، إلا إذا اخترت إرسال قضية إلى محامين (<a href="#connect-ar">التفاصيل</a>).</li>
+      <li><b>مساعدتنا على التحسين أمر اختياري ومعطَّل افتراضيًا.</b> إذا حدّدت خانة «ساعد في تحسين النتائج»، يرسل Casebound إشارات مجهولة الهوية: أيّ مستند من المجموعة النصية (corpus) فتحته أو قيّمته، وتسميات المفاهيم القانونية التي تعرّف عليها في قضيتك (مثل «الفصل من العمل»). ولا يرسل أبدًا كلماتك أو ملفاتك أو أي شيء يكشف هويتك.</li>
+      <li><b>كما هو الحال مع أي موقع إلكتروني</b>، يرى مزوّد الاستضافة لدينا عنوان IP الخاص بك ليتمكن من عرض الصفحة لك.</li>
+      <li><b>إذا اشتريت اشتراكًا</b>، تتولى Stripe معالجة الدفع. نتلقى اسمك وبريدك الإلكتروني وعنوان الفوترة وتفاصيل الخطة، لكننا لا نتلقى أبدًا رقم بطاقتك الكامل (<a href="#payments-ar">التفاصيل</a>).</li>
+      <li><b>إذا أنشأت حسابًا</b>، نحفظ بريدك الإلكتروني واسمك (اختياري) ونسخة مموَّهة (مجزّأة hash) من كلمة مرورك. يمكنك حذف الحساب بنفسك في أي وقت (<a href="#accounts-ar">التفاصيل</a>).</li>
+      <li>لا إعلانات ولا بيع للبيانات. ملف تعريف الارتباط (cookie) الوحيد هو الذي يُبقيك مسجَّل الدخول، وذلك فقط إذا سجّلت الدخول.</li>
+    </ul>
+  </section>
+
+  <h2>1. من المسؤول</h2>
+  <p>المتحكم في البيانات هو Kiyan Martinon، وهو شخص طبيعي مقيم في إيطاليا يدير Casebound ‏(<bdi>case-bound.com</bdi>). للتواصل: <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>.</p>
+  <p>لم يُعيَّن مسؤول لحماية البيانات لأن القانون لا يشترط ذلك لخدمة من هذا النوع. راسلنا على العنوان أعلاه بشأن أي مسألة تتعلق بهذا الإشعار.</p>
+
+  <h2>2. ما يبقى في متصفحك</h2>
+  <p>كل ما تُدخله في Casebound يُحفَظ في التخزين المحلي (local storage) لمتصفحك على جهازك أنت. ويشمل ذلك وقائع القضية والادعاءات والملفات التي تضيفها والقضايا المحفوظة. تُقرأ الملفات داخل متصفحك ولا تُرفع إلى أي مكان.</p>
+  <p>الاستثناء الوحيد هو القضية التي تختار إرسالها إلى محامين، كما هو موضّح في <a href="#connect-ar">التواصل مع محامٍ</a>. وفيما عدا ذلك، لا تصل إلينا هذه المعلومات أبدًا، ولذلك لا نعالجها بصفتنا متحكمًا في البيانات. يمكنك حذفها في أي وقت عبر <b>مسح الكل</b> في تبويب القضايا، أو بمسح بيانات هذا الموقع من إعدادات متصفحك.</p>
+
+  <h2>3. ما يصل إلينا أو إلى مزوّدينا</h2>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>البيانات</th><th>الغرض</th><th>الأساس القانوني</th><th>مدة الاحتفاظ</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><b>بيانات الاتصال</b>: عنوان IP، ونوع المتصفح، ووقت الطلب، والصفحة المطلوبة</td>
+        <td>لتقديم الموقع والحفاظ على أمنه ومنع إساءة استخدامه. يتولاها مزوّد الاستضافة لدينا.</td>
+        <td>المصلحة المشروعة في تشغيل موقع يعمل بشكل سليم وآمن (المادة 6، الفقرة 1، البند (و))</td>
+        <td>طوال المدة التي يحتفظ فيها مزوّد الاستضافة بسجلات الخادم لأغراض الأمن والتشغيل</td>
+      </tr>
+      <tr>
+        <td><b>إشارات التحسين</b>، فقط إذا وافقت على ذلك (انظر القسم 4)</td>
+        <td>لمعرفة المصادر المفيدة وتحسين ترتيب النتائج</td>
+        <td>موافقتك (المادة 6، الفقرة 1، البند (أ))، ويمكنك سحبها في أي وقت</td>
+        <td>تُحذف الأحداث الفردية بعد 12 شهرًا. وقد يُحتفَظ بالمجاميع مجهولة الهوية مدة أطول.</td>
+      </tr>
+      <tr>
+        <td><b>المراسلات بالبريد الإلكتروني</b>، إذا راسلتنا</td>
+        <td>للرد عليك</td>
+        <td>اتخاذ خطوات بناءً على طلبك (المادة 6، الفقرة 1، البند (ب)) والمصلحة المشروعة في الرد (المادة 6، الفقرة 1، البند (و))</td>
+        <td>حتى 24 شهرًا بعد انتهاء المراسلة</td>
+      </tr>
+      <tr>
+        <td><b>بيانات الحساب</b>، فقط إذا أنشأت حسابًا: البريد الإلكتروني، والاسم (اختياري)، وكلمة المرور بصيغة مجزّأة (hash)، وتاريخ التسجيل، وتاريخ قبولك للشروط، وآخر تسجيل دخول، واللغة</td>
+        <td>لتوفير حساب لك والحفاظ على أمنه وربطه باشتراكك</td>
+        <td>تنفيذ العقد (المادة 6، الفقرة 1، البند (ب))؛ والمصلحة المشروعة في الأمن، مثل حظر المحاولات المتكررة بكلمات مرور خاطئة (المادة 6، الفقرة 1، البند (و))</td>
+        <td>حتى تحذف حسابك. تنتهي جلسات تسجيل الدخول بعد 30 يومًا.</td>
+      </tr>
+      <tr>
+        <td><b>بيانات الاشتراك والفوترة</b>، فقط إذا اشتريت خطة (انظر أدناه)</td>
+        <td>لبيع اشتراكك وإدارته، وإصدار الإيصالات والفواتير، ومعالجة المبالغ المستردة وحالات العدول عن العقد</td>
+        <td>تنفيذ العقد (المادة 6، الفقرة 1، البند (ب))؛ والالتزامات القانونية المتعلقة بالمحاسبة والضرائب (المادة 6، الفقرة 1، البند (ج))</td>
+        <td>طوال مدة الاشتراك. ثم تُحفَظ السجلات المحاسبية لمدة 10 سنوات (المادة 2220 من القانون المدني الإيطالي).</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3 id="accounts-ar">الحسابات</h3>
+  <p>لا تُحفَظ كلمة مرورك أبدًا كما كتبتها: نحتفظ فقط بنسخة مموَّهة باتجاه واحد (تجزئة scrypt) لا يمكن إعادتها إلى كلمة المرور الأصلية. يمكنك حذف حسابك في أي وقت من <b>حسابك ← حذف حسابي</b>. يؤدي ذلك إلى محو بيانات حسابك فورًا. ولا يشمل ذلك سجلات الفوترة التي يجب الاحتفاظ بها بموجب القانون (انظر أدناه).</p>
+
+  <h3 id="payments-ar">الاشتراكات المدفوعة</h3>
+  <p>إذا اشتركت، تتم عملية الدفع على صفحة آمنة تديرها <b>Stripe</b>. تجمع Stripe بيانات الدفع الخاصة بك مباشرة. ولا نتلقى إلا ما نحتاجه لإدارة اشتراكك: اسمك، وعنوان بريدك الإلكتروني، وعنوان الفوترة، ورقم ضريبة القيمة المضافة أو الرقم الضريبي (إن أدخلته)، والخطة وحالتها، وتواريخ الدفعات ومبالغها، ومعلومات محدودة عن البطاقة مثل نوعها وآخر أربعة أرقام منها وتاريخ انتهاء صلاحيتها. لا نتلقى أبدًا رقم بطاقتك الكامل أو رمز الأمان.</p>
+  <p>لا تضع صفحة الخطط ولا عملية الدفع أي ملفات تعريف ارتباط على case-bound.com. وقد تستخدم صفحات Stripe نفسها ملفات تعريف الارتباط وتقنيات منع الاحتيال وفقًا <a href="https://stripe.com/privacy">لسياسة الخصوصية الخاصة بـ Stripe</a>.</p>
+
+  <h3 id="connect-ar">التواصل مع محامٍ (Pro)</h3>
+  <p>إذا اخترت <b>إرسال إلى محامين موثَّقين</b> بعد تقييم المخاطر، نحفظ القضية على خوادمنا: الملخص في سطر واحد، وما حدث، ونوع المشكلة، والتاريخ الرئيسي، والمبلغ، والأدلة التي حدّدتها ووصفك لها، والطرف الآخر (مثل «صاحب العمل»)، ومنطقتك ومدينتك، ونتيجة تقييم المخاطر وتحليل الأدلة، والنتيجة التي تسعى إليها، وأي تفاصيل تضيفها لاحقًا. ونربطها بحسابك حتى تتمكن من متابعة الردود وسحبها.</p>
+  <ul>
+    <li><b>من يراها.</b> المحامون الذين تحققنا من أسمائهم وأرقام قيدهم في السجل الرسمي للمحامين فقط. يرون القضية دون اسمك أو بريدك الإلكتروني. ولا يصل اسمك وبريدك الإلكتروني إلى محامٍ إلا عندما تضغط على <b>مشاركة بيانات الاتصال الخاصة بي</b> لذلك المحامي. ومن تلك اللحظة، يعالج ذلك المحامي بياناتك بصفته متحكمًا مستقلًا في البيانات، ملتزمًا بالسرية المهنية.</li>
+    <li><b>المعلومات الحساسة.</b> قد يكشف وصف القضية عن بيانات صحية أو جنائية أو غيرها من الفئات الخاصة من البيانات. يُرجى تضمين ما يحتاجه المحامي فقط. نعالج القضية على أساس موافقتك الصريحة، التي تمنحها بتحديد الخانة عند الإرسال (المادة 6، الفقرة 1، البند (أ)، والمادة 9، الفقرة 2، البند (أ) من اللائحة العامة لحماية البيانات).</li>
+    <li><b>مدة الاحتفاظ.</b> حتى تسحب القضية أو تحذف حسابك، وهو ما يمحوها فورًا. يمكنك سحب موافقتك في أي وقت بسحب القضية.</li>
+    <li><b>ملفات المحامين.</b> إذا سجّلت بصفتك محاميًا، نحفظ اسمك الكامل، ونقابة المحامين التي تنتمي إليها، ورقم قيدك، ومدينتك، ومجالات ممارستك، ونبذتك التعريفية، ونتحقق منها مقابل السجل العام (المادة 6، الفقرة 1، البندان (ب) و(و)). يرى العملاء اسمك ونقابتك ومدينتك ومجالاتك ونبذتك ورسالتك عندما تُبدي اهتمامك بقضيتهم، ويرون بريدك الإلكتروني بعد أن يشاركوك بريدهم. ولا يرى العملاء أبدًا تقييمك لقضيتهم.</li>
+  </ul>
+
+  <h3>موارد الجهات الخارجية التي يحمّلها متصفحك</h3>
+  <p>لعرض خطوط الموقع، يتصل متصفحك بـ Google Fonts ‏(<bdi>Google Ireland Ltd / Google LLC</bdi>). وعندما تضيف ملف PDF أو Word، يُنزّل متصفحك برنامج القراءة من cdnjs ‏(<bdi>Cloudflare, Inc.</bdi>). يتلقى هؤلاء المزوّدون عنوان IP الخاص بك في إطار هذا الاتصال، وفقًا لسياسات الخصوصية الخاصة بهم. ونستند في ذلك إلى مصلحتنا المشروعة في موقع مقروء قادر على فتح صيغ الملفات الشائعة (المادة 6، الفقرة 1، البند (و)).</p>
+
+  <h2 id="improve-ar">4. برنامج التحسين (اختياري)</h2>
+  <p>خانة «ساعد في تحسين النتائج» غير محدّدة افتراضيًا. لا يرسل Casebound أي شيء لهذا الغرض ما لم تحدّدها.</p>
+  <h3>إذا حدّدتها، فإن كل إشارة تتضمن فقط:</h3>
+  <ul>
+    <li>نوع الإجراء: «فُتحت نتيجة» أو «قُيّمت نتيجة بأنها ذات صلة / غير ذات صلة»؛</li>
+    <li>معرّف المستند المعني في المجموعة النصية (مثل <i>IT-24</i>)، وموضعه في النتائج، والمرشّحات المستخدمة (الولاية القضائية ونوع المستند)؛</li>
+    <li>معرّفات المفاهيم القانونية التي تعرّف عليها Casebound في قضيتك، من قائمته الثابتة (مثل <i>dismissal</i> و<i>data_breach</i>)، وليس الكلمات التي استخدمتها؛</li>
+    <li>التاريخ (اليوم فقط) وإصدار الموافقة التي منحتها.</li>
+  </ul>
+  <h3>ولا تتضمن أبدًا:</h3>
+  <ul>
+    <li>الوقائع أو الادعاءات أو أي نص آخر تكتبه، ولا أي ملف تضيفه؛</li>
+    <li>اسمك أو بريدك الإلكتروني أو حسابك أو أي معرّف يربط زيارة بأخرى؛</li>
+    <li>عنوان IP الخاص بك، فهو لا يُخزَّن مع الإشارة. ولمنع زائر واحد من إغراق النظام، تُعدّ الإشارات الواردة يوميًا باستخدام بصمة أحادية الاتجاه للاتصال، تُنشأ بمفتاح عشوائي يتغيّر كل يوم؛ وتُحذف البصمة والمفتاح بعد يومين.</li>
+  </ul>
+  <p><b>كيف يتعلّم Casebound منها.</b> تُجمَع الإشارات في مجاميع تراكمية لكل مستند ومفهوم (مثل: «قُيّم IT-24 بأنه ذو صلة 5 مرات في قضايا تتعلق بالإخطار بالعيوب»). ولا يُحتفَظ إلا بهذه المجاميع، وتُستخدم لإعادة ترتيب النتائج للجميع. لا تحتوي المجاميع على أي بيانات شخصية، وتُتاح لكل زائر حتى يتمكن متصفحه من استخدامها.</p>
+  <p><b>تعلّم يبقى في متصفحك.</b> سواء حدّدت الخانة أم لا، تُحفَظ تقييماتك الخاصة وتصحيحاتك للمفاهيم المتعرَّف عليها (حذف مفهوم خاطئ أو إضافة مفهوم فائت) في التخزين المحلي لمتصفحك، حتى تتحسن نتائجك فورًا. وعندما تضيف مفهومًا فائتًا، يتذكّر Casebound الكلمات العادية في تلك القضية (متجاوزًا الكلمات التي تبدأ بحرف كبير مثل الأسماء) حتى يتعرّف على المفهوم في المرة التالية. يبقى ذلك على جهازك ولا يُرسَل أبدًا؛ ويمكنك محوه عبر «انسَ ما علّمته في هذا المتصفح».</p>
+  <p>تُستخدم الإشارات فقط لتحسين طريقة ترتيب Casebound للمصادر واقتراحها. ولا تُستخدم للإعلانات أو التنميط أو لاتخاذ أي قرار بشأنك.</p>
+  <p><b>سحب الموافقة:</b> ألغِ تحديد الخانة في أي وقت. تتوقف الإشارات فورًا. ولا يؤثر السحب في الإشارات التي أُرسلت من قبل.</p>
+
+  <h2>5. ملفات تعريف الارتباط والتخزين المحلي</h2>
+  <p>يضع Casebound ملف تعريف ارتباط واحدًا فقط، <code>cb_session</code>، وذلك فقط عند تسجيل الدخول. يُبقيك مسجَّل الدخول لمدة تصل إلى 30 يومًا، ويُحذف عند تسجيل الخروج. ولا يُستخدم للتتبع. ويستخدم Casebound أيضًا التخزين المحلي لمتصفحك لخمسة أغراض:</p>
+  <ul>
+    <li>لتشغيل الأداة، من خلال الاحتفاظ بقضاياك المحفوظة؛</li>
+    <li>لتذكّر اختيارك بشأن خانة التحسين؛</li>
+    <li>للاحتفاظ بتقييماتك للنتائج وتصحيحاتك للمفاهيم، حتى تتكيف النتائج معها (انظر القسم 4؛ لا تُرسَل إلينا أبدًا)؛</li>
+    <li>لعدّ التحليلات التي أجريتها اليوم، من أجل الحد اليومي للخطة المجانية (تاريخ ورقم، لا يُرسَلان إلينا أبدًا)؛</li>
+    <li>لتذكّر إعداد المظهر الذي اخترته (فاتح أو داكن أو تلقائي).</li>
+  </ul>
+  <p>إن ملف تعريف الارتباط والتخزين المحلي ضروريان تمامًا لتقديم الخدمة التي طلبتها. وبموجب المادة 122 من قانون حماية البيانات الشخصية الإيطالي، لا يتطلبان موافقة.</p>
+
+  <h2>6. من يتلقى البيانات، وعمليات النقل الدولية</h2>
+  <ul>
+    <li>تستضيف <b><bdi>Netlify, Inc.</bdi></b> (الولايات المتحدة) الموقع، وتعالج بيانات الاتصال، وتخزّن بيانات الحسابات نيابةً عنا بموجب اتفاقية معالجة البيانات الخاصة بها. ويستند نقل البيانات إلى الولايات المتحدة إلى اعتماد Netlify ضمن إطار خصوصية البيانات بين الاتحاد الأوروبي والولايات المتحدة (<bdi>EU-U.S. Data Privacy Framework</bdi>)، مدعومًا بالبنود التعاقدية القياسية.</li>
+    <li>إذا اشتركت في برنامج التحسين، تتلقى <bdi>Netlify, Inc.</bdi> أيضًا الإشارات وتخزّن المجاميع التراكمية الموضّحة في القسم 4، بموجب اتفاقية معالجة البيانات نفسها وضمانات النقل ذاتها.</li>
+    <li>يتلقى <b>المحامون الموثَّقون</b> القضايا التي ترسلها إليهم، كما هو موضّح في <a href="#connect-ar">التواصل مع محامٍ</a>، ولا يتلقون اسمك وبريدك الإلكتروني إلا إذا شاركتهما.</li>
+    <li>تعالج <b><bdi>Stripe Payments Europe, Ltd.</bdi></b> (دبلن، أيرلندا) مدفوعات الاشتراكات. ولأغراض منع الاحتيال والوفاء بالتزاماتها القانونية الخاصة (مثل قواعد مكافحة غسل الأموال)، تعمل Stripe بصفتها متحكمًا مستقلًا في البيانات وفقًا لسياسة الخصوصية الخاصة بها. ويجوز لـ Stripe نقل البيانات إلى <bdi>Stripe, Inc.</bdi> في الولايات المتحدة بموجب إطار خصوصية البيانات بين الاتحاد الأوروبي والولايات المتحدة والبنود التعاقدية القياسية.</li>
+    <li>تتلقى <b>Google</b> و<b>Cloudflare</b> بيانات الاتصال عندما يحمّل متصفحك الخطوط أو برامج قراءة الملفات، كما هو موضّح في القسم 3. وكلتاهما مشاركتان في إطار خصوصية البيانات بين الاتحاد الأوروبي والولايات المتحدة.</li>
+  </ul>
+  <p>لا نبيع البيانات ولا نؤجّرها لأي أحد.</p>
+
+  <h2>7. لا قرارات آلية بشأنك</h2>
+  <p>يرتّب Casebound المصادر القانونية حسب التشابه النصي لمساعدتك في البحث. ولا يتخذ أي قرار بشأنك يترتب عليه أثر قانوني أو أثر مماثل بالغ الأهمية بالمعنى المقصود في المادة 22 من اللائحة العامة لحماية البيانات. ونتائجه أداة بحث وليست استشارة قانونية.</p>
+
+  <h2>8. حقوقك</h2>
+  <p>يحق لك:</p>
+  <ul>
+    <li>الوصول إلى بياناتك الشخصية؛</li>
+    <li>تصحيحها أو محوها؛</li>
+    <li>تقييد معالجتها؛</li>
+    <li>الحصول عليها بصيغة قابلة للنقل؛</li>
+    <li>الاعتراض على المعالجة القائمة على المصلحة المشروعة؛</li>
+    <li>سحب موافقتك في أي وقت (المواد من 15 إلى 22، والمادة 7، الفقرة 3، من اللائحة العامة لحماية البيانات).</li>
+  </ul>
+  <p>إذا كان لديك حساب، يمكنك الاطلاع على بياناتك وتصحيحها، وتنزيل نسخة منها، وحذف حسابك بنفسك من <a href="/account.html">صفحة الحساب</a>. ولأي أمر آخر، راسلنا على <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>. وسنرد عليك خلال شهر واحد.</p>
+  <p>لا تحمل إشارات التحسين أي معرّف، لذا لا يمكننا عادةً معرفة الإشارات الصادرة منك. وفي هذه الحالة لا يمكننا تمييزها لإتاحة الوصول إليها أو حذفها (المادة 11 من اللائحة العامة لحماية البيانات). ويؤدي إلغاء تحديد الخانة إلى إيقاف جميع الإشارات المستقبلية.</p>
+  <p>ويمكنك أيضًا تقديم شكوى إلى سلطة الإشراف الإيطالية، Garante per la protezione dei dati personali ‏(<bdi>Piazza Venezia 11, 00187 Roma</bdi>، <a href="https://www.garanteprivacy.it">garanteprivacy.it</a>)، أو إلى السلطة المختصة في دولة الاتحاد الأوروبي التي تقيم أو تعمل فيها.</p>
+
+  <h2>9. السن</h2>
+  <p>Casebound مخصّص للبالغين (18 عامًا فأكثر)، مثل طلاب القانون والمهنيين القانونيين.</p>
+
+  <h2>10. التغييرات على هذا الإشعار</h2>
+  <p>إذا غيّرنا طريقة التعامل مع البيانات، فسنحدّث هذه الصفحة وتاريخها. وإذا تغيّر برنامج التحسين بطريقة تستلزم موافقة جديدة، فستُعاد تعيين الخانة وسنطلب موافقتك مرة أخرى.</p>
+</main>
+
 <footer>
   <div>
-    <a href="/">← Back to Casebound</a>
-    <a href="/terms.html">Terms of use</a>
-    <a href="/pricing.html">Plans &amp; subscriptions</a>
-    <a href="mailto:admin@case-bound.com">Contact / complaints: admin@case-bound.com</a>
+    <a href="/" data-t="back">← Back to Casebound</a>
+    <a href="/terms.html" data-t="terms">Terms of use</a>
+    <a href="/pricing.html" data-t="plans">Plans &amp; subscriptions</a>
+    <a href="mailto:admin@case-bound.com"><span data-t="contact">Contact / complaints:</span> <span dir="ltr">admin@case-bound.com</span></a>
     <span>© 2026 Kiyan Martinon</span>
   </div>
 </footer>
 
 <script>
 (function(){
-  var btns = document.querySelectorAll(".lang button");
-  function setLang(l){
-    document.documentElement.lang = l;
-    document.querySelectorAll("[data-lang-block]").forEach(function(b){ b.hidden = b.getAttribute("data-lang-block") !== l; });
-    btns.forEach(function(b){ b.setAttribute("aria-pressed", b.getAttribute("data-lang") === l ? "true" : "false"); });
-    document.title = l === "it" ? "Informativa privacy — Casebound" : "Privacy — Casebound";
+  var I = window.CB_I18N || null;
+  var TITLE = {
+    en: "Privacy — Casebound",
+    it: "Informativa privacy — Casebound",
+    es: "Aviso de privacidad — Casebound",
+    fr: "Politique de confidentialité — Casebound",
+    de: "Datenschutzhinweis — Casebound",
+    pt: "Aviso de privacidade — Casebound",
+    pl: "Informacja o prywatności — Casebound",
+    ar: "إشعار الخصوصية — Casebound"
+  };
+  var DESC = {
+    en: "How Casebound handles your data: what stays in your browser, what reaches us, and your rights under the GDPR.",
+    it: "Come Casebound tratta i tuoi dati: cosa resta nel tuo browser, cosa ci raggiunge e i tuoi diritti ai sensi del GDPR.",
+    es: "Cómo trata Casebound tus datos: lo que se queda en tu navegador, lo que nos llega y tus derechos según el RGPD.",
+    fr: "Comment Casebound traite vos données : ce qui reste dans votre navigateur, ce qui nous parvient et vos droits au titre du RGPD.",
+    de: "Wie Casebound mit deinen Daten umgeht: was in deinem Browser bleibt, was uns erreicht und deine Rechte nach der DSGVO.",
+    pt: "Como o Casebound trata os seus dados: o que fica no seu navegador, o que nos chega e os seus direitos ao abrigo do RGPD.",
+    pl: "Jak Casebound przetwarza Twoje dane: co zostaje w Twojej przeglądarce, co do nas trafia i jakie masz prawa na mocy RODO.",
+    ar: "كيف يتعامل Casebound مع بياناتك: ما يبقى في متصفحك، وما يصل إلينا، وحقوقك بموجب اللائحة العامة لحماية البيانات."
+  };
+  var T = {
+    en: { back: "← Back to Casebound", terms: "Terms of use", plans: "Plans & subscriptions", contact: "Contact / complaints:" },
+    it: { back: "← Torna a Casebound", terms: "Condizioni d'uso", plans: "Piani e abbonamenti", contact: "Contatti / reclami:" },
+    es: { back: "← Volver a Casebound", terms: "Condiciones de uso", plans: "Planes y suscripciones", contact: "Contacto / reclamaciones:" },
+    fr: { back: "← Retour à Casebound", terms: "Conditions d'utilisation", plans: "Offres et abonnements", contact: "Contact / réclamations :" },
+    de: { back: "← Zurück zu Casebound", terms: "Nutzungsbedingungen", plans: "Tarife und Abos", contact: "Kontakt / Beschwerden:" },
+    pt: { back: "← Voltar ao Casebound", terms: "Termos de utilização", plans: "Planos e subscrições", contact: "Contacto / reclamações:" },
+    pl: { back: "← Wróć do Casebound", terms: "Warunki korzystania", plans: "Plany i subskrypcje", contact: "Kontakt / reklamacje:" },
+    ar: { back: "→ العودة إلى Casebound", terms: "شروط الاستخدام", plans: "الخطط والاشتراكات", contact: "التواصل / الشكاوى:" }
+  };
+  var blocks = document.querySelectorAll("[data-lang-block]");
+  var meta = document.querySelector('meta[name="description"]');
+
+  function has(l){ return !!document.querySelector('[data-lang-block="' + l + '"]'); }
+  function cur(){ var l = I ? I.get() : "en"; return has(l) ? l : "en"; }
+  // Section ids: English has the bare id ("payments"), every other language adds "-xx" ("payments-it").
+  function idFor(base, l){ return l === "en" ? base : base + "-" + l; }
+  function parseHash(){
+    var h = decodeURIComponent(location.hash.replace(/^#/, ""));
+    if (!h || has(h)) return null;                      // empty, or a bare legacy "#it" / "#en"
+    var m = h.match(/^(.+)-([a-z]{2})$/);
+    if (m && m[2] !== "en" && has(m[2])) return { base: m[1], lang: m[2] };
+    return { base: h, lang: null };
   }
-  btns.forEach(function(b){ b.addEventListener("click", function(){ setLang(b.getAttribute("data-lang")); }); });
-  var h = location.hash.replace(/^#/, "");
-  var itBrowser = /^it\b/i.test(navigator.language || "");
-  var want = (h === "it" || /-it$/.test(h)) ? "it" : (h === "en" ? "en" : (itBrowser ? "it" : "en"));
-  setLang(want);
-  if (h && h !== "it" && h !== "en") {
-    var base = h.replace(/-it$/, "");
-    var el = document.getElementById(want === "it" ? base + "-it" : base);
+  function render(l){
+    blocks.forEach(function(b){ b.hidden = b.getAttribute("data-lang-block") !== l; });
+    document.title = TITLE[l] || TITLE.en;
+    if (meta) meta.setAttribute("content", DESC[l] || DESC.en);
+    var d = T[l] || T.en;
+    document.querySelectorAll("footer [data-t]").forEach(function(el){
+      var k = el.getAttribute("data-t");
+      if (d[k] != null) el.textContent = d[k];
+    });
+  }
+  function scrollToSection(base, l){
+    var el = document.getElementById(idFor(base, l));
     if (el) setTimeout(function(){ el.scrollIntoView(); }, 0);
   }
+  // A deep link such as #payments-it picks that language; #payments uses the current one.
+  function followHash(){
+    var p = parseHash();
+    if (!p) return;
+    if (p.lang && I && I.get() !== p.lang) I.set(p.lang);
+    var l = cur();
+    if (p.lang && p.lang !== l) { render(p.lang); l = p.lang; }   // no CB_I18N: still honour the link
+    scrollToSection(p.base, l);
+  }
+
+  render(cur());
+  if (I) I.onChange(function(){
+    var l = cur();
+    render(l);
+    // keep a section link pointing at the same section in the new language
+    var p = parseHash();
+    if (p && document.getElementById(idFor(p.base, l))) {
+      try { history.replaceState(history.state, "", location.pathname + location.search + "#" + idFor(p.base, l)); } catch (e) {}
+    }
+  });
+  followHash();
+  window.addEventListener("hashchange", followHash);
 })();
 </script>
 </body>
