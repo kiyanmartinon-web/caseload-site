@@ -3,9 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/i18n.js"></script>
 <script src="/theme.js"></script>
 <title>Your account — Casebound</title>
-<meta name="description" content="Your Casebound account and subscription.">
+<meta name="description" id="meta-desc" content="Your Casebound account and subscription.">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#6E1F2A">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%236E1F2A'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='36' font-weight='700' text-anchor='middle' fill='%23fff'%3EC%3C/text%3E%3C/svg%3E">
@@ -31,9 +32,6 @@ a:hover{color:var(--oxblood)}
 .masthead-in{max-width:820px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:16px;height:56px}
 .wordmark{font-family:var(--serif);font-size:21px;font-weight:600;letter-spacing:-.01em;line-height:1;text-decoration:none;color:var(--ink)}
 .wordmark span{color:var(--oxblood)}
-.lang{margin-left:auto;display:flex;gap:2px;background:var(--paper);border:1px solid var(--rule);border-radius:5px;padding:2px}
-.lang button{font-family:var(--sans);font-size:12.5px;font-weight:600;border:none;background:none;color:var(--ink-soft);padding:6px 12px;border-radius:3px;cursor:pointer}
-.lang button[aria-pressed="true"]{background:var(--ink);color:#fff}
 main{max-width:820px;margin:0 auto;padding:34px 20px 70px}
 .kicker{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--oxblood);margin:0 0 6px}
 h1{font-size:34px;line-height:1.15;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
@@ -41,13 +39,13 @@ h1{font-size:34px;line-height:1.15;font-weight:600;margin:0 0 6px;letter-spacing
 h2{font-size:21px;font-weight:600;margin:38px 0 10px;padding-top:18px;border-top:1px solid var(--rule-soft)}
 h3{font-family:var(--sans);font-size:14px;font-weight:700;margin:22px 0 6px}
 p,li{margin:0 0 12px}
-ul{padding-left:22px;margin:0 0 14px}
-.summary{background:var(--paper-2);border:1px solid var(--rule);border-left:4px solid var(--verdigris);border-radius:6px;padding:18px 20px;margin:0 0 10px}
+ul{padding-inline-start:22px;margin:0 0 14px}
+.summary{background:var(--paper-2);border:1px solid var(--rule);border-inline-start:4px solid var(--verdigris);border-radius:6px;padding:18px 20px;margin:0 0 10px}
 .summary h2{border:none;padding:0;margin:0 0 10px;font-size:18px}
 .summary ul{margin:0}
 .summary li{margin-bottom:8px}
 table{width:100%;border-collapse:collapse;font-size:14.5px;margin:6px 0 16px;background:var(--paper-2)}
-th,td{text-align:left;vertical-align:top;border:1px solid var(--rule);padding:9px 11px}
+th,td{text-align:start;vertical-align:top;border:1px solid var(--rule);padding:9px 11px}
 th{font-family:var(--sans);font-size:12px;font-weight:700;background:var(--paper);color:var(--ink-soft)}
 .tbl-wrap{overflow-x:auto}
 mark.ph{background:var(--amber-wash);color:var(--amber);font-family:var(--sans);font-size:.88em;font-weight:600;padding:1px 5px;border-radius:3px}
@@ -56,7 +54,7 @@ footer{border-top:1px solid var(--rule);background:var(--paper-2);font-family:va
 footer div{max-width:820px;margin:0 auto;padding:18px 20px;display:flex;gap:16px;flex-wrap:wrap}
 
 .card{background:var(--paper-2);border:1px solid var(--rule);border-radius:6px;padding:22px 22px;margin:0 0 18px}
-.card.ok{border-left:4px solid var(--verdigris)}
+.card.ok{border-inline-start:4px solid var(--verdigris)}
 .card h2{border:none;padding:0;margin:0 0 10px;font-size:20px}
 .card p{margin:0 0 10px}
 dl{display:grid;grid-template-columns:max-content 1fr;gap:6px 18px;margin:0;font-size:15.5px}
@@ -123,10 +121,6 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
 <header class="masthead">
   <div class="masthead-in">
     <a class="wordmark" href="/">Case<span>bound</span></a>
-    <div class="lang" role="group" aria-label="Language">
-      <button type="button" data-lang="en" aria-pressed="true">English</button>
-      <button type="button" data-lang="it" aria-pressed="false">Italiano</button>
-    </div>
   </div>
 </header>
 
@@ -174,7 +168,7 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
     <form class="form" id="profile-form" hidden>
       <label><span data-t="nameL">Name</span><input type="text" id="f-name" maxlength="100" autocomplete="name"></label>
       <label><span data-t="langL">Email language</span>
-        <select id="f-lang"><option value="en">English</option><option value="it">Italiano</option></select></label>
+        <select id="f-lang"></select></label>
       <div class="actions"><button type="submit" class="btn" data-t="save">Save changes</button><button type="button" class="btn ghost" id="cancel-profile" data-t="cancel">Cancel</button></div>
     </form>
   </section>
@@ -202,8 +196,8 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
 
   <!-- Admin: verify lawyers (ADMIN_EMAILS only) -->
   <section id="admin" class="card" hidden>
-    <h2>Lawyers to verify</h2>
-    <p class="note">Check each name and register number on the official register of lawyers before verifying. Only verified lawyers can see cases.</p>
+    <h2 id="ad-h">Lawyers to verify</h2>
+    <p class="note" id="ad-p">Check each name and register number on the official register of lawyers before verifying. Only verified lawyers can see cases.</p>
     <div id="ad-list"></div>
   </section>
 
@@ -238,7 +232,7 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
   <section id="prefs" class="card" hidden>
     <h2 data-t="prefH">Appearance</h2>
     <p class="note" data-t="prefP">Choose how Casebound looks on this device. Also available any time from Settings in the top bar.</p>
-    <div class="seg" role="radiogroup" aria-label="Appearance">
+    <div class="seg" role="radiogroup" aria-label="Appearance" id="theme-seg">
       <button type="button" role="radio" data-theme-pick="light" data-t="light">Light</button>
       <button type="button" role="radio" data-theme-pick="dark" data-t="dark">Dark</button>
       <button type="button" role="radio" data-theme-pick="system" data-t="system">Auto</button>
@@ -249,7 +243,7 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
     <h2 data-t="subH">Subscription</h2>
     <dl id="sub-dl"></dl>
     <p id="sub-none" data-t="subNone" hidden>You don't have a subscription yet.</p>
-    <p id="admin-pro" hidden><span class="pill">Full access</span> <span id="admin-pro-t">Admin account: every Pro feature is included, with no subscription needed.</span></p>
+    <p id="admin-pro" hidden><span class="pill" data-t="fullAccess">Full access</span> <span id="admin-pro-t" data-t="adminPro">Admin account: every Pro feature is included, with no subscription needed.</span></p>
     <div class="actions">
       <button type="button" class="btn" id="portal" hidden data-t="manageBtn">Manage subscription</button>
       <a class="btn" id="see-plans" href="/pricing.html" hidden data-t="plans">See plans</a>
@@ -290,7 +284,7 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
     <a href="/pricing.html" data-t="plansL">Plans</a>
     <a href="/terms.html" data-t="terms">Terms of use</a>
     <a href="/privacy.html" data-t="privacy">Privacy notice</a>
-    <a href="mailto:admin@case-bound.com">Contact / complaints: admin@case-bound.com</a>
+    <a href="mailto:admin@case-bound.com"><span data-t="contact">Contact / complaints</span>: admin@case-bound.com</a>
     <span>© 2026 Kiyan Martinon</span>
   </div>
 </footer>
@@ -299,7 +293,7 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
 (function(){
   var T = {
     en: {
-      docTitle:"Your account — Casebound", kicker:"Your account", title:"Your account", loading:"Loading…",
+      docTitle:"Your account — Casebound", metaDesc:"Your Casebound account and subscription.", kicker:"Your account", title:"Your account", loading:"Loading…",
       hello:function(n){ return n ? "Signed in as " + n + "." : ""; },
       thanks:"Thank you — you're subscribed.", receipt:"A receipt is on its way to your email.",
       pendingH:"Payment still processing",
@@ -308,11 +302,12 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
       signin:"Sign in", register:"Create account", legacy:"Subscribed without an account?", legacyLink:"Manage it through Stripe",
       profileH:"Profile", nameL:"Name", emailL:"Email", sinceL:"Member since",
       subH:"Subscription", subNone:"You don't have a subscription yet.", manageBtn:"Manage subscription", plans:"See plans", rcBtn:"Open the risk check", rcL:"Risk check (Pro)",
+      fullAccess:"Full access", adminPro:"Admin account: every Pro feature is included, with no subscription needed.",
       portalNote:"Change your card, switch plan, download invoices or cancel in Stripe's secure billing portal.",
       sessionH:"Session", open:"Open Casebound", logout:"Sign out",
       delSummary:"Delete my account", delP:"This permanently deletes your account. Billing records Stripe must keep by law are not affected. Cancel any subscription first.",
       delBtn:"Delete account permanently", delPw:"Enter your password to confirm.",
-      back:"← Back to Casebound", plansL:"Plans", terms:"Terms of use", privacy:"Privacy notice",
+      back:"← Back to Casebound", plansL:"Plans", terms:"Terms of use", privacy:"Privacy notice", contact:"Contact / complaints",
       planL:"Plan", statusL:"Status", priceL:"Price", renewL:"Renews on", endsL:"Ends on", trialL:"Trial ends",
       st:{active:"Active",trialing:"Free trial",past_due:"Payment overdue",unpaid:"Unpaid",incomplete:"Incomplete",unknown:"Unavailable right now"},
       per:{day:"day",week:"week",month:"month",year:"year"},
@@ -324,7 +319,6 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
       },
       verifyErr:"We couldn't confirm this checkout. If you were charged, you'll receive a Stripe receipt by email — or write to admin@case-bound.com.",
       edit:"Edit", save:"Save changes", cancel:"Cancel", change:"Change", langL:"Email language", lastL:"Last sign-in",
-      langName:{en:"English",it:"Italiano"},
       secH:"Sign-in & security", emailT:"Email address", newEmail:"New email", curPw:"Current password", updEmail:"Update email",
       pwT:"Password", newPw:"New password (at least 10 characters)", newPw2:"Repeat new password", updPw:"Update password",
       pwNote:"Changing your password signs you out on every other device.",
@@ -337,10 +331,10 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
       delOpen:"Delete account", delConfirm:"Delete your Casebound account permanently? This cannot be undone.",
       savedProfile:"Profile saved.", savedEmail:"Email updated. Use the new address next time you sign in.", savedPw:"Password updated. Other devices have been signed out.",
       pwMismatch:"The two new passwords don't match.", exported:"Your data has been downloaded.",
-      portalErr:"The billing portal could not be opened."
+      portalErr:"The billing portal could not be opened.", generic:"Something went wrong. Please try again."
     },
     it: {
-      docTitle:"Il tuo account — Casebound", kicker:"Il tuo account", title:"Il tuo account", loading:"Caricamento…",
+      docTitle:"Il tuo account — Casebound", metaDesc:"Il tuo account Casebound e il tuo abbonamento.", kicker:"Il tuo account", title:"Il tuo account", loading:"Caricamento…",
       hello:function(n){ return n ? "Accesso effettuato come " + n + "." : ""; },
       thanks:"Grazie — l'abbonamento è attivo.", receipt:"Riceverai una ricevuta via email.",
       pendingH:"Pagamento in elaborazione",
@@ -349,11 +343,12 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
       signin:"Accedi", register:"Crea un account", legacy:"Ti sei abbonato senza account?", legacyLink:"Gestiscilo tramite Stripe",
       profileH:"Profilo", nameL:"Nome", emailL:"Email", sinceL:"Iscritto dal",
       subH:"Abbonamento", subNone:"Non hai ancora un abbonamento.", manageBtn:"Gestisci abbonamento", plans:"Vedi i piani", rcBtn:"Apri la verifica del rischio", rcL:"Verifica del rischio (Pro)",
+      fullAccess:"Accesso completo", adminPro:"Account amministratore: tutte le funzioni Pro sono incluse, senza bisogno di abbonamento.",
       portalNote:"Cambia carta, passa a un altro piano, scarica le fatture o disdici nel portale sicuro di Stripe.",
       sessionH:"Sessione", open:"Apri Casebound", logout:"Esci",
       delSummary:"Elimina il mio account", delP:"L'account verrà eliminato definitivamente. I dati di fatturazione che Stripe deve conservare per legge non sono interessati. Disdici prima eventuali abbonamenti.",
       delBtn:"Elimina definitivamente l'account", delPw:"Inserisci la password per confermare.",
-      back:"← Torna a Casebound", plansL:"Piani", terms:"Condizioni d'uso", privacy:"Informativa privacy",
+      back:"← Torna a Casebound", plansL:"Piani", terms:"Condizioni d'uso", privacy:"Informativa privacy", contact:"Contatti / reclami",
       planL:"Piano", statusL:"Stato", priceL:"Prezzo", renewL:"Si rinnova il", endsL:"Termina il", trialL:"Fine prova",
       st:{active:"Attivo",trialing:"Prova gratuita",past_due:"Pagamento scaduto",unpaid:"Non pagato",incomplete:"Incompleto",unknown:"Non disponibile al momento"},
       per:{day:"giorno",week:"settimana",month:"mese",year:"anno"},
@@ -365,7 +360,6 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
       },
       verifyErr:"Non siamo riusciti a confermare il pagamento. Se ti è stato addebitato, riceverai una ricevuta di Stripe via email — oppure scrivi a admin@case-bound.com.",
       edit:"Modifica", save:"Salva modifiche", cancel:"Annulla", change:"Cambia", langL:"Lingua delle email", lastL:"Ultimo accesso",
-      langName:{en:"English",it:"Italiano"},
       secH:"Accesso e sicurezza", emailT:"Indirizzo email", newEmail:"Nuova email", curPw:"Password attuale", updEmail:"Aggiorna email",
       pwT:"Password", newPw:"Nuova password (almeno 10 caratteri)", newPw2:"Ripeti la nuova password", updPw:"Aggiorna password",
       pwNote:"Cambiando la password esci da tutti gli altri dispositivi.",
@@ -378,45 +372,315 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
       delOpen:"Elimina account", delConfirm:"Eliminare definitivamente il tuo account Casebound? L'operazione non è reversibile.",
       savedProfile:"Profilo salvato.", savedEmail:"Email aggiornata. Usa il nuovo indirizzo al prossimo accesso.", savedPw:"Password aggiornata. Gli altri dispositivi sono stati disconnessi.",
       pwMismatch:"Le due nuove password non coincidono.", exported:"I tuoi dati sono stati scaricati.",
-      portalErr:"Impossibile aprire il portale di fatturazione."
+      portalErr:"Impossibile aprire il portale di fatturazione.", generic:"Qualcosa è andato storto. Riprova."
+    },
+    es: {
+      docTitle:"Tu cuenta — Casebound", metaDesc:"Tu cuenta y tu suscripción de Casebound.", kicker:"Tu cuenta", title:"Tu cuenta", loading:"Cargando…",
+      hello:function(n){ return n ? "Has iniciado sesión como " + n + "." : ""; },
+      thanks:"Gracias: tu suscripción ya está activa.", receipt:"Recibirás un recibo por correo electrónico.",
+      pendingH:"Pago en proceso",
+      pendingP:"Tu pago aún no se ha confirmado (algunos métodos, como el adeudo bancario, tardan unos días). Stripe te enviará un correo en cuanto se complete.",
+      outH:"Inicia sesión para ver tu cuenta", outP:"Crea una cuenta gratuita para suscribirte a un plan y gestionarlo desde un solo lugar.",
+      signin:"Iniciar sesión", register:"Crear cuenta", legacy:"¿Te suscribiste sin cuenta?", legacyLink:"Gestiónala a través de Stripe",
+      profileH:"Perfil", nameL:"Nombre", emailL:"Correo electrónico", sinceL:"Miembro desde",
+      subH:"Suscripción", subNone:"Todavía no tienes ninguna suscripción.", manageBtn:"Gestionar suscripción", plans:"Ver planes", rcBtn:"Abrir la evaluación de riesgo", rcL:"Evaluación de riesgo (Pro)",
+      fullAccess:"Acceso completo", adminPro:"Cuenta de administrador: incluye todas las funciones Pro, sin necesidad de suscripción.",
+      portalNote:"Cambia de tarjeta o de plan, descarga facturas o cancela en el portal de facturación seguro de Stripe.",
+      sessionH:"Sesión", open:"Abrir Casebound", logout:"Cerrar sesión",
+      delSummary:"Eliminar mi cuenta", delP:"Tu cuenta se eliminará de forma permanente. Los registros de facturación que Stripe debe conservar por ley no se ven afectados. Cancela antes cualquier suscripción.",
+      delBtn:"Eliminar la cuenta definitivamente", delPw:"Introduce tu contraseña para confirmar.",
+      back:"← Volver a Casebound", plansL:"Planes", terms:"Condiciones de uso", privacy:"Aviso de privacidad", contact:"Contacto / reclamaciones",
+      planL:"Plan", statusL:"Estado", priceL:"Precio", renewL:"Se renueva el", endsL:"Finaliza el", trialL:"Fin de la prueba",
+      st:{active:"Activa",trialing:"Prueba gratuita",past_due:"Pago vencido",unpaid:"Impagada",incomplete:"Incompleta",unknown:"No disponible en este momento"},
+      per:{day:"día",week:"semana",month:"mes",year:"año"},
+      summary:function(plan, email, trialEnd){
+        var s = plan ? "Plan: " + plan + "." : "";
+        if (email) s += " Correo de facturación: " + email + ".";
+        if (trialEnd) s += " Tu prueba gratuita dura hasta el " + trialEnd + "; no se te cobrará nada antes de esa fecha.";
+        return s.trim();
+      },
+      verifyErr:"No hemos podido confirmar este pago. Si se te ha cobrado, recibirás un recibo de Stripe por correo electrónico; si no, escribe a admin@case-bound.com.",
+      edit:"Editar", save:"Guardar cambios", cancel:"Cancelar", change:"Cambiar", langL:"Idioma de los correos", lastL:"Último inicio de sesión",
+      secH:"Inicio de sesión y seguridad", emailT:"Dirección de correo electrónico", newEmail:"Nuevo correo electrónico", curPw:"Contraseña actual", updEmail:"Actualizar correo",
+      pwT:"Contraseña", newPw:"Nueva contraseña (al menos 10 caracteres)", newPw2:"Repite la nueva contraseña", updPw:"Actualizar contraseña",
+      pwNote:"Al cambiar la contraseña, se cerrará tu sesión en todos los demás dispositivos.",
+      pwSet:function(d){ return d ? "Último cambio: " + d + "." : "Establecida al crear tu cuenta."; },
+      devT:"Dispositivos con sesión iniciada", devD:"¿Has perdido el móvil o has usado un ordenador compartido? Cierra la sesión en todas partes, también aquí.", devBtn:"Cerrar sesión en todas partes",
+      devConfirm:"¿Cerrar la sesión en todos los dispositivos, incluido este?",
+      prefH:"Apariencia", prefP:"Elige cómo se ve Casebound en este dispositivo. También puedes cambiarlo en cualquier momento desde Ajustes, en la barra superior.",
+      light:"Claro", dark:"Oscuro", system:"Auto",
+      dataH:"Tus datos", expT:"Descarga tus datos", expD:"Una copia de los datos de tu cuenta, del estado de tu suscripción y de los casos guardados en este navegador, en un archivo JSON.", expBtn:"Descargar",
+      delOpen:"Eliminar cuenta", delConfirm:"¿Eliminar tu cuenta de Casebound de forma permanente? No se puede deshacer.",
+      savedProfile:"Perfil guardado.", savedEmail:"Correo actualizado. Usa la nueva dirección la próxima vez que inicies sesión.", savedPw:"Contraseña actualizada. Se ha cerrado la sesión en los demás dispositivos.",
+      pwMismatch:"Las dos contraseñas nuevas no coinciden.", exported:"Tus datos se han descargado.",
+      portalErr:"No se ha podido abrir el portal de facturación.", generic:"Algo ha salido mal. Inténtalo de nuevo."
+    },
+    fr: {
+      docTitle:"Votre compte — Casebound", metaDesc:"Votre compte et votre abonnement Casebound.", kicker:"Votre compte", title:"Votre compte", loading:"Chargement…",
+      hello:function(n){ return n ? "Connecté en tant que " + n + "." : ""; },
+      thanks:"Merci — votre abonnement est actif.", receipt:"Un reçu vous sera envoyé par e-mail.",
+      pendingH:"Paiement en cours de traitement",
+      pendingP:"Votre paiement n'est pas encore confirmé (certains moyens, comme le prélèvement bancaire, prennent quelques jours). Stripe vous enverra un e-mail dès qu'il aura abouti.",
+      outH:"Connectez-vous pour voir votre compte", outP:"Créez un compte gratuit pour souscrire une offre et la gérer depuis un seul endroit.",
+      signin:"Se connecter", register:"Créer un compte", legacy:"Abonné sans compte ?", legacyLink:"Gérez votre abonnement via Stripe",
+      profileH:"Profil", nameL:"Nom", emailL:"E-mail", sinceL:"Membre depuis le",
+      subH:"Abonnement", subNone:"Vous n'avez pas encore d'abonnement.", manageBtn:"Gérer l'abonnement", plans:"Voir les offres", rcBtn:"Ouvrir l'évaluation du risque", rcL:"Évaluation du risque (Pro)",
+      fullAccess:"Accès complet", adminPro:"Compte administrateur : toutes les fonctionnalités Pro sont incluses, sans abonnement.",
+      portalNote:"Changez de carte ou d'offre, téléchargez vos factures ou résiliez depuis le portail de facturation sécurisé de Stripe.",
+      sessionH:"Session", open:"Ouvrir Casebound", logout:"Se déconnecter",
+      delSummary:"Supprimer mon compte", delP:"Votre compte sera supprimé définitivement. Les données de facturation que Stripe doit conserver en vertu de la loi ne sont pas concernées. Résiliez d'abord tout abonnement.",
+      delBtn:"Supprimer définitivement le compte", delPw:"Saisissez votre mot de passe pour confirmer.",
+      back:"← Retour à Casebound", plansL:"Offres", terms:"Conditions d'utilisation", privacy:"Politique de confidentialité", contact:"Contact / réclamations",
+      planL:"Offre", statusL:"Statut", priceL:"Prix", renewL:"Renouvellement le", endsL:"Prend fin le", trialL:"Fin de l'essai",
+      st:{active:"Actif",trialing:"Essai gratuit",past_due:"Paiement en retard",unpaid:"Impayé",incomplete:"Incomplet",unknown:"Indisponible pour le moment"},
+      per:{day:"jour",week:"semaine",month:"mois",year:"an"},
+      summary:function(plan, email, trialEnd){
+        var s = plan ? "Offre : " + plan + "." : "";
+        if (email) s += " E-mail de facturation : " + email + ".";
+        if (trialEnd) s += " Votre essai gratuit dure jusqu'au " + trialEnd + " ; aucun prélèvement n'aura lieu avant cette date.";
+        return s.trim();
+      },
+      verifyErr:"Nous n'avons pas pu confirmer ce paiement. Si vous avez été débité, vous recevrez un reçu Stripe par e-mail — sinon, écrivez à admin@case-bound.com.",
+      edit:"Modifier", save:"Enregistrer", cancel:"Annuler", change:"Modifier", langL:"Langue des e-mails", lastL:"Dernière connexion",
+      secH:"Connexion et sécurité", emailT:"Adresse e-mail", newEmail:"Nouvelle adresse e-mail", curPw:"Mot de passe actuel", updEmail:"Mettre à jour l'e-mail",
+      pwT:"Mot de passe", newPw:"Nouveau mot de passe (au moins 10 caractères)", newPw2:"Confirmez le nouveau mot de passe", updPw:"Mettre à jour le mot de passe",
+      pwNote:"Changer votre mot de passe vous déconnecte de tous vos autres appareils.",
+      pwSet:function(d){ return d ? "Dernière modification le " + d + "." : "Défini lors de la création de votre compte."; },
+      devT:"Appareils connectés", devD:"Téléphone perdu ou ordinateur partagé ? Déconnectez-vous partout, y compris ici.", devBtn:"Se déconnecter partout",
+      devConfirm:"Se déconnecter de tous les appareils, y compris celui-ci ?",
+      prefH:"Apparence", prefP:"Choisissez l'apparence de Casebound sur cet appareil. Également accessible à tout moment depuis Paramètres, dans la barre du haut.",
+      light:"Clair", dark:"Sombre", system:"Auto",
+      dataH:"Vos données", expT:"Télécharger vos données", expD:"Une copie des informations de votre compte, de l'état de votre abonnement et des dossiers enregistrés dans ce navigateur, au format JSON.", expBtn:"Télécharger",
+      delOpen:"Supprimer le compte", delConfirm:"Supprimer définitivement votre compte Casebound ? Cette action est irréversible.",
+      savedProfile:"Profil enregistré.", savedEmail:"E-mail mis à jour. Utilisez la nouvelle adresse lors de votre prochaine connexion.", savedPw:"Mot de passe mis à jour. Vos autres appareils ont été déconnectés.",
+      pwMismatch:"Les deux nouveaux mots de passe ne correspondent pas.", exported:"Vos données ont été téléchargées.",
+      portalErr:"Impossible d'ouvrir le portail de facturation.", generic:"Une erreur s'est produite. Veuillez réessayer."
+    },
+    de: {
+      docTitle:"Dein Konto — Casebound", metaDesc:"Dein Casebound-Konto und dein Abo.", kicker:"Dein Konto", title:"Dein Konto", loading:"Wird geladen…",
+      hello:function(n){ return n ? "Angemeldet als " + n + "." : ""; },
+      thanks:"Danke — dein Abo ist aktiv.", receipt:"Eine Quittung ist per E-Mail unterwegs.",
+      pendingH:"Zahlung wird noch verarbeitet",
+      pendingP:"Deine Zahlung ist noch nicht bestätigt (manche Zahlungsarten, etwa Lastschriften, dauern ein paar Tage). Stripe schickt dir eine E-Mail, sobald sie durch ist.",
+      outH:"Melde dich an, um dein Konto zu sehen", outP:"Erstelle ein kostenloses Konto, um einen Tarif zu abonnieren und ihn an einem Ort zu verwalten.",
+      signin:"Anmelden", register:"Konto erstellen", legacy:"Ohne Konto abonniert?", legacyLink:"Über Stripe verwalten",
+      profileH:"Profil", nameL:"Name", emailL:"E-Mail", sinceL:"Mitglied seit",
+      subH:"Abo", subNone:"Du hast noch kein Abo.", manageBtn:"Abo verwalten", plans:"Tarife ansehen", rcBtn:"Risikocheck öffnen", rcL:"Risikocheck (Pro)",
+      fullAccess:"Voller Zugriff", adminPro:"Admin-Konto: Alle Pro-Funktionen sind enthalten, ganz ohne Abo.",
+      portalNote:"Karte ändern, Tarif wechseln, Rechnungen herunterladen oder kündigen – im sicheren Abrechnungsportal von Stripe.",
+      sessionH:"Sitzung", open:"Casebound öffnen", logout:"Abmelden",
+      delSummary:"Mein Konto löschen", delP:"Dein Konto wird endgültig gelöscht. Abrechnungsdaten, die Stripe gesetzlich aufbewahren muss, sind davon nicht betroffen. Kündige vorher ein laufendes Abo.",
+      delBtn:"Konto endgültig löschen", delPw:"Gib zur Bestätigung dein Passwort ein.",
+      back:"← Zurück zu Casebound", plansL:"Tarife", terms:"Nutzungsbedingungen", privacy:"Datenschutzhinweis", contact:"Kontakt / Beschwerden",
+      planL:"Tarif", statusL:"Status", priceL:"Preis", renewL:"Verlängert sich am", endsL:"Endet am", trialL:"Testphase endet",
+      st:{active:"Aktiv",trialing:"Kostenlose Testphase",past_due:"Zahlung überfällig",unpaid:"Unbezahlt",incomplete:"Unvollständig",unknown:"Derzeit nicht verfügbar"},
+      per:{day:"Tag",week:"Woche",month:"Monat",year:"Jahr"},
+      summary:function(plan, email, trialEnd){
+        var s = plan ? "Tarif: " + plan + "." : "";
+        if (email) s += " Rechnungs-E-Mail: " + email + ".";
+        if (trialEnd) s += " Deine kostenlose Testphase läuft bis " + trialEnd + "; vorher wird nichts abgebucht.";
+        return s.trim();
+      },
+      verifyErr:"Wir konnten diesen Bezahlvorgang nicht bestätigen. Falls dir etwas berechnet wurde, bekommst du eine Quittung von Stripe per E-Mail – oder schreib an admin@case-bound.com.",
+      edit:"Bearbeiten", save:"Änderungen speichern", cancel:"Abbrechen", change:"Ändern", langL:"Sprache der E-Mails", lastL:"Letzte Anmeldung",
+      secH:"Anmeldung & Sicherheit", emailT:"E-Mail-Adresse", newEmail:"Neue E-Mail-Adresse", curPw:"Aktuelles Passwort", updEmail:"E-Mail aktualisieren",
+      pwT:"Passwort", newPw:"Neues Passwort (mindestens 10 Zeichen)", newPw2:"Neues Passwort wiederholen", updPw:"Passwort aktualisieren",
+      pwNote:"Wenn du dein Passwort änderst, wirst du auf allen anderen Geräten abgemeldet.",
+      pwSet:function(d){ return d ? "Zuletzt geändert am " + d + "." : "Festgelegt, als du dein Konto erstellt hast."; },
+      devT:"Angemeldete Geräte", devD:"Handy verloren oder einen fremden Computer benutzt? Melde dich überall ab, auch hier.", devBtn:"Überall abmelden",
+      devConfirm:"Auf allen Geräten abmelden, auch auf diesem?",
+      prefH:"Darstellung", prefP:"Wähle, wie Casebound auf diesem Gerät aussieht. Jederzeit auch über die Einstellungen in der oberen Leiste.",
+      light:"Hell", dark:"Dunkel", system:"Auto",
+      dataH:"Deine Daten", expT:"Deine Daten herunterladen", expD:"Eine Kopie deiner Kontodaten, deines Abo-Status und der in diesem Browser gespeicherten Fälle als JSON-Datei.", expBtn:"Herunterladen",
+      delOpen:"Konto löschen", delConfirm:"Dein Casebound-Konto endgültig löschen? Das kann nicht rückgängig gemacht werden.",
+      savedProfile:"Profil gespeichert.", savedEmail:"E-Mail aktualisiert. Verwende bei der nächsten Anmeldung die neue Adresse.", savedPw:"Passwort aktualisiert. Andere Geräte wurden abgemeldet.",
+      pwMismatch:"Die beiden neuen Passwörter stimmen nicht überein.", exported:"Deine Daten wurden heruntergeladen.",
+      portalErr:"Das Abrechnungsportal konnte nicht geöffnet werden.", generic:"Etwas ist schiefgelaufen. Bitte versuch es noch einmal."
+    },
+    pt: {
+      docTitle:"A sua conta — Casebound", metaDesc:"A sua conta e a sua subscrição Casebound.", kicker:"A sua conta", title:"A sua conta", loading:"A carregar…",
+      hello:function(n){ return n ? "Sessão iniciada como " + n + "." : ""; },
+      thanks:"Obrigado — a sua subscrição está ativa.", receipt:"Vai receber um recibo por e-mail.",
+      pendingH:"Pagamento ainda em processamento",
+      pendingP:"O seu pagamento ainda não foi confirmado (alguns métodos, como o débito direto, demoram alguns dias). A Stripe envia-lhe um e-mail assim que for concluído.",
+      outH:"Inicie sessão para ver a sua conta", outP:"Crie uma conta gratuita para subscrever um plano e geri-lo num só lugar.",
+      signin:"Iniciar sessão", register:"Criar conta", legacy:"Subscreveu sem conta?", legacyLink:"Faça a gestão através da Stripe",
+      profileH:"Perfil", nameL:"Nome", emailL:"E-mail", sinceL:"Membro desde",
+      subH:"Subscrição", subNone:"Ainda não tem uma subscrição.", manageBtn:"Gerir subscrição", plans:"Ver planos", rcBtn:"Abrir a avaliação de risco", rcL:"Avaliação de risco (Pro)",
+      fullAccess:"Acesso total", adminPro:"Conta de administrador: todas as funcionalidades Pro estão incluídas, sem necessidade de subscrição.",
+      portalNote:"Altere o cartão, mude de plano, transfira faturas ou cancele no portal de faturação seguro da Stripe.",
+      sessionH:"Sessão", open:"Abrir o Casebound", logout:"Terminar sessão",
+      delSummary:"Eliminar a minha conta", delP:"A sua conta será eliminada definitivamente. Os registos de faturação que a Stripe tem de conservar por lei não são afetados. Cancele primeiro qualquer subscrição.",
+      delBtn:"Eliminar a conta definitivamente", delPw:"Introduza a sua palavra-passe para confirmar.",
+      back:"← Voltar ao Casebound", plansL:"Planos", terms:"Termos de utilização", privacy:"Aviso de privacidade", contact:"Contacto / reclamações",
+      planL:"Plano", statusL:"Estado", priceL:"Preço", renewL:"Renova a", endsL:"Termina a", trialL:"Fim do período experimental",
+      st:{active:"Ativa",trialing:"Período experimental gratuito",past_due:"Pagamento em atraso",unpaid:"Não paga",incomplete:"Incompleta",unknown:"Indisponível de momento"},
+      per:{day:"dia",week:"semana",month:"mês",year:"ano"},
+      summary:function(plan, email, trialEnd){
+        var s = plan ? "Plano: " + plan + "." : "";
+        if (email) s += " E-mail de faturação: " + email + ".";
+        if (trialEnd) s += " O seu período experimental gratuito dura até " + trialEnd + "; não será cobrado antes dessa data.";
+        return s.trim();
+      },
+      verifyErr:"Não foi possível confirmar este pagamento. Se lhe foi cobrado, vai receber um recibo da Stripe por e-mail — ou escreva para admin@case-bound.com.",
+      edit:"Editar", save:"Guardar alterações", cancel:"Cancelar", change:"Alterar", langL:"Idioma dos e-mails", lastL:"Último início de sessão",
+      secH:"Início de sessão e segurança", emailT:"Endereço de e-mail", newEmail:"Novo e-mail", curPw:"Palavra-passe atual", updEmail:"Atualizar e-mail",
+      pwT:"Palavra-passe", newPw:"Nova palavra-passe (pelo menos 10 caracteres)", newPw2:"Repita a nova palavra-passe", updPw:"Atualizar palavra-passe",
+      pwNote:"Ao alterar a palavra-passe, a sessão é terminada em todos os outros dispositivos.",
+      pwSet:function(d){ return d ? "Última alteração a " + d + "." : "Definida quando criou a sua conta."; },
+      devT:"Dispositivos com sessão iniciada", devD:"Perdeu o telemóvel ou usou um computador partilhado? Termine a sessão em todo o lado, incluindo aqui.", devBtn:"Terminar sessão em todo o lado",
+      devConfirm:"Terminar a sessão em todos os dispositivos, incluindo este?",
+      prefH:"Aparência", prefP:"Escolha o aspeto do Casebound neste dispositivo. Também disponível a qualquer momento em Definições, na barra superior.",
+      light:"Claro", dark:"Escuro", system:"Auto",
+      dataH:"Os seus dados", expT:"Transferir os seus dados", expD:"Uma cópia dos dados da sua conta, do estado da subscrição e dos casos guardados neste navegador, num ficheiro JSON.", expBtn:"Transferir",
+      delOpen:"Eliminar conta", delConfirm:"Eliminar definitivamente a sua conta Casebound? Esta ação não pode ser desfeita.",
+      savedProfile:"Perfil guardado.", savedEmail:"E-mail atualizado. Use o novo endereço da próxima vez que iniciar sessão.", savedPw:"Palavra-passe atualizada. A sessão foi terminada nos outros dispositivos.",
+      pwMismatch:"As duas novas palavras-passe não coincidem.", exported:"Os seus dados foram transferidos.",
+      portalErr:"Não foi possível abrir o portal de faturação.", generic:"Ocorreu um erro. Tente novamente."
+    },
+    pl: {
+      docTitle:"Twoje konto — Casebound", metaDesc:"Twoje konto i subskrypcja Casebound.", kicker:"Twoje konto", title:"Twoje konto", loading:"Ładowanie…",
+      hello:function(n){ return n ? "Zalogowano jako " + n + "." : ""; },
+      thanks:"Dziękujemy — Twoja subskrypcja jest aktywna.", receipt:"Potwierdzenie płatności wyślemy na Twój e-mail.",
+      pendingH:"Płatność jest wciąż przetwarzana",
+      pendingP:"Twoja płatność nie została jeszcze potwierdzona (niektóre metody, np. polecenie zapłaty, trwają kilka dni). Stripe wyśle Ci e-mail, gdy tylko zostanie zaksięgowana.",
+      outH:"Zaloguj się, aby zobaczyć swoje konto", outP:"Utwórz darmowe konto, aby wykupić plan i zarządzać nim w jednym miejscu.",
+      signin:"Zaloguj się", register:"Utwórz konto", legacy:"Masz subskrypcję bez konta?", legacyLink:"Zarządzaj nią przez Stripe",
+      profileH:"Profil", nameL:"Imię i nazwisko", emailL:"E-mail", sinceL:"Członek od",
+      subH:"Subskrypcja", subNone:"Nie masz jeszcze subskrypcji.", manageBtn:"Zarządzaj subskrypcją", plans:"Zobacz plany", rcBtn:"Otwórz ocenę ryzyka", rcL:"Ocena ryzyka (Pro)",
+      fullAccess:"Pełny dostęp", adminPro:"Konto administratora: wszystkie funkcje Pro są dostępne bez subskrypcji.",
+      portalNote:"Zmień kartę lub plan, pobierz faktury albo anuluj subskrypcję w bezpiecznym portalu płatności Stripe.",
+      sessionH:"Sesja", open:"Otwórz Casebound", logout:"Wyloguj się",
+      delSummary:"Usuń moje konto", delP:"Twoje konto zostanie trwale usunięte. Nie dotyczy to danych rozliczeniowych, które Stripe musi przechowywać zgodnie z prawem. Najpierw anuluj subskrypcję, jeśli ją masz.",
+      delBtn:"Usuń konto na stałe", delPw:"Wpisz hasło, aby potwierdzić.",
+      back:"← Wróć do Casebound", plansL:"Plany", terms:"Warunki korzystania", privacy:"Informacja o prywatności", contact:"Kontakt / reklamacje",
+      planL:"Plan", statusL:"Status", priceL:"Cena", renewL:"Odnawia się", endsL:"Kończy się", trialL:"Koniec okresu próbnego",
+      st:{active:"Aktywna",trialing:"Bezpłatny okres próbny",past_due:"Zaległa płatność",unpaid:"Nieopłacona",incomplete:"Niekompletna",unknown:"Chwilowo niedostępne"},
+      per:{day:"dzień",week:"tydzień",month:"miesiąc",year:"rok"},
+      summary:function(plan, email, trialEnd){
+        var s = plan ? "Plan: " + plan + "." : "";
+        if (email) s += " E-mail rozliczeniowy: " + email + ".";
+        if (trialEnd) s += " Bezpłatny okres próbny trwa do " + trialEnd + "; do tego czasu nie pobierzemy opłaty.";
+        return s.trim();
+      },
+      verifyErr:"Nie udało się potwierdzić tej płatności. Jeśli pobrano opłatę, otrzymasz potwierdzenie od Stripe e-mailem — możesz też napisać na admin@case-bound.com.",
+      edit:"Edytuj", save:"Zapisz zmiany", cancel:"Anuluj", change:"Zmień", langL:"Język e-maili", lastL:"Ostatnie logowanie",
+      secH:"Logowanie i bezpieczeństwo", emailT:"Adres e-mail", newEmail:"Nowy e-mail", curPw:"Obecne hasło", updEmail:"Zmień e-mail",
+      pwT:"Hasło", newPw:"Nowe hasło (co najmniej 10 znaków)", newPw2:"Powtórz nowe hasło", updPw:"Zmień hasło",
+      pwNote:"Zmiana hasła wyloguje Cię na wszystkich innych urządzeniach.",
+      pwSet:function(d){ return d ? "Ostatnia zmiana: " + d + "." : "Ustawione przy zakładaniu konta."; },
+      devT:"Zalogowane urządzenia", devD:"Zgubiony telefon albo wspólny komputer? Wyloguj się wszędzie, także tutaj.", devBtn:"Wyloguj się wszędzie",
+      devConfirm:"Wylogować się na wszystkich urządzeniach, także na tym?",
+      prefH:"Wygląd", prefP:"Wybierz, jak Casebound wygląda na tym urządzeniu. Możesz to zmienić w każdej chwili w Ustawieniach na górnym pasku.",
+      light:"Jasny", dark:"Ciemny", system:"Auto",
+      dataH:"Twoje dane", expT:"Pobierz swoje dane", expD:"Kopia danych konta, statusu subskrypcji i spraw zapisanych w tej przeglądarce, w pliku JSON.", expBtn:"Pobierz",
+      delOpen:"Usuń konto", delConfirm:"Trwale usunąć Twoje konto Casebound? Tej operacji nie można cofnąć.",
+      savedProfile:"Profil zapisany.", savedEmail:"E-mail zmieniony. Przy następnym logowaniu użyj nowego adresu.", savedPw:"Hasło zmienione. Inne urządzenia zostały wylogowane.",
+      pwMismatch:"Nowe hasła nie są takie same.", exported:"Twoje dane zostały pobrane.",
+      portalErr:"Nie udało się otworzyć portalu płatności.", generic:"Coś poszło nie tak. Spróbuj ponownie."
+    },
+    ar: {
+      docTitle:"حسابك — Casebound", metaDesc:"حسابك واشتراكك في Casebound.", kicker:"حسابك", title:"حسابك", loading:"جارٍ التحميل…",
+      hello:function(n){ return n ? "سجّلت الدخول باسم " + n + "." : ""; },
+      thanks:"شكرًا لك — اشتراكك مفعّل الآن.", receipt:"سيصلك إيصال على بريدك الإلكتروني.",
+      pendingH:"الدفع قيد المعالجة",
+      pendingP:"لم يُؤكَّد دفعك بعد (بعض الطرق، مثل الخصم المصرفي، تستغرق بضعة أيام). ستصلك رسالة من Stripe فور إتمامه.",
+      outH:"سجّل الدخول لعرض حسابك", outP:"أنشئ حسابًا مجانيًا للاشتراك في خطة وإدارتها من مكان واحد.",
+      signin:"تسجيل الدخول", register:"إنشاء حساب", legacy:"اشتركت دون حساب؟", legacyLink:"أدِر اشتراكك عبر Stripe",
+      profileH:"الملف الشخصي", nameL:"الاسم", emailL:"البريد الإلكتروني", sinceL:"عضو منذ",
+      subH:"الاشتراك", subNone:"ليس لديك اشتراك بعد.", manageBtn:"إدارة الاشتراك", plans:"عرض الخطط", rcBtn:"افتح تقييم المخاطر", rcL:"تقييم المخاطر (Pro)",
+      fullAccess:"وصول كامل", adminPro:"حساب مسؤول: جميع ميزات Pro متاحة دون الحاجة إلى اشتراك.",
+      portalNote:"غيّر بطاقتك أو خطتك، أو نزّل فواتيرك، أو ألغِ اشتراكك عبر بوابة الفوترة الآمنة من Stripe.",
+      sessionH:"الجلسة", open:"افتح Casebound", logout:"تسجيل الخروج",
+      delSummary:"حذف حسابي", delP:"سيُحذف حسابك نهائيًا. لا يشمل ذلك سجلات الفوترة التي يلزم Stripe الاحتفاظ بها قانونًا. ألغِ أي اشتراك أولًا.",
+      delBtn:"حذف الحساب نهائيًا", delPw:"أدخل كلمة المرور للتأكيد.",
+      back:"→ العودة إلى Casebound", plansL:"الخطط", terms:"شروط الاستخدام", privacy:"إشعار الخصوصية", contact:"التواصل / الشكاوى",
+      planL:"الخطة", statusL:"الحالة", priceL:"السعر", renewL:"يتجدد في", endsL:"ينتهي في", trialL:"تنتهي التجربة في",
+      st:{active:"نشط",trialing:"تجربة مجانية",past_due:"دفعة متأخرة",unpaid:"غير مدفوع",incomplete:"غير مكتمل",unknown:"غير متاح حاليًا"},
+      per:{day:"يوم",week:"أسبوع",month:"شهر",year:"سنة"},
+      summary:function(plan, email, trialEnd){
+        var s = plan ? "الخطة: " + plan + "." : "";
+        if (email) s += " بريد الفوترة: " + email + ".";
+        if (trialEnd) s += " تستمر تجربتك المجانية حتى " + trialEnd + "، ولن يُخصم منك أي مبلغ قبل ذلك.";
+        return s.trim();
+      },
+      verifyErr:"تعذّر علينا تأكيد عملية الدفع هذه. إذا خُصم منك مبلغ، فسيصلك إيصال من Stripe بالبريد الإلكتروني — أو راسلنا على admin@case-bound.com.",
+      edit:"تعديل", save:"حفظ التغييرات", cancel:"إلغاء", change:"تغيير", langL:"لغة الرسائل الإلكترونية", lastL:"آخر تسجيل دخول",
+      secH:"تسجيل الدخول والأمان", emailT:"عنوان البريد الإلكتروني", newEmail:"البريد الإلكتروني الجديد", curPw:"كلمة المرور الحالية", updEmail:"تحديث البريد الإلكتروني",
+      pwT:"كلمة المرور", newPw:"كلمة المرور الجديدة (10 أحرف على الأقل)", newPw2:"أعد كتابة كلمة المرور الجديدة", updPw:"تحديث كلمة المرور",
+      pwNote:"تغيير كلمة المرور يسجّل خروجك من جميع الأجهزة الأخرى.",
+      pwSet:function(d){ return d ? "آخر تغيير في " + d + "." : "عُيّنت عند إنشاء حسابك."; },
+      devT:"الأجهزة المسجّل دخولها", devD:"فقدت هاتفك أو استخدمت حاسوبًا مشتركًا؟ سجّل الخروج من كل مكان، بما في ذلك هنا.", devBtn:"تسجيل الخروج من كل الأجهزة",
+      devConfirm:"تسجيل الخروج من جميع الأجهزة، بما فيها هذا الجهاز؟",
+      prefH:"المظهر", prefP:"اختر مظهر Casebound على هذا الجهاز. يمكنك تغييره في أي وقت من الإعدادات في الشريط العلوي.",
+      light:"فاتح", dark:"داكن", system:"تلقائي",
+      dataH:"بياناتك", expT:"تنزيل بياناتك", expD:"نسخة من بيانات حسابك وحالة اشتراكك والقضايا المحفوظة في هذا المتصفح، في ملف JSON.", expBtn:"تنزيل",
+      delOpen:"حذف الحساب", delConfirm:"هل تريد حذف حسابك في Casebound نهائيًا؟ لا يمكن التراجع عن ذلك.",
+      savedProfile:"حُفظ الملف الشخصي.", savedEmail:"حُدّث البريد الإلكتروني. استخدم العنوان الجديد عند تسجيل الدخول في المرة القادمة.", savedPw:"حُدّثت كلمة المرور. سُجّل الخروج من الأجهزة الأخرى.",
+      pwMismatch:"كلمتا المرور الجديدتان غير متطابقتين.", exported:"نُزّلت بياناتك.",
+      portalErr:"تعذّر فتح بوابة الفوترة.", generic:"حدث خطأ ما. حاول مرة أخرى."
     }
   };
-  var IT_ERR = {
-    "Wrong password.":"Password errata.",
-    "Cancel your subscription first (Manage subscription), then delete the account.":"Disdici prima l'abbonamento (Gestisci abbonamento), poi elimina l'account.",
-    "No subscription found on this account.":"Nessun abbonamento trovato per questo account.",
-    "Please sign in again.":"Accedi di nuovo.",
-    "Enter a valid email address.":"Inserisci un indirizzo email valido.",
-    "That is already your email address.":"È già il tuo indirizzo email.",
-    "An account with this email already exists.":"Esiste già un account con questa email.",
-    "Password must be at least 10 characters.":"La password deve avere almeno 10 caratteri.",
-    "Password is too long.":"La password è troppo lunga.",
-    "Choose a password different from the current one.":"Scegli una password diversa da quella attuale.",
-    "Too many attempts. Try again in 15 minutes.":"Troppi tentativi. Riprova tra 15 minuti."
+  // Server error messages arrive in English; show them in the page language when we know them.
+  var ERR = {
+    "Wrong password.":{it:"Password errata.",es:"Contraseña incorrecta.",fr:"Mot de passe incorrect.",de:"Falsches Passwort.",pt:"Palavra-passe incorreta.",pl:"Nieprawidłowe hasło.",ar:"كلمة المرور غير صحيحة."},
+    "Cancel your subscription first (Manage subscription), then delete the account.":{it:"Disdici prima l'abbonamento (Gestisci abbonamento), poi elimina l'account.",es:"Cancela primero tu suscripción (Gestionar suscripción) y después elimina la cuenta.",fr:"Résiliez d'abord votre abonnement (Gérer l'abonnement), puis supprimez le compte.",de:"Kündige zuerst dein Abo (Abo verwalten) und lösche dann das Konto.",pt:"Cancele primeiro a subscrição (Gerir subscrição) e depois elimine a conta.",pl:"Najpierw anuluj subskrypcję (Zarządzaj subskrypcją), a potem usuń konto.",ar:"ألغِ اشتراكك أولًا (إدارة الاشتراك)، ثم احذف الحساب."},
+    "No subscription found on this account.":{it:"Nessun abbonamento trovato per questo account.",es:"No hay ninguna suscripción asociada a esta cuenta.",fr:"Aucun abonnement trouvé pour ce compte.",de:"Für dieses Konto wurde kein Abo gefunden.",pt:"Não foi encontrada nenhuma subscrição nesta conta.",pl:"Nie znaleziono subskrypcji dla tego konta.",ar:"لم يُعثر على أي اشتراك في هذا الحساب."},
+    "Please sign in again.":{it:"Accedi di nuovo.",es:"Vuelve a iniciar sesión.",fr:"Veuillez vous reconnecter.",de:"Bitte melde dich erneut an.",pt:"Inicie sessão novamente.",pl:"Zaloguj się ponownie.",ar:"يُرجى تسجيل الدخول مرة أخرى."},
+    "Please sign in.":{it:"Accedi.",es:"Inicia sesión.",fr:"Veuillez vous connecter.",de:"Bitte melde dich an.",pt:"Inicie sessão.",pl:"Zaloguj się.",ar:"يُرجى تسجيل الدخول."},
+    "Enter a valid email address.":{it:"Inserisci un indirizzo email valido.",es:"Introduce una dirección de correo electrónico válida.",fr:"Saisissez une adresse e-mail valide.",de:"Gib eine gültige E-Mail-Adresse ein.",pt:"Introduza um endereço de e-mail válido.",pl:"Wpisz prawidłowy adres e-mail.",ar:"أدخل عنوان بريد إلكتروني صالحًا."},
+    "That is already your email address.":{it:"È già il tuo indirizzo email.",es:"Esa ya es tu dirección de correo electrónico.",fr:"C'est déjà votre adresse e-mail.",de:"Das ist bereits deine E-Mail-Adresse.",pt:"Esse já é o seu endereço de e-mail.",pl:"To już jest Twój adres e-mail.",ar:"هذا هو عنوان بريدك الإلكتروني الحالي."},
+    "An account with this email already exists.":{it:"Esiste già un account con questa email.",es:"Ya existe una cuenta con este correo electrónico.",fr:"Un compte existe déjà avec cette adresse e-mail.",de:"Es gibt bereits ein Konto mit dieser E-Mail-Adresse.",pt:"Já existe uma conta com este e-mail.",pl:"Konto z tym adresem e-mail już istnieje.",ar:"يوجد حساب بهذا البريد الإلكتروني بالفعل."},
+    "Password must be at least 10 characters.":{it:"La password deve avere almeno 10 caratteri.",es:"La contraseña debe tener al menos 10 caracteres.",fr:"Le mot de passe doit comporter au moins 10 caractères.",de:"Das Passwort muss mindestens 10 Zeichen haben.",pt:"A palavra-passe deve ter pelo menos 10 caracteres.",pl:"Hasło musi mieć co najmniej 10 znaków.",ar:"يجب ألا تقل كلمة المرور عن 10 أحرف."},
+    "Password is too long.":{it:"La password è troppo lunga.",es:"La contraseña es demasiado larga.",fr:"Le mot de passe est trop long.",de:"Das Passwort ist zu lang.",pt:"A palavra-passe é demasiado longa.",pl:"Hasło jest za długie.",ar:"كلمة المرور طويلة جدًا."},
+    "Choose a password different from the current one.":{it:"Scegli una password diversa da quella attuale.",es:"Elige una contraseña distinta de la actual.",fr:"Choisissez un mot de passe différent de l'actuel.",de:"Wähle ein anderes Passwort als das aktuelle.",pt:"Escolha uma palavra-passe diferente da atual.",pl:"Wybierz hasło inne niż obecne.",ar:"اختر كلمة مرور مختلفة عن الحالية."},
+    "Too many attempts. Try again in 15 minutes.":{it:"Troppi tentativi. Riprova tra 15 minuti.",es:"Demasiados intentos. Vuelve a intentarlo en 15 minutos.",fr:"Trop de tentatives. Réessayez dans 15 minutes.",de:"Zu viele Versuche. Versuch es in 15 Minuten noch einmal.",pt:"Demasiadas tentativas. Tente novamente dentro de 15 minutos.",pl:"Zbyt wiele prób. Spróbuj ponownie za 15 minut.",ar:"محاولات كثيرة جدًا. حاول مرة أخرى بعد 15 دقيقة."},
+    "Lawyers need to give their full name, as it appears on the register.":{it:"Gli avvocati devono indicare nome e cognome come risultano dall'albo.",es:"Los abogados deben indicar su nombre completo tal como figura en el colegio.",fr:"Les avocats doivent indiquer leur nom complet, tel qu'il figure au tableau de l'ordre.",de:"Anwälte müssen ihren vollständigen Namen angeben, wie er im Register steht.",pt:"Os advogados têm de indicar o nome completo, tal como consta da inscrição na Ordem.",pl:"Prawnicy muszą podać imię i nazwisko zgodnie z wpisem na listę.",ar:"يجب على المحامين إدخال اسمهم الكامل كما هو مسجّل في جدول المحامين."},
+    "Enter the bar association (Ordine degli Avvocati) you are registered with.":{it:"Indica l'Ordine degli Avvocati presso cui sei iscritto.",es:"Indica el colegio de abogados (Ordine degli Avvocati) en el que estás colegiado.",fr:"Indiquez le barreau (Ordine degli Avvocati) auquel vous êtes inscrit.",de:"Gib die Anwaltskammer (Ordine degli Avvocati) an, bei der du eingetragen bist.",pt:"Indique a ordem dos advogados (Ordine degli Avvocati) em que está inscrito.",pl:"Podaj izbę adwokacką (Ordine degli Avvocati), w której jesteś wpisany.",ar:"أدخل نقابة المحامين (Ordine degli Avvocati) المسجّل فيها."},
+    "Enter your registration number on the register of lawyers.":{it:"Indica il tuo numero di iscrizione all'albo.",es:"Indica tu número de colegiado.",fr:"Indiquez votre numéro d'inscription au tableau de l'ordre.",de:"Gib deine Registernummer im Anwaltsregister an.",pt:"Indique o seu número de inscrição na Ordem.",pl:"Podaj swój numer wpisu na listę.",ar:"أدخل رقم قيدك في جدول المحامين."},
+    "Choose at least one area of practice.":{it:"Scegli almeno un'area di attività.",es:"Elige al menos un área de práctica.",fr:"Choisissez au moins un domaine d'activité.",de:"Wähle mindestens ein Tätigkeitsgebiet.",pt:"Escolha pelo menos uma área de prática.",pl:"Wybierz co najmniej jedną dziedzinę.",ar:"اختر مجال ممارسة واحدًا على الأقل."},
+    "Case not found.":{it:"Caso non trovato.",es:"No se ha encontrado el caso.",fr:"Affaire introuvable.",de:"Fall nicht gefunden.",pt:"Caso não encontrado.",pl:"Nie znaleziono sprawy.",ar:"لم يُعثر على القضية."},
+    "That lawyer hasn't asked to connect.":{it:"Questo avvocato non ha chiesto di entrare in contatto.",es:"Este abogado no ha pedido ponerse en contacto.",fr:"Cet avocat n'a pas demandé à entrer en contact.",de:"Dieser Anwalt hat keine Kontaktanfrage gestellt.",pt:"Este advogado não pediu para entrar em contacto.",pl:"Ten prawnik nie prosił o kontakt.",ar:"لم يطلب هذا المحامي التواصل."},
+    "Write the extra details first.":{it:"Scrivi prima i dettagli aggiuntivi.",es:"Escribe primero los detalles adicionales.",fr:"Rédigez d'abord les précisions.",de:"Schreib zuerst die zusätzlichen Angaben.",pt:"Escreva primeiro os detalhes adicionais.",pl:"Najpierw wpisz dodatkowe szczegóły.",ar:"اكتب التفاصيل الإضافية أولًا."},
+    "This case is closed.":{it:"Questo caso è chiuso.",es:"Este caso está cerrado.",fr:"Cette affaire est close.",de:"Dieser Fall ist abgeschlossen.",pt:"Este caso está encerrado.",pl:"Ta sprawa jest zamknięta.",ar:"هذه القضية مغلقة."},
+    "Not allowed.":{it:"Operazione non consentita.",es:"No permitido.",fr:"Action non autorisée.",de:"Nicht erlaubt.",pt:"Não permitido.",pl:"Brak uprawnień.",ar:"غير مسموح."},
+    "Unknown status.":{it:"Stato sconosciuto.",es:"Estado desconocido.",fr:"Statut inconnu.",de:"Unbekannter Status.",pt:"Estado desconhecido.",pl:"Nieznany status.",ar:"حالة غير معروفة."},
+    "Request blocked.":{it:"Richiesta bloccata.",es:"Solicitud bloqueada.",fr:"Requête bloquée.",de:"Anfrage blockiert.",pt:"Pedido bloqueado.",pl:"Żądanie zablokowane.",ar:"تم حظر الطلب."},
+    "Invalid request.":{it:"Richiesta non valida.",es:"Solicitud no válida.",fr:"Requête non valide.",de:"Ungültige Anfrage.",pt:"Pedido inválido.",pl:"Nieprawidłowe żądanie.",ar:"طلب غير صالح."},
+    "Subscriptions are not open yet.":{it:"Gli abbonamenti non sono ancora disponibili.",es:"Las suscripciones aún no están disponibles.",fr:"Les abonnements ne sont pas encore ouverts.",de:"Abos sind noch nicht verfügbar.",pt:"As subscrições ainda não estão disponíveis.",pl:"Subskrypcje nie są jeszcze dostępne.",ar:"الاشتراكات غير متاحة بعد."},
+    "Checkout not completed.":{it:"Pagamento non completato.",es:"El pago no se ha completado.",fr:"Paiement non finalisé.",de:"Bezahlvorgang nicht abgeschlossen.",pt:"Pagamento não concluído.",pl:"Płatność nie została ukończona.",ar:"لم تكتمل عملية الدفع."}
   };
+  function trErr(m){ var e = ERR[m]; return e && e[lang] ? e[lang] : m; }
+  window.CBAccountErr = function(m){ return trErr(m); };
   var ZERO_DEC = ["bif","clp","djf","gnf","jpy","kmf","krw","mga","pyg","rwf","ugx","vnd","vuv","xaf","xof","xpf"];
   var $ = function(id){ return document.getElementById(id); };
-  var btns = document.querySelectorAll(".lang button");
+  var I = window.CB_I18N;
   var qs = new URLSearchParams(location.search);
   var sessionId = qs.get("session_id") || "";
-  var lang = (qs.get("lang") === "it" || location.hash === "#it" || (!qs.get("lang") && /^it\b/i.test(navigator.language || ""))) ? "it" : "en";
+  var lang = I ? I.get() : "en";
+  function tt(){ return T[lang] || T.en; }
+  function loc(){ return I ? I.locale(lang) : "en-IE"; }
+  // Email language: every site language, each in its own name.
+  var LANGS = I ? I.LANGS : [{ code:"en", name:"English" }, { code:"it", name:"Italiano" }];
+  function langName(c){ for (var i = 0; i < LANGS.length; i++) if (LANGS[i].code === c) return LANGS[i].name; return ""; }
+  $("f-lang").innerHTML = LANGS.map(function(l){ return '<option value="' + l.code + '" lang="' + l.code + '">' + l.name + '</option>'; }).join("");
   var me = null, checkout = null;
 
   function esc(s){ return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
-  function day(ts){ return new Date(ts).toLocaleDateString(lang === "it" ? "it-IT" : "en-GB", { day:"numeric", month:"long", year:"numeric" }); }
-  function money(a, c){ var v = a / (ZERO_DEC.indexOf(c) >= 0 ? 1 : 100); try { return new Intl.NumberFormat(lang === "it" ? "it-IT" : "en-IE", { style:"currency", currency:c.toUpperCase(), minimumFractionDigits: v % 1 ? 2 : 0 }).format(v); } catch(e){ return v + " " + c; } }
-  function err(m){ $("err").textContent = m ? (lang === "it" && IT_ERR[m] ? IT_ERR[m] : m) : ""; $("err").hidden = !m; }
+  function day(ts){ return new Date(ts).toLocaleDateString(loc(), { day:"numeric", month:"long", year:"numeric" }); }
+  function money(a, c){ var v = a / (ZERO_DEC.indexOf(c) >= 0 ? 1 : 100); try { return new Intl.NumberFormat(loc(), { style:"currency", currency:c.toUpperCase(), minimumFractionDigits: v % 1 ? 2 : 0 }).format(v); } catch(e){ return v + " " + c; } }
+  function err(m){ $("err").textContent = m ? trErr(m) : ""; $("err").hidden = !m; }
   function api(url, data){
     return fetch(url, data === undefined ? { credentials:"same-origin" } : { method:"POST", credentials:"same-origin", headers:{ "Content-Type":"application/json" }, body: JSON.stringify(data) })
-      .then(function(r){ return r.json().then(function(j){ if (!r.ok) { var e = new Error(j.error || "Error"); e.status = r.status; throw e; } return j; }); });
+      .then(function(r){ return r.json().then(function(j){ if (!r.ok) { var e = new Error(j.error || tt().generic); e.status = r.status; throw e; } return j; }); });
   }
 
   function render(){
-    var t = T[lang];
-    document.documentElement.lang = lang;
+    var t = tt();
     document.title = t.docTitle;
+    $("meta-desc").setAttribute("content", t.metaDesc);
+    $("theme-seg").setAttribute("aria-label", t.prefH);
     document.querySelectorAll("[data-t]").forEach(function(el){ var v = t[el.getAttribute("data-t")]; if (typeof v === "string") el.textContent = v; });
-    btns.forEach(function(b){ b.setAttribute("aria-pressed", b.getAttribute("data-lang") === lang ? "true" : "false"); });
     document.querySelectorAll("[data-theme-pick]").forEach(function(b){ b.setAttribute("aria-checked", window.CBTheme && CBTheme.get() === b.getAttribute("data-theme-pick") ? "true" : "false"); });
     if (checkout) $("summary").textContent = t.summary(checkout.plan, checkout.email, checkout.trialEnd ? day(checkout.trialEnd * 1000) : "");
     if (!me) return;
@@ -425,7 +689,7 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
     $("p-name").textContent = u.name || "—";
     $("p-email").textContent = u.email;
     $("p-since").textContent = day(u.createdAt);
-    $("p-lang").textContent = t.langName[u.lang] || u.lang || "—";
+    $("p-lang").textContent = langName(u.lang) || u.lang || "—";
     $("p-last").textContent = u.lastLoginAt ? day(u.lastLoginAt) : "—";
     $("sec-email").textContent = u.email;
     $("sec-pw").textContent = t.pwSet(u.passwordChangedAt ? day(u.passwordChangedAt) : "");
@@ -434,7 +698,7 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
     $("portal").hidden = !has; $("portal-note").hidden = $("portal").hidden;
     if (!has) { $("sub-dl").innerHTML = ""; return; }
     var rows = [];
-    if (s.plan) rows.push([t.planL, esc((lang === "it" && s.plan_it) || s.plan)]);
+    if (s.plan) rows.push([t.planL, esc(s["plan_" + lang] || s.plan)]);
     var cls = s.status === "active" ? "" : (s.status === "trialing" ? "" : (s.status === "unknown" ? " off" : " warn"));
     rows.push([t.statusL, '<span class="pill' + cls + '">' + esc(t.st[s.status] || s.status) + '</span>']);
     if (s.amount != null && s.currency) rows.push([t.priceL, esc(money(s.amount, s.currency) + " / " + (t.per[s.interval] || s.interval))]);
@@ -451,13 +715,13 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
     render();
   }
 
-  btns.forEach(function(b){ b.addEventListener("click", function(){ lang = b.getAttribute("data-lang"); render(); }); });
+  if (I) I.onChange(function(c){ lang = c; render(); });
 
   $("portal").addEventListener("click", function(){
     var b = this; b.disabled = true; err("");
     api("/api/portal", { lang: lang, session_id: sessionId || undefined })
       .then(function(j){ location.href = j.url; })
-      .catch(function(e){ b.disabled = false; err(T[lang].portalErr + " " + (lang === "it" && IT_ERR[e.message] ? IT_ERR[e.message] : e.message)); });
+      .catch(function(e){ b.disabled = false; err(tt().portalErr + " " + trErr(e.message)); });
   });
   $("logout").addEventListener("click", function(){
     api("/api/auth/logout", {}).then(function(){ location.href = "/"; }).catch(function(){ location.href = "/"; });
@@ -482,28 +746,28 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
   $("profile-form").addEventListener("submit", function(e){
     e.preventDefault(); var f = this; err(""); busy(f, true);
     api("/api/auth/update", { name: $("f-name").value, lang: $("f-lang").value })
-      .then(function(j){ me.user = j.user; busy(f, false); editProfile(false); render(); ok(T[lang].savedProfile); })
+      .then(function(j){ me.user = j.user; busy(f, false); editProfile(false); render(); ok(tt().savedProfile); })
       .catch(function(x){ busy(f, false); err(x.message); });
   });
 
   $("email-form").addEventListener("submit", function(e){
     e.preventDefault(); var f = this; err(""); busy(f, true);
     api("/api/auth/email", { email: $("f-email").value, password: $("f-email-pw").value })
-      .then(function(j){ me.user = j.user; busy(f, false); toggle("email-form", false); render(); ok(T[lang].savedEmail); })
+      .then(function(j){ me.user = j.user; busy(f, false); toggle("email-form", false); render(); ok(tt().savedEmail); })
       .catch(function(x){ busy(f, false); err(x.message); });
   });
 
   $("pw-form").addEventListener("submit", function(e){
     e.preventDefault(); var f = this; err("");
-    if ($("f-pw-new").value !== $("f-pw-new2").value) { err(T[lang].pwMismatch); return; }
+    if ($("f-pw-new").value !== $("f-pw-new2").value) { err(tt().pwMismatch); return; }
     busy(f, true);
     api("/api/auth/password", { password: $("f-pw-cur").value, newPassword: $("f-pw-new").value })
-      .then(function(j){ me.user = j.user; busy(f, false); toggle("pw-form", false); render(); ok(T[lang].savedPw); })
+      .then(function(j){ me.user = j.user; busy(f, false); toggle("pw-form", false); render(); ok(tt().savedPw); })
       .catch(function(x){ busy(f, false); err(x.message); });
   });
 
   $("logout-all").addEventListener("click", function(){
-    if (!confirm(T[lang].devConfirm)) return;
+    if (!confirm(tt().devConfirm)) return;
     var b = this; b.disabled = true;
     api("/api/auth/logout-all", {}).then(function(){ location.href = "/login.html?next=/account.html"; })
       .catch(function(x){ b.disabled = false; err(x.message); });
@@ -531,14 +795,14 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
       a.download = "casebound-data-" + new Date().toISOString().slice(0,10) + ".json";
       document.body.appendChild(a); a.click(); a.remove();
       setTimeout(function(){ URL.revokeObjectURL(a.href); }, 2000);
-      b.disabled = false; ok(T[lang].exported);
+      b.disabled = false; ok(tt().exported);
     }).catch(function(x){ b.disabled = false; err(x.message); });
   });
 
   $("del-form").addEventListener("submit", function(e){
     e.preventDefault(); var f = this; err("");
-    if (!$("del-pw").value) { err(T[lang].delPw); return; }
-    if (!confirm(T[lang].delConfirm)) return;
+    if (!$("del-pw").value) { err(tt().delPw); return; }
+    if (!confirm(tt().delConfirm)) return;
     busy(f, true);
     api("/api/auth/delete", { password: $("del-pw").value })
       .then(function(){ location.href = "/"; })
@@ -552,11 +816,11 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
   var verify = Promise.resolve();
   if (/^cs_(test|live)_[A-Za-z0-9_]{1,300}$/.test(sessionId)) {
     verify = api("/api/session?id=" + encodeURIComponent(sessionId)).then(function(j){
-      if (j.status !== "complete") { err(T[lang].verifyErr); return; }
+      if (j.status !== "complete") { err(tt().verifyErr); return; }
       checkout = j;
       if (j.paymentStatus === "unpaid") $("pending").hidden = false; else $("done").hidden = false;
-      history.replaceState(null, "", location.pathname + (lang === "it" ? "?lang=it" : ""));
-    }).catch(function(){ err(T[lang].verifyErr); });
+      history.replaceState(null, "", location.pathname);
+    }).catch(function(){ err(tt().verifyErr); });
   }
   // Checking the checkout first links the Stripe customer to the account, so /me then shows it.
   verify.then(function(){ return loadMe; }).then(function(){
@@ -583,6 +847,7 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
       rejectedP:"We couldn't match your details with the register. Check your bar association and number, or write to admin@case-bound.com.",
       verifiedP:"You can review cases sent by clients.", board:"Open the case board", edit:"Edit lawyer details",
       barL:"Bar association", noL:"Register number", cityL:"City", areasL:"Areas of practice", bioL:"Bio",
+      kNote:"Changing your bar association or number sends your profile back for verification.", cancel:"Cancel",
       save:"Save lawyer profile", saved:"Lawyer profile saved.", switched:"Profile switched.",
       AREAS:{dismissal:"Dismissal",employment:"Employment",goods:"Faulty goods",contract:"Contracts & debts",injury:"Injury & damage",road:"Road accidents",building:"Building defects",consumer:"Consumer",tenancy:"Tenancy",condo:"Condominium",neighbours:"Neighbours",medical:"Medical malpractice",insurance:"Insurance",travel:"Travel",family:"Family",inheritance:"Inheritance",injunction:"Payment orders",fine:"Fines",tax:"Tax",defamation:"Defamation",other:"Other"},
       mcH:"Your cases with lawyers",
@@ -593,7 +858,9 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
       shareNote:"Your name and email go to this lawyer only.",
       addInfo:"Add details", addPh:"The details the lawyer asked for…", send:"Send", withdraw:"Withdraw case",
       withdrawQ:"Withdraw this case? Lawyers will no longer see it.", yes:"Yes, withdraw", no:"Keep it",
-      updates:"Details you added", generic:"Something went wrong. Please try again."
+      updates:"Details you added", generic:"Something went wrong. Please try again.",
+      adH:"Lawyers to verify", adP:"Check each name and register number on the official register of lawyers before verifying. Only verified lawyers can see cases.",
+      adSt:{pending:"Waiting", verified:"Verified", rejected:"Rejected"}, verify:"Verify", reject:"Reject", adEmpty:"No lawyer has signed up yet.", regNo:"n."
     },
     it: {
       h:"Tipo di profilo", client:"Cliente", lawyer:"Avvocato",
@@ -604,6 +871,7 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
       rejectedP:"Non siamo riusciti a trovare i tuoi dati sull'albo. Controlla Ordine e numero, oppure scrivi a admin@case-bound.com.",
       verifiedP:"Puoi esaminare i casi inviati dai clienti.", board:"Apri la bacheca dei casi", edit:"Modifica i dati da avvocato",
       barL:"Ordine", noL:"N. iscrizione", cityL:"Città", areasL:"Aree di attività", bioL:"Presentazione",
+      kNote:"Se cambi Ordine o numero di iscrizione, il profilo torna in verifica.", cancel:"Annulla",
       save:"Salva il profilo da avvocato", saved:"Profilo da avvocato salvato.", switched:"Profilo cambiato.",
       AREAS:{dismissal:"Licenziamenti",employment:"Lavoro",goods:"Vizi della merce",contract:"Contratti e crediti",injury:"Danni e lesioni",road:"Incidenti stradali",building:"Vizi dell'immobile",consumer:"Consumatori",tenancy:"Locazioni",condo:"Condominio",neighbours:"Rapporti di vicinato",medical:"Responsabilità medica",insurance:"Assicurazioni",travel:"Viaggi e trasporti",family:"Famiglia",inheritance:"Successioni",injunction:"Decreti ingiuntivi",fine:"Multe e sanzioni",tax:"Tributario",defamation:"Diffamazione",other:"Altro"},
       mcH:"I tuoi casi inviati agli avvocati",
@@ -614,17 +882,169 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
       shareNote:"Nome ed email vengono inviati solo a questo avvocato.",
       addInfo:"Aggiungi dettagli", addPh:"I dettagli richiesti dall'avvocato…", send:"Invia", withdraw:"Ritira il caso",
       withdrawQ:"Ritirare questo caso? Gli avvocati non lo vedranno più.", yes:"Sì, ritira", no:"Mantienilo",
-      updates:"Dettagli aggiunti", generic:"Qualcosa è andato storto. Riprova."
+      updates:"Dettagli aggiunti", generic:"Qualcosa è andato storto. Riprova.",
+      adH:"Avvocati da verificare", adP:"Prima di verificare, controlla nome e numero di iscrizione di ciascuno sull'albo ufficiale. Solo gli avvocati verificati possono vedere i casi.",
+      adSt:{pending:"In attesa", verified:"Verificato", rejected:"Rifiutato"}, verify:"Verifica", reject:"Rifiuta", adEmpty:"Nessun avvocato si è ancora iscritto.", regNo:"n."
+    },
+    es: {
+      h:"Tipo de perfil", client:"Cliente", lawyer:"Abogado",
+      st:{pending:"Pendiente de verificación", verified:"Verificado", rejected:"No verificado"},
+      clientP:"Usas Casebound para investigar tus propios problemas y, con Pro, para contactar con abogados verificados.",
+      toLawyer:"Soy abogado: cambiar a un perfil de abogado", toClient:"Volver a un perfil de cliente",
+      pendingP:"Comprobamos tu nombre y tu número de colegiado en el registro oficial de abogados. Hasta entonces no podrás ver casos. Suele tardar uno o dos días laborables.",
+      rejectedP:"No hemos podido encontrar tus datos en el registro. Revisa tu colegio y tu número, o escribe a admin@case-bound.com.",
+      verifiedP:"Puedes revisar los casos que envían los clientes.", board:"Abrir el tablón de casos", edit:"Editar datos de abogado",
+      barL:"Colegio de abogados", noL:"Número de colegiado", cityL:"Ciudad", areasL:"Áreas de práctica", bioL:"Presentación",
+      kNote:"Si cambias tu colegio o tu número de colegiado, tu perfil volverá a verificarse.", cancel:"Cancelar",
+      save:"Guardar perfil de abogado", saved:"Perfil de abogado guardado.", switched:"Perfil cambiado.",
+      AREAS:{dismissal:"Despidos",employment:"Laboral",goods:"Productos defectuosos",contract:"Contratos y deudas",injury:"Daños y lesiones",road:"Accidentes de tráfico",building:"Defectos de construcción",consumer:"Consumo",tenancy:"Arrendamientos",condo:"Comunidad de propietarios",neighbours:"Relaciones de vecindad",medical:"Negligencia médica",insurance:"Seguros",travel:"Viajes",family:"Familia",inheritance:"Herencias",injunction:"Procesos monitorios",fine:"Multas y sanciones",tax:"Fiscal",defamation:"Difamación",other:"Otros"},
+      mcH:"Tus casos con abogados",
+      mcEmpty:'Aún no has enviado ningún caso a un abogado. Empieza por la <a href="/risk-check.html">evaluación de riesgo</a>: después del resultado, podrás enviar el caso a abogados verificados.',
+      sent:"Enviado el", reviews:function(n){ return n === 0 ? "Ningún abogado lo ha revisado todavía" : n === 1 ? "Revisado por 1 abogado" : "Revisado por " + n + " abogados"; },
+      interested:"Quiere llevar tu caso", info:"Pide más detalles",
+      share:"Compartir mis datos de contacto", shared:"Has compartido tus datos de contacto. Escribe a este abogado a",
+      shareNote:"Tu nombre y tu correo solo se envían a este abogado.",
+      addInfo:"Añadir detalles", addPh:"Los detalles que ha pedido el abogado…", send:"Enviar", withdraw:"Retirar el caso",
+      withdrawQ:"¿Retirar este caso? Los abogados dejarán de verlo.", yes:"Sí, retirarlo", no:"Mantenerlo",
+      updates:"Detalles añadidos", generic:"Algo ha salido mal. Inténtalo de nuevo.",
+      adH:"Abogados por verificar", adP:"Antes de verificar, comprueba cada nombre y número de colegiado en el registro oficial de abogados. Solo los abogados verificados pueden ver casos.",
+      adSt:{pending:"En espera", verified:"Verificado", rejected:"Rechazado"}, verify:"Verificar", reject:"Rechazar", adEmpty:"Todavía no se ha registrado ningún abogado.", regNo:"n.º"
+    },
+    fr: {
+      h:"Type de profil", client:"Client", lawyer:"Avocat",
+      st:{pending:"En attente de vérification", verified:"Vérifié", rejected:"Non vérifié"},
+      clientP:"Vous utilisez Casebound pour étudier vos propres problèmes juridiques et, avec Pro, pour entrer en contact avec des avocats vérifiés.",
+      toLawyer:"Je suis avocat : passer à un profil d'avocat", toClient:"Revenir à un profil de client",
+      pendingP:"Nous vérifions votre nom et votre numéro d'inscription au tableau officiel des avocats. D'ici là, vous ne pouvez pas voir les affaires. Cela prend généralement un ou deux jours ouvrés.",
+      rejectedP:"Nous n'avons pas pu faire correspondre vos informations avec le tableau. Vérifiez votre barreau et votre numéro, ou écrivez à admin@case-bound.com.",
+      verifiedP:"Vous pouvez examiner les affaires transmises par les clients.", board:"Ouvrir le tableau des affaires", edit:"Modifier mes informations d'avocat",
+      barL:"Barreau", noL:"Numéro d'inscription", cityL:"Ville", areasL:"Domaines d'activité", bioL:"Présentation",
+      kNote:"Si vous modifiez votre barreau ou votre numéro, votre profil sera de nouveau soumis à vérification.", cancel:"Annuler",
+      save:"Enregistrer le profil d'avocat", saved:"Profil d'avocat enregistré.", switched:"Profil modifié.",
+      AREAS:{dismissal:"Licenciements",employment:"Droit du travail",goods:"Produits défectueux",contract:"Contrats et créances",injury:"Dommages et blessures",road:"Accidents de la route",building:"Malfaçons immobilières",consumer:"Consommation",tenancy:"Baux d'habitation",condo:"Copropriété",neighbours:"Troubles de voisinage",medical:"Responsabilité médicale",insurance:"Assurances",travel:"Voyages et transports",family:"Famille",inheritance:"Successions",injunction:"Injonctions de payer",fine:"Amendes et sanctions",tax:"Fiscalité",defamation:"Diffamation",other:"Autre"},
+      mcH:"Vos affaires transmises à des avocats",
+      mcEmpty:'Vous n\'avez encore transmis aucune affaire à un avocat. Commencez par l\'<a href="/risk-check.html">évaluation du risque</a> : après le résultat, vous pourrez transmettre l\'affaire à des avocats vérifiés.',
+      sent:"Envoyée le", reviews:function(n){ return n === 0 ? "Aucun avocat ne l'a encore examinée" : n === 1 ? "Examinée par 1 avocat" : "Examinée par " + n + " avocats"; },
+      interested:"Souhaite prendre votre affaire", info:"Demande plus de précisions",
+      share:"Partager mes coordonnées", shared:"Vous avez partagé vos coordonnées. Écrivez à cet avocat à l'adresse",
+      shareNote:"Votre nom et votre e-mail sont transmis uniquement à cet avocat.",
+      addInfo:"Ajouter des précisions", addPh:"Les précisions demandées par l'avocat…", send:"Envoyer", withdraw:"Retirer l'affaire",
+      withdrawQ:"Retirer cette affaire ? Les avocats ne la verront plus.", yes:"Oui, la retirer", no:"La conserver",
+      updates:"Précisions ajoutées", generic:"Une erreur s'est produite. Veuillez réessayer.",
+      adH:"Avocats à vérifier", adP:"Avant de valider, vérifiez chaque nom et numéro d'inscription sur le tableau officiel des avocats. Seuls les avocats vérifiés peuvent voir les affaires.",
+      adSt:{pending:"En attente", verified:"Vérifié", rejected:"Refusé"}, verify:"Valider", reject:"Refuser", adEmpty:"Aucun avocat ne s'est encore inscrit.", regNo:"n°"
+    },
+    de: {
+      h:"Profiltyp", client:"Mandant", lawyer:"Anwalt",
+      st:{pending:"Wartet auf Verifizierung", verified:"Verifiziert", rejected:"Nicht verifiziert"},
+      clientP:"Du nutzt Casebound, um zu deinen eigenen Problemen zu recherchieren und – mit Pro – um mit verifizierten Anwälten in Kontakt zu kommen.",
+      toLawyer:"Ich bin Anwalt: zu einem Anwaltsprofil wechseln", toClient:"Zurück zu einem Mandantenprofil",
+      pendingP:"Wir prüfen deinen Namen und deine Registernummer im offiziellen Anwaltsregister. Bis dahin kannst du keine Fälle sehen. Das dauert meist ein bis zwei Werktage.",
+      rejectedP:"Wir konnten deine Angaben nicht im Register finden. Prüfe Anwaltskammer und Nummer oder schreib an admin@case-bound.com.",
+      verifiedP:"Du kannst Fälle prüfen, die Mandanten eingereicht haben.", board:"Fallübersicht öffnen", edit:"Anwaltsdaten bearbeiten",
+      barL:"Anwaltskammer", noL:"Registernummer", cityL:"Stadt", areasL:"Tätigkeitsgebiete", bioL:"Über mich",
+      kNote:"Wenn du Anwaltskammer oder Registernummer änderst, wird dein Profil erneut geprüft.", cancel:"Abbrechen",
+      save:"Anwaltsprofil speichern", saved:"Anwaltsprofil gespeichert.", switched:"Profil gewechselt.",
+      AREAS:{dismissal:"Kündigungen",employment:"Arbeitsrecht",goods:"Mangelhafte Ware",contract:"Verträge & Forderungen",injury:"Schäden & Verletzungen",road:"Verkehrsunfälle",building:"Baumängel",consumer:"Verbraucherrecht",tenancy:"Mietrecht",condo:"Wohnungseigentum",neighbours:"Nachbarrecht",medical:"Arzthaftung",insurance:"Versicherungen",travel:"Reisen & Transport",family:"Familie",inheritance:"Erbrecht",injunction:"Mahnbescheide",fine:"Bußgelder",tax:"Steuern",defamation:"Ehrverletzung",other:"Sonstiges"},
+      mcH:"Deine Fälle bei Anwälten",
+      mcEmpty:'Du hast noch keinen Fall an einen Anwalt geschickt. Beginne mit dem <a href="/risk-check.html">Risikocheck</a>: Nach dem Ergebnis kannst du den Fall an verifizierte Anwälte schicken.',
+      sent:"Gesendet am", reviews:function(n){ return n === 0 ? "Noch von keinem Anwalt geprüft" : n === 1 ? "Von 1 Anwalt geprüft" : "Von " + n + " Anwälten geprüft"; },
+      interested:"Möchte deinen Fall übernehmen", info:"Bittet um weitere Angaben",
+      share:"Meine Kontaktdaten teilen", shared:"Du hast deine Kontaktdaten geteilt. Schreib diesem Anwalt an",
+      shareNote:"Dein Name und deine E-Mail-Adresse gehen nur an diesen Anwalt.",
+      addInfo:"Angaben ergänzen", addPh:"Die Angaben, um die der Anwalt gebeten hat…", send:"Senden", withdraw:"Fall zurückziehen",
+      withdrawQ:"Diesen Fall zurückziehen? Anwälte sehen ihn dann nicht mehr.", yes:"Ja, zurückziehen", no:"Behalten",
+      updates:"Deine Ergänzungen", generic:"Etwas ist schiefgelaufen. Bitte versuch es noch einmal.",
+      adH:"Zu verifizierende Anwälte", adP:"Prüfe vor der Verifizierung jeden Namen und jede Registernummer im offiziellen Anwaltsregister. Nur verifizierte Anwälte können Fälle sehen.",
+      adSt:{pending:"Wartet", verified:"Verifiziert", rejected:"Abgelehnt"}, verify:"Verifizieren", reject:"Ablehnen", adEmpty:"Es hat sich noch kein Anwalt registriert.", regNo:"Nr."
+    },
+    pt: {
+      h:"Tipo de perfil", client:"Cliente", lawyer:"Advogado",
+      st:{pending:"A aguardar verificação", verified:"Verificado", rejected:"Não verificado"},
+      clientP:"Usa o Casebound para pesquisar os seus próprios problemas e, com o Pro, para contactar advogados verificados.",
+      toLawyer:"Sou advogado: mudar para um perfil de advogado", toClient:"Voltar a um perfil de cliente",
+      pendingP:"Verificamos o seu nome e número de inscrição no registo oficial de advogados. Até lá, não pode ver casos. Normalmente demora um ou dois dias úteis.",
+      rejectedP:"Não conseguimos encontrar os seus dados no registo. Verifique a ordem e o número de inscrição, ou escreva para admin@case-bound.com.",
+      verifiedP:"Pode analisar os casos enviados pelos clientes.", board:"Abrir o quadro de casos", edit:"Editar dados de advogado",
+      barL:"Ordem dos advogados", noL:"Número de inscrição", cityL:"Cidade", areasL:"Áreas de prática", bioL:"Apresentação",
+      kNote:"Se alterar a ordem ou o número de inscrição, o seu perfil volta a ser verificado.", cancel:"Cancelar",
+      save:"Guardar perfil de advogado", saved:"Perfil de advogado guardado.", switched:"Perfil alterado.",
+      AREAS:{dismissal:"Despedimentos",employment:"Trabalho",goods:"Bens defeituosos",contract:"Contratos e dívidas",injury:"Danos e lesões",road:"Acidentes de viação",building:"Defeitos de construção",consumer:"Consumo",tenancy:"Arrendamento",condo:"Condomínio",neighbours:"Relações de vizinhança",medical:"Negligência médica",insurance:"Seguros",travel:"Viagens e transportes",family:"Família",inheritance:"Heranças",injunction:"Injunções de pagamento",fine:"Multas e coimas",tax:"Fiscal",defamation:"Difamação",other:"Outros"},
+      mcH:"Os seus casos com advogados",
+      mcEmpty:'Ainda não enviou nenhum caso a um advogado. Comece pela <a href="/risk-check.html">avaliação de risco</a>: depois do resultado, pode enviar o caso a advogados verificados.',
+      sent:"Enviado a", reviews:function(n){ return n === 0 ? "Nenhum advogado o analisou ainda" : n === 1 ? "Analisado por 1 advogado" : "Analisado por " + n + " advogados"; },
+      interested:"Quer aceitar o seu caso", info:"Pede mais detalhes",
+      share:"Partilhar os meus contactos", shared:"Partilhou os seus contactos. Escreva a este advogado para",
+      shareNote:"O seu nome e e-mail são enviados apenas a este advogado.",
+      addInfo:"Acrescentar detalhes", addPh:"Os detalhes pedidos pelo advogado…", send:"Enviar", withdraw:"Retirar o caso",
+      withdrawQ:"Retirar este caso? Os advogados deixarão de o ver.", yes:"Sim, retirar", no:"Manter",
+      updates:"Detalhes acrescentados", generic:"Ocorreu um erro. Tente novamente.",
+      adH:"Advogados por verificar", adP:"Antes de verificar, confirme cada nome e número de inscrição no registo oficial de advogados. Só os advogados verificados podem ver casos.",
+      adSt:{pending:"Pendente", verified:"Verificado", rejected:"Rejeitado"}, verify:"Verificar", reject:"Rejeitar", adEmpty:"Ainda nenhum advogado se registou.", regNo:"n.º"
+    },
+    pl: {
+      h:"Typ profilu", client:"Klient", lawyer:"Prawnik",
+      st:{pending:"Czeka na weryfikację", verified:"Zweryfikowany", rejected:"Niezweryfikowany"},
+      clientP:"Korzystasz z Casebound, aby zgłębiać własne problemy prawne, a z Pro — aby kontaktować się ze zweryfikowanymi prawnikami.",
+      toLawyer:"Jestem prawnikiem: przełącz na profil prawnika", toClient:"Wróć do profilu klienta",
+      pendingP:"Sprawdzamy Twoje imię i nazwisko oraz numer wpisu w oficjalnym rejestrze prawników. Do tego czasu nie możesz przeglądać spraw. Zwykle trwa to jeden lub dwa dni robocze.",
+      rejectedP:"Nie udało się dopasować Twoich danych do rejestru. Sprawdź izbę i numer wpisu albo napisz na admin@case-bound.com.",
+      verifiedP:"Możesz przeglądać sprawy przesłane przez klientów.", board:"Otwórz tablicę spraw", edit:"Edytuj dane prawnika",
+      barL:"Izba adwokacka", noL:"Numer wpisu", cityL:"Miasto", areasL:"Specjalizacje", bioL:"O mnie",
+      kNote:"Zmiana izby lub numeru wpisu oznacza ponowną weryfikację profilu.", cancel:"Anuluj",
+      save:"Zapisz profil prawnika", saved:"Profil prawnika zapisany.", switched:"Profil zmieniony.",
+      AREAS:{dismissal:"Zwolnienia",employment:"Prawo pracy",goods:"Wadliwe towary",contract:"Umowy i długi",injury:"Szkody i obrażenia",road:"Wypadki drogowe",building:"Wady budowlane",consumer:"Prawa konsumenta",tenancy:"Najem",condo:"Wspólnota mieszkaniowa",neighbours:"Sprawy sąsiedzkie",medical:"Błędy medyczne",insurance:"Ubezpieczenia",travel:"Podróże i transport",family:"Rodzina",inheritance:"Spadki",injunction:"Nakazy zapłaty",fine:"Mandaty i kary",tax:"Podatki",defamation:"Zniesławienie",other:"Inne"},
+      mcH:"Twoje sprawy u prawników",
+      mcEmpty:'Nie masz jeszcze spraw wysłanych do prawnika. Zacznij od <a href="/risk-check.html">oceny ryzyka</a>: po otrzymaniu wyniku możesz wysłać sprawę do zweryfikowanych prawników.',
+      sent:"Wysłana", reviews:function(n){ return n === 0 ? "Żaden prawnik jeszcze jej nie sprawdził" : n === 1 ? "Sprawdzona przez 1 prawnika" : "Sprawdzona przez " + n + " prawników"; },
+      interested:"Chce poprowadzić Twoją sprawę", info:"Prosi o więcej szczegółów",
+      share:"Udostępnij moje dane kontaktowe", shared:"Twoje dane kontaktowe zostały udostępnione. Napisz do tego prawnika na adres",
+      shareNote:"Twoje imię i nazwisko oraz e-mail trafią tylko do tego prawnika.",
+      addInfo:"Dodaj szczegóły", addPh:"Szczegóły, o które prosił prawnik…", send:"Wyślij", withdraw:"Wycofaj sprawę",
+      withdrawQ:"Wycofać tę sprawę? Prawnicy przestaną ją widzieć.", yes:"Tak, wycofaj", no:"Zostaw",
+      updates:"Dodane szczegóły", generic:"Coś poszło nie tak. Spróbuj ponownie.",
+      adH:"Prawnicy do weryfikacji", adP:"Przed weryfikacją sprawdź każde nazwisko i numer wpisu w oficjalnym rejestrze prawników. Tylko zweryfikowani prawnicy widzą sprawy.",
+      adSt:{pending:"Oczekuje", verified:"Zweryfikowany", rejected:"Odrzucony"}, verify:"Zweryfikuj", reject:"Odrzuć", adEmpty:"Żaden prawnik jeszcze się nie zarejestrował.", regNo:"nr"
+    },
+    ar: {
+      h:"نوع الملف الشخصي", client:"عميل", lawyer:"محامٍ",
+      st:{pending:"بانتظار التحقق", verified:"موثَّق", rejected:"غير موثَّق"},
+      clientP:"تستخدم Casebound للبحث في مشكلاتك القانونية، ومع Pro للتواصل مع محامين موثَّقين.",
+      toLawyer:"أنا محامٍ: التحويل إلى ملف محامٍ", toClient:"العودة إلى ملف العميل",
+      pendingP:"نتحقق من اسمك ورقم قيدك في الجدول الرسمي للمحامين. حتى ذلك الحين لا يمكنك رؤية القضايا. يستغرق ذلك عادةً يوم عمل أو يومين.",
+      rejectedP:"لم نتمكن من مطابقة بياناتك مع الجدول. تحقق من النقابة ورقم القيد، أو راسلنا على admin@case-bound.com.",
+      verifiedP:"يمكنك مراجعة القضايا التي يرسلها العملاء.", board:"افتح لوحة القضايا", edit:"تعديل بيانات المحامي",
+      barL:"نقابة المحامين", noL:"رقم القيد", cityL:"المدينة", areasL:"مجالات الممارسة", bioL:"نبذة",
+      kNote:"تغيير النقابة أو رقم القيد يعيد ملفك إلى التحقق.", cancel:"إلغاء",
+      save:"حفظ ملف المحامي", saved:"حُفظ ملف المحامي.", switched:"تم تغيير نوع الملف الشخصي.",
+      AREAS:{dismissal:"الفصل من العمل",employment:"العمل",goods:"البضائع المعيبة",contract:"العقود والديون",injury:"الأضرار والإصابات",road:"حوادث الطرق",building:"عيوب البناء",consumer:"حماية المستهلك",tenancy:"الإيجار",condo:"الملكية المشتركة",neighbours:"علاقات الجوار",medical:"الأخطاء الطبية",insurance:"التأمين",travel:"السفر والنقل",family:"الأسرة",inheritance:"الميراث",injunction:"أوامر الأداء",fine:"المخالفات والغرامات",tax:"الضرائب",defamation:"التشهير",other:"أخرى"},
+      mcH:"قضاياك مع المحامين",
+      mcEmpty:'لم ترسل أي قضية إلى محامٍ بعد. ابدأ بـ<a href="/risk-check.html">تقييم المخاطر</a>: بعد ظهور النتيجة يمكنك إرسال القضية إلى محامين موثَّقين.',
+      sent:"أُرسلت في", reviews:function(n){
+        if (n === 0) return "لم يراجعها أي محامٍ بعد";
+        var f = new Intl.PluralRules("ar").select(n);
+        return f === "one" ? "راجعها محامٍ واحد" : f === "two" ? "راجعها محاميان" : f === "few" ? "راجعها " + n + " محامين" : f === "many" ? "راجعها " + n + " محاميًا" : "راجعها " + n + " محامٍ";
+      },
+      interested:"يرغب في تولّي قضيتك", info:"يطلب مزيدًا من التفاصيل",
+      share:"مشاركة بيانات التواصل الخاصة بي", shared:"شاركت بيانات التواصل الخاصة بك. راسل هذا المحامي على",
+      shareNote:"يُرسَل اسمك وبريدك الإلكتروني إلى هذا المحامي فقط.",
+      addInfo:"إضافة تفاصيل", addPh:"التفاصيل التي طلبها المحامي…", send:"إرسال", withdraw:"سحب القضية",
+      withdrawQ:"هل تريد سحب هذه القضية؟ لن يراها المحامون بعد الآن.", yes:"نعم، اسحبها", no:"أبقِها",
+      updates:"التفاصيل التي أضفتها", generic:"حدث خطأ ما. حاول مرة أخرى.",
+      adH:"محامون بانتظار التحقق", adP:"قبل التوثيق، تحقق من كل اسم ورقم قيد في الجدول الرسمي للمحامين. لا يرى القضايا إلا المحامون الموثَّقون.",
+      adSt:{pending:"بانتظار التحقق", verified:"موثَّق", rejected:"مرفوض"}, verify:"توثيق", reject:"رفض", adEmpty:"لم يسجّل أي محامٍ بعد.", regNo:"رقم"
     }
   };
   var me = null, cases = [], lawyers = [], confirmId = null, openInfo = null;
-  function L(){ return document.documentElement.lang === "it" ? "it" : "en"; }
-  function t(){ return S[L()]; }
+  var I = window.CB_I18N;
+  function L(){ return I ? I.get() : "en"; }
+  function t(){ return S[L()] || S.en; }
+  function errText(m){ return window.CBAccountErr ? window.CBAccountErr(m) : m; }
   function esc(s){ return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
-  function day(iso){ try{ return new Date(iso).toLocaleDateString(L() === "it" ? "it-IT" : "en-GB", {day:"numeric", month:"short", year:"numeric"}); }catch(e){ return ""; } }
+  function day(iso){ try{ return new Date(iso).toLocaleDateString(I ? I.locale() : "en-IE", {day:"numeric", month:"short", year:"numeric"}); }catch(e){ return ""; } }
   function msg(text, isErr){
     var el = $(isErr ? "err" : "okmsg"); if(!el) return;
-    el.textContent = text; el.hidden = !text; if(text) el.scrollIntoView({behavior:"smooth", block:"center"});
+    el.textContent = isErr && text ? errText(text) : text; el.hidden = !text; if(text) el.scrollIntoView({behavior:"smooth", block:"center"});
   }
   function api(method, url, data){
     return fetch(url, { method:method, credentials:"same-origin", headers: data ? {"Content-Type":"application/json"} : {}, body: data ? JSON.stringify(data) : undefined })
@@ -633,7 +1053,7 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
 
   /* ---- profile type ---- */
   function areasHTML(sel){
-    return AREA_KEYS.slice().sort(function(a,b){ return (a === "other") - (b === "other") || t().AREAS[a].localeCompare(t().AREAS[b]); }).map(function(k){ return '<label><input type="checkbox" value="' + k + '"' + (sel.indexOf(k) >= 0 ? " checked" : "") + '> ' + esc(t().AREAS[k]) + '</label>'; }).join("");
+    return AREA_KEYS.slice().sort(function(a,b){ return (a === "other") - (b === "other") || t().AREAS[a].localeCompare(t().AREAS[b], I ? I.locale() : undefined); }).map(function(k){ return '<label><input type="checkbox" value="' + k + '"' + (sel.indexOf(k) >= 0 ? " checked" : "") + '> ' + esc(t().AREAS[k]) + '</label>'; }).join("");
   }
   function renderKind(){
     var u = me && me.user; if(!u){ $("kind").hidden = true; return; }
@@ -656,7 +1076,11 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
         '<button type="button" class="linkbtn" id="k-to-client" style="align-self:center">' + esc(x.toClient) + '</button></div>';
     }
     ["k-bar-l","k-no-l","k-city-l","k-areas-l","k-bio-l"].forEach(function(id, i){ $(id).textContent = [x.barL, x.noL, x.cityL, x.areasL, x.bioL][i]; });
-    $("k-save").textContent = x.save;
+    $("k-save").textContent = x.save; $("k-cancel").textContent = x.cancel; $("k-note").textContent = x.kNote;
+    if(!$("k-form").hidden){
+      var on = Array.prototype.map.call(document.querySelectorAll("#k-areas input:checked"), function(i){ return i.value; });
+      $("k-areas").innerHTML = areasHTML(on);
+    }
   }
   function openKindForm(){
     var lw = (me.user && me.user.lawyer) || {};
@@ -730,13 +1154,14 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
   function renderAdmin(){
     if(!me || !me.user || !me.user.isAdmin || viewAs() !== "admin"){ $("admin").hidden = true; return; }
     $("admin").hidden = false;
-    var lab = {pending:"Waiting", verified:"Verified", rejected:"Rejected"};
+    var x = t(), lab = x.adSt;
+    $("ad-h").textContent = x.adH; $("ad-p").textContent = x.adP;
     $("ad-list").innerHTML = lawyers.length ? lawyers.map(function(l){
-      return '<div class="ad"><div><b>' + esc(l.name || "—") + '</b> <span class="pill' + (l.status === "verified" ? "" : l.status === "rejected" ? " off" : " warn") + '">' + lab[l.status] + '</span><br>' +
-        esc(l.bar) + ' · n. ' + esc(l.barNumber) + (l.city ? ' · ' + esc(l.city) : '') + '<br><span class="note">' + esc(l.email) + ' · ' + esc(day(l.submittedAt)) + '</span></div>' +
-        '<div class="actions">' + (l.status !== "verified" ? '<button type="button" class="btn sm" data-verify="' + esc(l.id) + '" data-to="verified">Verify</button>' : '') +
-        (l.status !== "rejected" ? '<button type="button" class="btn ghost sm" data-verify="' + esc(l.id) + '" data-to="rejected">Reject</button>' : '') + '</div></div>';
-    }).join("") : '<p class="note">No lawyer has signed up yet.</p>';
+      return '<div class="ad"><div><b>' + esc(l.name || "—") + '</b> <span class="pill' + (l.status === "verified" ? "" : l.status === "rejected" ? " off" : " warn") + '">' + esc(lab[l.status] || l.status) + '</span><br>' +
+        esc(l.bar) + ' · ' + esc(x.regNo) + ' ' + esc(l.barNumber) + (l.city ? ' · ' + esc(l.city) : '') + '<br><span class="note">' + esc(l.email) + ' · ' + esc(day(l.submittedAt)) + '</span></div>' +
+        '<div class="actions">' + (l.status !== "verified" ? '<button type="button" class="btn sm" data-verify="' + esc(l.id) + '" data-to="verified">' + esc(x.verify) + '</button>' : '') +
+        (l.status !== "rejected" ? '<button type="button" class="btn ghost sm" data-verify="' + esc(l.id) + '" data-to="rejected">' + esc(x.reject) + '</button>' : '') + '</div></div>';
+    }).join("") : '<p class="note">' + esc(x.adEmpty) + '</p>';
   }
   $("ad-list").addEventListener("click", function(e){
     var b = e.target.closest("button[data-verify]"); if(!b) return; b.disabled = true;
@@ -747,18 +1172,21 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
     api("GET", "/api/cases/lawyers").then(function(j){ lawyers = j.lawyers || []; renderAdmin(); }).catch(function(){ renderAdmin(); });
   }
 
-  function renderAll(){ renderKind(); renderCases(); renderAdmin(); }
-  new MutationObserver(renderAll).observe(document.documentElement, { attributes:true, attributeFilter:["lang"] });
+  function renderAll(){
+    renderKind(); renderCases(); renderAdmin();
+    document.querySelectorAll("[data-board]").forEach(function(a){ a.textContent = t().board; });
+  }
+  if(I) I.onChange(renderAll);
   fetch("/api/auth/me", { credentials:"same-origin" }).then(function(r){ return r.json(); }).then(function(j){
     me = j; if(!j || !j.user) return;
     if(j.user.isAdmin && viewAs() === "lawyer"){
-      var lb2 = document.createElement("a"); lb2.className = "btn"; lb2.href = "/lawyers.html"; lb2.textContent = "Open the case board";
+      var lb2 = document.createElement("a"); lb2.className = "btn"; lb2.href = "/lawyers.html"; lb2.setAttribute("data-board", ""); lb2.textContent = t().board;
       var kd = $("kind"); kd.appendChild(lb2); lb2.style.marginTop = "14px";
     }
     if(j.user.isAdmin && viewAs() === "admin"){
       document.body.classList.add("is-admin"); $("admin-pro").hidden = false;
       if(!(j.subscription && j.subscription.status && j.subscription.status !== "none")) $("sub").hidden = false;
-      var lb = document.createElement("a"); lb.className = "btn ghost"; lb.href = "/lawyers.html"; lb.textContent = "Open the case board";
+      var lb = document.createElement("a"); lb.className = "btn ghost"; lb.href = "/lawyers.html"; lb.setAttribute("data-board", ""); lb.textContent = t().board;
       var ad = $("admin"); ad.appendChild(lb); lb.style.marginTop = "14px";
     }
     renderAll(); loadCases(); loadAdmin();
