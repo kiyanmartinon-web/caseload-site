@@ -7,7 +7,7 @@ import { getJSON, putJSON, del } from "./store.mjs";
 const SESSION_DAYS = 30;
 const MAX_FAILS = 8;
 const LOCK_MINUTES = 15;
-export const TERMS_VERSION = "2026-10-03";
+export const TERMS_VERSION = "2026-10-07";
 
 const scrypt = (pw, salt) =>
   new Promise((res, rej) => crypto.scrypt(pw, salt, 64, { N: 16384, r: 8, p: 1, maxmem: 64 * 1024 * 1024 }, (e, k) => (e ? rej(e) : res(k))));
@@ -47,7 +47,43 @@ export async function findUserByEmail(email) {
 export const getUser = (id) => getJSON(userKey(id));
 export const saveUser = (u) => putJSON(userKey(u.id), u);
 
-export async function createUser({ email, password, name, lang }) {
+// ---- profile types: client (default) or lawyer ----
+// Lawyers start "pending" and only see cases once the admin has verified them
+// against the official register (albo). Any change to the bar details sends a
+// verified lawyer back to "pending".
+export const PRACTICE_AREAS = ["dismissal", "employment", "goods", "contract", "injury", "road", "building", "family", "tenancy", "consumer", "other"];
+const clip = (v, n) => String(v || "").trim().slice(0, n);
+
+export function cleanLawyer(input, prev) {
+  const i = input || {};
+  const areas = Array.isArray(i.areas) ? [...new Set(i.areas.filter((a) => PRACTICE_AREAS.includes(a)))] : [];
+  const out = {
+    bar: clip(i.bar, 80),
+    barNumber: clip(i.barNumber, 40),
+    city: clip(i.city, 60),
+    areas,
+    bio: clip(i.bio, 600),
+    status: (prev && prev.status) || "pending",
+    submittedAt: (prev && prev.submittedAt) || new Date().toISOString(),
+    verifiedAt: (prev && prev.verifiedAt) || null,
+  };
+  if (!out.bar) return { error: "Enter the bar association (Ordine degli Avvocati) you are registered with." };
+  if (!out.barNumber) return { error: "Enter your registration number on the register of lawyers." };
+  if (!out.areas.length) return { error: "Choose at least one area of practice." };
+  if (prev && (prev.bar !== out.bar || prev.barNumber !== out.barNumber) && prev.status !== "pending") {
+    out.status = "pending"; out.verifiedAt = null; out.submittedAt = new Date().toISOString();
+  }
+  if (prev && prev.status === "rejected" && (prev.bar !== out.bar || prev.barNumber !== out.barNumber)) out.status = "pending";
+  return { lawyer: out };
+}
+
+export function isAdmin(u) {
+  const list = String(process.env.ADMIN_EMAILS || "").split(",").map((e) => e.trim().toLowerCase()).filter(Boolean);
+  return !!(u && list.includes(u.email));
+}
+export const isVerifiedLawyer = (u) => !!(u && u.role === "lawyer" && u.lawyer && u.lawyer.status === "verified");
+
+export async function createUser({ email, password, name, lang, role, lawyer }) {
   const now = new Date().toISOString();
   const user = {
     id: crypto.randomUUID(),
@@ -58,6 +94,8 @@ export async function createUser({ email, password, name, lang }) {
     termsAcceptedAt: now,
     termsVersion: TERMS_VERSION,
     lang: lang === "it" ? "it" : "en",
+    role: role === "lawyer" ? "lawyer" : "client",
+    lawyer: role === "lawyer" ? lawyer : null,
     stripeCustomer: "",
     failedLogins: 0,
     lockedUntil: 0,
@@ -159,5 +197,8 @@ export function publicUser(u) {
   return {
     id: u.id, email: u.email, name: u.name, createdAt: u.createdAt, lang: u.lang,
     lastLoginAt: u.lastLoginAt || null, passwordChangedAt: u.passwordChangedAt || null,
+    role: u.role === "lawyer" ? "lawyer" : "client",
+    lawyer: u.role === "lawyer" ? u.lawyer || null : null,
+    isAdmin: isAdmin(u),
   };
 }

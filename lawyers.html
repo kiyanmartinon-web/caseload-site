@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script src="/theme.js"></script>
+<title>Case board — Casebound for lawyers</title>
+<meta name="description" content="Casebound for lawyers: review cases sent by clients, rate them and connect with the ones you want to take on.">
+<meta name="theme-color" content="#6E1F2A">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%236E1F2A'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='36' font-weight='700' text-anchor='middle' fill='%23fff'%3EC%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F7F7F4; --paper-2:#FFFFFF; --ink:#1A2438; --ink-soft:#5A6376;
+  --rule:#D8D7CF; --rule-soft:#E8E7E0;
+  --oxblood:#6E1F2A; --oxblood-wash:#F3EAEB;
+  --verdigris:#29565A; --verdigris-wash:#E7EFEF;
+  --amber:#8A5A12; --amber-wash:#F7EEDD;
+  --slate:#3C4A5C; --slate-wash:#EBEEF1;
+  --serif:"Source Serif 4",Georgia,serif; --sans:"Archivo",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;padding:0;background:var(--paper)}
+body{font-family:var(--sans);color:var(--ink);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:var(--verdigris)} a:hover{color:var(--oxblood)}
+button,input,select,textarea{font-family:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--verdigris);outline-offset:2px}
+h1,h2{text-wrap:balance}
+
+.masthead{border-bottom:1px solid var(--rule);background:var(--paper-2)}
+.masthead-in{max-width:1300px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:16px;min-height:56px}
+.wordmark{font-family:var(--serif);font-size:21px;font-weight:600;line-height:1;text-decoration:none;color:var(--ink)}
+.wordmark span{color:var(--oxblood)}
+.wordmark small{display:block;font-family:var(--sans);font-size:10px;font-weight:600;color:var(--ink-soft);letter-spacing:.06em;margin-top:2px}
+.top-links{margin-left:auto;display:flex;gap:14px;font-size:13px;font-weight:600}
+.top-links a{text-decoration:none;color:var(--ink-soft)} .top-links a:hover{color:var(--oxblood)}
+
+main{max-width:1300px;margin:0 auto;padding:26px 20px 70px}
+.head h1{font-family:var(--serif);font-size:28px;font-weight:600;margin:0 0 4px;line-height:1.2}
+.head p{margin:0 0 18px;color:var(--ink-soft);max-width:75ch}
+.state{background:var(--paper-2);border:1px solid var(--rule);border-radius:6px;padding:22px;max-width:640px}
+.state h2{font-family:var(--serif);font-size:20px;margin:0 0 6px}
+.state p{margin:0 0 12px;color:var(--ink-soft)}
+.btn{font-size:13.5px;font-weight:700;border:1px solid var(--oxblood);background:var(--oxblood);color:#fff;border-radius:5px;padding:10px 16px;text-decoration:none;display:inline-block}
+.btn:hover{background:#57181f;color:#fff}
+.btn.ghost{background:var(--paper-2);color:var(--ink);border-color:var(--rule)}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:14px}
+@media(max-width:700px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.stat{background:var(--paper-2);border:1px solid var(--rule);border-radius:6px;padding:10px 14px}
+.stat b{display:block;font-size:22px;font-variant-numeric:tabular-nums;line-height:1.2}
+.stat span{font-size:11.5px;color:var(--ink-soft)}
+.stat.warn b{color:var(--amber)} .stat.bad b{color:var(--oxblood)}
+.tools{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.tools .f{flex:1 1 180px;display:grid;gap:4px}
+.tools label{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft)}
+input[type=text],select,textarea{width:100%;background:var(--paper-2);border:1px solid var(--rule);border-radius:5px;padding:8px 10px;font-size:14px}
+.board{display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:16px;align-items:start}
+@media(max-width:1050px){.board{grid-template-columns:1fr}}
+.list{display:grid;gap:8px}
+.item{display:grid;grid-template-columns:62px minmax(0,1fr) auto;gap:14px;align-items:center;text-align:left;width:100%;background:var(--paper-2);border:1px solid var(--rule);border-radius:6px;padding:12px 14px}
+.item:hover{border-color:var(--slate)}
+.item.sel{border-color:var(--verdigris);box-shadow:0 0 0 2px var(--verdigris-wash)}
+.item.passed{opacity:.55}
+.score{text-align:center}
+.score b{display:block;font-size:22px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.1}
+.score span{font-size:9.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft)}
+.score.est b{color:var(--ink-soft);opacity:.7}
+.item-main{min-width:0}
+.item-top{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:3px}
+.item-title{font-family:var(--serif);font-weight:600;font-size:15px;line-height:1.3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.item-meta{font-size:12px;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.item-side{display:grid;gap:4px;justify-items:end}
+.pill{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:2px 8px;border-radius:10px;white-space:nowrap}
+.p-area{background:var(--slate-wash);color:var(--slate)}
+.p-low{background:var(--verdigris-wash);color:var(--verdigris)}
+.p-med{background:var(--amber-wash);color:var(--amber)}
+.p-high{background:var(--oxblood-wash);color:var(--oxblood)}
+.p-unrated{background:var(--rule-soft);color:var(--ink-soft)}
+.p-status{border:1px solid var(--rule);color:var(--ink-soft)}
+.p-status.interested{border-color:var(--verdigris);color:var(--verdigris)}
+.p-status.info{border-color:var(--amber);color:var(--amber)}
+.dl{font-size:11.5px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--ink-soft)}
+.dl.urgent{color:var(--amber)} .dl.gone{color:var(--oxblood)}
+@media(max-width:560px){.item{grid-template-columns:50px minmax(0,1fr)}.item-side{grid-column:2;justify-items:start;display:flex;flex-wrap:wrap;gap:6px}.item-title{white-space:normal}}
+.empty{border:1px dashed var(--rule);border-radius:6px;padding:34px 22px;text-align:center;color:var(--ink-soft)}
+.empty b{display:block;font-family:var(--serif);font-size:17px;color:var(--ink);margin-bottom:4px}
+
+.panel{background:var(--paper-2);border:1px solid var(--rule);border-radius:8px;padding:18px;position:sticky;top:16px;display:grid;gap:16px;min-width:0}
+@media(max-width:1050px){.panel{position:static}}
+.panel h2{font-family:var(--serif);font-size:19px;font-weight:600;margin:0;line-height:1.3}
+.sec-h{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-soft);margin:0 0 6px}
+.facts{font-family:var(--serif);font-size:14.5px;line-height:1.55;margin:0;white-space:pre-wrap}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:12.5px;margin:0}
+.kv dt{color:var(--ink-soft)} .kv dd{margin:0;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.tags{display:flex;flex-wrap:wrap;gap:5px}
+.tag{font-size:11.5px;padding:3px 9px;border-radius:12px;background:var(--verdigris-wash);color:var(--verdigris);font-weight:600}
+.tag.none{background:var(--rule-soft);color:var(--ink-soft)}
+.flags{display:grid;gap:6px;margin:0;padding:0;list-style:none}
+.flags li{font-size:12.5px;padding:7px 10px;border-radius:5px;background:var(--amber-wash);color:var(--amber);line-height:1.4}
+.flags li.bad{background:var(--oxblood-wash);color:var(--oxblood)}
+.flags li.ok{background:var(--verdigris-wash);color:var(--verdigris)}
+.contact{background:var(--verdigris-wash);color:var(--verdigris);border-radius:5px;padding:10px 12px;font-size:13px}
+.contact b{color:var(--ink)}
+.rate{display:grid;gap:12px;border-top:1px solid var(--rule-soft);padding-top:14px}
+.scale{display:flex;gap:4px}
+.scale button{flex:1;padding:7px 0;border:1px solid var(--rule);background:var(--paper);border-radius:4px;font-weight:700;font-size:13px;color:var(--ink-soft)}
+.scale button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.scale-ends{display:flex;justify-content:space-between;font-size:10.5px;color:var(--ink-soft);margin-top:3px}
+.lbl{font-size:12.5px;font-weight:600;display:block;margin-bottom:4px}
+.breakdown{display:grid;gap:5px}
+.bd{display:grid;grid-template-columns:120px 1fr 40px;gap:8px;align-items:center;font-size:11.5px;color:var(--ink-soft)}
+.bd .bar{height:6px;background:var(--rule-soft);border-radius:3px;overflow:hidden}
+.bd .bar i{display:block;height:100%;background:var(--verdigris)}
+.bd b{text-align:right;color:var(--ink);font-variant-numeric:tabular-nums}
+.total{display:flex;align-items:baseline;justify-content:space-between;border-top:1px solid var(--rule-soft);padding-top:10px}
+.total b{font-size:28px;font-variant-numeric:tabular-nums}
+.decide{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.decide button{padding:9px 4px;border-radius:5px;font-size:12.5px;font-weight:600;border:1px solid var(--rule);background:var(--paper)}
+.decide button.on{outline:2px solid var(--ink);outline-offset:1px}
+.decide .yes{background:var(--verdigris);border-color:var(--verdigris);color:var(--paper-2)}
+.note{font-size:11.5px;color:var(--ink-soft);line-height:1.45;margin:0}
+.err{color:var(--oxblood);font-size:12.5px;font-weight:600;margin:0}
+footer{border-top:1px solid var(--rule);background:var(--paper-2);font-size:12.5px;color:var(--ink-soft)}
+footer div{max-width:1300px;margin:0 auto;padding:18px 20px;display:flex;gap:16px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-in">
+    <a class="wordmark" href="/">Case<span>bound</span><small>FOR LAWYERS</small></a>
+    <nav class="top-links" aria-label="Account">
+      <a href="/">Research</a>
+      <a href="/account.html" id="top-account">Account</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="head">
+    <h1>Case board</h1>
+    <p>Cases sent by Casebound clients who want a lawyer. You see what happened, the dates, the amount and the evidence, but not who the client is. Mark the cases you want; the client then decides whether to share their name and email with you.</p>
+  </div>
+
+  <div id="loading" class="state"><p>Loading…</p></div>
+
+  <section id="gate" class="state" hidden></section>
+
+  <section id="app" hidden>
+    <div class="stats" id="stats"></div>
+    <div class="tools">
+      <div class="f"><label for="t-q">Search</label><input type="text" id="t-q" placeholder="Words, city…"></div>
+      <div class="f"><label for="t-area">Area of law</label><select id="t-area"></select></div>
+      <div class="f"><label for="t-status">Show</label>
+        <select id="t-status"><option value="open">Not passed</option><option value="all">All</option><option value="new">Not reviewed by me</option><option value="interested">I'm interested</option><option value="info">I asked for more</option><option value="passed">Passed</option></select>
+      </div>
+      <div class="f"><label for="t-sort">Sort by</label>
+        <select id="t-sort"><option value="score">Match score</option><option value="deadline">Deadline (soonest)</option><option value="value">Amount at stake</option><option value="newest">Newest</option></select>
+      </div>
+    </div>
+    <div class="board">
+      <div class="list" id="list"></div>
+      <aside class="panel" id="panel" aria-live="polite"></aside>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div>
+    <a href="/">← Back to Casebound</a>
+    <a href="/terms.html#lawyers">Terms for lawyers</a>
+    <a href="/privacy.html#connect">Privacy: lawyer connections</a>
+    <a href="mailto:admin@case-bound.com">Contact / complaints: admin@case-bound.com</a>
+    <span>© 2026 Kiyan Martinon</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+  var DAY = 86400000;
+  var AREAS = {
+    dismissal:{label:"Dismissal", days:60, rule:"60 days to challenge a dismissal in writing (L. 604/1966, art. 6)"},
+    employment:{label:"Employment", days:1825, rule:"5 years for most pay and work claims (art. 2948 c.c.)"},
+    goods:{label:"Faulty goods", days:365, rule:"1 year from delivery (art. 1495 c.c.)"},
+    contract:{label:"Contract / debt", days:3650, rule:"10 years, the ordinary limit (art. 2946 c.c.)"},
+    injury:{label:"Injury / damage", days:1825, rule:"5 years for damage claims (art. 2947 c.c.)"},
+    road:{label:"Road accident", days:730, rule:"2 years for road accidents (art. 2947(2) c.c.)"},
+    building:{label:"Building defects", days:365, rule:"1 year from discovery to notify the builder (art. 1669 c.c.)"},
+    family:{label:"Family"}, tenancy:{label:"Tenancy"}, consumer:{label:"Consumer"}, other:{label:"Other"}
+  };
+  var STATUS = {interested:"Interested", info:"More info asked", passed:"Passed"};
+  var cases = [], selected = null, saving = false;
+
+  function esc(s){ return String(s == null ? "" : s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+  function eur(n){ return n ? "€" + Number(n).toLocaleString("it-IT") : "—"; }
+  function fmt(d){ return d ? new Date(d).toLocaleDateString("en-GB", {day:"numeric", month:"short", year:"numeric"}) : "—"; }
+  function area(c){ return AREAS[c.area] || AREAS.other; }
+  function daysLeft(c){
+    var a = area(c); if(!c.date || !a.days) return null;
+    var t = new Date(); t.setHours(0,0,0,0);
+    return Math.round((new Date(c.date + "T00:00:00").getTime() + a.days*DAY - t.getTime())/DAY);
+  }
+  function dlClass(d){ return d === null ? "" : d < 0 ? "gone" : d <= 60 ? "urgent" : ""; }
+  function dlText(c){
+    var d = daysLeft(c);
+    if(d === null) return area(c).days ? "No date given" : "Check the time limit";
+    if(d < 0) return "May have expired " + (-d) + " days ago";
+    if(d <= 60) return d + " days left";
+    if(d < 730) return Math.round(d/30) + " months left";
+    return (d/365).toFixed(1) + " years left";
+  }
+  function mine(c){ return c.mine || {}; }
+  function formalCount(c){ return c.evidence.filter(function(e){ return e !== "Witnesses" && e !== "Emails / messages"; }).length; }
+  /* Match score out of 100: claim strength 35, evidence 25, amount 25, time pressure 15.
+     Until you rate a case, strength counts as 3/5 and evidence is estimated from what the client listed. */
+  function score(c){
+    var m = mine(c), rated = m.strength != null && m.quality != null;
+    var s = rated ? m.strength : 3;
+    var e = rated ? m.quality : Math.min(5, 1 + formalCount(c) + (c.evidence.length - formalCount(c)) * 0.5);
+    var d = daysLeft(c);
+    var parts = {
+      strength: 35*(s-1)/4, evidence: 25*(e-1)/4,
+      value: 25*Math.min(1, c.amount ? Math.max(0, (Math.log10(c.amount) - 2)/3) : 0),
+      urgency: d === null ? 4 : d < 0 ? 0 : d <= 60 ? 15 : d <= 180 ? 12 : d <= 730 ? 8 : 5
+    };
+    var total = parts.strength + parts.evidence + parts.value + parts.urgency;
+    if(d !== null && d < 0) total = Math.min(total, 10);
+    return { total: Math.round(total), parts: parts, rated: rated };
+  }
+  function risk(c){
+    var m = mine(c); if(m.strength == null || m.quality == null) return {cls:"p-unrated", label:"Not rated"};
+    var a = (m.strength + m.quality)/2;
+    return a >= 4 ? {cls:"p-low", label:"Low risk"} : a >= 2.75 ? {cls:"p-med", label:"Medium risk"} : {cls:"p-high", label:"High risk"};
+  }
+  function flags(c){
+    var out = [], d = daysLeft(c), a = area(c);
+    if(d !== null && d < 0) out.push(["bad", "Time limit may have passed: " + a.rule + ". Check for interruptions or suspensions."]);
+    else if(d !== null && d <= 60) out.push(["", "Urgent: about " + d + " days left. " + a.rule + "."]);
+    if(!c.date && a.days) out.push(["", "No date given, so the time limit can't be checked."]);
+    if(!a.days) out.push(["", "No automatic time-limit check for this area."]);
+    if(!c.evidence.length) out.push(["bad", "No evidence listed."]);
+    else if(!formalCount(c)) out.push(["", "Only informal evidence (messages or witnesses)."]);
+    if(c.facts.length < 160) out.push(["", "Short description. Key facts may be missing."]);
+    if(!c.amount) out.push(["", "No amount at stake given."]);
+    if(!out.length) out.push(["ok", "Dated, documented and valued."]);
+    return out;
+  }
+
+  function filtered(){
+    var q = $("t-q").value.trim().toLowerCase(), a = $("t-area").value, st = $("t-status").value, so = $("t-sort").value;
+    var l = cases.filter(function(c){
+      var d = mine(c).decision || "new";
+      if(a !== "all" && c.area !== a) return false;
+      if(st === "open" && d === "passed") return false;
+      if(["open","all"].indexOf(st) < 0 && d !== st) return false;
+      if(q && [c.title, c.facts, c.city, area(c).label].join(" ").toLowerCase().indexOf(q) < 0) return false;
+      return true;
+    });
+    var key = {
+      score:function(x,y){ return score(y).total - score(x).total; },
+      deadline:function(x,y){ var a = daysLeft(x), b = daysLeft(y); return (a === null ? 1e9 : a) - (b === null ? 1e9 : b); },
+      value:function(x,y){ return (y.amount||0) - (x.amount||0); },
+      newest:function(x,y){ return y.createdAt.localeCompare(x.createdAt); }
+    }[so];
+    return l.sort(key);
+  }
+  function renderStats(){
+    var notPassed = cases.filter(function(c){ return mine(c).decision !== "passed"; });
+    var unrated = notPassed.filter(function(c){ return mine(c).strength == null; }).length;
+    var urgent = notPassed.filter(function(c){ var d = daysLeft(c); return d !== null && d >= 0 && d <= 60; }).length;
+    var gone = notPassed.filter(function(c){ var d = daysLeft(c); return d !== null && d < 0; }).length;
+    $("stats").innerHTML =
+      '<div class="stat"><b>' + notPassed.length + '</b><span>Open cases</span></div>' +
+      '<div class="stat"><b>' + unrated + '</b><span>Not rated by you</span></div>' +
+      '<div class="stat warn"><b>' + urgent + '</b><span>Time limit within 60 days</span></div>' +
+      '<div class="stat bad"><b>' + gone + '</b><span>Time limit may have passed</span></div>';
+  }
+  function renderList(){
+    if(!cases.length){
+      $("list").innerHTML = '<div class="empty"><b>No cases yet</b>Cases appear here when a client sends one from the risk check. Nothing is shown until then.</div>';
+      return;
+    }
+    var l = filtered();
+    if(!l.length){ $("list").innerHTML = '<div class="empty">No cases match these filters.</div>'; return; }
+    $("list").innerHTML = l.map(function(c){
+      var s = score(c), r = risk(c), d = mine(c).decision;
+      return '<button type="button" class="item' + (c.id === selected ? " sel" : "") + (d === "passed" ? " passed" : "") + '" data-id="' + esc(c.id) + '">' +
+        '<div class="score' + (s.rated ? "" : " est") + '"><b>' + s.total + '</b><span>' + (s.rated ? "score" : "est.") + '</span></div>' +
+        '<div class="item-main"><div class="item-top"><span class="pill p-area">' + esc(area(c).label) + '</span></div>' +
+        '<div class="item-title">' + esc(c.title) + '</div>' +
+        '<div class="item-meta">' + esc(c.city || "—") + ' · ' + eur(c.amount) + ' · ' + c.evidence.length + ' evidence item' + (c.evidence.length === 1 ? "" : "s") + '</div></div>' +
+        '<div class="item-side"><span class="pill ' + r.cls + '">' + r.label + '</span><span class="dl ' + dlClass(daysLeft(c)) + '">' + esc(dlText(c)) + '</span>' +
+        (d ? '<span class="pill p-status ' + d + '">' + STATUS[d] + '</span>' : '') + '</div></button>';
+    }).join("");
+  }
+  function scaleHTML(field, val){
+    return '<div class="scale" data-field="' + field + '">' + [1,2,3,4,5].map(function(n){ return '<button type="button" data-v="' + n + '" class="' + (val === n ? "on" : "") + '" aria-pressed="' + (val === n) + '">' + n + '</button>'; }).join("") + '</div>';
+  }
+  function renderPanel(){
+    var c = cases.filter(function(x){ return x.id === selected; })[0];
+    if(!c){ $("panel").innerHTML = '<p class="note">' + (cases.length ? "Pick a case to review it." : "When a case arrives, its details and your rating tools appear here.") + '</p>'; return; }
+    var s = score(c), r = risk(c), m = mine(c);
+    var bd = [["Claim strength", s.parts.strength, 35], ["Evidence quality", s.parts.evidence, 25], ["Amount at stake", s.parts.value, 25], ["Time pressure", s.parts.urgency, 15]];
+    $("panel").innerHTML =
+      '<div><div class="item-top"><span class="pill p-area">' + esc(area(c).label) + '</span><span class="pill ' + r.cls + '">' + r.label + '</span></div><h2>' + esc(c.title) + '</h2></div>' +
+      (c.contact ? '<div class="contact">The client shared their details with you: <b>' + esc(c.contact.name || "—") + '</b> · <b>' + esc(c.contact.email) + '</b></div>' : '') +
+      '<div><p class="sec-h">Client\'s account</p><p class="facts">' + esc(c.facts) + '</p></div>' +
+      ((c.updates || []).length ? '<div><p class="sec-h">Details added later</p>' + c.updates.map(function(u){ return '<p class="facts" style="margin-bottom:6px">' + esc(u.text) + ' <span class="note">(' + fmt(u.at) + ')</span></p>'; }).join("") + '</div>' : '') +
+      '<dl class="kv"><dt>Other side</dt><dd>' + esc(c.party || "—") + '</dd><dt>Location</dt><dd>' + esc(c.city || "—") + '</dd>' +
+      '<dt>At stake</dt><dd>' + eur(c.amount) + '</dd><dt>Key date</dt><dd>' + fmt(c.date) + '</dd>' +
+      '<dt>Time limit</dt><dd class="dl ' + dlClass(daysLeft(c)) + '">' + esc(dlText(c)) + '</dd><dt>Wants</dt><dd>' + esc(c.goal || "—") + '</dd>' +
+      '<dt>Sent</dt><dd>' + fmt(c.createdAt) + (c.othersInterested ? ' · ' + c.othersInterested + ' other lawyer' + (c.othersInterested === 1 ? "" : "s") + ' interested' : '') + '</dd></dl>' +
+      '<div><p class="sec-h">Evidence</p><div class="tags">' + (c.evidence.length ? c.evidence.map(function(e){ return '<span class="tag">' + esc(e) + '</span>'; }).join("") : '<span class="tag none">None listed</span>') + '</div></div>' +
+      '<div><p class="sec-h">Automatic checks</p><ul class="flags">' + flags(c).map(function(f){ return '<li class="' + f[0] + '">' + esc(f[1]) + '</li>'; }).join("") + '</ul></div>' +
+      '<div class="rate"><p class="sec-h" style="margin:0">Your rating (only you see it)</p>' +
+        '<div><span class="lbl">How strong is the claim?</span>' + scaleHTML("strength", m.strength) + '<div class="scale-ends"><span>Weak</span><span>Strong</span></div></div>' +
+        '<div><span class="lbl">How good is the evidence?</span>' + scaleHTML("quality", m.quality) + '<div class="scale-ends"><span>Thin</span><span>Solid</span></div></div>' +
+        '<div class="breakdown">' + bd.map(function(b){ return '<div class="bd"><span>' + b[0] + '</span><span class="bar"><i style="width:' + Math.round(b[1]/b[2]*100) + '%"></i></span><b>' + Math.round(b[1]) + '/' + b[2] + '</b></div>'; }).join("") + '</div>' +
+        '<div class="total"><span class="sec-h" style="margin:0">' + (s.rated ? "Match score" : "Estimated score (not rated yet)") + '</span><b>' + s.total + '</b></div>' +
+        '<div><span class="lbl" for="note">Message to the client (optional)</span><textarea id="note" rows="2" maxlength="500" placeholder="e.g. I can help. Please also send the dismissal letter.">' + esc(m.note || "") + '</textarea></div>' +
+        '<div class="decide">' +
+          '<button type="button" class="yes' + (m.decision === "interested" ? " on" : "") + '" data-decision="interested">I want this case</button>' +
+          '<button type="button" class="' + (m.decision === "info" ? "on" : "") + '" data-decision="info">Ask for more</button>' +
+          '<button type="button" class="' + (m.decision === "passed" ? "on" : "") + '" data-decision="passed">Pass</button></div>' +
+        '<p class="err" id="p-err" role="alert"></p>' +
+        '<p class="note">The client sees your name, bar association, city, bio and message when you choose "I want this case" or "Ask for more". They never see your rating. Their name and email reach you only if they choose to share them.</p>' +
+      '</div>';
+  }
+  function renderAll(){ renderStats(); renderList(); renderPanel(); }
+
+  function review(data){
+    if(saving) return; saving = true;
+    data.id = selected;
+    fetch("/api/cases/review", { method:"POST", credentials:"same-origin", headers:{"Content-Type":"application/json"}, body: JSON.stringify(data) })
+      .then(function(r){ return r.json().then(function(j){ if(!r.ok) throw new Error(j.error || "Couldn't save."); return j; }); })
+      .then(function(j){ cases = cases.map(function(c){ return c.id === j.case.id ? j.case : c; }); saving = false; renderAll(); })
+      .catch(function(e){ saving = false; var el = $("p-err"); if(el) el.textContent = e.message; });
+  }
+  $("list").addEventListener("click", function(e){
+    var b = e.target.closest(".item"); if(!b) return;
+    selected = b.dataset.id; renderList(); renderPanel();
+    if(window.innerWidth <= 1050) $("panel").scrollIntoView({behavior:"smooth", block:"start"});
+  });
+  $("panel").addEventListener("click", function(e){
+    var sb = e.target.closest(".scale button");
+    if(sb){ var d = { note: ($("note") || {}).value || "" }; d[sb.parentElement.dataset.field] = +sb.dataset.v; review(d); return; }
+    var db = e.target.closest("[data-decision]");
+    if(db){ review({ decision: db.dataset.decision, note: ($("note") || {}).value || "" }); }
+  });
+  ["t-q","t-area","t-status","t-sort"].forEach(function(id){ $(id).addEventListener("input", renderList); });
+  $("t-area").innerHTML = '<option value="all">All areas</option>' + Object.keys(AREAS).map(function(k){ return '<option value="' + k + '">' + esc(AREAS[k].label) + '</option>'; }).join("");
+
+  function gate(html){ $("loading").hidden = true; $("gate").innerHTML = html; $("gate").hidden = false; }
+  fetch("/api/auth/me", { credentials:"same-origin" }).then(function(r){ return r.json(); }).then(function(j){
+    var u = j && j.user;
+    if(!u){ $("top-account").textContent = "Sign in";
+      return gate('<h2>For lawyers registered in Italy</h2><p>Create a free lawyer account to review cases sent by Casebound clients. We verify every lawyer against the official register before they can see any case.</p><div class="actions"><a class="btn" href="/login.html?mode=register&amp;role=lawyer&amp;next=%2Faccount.html">Create a lawyer account</a><a class="btn ghost" href="/login.html?next=%2Flawyers.html">Sign in</a></div>'); }
+    if(u.role !== "lawyer") return gate('<h2>This board is for lawyers</h2><p>Your account is a client profile. If you are a lawyer, switch to a lawyer profile on your account page and we will verify your details.</p><div class="actions"><a class="btn" href="/account.html">Go to my account</a></div>');
+    if(!u.lawyer || u.lawyer.status !== "verified") return gate('<h2>' + (u.lawyer && u.lawyer.status === "rejected" ? "We couldn't verify your details" : "Waiting for verification") + '</h2><p>' + (u.lawyer && u.lawyer.status === "rejected" ? "We couldn't match your name and register number with the official register. Check them on your account page, or write to admin@case-bound.com." : "We are checking your name and register number on the official register of lawyers. You'll be able to see cases once that's done, usually within one or two working days.") + '</p><div class="actions"><a class="btn ghost" href="/account.html">My account</a></div>');
+    return fetch("/api/cases/board", { credentials:"same-origin" }).then(function(r){ return r.json(); }).then(function(b){
+      cases = b.cases || [];
+      selected = null;
+      $("loading").hidden = true; $("app").hidden = false; renderAll();
+    });
+  }).catch(function(){ gate('<h2>Couldn\'t load the board</h2><p>Please refresh the page.</p>'); });
+})();
+</script>
+</body>
+</html>

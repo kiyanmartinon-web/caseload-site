@@ -70,6 +70,22 @@ input:focus{outline:2px solid var(--verdigris);outline-offset:0;border-color:var
 .btn[disabled]{opacity:.55;cursor:progress}
 .banner{font-family:var(--sans);font-size:13.5px;border-radius:6px;padding:11px 14px;margin:0 0 16px;background:var(--oxblood-wash);color:var(--oxblood);border:1px solid #E2C9CC}
 .alt{font-family:var(--sans);font-size:13px;color:var(--ink-soft);margin:14px 0 0}
+.roles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 18px;border:none;padding:0}
+.roles legend{font-family:var(--sans);font-size:13px;font-weight:600;margin:0 0 6px;padding:0}
+.role{display:block;cursor:pointer}
+.role input{position:absolute;opacity:0}
+.role span{display:block;border:1px solid var(--rule);border-radius:6px;padding:12px 14px;font-family:var(--sans);font-size:13px;color:var(--ink-soft);height:100%}
+.role small{display:block;font-size:12.5px;line-height:1.4}
+.role b{display:block;font-size:14.5px;color:var(--ink);margin-bottom:2px}
+.role input:checked + span{border-color:var(--oxblood);box-shadow:0 0 0 1px var(--oxblood);background:var(--oxblood-wash)}
+.role input:focus-visible + span{outline:2px solid var(--verdigris);outline-offset:2px}
+.lawyer-box{border-top:1px solid var(--rule-soft);padding-top:16px;margin:0 0 6px}
+.lawyer-box .note{font-family:var(--sans);font-size:12.5px;color:var(--ink-soft);margin:0 0 14px;line-height:1.5}
+.areas{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 16px}
+.areas label{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--rule);border-radius:14px;padding:5px 10px;font-family:var(--sans);font-size:12.5px;cursor:pointer}
+.areas input{margin:0}
+textarea.f-in{width:100%;font:inherit;font-size:15px;padding:10px 12px;border:1px solid var(--rule);border-radius:5px;background:var(--paper-2);color:var(--ink);margin:0 0 16px;min-height:80px;resize:vertical}
+@media(max-width:480px){.roles{grid-template-columns:1fr}}
 [hidden]{display:none!important}
 @media(max-width:600px){h1{font-size:28px}body{font-size:16px}}
 </style>
@@ -108,13 +124,31 @@ input:focus{outline:2px solid var(--verdigris);outline-offset:0;border-color:var
   </form>
 
   <form id="f-register" novalidate hidden>
-    <label class="f" for="r-name" data-t="name">Name (optional)</label>
+    <fieldset class="roles">
+      <legend data-t="roleQ">I am…</legend>
+      <label class="role"><input type="radio" name="role" value="client" checked><span><b data-t="roleClient">A client</b><small data-t="roleClientD">I have a legal problem and want to research it or find a lawyer.</small></span></label>
+      <label class="role"><input type="radio" name="role" value="lawyer"><span><b data-t="roleLawyer">A lawyer</b><small data-t="roleLawyerD">I'm registered with an Ordine degli Avvocati and want to review cases.</small></span></label>
+    </fieldset>
+    <label class="f" for="r-name" id="r-name-l" data-t="name">Name (optional)</label>
     <input type="text" id="r-name" autocomplete="name" maxlength="100">
     <label class="f" for="r-email" data-t="email">Email</label>
     <input type="email" id="r-email" autocomplete="email" required>
     <label class="f" for="r-pw" data-t="password">Password</label>
     <input type="password" id="r-pw" autocomplete="new-password" minlength="10" required>
     <p class="hint" data-t="pwHint">At least 10 characters.</p>
+    <div class="lawyer-box" id="lawyer-box" hidden>
+      <p class="note" data-t="lawNote">We check every lawyer against the official register (albo) before they can see any case. This usually takes one or two working days.</p>
+      <label class="f" for="r-bar" data-t="bar">Bar association</label>
+      <input type="text" id="r-bar" maxlength="80" placeholder="Ordine degli Avvocati di Milano">
+      <label class="f" for="r-barno" data-t="barNo">Register number (n. iscrizione albo)</label>
+      <input type="text" id="r-barno" maxlength="40">
+      <label class="f" for="r-city" data-t="city">City where you practise</label>
+      <input type="text" id="r-city" maxlength="60">
+      <span class="f" style="display:block;font-family:var(--sans);font-size:13px;font-weight:600;margin:0 0 6px" data-t="areasL">Areas of practice</span>
+      <div class="areas" id="r-areas"></div>
+      <label class="f" for="r-bio" data-t="bio">Short bio (optional)</label>
+      <textarea class="f-in" id="r-bio" maxlength="600"></textarea>
+    </div>
     <label class="check"><input type="checkbox" id="r-terms"> <span data-t="terms">I accept the <a href="/terms.html" target="_blank">Terms of use</a> and have read the <a href="/privacy.html#accounts" target="_blank">Privacy notice</a>.</span></label>
     <label class="check"><input type="checkbox" id="r-adult"> <span data-t="adult">I am 18 or older.</span></label>
     <button class="btn" type="submit" data-t="tabRegister">Create account</button>
@@ -143,7 +177,14 @@ input:focus{outline:2px solid var(--verdigris);outline-offset:0;border-color:var
       adult:"I am 18 or older.", forgot:"Forgot your password? Email", forgot2:"from your account's address.",
       back:"← Back to Casebound", plans:"Plans", termsL:"Terms of use", privacyL:"Privacy notice",
       needTerms:"Please accept the Terms of use.", needAdult:"You must be at least 18 to create an account.",
-      generic:"Something went wrong. Please try again." },
+      generic:"Something went wrong. Please try again.",
+      roleQ:"I am…", roleClient:"A client", roleClientD:"I have a legal problem and want to research it or find a lawyer.",
+      roleLawyer:"A lawyer", roleLawyerD:"I'm registered with an Ordine degli Avvocati and want to review cases.",
+      nameLawyer:"Full name, as on the register",
+      lawNote:"We check every lawyer against the official register (albo) before they can see any case. This usually takes one or two working days.",
+      bar:"Bar association", barNo:"Register number (n. iscrizione albo)", city:"City where you practise", areasL:"Areas of practice", bio:"Short bio (optional)",
+      needName:"Lawyers need to give their full name, as it appears on the register.",
+      AREAS:{dismissal:"Dismissal",employment:"Employment",goods:"Faulty goods",contract:"Contracts & debts",injury:"Injury & damage",road:"Road accidents",building:"Building defects",family:"Family",tenancy:"Tenancy",consumer:"Consumer",other:"Other"} },
     it: { docLogin:"Accedi — Casebound", docRegister:"Crea un account — Casebound", kicker:"Il tuo account",
       titleLogin:"Accedi", titleRegister:"Crea il tuo account", lead:"Un solo account per Casebound e per il tuo abbonamento.",
       tabLogin:"Accedi", tabRegister:"Crea un account", email:"Email", password:"Password", name:"Nome (facoltativo)",
@@ -152,7 +193,14 @@ input:focus{outline:2px solid var(--verdigris);outline-offset:0;border-color:var
       adult:"Ho almeno 18 anni.", forgot:"Password dimenticata? Scrivi a", forgot2:"dall'indirizzo del tuo account.",
       back:"← Torna a Casebound", plans:"Piani", termsL:"Condizioni d'uso", privacyL:"Informativa privacy",
       needTerms:"Accetta le Condizioni d'uso.", needAdult:"Devi avere almeno 18 anni per creare un account.",
-      generic:"Qualcosa è andato storto. Riprova." }
+      generic:"Qualcosa è andato storto. Riprova.",
+      roleQ:"Sono…", roleClient:"Un cliente", roleClientD:"Ho un problema legale e voglio approfondirlo o trovare un avvocato.",
+      roleLawyer:"Un avvocato", roleLawyerD:"Sono iscritto a un Ordine degli Avvocati e voglio esaminare casi.",
+      nameLawyer:"Nome e cognome, come risultano all'albo",
+      lawNote:"Verifichiamo ogni avvocato sull'albo ufficiale prima che possa vedere qualsiasi caso. Di solito servono uno o due giorni lavorativi.",
+      bar:"Ordine di appartenenza", barNo:"Numero di iscrizione all'albo", city:"Città in cui eserciti", areasL:"Aree di attività", bio:"Breve presentazione (facoltativa)",
+      needName:"Gli avvocati devono indicare nome e cognome, come risultano all'albo.",
+      AREAS:{dismissal:"Licenziamenti",employment:"Lavoro",goods:"Vizi della merce",contract:"Contratti e crediti",injury:"Danni e lesioni",road:"Incidenti stradali",building:"Vizi dell'immobile",family:"Famiglia",tenancy:"Locazioni",consumer:"Consumatori",other:"Altro"} }
   };
   // Server messages are in English; translate the common ones.
   var IT_ERR = {
@@ -160,7 +208,11 @@ input:focus{outline:2px solid var(--verdigris);outline-offset:0;border-color:var
     "Password must be at least 10 characters.":"La password deve avere almeno 10 caratteri.",
     "An account with this email already exists. Sign in instead.":"Esiste già un account con questa email. Accedi.",
     "Wrong email or password.":"Email o password errati.",
-    "Too many attempts. Try again in 15 minutes.":"Troppi tentativi. Riprova tra 15 minuti."
+    "Too many attempts. Try again in 15 minutes.":"Troppi tentativi. Riprova tra 15 minuti.",
+    "Enter the bar association (Ordine degli Avvocati) you are registered with.":"Indica l'Ordine degli Avvocati a cui sei iscritto.",
+    "Enter your registration number on the register of lawyers.":"Indica il tuo numero di iscrizione all'albo.",
+    "Choose at least one area of practice.":"Scegli almeno un'area di attività.",
+    "Lawyers need to give their full name, as it appears on the register.":"Gli avvocati devono indicare nome e cognome, come risultano all'albo."
   };
   var $ = function(id){ return document.getElementById(id); };
   var qs = new URLSearchParams(location.search);
@@ -183,7 +235,18 @@ input:focus{outline:2px solid var(--verdigris);outline-offset:0;border-color:var
     $("tab-register").setAttribute("aria-selected", mode === "register");
     $("f-login").hidden = mode !== "login"; $("f-register").hidden = mode !== "register";
     btns.forEach(function(b){ b.setAttribute("aria-pressed", b.getAttribute("data-lang") === lang ? "true" : "false"); });
+    var picked = Array.prototype.map.call(document.querySelectorAll("#r-areas input:checked"), function(x){ return x.value; });
+    $("r-areas").innerHTML = Object.keys(t.AREAS).map(function(k){ return '<label><input type="checkbox" value="' + k + '"' + (picked.indexOf(k) >= 0 ? " checked" : "") + '> ' + t.AREAS[k] + '</label>'; }).join("");
+    renderRole();
   }
+  function role(){ return (document.querySelector('input[name="role"]:checked') || {}).value || "client"; }
+  function renderRole(){
+    var law = role() === "lawyer";
+    $("lawyer-box").hidden = !law;
+    $("r-name-l").textContent = law ? T[lang].nameLawyer : T[lang].name;
+  }
+  document.querySelectorAll('input[name="role"]').forEach(function(r){ r.addEventListener("change", renderRole); });
+  if (qs.get("role") === "lawyer") { document.querySelector('input[name="role"][value="lawyer"]').checked = true; }
   function err(m){ $("err").textContent = m ? (lang === "it" && IT_ERR[m] ? IT_ERR[m] : m) : ""; $("err").hidden = !m; }
   function setMode(m){ mode = m; err(""); render(); }
 
@@ -207,7 +270,13 @@ input:focus{outline:2px solid var(--verdigris);outline-offset:0;border-color:var
     e.preventDefault();
     if (!$("r-terms").checked) return err(T[lang].needTerms);
     if (!$("r-adult").checked) return err(T[lang].needAdult);
-    post("/api/auth/register", { name: $("r-name").value, email: $("r-email").value, password: $("r-pw").value, acceptTerms: true, adult: true, lang: lang }, this);
+    var data = { name: $("r-name").value, email: $("r-email").value, password: $("r-pw").value, acceptTerms: true, adult: true, lang: lang, role: role() };
+    if (data.role === "lawyer") {
+      if (!data.name.trim()) return err(T[lang].needName);
+      data.lawyer = { bar: $("r-bar").value, barNumber: $("r-barno").value, city: $("r-city").value, bio: $("r-bio").value,
+        areas: Array.prototype.map.call(document.querySelectorAll("#r-areas input:checked"), function(x){ return x.value; }) };
+    }
+    post("/api/auth/register", data, this);
   });
 
   render();

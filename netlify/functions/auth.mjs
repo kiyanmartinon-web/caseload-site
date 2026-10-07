@@ -1,9 +1,10 @@
-// /api/auth/register  POST {email, password, name, acceptTerms, adult, lang}
+// /api/auth/register  POST {email, password, name, acceptTerms, adult, lang, role, lawyer}
+//                      role: "client" (default) or "lawyer"; lawyer: {bar, barNumber, city, areas[], bio}
 // /api/auth/login     POST {email, password}
 // /api/auth/logout    POST
 // /api/auth/me        GET   → {user, subscription} or {user:null}
 // /api/auth/delete    POST {password}
-// /api/auth/update    POST {name, lang}                  profile details
+// /api/auth/update    POST {name, lang, role, lawyer}    profile details (lawyer details re-verified if bar details change)
 // /api/auth/email     POST {password, email}             change sign-in email
 // /api/auth/password  POST {password, newPassword}       change password (signs out other devices)
 // /api/auth/logout-all POST {}                           sign out on every device
@@ -12,83 +13,17 @@ import {
   normEmail, validEmail, passwordProblem, findUserByEmail, createUser, verifyPassword,
   isLocked, recordFailure, recordSuccess, createSession, sessionCookie, currentUser,
   endSession, sameOrigin, publicUser, deleteUser, saveUser, changeEmail, changePassword,
-  revokeSessions,
+  revokeSessions, cleanLawyer,
 } from "../lib/auth.mjs";
+import { allCases, deleteCase, saveCase } from "../lib/matches.mjs";
 import { json, isConfigured, stripe } from "../lib/stripe.mjs";
-import { rememberCheckout } from "../lib/subcache.mjs";
+import { subscriptionFor, tierOf } from "../lib/subscription.mjs";
 
 const ok = (body, cookie) => json(body, 200, cookie ? { "Set-Cookie": cookie } : {});
 const bad = (msg, status = 400) => json({ error: msg }, status);
 
 async function body(req) {
   try { return await req.json(); } catch { return null; }
-}
-
-// If the buyer never landed back on the account page after paying, the Stripe
-// customer was never linked. Find a completed checkout that THIS account started
-// (client_reference_id = account id) and link it now. No email filter: the buyer
-// may have typed a different email (or capitalisation) on Stripe's page.
-async function linkFromCheckout(user) {
-  if (user.stripeCustomer || !isConfigured()) return;
-  try {
-    let after;
-    for (let page = 0; page < 3; page++) {
-      const res = await stripe("GET", "checkout/sessions", { status: "complete", limit: 100, starting_after: after });
-      const s = (res.data || []).find((x) => x.client_reference_id === user.id && x.customer);
-      if (s) {
-        user.stripeCustomer = typeof s.customer === "string" ? s.customer : s.customer.id;
-        await rememberCheckout(user, s.id);
-        await saveUser(user);
-        return;
-      }
-      if (!res.has_more || !res.data.length) return;
-      after = res.data[res.data.length - 1].id;
-    }
-  } catch (e) {
-    console.error("[auth] checkout look-up failed", e && e.message);
-  }
-}
-
-// What we can show from the account alone, when Stripe can't be asked about the
-// subscription itself (e.g. a restricted key without "Subscriptions: read").
-function fromCache(user, reason) {
-  const c = user.subCache;
-  if (!c) return { status: "unknown", reason };
-  const ended = c.currentPeriodEnd && c.currentPeriodEnd * 1000 < Date.now() - 3 * 86400e3;
-  return { ...c, status: ended ? "unknown" : "active", cached: true, reason };
-}
-
-async function subscriptionFor(user) {
-  await linkFromCheckout(user);
-  if (!user.stripeCustomer || !isConfigured()) return null;
-  try {
-    const res = await stripe("GET", "subscriptions", {
-      customer: user.stripeCustomer, status: "all", limit: 10, expand: ["data.items.data.price.product"],
-    });
-    const rank = { active: 0, trialing: 1, past_due: 2, unpaid: 3, incomplete: 4 };
-    const live = res.data.filter((s) => s.status in rank).sort((a, b) => rank[a.status] - rank[b.status]);
-    const s = live[0];
-    if (!s) return { status: "none" };
-    const item = s.items && s.items.data && s.items.data[0];
-    const price = item && item.price;
-    const product = price && typeof price.product === "object" ? price.product : null;
-    const out = {
-      status: s.status,
-      plan: product ? product.name : "",
-      plan_it: product && product.metadata ? product.metadata.name_it || "" : "",
-      amount: price ? price.unit_amount : null,
-      currency: price ? price.currency : "",
-      interval: price && price.recurring ? price.recurring.interval : "",
-      cancelAtPeriodEnd: !!s.cancel_at_period_end,
-      currentPeriodEnd: s.current_period_end || (item && item.current_period_end) || null,
-      trialEnd: s.trial_end || null,
-    };
-    return out;
-  } catch (e) {
-    console.error("[auth] subscription lookup failed", e && e.message);
-    const reason = e && (e.status === 401 || e.status === 403) ? "permission" : "stripe";
-    return fromCache(user, reason);
-  }
 }
 
 export default async (req, context) => {
@@ -99,9 +34,7 @@ export default async (req, context) => {
     const user = await currentUser(req);
     if (!user) return ok({ user: null });
     const subscription = await subscriptionFor(user);
-    // Paid features stay on during a trial and while Stripe retries a failed payment.
-    const st = subscription && subscription.status;
-    const tier = ["active", "trialing", "past_due"].includes(st) || (st === "unknown" && user.stripeCustomer) ? "pro" : "free";
+    const tier = tierOf(user, subscription);
     return ok({ user: publicUser(user), subscription, tier });
   }
 
@@ -120,9 +53,12 @@ export default async (req, context) => {
         passwordChangedAt: user.passwordChangedAt || null,
         termsAcceptedAt: user.termsAcceptedAt, termsVersion: user.termsVersion,
         stripeCustomerLinked: !!user.stripeCustomer,
+        profileType: user.role === "lawyer" ? "lawyer" : "client",
+        lawyerProfile: user.role === "lawyer" ? user.lawyer : null,
       },
       subscription,
-      note: "Your password is stored only as a one-way hash and is not included. Case facts and saved cases are kept in your browser, not on our servers; the account page adds the ones in this browser to the download.",
+      casesSentToLawyers: (await allCases()).filter((c) => c.clientId === user.id).map(({ clientId, ...c }) => c),
+      note: "Your password is stored only as a one-way hash and is not included. Cases you sent to lawyers are included above. Other case facts and saved cases are kept in your browser, not on our servers; the account page adds the ones in this browser to the download.",
     };
     return ok(data);
   }
@@ -146,7 +82,15 @@ export default async (req, context) => {
     if (b.acceptTerms !== true) return bad("Please accept the Terms of use.");
     if (b.adult !== true) return bad("You must be at least 18 to create an account.");
     if (await findUserByEmail(email)) return bad("An account with this email already exists. Sign in instead.", 409);
-    const user = await createUser({ email, password: b.password, name: b.name, lang: b.lang });
+    const role = b.role === "lawyer" ? "lawyer" : "client";
+    let lawyer = null;
+    if (role === "lawyer") {
+      if (!String(b.name || "").trim()) return bad("Lawyers need to give their full name, as it appears on the register.");
+      const r = cleanLawyer(b.lawyer, null);
+      if (r.error) return bad(r.error);
+      lawyer = r.lawyer;
+    }
+    const user = await createUser({ email, password: b.password, name: b.name, lang: b.lang, role, lawyer });
     const s = await createSession(user.id);
     return ok({ user: publicUser(user) }, sessionCookie(req, s.token, s.exp));
   }
@@ -171,6 +115,14 @@ export default async (req, context) => {
     if (action === "update") {
       if (typeof b.name === "string") user.name = b.name.trim().slice(0, 100);
       if (b.lang === "it" || b.lang === "en") user.lang = b.lang;
+      const role = b.role === "lawyer" || b.role === "client" ? b.role : user.role || "client";
+      if (role === "lawyer" && (b.lawyer || user.role !== "lawyer")) {
+        if (!user.name) return bad("Lawyers need to give their full name, as it appears on the register.");
+        const r = cleanLawyer(b.lawyer || user.lawyer, user.role === "lawyer" ? user.lawyer : null);
+        if (r.error) return bad(r.error);
+        user.lawyer = r.lawyer;
+      }
+      user.role = role;
       await saveUser(user);
       return ok({ user: publicUser(user) });
     }
@@ -218,6 +170,11 @@ export default async (req, context) => {
     const sub = await subscriptionFor(user);
     if (sub && ["active", "trialing", "past_due", "unpaid"].includes(sub.status) && !sub.cancelAtPeriodEnd) {
       return bad("Cancel your subscription first (Manage subscription), then delete the account.", 409);
+    }
+    // Remove the cases this person sent to lawyers, and their reviews as a lawyer.
+    for (const c of await allCases()) {
+      if (c.clientId === user.id) await deleteCase(c.id);
+      else if (c.reviews && c.reviews[user.id]) { delete c.reviews[user.id]; await saveCase(c); }
     }
     await endSession(req);
     await deleteUser(user);

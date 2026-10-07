@@ -93,6 +93,22 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
 .row .btn{padding:9px 14px;font-size:13.5px}
 .row-body{flex:1 1 260px;min-width:0}
 .sub-form{flex:1 1 100%}
+.k-lbl{display:block;font-family:var(--sans);font-size:12.5px;font-weight:700;color:var(--ink-soft);margin-bottom:6px}
+.k-areas{display:flex;flex-wrap:wrap;gap:6px}
+.k-areas label{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--rule);border-radius:14px;padding:4px 10px;font-weight:600;color:var(--ink)}
+.k-areas input{display:inline;width:auto;margin:0}
+.form textarea{display:block;width:100%;font-family:var(--sans);font-size:15px;padding:9px 11px;margin-top:5px;border:1px solid var(--rule);border-radius:5px;background:var(--paper);color:var(--ink);resize:vertical}
+.mc{border-top:1px solid var(--rule-soft);padding:14px 0}
+.mc:first-child{border-top:none;padding-top:4px}
+.mc-t{font-family:var(--serif);font-weight:600;font-size:16.5px;margin:0 0 2px}
+.mc-m{font-family:var(--sans);font-size:12.5px;color:var(--ink-soft);margin:0 0 8px}
+.law{background:var(--paper);border:1px solid var(--rule-soft);border-radius:5px;padding:12px 14px;margin:8px 0;font-family:var(--sans);font-size:13.5px}
+.law b{font-family:var(--serif);font-size:15.5px}
+.law p{margin:4px 0}
+.ad{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;border-top:1px solid var(--rule-soft);padding:12px 0;font-family:var(--sans);font-size:13.5px}
+.ad:first-child{border-top:none}
+.ad .actions{margin-top:0}
+.btn.sm{padding:7px 12px;font-size:13px}
 .okmsg{font-family:var(--sans);font-size:13.5px;border-radius:6px;padding:11px 14px;margin:0 0 18px;background:var(--verdigris-wash);color:var(--verdigris)}
 .seg{display:inline-grid;grid-template-columns:repeat(3,auto);gap:2px;background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:2px}
 .seg button{font-family:var(--sans);font-size:13px;font-weight:600;border:none;background:none;color:var(--ink-soft);padding:8px 16px;border-radius:4px;cursor:pointer}
@@ -159,6 +175,34 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
         <select id="f-lang"><option value="en">English</option><option value="it">Italiano</option></select></label>
       <div class="actions"><button type="submit" class="btn" data-t="save">Save changes</button><button type="button" class="btn ghost" id="cancel-profile" data-t="cancel">Cancel</button></div>
     </form>
+  </section>
+
+  <!-- Profile type: client or lawyer (script: "Profiles & lawyer connections" below) -->
+  <section id="kind" class="card" hidden>
+    <div class="card-head"><h2 id="k-h">Profile type</h2><span id="k-pill"></span></div>
+    <div id="k-body"></div>
+    <form class="form" id="k-form" hidden style="max-width:520px">
+      <label><span id="k-bar-l">Bar association</span><input type="text" id="k-bar" maxlength="80" placeholder="Ordine degli Avvocati di Milano"></label>
+      <label><span id="k-no-l">Register number (n. iscrizione albo)</span><input type="text" id="k-no" maxlength="40"></label>
+      <label><span id="k-city-l">City where you practise</span><input type="text" id="k-city" maxlength="60"></label>
+      <div><span class="k-lbl" id="k-areas-l">Areas of practice</span><div class="k-areas" id="k-areas"></div></div>
+      <label><span id="k-bio-l">Short bio (optional)</span><textarea id="k-bio" maxlength="600" rows="3"></textarea></label>
+      <p class="note" style="margin:0" id="k-note">Changing your bar association or number sends your profile back for verification.</p>
+      <div class="actions"><button type="submit" class="btn" id="k-save">Save lawyer profile</button><button type="button" class="btn ghost" id="k-cancel">Cancel</button></div>
+    </form>
+  </section>
+
+  <!-- Cases this client sent to lawyers -->
+  <section id="mycases" class="card" hidden>
+    <h2 id="mc-h">Your cases with lawyers</h2>
+    <div id="mc-list"></div>
+  </section>
+
+  <!-- Admin: verify lawyers (ADMIN_EMAILS only) -->
+  <section id="admin" class="card" hidden>
+    <h2>Lawyers to verify</h2>
+    <p class="note">Check each name and register number on the official register of lawyers before verifying. Only verified lawyers can see cases.</p>
+    <div id="ad-list"></div>
   </section>
 
   <section id="security" class="card" hidden>
@@ -517,6 +561,191 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
   }).then(show, show);
 
   api("/api/plans").then(function(j){ if (j && j.portalUrl) $("portal-login").href = j.portalUrl; }).catch(function(){});
+})();
+</script>
+<script>
+/* ============ Profiles & lawyer connections ============
+   Profile type (client / lawyer), the cases a client sent to lawyers,
+   and the admin list of lawyers to verify. Talks to /api/auth/update and /api/cases/*. */
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+  var AREA_KEYS = ["dismissal","employment","goods","contract","injury","road","building","family","tenancy","consumer","other"];
+  var S = {
+    en: {
+      h:"Profile type", client:"Client", lawyer:"Lawyer",
+      st:{pending:"Waiting for verification", verified:"Verified", rejected:"Not verified"},
+      clientP:"You use Casebound to research your own problems and, with Pro, to connect with verified lawyers.",
+      toLawyer:"I'm a lawyer: switch to a lawyer profile", toClient:"Switch back to a client profile",
+      pendingP:"We check your name and register number on the official register of lawyers. Until then you can't see cases. This usually takes one or two working days.",
+      rejectedP:"We couldn't match your details with the register. Check your bar association and number, or write to admin@case-bound.com.",
+      verifiedP:"You can review cases sent by clients.", board:"Open the case board", edit:"Edit lawyer details",
+      barL:"Bar association", noL:"Register number", cityL:"City", areasL:"Areas of practice", bioL:"Bio",
+      save:"Save lawyer profile", saved:"Lawyer profile saved.", switched:"Profile switched.",
+      AREAS:{dismissal:"Dismissal",employment:"Employment",goods:"Faulty goods",contract:"Contracts & debts",injury:"Injury & damage",road:"Road accidents",building:"Building defects",family:"Family",tenancy:"Tenancy",consumer:"Consumer",other:"Other"},
+      mcH:"Your cases with lawyers",
+      mcEmpty:'You haven\'t sent a case to a lawyer yet. Start with the <a href="/risk-check.html">risk check</a>: after your result, you can send the case to verified lawyers.',
+      sent:"Sent", reviews:function(n){ return n === 0 ? "No lawyer has reviewed it yet" : n === 1 ? "Reviewed by 1 lawyer" : "Reviewed by " + n + " lawyers"; },
+      interested:"Wants to take your case", info:"Asks for more details",
+      share:"Share my contact details", shared:"You shared your contact details. Write to this lawyer at",
+      shareNote:"Your name and email go to this lawyer only.",
+      addInfo:"Add details", addPh:"The details the lawyer asked for…", send:"Send", withdraw:"Withdraw case",
+      withdrawQ:"Withdraw this case? Lawyers will no longer see it.", yes:"Yes, withdraw", no:"Keep it",
+      updates:"Details you added", generic:"Something went wrong. Please try again."
+    },
+    it: {
+      h:"Tipo di profilo", client:"Cliente", lawyer:"Avvocato",
+      st:{pending:"In attesa di verifica", verified:"Verificato", rejected:"Non verificato"},
+      clientP:"Usi Casebound per approfondire i tuoi problemi legali e, con Pro, per entrare in contatto con avvocati verificati.",
+      toLawyer:"Sono un avvocato: passa a un profilo da avvocato", toClient:"Torna a un profilo da cliente",
+      pendingP:"Verifichiamo nome e numero di iscrizione sull'albo ufficiale. Fino ad allora non puoi vedere i casi. Di solito servono uno o due giorni lavorativi.",
+      rejectedP:"Non siamo riusciti a trovare i tuoi dati sull'albo. Controlla Ordine e numero, oppure scrivi a admin@case-bound.com.",
+      verifiedP:"Puoi esaminare i casi inviati dai clienti.", board:"Apri la bacheca dei casi", edit:"Modifica i dati da avvocato",
+      barL:"Ordine", noL:"N. iscrizione", cityL:"Città", areasL:"Aree di attività", bioL:"Presentazione",
+      save:"Salva il profilo da avvocato", saved:"Profilo da avvocato salvato.", switched:"Profilo cambiato.",
+      AREAS:{dismissal:"Licenziamenti",employment:"Lavoro",goods:"Vizi della merce",contract:"Contratti e crediti",injury:"Danni e lesioni",road:"Incidenti stradali",building:"Vizi dell'immobile",family:"Famiglia",tenancy:"Locazioni",consumer:"Consumatori",other:"Altro"},
+      mcH:"I tuoi casi inviati agli avvocati",
+      mcEmpty:'Non hai ancora inviato un caso a un avvocato. Inizia dalla <a href="/risk-check.html">verifica del rischio</a>: dopo il risultato puoi inviare il caso ad avvocati verificati.',
+      sent:"Inviato", reviews:function(n){ return n === 0 ? "Nessun avvocato l'ha ancora esaminato" : n === 1 ? "Esaminato da 1 avvocato" : "Esaminato da " + n + " avvocati"; },
+      interested:"Vuole seguire il tuo caso", info:"Chiede più dettagli",
+      share:"Condividi i miei contatti", shared:"Hai condiviso i tuoi contatti. Scrivi a questo avvocato all'indirizzo",
+      shareNote:"Nome ed email vengono inviati solo a questo avvocato.",
+      addInfo:"Aggiungi dettagli", addPh:"I dettagli richiesti dall'avvocato…", send:"Invia", withdraw:"Ritira il caso",
+      withdrawQ:"Ritirare questo caso? Gli avvocati non lo vedranno più.", yes:"Sì, ritira", no:"Mantienilo",
+      updates:"Dettagli aggiunti", generic:"Qualcosa è andato storto. Riprova."
+    }
+  };
+  var me = null, cases = [], lawyers = [], confirmId = null, openInfo = null;
+  function L(){ return document.documentElement.lang === "it" ? "it" : "en"; }
+  function t(){ return S[L()]; }
+  function esc(s){ return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
+  function day(iso){ try{ return new Date(iso).toLocaleDateString(L() === "it" ? "it-IT" : "en-GB", {day:"numeric", month:"short", year:"numeric"}); }catch(e){ return ""; } }
+  function msg(text, isErr){
+    var el = $(isErr ? "err" : "okmsg"); if(!el) return;
+    el.textContent = text; el.hidden = !text; if(text) el.scrollIntoView({behavior:"smooth", block:"center"});
+  }
+  function api(method, url, data){
+    return fetch(url, { method:method, credentials:"same-origin", headers: data ? {"Content-Type":"application/json"} : {}, body: data ? JSON.stringify(data) : undefined })
+      .then(function(r){ return r.json().then(function(j){ if(!r.ok) throw new Error(j.error || t().generic); return j; }); });
+  }
+
+  /* ---- profile type ---- */
+  function areasHTML(sel){
+    return AREA_KEYS.map(function(k){ return '<label><input type="checkbox" value="' + k + '"' + (sel.indexOf(k) >= 0 ? " checked" : "") + '> ' + esc(t().AREAS[k]) + '</label>'; }).join("");
+  }
+  function renderKind(){
+    var u = me && me.user; if(!u){ $("kind").hidden = true; return; }
+    var x = t(), law = u.role === "lawyer", lw = u.lawyer || {};
+    $("kind").hidden = false;
+    $("k-h").textContent = x.h;
+    var st = law ? lw.status || "pending" : "";
+    $("k-pill").innerHTML = '<span class="pill' + (law && st !== "verified" ? " warn" : "") + '">' + esc(law ? x.lawyer + " · " + x.st[st] : x.client) + '</span>';
+    if(!law){
+      $("k-body").innerHTML = '<p>' + esc(x.clientP) + '</p><div class="actions"><button type="button" class="btn ghost" id="k-to-lawyer">' + esc(x.toLawyer) + '</button></div>';
+    } else {
+      $("k-body").innerHTML =
+        '<p>' + esc(st === "verified" ? x.verifiedP : st === "rejected" ? x.rejectedP : x.pendingP) + '</p>' +
+        '<dl><dt>' + esc(x.barL) + '</dt><dd>' + esc(lw.bar) + '</dd><dt>' + esc(x.noL) + '</dt><dd>' + esc(lw.barNumber) + '</dd>' +
+        (lw.city ? '<dt>' + esc(x.cityL) + '</dt><dd>' + esc(lw.city) + '</dd>' : '') +
+        '<dt>' + esc(x.areasL) + '</dt><dd>' + esc((lw.areas || []).map(function(a){ return x.AREAS[a] || a; }).join(", ")) + '</dd>' +
+        (lw.bio ? '<dt>' + esc(x.bioL) + '</dt><dd>' + esc(lw.bio) + '</dd>' : '') + '</dl>' +
+        '<div class="actions">' + (st === "verified" ? '<a class="btn" href="/lawyers.html">' + esc(x.board) + '</a>' : '') +
+        '<button type="button" class="btn ghost" id="k-edit">' + esc(x.edit) + '</button>' +
+        '<button type="button" class="linkbtn" id="k-to-client" style="align-self:center">' + esc(x.toClient) + '</button></div>';
+    }
+    ["k-bar-l","k-no-l","k-city-l","k-areas-l","k-bio-l"].forEach(function(id, i){ $(id).textContent = [x.barL, x.noL, x.cityL, x.areasL, x.bioL][i]; });
+    $("k-save").textContent = x.save;
+  }
+  function openKindForm(){
+    var lw = (me.user && me.user.lawyer) || {};
+    $("k-bar").value = lw.bar || ""; $("k-no").value = lw.barNumber || ""; $("k-city").value = lw.city || ""; $("k-bio").value = lw.bio || "";
+    $("k-areas").innerHTML = areasHTML(lw.areas || []);
+    $("k-form").hidden = false; $("k-bar").focus();
+  }
+  document.addEventListener("click", function(e){
+    var id = e.target && e.target.id;
+    if(id === "k-to-lawyer" || id === "k-edit"){ msg("",true); openKindForm(); }
+    if(id === "k-cancel"){ $("k-form").hidden = true; }
+    if(id === "k-to-client"){
+      api("POST", "/api/auth/update", { role:"client" }).then(function(j){ me.user = j.user; $("k-form").hidden = true; renderAll(); msg(t().switched); }).catch(function(er){ msg(er.message, true); });
+    }
+  });
+  $("k-form").addEventListener("submit", function(e){
+    e.preventDefault(); msg("", true);
+    var data = { role:"lawyer", lawyer:{ bar:$("k-bar").value, barNumber:$("k-no").value, city:$("k-city").value, bio:$("k-bio").value,
+      areas: Array.prototype.map.call(document.querySelectorAll("#k-areas input:checked"), function(x){ return x.value; }) } };
+    api("POST", "/api/auth/update", data).then(function(j){ me.user = j.user; $("k-form").hidden = true; renderAll(); loadCases(); msg(t().saved); })
+      .catch(function(er){ msg(er.message, true); });
+  });
+
+  /* ---- client: cases sent to lawyers ---- */
+  function renderCases(){
+    var u = me && me.user;
+    if(!u || u.role === "lawyer"){ $("mycases").hidden = true; return; }
+    var x = t(); $("mycases").hidden = false; $("mc-h").textContent = x.mcH;
+    if(!cases.length){ $("mc-list").innerHTML = '<p class="note">' + x.mcEmpty + '</p>'; return; }
+    $("mc-list").innerHTML = cases.map(function(c){
+      var lawyersHTML = c.lawyers.map(function(l){
+        return '<div class="law"><b>' + esc(l.name || "—") + '</b> · ' + esc(l.bar) + (l.city ? " · " + esc(l.city) : "") +
+          '<p><span class="pill' + (l.decision === "info" ? " warn" : "") + '">' + esc(l.decision === "info" ? x.info : x.interested) + '</span></p>' +
+          (l.note ? '<p>“' + esc(l.note) + '”</p>' : '') + (l.bio ? '<p class="note">' + esc(l.bio) + '</p>' : '') +
+          (l.shared ? '<p>' + esc(x.shared) + ' <b style="font-family:var(--sans);font-size:13.5px">' + esc(l.email) + '</b></p>'
+                    : '<div class="actions" style="margin-top:8px"><button type="button" class="btn sm" data-share="' + esc(c.id) + '" data-lawyer="' + esc(l.id) + '">' + esc(x.share) + '</button><span class="note" style="align-self:center">' + esc(x.shareNote) + '</span></div>') +
+          '</div>';
+      }).join("");
+      var askedInfo = c.lawyers.some(function(l){ return l.decision === "info"; });
+      return '<div class="mc"><p class="mc-t">' + esc(c.title) + '</p>' +
+        '<p class="mc-m">' + esc(x.sent) + ' ' + esc(day(c.createdAt)) + ' · ' + esc(x.reviews(c.reviewCount)) + '</p>' + lawyersHTML +
+        ((c.updates || []).length ? '<p class="note" style="margin:6px 0 0">' + esc(x.updates) + ': ' + c.updates.map(function(u){ return esc(u.text); }).join(" · ") + '</p>' : '') +
+        (openInfo === c.id ? '<form class="form" data-info="' + esc(c.id) + '" style="max-width:none"><textarea rows="3" maxlength="2000" placeholder="' + esc(x.addPh) + '"></textarea><div class="actions"><button type="submit" class="btn sm">' + esc(x.send) + '</button></div></form>' : '') +
+        (confirmId === c.id
+          ? '<div class="actions"><span style="align-self:center;font-family:var(--sans);font-size:13.5px">' + esc(x.withdrawQ) + '</span><button type="button" class="btn danger sm" data-withdraw-yes="' + esc(c.id) + '">' + esc(x.yes) + '</button><button type="button" class="btn ghost sm" data-withdraw-no="1">' + esc(x.no) + '</button></div>'
+          : '<div class="actions">' + (askedInfo || c.lawyers.length ? '<button type="button" class="btn ghost sm" data-addinfo="' + esc(c.id) + '">' + esc(x.addInfo) + '</button>' : '') + '<button type="button" class="linkbtn" data-withdraw="' + esc(c.id) + '">' + esc(x.withdraw) + '</button></div>') +
+        '</div>';
+    }).join("");
+  }
+  $("mc-list").addEventListener("click", function(e){
+    var b = e.target.closest("button"); if(!b) return;
+    if(b.dataset.share){ b.disabled = true; api("POST", "/api/cases/share", { id:b.dataset.share, lawyerId:b.dataset.lawyer }).then(function(){ loadCases(); }).catch(function(er){ b.disabled = false; msg(er.message, true); }); }
+    if(b.dataset.withdraw){ confirmId = b.dataset.withdraw; renderCases(); }
+    if(b.dataset.withdrawNo){ confirmId = null; renderCases(); }
+    if(b.dataset.withdrawYes){ api("POST", "/api/cases/withdraw", { id:b.dataset.withdrawYes }).then(function(){ confirmId = null; loadCases(); }).catch(function(er){ msg(er.message, true); }); }
+    if(b.dataset.addinfo){ openInfo = openInfo === b.dataset.addinfo ? null : b.dataset.addinfo; renderCases(); }
+  });
+  $("mc-list").addEventListener("submit", function(e){
+    var f = e.target.closest("form[data-info]"); if(!f) return; e.preventDefault();
+    api("POST", "/api/cases/addinfo", { id:f.dataset.info, text:f.querySelector("textarea").value }).then(function(){ openInfo = null; loadCases(); }).catch(function(er){ msg(er.message, true); });
+  });
+  function loadCases(){
+    if(!me || !me.user || me.user.role === "lawyer"){ renderCases(); return; }
+    api("GET", "/api/cases/mine").then(function(j){ cases = j.cases || []; renderCases(); }).catch(function(){ cases = []; renderCases(); });
+  }
+
+  /* ---- admin: verify lawyers ---- */
+  function renderAdmin(){
+    if(!me || !me.user || !me.user.isAdmin){ $("admin").hidden = true; return; }
+    $("admin").hidden = false;
+    var lab = {pending:"Waiting", verified:"Verified", rejected:"Rejected"};
+    $("ad-list").innerHTML = lawyers.length ? lawyers.map(function(l){
+      return '<div class="ad"><div><b>' + esc(l.name || "—") + '</b> <span class="pill' + (l.status === "verified" ? "" : l.status === "rejected" ? " off" : " warn") + '">' + lab[l.status] + '</span><br>' +
+        esc(l.bar) + ' · n. ' + esc(l.barNumber) + (l.city ? ' · ' + esc(l.city) : '') + '<br><span class="note">' + esc(l.email) + ' · ' + esc(day(l.submittedAt)) + '</span></div>' +
+        '<div class="actions">' + (l.status !== "verified" ? '<button type="button" class="btn sm" data-verify="' + esc(l.id) + '" data-to="verified">Verify</button>' : '') +
+        (l.status !== "rejected" ? '<button type="button" class="btn ghost sm" data-verify="' + esc(l.id) + '" data-to="rejected">Reject</button>' : '') + '</div></div>';
+    }).join("") : '<p class="note">No lawyer has signed up yet.</p>';
+  }
+  $("ad-list").addEventListener("click", function(e){
+    var b = e.target.closest("button[data-verify]"); if(!b) return; b.disabled = true;
+    api("POST", "/api/cases/verify", { userId:b.dataset.verify, status:b.dataset.to }).then(loadAdmin).catch(function(er){ b.disabled = false; msg(er.message, true); });
+  });
+  function loadAdmin(){
+    if(!me || !me.user || !me.user.isAdmin){ renderAdmin(); return; }
+    api("GET", "/api/cases/lawyers").then(function(j){ lawyers = j.lawyers || []; renderAdmin(); }).catch(function(){ renderAdmin(); });
+  }
+
+  function renderAll(){ renderKind(); renderCases(); renderAdmin(); }
+  new MutationObserver(renderAll).observe(document.documentElement, { attributes:true, attributeFilter:["lang"] });
+  fetch("/api/auth/me", { credentials:"same-origin" }).then(function(r){ return r.json(); }).then(function(j){
+    me = j; if(!j || !j.user) return; renderAll(); loadCases(); loadAdmin();
+  }).catch(function(){});
 })();
 </script>
 </body>

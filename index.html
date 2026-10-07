@@ -2525,7 +2525,7 @@ window.addEventListener(&quot;message&quot;, function(ev){
 <footer class="site-foot">
   <div class="site-foot-in">
     <span class="sf-note"><b>Research aid, not legal advice.</b> Check every source before relying on it. What you type stays in this browser.</span>
-    <span class="sf-links"><a href="/risk-check.html">Risk check<span class="pro-mini">PRO</span></a><a href="/pricing.html">Plans</a><a href="/account.html">Account</a><a href="/terms.html">Terms</a><a href="/privacy.html">Privacy</a><a href="mailto:admin@case-bound.com?subject=Casebound%20%E2%80%94%20contact%20or%20complaint">Contact</a></span>
+    <span class="sf-links"><a href="/risk-check.html">Risk check<span class="pro-mini">PRO</span></a><a href="/lawyers.html">For lawyers</a><a href="/pricing.html">Plans</a><a href="/account.html">Account</a><a href="/terms.html">Terms</a><a href="/privacy.html">Privacy</a><a href="mailto:admin@case-bound.com?subject=Casebound%20%E2%80%94%20contact%20or%20complaint">Contact</a></span>
     <label class="consent" title="Shares your result ratings and the legal concepts recognised in your case — never your text or files. Off by default."><input type="checkbox" id="improve-consent"> Help improve rankings <a href="/privacy.html#improve">(what's sent)</a></label>
   </div>
 </footer>
@@ -2601,12 +2601,12 @@ function renderPlanBar(){
   const bar = $id("plan-bar");
   if(!bar) return;
   if(isPro()){
-    bar.innerHTML = `<span class="pb-tag pro">Full access</span><span>Unlimited analyses, saved cases and file reading, plus the <a href="/risk-check.html">risk check</a>.</span>`;
+    bar.innerHTML = `<span class="pb-tag pro">Full access</span><span>Unlimited analyses, saved cases and file reading, plus the <a href="/risk-check.html">risk check</a> and lawyer connections.</span>`;
     return;
   }
   const left = Math.max(0, FREE.analysesPerDay - usedToday());
   bar.innerHTML = `<span class="pb-tag">Free plan</span>` +
-    `<span>${left} of ${FREE.analysesPerDay} analyses left today · up to ${FREE.savedCases} saved cases${FREE.fileUpload ? "" : " · file reading and the risk check on Pro"}</span>` +
+    `<span>${left} of ${FREE.analysesPerDay} analyses left today · up to ${FREE.savedCases} saved cases${FREE.fileUpload ? "" : " · file reading, risk check and lawyer connections on Pro"}</span>` +
     upgradeLink("Upgrade") + (SIGNED_IN ? "" : ` <a href="/login.html?next=/">Sign in</a>`);
 }
 renderPlanBar();

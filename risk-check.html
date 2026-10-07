@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <script src="/theme.js"></script>
-<title>Risk check — Casebound Pro</title>
-<meta name="description" content="Casebound Pro risk check: see whether your legal problem is still on time, well documented and worth taking to a lawyer — before you pay for a consultation.">
+<title>Risk check &amp; lawyers — Casebound Pro</title>
+<meta name="description" content="Casebound Pro risk check: see whether your legal problem is still on time and well documented, then connect with a verified lawyer.">
 <meta name="theme-color" content="#6E1F2A">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%236E1F2A'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='36' font-weight='700' text-anchor='middle' fill='%23fff'%3EC%3C/text%3E%3C/svg%3E">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Risk check — Casebound Pro">
-<meta property="og:description" content="Check your case's time limit, evidence and gaps before you pay for a consultation.">
+<meta property="og:description" content="Check your case's time limit and evidence, then connect with a verified lawyer.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
@@ -114,6 +114,10 @@ textarea{font-family:var(--serif);font-size:15px;line-height:1.5;min-height:140p
 .tip{grid-column:2;font-size:13px;color:var(--ink-soft);line-height:1.45}
 @media(max-width:520px){.factor{grid-template-columns:1fr}.tip{grid-column:1}}
 .fine{font-size:12.5px;color:var(--ink-soft);margin:0;line-height:1.5}
+.c-h{margin:0;font-family:var(--serif);font-size:20px;font-weight:600}
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--ink-soft);line-height:1.45}
+.consent input{margin-top:3px;accent-color:var(--verdigris)}
+.c-ok{margin:0 0 10px;font-size:14px;color:var(--verdigris)}
 
 footer{border-top:1px solid var(--rule);background:var(--paper-2);font-size:12.5px;color:var(--ink-soft)}
 footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px;flex-wrap:wrap}
@@ -134,8 +138,8 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
 
 <main>
   <p class="kicker"><span class="pro-badge">PRO</span> Risk check</p>
-  <h1>Know where your case stands before you pay for a consultation.</h1>
-  <p class="lede">Describe your problem in plain words. The risk check tells you whether you are still inside the legal time limit, whether your evidence is strong enough, and what to gather before you see a lawyer.</p>
+  <h1>Know where your case stands, then connect with the right lawyer.</h1>
+  <p class="lede">Describe your problem in plain words. The risk check tells you whether you are still inside the legal time limit, whether your evidence is strong enough, and what to gather. When you're ready, send your case to verified lawyers and choose who you want to hear from.</p>
 
   <div id="loading" class="state">Checking your plan…</div>
 
@@ -144,7 +148,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
     <ul class="why">
       <li><b>Don't miss the deadline</b><span>Each type of claim has its own time limit, from 60 days to challenge a dismissal to 10 years for a contract. See how long you have left.</span></li>
       <li><b>See the gaps in your evidence</b><span>Find out whether messages and witnesses are enough, or whether you need a contract, invoice or report first.</span></li>
-      <li><b>Arrive prepared</b><span>Get a Low, Medium or High rating and a short list of what to fix, so your first consultation is shorter and cheaper.</span></li>
+      <li><b>Connect with a verified lawyer</b><span>Send your case to lawyers we have checked on the official register. You see who is interested, and you decide who gets your contact details.</span></li>
     </ul>
     <div class="unlock">
       <div class="cta">
@@ -152,6 +156,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
         <p>The risk check comes with every Pro plan, alongside unlimited research.</p>
         <ul>
           <li>Unlimited risk checks</li>
+          <li>Send your case to verified lawyers</li>
           <li>Unlimited analyses and saved cases</li>
           <li>Read PDF, Word and text files into your facts</li>
         </ul>
@@ -160,6 +165,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
           <a class="btn ghost" id="signin-link" href="/login.html?next=%2Frisk-check.html">I already have Pro</a>
         </div>
         <p class="small">Cancel any time. EU consumers can withdraw within 14 days.</p>
+        <p class="small">Are you a lawyer? <a href="/lawyers.html">Join Casebound for lawyers</a>. It's free.</p>
       </div>
       <div class="empty-note">
         <b>No case yet</b>
@@ -211,11 +217,31 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
         <button class="btn" type="submit">Check my risk</button>
         <span id="rc-err" class="err" role="alert"></span>
       </div>
-      <p class="private">The check runs in your browser. What you type here is not sent to Casebound or to anyone else.</p>
+      <p class="private">The check runs in your browser. Nothing you type is sent anywhere unless you choose to send your case to lawyers.</p>
     </form>
 
     <div id="result-empty" class="empty-note" style="margin-top:22px"><b>No case checked yet</b><span>Fill in the form above and press "Check my risk". Your rating appears here.</span></div>
     <section id="result" class="result" hidden aria-live="polite" style="margin-top:22px"></section>
+
+    <section id="connect" class="result" hidden style="margin-top:18px">
+      <div>
+        <h2 class="c-h">Connect with a lawyer</h2>
+        <p class="private" style="margin-top:4px">Send this case to lawyers we have verified on the official register. They see what you wrote, the dates, the amount and your evidence, but not your name or email. When a lawyer wants your case, you see their profile on your <a href="/account.html">account page</a> and choose whether to share your contact details.</p>
+      </div>
+      <form id="c-form" class="form" novalidate>
+        <div class="f"><label for="c-title">Sum it up in one line</label><input type="text" id="c-title" maxlength="120" placeholder="e.g. Fired two weeks after reporting a safety problem"></div>
+        <div class="row">
+          <div class="f"><label for="c-party">Who is the other side?</label>
+            <select id="c-party"><option>A company</option><option>My employer</option><option>A private person</option><option>A landlord</option><option>A public body</option></select></div>
+          <div class="f"><label for="c-city">Where are you based?</label><input type="text" id="c-city" maxlength="60" placeholder="e.g. Milano"></div>
+        </div>
+        <div class="f"><label for="c-goal">What outcome do you want?</label><input type="text" id="c-goal" maxlength="200" placeholder="e.g. Get my job back, or compensation"></div>
+        <label class="consent"><input type="checkbox" id="c-consent"> <span>I agree that verified lawyers on Casebound may read this case to decide whether to take it on. I understand that no lawyer–client relationship exists until a lawyer confirms it with me directly.</span></label>
+        <div class="actions"><button class="btn" type="submit" id="c-send">Send to verified lawyers</button><span id="c-err" class="err" role="alert"></span></div>
+      </form>
+      <div id="c-done" hidden><p class="c-ok"><b>Your case was sent.</b> Lawyers' replies appear on your account page.</p><div class="actions"><a class="btn" href="/account.html">Go to my account</a></div></div>
+      <div id="c-lawyer" hidden><p class="private">You're signed in with a lawyer profile. To send a case of your own, switch to a client profile on your <a href="/account.html">account page</a>.</p></div>
+    </section>
   </section>
 </main>
 
@@ -245,6 +271,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
     road:{label:"Road accident", dateLabel:"Date of the accident", days:730, rule:"2 years for road accident claims (art. 2947(2) c.c.)"},
     building:{label:"Defects in a building", dateLabel:"When did you find out the cause?", days:365, rule:"1 year from discovery to notify the builder (art. 1669 c.c.)"}
   };
+  var last = null, ROLE = "client";
   var EVIDENCE = ["Contract","Emails / messages","Invoices / receipts","Photos / video","Witnesses","Expert report","Official report","Payslips"];
   var INFORMAL = ["Witnesses","Emails / messages"];
 
@@ -298,7 +325,21 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
     $("rc-evidence").innerHTML = EVIDENCE.map(function(e,i){ return '<label class="check"><input type="checkbox" id="rc-ev-' + i + '" value="' + esc(e) + '"> ' + esc(e) + '</label>'; }).join("");
     var setLabel = function(){ $("rc-date-label").textContent = AREAS[$("rc-area").value].dateLabel; };
     $("rc-area").addEventListener("change", setLabel); setLabel();
-    $("rc-form").addEventListener("input", function(){ $("result").hidden = true; $("result-empty").hidden = false; });
+    $("rc-form").addEventListener("input", function(){ $("result").hidden = true; $("result-empty").hidden = false; $("connect").hidden = true; });
+    $("c-form").addEventListener("submit", function(e){
+      e.preventDefault();
+      if(!last) return;
+      var err = $("c-err"); err.textContent = "";
+      if(!$("c-consent").checked){ err.textContent = "Tick the box so verified lawyers can read your case."; return; }
+      var btn = $("c-send"); btn.disabled = true;
+      var data = { area:last.area, facts:last.facts, date:last.date, amount:last.amount, evidence:last.evidence,
+        title:$("c-title").value, party:$("c-party").value, city:$("c-city").value, goal:$("c-goal").value, consent:true };
+      fetch("/api/cases/submit", { method:"POST", credentials:"same-origin", headers:{"Content-Type":"application/json"}, body: JSON.stringify(data) })
+        .then(function(r){ return r.json().then(function(j){ if(!r.ok) throw new Error(j.error || "Couldn't send the case. Please try again."); return j; }); })
+        .then(function(){ $("c-form").hidden = true; $("c-done").hidden = false; })
+        .catch(function(er){ err.textContent = er.message; })
+        .then(function(){ btn.disabled = false; });
+    });
     $("rc-form").addEventListener("submit", function(e){
       e.preventDefault();
       var facts = $("rc-facts").value.trim();
@@ -309,6 +350,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
         amount: +$("rc-amount").value || 0,
         evidence: Array.prototype.map.call(document.querySelectorAll("#rc-evidence input:checked"), function(x){ return x.value; })
       };
+      last = c;
       var r = check(c), L = LEVEL[r.level];
       $("result").innerHTML =
         '<div class="result-top"><span class="level ' + L.cls + '">' + L.label + '</span><h2>' + L.head + '</h2></div>' +
@@ -317,10 +359,12 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
         '<p class="fine">This is an automatic check of how timely, documented and complete your case is, based only on what you entered. Time limits are simplified and some events can pause or restart them. It is not legal advice and does not say whether you would win. Only a lawyer can judge that.</p>' +
         '<div class="actions"><button class="btn" type="button" id="rc-research">Find the law behind it</button><button class="btn ghost" type="button" id="rc-edit">Edit my answers</button></div>';
       $("result").hidden = false; $("result-empty").hidden = true;
+      $("connect").hidden = false; $("c-done").hidden = true;
+      $("c-form").hidden = ROLE === "lawyer"; $("c-lawyer").hidden = ROLE !== "lawyer";
       $("result").scrollIntoView({behavior:"smooth", block:"start"});
     });
     $("result").addEventListener("click", function(e){
-      if(e.target.id === "rc-edit"){ $("result").hidden = true; $("result-empty").hidden = false; $("rc-facts").focus(); }
+      if(e.target.id === "rc-edit"){ $("result").hidden = true; $("result-empty").hidden = false; $("connect").hidden = true; $("rc-facts").focus(); }
       if(e.target.id === "rc-research"){
         try{ sessionStorage.setItem("casebound:prefill", $("rc-facts").value.trim()); }catch(err){}
         location.href = "/";
@@ -339,7 +383,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
   var done = false;
   fetch("/api/auth/me", { credentials:"same-origin" })
     .then(function(r){ return r.ok ? r.json() : {}; })
-    .then(function(j){ if(!done){ done = true; show(j && j.tier, !!(j && j.user)); } })
+    .then(function(j){ if(!done){ done = true; ROLE = (j && j.user && j.user.role) || "client"; show(j && j.tier, !!(j && j.user)); } })
     .catch(function(){ if(!done){ done = true; show("free", false); } });
   setTimeout(function(){ if(!done){ done = true; show("free", false); } }, 5000);
 })();
