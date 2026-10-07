@@ -109,6 +109,8 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
 .ad:first-child{border-top:none}
 .ad .actions{margin-top:0}
 .btn.sm{padding:7px 12px;font-size:13px}
+.is-admin #sub-none,.is-admin #see-plans{display:none!important}
+.is-admin #open-rc{display:inline-block!important}
 .okmsg{font-family:var(--sans);font-size:13.5px;border-radius:6px;padding:11px 14px;margin:0 0 18px;background:var(--verdigris-wash);color:var(--verdigris)}
 .seg{display:inline-grid;grid-template-columns:repeat(3,auto);gap:2px;background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:2px}
 .seg button{font-family:var(--sans);font-size:13px;font-weight:600;border:none;background:none;color:var(--ink-soft);padding:8px 16px;border-radius:4px;cursor:pointer}
@@ -247,6 +249,7 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
     <h2 data-t="subH">Subscription</h2>
     <dl id="sub-dl"></dl>
     <p id="sub-none" data-t="subNone" hidden>You don't have a subscription yet.</p>
+    <p id="admin-pro" hidden><span class="pill">Full access</span> <span id="admin-pro-t">Admin account: every Pro feature is included, with no subscription needed.</span></p>
     <div class="actions">
       <button type="button" class="btn" id="portal" hidden data-t="manageBtn">Manage subscription</button>
       <a class="btn" id="see-plans" href="/pricing.html" hidden data-t="plans">See plans</a>
@@ -744,7 +747,14 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
   function renderAll(){ renderKind(); renderCases(); renderAdmin(); }
   new MutationObserver(renderAll).observe(document.documentElement, { attributes:true, attributeFilter:["lang"] });
   fetch("/api/auth/me", { credentials:"same-origin" }).then(function(r){ return r.json(); }).then(function(j){
-    me = j; if(!j || !j.user) return; renderAll(); loadCases(); loadAdmin();
+    me = j; if(!j || !j.user) return;
+    if(j.user.isAdmin){
+      document.body.classList.add("is-admin"); $("admin-pro").hidden = false;
+      if(!(j.subscription && j.subscription.status && j.subscription.status !== "none")) $("sub").hidden = false;
+      var lb = document.createElement("a"); lb.className = "btn ghost"; lb.href = "/lawyers.html"; lb.textContent = "Open the case board";
+      var ad = $("admin"); ad.appendChild(lb); lb.style.marginTop = "14px";
+    }
+    renderAll(); loadCases(); loadAdmin();
   }).catch(function(){});
 })();
 </script>

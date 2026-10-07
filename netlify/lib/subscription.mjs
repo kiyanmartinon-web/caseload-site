@@ -1,5 +1,5 @@
 // Subscription status for an account (shared by /api/auth and /api/cases).
-import { saveUser } from "./auth.mjs";
+import { saveUser, isAdmin } from "./auth.mjs";
 import { isConfigured, stripe } from "./stripe.mjs";
 import { rememberCheckout } from "./subcache.mjs";
 
@@ -72,6 +72,8 @@ export async function subscriptionFor(user) {
 
 // Paid features stay on during a trial and while Stripe retries a failed payment.
 export function tierOf(user, subscription) {
+  // Admin accounts (ADMIN_EMAILS) always have full Pro access, with no subscription needed.
+  if (isAdmin(user)) return "pro";
   const st = subscription && subscription.status;
   return ["active", "trialing", "past_due"].includes(st) || (st === "unknown" && user.stripeCustomer) ? "pro" : "free";
 }

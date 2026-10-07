@@ -36,7 +36,7 @@ export default async (req, context) => {
       return ok({ cases: await Promise.all(mine.map(forClient)) });
     }
     if (action === "board") {
-      if (!isVerifiedLawyer(user)) return bad("Only verified lawyers can see cases.", 403);
+      if (!isVerifiedLawyer(user) && !isAdmin(user)) return bad("Only verified lawyers can see cases.", 403);
       const open = (await allCases()).filter((c) => c.status === "open");
       return ok({ cases: await Promise.all(open.map((c) => forLawyer(c, user.id))) });
     }

@@ -196,7 +196,7 @@ footer div{max-width:1300px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
     family:{label:"Family"}, tenancy:{label:"Tenancy"}, consumer:{label:"Consumer"}, other:{label:"Other"}
   };
   var STATUS = {interested:"Interested", info:"More info asked", passed:"Passed"};
-  var cases = [], selected = null, saving = false;
+  var cases = [], selected = null, saving = false, ADMIN_VIEW = false;
 
   function esc(s){ return String(s == null ? "" : s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
   function eur(n){ return n ? "€" + Number(n).toLocaleString("it-IT") : "—"; }
@@ -319,6 +319,7 @@ footer div{max-width:1300px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
       '<dt>Sent</dt><dd>' + fmt(c.createdAt) + (c.othersInterested ? ' · ' + c.othersInterested + ' other lawyer' + (c.othersInterested === 1 ? "" : "s") + ' interested' : '') + '</dd></dl>' +
       '<div><p class="sec-h">Evidence</p><div class="tags">' + (c.evidence.length ? c.evidence.map(function(e){ return '<span class="tag">' + esc(e) + '</span>'; }).join("") : '<span class="tag none">None listed</span>') + '</div></div>' +
       '<div><p class="sec-h">Automatic checks</p><ul class="flags">' + flags(c).map(function(f){ return '<li class="' + f[0] + '">' + esc(f[1]) + '</li>'; }).join("") + '</ul></div>' +
+      (ADMIN_VIEW ? '<p class="note"><b>Admin view.</b> You can read every open case. Only verified lawyers can rate cases or contact clients.</p>' :
       '<div class="rate"><p class="sec-h" style="margin:0">Your rating (only you see it)</p>' +
         '<div><span class="lbl">How strong is the claim?</span>' + scaleHTML("strength", m.strength) + '<div class="scale-ends"><span>Weak</span><span>Strong</span></div></div>' +
         '<div><span class="lbl">How good is the evidence?</span>' + scaleHTML("quality", m.quality) + '<div class="scale-ends"><span>Thin</span><span>Solid</span></div></div>' +
@@ -331,7 +332,7 @@ footer div{max-width:1300px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
           '<button type="button" class="' + (m.decision === "passed" ? "on" : "") + '" data-decision="passed">Pass</button></div>' +
         '<p class="err" id="p-err" role="alert"></p>' +
         '<p class="note">The client sees your name, bar association, city, bio and message when you choose "I want this case" or "Ask for more". They never see your rating. Their name and email reach you only if they choose to share them.</p>' +
-      '</div>';
+      '</div>');
   }
   function renderAll(){ renderStats(); renderList(); renderPanel(); }
 
@@ -362,8 +363,9 @@ footer div{max-width:1300px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
     var u = j && j.user;
     if(!u){ $("top-account").textContent = "Sign in";
       return gate('<h2>For lawyers registered in Italy</h2><p>Create a free lawyer account to review cases sent by Casebound clients. We verify every lawyer against the official register before they can see any case.</p><div class="actions"><a class="btn" href="/login.html?mode=register&amp;role=lawyer&amp;next=%2Faccount.html">Create a lawyer account</a><a class="btn ghost" href="/login.html?next=%2Flawyers.html">Sign in</a></div>'); }
-    if(u.role !== "lawyer") return gate('<h2>This board is for lawyers</h2><p>Your account is a client profile. If you are a lawyer, switch to a lawyer profile on your account page and we will verify your details.</p><div class="actions"><a class="btn" href="/account.html">Go to my account</a></div>');
-    if(!u.lawyer || u.lawyer.status !== "verified") return gate('<h2>' + (u.lawyer && u.lawyer.status === "rejected" ? "We couldn't verify your details" : "Waiting for verification") + '</h2><p>' + (u.lawyer && u.lawyer.status === "rejected" ? "We couldn't match your name and register number with the official register. Check them on your account page, or write to admin@case-bound.com." : "We are checking your name and register number on the official register of lawyers. You'll be able to see cases once that's done, usually within one or two working days.") + '</p><div class="actions"><a class="btn ghost" href="/account.html">My account</a></div>');
+    ADMIN_VIEW = !!u.isAdmin && !(u.role === "lawyer" && u.lawyer && u.lawyer.status === "verified");
+    if(u.role !== "lawyer" && !u.isAdmin) return gate('<h2>This board is for lawyers</h2><p>Your account is a client profile. If you are a lawyer, switch to a lawyer profile on your account page and we will verify your details.</p><div class="actions"><a class="btn" href="/account.html">Go to my account</a></div>');
+    if(!ADMIN_VIEW && (!u.lawyer || u.lawyer.status !== "verified")) return gate('<h2>' + (u.lawyer && u.lawyer.status === "rejected" ? "We couldn't verify your details" : "Waiting for verification") + '</h2><p>' + (u.lawyer && u.lawyer.status === "rejected" ? "We couldn't match your name and register number with the official register. Check them on your account page, or write to admin@case-bound.com." : "We are checking your name and register number on the official register of lawyers. You'll be able to see cases once that's done, usually within one or two working days.") + '</p><div class="actions"><a class="btn ghost" href="/account.html">My account</a></div>');
     return fetch("/api/cases/board", { credentials:"same-origin" }).then(function(r){ return r.json(); }).then(function(b){
       cases = b.cases || [];
       selected = null;
