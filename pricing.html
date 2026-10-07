@@ -104,6 +104,7 @@ footer div{max-width:820px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
   <div id="banner-test" class="banner test" hidden data-t="test">Test mode — use card 4242 4242 4242 4242, any future date and any CVC. No real money is charged.</div>
   <div id="banner-canceled" class="banner info" hidden data-t="canceled">Checkout was cancelled — you have not been charged.</div>
   <div id="banner-err" class="banner err" role="alert" hidden></div>
+  <div class="banner info" data-t="newPro"><b>New in Pro: the risk check.</b> Find out whether your case is still on time, well documented and worth a consultation, before you pay for one. <a href="/risk-check.html">See how it works</a></div>
 
   <div id="loading" class="state" data-t="loading">Loading plans…</div>
   <div id="closed" class="state" hidden data-t="closed">Paid plans open soon. In the meantime you can use the free plan.</div>
@@ -152,7 +153,8 @@ footer div{max-width:820px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       back:"← Back to Casebound", terms:"Terms of use", privacy:"Privacy notice",
       freeName:"Free", freeDesc:"Try Casebound with no card and no account.", startFree:"Start free",
       freeFeats:function(f){ return [f.analysesPerDay + " new analyses per day", "Up to " + f.savedCases + " saved cases", "Case mindmap and ranked sources"].concat(f.fileUpload ? ["Read PDF, Word and text files"] : []); },
-      proFeats:["Unlimited analyses", "Unlimited saved cases", "Read PDF, Word and text files into your facts"],
+      proFeats:["Risk check: time limit, evidence gaps and a Low / Medium / High rating before you see a lawyer", "Unlimited analyses", "Unlimited saved cases", "Read PDF, Word and text files into your facts"],
+      newPro:'<b>New in Pro: the risk check.</b> Find out whether your case is still on time, well documented and worth a consultation, before you pay for one. <a href="/risk-check.html">See how it works</a>',
       recommended:"Recommended", subscribe:"Subscribe", redirecting:"Opening secure checkout…",
       trial:function(n){ return n + "-day free trial"; },
       per:{day:"day",week:"week",month:"month",year:"year"},
@@ -175,7 +177,8 @@ footer div{max-width:820px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       back:"← Torna a Casebound", terms:"Condizioni d'uso", privacy:"Informativa privacy",
       freeName:"Gratis", freeDesc:"Prova Casebound senza carta e senza account.", startFree:"Inizia gratis",
       freeFeats:function(f){ return [f.analysesPerDay + " nuove analisi al giorno", "Fino a " + f.savedCases + " casi salvati", "Mappa del caso e fonti ordinate"].concat(f.fileUpload ? ["Lettura di file PDF, Word e di testo"] : []); },
-      proFeats:["Analisi illimitate", "Casi salvati illimitati", "Lettura di file PDF, Word e di testo nei fatti"],
+      proFeats:["Verifica del rischio: termini, lacune nelle prove e un giudizio Basso / Medio / Alto prima di andare da un avvocato", "Analisi illimitate", "Casi salvati illimitati", "Lettura di file PDF, Word e di testo nei fatti"],
+      newPro:'<b>Novità in Pro: la verifica del rischio.</b> Scopri se il tuo caso è ancora nei termini, ben documentato e merita una consulenza, prima di pagarne una. <a href="/risk-check.html">Scopri come funziona</a>',
       recommended:"Consigliato", subscribe:"Abbonati", redirecting:"Apertura del pagamento sicuro…",
       trial:function(n){ return n + " giorni di prova gratuita"; },
       per:{day:"giorno",week:"settimana",month:"mese",year:"anno"},

@@ -206,6 +206,7 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
     <div class="actions">
       <button type="button" class="btn" id="portal" hidden data-t="manageBtn">Manage subscription</button>
       <a class="btn" id="see-plans" href="/pricing.html" hidden data-t="plans">See plans</a>
+      <a class="btn ghost" id="open-rc" href="/risk-check.html" hidden data-t="rcBtn">Open the risk check</a>
     </div>
     <p class="note" id="portal-note" style="margin-top:12px" hidden data-t="portalNote">Change your card, switch plan, download invoices or cancel in Stripe's secure billing portal.</p>
   </section>
@@ -238,6 +239,7 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
 <footer>
   <div>
     <a href="/" data-t="back">← Back to Casebound</a>
+    <a href="/risk-check.html" data-t="rcL">Risk check (Pro)</a>
     <a href="/pricing.html" data-t="plansL">Plans</a>
     <a href="/terms.html" data-t="terms">Terms of use</a>
     <a href="/privacy.html" data-t="privacy">Privacy notice</a>
@@ -258,7 +260,7 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
       outH:"Sign in to see your account", outP:"Create a free account to subscribe to a plan and manage it in one place.",
       signin:"Sign in", register:"Create account", legacy:"Subscribed without an account?", legacyLink:"Manage it through Stripe",
       profileH:"Profile", nameL:"Name", emailL:"Email", sinceL:"Member since",
-      subH:"Subscription", subNone:"You don't have a subscription yet.", manageBtn:"Manage subscription", plans:"See plans",
+      subH:"Subscription", subNone:"You don't have a subscription yet.", manageBtn:"Manage subscription", plans:"See plans", rcBtn:"Open the risk check", rcL:"Risk check (Pro)",
       portalNote:"Change your card, switch plan, download invoices or cancel in Stripe's secure billing portal.",
       sessionH:"Session", open:"Open Casebound", logout:"Sign out",
       delSummary:"Delete my account", delP:"This permanently deletes your account. Billing records Stripe must keep by law are not affected. Cancel any subscription first.",
@@ -299,7 +301,7 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
       outH:"Accedi per vedere il tuo account", outP:"Crea un account gratuito per abbonarti a un piano e gestirlo in un unico posto.",
       signin:"Accedi", register:"Crea un account", legacy:"Ti sei abbonato senza account?", legacyLink:"Gestiscilo tramite Stripe",
       profileH:"Profilo", nameL:"Nome", emailL:"Email", sinceL:"Iscritto dal",
-      subH:"Abbonamento", subNone:"Non hai ancora un abbonamento.", manageBtn:"Gestisci abbonamento", plans:"Vedi i piani",
+      subH:"Abbonamento", subNone:"Non hai ancora un abbonamento.", manageBtn:"Gestisci abbonamento", plans:"Vedi i piani", rcBtn:"Apri la verifica del rischio", rcL:"Verifica del rischio (Pro)",
       portalNote:"Cambia carta, passa a un altro piano, scarica le fatture o disdici nel portale sicuro di Stripe.",
       sessionH:"Sessione", open:"Apri Casebound", logout:"Esci",
       delSummary:"Elimina il mio account", delP:"L'account verrà eliminato definitivamente. I dati di fatturazione che Stripe deve conservare per legge non sono interessati. Disdici prima eventuali abbonamenti.",
@@ -381,7 +383,7 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
     $("sec-email").textContent = u.email;
     $("sec-pw").textContent = t.pwSet(u.passwordChangedAt ? day(u.passwordChangedAt) : "");
     var s = me.subscription, has = s && s.status && s.status !== "none";
-    $("sub-none").hidden = has; $("see-plans").hidden = has;
+    $("sub-none").hidden = has; $("see-plans").hidden = has; $("open-rc").hidden = !has;
     $("portal").hidden = !has; $("portal-note").hidden = $("portal").hidden;
     if (!has) { $("sub-dl").innerHTML = ""; return; }
     var rows = [];

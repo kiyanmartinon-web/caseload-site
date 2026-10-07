@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script src="/theme.js"></script>
+<title>Risk check — Casebound Pro</title>
+<meta name="description" content="Casebound Pro risk check: see whether your legal problem is still on time, well documented and worth taking to a lawyer — before you pay for a consultation.">
+<meta name="theme-color" content="#6E1F2A">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%236E1F2A'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='36' font-weight='700' text-anchor='middle' fill='%23fff'%3EC%3C/text%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Risk check — Casebound Pro">
+<meta property="og:description" content="Check your case's time limit, evidence and gaps before you pay for a consultation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F7F7F4; --paper-2:#FFFFFF; --ink:#1A2438; --ink-soft:#5A6376;
+  --rule:#D8D7CF; --rule-soft:#E8E7E0;
+  --oxblood:#6E1F2A; --oxblood-wash:#F3EAEB;
+  --verdigris:#29565A; --verdigris-wash:#E7EFEF;
+  --amber:#8A5A12; --amber-wash:#F7EEDD;
+  --slate:#3C4A5C; --slate-wash:#EBEEF1;
+  --serif:"Source Serif 4",Georgia,serif; --sans:"Archivo",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;padding:0;background:var(--paper)}
+body{font-family:var(--sans);color:var(--ink);font-size:14.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--verdigris)} a:hover{color:var(--oxblood)}
+button,input,select,textarea{font-family:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--verdigris);outline-offset:2px}
+h1,h2{text-wrap:balance}
+
+.masthead{border-bottom:1px solid var(--rule);background:var(--paper-2)}
+.masthead-in{max-width:880px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:16px;min-height:56px}
+.wordmark{font-family:var(--serif);font-size:21px;font-weight:600;letter-spacing:-.01em;line-height:1;text-decoration:none;color:var(--ink)}
+.wordmark span{color:var(--oxblood)}
+.top-links{margin-left:auto;display:flex;gap:14px;font-size:13px;font-weight:600}
+.top-links a{text-decoration:none;color:var(--ink-soft)} .top-links a:hover{color:var(--oxblood)}
+
+main{max-width:880px;margin:0 auto;padding:34px 20px 70px}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--oxblood);margin:0 0 8px}
+.pro-badge{font-size:10px;font-weight:700;letter-spacing:.06em;padding:2px 7px;border-radius:3px;background:var(--oxblood);color:var(--paper-2)}
+h1{font-family:var(--serif);font-size:34px;line-height:1.15;font-weight:600;margin:0 0 10px;letter-spacing:-.01em}
+.lede{font-family:var(--serif);font-size:17px;color:var(--ink-soft);margin:0 0 26px;max-width:62ch}
+@media(max-width:600px){h1{font-size:28px}}
+
+.state{background:var(--paper-2);border:1px solid var(--rule);border-radius:6px;padding:20px;color:var(--ink-soft)}
+
+/* ---------- locked (free) view ---------- */
+.why{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:0 0 26px;padding:0;list-style:none}
+@media(max-width:720px){.why{grid-template-columns:1fr}}
+.why li{border-top:2px solid var(--oxblood);padding-top:10px}
+.why b{display:block;font-family:var(--serif);font-size:16.5px;margin-bottom:3px}
+.why span{font-size:13.5px;color:var(--ink-soft)}
+.unlock{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:20px;align-items:start}
+@media(max-width:760px){.unlock{grid-template-columns:1fr}}
+.cta{background:var(--paper-2);border:1px solid var(--oxblood);box-shadow:0 0 0 1px var(--oxblood);border-radius:6px;padding:22px;display:grid;gap:12px}
+.cta h2{margin:0;font-family:var(--serif);font-size:21px;font-weight:600}
+.cta p{margin:0;color:var(--ink-soft);font-size:14px}
+.cta ul{margin:0;padding:0;list-style:none;display:grid;gap:7px;font-size:14px}
+.cta li{padding-left:22px;position:relative}
+.cta li:before{content:"";position:absolute;left:3px;top:.5em;width:9px;height:5px;border-left:2px solid var(--verdigris);border-bottom:2px solid var(--verdigris);transform:rotate(-45deg)}
+.cta .small{font-size:12.5px}
+.empty-note{border:1px dashed var(--rule);border-radius:6px;padding:28px 22px;display:grid;gap:4px;align-content:center;min-height:100%;color:var(--ink-soft);font-size:14px}
+.empty-note b{font-family:var(--serif);font-size:17px;color:var(--ink)}
+
+.btn{font-family:var(--sans);font-size:14px;font-weight:700;border:1px solid var(--oxblood);background:var(--oxblood);color:#fff;border-radius:5px;padding:11px 18px;text-align:center;text-decoration:none;display:inline-block}
+.btn:hover{background:#57181f;color:#fff}
+.btn.ghost{background:var(--paper-2);color:var(--ink);border-color:var(--rule)}
+.btn.ghost:hover{background:var(--paper);color:var(--oxblood)}
+.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+
+/* ---------- form ---------- */
+.form{display:grid;gap:18px}
+fieldset{border:1px solid var(--rule);border-radius:6px;background:var(--paper-2);padding:18px;margin:0;display:grid;gap:14px;min-width:0}
+legend{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-soft);padding:0 6px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:600px){.row{grid-template-columns:1fr}}
+.f{display:grid;gap:5px;min-width:0}
+.f label,.f .lbl{font-size:13px;font-weight:600}
+.hint{font-size:12px;color:var(--ink-soft);line-height:1.45}
+input[type=text],input[type=number],input[type=date],select,textarea{width:100%;background:var(--paper);border:1px solid var(--rule);border-radius:5px;padding:9px 10px;font-size:14.5px}
+textarea{font-family:var(--serif);font-size:15px;line-height:1.5;min-height:140px;resize:vertical}
+.checks{display:flex;flex-wrap:wrap;gap:8px}
+.check{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--rule);border-radius:16px;padding:6px 12px;font-size:13px;background:var(--paper);cursor:pointer}
+.check input{accent-color:var(--verdigris);margin:0}
+.check:has(input:checked){border-color:var(--verdigris);background:var(--verdigris-wash);color:var(--verdigris);font-weight:600}
+.err{color:var(--oxblood);font-size:13px;font-weight:600}
+.private{font-size:12.5px;color:var(--ink-soft);margin:0}
+
+/* ---------- result ---------- */
+.result{border:1px solid var(--rule);background:var(--paper-2);border-radius:6px;padding:20px;display:grid;gap:16px}
+.result-top{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.level{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:8px 14px;border-radius:5px}
+.l-low{background:var(--verdigris-wash);color:var(--verdigris)}
+.l-med{background:var(--amber-wash);color:var(--amber)}
+.l-high{background:var(--oxblood-wash);color:var(--oxblood)}
+.result-top h2{margin:0;font-family:var(--serif);font-size:20px;font-weight:600;flex:1 1 260px;line-height:1.3}
+.meter{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
+.meter i{height:6px;border-radius:3px;background:var(--rule-soft)}
+.meter.low i:nth-child(1){background:var(--verdigris)}
+.meter.med i:nth-child(-n+2){background:var(--amber)}
+.meter.high i{background:var(--oxblood)}
+.meter-ends{display:flex;justify-content:space-between;font-size:11px;color:var(--ink-soft);margin-top:3px}
+.factors{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.factor{display:grid;grid-template-columns:110px minmax(0,1fr);gap:3px 14px;padding:10px 12px;border-radius:5px;background:var(--paper)}
+.factor b{font-size:13px}
+.verdict{font-size:13px;font-weight:600}
+.verdict.ok{color:var(--verdigris)} .verdict.warn{color:var(--amber)} .verdict.bad{color:var(--oxblood)}
+.tip{grid-column:2;font-size:13px;color:var(--ink-soft);line-height:1.45}
+@media(max-width:520px){.factor{grid-template-columns:1fr}.tip{grid-column:1}}
+.fine{font-size:12.5px;color:var(--ink-soft);margin:0;line-height:1.5}
+
+footer{border-top:1px solid var(--rule);background:var(--paper-2);font-size:12.5px;color:var(--ink-soft)}
+footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-in">
+    <a class="wordmark" href="/">Case<span>bound</span></a>
+    <nav class="top-links" aria-label="Account">
+      <a href="/">Research</a>
+      <a href="/pricing.html">Plans</a>
+      <a href="/account.html" id="top-account">Sign in</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <p class="kicker"><span class="pro-badge">PRO</span> Risk check</p>
+  <h1>Know where your case stands before you pay for a consultation.</h1>
+  <p class="lede">Describe your problem in plain words. The risk check tells you whether you are still inside the legal time limit, whether your evidence is strong enough, and what to gather before you see a lawyer.</p>
+
+  <div id="loading" class="state">Checking your plan…</div>
+
+  <!-- ============ Free / signed-out visitors ============ -->
+  <section id="locked" hidden>
+    <ul class="why">
+      <li><b>Don't miss the deadline</b><span>Each type of claim has its own time limit, from 60 days to challenge a dismissal to 10 years for a contract. See how long you have left.</span></li>
+      <li><b>See the gaps in your evidence</b><span>Find out whether messages and witnesses are enough, or whether you need a contract, invoice or report first.</span></li>
+      <li><b>Arrive prepared</b><span>Get a Low, Medium or High rating and a short list of what to fix, so your first consultation is shorter and cheaper.</span></li>
+    </ul>
+    <div class="unlock">
+      <div class="cta">
+        <h2>Included in Casebound Pro</h2>
+        <p>The risk check comes with every Pro plan, alongside unlimited research.</p>
+        <ul>
+          <li>Unlimited risk checks</li>
+          <li>Unlimited analyses and saved cases</li>
+          <li>Read PDF, Word and text files into your facts</li>
+        </ul>
+        <div class="actions">
+          <a class="btn" href="/pricing.html">See Pro plans</a>
+          <a class="btn ghost" id="signin-link" href="/login.html?next=%2Frisk-check.html">I already have Pro</a>
+        </div>
+        <p class="small">Cancel any time. EU consumers can withdraw within 14 days.</p>
+      </div>
+      <div class="empty-note">
+        <b>No case yet</b>
+        <span>With Pro, you describe your own case and the rating appears here. Nothing is pre-filled and no result is shown until you enter a case.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Pro subscribers ============ -->
+  <section id="tool" hidden>
+    <form id="rc-form" class="form" novalidate>
+      <fieldset>
+        <legend>The problem</legend>
+        <div class="f">
+          <label for="rc-area">What kind of problem is it?</label>
+          <select id="rc-area"></select>
+        </div>
+        <div class="f">
+          <label for="rc-facts">What happened?</label>
+          <textarea id="rc-facts" placeholder="Who was involved, what they did, what you did, and what it cost you. Include dates if you have them."></textarea>
+          <span class="hint">Leave out names and other identifying details. They aren't needed for the check.</span>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Dates and money</legend>
+        <div class="row">
+          <div class="f">
+            <label for="rc-date" id="rc-date-label">When did it happen?</label>
+            <input type="date" id="rc-date">
+          </div>
+          <div class="f">
+            <label for="rc-amount">How much is at stake? (€)</label>
+            <input type="number" id="rc-amount" min="0" step="100" placeholder="e.g. 12000">
+            <span class="hint">Money lost, owed, or the cost of fixing it. A rough figure is fine.</span>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Evidence</legend>
+        <div class="f">
+          <span class="lbl">What do you have? Tick all that apply.</span>
+          <div class="checks" id="rc-evidence"></div>
+        </div>
+      </fieldset>
+
+      <div class="actions">
+        <button class="btn" type="submit">Check my risk</button>
+        <span id="rc-err" class="err" role="alert"></span>
+      </div>
+      <p class="private">The check runs in your browser. What you type here is not sent to Casebound or to anyone else.</p>
+    </form>
+
+    <div id="result-empty" class="empty-note" style="margin-top:22px"><b>No case checked yet</b><span>Fill in the form above and press "Check my risk". Your rating appears here.</span></div>
+    <section id="result" class="result" hidden aria-live="polite" style="margin-top:22px"></section>
+  </section>
+</main>
+
+<footer>
+  <div>
+    <a href="/">← Back to Casebound</a>
+    <a href="/terms.html#risk-check">How the risk check works</a>
+    <a href="/terms.html">Terms of use</a>
+    <a href="/privacy.html">Privacy notice</a>
+    <a href="mailto:admin@case-bound.com">Contact / complaints: admin@case-bound.com</a>
+    <span>© 2026 Kiyan Martinon</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+  var DAY = 86400000;
+
+  /* Simplified Italian time limits. Each entry: label, what date to ask for, days, plain-language rule. */
+  var AREAS = {
+    dismissal:{label:"Dismissal from a job", dateLabel:"Date you received the dismissal letter", days:60, rule:"60 days to challenge a dismissal in writing (L. 604/1966, art. 6)"},
+    employment:{label:"Other work problem (pay, demotion…)", dateLabel:"When did it start?", days:1825, rule:"5 years for most pay and work claims (art. 2948 c.c.)"},
+    goods:{label:"Faulty product you bought", dateLabel:"Delivery date", days:365, rule:"1 year from delivery to sue over defects (art. 1495 c.c.)"},
+    contract:{label:"Unpaid money or broken contract", dateLabel:"When was payment or performance due?", days:3650, rule:"10 years, the ordinary limit (art. 2946 c.c.)"},
+    injury:{label:"Injury or damage caused by someone", dateLabel:"When did it happen?", days:1825, rule:"5 years for damage claims (art. 2947 c.c.)"},
+    road:{label:"Road accident", dateLabel:"Date of the accident", days:730, rule:"2 years for road accident claims (art. 2947(2) c.c.)"},
+    building:{label:"Defects in a building", dateLabel:"When did you find out the cause?", days:365, rule:"1 year from discovery to notify the builder (art. 1669 c.c.)"}
+  };
+  var EVIDENCE = ["Contract","Emails / messages","Invoices / receipts","Photos / video","Witnesses","Expert report","Official report","Payslips"];
+  var INFORMAL = ["Witnesses","Emails / messages"];
+
+  function esc(s){ return String(s == null ? "" : s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+  function eur(n){ return "€" + Number(n).toLocaleString("it-IT"); }
+  function daysLeft(area, date){
+    if(!date) return null;
+    var t = new Date(); t.setHours(0,0,0,0);
+    var end = new Date(date + "T00:00:00").getTime() + AREAS[area].days*DAY;
+    return Math.round((end - t.getTime())/DAY);
+  }
+  function left(d){
+    if(d <= 60) return d + " days left";
+    if(d < 730) return Math.round(d/30) + " months left";
+    return (d/365).toFixed(1) + " years left";
+  }
+  function lc(s){ return s.charAt(0).toLowerCase() + s.slice(1); }
+
+  /* The check: rates how hard the case looks to pursue from what was entered.
+     It looks at time limit, evidence, detail and amount only. It never predicts the outcome. */
+  function check(c){
+    var A = AREAS[c.area], d = daysLeft(c.area, c.date), pts = 0, time, ev, det, money;
+    var formal = c.evidence.filter(function(e){ return INFORMAL.indexOf(e) < 0; });
+    if(d === null){ pts += 1; time = {v:"warn", label:"Unknown", tip:"Add the date so the time limit can be checked. " + A.rule + "."}; }
+    else if(d < 0){ pts += 3; time = {v:"bad", label:"May have expired", tip:"The usual limit is " + lc(A.rule) + ". Some events pause or restart that clock, so have a lawyer look before you give up."}; }
+    else if(d <= 60){ pts += 1; time = {v:"warn", label:d + " days left", tip:"Time is short. If you want a lawyer, see one now rather than later."}; }
+    else time = {v:"ok", label:left(d), tip:"You are inside the usual time limit: " + lc(A.rule) + "."};
+
+    if(!c.evidence.length){ pts += 2; ev = {v:"bad", label:"None listed", tip:"Without documents it is your word against theirs. Look for contracts, receipts, letters or photos."}; }
+    else if(!formal.length){ pts += 1; ev = {v:"warn", label:"Informal only", tip:"Messages and witnesses help, but a formal document (contract, invoice, official or expert report) makes the case much easier to prove."}; }
+    else if(formal.length >= 2) ev = {v:"ok", label:c.evidence.length + " items", tip:"You have documents a lawyer can work with. Keep the originals safe."};
+    else ev = {v:"warn", label:c.evidence.length + (c.evidence.length === 1 ? " item" : " items"), tip:"One solid document. A second one (emails, photos, a report) would strengthen it."};
+
+    if(c.facts.length < 160){ pts += 1; det = {v:"warn", label:"Brief", tip:"Add what happened step by step, with dates and what it cost you."}; }
+    else det = {v:"ok", label:"Clear", tip:"Enough detail for a lawyer to understand the situation."};
+
+    if(!c.amount){ pts += 0.5; money = {v:"warn", label:"Not given", tip:"Estimate what you lost or are owed. It decides whether the case is worth the cost of pursuing."}; }
+    else if(c.amount < 1000) money = {v:"warn", label:eur(c.amount), tip:"Small claims can still be pursued, but legal costs may outweigh what you recover. Ask about mediation or the giudice di pace."};
+    else money = {v:"ok", label:eur(c.amount), tip:"Large enough that a lawyer can justify the work."};
+
+    return { level: pts >= 3 ? "high" : pts >= 1.5 ? "med" : "low", factors:[["Time limit",time],["Evidence",ev],["Detail",det],["Amount",money]] };
+  }
+  var LEVEL = {
+    low:{cls:"l-low", label:"Low risk", head:"Your case looks well prepared"},
+    med:{cls:"l-med", label:"Medium risk", head:"Worth pursuing, but some gaps to fix"},
+    high:{cls:"l-high", label:"High risk", head:"This case may be hard to pursue as it stands"}
+  };
+
+  function buildForm(){
+    $("rc-area").innerHTML = Object.keys(AREAS).map(function(k){ return '<option value="' + k + '">' + esc(AREAS[k].label) + '</option>'; }).join("");
+    $("rc-evidence").innerHTML = EVIDENCE.map(function(e,i){ return '<label class="check"><input type="checkbox" id="rc-ev-' + i + '" value="' + esc(e) + '"> ' + esc(e) + '</label>'; }).join("");
+    var setLabel = function(){ $("rc-date-label").textContent = AREAS[$("rc-area").value].dateLabel; };
+    $("rc-area").addEventListener("change", setLabel); setLabel();
+    $("rc-form").addEventListener("input", function(){ $("result").hidden = true; $("result-empty").hidden = false; });
+    $("rc-form").addEventListener("submit", function(e){
+      e.preventDefault();
+      var facts = $("rc-facts").value.trim();
+      if(facts.length < 40){ $("rc-err").textContent = "Describe what happened in a few sentences first."; $("rc-facts").focus(); return; }
+      $("rc-err").textContent = "";
+      var c = {
+        area: $("rc-area").value, facts: facts, date: $("rc-date").value || null,
+        amount: +$("rc-amount").value || 0,
+        evidence: Array.prototype.map.call(document.querySelectorAll("#rc-evidence input:checked"), function(x){ return x.value; })
+      };
+      var r = check(c), L = LEVEL[r.level];
+      $("result").innerHTML =
+        '<div class="result-top"><span class="level ' + L.cls + '">' + L.label + '</span><h2>' + L.head + '</h2></div>' +
+        '<div><div class="meter ' + r.level + '"><i></i><i></i><i></i></div><div class="meter-ends"><span>Low</span><span>Medium</span><span>High</span></div></div>' +
+        '<ul class="factors">' + r.factors.map(function(f){ return '<li class="factor"><b>' + f[0] + '</b><span class="verdict ' + f[1].v + '">' + esc(f[1].label) + '</span><span class="tip">' + esc(f[1].tip) + '</span></li>'; }).join("") + '</ul>' +
+        '<p class="fine">This is an automatic check of how timely, documented and complete your case is, based only on what you entered. Time limits are simplified and some events can pause or restart them. It is not legal advice and does not say whether you would win. Only a lawyer can judge that.</p>' +
+        '<div class="actions"><button class="btn" type="button" id="rc-research">Find the law behind it</button><button class="btn ghost" type="button" id="rc-edit">Edit my answers</button></div>';
+      $("result").hidden = false; $("result-empty").hidden = true;
+      $("result").scrollIntoView({behavior:"smooth", block:"start"});
+    });
+    $("result").addEventListener("click", function(e){
+      if(e.target.id === "rc-edit"){ $("result").hidden = true; $("result-empty").hidden = false; $("rc-facts").focus(); }
+      if(e.target.id === "rc-research"){
+        try{ sessionStorage.setItem("casebound:prefill", $("rc-facts").value.trim()); }catch(err){}
+        location.href = "/";
+      }
+    });
+  }
+
+  function show(tier, signedIn){
+    $("loading").hidden = true;
+    $("top-account").textContent = signedIn ? "Account" : "Sign in";
+    if(tier === "pro"){ buildForm(); $("tool").hidden = false; return; }
+    if(signedIn){ $("signin-link").textContent = "Manage my account"; $("signin-link").href = "/account.html"; }
+    $("locked").hidden = false;
+  }
+
+  var done = false;
+  fetch("/api/auth/me", { credentials:"same-origin" })
+    .then(function(r){ return r.ok ? r.json() : {}; })
+    .then(function(j){ if(!done){ done = true; show(j && j.tier, !!(j && j.user)); } })
+    .catch(function(){ if(!done){ done = true; show("free", false); } });
+  setTimeout(function(){ if(!done){ done = true; show("free", false); } }, 5000);
+})();
+</script>
+</body>
+</html>

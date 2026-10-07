@@ -55,6 +55,7 @@ button,a{-webkit-tap-highlight-color:rgba(110,31,42,.12)}
 .top-links a:hover{color:var(--oxblood)}
 .top-links a#top-account{color:var(--paper-2);background:var(--ink);padding:7px 12px;border-radius:5px}
 .top-links a#top-account:hover{background:var(--oxblood)}
+.top-links .pro-mini,.sf-links .pro-mini{font-size:9.5px;font-weight:700;letter-spacing:.05em;padding:1px 5px;border-radius:3px;background:var(--oxblood);color:var(--paper-2);margin-left:4px;vertical-align:1px}
 
 /* ---------- views ---------- */
 .views{position:relative;flex:1 1 auto;min-height:0}
@@ -288,7 +289,7 @@ html[data-theme="dark"] .seg button[aria-checked="true"]{box-shadow:0 1px 2px rg
   .tab .n{display:none}
   .tab .long{display:none}
   .top-links{gap:10px}
-  .top-links a[href="/pricing.html"]{display:none}
+  .top-links a[href="/pricing.html"],.top-links a.rc-link{display:none}
   .top-links a#top-account{padding:6px 10px;font-size:12.5px}
   .start{padding:26px 16px 40px}
   .start h1{font-size:27px}
@@ -353,6 +354,7 @@ html[data-theme="dark"] .seg button[aria-checked="true"]{box-shadow:0 1px 2px rg
       <button class="tab" data-go="cases">Saved<span class="long">&nbsp;cases</span></button>
     </nav>
     <nav class="top-links" aria-label="Account">
+      <a href="/risk-check.html" class="rc-link">Risk check<span class="pro-mini">PRO</span></a>
       <a href="/pricing.html">Plans</a>
       <a href="/account.html" id="top-account">Sign in</a>
     </nav>
@@ -2523,7 +2525,7 @@ window.addEventListener(&quot;message&quot;, function(ev){
 <footer class="site-foot">
   <div class="site-foot-in">
     <span class="sf-note"><b>Research aid, not legal advice.</b> Check every source before relying on it. What you type stays in this browser.</span>
-    <span class="sf-links"><a href="/pricing.html">Plans</a><a href="/account.html">Account</a><a href="/terms.html">Terms</a><a href="/privacy.html">Privacy</a><a href="mailto:admin@case-bound.com?subject=Casebound%20%E2%80%94%20contact%20or%20complaint">Contact</a></span>
+    <span class="sf-links"><a href="/risk-check.html">Risk check<span class="pro-mini">PRO</span></a><a href="/pricing.html">Plans</a><a href="/account.html">Account</a><a href="/terms.html">Terms</a><a href="/privacy.html">Privacy</a><a href="mailto:admin@case-bound.com?subject=Casebound%20%E2%80%94%20contact%20or%20complaint">Contact</a></span>
     <label class="consent" title="Shares your result ratings and the legal concepts recognised in your case — never your text or files. Off by default."><input type="checkbox" id="improve-consent"> Help improve rankings <a href="/privacy.html#improve">(what's sent)</a></label>
   </div>
 </footer>
@@ -2599,15 +2601,21 @@ function renderPlanBar(){
   const bar = $id("plan-bar");
   if(!bar) return;
   if(isPro()){
-    bar.innerHTML = `<span class="pb-tag pro">Full access</span><span>Unlimited analyses, saved cases and file reading.</span>`;
+    bar.innerHTML = `<span class="pb-tag pro">Full access</span><span>Unlimited analyses, saved cases and file reading, plus the <a href="/risk-check.html">risk check</a>.</span>`;
     return;
   }
   const left = Math.max(0, FREE.analysesPerDay - usedToday());
   bar.innerHTML = `<span class="pb-tag">Free plan</span>` +
-    `<span>${left} of ${FREE.analysesPerDay} analyses left today · up to ${FREE.savedCases} saved cases${FREE.fileUpload ? "" : " · file reading on paid plans"}</span>` +
+    `<span>${left} of ${FREE.analysesPerDay} analyses left today · up to ${FREE.savedCases} saved cases${FREE.fileUpload ? "" : " · file reading and the risk check on Pro"}</span>` +
     upgradeLink("Upgrade") + (SIGNED_IN ? "" : ` <a href="/login.html?next=/">Sign in</a>`);
 }
 renderPlanBar();
+
+/* Facts handed over from the Pro risk check ("Find the law behind it"). Read once, then removed. */
+try{
+  const pre = sessionStorage.getItem("casebound:prefill");
+  if(pre){ sessionStorage.removeItem("casebound:prefill"); const f = $id("hub-facts"); if(f && !f.value){ f.value = pre; setTimeout(()=>f.dispatchEvent(new Event("input",{bubbles:true})),0); } }
+}catch(e){}
 
 /* ---------------- the form on page 1 ---------------- */
 const OUTPUT_LABEL = { both: "Mindmap + sources", map: "Mindmap", sources: "Sources" };
