@@ -2064,7 +2064,7 @@ window.addEventListener(&quot;message&quot;, function(ev){
 <head>
 <meta charset=&quot;UTF-8&quot;>
 <meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;>
-<title>Casebound — Compatibility Finder</title>
+<title data-i18n=&quot;title&quot;>Casebound — Compatibility Finder</title>
 <link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;>
 <link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin>
 <link href=&quot;https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&amp;display=swap&quot; rel=&quot;stylesheet&quot;>
@@ -2092,11 +2092,11 @@ window.addEventListener(&quot;message&quot;, function(ev){
   .wordmark{font-family:var(--serif);font-size:20px;font-weight:600;letter-spacing:-.01em;line-height:1;white-space:nowrap}
   .wordmark span{color:var(--oxblood)}
   .wordmark small{display:block;font-family:var(--sans);font-size:10.5px;font-weight:600;color:var(--ink-soft);letter-spacing:.02em;margin-top:1px}
-  .masthead-note{margin-left:auto;font-size:12px;color:var(--ink-soft);max-width:360px;text-align:right;line-height:1.4}
+  .masthead-note{margin-inline-start:auto;font-size:12px;color:var(--ink-soft);max-width:360px;text-align:end;line-height:1.4}
 
   .shell{display:grid;grid-template-columns:400px 1fr;gap:0;min-height:calc(100vh - 56px)}
   @media(max-width:900px){.shell{grid-template-columns:1fr}}
-  .intake{border-right:1px solid var(--rule);padding:22px;background:var(--paper-2)}
+  .intake{border-inline-end:1px solid var(--rule);padding:22px;background:var(--paper-2)}
   .field{margin-bottom:16px}
   .field label{display:block;font-size:12px;font-weight:600;
     color:var(--ink-soft);margin-bottom:5px}
@@ -2115,7 +2115,7 @@ window.addEventListener(&quot;message&quot;, function(ev){
   .run:disabled{background:#9AA2B1;cursor:not-allowed}
   .samples{margin-top:22px;padding-top:16px;border-top:1px solid var(--rule-soft)}
   .samples h4{font-size:11.5px;font-weight:600;color:var(--ink-soft);margin:0 0 8px}
-  .sample-btn{display:block;width:100%;text-align:left;background:var(--paper);border:1px solid var(--rule-soft);
+  .sample-btn{display:block;width:100%;text-align:start;background:var(--paper);border:1px solid var(--rule-soft);
     border-radius:4px;padding:8px 10px;margin-bottom:6px;
     font-size:12px;color:var(--ink);cursor:pointer}
   .sample-btn:hover{border-color:var(--verdigris);color:var(--verdigris)}
@@ -2139,16 +2139,16 @@ window.addEventListener(&quot;message&quot;, function(ev){
   .cite{font-family:var(--serif);font-weight:600;font-size:15px}
   .title{color:var(--ink-soft);font-size:13px;margin-top:1px}
   .snippet{font-size:13.5px;margin-top:6px;color:var(--ink)}
-  .bar-row{display:flex;align-items:center;gap:8px;padding:0 16px 14px 68px}
+  .bar-row{display:flex;align-items:center;gap:8px;padding:0 0 14px;padding-inline:68px 16px}
   .bar-wrap{flex:1;height:5px;background:var(--rule-soft);border-radius:3px;overflow:hidden}
   .bar-fill{height:100%;background:var(--verdigris)}
   .breakdown{font-size:10.5px;color:var(--ink-soft);white-space:nowrap}
-  .full{display:none;border-top:1px solid var(--rule-soft);padding:14px 16px 16px 68px;
+  .full{display:none;border-top:1px solid var(--rule-soft);padding:14px 0 16px;padding-inline:68px 16px;
     font-size:13.5px;background:var(--paper)}
   .full.on{display:block}
   .full .meta{font-size:11px;color:var(--ink-soft);margin-bottom:6px}
   .doc-concepts{margin-top:10px;font-size:11.5px;color:var(--ink-soft)}
-  .fb{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:0 16px 12px 68px;margin-top:-4px}
+  .fb{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:0 0 12px;padding-inline:68px 16px;margin-top:-4px}
   .fb-l{font-size:11px;color:var(--ink-soft)}
   .fb-b{font-size:11px;font-weight:600;padding:3px 10px;border-radius:12px;border:1px solid var(--rule);background:var(--paper-2);color:var(--ink-soft)}
   .fb-b:hover{border-color:var(--verdigris);color:var(--verdigris)}
@@ -2156,7 +2156,7 @@ window.addEventListener(&quot;message&quot;, function(ev){
   .fb-b.neg.on{background:var(--oxblood);border-color:var(--oxblood);color:#fff}
   .fb-b.neg:hover:not(.on){border-color:var(--oxblood);color:var(--oxblood)}
   .fb-msg{font-size:11px;color:var(--verdigris)}
-  .cx{border:none;background:none;color:inherit;opacity:.55;font-size:13px;line-height:1;padding:0 0 0 5px;cursor:pointer}
+  .cx{border:none;background:none;color:inherit;opacity:.55;font-size:13px;line-height:1;padding:0;padding-inline-start:5px;cursor:pointer}
   .cx:hover{opacity:1;color:var(--oxblood)}
   .cpill.learned{box-shadow:inset 0 0 0 1px var(--amber);}
   .qc-hint{font-weight:400}
@@ -2172,13 +2172,13 @@ window.addEventListener(&quot;message&quot;, function(ev){
   .qc-l{font-size:11px;font-weight:600;color:var(--ink-soft);margin-bottom:7px}
   .qc-row,.shared{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
   .shared{margin-top:7px}
-  .sh-l{font-size:10.5px;color:var(--ink-soft);margin-right:3px}
+  .sh-l{font-size:10.5px;color:var(--ink-soft);margin-inline-end:3px}
   .cpill{font-size:11px;font-weight:600;padding:2px 8px;border-radius:11px;border:1px solid var(--rule);color:var(--ink-soft);background:var(--paper)}
   .cpill.on{background:var(--verdigris-wash);border-color:transparent;color:var(--verdigris)}
   .qc .cpill{background:var(--verdigris-wash);border-color:transparent;color:var(--verdigris)}
   @media(max-width:700px){.masthead-note{display:none}.masthead-in{height:auto;min-height:56px}}
   .shell>*{min-width:0}
-  .breakdown{white-space:normal;text-align:right}
+  .breakdown{white-space:normal;text-align:end}
   .qc .cpill.area{background:var(--paper);border-color:var(--rule);color:var(--ink-soft);font-weight:500}
 
   .corpus-box{margin-top:22px;padding-top:16px;border-top:1px solid var(--rule-soft)}
@@ -2209,8 +2209,8 @@ window.addEventListener(&quot;message&quot;, function(ev){
 
 <header class=&quot;masthead&quot;>
   <div class=&quot;masthead-in&quot;>
-    <div class=&quot;wordmark&quot;>Case<span>bound</span><small>FINDER &amp;middot; COMPATIBILITY SEARCH</small></div>
-    <div class=&quot;masthead-note&quot;>Ranks every provision and ruling in the 372-document corpus by the legal concepts it shares with your case — not by the words it happens to use.</div>
+    <div class=&quot;wordmark&quot;>Case<span>bound</span><small data-i18n=&quot;tagline&quot;>FINDER &amp;middot; COMPATIBILITY SEARCH</small></div>
+    <div class=&quot;masthead-note&quot; data-i18n=&quot;note&quot;>Ranks every provision and ruling in the 372-document corpus by the legal concepts it shares with your case — not by the words it happens to use.</div>
   </div>
 </header>
 
@@ -2220,14 +2220,14 @@ window.addEventListener(&quot;message&quot;, function(ev){
       <textarea id=&quot;facts&quot;></textarea>
       <input type=&quot;text&quot; id=&quot;claim&quot;>
     </div>
-    <div class=&quot;hint&quot; style=&quot;margin-top:-6px;margin-bottom:14px&quot;>Facts come from the shared input above — filter or re-run below.</div>
+    <div class=&quot;hint&quot; style=&quot;margin-top:-6px;margin-bottom:14px&quot; data-i18n=&quot;factsHint&quot;>Facts come from the shared input above — filter or re-run below.</div>
     <div class=&quot;field&quot;>
-      <label>Jurisdiction</label>
+      <label data-i18n=&quot;jurisdiction&quot;>Jurisdiction</label>
       <div class=&quot;chips&quot; id=&quot;jur-chips&quot;></div>
-      <div class=&quot;hint&quot;>Leave on &quot;All&quot; to search across every jurisdiction in the index.</div>
+      <div class=&quot;hint&quot; data-i18n=&quot;jurHint&quot;>Leave on &quot;All&quot; to search across every jurisdiction in the index.</div>
     </div>
     <div class=&quot;field&quot;>
-      <label>Document type</label>
+      <label data-i18n=&quot;docType&quot;>Document type</label>
       <div class=&quot;chips&quot; id=&quot;type-chips&quot;></div>
     </div>
     <button class=&quot;run&quot; id=&quot;run&quot;>Find compatible documents</button>
@@ -2235,68 +2235,68 @@ window.addEventListener(&quot;message&quot;, function(ev){
     <div class=&quot;learn-box&quot; id=&quot;learn-box&quot;></div>
 
     <div class=&quot;samples&quot;>
-      <h4>Or try a worked example</h4>
+      <h4 data-i18n=&quot;samplesH&quot;>Or try a worked example</h4>
       <div id=&quot;samples-list&quot;></div>
     </div>
 
     <div class=&quot;corpus-box&quot; hidden>
-      <h4>Corpus</h4>
+      <h4 data-i18n=&quot;corpus&quot;>Corpus</h4>
       <div class=&quot;corpus-count&quot; id=&quot;corpus-count&quot;></div>
-      <button class=&quot;toggle-btn&quot; id=&quot;toggle-add&quot;>+ Add a document to the corpus</button>
+      <button class=&quot;toggle-btn&quot; id=&quot;toggle-add&quot; data-i18n=&quot;addToggle&quot;>+ Add a document to the corpus</button>
       <div class=&quot;corpus-form&quot; id=&quot;corpus-form&quot;>
         <div class=&quot;field row2&quot;>
           <div>
-            <label for=&quot;new-jur&quot;>Jurisdiction</label>
-            <input type=&quot;text&quot; id=&quot;new-jur&quot; placeholder=&quot;e.g. Germany, or an existing one&quot;>
+            <label for=&quot;new-jur&quot; data-i18n=&quot;jurisdiction&quot;>Jurisdiction</label>
+            <input type=&quot;text&quot; id=&quot;new-jur&quot; data-i18n-ph=&quot;phJur&quot; placeholder=&quot;e.g. Germany, or an existing one&quot;>
           </div>
           <div>
-            <label for=&quot;new-type&quot;>Type</label>
+            <label for=&quot;new-type&quot; data-i18n=&quot;type&quot;>Type</label>
             <select id=&quot;new-type&quot;>
-              <option value=&quot;provision&quot;>Provision / statute</option>
-              <option value=&quot;case&quot;>Case law</option>
+              <option value=&quot;provision&quot; data-i18n=&quot;provStatute&quot;>Provision / statute</option>
+              <option value=&quot;case&quot; data-i18n=&quot;caseLaw&quot;>Case law</option>
             </select>
           </div>
         </div>
         <div class=&quot;field&quot;>
-          <label for=&quot;new-cite&quot;>Citation</label>
-          <input type=&quot;text&quot; id=&quot;new-cite&quot; placeholder=&quot;e.g. § 280 BGB, or Cass. civ. ... n. 1234&quot;>
+          <label for=&quot;new-cite&quot; data-i18n=&quot;citation&quot;>Citation</label>
+          <input type=&quot;text&quot; id=&quot;new-cite&quot; data-i18n-ph=&quot;phCite&quot; placeholder=&quot;e.g. § 280 BGB, or Cass. civ. ... n. 1234&quot;>
         </div>
         <div class=&quot;field row2&quot;>
           <div>
-            <label for=&quot;new-title&quot;>Rubric / court</label>
-            <input type=&quot;text&quot; id=&quot;new-title&quot; placeholder=&quot;short name or deciding court&quot;>
+            <label for=&quot;new-title&quot; data-i18n=&quot;rubric&quot;>Rubric / court</label>
+            <input type=&quot;text&quot; id=&quot;new-title&quot; data-i18n-ph=&quot;phTitle&quot; placeholder=&quot;short name or deciding court&quot;>
           </div>
           <div>
-            <label for=&quot;new-date&quot;>Date (cases only)</label>
+            <label for=&quot;new-date&quot; data-i18n=&quot;dateCases&quot;>Date (cases only)</label>
             <input type=&quot;date&quot; id=&quot;new-date&quot;>
           </div>
         </div>
         <div class=&quot;field&quot;>
-          <label for=&quot;new-text&quot;>Text / holding / gloss</label>
-          <textarea id=&quot;new-text&quot; placeholder=&quot;Paste the operative text, holding or a working summary…&quot;></textarea>
+          <label for=&quot;new-text&quot; data-i18n=&quot;textLabel&quot;>Text / holding / gloss</label>
+          <textarea id=&quot;new-text&quot; data-i18n-ph=&quot;phText&quot; placeholder=&quot;Paste the operative text, holding or a working summary…&quot;></textarea>
         </div>
-        <button class=&quot;add-doc-btn&quot; id=&quot;add-doc&quot;>Add to corpus</button>
+        <button class=&quot;add-doc-btn&quot; id=&quot;add-doc&quot; data-i18n=&quot;addBtn&quot;>Add to corpus</button>
         <div class=&quot;corpus-status&quot; id=&quot;corpus-status&quot;></div>
       </div>
 
       <div class=&quot;io-row&quot;>
-        <div class=&quot;io-btn&quot; id=&quot;export-btn&quot;>Export corpus (JSON)</div>
-        <div class=&quot;io-btn&quot; id=&quot;import-toggle&quot;>Import corpus (JSON)</div>
+        <div class=&quot;io-btn&quot; id=&quot;export-btn&quot; data-i18n=&quot;exportBtn&quot;>Export corpus (JSON)</div>
+        <div class=&quot;io-btn&quot; id=&quot;import-toggle&quot; data-i18n=&quot;importToggle&quot;>Import corpus (JSON)</div>
       </div>
       <div class=&quot;import-box&quot; id=&quot;import-box&quot;>
         <div class=&quot;field&quot; style=&quot;margin-top:8px&quot;>
-          <label for=&quot;import-text&quot;>Paste a JSON array of documents</label>
+          <label for=&quot;import-text&quot; data-i18n=&quot;importLabel&quot;>Paste a JSON array of documents</label>
           <textarea id=&quot;import-text&quot; placeholder='[{&quot;type&quot;:&quot;provision&quot;,&quot;jur&quot;:&quot;Germany&quot;,&quot;cite&quot;:&quot;§ 280 BGB&quot;,&quot;title&quot;:&quot;Schadensersatz&quot;,&quot;text&quot;:&quot;...&quot;}]'></textarea>
         </div>
-        <button class=&quot;add-doc-btn&quot; id=&quot;import-btn&quot;>Load into corpus</button>
+        <button class=&quot;add-doc-btn&quot; id=&quot;import-btn&quot; data-i18n=&quot;importBtn&quot;>Load into corpus</button>
       </div>
     </div>
   </section>
 
   <section class=&quot;results&quot; id=&quot;results&quot;>
     <div class=&quot;empty&quot;>
-      <p><b>Nothing to show yet.</b></p>
-      <p>Paste your facts on the left and run the search. Casebound reads your facts for legal concepts — delay, lost profit, unfair terms, dismissal, data breach, cartel, tax avoidance and some 130 others, in English, Italian, French or German — and ranks every provision and ruling by the concepts they share. Matches are scored 0–100 with the shared concepts shown, not hidden behind a single number.</p>
+      <p><b data-i18n=&quot;emptyT&quot;>Nothing to show yet.</b></p>
+      <p data-i18n=&quot;emptyB&quot;>Paste your facts on the left and run the search. Casebound reads your facts for legal concepts — delay, lost profit, unfair terms, dismissal, data breach, cartel, tax avoidance and some 130 others, in English, Italian, French or German — and ranks every provision and ruling by the concepts they share. Matches are scored 0–100 with the shared concepts shown, not hidden behind a single number.</p>
     </div>
   </section>
 </div>
@@ -2467,6 +2467,459 @@ function queryProfile(text, adjust){
 const $ = s => document.querySelector(s);
 const esc = s => (s||&quot;&quot;).replace(/[&amp;<>&quot;]/g, c => ({'&amp;':'&amp;amp;','<':'&amp;lt;','>':'&amp;gt;','&quot;':'&amp;quot;'}[c]));
 
+/* ---------------- language ----------------
+   The language is owned by the parent page (window.parent.CB_I18N); this pane
+   follows it and re-renders on every switch. Legal-source data (citations,
+   document text) is never translated; concept names come from
+   window.parent.CB_CONCEPT_LABELS when a translation exists. */
+const CB_I = (() => { try{ return (window.parent &amp;&amp; window.parent !== window &amp;&amp; window.parent.CB_I18N) || null; }catch(e){ return null; } })();
+const curLang = () => (CB_I &amp;&amp; CB_I.get()) || &quot;en&quot;;
+const curLocale = () => (CB_I &amp;&amp; CB_I.locale()) || &quot;en-IE&quot;;
+/* plural forms: f = {zero, one, two, few, many, other}; &quot;#&quot; is replaced by n */
+function plural(n, f){
+  let c = &quot;other&quot;;
+  try{ c = new Intl.PluralRules(curLocale()).select(n); }catch(e){}
+  return String(f[c] != null ? f[c] : f.other).replace(&quot;#&quot;, n);
+}
+const P = (n, f) => plural(n, f);
+const T = {
+  en: {
+    title: &quot;Casebound — Compatibility Finder&quot;,
+    tagline: &quot;FINDER · COMPATIBILITY SEARCH&quot;,
+    note: &quot;Ranks every provision and ruling in the 372-document corpus by the legal concepts it shares with your case — not by the words it happens to use.&quot;,
+    factsHint: &quot;Facts come from the shared input above — filter or re-run below.&quot;,
+    jurisdiction: &quot;Jurisdiction&quot;,
+    jurHint: &quot;Leave on “All” to search across every jurisdiction in the index.&quot;,
+    docType: &quot;Document type&quot;,
+    run: &quot;Find compatible documents&quot;, runEmbedded: &quot;Apply filters&quot;,
+    samplesH: &quot;Or try a worked example&quot;,
+    allJur: &quot;All&quot;, allTypes: &quot;All&quot;, provisions: &quot;Provisions&quot;, caseLaw: &quot;Case law&quot;,
+    corpus: &quot;Corpus&quot;, addToggle: &quot;+ Add a document to the corpus&quot;, type: &quot;Type&quot;, provStatute: &quot;Provision / statute&quot;,
+    citation: &quot;Citation&quot;, rubric: &quot;Rubric / court&quot;, dateCases: &quot;Date (cases only)&quot;, textLabel: &quot;Text / holding / gloss&quot;,
+    phJur: &quot;e.g. Germany, or an existing one&quot;, phCite: &quot;e.g. § 280 BGB, or Cass. civ. ... n. 1234&quot;, phTitle: &quot;short name or deciding court&quot;,
+    phText: &quot;Paste the operative text, holding or a working summary…&quot;, addBtn: &quot;Add to corpus&quot;,
+    exportBtn: &quot;Export corpus (JSON)&quot;, importToggle: &quot;Import corpus (JSON)&quot;, importLabel: &quot;Paste a JSON array of documents&quot;, importBtn: &quot;Load into corpus&quot;,
+    emptyT: &quot;Nothing to show yet.&quot;,
+    emptyB: &quot;Paste your facts on the left and run the search. Casebound reads your facts for legal concepts — delay, lost profit, unfair terms, dismissal, data breach, cartel, tax avoidance and some 130 others, in English, Italian, French or German — and ranks every provision and ruling by the concepts they share. Matches are scored 0–100 with the shared concepts shown, not hidden behind a single number.&quot;,
+    moreT: &quot;Add a bit more detail.&quot;, moreB: &quot;A sentence or two describing the facts is enough for the matcher to find something meaningful.&quot;,
+    addedByYou: &quot;Added by you&quot;, taught: &quot;Recognised from words you taught Casebound&quot;,
+    remove: n => `Remove ${n}`, removeTitle: &quot;Not about this — remove and teach Casebound&quot;,
+    qcL: &quot;Legal concepts recognised in your case&quot;, qcHint: &quot;— wrong or missing? Remove one with × or add one; Casebound learns from it.&quot;,
+    addPh: &quot;+ add a concept&quot;, addAria: &quot;Add a legal concept Casebound missed&quot;,
+    noConceptT: &quot;No legal concept recognised yet.&quot;,
+    noConceptB: &quot;Casebound matches on legal concepts — breach, delay, lost profit, dismissal, data breach, cartel, defective product, tax avoidance… Describe what happened in a little more detail, or add the concept above: Casebound will remember the words you used.&quot;,
+    noDocT: j => j ? `No compatible document found in ${j}.` : &quot;No compatible document found.&quot;,
+    noDocB: inJ => `None of the documents${inJ ? &quot; in this jurisdiction&quot; : &quot;&quot;} share these concepts. Try broadening the jurisdiction or document-type filter.`,
+    typeProvision: &quot;Provision&quot;, typeTreatise: &quot;Reference work&quot;, typeCase: &quot;Case law&quot;,
+    match: &quot;match&quot;, learnedUsers: &quot;Learned from users' feedback&quot;,
+    sharedL: &quot;Shared concepts&quot;, relatedL: &quot;Related through&quot;,
+    conceptMatch: n => `concept match ${n}`, citeMatch: &quot; + citation match&quot;, fromFeedback: (s, n) => ` ${s} ${n} from feedback`,
+    useful: &quot;Useful for this case?&quot;, relevant: &quot;Relevant&quot;, notRelevant: &quot;Not relevant&quot;,
+    thanksUp: &quot;Thanks — documents like this will rank higher for cases like yours.&quot;,
+    thanksDown: &quot;Thanks — this will rank lower for cases like yours.&quot;, voteRemoved: &quot;Vote removed.&quot;,
+    citationOnly: &quot;Citation only — no text on file for this entry.&quot;, docConcepts: &quot;Concepts in this document:&quot;,
+    resultsH: n => P(n, {one: &quot;# compatible document&quot;, other: &quot;# compatible documents&quot;}),
+    learning: &quot;Learning&quot;,
+    learnP: n => `Casebound improves as it is used. Rate results and correct the recognised concepts: your feedback re-ranks documents straight away in this browser${n ? `, and the rankings already reflect <b>${n}</b> feedback ${P(n, {one: &quot;signal&quot;, other: &quot;signals&quot;})} shared by users` : &quot;&quot;}.`,
+    stats: (v, w, b) => `In this browser: <b>${v}</b> ${P(v, {one: &quot;vote&quot;, other: &quot;votes&quot;})} · <b>${w}</b> ${P(w, {one: &quot;word&quot;, other: &quot;words&quot;})} taught · <b>${b}</b> ${P(b, {one: &quot;correction&quot;, other: &quot;corrections&quot;})}`,
+    forget: &quot;Forget what I've taught in this browser&quot;,
+    corpusCount: (n, a) => `<b>${n}</b> documents in the pool${a > 0 ? ` (${a} added this session)` : &quot;&quot;}`,
+    errNeeds: &quot;Needs at least a jurisdiction, a citation, and a sentence or two of text.&quot;,
+    courtNS: &quot;Court not specified&quot;,
+    addedMsg: (c, n) => `Added “${c}” — the pool now has ${n} documents. `,
+    tags: l => `Concepts detected: ${l}.`, noTags: &quot;No specific legal concept detected in its text — it will only match at area level.&quot;,
+    errJson: &quot;That isn't valid JSON — expecting an array of {type, jur, cite, title, text, concepts?} objects.&quot;,
+    errNoDocs: &quot;No usable documents found — each needs at least jur, cite and text.&quot;,
+    imported: (k, n) => `Imported ${P(k, {one: &quot;# document&quot;, other: &quot;# documents&quot;})} — the pool now has ${n}.`,
+    jurs: {},
+    samples: [&quot;Undisclosed lost-profit claim after late delivery&quot;, &quot;Buyer wants to reject goods for a minor defect&quot;, &quot;Employer reassigns employee to lower-grade duties&quot;, &quot;Standard-form jurisdiction clause challenged by consumer&quot;, &quot;Hacked customer database, users want compensation&quot;, &quot;Delivery riders treated as freelancers&quot;, &quot;Competitors split the market&quot;]
+  },
+  it: {
+    title: &quot;Casebound — Ricerca di compatibilità&quot;,
+    tagline: &quot;FINDER · RICERCA DI COMPATIBILITÀ&quot;,
+    note: &quot;Ordina ogni norma e sentenza del corpus di 372 documenti in base ai concetti giuridici che condivide con il tuo caso, non alle parole che usa.&quot;,
+    factsHint: &quot;I fatti arrivano dal campo condiviso qui sopra: filtra o rilancia la ricerca qui sotto.&quot;,
+    jurisdiction: &quot;Giurisdizione&quot;,
+    jurHint: &quot;Lascia «Tutte» per cercare in ogni giurisdizione dell'indice.&quot;,
+    docType: &quot;Tipo di documento&quot;,
+    run: &quot;Trova documenti compatibili&quot;, runEmbedded: &quot;Applica filtri&quot;,
+    samplesH: &quot;Oppure prova un esempio&quot;,
+    allJur: &quot;Tutte&quot;, allTypes: &quot;Tutti&quot;, provisions: &quot;Norme&quot;, caseLaw: &quot;Giurisprudenza&quot;,
+    corpus: &quot;Corpus&quot;, addToggle: &quot;+ Aggiungi un documento al corpus&quot;, type: &quot;Tipo&quot;, provStatute: &quot;Norma / legge&quot;,
+    citation: &quot;Citazione&quot;, rubric: &quot;Rubrica / organo giudicante&quot;, dateCases: &quot;Data (solo sentenze)&quot;, textLabel: &quot;Testo / massima / commento&quot;,
+    phJur: &quot;es. Germania, o una esistente&quot;, phCite: &quot;es. § 280 BGB, o Cass. civ. ... n. 1234&quot;, phTitle: &quot;nome breve o organo giudicante&quot;,
+    phText: &quot;Incolla il testo, la massima o una sintesi di lavoro…&quot;, addBtn: &quot;Aggiungi al corpus&quot;,
+    exportBtn: &quot;Esporta corpus (JSON)&quot;, importToggle: &quot;Importa corpus (JSON)&quot;, importLabel: &quot;Incolla un array JSON di documenti&quot;, importBtn: &quot;Carica nel corpus&quot;,
+    emptyT: &quot;Ancora niente da mostrare.&quot;,
+    emptyB: &quot;Incolla i fatti a sinistra e avvia la ricerca. Casebound legge i fatti alla ricerca di concetti giuridici — ritardo, mancato guadagno, clausole vessatorie, licenziamento, violazione dei dati, cartello, elusione fiscale e circa altri 130, in inglese, italiano, francese o tedesco — e ordina ogni norma e sentenza in base ai concetti che condividono. Le corrispondenze hanno un punteggio da 0 a 100 e mostrano i concetti condivisi, invece di nasconderli dietro un unico numero.&quot;,
+    moreT: &quot;Aggiungi qualche dettaglio in più.&quot;, moreB: &quot;Bastano una o due frasi che descrivono i fatti per trovare qualcosa di significativo.&quot;,
+    addedByYou: &quot;Aggiunto da te&quot;, taught: &quot;Riconosciuto dalle parole che hai insegnato a Casebound&quot;,
+    remove: n => `Rimuovi ${n}`, removeTitle: &quot;Non c'entra: rimuovilo e insegnalo a Casebound&quot;,
+    qcL: &quot;Concetti giuridici riconosciuti nel tuo caso&quot;, qcHint: &quot;— sbagliati o mancanti? Rimuovine uno con × o aggiungine uno: Casebound impara.&quot;,
+    addPh: &quot;+ aggiungi un concetto&quot;, addAria: &quot;Aggiungi un concetto giuridico che Casebound non ha rilevato&quot;,
+    noConceptT: &quot;Nessun concetto giuridico ancora riconosciuto.&quot;,
+    noConceptB: &quot;Casebound lavora sui concetti giuridici — inadempimento, ritardo, mancato guadagno, licenziamento, violazione dei dati, cartello, prodotto difettoso, elusione fiscale… Descrivi l'accaduto con qualche dettaglio in più, oppure aggiungi il concetto qui sopra: Casebound ricorderà le parole che hai usato.&quot;,
+    noDocT: j => j ? `Nessun documento compatibile trovato (giurisdizione: ${j}).` : &quot;Nessun documento compatibile trovato.&quot;,
+    noDocB: inJ => `Nessun documento${inJ ? &quot; di questa giurisdizione&quot; : &quot;&quot;} condivide questi concetti. Prova ad ampliare il filtro per giurisdizione o tipo di documento.`,
+    typeProvision: &quot;Norma&quot;, typeTreatise: &quot;Opera di riferimento&quot;, typeCase: &quot;Giurisprudenza&quot;,
+    match: &quot;affinità&quot;, learnedUsers: &quot;Appreso dal feedback degli utenti&quot;,
+    sharedL: &quot;Concetti condivisi&quot;, relatedL: &quot;Collegato tramite&quot;,
+    conceptMatch: n => `affinità concettuale ${n}`, citeMatch: &quot; + corrispondenza della citazione&quot;, fromFeedback: (s, n) => ` ${s} ${n} dal feedback`,
+    useful: &quot;Utile per questo caso?&quot;, relevant: &quot;Pertinente&quot;, notRelevant: &quot;Non pertinente&quot;,
+    thanksUp: &quot;Grazie: i documenti come questo saliranno in classifica per casi come il tuo.&quot;,
+    thanksDown: &quot;Grazie: questo scenderà in classifica per casi come il tuo.&quot;, voteRemoved: &quot;Voto rimosso.&quot;,
+    citationOnly: &quot;Solo citazione: nessun testo disponibile per questa voce.&quot;, docConcepts: &quot;Concetti in questo documento:&quot;,
+    resultsH: n => P(n, {one: &quot;# documento compatibile&quot;, other: &quot;# documenti compatibili&quot;}),
+    learning: &quot;Apprendimento&quot;,
+    learnP: n => `Casebound migliora con l'uso. Valuta i risultati e correggi i concetti riconosciuti: il tuo feedback riordina subito i documenti in questo browser${n ? `, e la classifica riflette già <b>${n}</b> ${P(n, {one: &quot;segnale condiviso&quot;, other: &quot;segnali condivisi&quot;})} dagli utenti` : &quot;&quot;}.`,
+    stats: (v, w, b) => `In questo browser: <b>${v}</b> ${P(v, {one: &quot;voto&quot;, other: &quot;voti&quot;})} · <b>${w}</b> ${P(w, {one: &quot;parola insegnata&quot;, other: &quot;parole insegnate&quot;})} · <b>${b}</b> ${P(b, {one: &quot;correzione&quot;, other: &quot;correzioni&quot;})}`,
+    forget: &quot;Dimentica ciò che ho insegnato in questo browser&quot;,
+    corpusCount: (n, a) => `<b>${n}</b> documenti nel corpus${a > 0 ? ` (${a} ${P(a, {one: &quot;aggiunto&quot;, other: &quot;aggiunti&quot;})} in questa sessione)` : &quot;&quot;}`,
+    errNeeds: &quot;Servono almeno una giurisdizione, una citazione e una o due frasi di testo.&quot;,
+    courtNS: &quot;Organo giudicante non indicato&quot;,
+    addedMsg: (c, n) => `Aggiunto «${c}»: il corpus ora contiene ${n} documenti. `,
+    tags: l => `Concetti rilevati: ${l}.`, noTags: &quot;Nessun concetto giuridico specifico rilevato nel testo: corrisponderà solo a livello di area.&quot;,
+    errJson: &quot;JSON non valido: serve un array di oggetti {type, jur, cite, title, text, concepts?}.&quot;,
+    errNoDocs: &quot;Nessun documento utilizzabile: ciascuno richiede almeno jur, cite e text.&quot;,
+    imported: (k, n) => `${P(k, {one: &quot;Importato # documento&quot;, other: &quot;Importati # documenti&quot;})}: il corpus ora ne contiene ${n}.`,
+    jurs: {&quot;Italy&quot;: &quot;Italia&quot;, &quot;European Union&quot;: &quot;Unione europea&quot;, &quot;United States&quot;: &quot;Stati Uniti&quot;, &quot;United Kingdom&quot;: &quot;Regno Unito&quot;, &quot;France&quot;: &quot;Francia&quot;, &quot;Germany&quot;: &quot;Germania&quot;, &quot;International&quot;: &quot;Internazionale&quot;, &quot;Comparative&quot;: &quot;Comparato&quot;},
+    samples: [&quot;Mancato guadagno non comunicato dopo una consegna in ritardo&quot;, &quot;L'acquirente vuole rifiutare la merce per un difetto minore&quot;, &quot;Il datore di lavoro assegna il dipendente a mansioni inferiori&quot;, &quot;Clausola sul foro in un contratto standard contestata dal consumatore&quot;, &quot;Database clienti violato, gli utenti chiedono un risarcimento&quot;, &quot;Rider trattati come lavoratori autonomi&quot;, &quot;Concorrenti si spartiscono il mercato&quot;]
+  },
+  es: {
+    title: &quot;Casebound — Buscador de compatibilidad&quot;,
+    tagline: &quot;FINDER · BÚSQUEDA DE COMPATIBILIDAD&quot;,
+    note: &quot;Ordena cada disposición y resolución del corpus de 372 documentos según los conceptos jurídicos que comparten con tu caso, no según las palabras que usan.&quot;,
+    factsHint: &quot;Los hechos vienen del campo común de arriba: filtra o vuelve a buscar abajo.&quot;,
+    jurisdiction: &quot;Jurisdicción&quot;,
+    jurHint: &quot;Deja «Todas» para buscar en todas las jurisdicciones del índice.&quot;,
+    docType: &quot;Tipo de documento&quot;,
+    run: &quot;Buscar documentos compatibles&quot;, runEmbedded: &quot;Aplicar filtros&quot;,
+    samplesH: &quot;O prueba un ejemplo&quot;,
+    allJur: &quot;Todas&quot;, allTypes: &quot;Todos&quot;, provisions: &quot;Disposiciones&quot;, caseLaw: &quot;Jurisprudencia&quot;,
+    corpus: &quot;Corpus&quot;, addToggle: &quot;+ Añadir un documento al corpus&quot;, type: &quot;Tipo&quot;, provStatute: &quot;Disposición / ley&quot;,
+    citation: &quot;Cita&quot;, rubric: &quot;Rúbrica / tribunal&quot;, dateCases: &quot;Fecha (solo resoluciones)&quot;, textLabel: &quot;Texto / doctrina / comentario&quot;,
+    phJur: &quot;p. ej. Alemania, o una existente&quot;, phCite: &quot;p. ej. § 280 BGB, o Cass. civ. ... n. 1234&quot;, phTitle: &quot;nombre corto o tribunal&quot;,
+    phText: &quot;Pega el texto, la doctrina o un resumen de trabajo…&quot;, addBtn: &quot;Añadir al corpus&quot;,
+    exportBtn: &quot;Exportar corpus (JSON)&quot;, importToggle: &quot;Importar corpus (JSON)&quot;, importLabel: &quot;Pega un array JSON de documentos&quot;, importBtn: &quot;Cargar en el corpus&quot;,
+    emptyT: &quot;Aún no hay nada que mostrar.&quot;,
+    emptyB: &quot;Pega los hechos a la izquierda y lanza la búsqueda. Casebound lee tus hechos en busca de conceptos jurídicos —retraso, lucro cesante, cláusulas abusivas, despido, brecha de datos, cártel, elusión fiscal y unos 130 más, en inglés, italiano, francés o alemán— y ordena cada disposición y resolución según los conceptos que comparten. Las coincidencias se puntúan de 0 a 100 y muestran los conceptos compartidos en lugar de esconderlos tras un único número.&quot;,
+    moreT: &quot;Añade un poco más de detalle.&quot;, moreB: &quot;Con una o dos frases que describan los hechos basta para encontrar algo significativo.&quot;,
+    addedByYou: &quot;Añadido por ti&quot;, taught: &quot;Reconocido por palabras que enseñaste a Casebound&quot;,
+    remove: n => `Quitar ${n}`, removeTitle: &quot;No tiene que ver: quitar y enseñárselo a Casebound&quot;,
+    qcL: &quot;Conceptos jurídicos reconocidos en tu caso&quot;, qcHint: &quot;— ¿alguno erróneo o falta alguno? Quita uno con × o añade otro; Casebound aprende de ello.&quot;,
+    addPh: &quot;+ añadir un concepto&quot;, addAria: &quot;Añadir un concepto jurídico que Casebound no detectó&quot;,
+    noConceptT: &quot;Aún no se ha reconocido ningún concepto jurídico.&quot;,
+    noConceptB: &quot;Casebound busca por conceptos jurídicos —incumplimiento, retraso, lucro cesante, despido, brecha de datos, cártel, producto defectuoso, elusión fiscal…—. Describe lo ocurrido con algo más de detalle, o añade el concepto arriba: Casebound recordará las palabras que usaste.&quot;,
+    noDocT: j => j ? `No se encontró ningún documento compatible (jurisdicción: ${j}).` : &quot;No se encontró ningún documento compatible.&quot;,
+    noDocB: inJ => `Ningún documento${inJ ? &quot; de esta jurisdicción&quot; : &quot;&quot;} comparte estos conceptos. Prueba a ampliar el filtro de jurisdicción o de tipo de documento.`,
+    typeProvision: &quot;Disposición&quot;, typeTreatise: &quot;Obra de referencia&quot;, typeCase: &quot;Jurisprudencia&quot;,
+    match: &quot;afinidad&quot;, learnedUsers: &quot;Aprendido de las valoraciones de los usuarios&quot;,
+    sharedL: &quot;Conceptos compartidos&quot;, relatedL: &quot;Relacionado por&quot;,
+    conceptMatch: n => `coincidencia de conceptos ${n}`, citeMatch: &quot; + coincidencia de cita&quot;, fromFeedback: (s, n) => ` ${s} ${n} por valoraciones`,
+    useful: &quot;¿Útil para este caso?&quot;, relevant: &quot;Relevante&quot;, notRelevant: &quot;No relevante&quot;,
+    thanksUp: &quot;Gracias: los documentos como este subirán en casos como el tuyo.&quot;,
+    thanksDown: &quot;Gracias: este bajará en casos como el tuyo.&quot;, voteRemoved: &quot;Voto eliminado.&quot;,
+    citationOnly: &quot;Solo cita: no hay texto disponible para esta entrada.&quot;, docConcepts: &quot;Conceptos en este documento:&quot;,
+    resultsH: n => P(n, {one: &quot;# documento compatible&quot;, other: &quot;# documentos compatibles&quot;}),
+    learning: &quot;Aprendizaje&quot;,
+    learnP: n => `Casebound mejora con el uso. Valora los resultados y corrige los conceptos reconocidos: tus valoraciones reordenan los documentos al instante en este navegador${n ? `, y la clasificación ya refleja <b>${n}</b> ${P(n, {one: &quot;señal compartida&quot;, other: &quot;señales compartidas&quot;})} por los usuarios` : &quot;&quot;}.`,
+    stats: (v, w, b) => `En este navegador: <b>${v}</b> ${P(v, {one: &quot;voto&quot;, other: &quot;votos&quot;})} · <b>${w}</b> ${P(w, {one: &quot;palabra enseñada&quot;, other: &quot;palabras enseñadas&quot;})} · <b>${b}</b> ${P(b, {one: &quot;corrección&quot;, other: &quot;correcciones&quot;})}`,
+    forget: &quot;Olvidar lo que he enseñado en este navegador&quot;,
+    corpusCount: (n, a) => `<b>${n}</b> documentos en el corpus${a > 0 ? ` (${a} ${P(a, {one: &quot;añadido&quot;, other: &quot;añadidos&quot;})} en esta sesión)` : &quot;&quot;}`,
+    errNeeds: &quot;Se necesita al menos una jurisdicción, una cita y una o dos frases de texto.&quot;,
+    courtNS: &quot;Tribunal no especificado&quot;,
+    addedMsg: (c, n) => `Añadido «${c}»: el corpus tiene ahora ${n} documentos. `,
+    tags: l => `Conceptos detectados: ${l}.`, noTags: &quot;No se ha detectado ningún concepto jurídico específico en su texto: solo coincidirá a nivel de área.&quot;,
+    errJson: &quot;No es un JSON válido: se espera un array de objetos {type, jur, cite, title, text, concepts?}.&quot;,
+    errNoDocs: &quot;No se encontraron documentos utilizables: cada uno necesita al menos jur, cite y text.&quot;,
+    imported: (k, n) => `${P(k, {one: &quot;Importado # documento&quot;, other: &quot;Importados # documentos&quot;})}: el corpus tiene ahora ${n}.`,
+    jurs: {&quot;Italy&quot;: &quot;Italia&quot;, &quot;European Union&quot;: &quot;Unión Europea&quot;, &quot;United States&quot;: &quot;Estados Unidos&quot;, &quot;United Kingdom&quot;: &quot;Reino Unido&quot;, &quot;France&quot;: &quot;Francia&quot;, &quot;Germany&quot;: &quot;Alemania&quot;, &quot;International&quot;: &quot;Internacional&quot;, &quot;Comparative&quot;: &quot;Comparado&quot;},
+    samples: [&quot;Lucro cesante no comunicado tras una entrega tardía&quot;, &quot;El comprador quiere rechazar la mercancía por un defecto menor&quot;, &quot;El empleador asigna al trabajador funciones de categoría inferior&quot;, &quot;Cláusula de jurisdicción en contrato de adhesión impugnada por un consumidor&quot;, &quot;Base de datos de clientes hackeada, los usuarios piden indemnización&quot;, &quot;Repartidores tratados como autónomos&quot;, &quot;Competidores se reparten el mercado&quot;]
+  },
+  fr: {
+    title: &quot;Casebound — Recherche de compatibilité&quot;,
+    tagline: &quot;FINDER · RECHERCHE DE COMPATIBILITÉ&quot;,
+    note: &quot;Classe chaque disposition et chaque décision du corpus de 372 documents selon les notions juridiques qu'elles partagent avec votre affaire — et non selon les mots qu'elles emploient.&quot;,
+    factsHint: &quot;Les faits proviennent du champ commun ci-dessus — filtrez ou relancez ci-dessous.&quot;,
+    jurisdiction: &quot;Juridiction&quot;,
+    jurHint: &quot;Laissez « Toutes » pour chercher dans toutes les juridictions de l'index.&quot;,
+    docType: &quot;Type de document&quot;,
+    run: &quot;Trouver des documents compatibles&quot;, runEmbedded: &quot;Appliquer les filtres&quot;,
+    samplesH: &quot;Ou essayez un exemple&quot;,
+    allJur: &quot;Toutes&quot;, allTypes: &quot;Tous&quot;, provisions: &quot;Dispositions&quot;, caseLaw: &quot;Jurisprudence&quot;,
+    corpus: &quot;Corpus&quot;, addToggle: &quot;+ Ajouter un document au corpus&quot;, type: &quot;Type&quot;, provStatute: &quot;Disposition / loi&quot;,
+    citation: &quot;Référence&quot;, rubric: &quot;Intitulé / juridiction&quot;, dateCases: &quot;Date (décisions uniquement)&quot;, textLabel: &quot;Texte / solution / commentaire&quot;,
+    phJur: &quot;p. ex. Allemagne, ou une existante&quot;, phCite: &quot;p. ex. § 280 BGB, ou Cass. civ. ... n. 1234&quot;, phTitle: &quot;nom court ou juridiction&quot;,
+    phText: &quot;Collez le texte, la solution ou un résumé de travail…&quot;, addBtn: &quot;Ajouter au corpus&quot;,
+    exportBtn: &quot;Exporter le corpus (JSON)&quot;, importToggle: &quot;Importer un corpus (JSON)&quot;, importLabel: &quot;Collez un tableau JSON de documents&quot;, importBtn: &quot;Charger dans le corpus&quot;,
+    emptyT: &quot;Rien à afficher pour l'instant.&quot;,
+    emptyB: &quot;Collez vos faits à gauche et lancez la recherche. Casebound repère dans vos faits les notions juridiques — retard, manque à gagner, clauses abusives, licenciement, violation de données, entente, évasion fiscale et quelque 130 autres, en anglais, italien, français ou allemand — et classe chaque disposition et décision selon les notions qu'elles partagent. Chaque résultat reçoit un score de 0 à 100, avec les notions communes affichées plutôt que cachées derrière un seul chiffre.&quot;,
+    moreT: &quot;Ajoutez un peu plus de détails.&quot;, moreB: &quot;Une ou deux phrases décrivant les faits suffisent pour trouver des résultats pertinents.&quot;,
+    addedByYou: &quot;Ajoutée par vous&quot;, taught: &quot;Reconnue grâce aux mots que vous avez appris à Casebound&quot;,
+    remove: n => `Retirer ${n}`, removeTitle: &quot;Hors sujet — retirer et l'apprendre à Casebound&quot;,
+    qcL: &quot;Notions juridiques reconnues dans votre affaire&quot;, qcHint: &quot;— erronées ou manquantes ? Retirez-en une avec × ou ajoutez-en une ; Casebound en tient compte.&quot;,
+    addPh: &quot;+ ajouter une notion&quot;, addAria: &quot;Ajouter une notion juridique que Casebound n'a pas repérée&quot;,
+    noConceptT: &quot;Aucune notion juridique reconnue pour l'instant.&quot;,
+    noConceptB: &quot;Casebound s'appuie sur les notions juridiques — inexécution, retard, manque à gagner, licenciement, violation de données, entente, produit défectueux, évasion fiscale… Décrivez les faits un peu plus en détail, ou ajoutez la notion ci-dessus : Casebound retiendra les mots que vous avez utilisés.&quot;,
+    noDocT: j => j ? `Aucun document compatible trouvé (juridiction : ${j}).` : &quot;Aucun document compatible trouvé.&quot;,
+    noDocB: inJ => `Aucun document${inJ ? &quot; de cette juridiction&quot; : &quot;&quot;} ne partage ces notions. Essayez d'élargir le filtre de juridiction ou de type de document.`,
+    typeProvision: &quot;Disposition&quot;, typeTreatise: &quot;Ouvrage de référence&quot;, typeCase: &quot;Jurisprudence&quot;,
+    match: &quot;score&quot;, learnedUsers: &quot;Appris des retours des utilisateurs&quot;,
+    sharedL: &quot;Notions communes&quot;, relatedL: &quot;Lien via&quot;,
+    conceptMatch: n => `correspondance des notions ${n}`, citeMatch: &quot; + correspondance de référence&quot;, fromFeedback: (s, n) => ` ${s} ${n} issus des retours`,
+    useful: &quot;Utile pour cette affaire ?&quot;, relevant: &quot;Pertinent&quot;, notRelevant: &quot;Non pertinent&quot;,
+    thanksUp: &quot;Merci — les documents de ce type seront mieux classés pour des affaires comme la vôtre.&quot;,
+    thanksDown: &quot;Merci — celui-ci sera moins bien classé pour des affaires comme la vôtre.&quot;, voteRemoved: &quot;Vote retiré.&quot;,
+    citationOnly: &quot;Référence seule — aucun texte disponible pour cette entrée.&quot;, docConcepts: &quot;Notions dans ce document :&quot;,
+    resultsH: n => P(n, {one: &quot;# document compatible&quot;, other: &quot;# documents compatibles&quot;}),
+    learning: &quot;Apprentissage&quot;,
+    learnP: n => `Casebound s'améliore à l'usage. Évaluez les résultats et corrigez les notions reconnues : vos retours reclassent immédiatement les documents dans ce navigateur${n ? `, et le classement reflète déjà <b>${n}</b> ${P(n, {one: &quot;signal partagé&quot;, other: &quot;signaux partagés&quot;})} par les utilisateurs` : &quot;&quot;}.`,
+    stats: (v, w, b) => `Dans ce navigateur : <b>${v}</b> ${P(v, {one: &quot;vote&quot;, other: &quot;votes&quot;})} · <b>${w}</b> ${P(w, {one: &quot;mot appris&quot;, other: &quot;mots appris&quot;})} · <b>${b}</b> ${P(b, {one: &quot;correction&quot;, other: &quot;corrections&quot;})}`,
+    forget: &quot;Oublier ce que j'ai appris dans ce navigateur&quot;,
+    corpusCount: (n, a) => `<b>${n}</b> documents dans le corpus${a > 0 ? ` (${a} ${P(a, {one: &quot;ajouté&quot;, other: &quot;ajoutés&quot;})} pendant cette session)` : &quot;&quot;}`,
+    errNeeds: &quot;Il faut au moins une juridiction, une référence et une ou deux phrases de texte.&quot;,
+    courtNS: &quot;Juridiction non précisée&quot;,
+    addedMsg: (c, n) => `« ${c} » ajouté — le corpus compte désormais ${n} documents. `,
+    tags: l => `Notions détectées : ${l}.`, noTags: &quot;Aucune notion juridique précise détectée dans son texte — il ne correspondra qu'au niveau du domaine.&quot;,
+    errJson: &quot;JSON non valide — un tableau d'objets {type, jur, cite, title, text, concepts?} est attendu.&quot;,
+    errNoDocs: &quot;Aucun document exploitable — chacun doit comporter au moins jur, cite et text.&quot;,
+    imported: (k, n) => `${P(k, {one: &quot;# document importé&quot;, other: &quot;# documents importés&quot;})} — le corpus en compte désormais ${n}.`,
+    jurs: {&quot;Italy&quot;: &quot;Italie&quot;, &quot;European Union&quot;: &quot;Union européenne&quot;, &quot;United States&quot;: &quot;États-Unis&quot;, &quot;United Kingdom&quot;: &quot;Royaume-Uni&quot;, &quot;France&quot;: &quot;France&quot;, &quot;Germany&quot;: &quot;Allemagne&quot;, &quot;International&quot;: &quot;International&quot;, &quot;Comparative&quot;: &quot;Comparé&quot;},
+    samples: [&quot;Manque à gagner non signalé après une livraison tardive&quot;, &quot;L'acheteur veut refuser la marchandise pour un défaut mineur&quot;, &quot;L'employeur affecte un salarié à des tâches de niveau inférieur&quot;, &quot;Clause attributive de juridiction contestée par un consommateur&quot;, &quot;Base de données clients piratée, les utilisateurs demandent réparation&quot;, &quot;Livreurs traités comme des indépendants&quot;, &quot;Des concurrents se partagent le marché&quot;]
+  },
+  de: {
+    title: &quot;Casebound — Kompatibilitätssuche&quot;,
+    tagline: &quot;FINDER · KOMPATIBILITÄTSSUCHE&quot;,
+    note: &quot;Ordnet jede Vorschrift und jede Entscheidung im Korpus von 372 Dokumenten nach den Rechtsbegriffen, die sie mit deinem Fall teilen – nicht nach den Wörtern, die zufällig darin vorkommen.&quot;,
+    factsHint: &quot;Der Sachverhalt kommt aus dem gemeinsamen Eingabefeld oben – unten filtern oder neu suchen.&quot;,
+    jurisdiction: &quot;Rechtsordnung&quot;,
+    jurHint: &quot;Lass „Alle“ ausgewählt, um in allen Rechtsordnungen des Index zu suchen.&quot;,
+    docType: &quot;Dokumenttyp&quot;,
+    run: &quot;Kompatible Dokumente finden&quot;, runEmbedded: &quot;Filter anwenden&quot;,
+    samplesH: &quot;Oder probiere ein Beispiel&quot;,
+    allJur: &quot;Alle&quot;, allTypes: &quot;Alle&quot;, provisions: &quot;Vorschriften&quot;, caseLaw: &quot;Rechtsprechung&quot;,
+    corpus: &quot;Korpus&quot;, addToggle: &quot;+ Dokument zum Korpus hinzufügen&quot;, type: &quot;Typ&quot;, provStatute: &quot;Vorschrift / Gesetz&quot;,
+    citation: &quot;Fundstelle&quot;, rubric: &quot;Bezeichnung / Gericht&quot;, dateCases: &quot;Datum (nur Entscheidungen)&quot;, textLabel: &quot;Text / Leitsatz / Erläuterung&quot;,
+    phJur: &quot;z. B. Deutschland oder eine vorhandene&quot;, phCite: &quot;z. B. § 280 BGB oder Cass. civ. ... n. 1234&quot;, phTitle: &quot;Kurzbezeichnung oder entscheidendes Gericht&quot;,
+    phText: &quot;Füge den Wortlaut, den Leitsatz oder eine Arbeitszusammenfassung ein…&quot;, addBtn: &quot;Zum Korpus hinzufügen&quot;,
+    exportBtn: &quot;Korpus exportieren (JSON)&quot;, importToggle: &quot;Korpus importieren (JSON)&quot;, importLabel: &quot;Füge ein JSON-Array von Dokumenten ein&quot;, importBtn: &quot;In den Korpus laden&quot;,
+    emptyT: &quot;Noch nichts anzuzeigen.&quot;,
+    emptyB: &quot;Füge links den Sachverhalt ein und starte die Suche. Casebound liest den Sachverhalt auf Rechtsbegriffe hin – Verzug, entgangener Gewinn, missbräuchliche Klauseln, Kündigung, Datenpanne, Kartell, Steuerumgehung und rund 130 weitere, auf Englisch, Italienisch, Französisch oder Deutsch – und ordnet jede Vorschrift und Entscheidung nach den gemeinsamen Begriffen. Treffer erhalten eine Punktzahl von 0 bis 100, und die gemeinsamen Begriffe werden angezeigt, statt hinter einer einzigen Zahl zu verschwinden.&quot;,
+    moreT: &quot;Füge etwas mehr Details hinzu.&quot;, moreB: &quot;Ein oder zwei Sätze zum Sachverhalt genügen, damit der Abgleich etwas Aussagekräftiges findet.&quot;,
+    addedByYou: &quot;Von dir hinzugefügt&quot;, taught: &quot;Erkannt anhand von Wörtern, die du Casebound beigebracht hast&quot;,
+    remove: n => `${n} entfernen`, removeTitle: &quot;Passt nicht – entfernen und Casebound beibringen&quot;,
+    qcL: &quot;In deinem Fall erkannte Rechtsbegriffe&quot;, qcHint: &quot;— falsch oder fehlt etwas? Entferne einen mit × oder füge einen hinzu; Casebound lernt daraus.&quot;,
+    addPh: &quot;+ Begriff hinzufügen&quot;, addAria: &quot;Einen Rechtsbegriff hinzufügen, den Casebound übersehen hat&quot;,
+    noConceptT: &quot;Noch kein Rechtsbegriff erkannt.&quot;,
+    noConceptB: &quot;Casebound gleicht nach Rechtsbegriffen ab – Vertragsverletzung, Verzug, entgangener Gewinn, Kündigung, Datenpanne, Kartell, fehlerhaftes Produkt, Steuerumgehung … Beschreibe etwas genauer, was passiert ist, oder füge den Begriff oben hinzu: Casebound merkt sich die Wörter, die du verwendet hast.&quot;,
+    noDocT: j => j ? `Kein kompatibles Dokument gefunden (Rechtsordnung: ${j}).` : &quot;Kein kompatibles Dokument gefunden.&quot;,
+    noDocB: inJ => `Keines der Dokumente${inJ ? &quot; dieser Rechtsordnung&quot; : &quot;&quot;} teilt diese Begriffe. Versuche, den Filter für Rechtsordnung oder Dokumenttyp zu erweitern.`,
+    typeProvision: &quot;Vorschrift&quot;, typeTreatise: &quot;Nachschlagewerk&quot;, typeCase: &quot;Rechtsprechung&quot;,
+    match: &quot;Treffer&quot;, learnedUsers: &quot;Aus dem Feedback der Nutzer gelernt&quot;,
+    sharedL: &quot;Gemeinsame Begriffe&quot;, relatedL: &quot;Verbunden über&quot;,
+    conceptMatch: n => `Begriffsübereinstimmung ${n}`, citeMatch: &quot; + Fundstellentreffer&quot;, fromFeedback: (s, n) => ` ${s} ${n} aus Feedback`,
+    useful: &quot;Nützlich für diesen Fall?&quot;, relevant: &quot;Relevant&quot;, notRelevant: &quot;Nicht relevant&quot;,
+    thanksUp: &quot;Danke – Dokumente wie dieses werden bei Fällen wie deinem höher eingestuft.&quot;,
+    thanksDown: &quot;Danke – dieses wird bei Fällen wie deinem niedriger eingestuft.&quot;, voteRemoved: &quot;Bewertung entfernt.&quot;,
+    citationOnly: &quot;Nur Fundstelle – zu diesem Eintrag ist kein Text hinterlegt.&quot;, docConcepts: &quot;Begriffe in diesem Dokument:&quot;,
+    resultsH: n => P(n, {one: &quot;# kompatibles Dokument&quot;, other: &quot;# kompatible Dokumente&quot;}),
+    learning: &quot;Lernen&quot;,
+    learnP: n => `Casebound wird durch die Nutzung besser. Bewerte Ergebnisse und korrigiere die erkannten Begriffe: Dein Feedback ordnet die Dokumente in diesem Browser sofort neu${n ? `, und die Rangfolge berücksichtigt bereits <b>${n}</b> ${P(n, {one: &quot;von Nutzern geteiltes Feedback-Signal&quot;, other: &quot;von Nutzern geteilte Feedback-Signale&quot;})}` : &quot;&quot;}.`,
+    stats: (v, w, b) => `In diesem Browser: <b>${v}</b> ${P(v, {one: &quot;Bewertung&quot;, other: &quot;Bewertungen&quot;})} · <b>${w}</b> ${P(w, {one: &quot;beigebrachtes Wort&quot;, other: &quot;beigebrachte Wörter&quot;})} · <b>${b}</b> ${P(b, {one: &quot;Korrektur&quot;, other: &quot;Korrekturen&quot;})}`,
+    forget: &quot;Vergessen, was ich in diesem Browser beigebracht habe&quot;,
+    corpusCount: (n, a) => `<b>${n}</b> Dokumente im Pool${a > 0 ? ` (${a} in dieser Sitzung hinzugefügt)` : &quot;&quot;}`,
+    errNeeds: &quot;Erforderlich sind mindestens eine Rechtsordnung, eine Fundstelle und ein bis zwei Sätze Text.&quot;,
+    courtNS: &quot;Gericht nicht angegeben&quot;,
+    addedMsg: (c, n) => `„${c}“ hinzugefügt – der Pool umfasst jetzt ${n} Dokumente. `,
+    tags: l => `Erkannte Begriffe: ${l}.`, noTags: &quot;Im Text wurde kein spezifischer Rechtsbegriff erkannt – das Dokument wird nur auf Ebene des Rechtsgebiets zugeordnet.&quot;,
+    errJson: &quot;Das ist kein gültiges JSON – erwartet wird ein Array von {type, jur, cite, title, text, concepts?}-Objekten.&quot;,
+    errNoDocs: &quot;Keine verwendbaren Dokumente gefunden – jedes braucht mindestens jur, cite und text.&quot;,
+    imported: (k, n) => `${P(k, {one: &quot;# Dokument importiert&quot;, other: &quot;# Dokumente importiert&quot;})} – der Pool umfasst jetzt ${n}.`,
+    jurs: {&quot;Italy&quot;: &quot;Italien&quot;, &quot;European Union&quot;: &quot;Europäische Union&quot;, &quot;United States&quot;: &quot;Vereinigte Staaten&quot;, &quot;United Kingdom&quot;: &quot;Vereinigtes Königreich&quot;, &quot;France&quot;: &quot;Frankreich&quot;, &quot;Germany&quot;: &quot;Deutschland&quot;, &quot;International&quot;: &quot;International&quot;, &quot;Comparative&quot;: &quot;Rechtsvergleichend&quot;},
+    samples: [&quot;Nicht offengelegter entgangener Gewinn nach verspäteter Lieferung&quot;, &quot;Käufer will Ware wegen eines geringfügigen Mangels zurückweisen&quot;, &quot;Arbeitgeber versetzt Mitarbeiter auf eine geringerwertige Tätigkeit&quot;, &quot;Gerichtsstandsklausel in AGB vom Verbraucher angefochten&quot;, &quot;Kundendatenbank gehackt, Nutzer fordern Entschädigung&quot;, &quot;Lieferfahrer als Freiberufler behandelt&quot;, &quot;Wettbewerber teilen den Markt auf&quot;]
+  },
+  pt: {
+    title: &quot;Casebound — Pesquisa de compatibilidade&quot;,
+    tagline: &quot;FINDER · PESQUISA DE COMPATIBILIDADE&quot;,
+    note: &quot;Ordena cada disposição e decisão do corpus de 372 documentos pelos conceitos jurídicos que partilham com o seu caso — não pelas palavras que usam.&quot;,
+    factsHint: &quot;Os factos vêm do campo partilhado acima — filtre ou volte a pesquisar abaixo.&quot;,
+    jurisdiction: &quot;Jurisdição&quot;,
+    jurHint: &quot;Deixe «Todas» para pesquisar em todas as jurisdições do índice.&quot;,
+    docType: &quot;Tipo de documento&quot;,
+    run: &quot;Encontrar documentos compatíveis&quot;, runEmbedded: &quot;Aplicar filtros&quot;,
+    samplesH: &quot;Ou experimente um exemplo&quot;,
+    allJur: &quot;Todas&quot;, allTypes: &quot;Todos&quot;, provisions: &quot;Disposições&quot;, caseLaw: &quot;Jurisprudência&quot;,
+    corpus: &quot;Corpus&quot;, addToggle: &quot;+ Adicionar um documento ao corpus&quot;, type: &quot;Tipo&quot;, provStatute: &quot;Disposição / lei&quot;,
+    citation: &quot;Citação&quot;, rubric: &quot;Epígrafe / tribunal&quot;, dateCases: &quot;Data (só decisões)&quot;, textLabel: &quot;Texto / sumário / comentário&quot;,
+    phJur: &quot;p. ex. Alemanha, ou uma existente&quot;, phCite: &quot;p. ex. § 280 BGB, ou Cass. civ. ... n. 1234&quot;, phTitle: &quot;nome curto ou tribunal&quot;,
+    phText: &quot;Cole o texto, o sumário ou um resumo de trabalho…&quot;, addBtn: &quot;Adicionar ao corpus&quot;,
+    exportBtn: &quot;Exportar corpus (JSON)&quot;, importToggle: &quot;Importar corpus (JSON)&quot;, importLabel: &quot;Cole um array JSON de documentos&quot;, importBtn: &quot;Carregar no corpus&quot;,
+    emptyT: &quot;Ainda nada para mostrar.&quot;,
+    emptyB: &quot;Cole os factos à esquerda e inicie a pesquisa. O Casebound lê os seus factos à procura de conceitos jurídicos — mora, lucros cessantes, cláusulas abusivas, despedimento, violação de dados, cartel, elisão fiscal e cerca de 130 outros, em inglês, italiano, francês ou alemão — e ordena cada disposição e decisão pelos conceitos que partilham. As correspondências recebem uma pontuação de 0 a 100, com os conceitos partilhados à vista, em vez de escondidos atrás de um único número.&quot;,
+    moreT: &quot;Acrescente um pouco mais de detalhe.&quot;, moreB: &quot;Uma ou duas frases a descrever os factos chegam para encontrar algo relevante.&quot;,
+    addedByYou: &quot;Adicionado por si&quot;, taught: &quot;Reconhecido a partir de palavras que ensinou ao Casebound&quot;,
+    remove: n => `Remover ${n}`, removeTitle: &quot;Não tem a ver — remover e ensinar o Casebound&quot;,
+    qcL: &quot;Conceitos jurídicos reconhecidos no seu caso&quot;, qcHint: &quot;— errados ou em falta? Remova um com × ou adicione outro; o Casebound aprende com isso.&quot;,
+    addPh: &quot;+ adicionar um conceito&quot;, addAria: &quot;Adicionar um conceito jurídico que o Casebound não detetou&quot;,
+    noConceptT: &quot;Ainda nenhum conceito jurídico reconhecido.&quot;,
+    noConceptB: &quot;O Casebound trabalha com conceitos jurídicos — incumprimento, mora, lucros cessantes, despedimento, violação de dados, cartel, produto defeituoso, elisão fiscal… Descreva o que aconteceu com um pouco mais de detalhe, ou adicione o conceito acima: o Casebound vai lembrar-se das palavras que usou.&quot;,
+    noDocT: j => j ? `Nenhum documento compatível encontrado (jurisdição: ${j}).` : &quot;Nenhum documento compatível encontrado.&quot;,
+    noDocB: inJ => `Nenhum documento${inJ ? &quot; desta jurisdição&quot; : &quot;&quot;} partilha estes conceitos. Experimente alargar o filtro de jurisdição ou de tipo de documento.`,
+    typeProvision: &quot;Disposição&quot;, typeTreatise: &quot;Obra de referência&quot;, typeCase: &quot;Jurisprudência&quot;,
+    match: &quot;afinidade&quot;, learnedUsers: &quot;Aprendido com as avaliações dos utilizadores&quot;,
+    sharedL: &quot;Conceitos partilhados&quot;, relatedL: &quot;Relacionado através de&quot;,
+    conceptMatch: n => `correspondência de conceitos ${n}`, citeMatch: &quot; + correspondência de citação&quot;, fromFeedback: (s, n) => ` ${s} ${n} das avaliações`,
+    useful: &quot;Útil para este caso?&quot;, relevant: &quot;Relevante&quot;, notRelevant: &quot;Não relevante&quot;,
+    thanksUp: &quot;Obrigado — documentos como este vão subir em casos como o seu.&quot;,
+    thanksDown: &quot;Obrigado — este vai descer em casos como o seu.&quot;, voteRemoved: &quot;Voto removido.&quot;,
+    citationOnly: &quot;Só citação — não há texto disponível para esta entrada.&quot;, docConcepts: &quot;Conceitos neste documento:&quot;,
+    resultsH: n => P(n, {one: &quot;# documento compatível&quot;, other: &quot;# documentos compatíveis&quot;}),
+    learning: &quot;Aprendizagem&quot;,
+    learnP: n => `O Casebound melhora com o uso. Avalie os resultados e corrija os conceitos reconhecidos: as suas avaliações reordenam os documentos de imediato neste navegador${n ? `, e a classificação já reflete <b>${n}</b> ${P(n, {one: &quot;sinal partilhado&quot;, other: &quot;sinais partilhados&quot;})} pelos utilizadores` : &quot;&quot;}.`,
+    stats: (v, w, b) => `Neste navegador: <b>${v}</b> ${P(v, {one: &quot;voto&quot;, other: &quot;votos&quot;})} · <b>${w}</b> ${P(w, {one: &quot;palavra ensinada&quot;, other: &quot;palavras ensinadas&quot;})} · <b>${b}</b> ${P(b, {one: &quot;correção&quot;, other: &quot;correções&quot;})}`,
+    forget: &quot;Esquecer o que ensinei neste navegador&quot;,
+    corpusCount: (n, a) => `<b>${n}</b> documentos no corpus${a > 0 ? ` (${a} ${P(a, {one: &quot;adicionado&quot;, other: &quot;adicionados&quot;})} nesta sessão)` : &quot;&quot;}`,
+    errNeeds: &quot;É preciso pelo menos uma jurisdição, uma citação e uma ou duas frases de texto.&quot;,
+    courtNS: &quot;Tribunal não indicado&quot;,
+    addedMsg: (c, n) => `«${c}» adicionado — o corpus tem agora ${n} documentos. `,
+    tags: l => `Conceitos detetados: ${l}.`, noTags: &quot;Nenhum conceito jurídico específico detetado no texto — só corresponderá ao nível da área.&quot;,
+    errJson: &quot;JSON inválido — é esperado um array de objetos {type, jur, cite, title, text, concepts?}.&quot;,
+    errNoDocs: &quot;Nenhum documento utilizável — cada um precisa de pelo menos jur, cite e text.&quot;,
+    imported: (k, n) => `${P(k, {one: &quot;Importado # documento&quot;, other: &quot;Importados # documentos&quot;})} — o corpus tem agora ${n}.`,
+    jurs: {&quot;Italy&quot;: &quot;Itália&quot;, &quot;European Union&quot;: &quot;União Europeia&quot;, &quot;United States&quot;: &quot;Estados Unidos&quot;, &quot;United Kingdom&quot;: &quot;Reino Unido&quot;, &quot;France&quot;: &quot;França&quot;, &quot;Germany&quot;: &quot;Alemanha&quot;, &quot;International&quot;: &quot;Internacional&quot;, &quot;Comparative&quot;: &quot;Comparado&quot;},
+    samples: [&quot;Lucros cessantes não comunicados após entrega atrasada&quot;, &quot;Comprador quer rejeitar mercadoria por um defeito menor&quot;, &quot;Empregador atribui ao trabalhador funções de categoria inferior&quot;, &quot;Cláusula de foro em contrato de adesão contestada por um consumidor&quot;, &quot;Base de dados de clientes pirateada, utilizadores pedem indemnização&quot;, &quot;Estafetas tratados como trabalhadores independentes&quot;, &quot;Concorrentes repartem o mercado&quot;]
+  },
+  pl: {
+    title: &quot;Casebound — Wyszukiwarka zgodności&quot;,
+    tagline: &quot;FINDER · WYSZUKIWANIE ZGODNOŚCI&quot;,
+    note: &quot;Szereguje każdy przepis i każde orzeczenie z korpusu 372 dokumentów według pojęć prawnych, które mają wspólne z twoją sprawą — a nie według słów, których akurat używają.&quot;,
+    factsHint: &quot;Fakty pochodzą ze wspólnego pola powyżej — filtruj lub wyszukaj ponownie poniżej.&quot;,
+    jurisdiction: &quot;Jurysdykcja&quot;,
+    jurHint: &quot;Zostaw „Wszystkie”, aby szukać we wszystkich jurysdykcjach w indeksie.&quot;,
+    docType: &quot;Rodzaj dokumentu&quot;,
+    run: &quot;Znajdź zgodne dokumenty&quot;, runEmbedded: &quot;Zastosuj filtry&quot;,
+    samplesH: &quot;Albo wypróbuj przykład&quot;,
+    allJur: &quot;Wszystkie&quot;, allTypes: &quot;Wszystkie&quot;, provisions: &quot;Przepisy&quot;, caseLaw: &quot;Orzecznictwo&quot;,
+    corpus: &quot;Korpus&quot;, addToggle: &quot;+ Dodaj dokument do korpusu&quot;, type: &quot;Rodzaj&quot;, provStatute: &quot;Przepis / ustawa&quot;,
+    citation: &quot;Oznaczenie źródła&quot;, rubric: &quot;Tytuł / sąd&quot;, dateCases: &quot;Data (tylko orzeczenia)&quot;, textLabel: &quot;Tekst / teza / komentarz&quot;,
+    phJur: &quot;np. Niemcy lub istniejąca&quot;, phCite: &quot;np. § 280 BGB lub Cass. civ. ... n. 1234&quot;, phTitle: &quot;krótka nazwa lub sąd orzekający&quot;,
+    phText: &quot;Wklej treść, tezę lub roboczy opis…&quot;, addBtn: &quot;Dodaj do korpusu&quot;,
+    exportBtn: &quot;Eksportuj korpus (JSON)&quot;, importToggle: &quot;Importuj korpus (JSON)&quot;, importLabel: &quot;Wklej tablicę JSON z dokumentami&quot;, importBtn: &quot;Wczytaj do korpusu&quot;,
+    emptyT: &quot;Na razie nic tu nie ma.&quot;,
+    emptyB: &quot;Wklej fakty po lewej i uruchom wyszukiwanie. Casebound odczytuje z faktów pojęcia prawne — opóźnienie, utracone korzyści, klauzule abuzywne, zwolnienie, naruszenie danych, kartel, unikanie opodatkowania i około 130 innych, po angielsku, włosku, francusku lub niemiecku — i szereguje każdy przepis i orzeczenie według wspólnych pojęć. Dopasowania otrzymują wynik od 0 do 100, a wspólne pojęcia są pokazane, a nie ukryte za jedną liczbą.&quot;,
+    moreT: &quot;Dodaj trochę więcej szczegółów.&quot;, moreB: &quot;Jedno lub dwa zdania opisujące fakty wystarczą, by znaleźć coś sensownego.&quot;,
+    addedByYou: &quot;Dodane przez ciebie&quot;, taught: &quot;Rozpoznane dzięki słowom, których uczysz Casebound&quot;,
+    remove: n => `Usuń: ${n}`, removeTitle: &quot;Nie o to chodzi — usuń i naucz Casebound&quot;,
+    qcL: &quot;Pojęcia prawne rozpoznane w twojej sprawie&quot;, qcHint: &quot;— błędne lub czegoś brakuje? Usuń pojęcie przez × albo dodaj nowe; Casebound się na tym uczy.&quot;,
+    addPh: &quot;+ dodaj pojęcie&quot;, addAria: &quot;Dodaj pojęcie prawne, które Casebound pominął&quot;,
+    noConceptT: &quot;Nie rozpoznano jeszcze żadnego pojęcia prawnego.&quot;,
+    noConceptB: &quot;Casebound dopasowuje według pojęć prawnych — naruszenie umowy, opóźnienie, utracone korzyści, zwolnienie, naruszenie danych, kartel, produkt wadliwy, unikanie opodatkowania… Opisz nieco dokładniej, co się stało, albo dodaj pojęcie powyżej: Casebound zapamięta użyte przez ciebie słowa.&quot;,
+    noDocT: j => j ? `Nie znaleziono zgodnego dokumentu (jurysdykcja: ${j}).` : &quot;Nie znaleziono zgodnego dokumentu.&quot;,
+    noDocB: inJ => `Żaden dokument${inJ ? &quot; z tej jurysdykcji&quot; : &quot;&quot;} nie ma tych wspólnych pojęć. Spróbuj poszerzyć filtr jurysdykcji lub rodzaju dokumentu.`,
+    typeProvision: &quot;Przepis&quot;, typeTreatise: &quot;Opracowanie&quot;, typeCase: &quot;Orzecznictwo&quot;,
+    match: &quot;zgodność&quot;, learnedUsers: &quot;Wyuczone na podstawie opinii użytkowników&quot;,
+    sharedL: &quot;Wspólne pojęcia&quot;, relatedL: &quot;Powiązane przez&quot;,
+    conceptMatch: n => `zgodność pojęć ${n}`, citeMatch: &quot; + zgodność oznaczenia&quot;, fromFeedback: (s, n) => ` ${s} ${n} z opinii`,
+    useful: &quot;Przydatne w tej sprawie?&quot;, relevant: &quot;Trafne&quot;, notRelevant: &quot;Nietrafne&quot;,
+    thanksUp: &quot;Dzięki — podobne dokumenty będą wyżej przy sprawach takich jak twoja.&quot;,
+    thanksDown: &quot;Dzięki — ten dokument będzie niżej przy sprawach takich jak twoja.&quot;, voteRemoved: &quot;Głos usunięty.&quot;,
+    citationOnly: &quot;Tylko oznaczenie — brak tekstu dla tej pozycji.&quot;, docConcepts: &quot;Pojęcia w tym dokumencie:&quot;,
+    resultsH: n => P(n, {one: &quot;# zgodny dokument&quot;, few: &quot;# zgodne dokumenty&quot;, many: &quot;# zgodnych dokumentów&quot;, other: &quot;# zgodnego dokumentu&quot;}),
+    learning: &quot;Uczenie się&quot;,
+    learnP: n => `Casebound uczy się w trakcie używania. Oceniaj wyniki i poprawiaj rozpoznane pojęcia: twoje opinie od razu zmieniają kolejność dokumentów w tej przeglądarce${n ? `, a ranking uwzględnia już <b>${n}</b> ${P(n, {one: &quot;sygnał udostępniony&quot;, few: &quot;sygnały udostępnione&quot;, many: &quot;sygnałów udostępnionych&quot;, other: &quot;sygnału udostępnionego&quot;})} przez użytkowników` : &quot;&quot;}.`,
+    stats: (v, w, b) => `W tej przeglądarce: <b>${v}</b> ${P(v, {one: &quot;głos&quot;, few: &quot;głosy&quot;, many: &quot;głosów&quot;, other: &quot;głosu&quot;})} · <b>${w}</b> ${P(w, {one: &quot;nauczone słowo&quot;, few: &quot;nauczone słowa&quot;, many: &quot;nauczonych słów&quot;, other: &quot;nauczonego słowa&quot;})} · <b>${b}</b> ${P(b, {one: &quot;poprawka&quot;, few: &quot;poprawki&quot;, many: &quot;poprawek&quot;, other: &quot;poprawki&quot;})}`,
+    forget: &quot;Wyczyść to, czego Casebound nauczył się w tej przeglądarce&quot;,
+    corpusCount: (n, a) => `<b>${n}</b> ${P(n, {one: &quot;dokument&quot;, few: &quot;dokumenty&quot;, many: &quot;dokumentów&quot;, other: &quot;dokumentu&quot;})} w korpusie${a > 0 ? ` (dodane w tej sesji: ${a})` : &quot;&quot;}`,
+    errNeeds: &quot;Potrzebne są co najmniej jurysdykcja, oznaczenie źródła i jedno lub dwa zdania tekstu.&quot;,
+    courtNS: &quot;Sąd nie podany&quot;,
+    addedMsg: (c, n) => `Dodano „${c}” — dokumenty w korpusie: ${n}. `,
+    tags: l => `Wykryte pojęcia: ${l}.`, noTags: &quot;W tekście nie wykryto konkretnego pojęcia prawnego — dokument będzie dopasowywany tylko na poziomie dziedziny.&quot;,
+    errJson: &quot;To nie jest poprawny JSON — oczekiwana jest tablica obiektów {type, jur, cite, title, text, concepts?}.&quot;,
+    errNoDocs: &quot;Nie znaleziono przydatnych dokumentów — każdy musi mieć co najmniej jur, cite i text.&quot;,
+    imported: (k, n) => `Zaimportowane dokumenty: ${k} — dokumenty w korpusie: ${n}.`,
+    jurs: {&quot;Italy&quot;: &quot;Włochy&quot;, &quot;European Union&quot;: &quot;Unia Europejska&quot;, &quot;United States&quot;: &quot;Stany Zjednoczone&quot;, &quot;United Kingdom&quot;: &quot;Wielka Brytania&quot;, &quot;France&quot;: &quot;Francja&quot;, &quot;Germany&quot;: &quot;Niemcy&quot;, &quot;International&quot;: &quot;Międzynarodowe&quot;, &quot;Comparative&quot;: &quot;Porównawcze&quot;},
+    samples: [&quot;Nieujawnione utracone korzyści po opóźnionej dostawie&quot;, &quot;Kupujący chce odrzucić towar z powodu drobnej wady&quot;, &quot;Pracodawca przenosi pracownika na niższe stanowisko&quot;, &quot;Konsument kwestionuje klauzulę jurysdykcyjną we wzorcu umowy&quot;, &quot;Wyciek bazy klientów, użytkownicy żądają odszkodowania&quot;, &quot;Kurierzy traktowani jak samozatrudnieni&quot;, &quot;Konkurenci dzielą się rynkiem&quot;]
+  },
+  ar: {
+    title: &quot;Casebound — باحث التوافق&quot;,
+    tagline: &quot;FINDER · البحث عن التوافق&quot;,
+    note: &quot;يرتّب كل نص قانوني وكل حكم في مجموعة الوثائق المؤلفة من 372 وثيقة وفق المفاهيم القانونية المشتركة مع قضيتك، لا وفق الكلمات التي تَرِد فيه.&quot;,
+    factsHint: &quot;تأتي الوقائع من حقل الإدخال المشترك أعلاه — يمكنك التصفية أو إعادة البحث أدناه.&quot;,
+    jurisdiction: &quot;الولاية القضائية&quot;,
+    jurHint: &quot;اترك «الكل» للبحث في جميع الولايات القضائية في الفهرس.&quot;,
+    docType: &quot;نوع الوثيقة&quot;,
+    run: &quot;ابحث عن الوثائق المتوافقة&quot;, runEmbedded: &quot;تطبيق عوامل التصفية&quot;,
+    samplesH: &quot;أو جرّب مثالًا&quot;,
+    allJur: &quot;الكل&quot;, allTypes: &quot;الكل&quot;, provisions: &quot;النصوص القانونية&quot;, caseLaw: &quot;السوابق القضائية&quot;,
+    corpus: &quot;مجموعة الوثائق&quot;, addToggle: &quot;+ إضافة وثيقة إلى المجموعة&quot;, type: &quot;النوع&quot;, provStatute: &quot;نص / قانون&quot;,
+    citation: &quot;المرجع&quot;, rubric: &quot;العنوان / المحكمة&quot;, dateCases: &quot;التاريخ (للأحكام فقط)&quot;, textLabel: &quot;النص / المبدأ / التعليق&quot;,
+    phJur: &quot;مثلًا: ألمانيا، أو ولاية موجودة&quot;, phCite: &quot;مثلًا: § 280 BGB أو Cass. civ. ... n. 1234&quot;, phTitle: &quot;اسم مختصر أو المحكمة المُصدِرة&quot;,
+    phText: &quot;الصق النص أو المبدأ القضائي أو ملخصًا عمليًا…&quot;, addBtn: &quot;إضافة إلى المجموعة&quot;,
+    exportBtn: &quot;تصدير المجموعة (JSON)&quot;, importToggle: &quot;استيراد مجموعة (JSON)&quot;, importLabel: &quot;الصق مصفوفة JSON من الوثائق&quot;, importBtn: &quot;تحميل إلى المجموعة&quot;,
+    emptyT: &quot;لا شيء لعرضه بعد.&quot;,
+    emptyB: &quot;الصق الوقائع وابدأ البحث. يقرأ Casebound وقائعك بحثًا عن المفاهيم القانونية — التأخير، والكسب الفائت، والشروط التعسفية، والفصل من العمل، واختراق البيانات، والكارتل، والتهرب الضريبي، ونحو 130 مفهومًا آخر، بالإنجليزية أو الإيطالية أو الفرنسية أو الألمانية — ثم يرتّب كل نص قانوني وكل حكم وفق المفاهيم المشتركة. تُمنح كل نتيجة درجة من 0 إلى 100 مع إظهار المفاهيم المشتركة بدلًا من إخفائها خلف رقم واحد.&quot;,
+    moreT: &quot;أضف مزيدًا من التفاصيل.&quot;, moreB: &quot;تكفي جملة أو جملتان تصفان الوقائع ليجد المحرّك نتائج ذات معنى.&quot;,
+    addedByYou: &quot;أضفته أنت&quot;, taught: &quot;تم التعرّف عليه من كلمات علّمتها لـ Casebound&quot;,
+    remove: n => `إزالة ${n}`, removeTitle: &quot;لا علاقة له — أزِله وعلّم Casebound&quot;,
+    qcL: &quot;المفاهيم القانونية المُتعرَّف عليها في قضيتك&quot;, qcHint: &quot;— هل فيها خطأ أو نقص؟ أزِل مفهومًا بـ × أو أضف مفهومًا؛ يتعلّم Casebound من ذلك.&quot;,
+    addPh: &quot;+ إضافة مفهوم&quot;, addAria: &quot;إضافة مفهوم قانوني فات Casebound&quot;,
+    noConceptT: &quot;لم يُتعرَّف على أي مفهوم قانوني بعد.&quot;,
+    noConceptB: &quot;يطابق Casebound وفق المفاهيم القانونية — الإخلال، والتأخير، والكسب الفائت، والفصل من العمل، واختراق البيانات، والكارتل، والمنتج المعيب، والتهرب الضريبي… صِف ما حدث بمزيد من التفصيل، أو أضف المفهوم أعلاه: سيتذكّر Casebound الكلمات التي استخدمتها.&quot;,
+    noDocT: j => j ? `لم يُعثر على وثيقة متوافقة في ${j}.` : &quot;لم يُعثر على وثيقة متوافقة.&quot;,
+    noDocB: inJ => `لا توجد وثيقة${inJ ? &quot; في هذه الولاية القضائية&quot; : &quot;&quot;} تشترك في هذه المفاهيم. جرّب توسيع عامل التصفية الخاص بالولاية القضائية أو بنوع الوثيقة.`,
+    typeProvision: &quot;نص قانوني&quot;, typeTreatise: &quot;مرجع&quot;, typeCase: &quot;سابقة قضائية&quot;,
+    match: &quot;تطابق&quot;, learnedUsers: &quot;مستفاد من تقييمات المستخدمين&quot;,
+    sharedL: &quot;مفاهيم مشتركة&quot;, relatedL: &quot;مرتبط عبر&quot;,
+    conceptMatch: n => `تطابق المفاهيم ${n}`, citeMatch: &quot; + تطابق المرجع&quot;, fromFeedback: (s, n) => ` ${s} ${n} من التقييمات`,
+    useful: &quot;هل هذا مفيد لهذه القضية؟&quot;, relevant: &quot;ذو صلة&quot;, notRelevant: &quot;غير ذي صلة&quot;,
+    thanksUp: &quot;شكرًا — ستتقدّم الوثائق المشابهة لهذه في القضايا المماثلة لقضيتك.&quot;,
+    thanksDown: &quot;شكرًا — ستتراجع هذه الوثيقة في القضايا المماثلة لقضيتك.&quot;, voteRemoved: &quot;أُزيل التقييم.&quot;,
+    citationOnly: &quot;مرجع فقط — لا يوجد نص محفوظ لهذا الإدخال.&quot;, docConcepts: &quot;المفاهيم في هذه الوثيقة:&quot;,
+    resultsH: n => P(n, {one: &quot;وثيقة متوافقة واحدة&quot;, two: &quot;وثيقتان متوافقتان&quot;, few: &quot;# وثائق متوافقة&quot;, other: &quot;# وثيقة متوافقة&quot;}),
+    learning: &quot;التعلّم&quot;,
+    learnP: n => `يتحسّن Casebound مع الاستخدام. قيّم النتائج وصحّح المفاهيم المُتعرَّف عليها: تعيد تقييماتك ترتيب الوثائق فورًا في هذا المتصفح${n ? `، ويعكس الترتيب بالفعل <b>${n}</b> ${P(n, {few: &quot;إشارات&quot;, other: &quot;إشارة&quot;})} شاركها المستخدمون` : &quot;&quot;}.`,
+    stats: (v, w, b) => `في هذا المتصفح: <b>${v}</b> ${P(v, {few: &quot;تقييمات&quot;, other: &quot;تقييم&quot;})} · <b>${w}</b> ${P(w, {few: &quot;كلمات مُعلَّمة&quot;, other: &quot;كلمة مُعلَّمة&quot;})} · <b>${b}</b> ${P(b, {few: &quot;تصحيحات&quot;, other: &quot;تصحيح&quot;})}`,
+    forget: &quot;انسَ ما علّمته في هذا المتصفح&quot;,
+    corpusCount: (n, a) => `<b>${n}</b> ${P(n, {few: &quot;وثائق&quot;, other: &quot;وثيقة&quot;})} في المجموعة${a > 0 ? ` (أُضيف منها ${a} في هذه الجلسة)` : &quot;&quot;}`,
+    errNeeds: &quot;يلزم على الأقل ولاية قضائية ومرجع وجملة أو جملتان من النص.&quot;,
+    courtNS: &quot;المحكمة غير محددة&quot;,
+    addedMsg: (c, n) => `أُضيف «${c}» — عدد الوثائق في المجموعة الآن: ${n}. `,
+    tags: l => `المفاهيم المكتشفة: ${l}.`, noTags: &quot;لم يُكتشف أي مفهوم قانوني محدد في نصه — لن يطابق إلا على مستوى المجال.&quot;,
+    errJson: &quot;هذا ليس JSON صالحًا — المتوقع مصفوفة من كائنات {type, jur, cite, title, text, concepts?}.&quot;,
+    errNoDocs: &quot;لم يُعثر على وثائق صالحة — يجب أن تحتوي كل وثيقة على jur وcite وtext على الأقل.&quot;,
+    imported: (k, n) => `عدد الوثائق المستوردة: ${k} — عدد الوثائق في المجموعة الآن: ${n}.`,
+    jurs: {&quot;Italy&quot;: &quot;إيطاليا&quot;, &quot;European Union&quot;: &quot;الاتحاد الأوروبي&quot;, &quot;United States&quot;: &quot;الولايات المتحدة&quot;, &quot;United Kingdom&quot;: &quot;المملكة المتحدة&quot;, &quot;France&quot;: &quot;فرنسا&quot;, &quot;Germany&quot;: &quot;ألمانيا&quot;, &quot;International&quot;: &quot;دولي&quot;, &quot;Comparative&quot;: &quot;مقارن&quot;},
+    samples: [&quot;كسب فائت غير مُفصَح عنه بعد تأخر التسليم&quot;, &quot;المشتري يريد رفض البضاعة بسبب عيب طفيف&quot;, &quot;صاحب العمل ينقل موظفًا إلى مهام أدنى درجة&quot;, &quot;مستهلك يطعن في شرط الاختصاص القضائي في عقد نموذجي&quot;, &quot;اختراق قاعدة بيانات العملاء والمستخدمون يطالبون بالتعويض&quot;, &quot;معاملة عمّال التوصيل كمستقلين&quot;, &quot;منافسون يتقاسمون السوق&quot;]
+  }
+};
+/* tx(key, ...args): string, or the result of calling a function entry */
+function tx(key, ...args){
+  const d = T[curLang()] || T.en;
+  const v = d[key] != null ? d[key] : T.en[key];
+  return typeof v === &quot;function&quot; ? v(...args) : v;
+}
+const isEmbedded = (() => { try{ return window.parent !== window; }catch(e){ return true; } })();
+/* jurisdiction display names (data values stay in English) */
+const jurName = j => j === &quot;All&quot; ? tx(&quot;allJur&quot;) : ((T[curLang()] || T.en).jurs[j] || j);
+/* dates in the corpus are ISO (YYYY-MM-DD) or a bare year */
+function fmtDate(s){
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(s || &quot;&quot;));
+  if(!m) return String(s || &quot;&quot;);
+  try{ return new Intl.DateTimeFormat(curLocale(), { day: &quot;numeric&quot;, month: &quot;short&quot;, year: &quot;numeric&quot;, timeZone: &quot;UTC&quot; }).format(new Date(Date.UTC(+m[1], +m[2] - 1, +m[3]))); }
+  catch(e){ return s; }
+}
+/* static text in the markup: data-i18n (text), data-i18n-ph (placeholder) */
+function applyStaticText(){
+  const L = curLang();
+  document.documentElement.lang = L;
+  document.documentElement.dir = (CB_I &amp;&amp; CB_I.isRTL(L)) ? &quot;rtl&quot; : &quot;ltr&quot;;
+  document.querySelectorAll(&quot;[data-i18n]&quot;).forEach(el => { el.textContent = tx(el.dataset.i18n); });
+  document.querySelectorAll(&quot;[data-i18n-ph]&quot;).forEach(el => { el.placeholder = tx(el.dataset.i18nPh); });
+  const run = document.getElementById(&quot;run&quot;);
+  if(run) run.textContent = tx(isEmbedded ? &quot;runEmbedded&quot; : &quot;run&quot;);
+}
+applyStaticText();
+
 /* ---------------- concept index ----------------
    DOCS is mutable: the base index plus anything added or imported in this
    session. Every change calls rebuildIndex(), which applies what has been
@@ -2475,7 +2928,12 @@ const esc = s => (s||&quot;&quot;).replace(/[&amp;<>&quot;]/g, c => ({'&amp;':'&
 let DOCS = [];
 let BASE_COUNT = CORPUS.length;
 const stripIndex = ({cdirect, cvec, cw, cnorm, learnAdd, learnDamp, ...rest}) => rest;
-const clabel = id => (CONCEPT_BY_ID[id] || {label:id}).label;
+const clabel = id => {
+  const L = curLang();
+  let tr = null;
+  try{ tr = ((window.parent &amp;&amp; window.parent.CB_CONCEPT_LABELS) || {})[id]; }catch(e){}
+  return (L !== &quot;en&quot; &amp;&amp; tr &amp;&amp; tr[L]) || (CONCEPT_BY_ID[id] || {label:id}).label;
+};
 /* ================================================================
    LEARNING — Casebound improves itself from feedback
    1. Relevance votes (Relevant / Not relevant) and opened results teach
@@ -2598,7 +3056,7 @@ let curJur = &quot;All&quot;;
 function refreshJurChips(){
   const JURS = [&quot;All&quot;, ...Array.from(new Set(DOCS.map(d=>d.jur)))];
   if(!JURS.includes(curJur)) curJur = &quot;All&quot;;
-  $(&quot;#jur-chips&quot;).innerHTML = JURS.map(j=>`<div class=&quot;chip${j===curJur?&quot; on&quot;:&quot;&quot;}&quot; data-j=&quot;${esc(j)}&quot;>${esc(j)}</div>`).join(&quot;&quot;);
+  $(&quot;#jur-chips&quot;).innerHTML = JURS.map(j=>`<div class=&quot;chip${j===curJur?&quot; on&quot;:&quot;&quot;}&quot; data-j=&quot;${esc(j)}&quot;>${esc(jurName(j))}</div>`).join(&quot;&quot;);
 }
 $(&quot;#jur-chips&quot;).addEventListener(&quot;click&quot;, e=>{
   const c = e.target.closest(&quot;.chip&quot;); if(!c) return;
@@ -2609,9 +3067,12 @@ $(&quot;#jur-chips&quot;).addEventListener(&quot;click&quot;, e=>{
 
 rebuildIndex(CORPUS); // initial build — now that curJur/refreshJurChips exist
 
-const TYPES = [{k:&quot;all&quot;,l:&quot;All&quot;},{k:&quot;provision&quot;,l:&quot;Provisions&quot;},{k:&quot;case&quot;,l:&quot;Case law&quot;}];
+const TYPES = [{k:&quot;all&quot;,l:&quot;allTypes&quot;},{k:&quot;provision&quot;,l:&quot;provisions&quot;},{k:&quot;case&quot;,l:&quot;caseLaw&quot;}];
 let curType = &quot;all&quot;;
-$(&quot;#type-chips&quot;).innerHTML = TYPES.map(t=>`<div class=&quot;chip${t.k===curType?&quot; on&quot;:&quot;&quot;}&quot; data-t=&quot;${t.k}&quot;>${t.l}</div>`).join(&quot;&quot;);
+function renderTypeChips(){
+  $(&quot;#type-chips&quot;).innerHTML = TYPES.map(t=>`<div class=&quot;chip${t.k===curType?&quot; on&quot;:&quot;&quot;}&quot; data-t=&quot;${t.k}&quot;>${esc(tx(t.l))}</div>`).join(&quot;&quot;);
+}
+renderTypeChips();
 $(&quot;#type-chips&quot;).addEventListener(&quot;click&quot;, e=>{
   const c = e.target.closest(&quot;.chip&quot;); if(!c) return;
   curType = c.dataset.t;
@@ -2664,7 +3125,11 @@ const SAMPLES = [
     jur: &quot;All&quot;
   }
 ];
-$(&quot;#samples-list&quot;).innerHTML = SAMPLES.map((s,i)=>`<button class=&quot;sample-btn&quot; data-i=&quot;${i}&quot;>${esc(s.label)}</button>`).join(&quot;&quot;);
+function renderSamples(){
+  const labels = tx(&quot;samples&quot;) || [];
+  $(&quot;#samples-list&quot;).innerHTML = SAMPLES.map((s,i)=>`<button class=&quot;sample-btn&quot; data-i=&quot;${i}&quot;>${esc(labels[i] || s.label)}</button>`).join(&quot;&quot;);
+}
+renderSamples();
 $(&quot;#samples-list&quot;).addEventListener(&quot;click&quot;, e=>{
   const b = e.target.closest(&quot;.sample-btn&quot;); if(!b) return;
   const s = SAMPLES[b.dataset.i];
@@ -2680,13 +3145,18 @@ let LAST_QUERY = &quot;&quot;;
 let QADJ = { key: &quot;&quot;, add: new Set(), rm: new Set() };   // concept corrections for the current case
 let LAST_Q = null;
 const ALL_CONCEPT_OPTIONS = CONCEPTS.filter(c => c.depth > 0).sort((a,b) => a.label.localeCompare(b.label));
+/* the same list, sorted by the name shown in the current language */
+function conceptOptions(){
+  const loc = curLocale();
+  return ALL_CONCEPT_OPTIONS.slice().sort((a,b) => clabel(a.id).localeCompare(clabel(b.id), loc));
+}
 
 function runSearch(){
   const facts = $(&quot;#facts&quot;).value.trim();
   const claim = $(&quot;#claim&quot;).value.trim();
   const query = [facts, claim].filter(Boolean).join(&quot;. &quot;);
   if(query.length < 8){
-    $(&quot;#results&quot;).innerHTML = `<div class=&quot;empty&quot;><p><b>Add a bit more detail.</b></p><p>A sentence or two describing the facts is enough for the matcher to find something meaningful.</p></div>`;
+    $(&quot;#results&quot;).innerHTML = `<div class=&quot;empty&quot;><p><b>${esc(tx(&quot;moreT&quot;))}</b></p><p>${esc(tx(&quot;moreB&quot;))}</p></div>`;
     return;
   }
   if(query !== QADJ.key) QADJ = { key: query, add: new Set(), rm: new Set() };
@@ -2699,15 +3169,15 @@ function runSearch(){
   const pill = id => {
     const area = CONCEPT_BY_ID[id].depth === 0;
     const learned = LAST_LEARNED_HITS.has(id) || QADJ.add.has(id);
-    return `<span class=&quot;cpill${area?&quot; area&quot;:&quot;&quot;}${learned?&quot; learned&quot;:&quot;&quot;}&quot;${learned?` title=&quot;${QADJ.add.has(id)?&quot;Added by you&quot;:&quot;Recognised from words you taught Casebound&quot;}&quot;`:&quot;&quot;}>${esc(clabel(id))}${area?&quot;&quot;:`<button class=&quot;cx&quot; data-rm=&quot;${id}&quot; aria-label=&quot;Remove ${esc(clabel(id))}&quot; title=&quot;Not about this — remove and teach Casebound&quot;>×</button>`}</span>`;
+    return `<span class=&quot;cpill${area?&quot; area&quot;:&quot;&quot;}${learned?&quot; learned&quot;:&quot;&quot;}&quot;${learned?` title=&quot;${esc(tx(QADJ.add.has(id)?&quot;addedByYou&quot;:&quot;taught&quot;))}&quot;`:&quot;&quot;}>${esc(clabel(id))}${area?&quot;&quot;:`<button class=&quot;cx&quot; data-rm=&quot;${id}&quot; aria-label=&quot;${esc(tx(&quot;remove&quot;, clabel(id)))}&quot; title=&quot;${esc(tx(&quot;removeTitle&quot;))}&quot;>×</button>`}</span>`;
   };
   const conceptBar = `
     <div class=&quot;qc&quot;>
-      <div class=&quot;qc-l&quot;>Legal concepts recognised in your case <span class=&quot;qc-hint&quot;>— wrong or missing? Remove one with × or add one; Casebound learns from it.</span></div>
+      <div class=&quot;qc-l&quot;>${esc(tx(&quot;qcL&quot;))} <span class=&quot;qc-hint&quot;>${esc(tx(&quot;qcHint&quot;))}</span></div>
       <div class=&quot;qc-row&quot;>${found.map(pill).join(&quot;&quot;)}
-        <span class=&quot;qc-add&quot;><input id=&quot;add-concept&quot; list=&quot;concept-options&quot; placeholder=&quot;+ add a concept&quot; aria-label=&quot;Add a legal concept Casebound missed&quot;></span>
+        <span class=&quot;qc-add&quot;><input id=&quot;add-concept&quot; list=&quot;concept-options&quot; placeholder=&quot;${esc(tx(&quot;addPh&quot;))}&quot; aria-label=&quot;${esc(tx(&quot;addAria&quot;))}&quot;></span>
       </div>
-      <datalist id=&quot;concept-options&quot;>${ALL_CONCEPT_OPTIONS.map(c => `<option value=&quot;${esc(c.label)}&quot;>`).join(&quot;&quot;)}</datalist>
+      <datalist id=&quot;concept-options&quot;>${conceptOptions().map(c => `<option value=&quot;${esc(clabel(c.id))}&quot;>`).join(&quot;&quot;)}</datalist>
     </div>`;
 
   let pool = DOCS;
@@ -2728,12 +3198,12 @@ function runSearch(){
   LAST_SCORED = scored;
 
   if(!specific.length &amp;&amp; !scored.length){
-    $(&quot;#results&quot;).innerHTML = conceptBar + `<div class=&quot;empty&quot;><p><b>No legal concept recognised yet.</b></p><p>Casebound matches on legal concepts — breach, delay, lost profit, dismissal, data breach, cartel, defective product, tax avoidance… Describe what happened in a little more detail, or add the concept above: Casebound will remember the words you used.</p></div>`;
+    $(&quot;#results&quot;).innerHTML = conceptBar + `<div class=&quot;empty&quot;><p><b>${esc(tx(&quot;noConceptT&quot;))}</b></p><p>${esc(tx(&quot;noConceptB&quot;))}</p></div>`;
     wireConceptBar();
     return;
   }
   if(!scored.length){
-    $(&quot;#results&quot;).innerHTML = conceptBar + `<div class=&quot;empty&quot;><p><b>No compatible document found${curJur!==&quot;All&quot;?` in ${esc(curJur)}`:&quot;&quot;}.</b></p><p>None of the documents${curJur!==&quot;All&quot;?&quot; in this jurisdiction&quot;:&quot;&quot;} share these concepts. Try broadening the jurisdiction or document-type filter.</p></div>`;
+    $(&quot;#results&quot;).innerHTML = conceptBar + `<div class=&quot;empty&quot;><p><b>${esc(tx(&quot;noDocT&quot;, curJur!==&quot;All&quot; ? jurName(curJur) : &quot;&quot;))}</b></p><p>${esc(tx(&quot;noDocB&quot;, curJur!==&quot;All&quot;))}</p></div>`;
     wireConceptBar();
     return;
   }
@@ -2742,50 +3212,50 @@ function runSearch(){
   const rows = scored.map((x,i) => {
     const d = x.d;
     const score = Math.round(x.total * 100);
-    const typeLabel = d.type === &quot;provision&quot; ? &quot;Provision&quot; : d.type === &quot;treatise&quot; ? &quot;Reference work&quot; : &quot;Case law&quot;;
-    const meta = d.type === &quot;case&quot; ? `${esc(d.title)}${d.date?` · ${esc(d.date)}`:&quot;&quot;}` : esc(d.title);
+    const typeLabel = esc(tx(d.type === &quot;provision&quot; ? &quot;typeProvision&quot; : d.type === &quot;treatise&quot; ? &quot;typeTreatise&quot; : &quot;typeCase&quot;));
+    const meta = d.type === &quot;case&quot; ? `${esc(d.title)}${d.date?` · ${esc(fmtDate(d.date))}`:&quot;&quot;}` : esc(d.title);
     const learnedC = d.learnAdd || {};
-    const sharedHtml = x.shared.slice(0,4).map(id => `<span class=&quot;cpill on${learnedC[id]?&quot; learned&quot;:&quot;&quot;}&quot;${learnedC[id]?` title=&quot;Learned from users' feedback&quot;`:&quot;&quot;}>${esc(clabel(id))}</span>`).join(&quot;&quot;);
+    const sharedHtml = x.shared.slice(0,4).map(id => `<span class=&quot;cpill on${learnedC[id]?&quot; learned&quot;:&quot;&quot;}&quot;${learnedC[id]?` title=&quot;${esc(tx(&quot;learnedUsers&quot;))}&quot;`:&quot;&quot;}>${esc(clabel(id))}</span>`).join(&quot;&quot;);
     const relHtml = !x.shared.length ? x.related.slice(0,3).map(id => `<span class=&quot;cpill&quot;>${esc(clabel(id))}</span>`).join(&quot;&quot;) : &quot;&quot;;
     const areaTxt = x.areas.slice(0,2).map(clabel).join(&quot; · &quot;);
     const docConcepts = Object.keys(d.cdirect).filter(id => CONCEPT_BY_ID[id].depth>0)
       .sort((a,b)=>d.cdirect[b]-d.cdirect[a]).slice(0,8).map(clabel).join(&quot; · &quot;);
     const my = d.id ? LEARN.local.votes[d.id + &quot;|&quot; + qkey] : null;
-    const lbTxt = Math.abs(x.lb) >= 0.005 ? ` ${x.lb>0?&quot;+&quot;:&quot;−&quot;} ${Math.max(1,Math.round(Math.abs(x.lb)*100))} from feedback` : &quot;&quot;;
+    const lbTxt = Math.abs(x.lb) >= 0.005 ? tx(&quot;fromFeedback&quot;, x.lb>0?&quot;+&quot;:&quot;−&quot;, Math.max(1,Math.round(Math.abs(x.lb)*100))) : &quot;&quot;;
     return `
     <div class=&quot;card&quot;>
       <div class=&quot;card-top&quot; data-idx=&quot;${i}&quot;>
-        <div class=&quot;score&quot;><div class=&quot;num&quot;>${score}</div><div class=&quot;lbl&quot;>match</div></div>
+        <div class=&quot;score&quot;><div class=&quot;num&quot;>${score}</div><div class=&quot;lbl&quot;>${esc(tx(&quot;match&quot;))}</div></div>
         <div class=&quot;card-body&quot;>
           <div class=&quot;badges&quot;>
-            <span class=&quot;badge jur&quot;>${esc(d.jur)}</span>
+            <span class=&quot;badge jur&quot;>${esc(jurName(d.jur))}</span>
             <span class=&quot;badge type-${d.type}&quot;>${typeLabel}</span>
           </div>
-          <div class=&quot;cite&quot;>${esc(d.cite)}</div>
-          <div class=&quot;title&quot;>${meta}</div>
-          <div class=&quot;shared&quot;>${sharedHtml ? `<span class=&quot;sh-l&quot;>Shared concepts</span>${sharedHtml}` : relHtml ? `<span class=&quot;sh-l&quot;>Related through</span>${relHtml}` : &quot;&quot;}</div>
+          <div class=&quot;cite&quot; dir=&quot;auto&quot;>${esc(d.cite)}</div>
+          <div class=&quot;title&quot; dir=&quot;auto&quot;>${meta}</div>
+          <div class=&quot;shared&quot;>${sharedHtml ? `<span class=&quot;sh-l&quot;>${esc(tx(&quot;sharedL&quot;))}</span>${sharedHtml}` : relHtml ? `<span class=&quot;sh-l&quot;>${esc(tx(&quot;relatedL&quot;))}</span>${relHtml}` : &quot;&quot;}</div>
         </div>
       </div>
       <div class=&quot;bar-row&quot;>
         <div class=&quot;bar-wrap&quot;><div class=&quot;bar-fill&quot; style=&quot;width:${score}%&quot;></div></div>
-        <div class=&quot;breakdown&quot;>concept match ${Math.round(x.sim*100)}${x.citeBonus?` + citation match`:&quot;&quot;}${lbTxt}${areaTxt?` · ${esc(areaTxt)}`:&quot;&quot;}</div>
+        <div class=&quot;breakdown&quot;>${esc(tx(&quot;conceptMatch&quot;, Math.round(x.sim*100)))}${x.citeBonus?esc(tx(&quot;citeMatch&quot;)):&quot;&quot;}${esc(lbTxt)}${areaTxt?` · ${esc(areaTxt)}`:&quot;&quot;}</div>
       </div>
       ${d.id ? `<div class=&quot;fb&quot; data-idx=&quot;${i}&quot;>
-        <span class=&quot;fb-l&quot;>Useful for this case?</span>
-        <button class=&quot;fb-b${my&amp;&amp;my.s>0?&quot; on&quot;:&quot;&quot;}&quot; data-v=&quot;1&quot; aria-pressed=&quot;${my&amp;&amp;my.s>0}&quot;>Relevant</button>
-        <button class=&quot;fb-b neg${my&amp;&amp;my.s<0?&quot; on&quot;:&quot;&quot;}&quot; data-v=&quot;-1&quot; aria-pressed=&quot;${my&amp;&amp;my.s<0}&quot;>Not relevant</button>
+        <span class=&quot;fb-l&quot;>${esc(tx(&quot;useful&quot;))}</span>
+        <button class=&quot;fb-b${my&amp;&amp;my.s>0?&quot; on&quot;:&quot;&quot;}&quot; data-v=&quot;1&quot; aria-pressed=&quot;${my&amp;&amp;my.s>0}&quot;>${esc(tx(&quot;relevant&quot;))}</button>
+        <button class=&quot;fb-b neg${my&amp;&amp;my.s<0?&quot; on&quot;:&quot;&quot;}&quot; data-v=&quot;-1&quot; aria-pressed=&quot;${my&amp;&amp;my.s<0}&quot;>${esc(tx(&quot;notRelevant&quot;))}</button>
         <span class=&quot;fb-msg&quot;></span>
       </div>` : &quot;&quot;}
       <div class=&quot;full&quot; id=&quot;full-${i}&quot;>
-        <div class=&quot;meta&quot;>${esc(d.jur)} · ${typeLabel}${d.type===&quot;case&quot;?` · ${esc(d.title)}${d.date?` · ${esc(d.date)}`:&quot;&quot;}`:&quot;&quot;}</div>
-        <div>${d.text ? esc(d.text) : &quot;<i>Citation only — no text on file for this entry.</i>&quot;}</div>
-        ${docConcepts ? `<div class=&quot;doc-concepts&quot;><b>Concepts in this document:</b> ${esc(docConcepts)}</div>` : &quot;&quot;}
+        <div class=&quot;meta&quot;>${esc(jurName(d.jur))} · ${typeLabel}${d.type===&quot;case&quot;?` · ${esc(d.title)}${d.date?` · ${esc(fmtDate(d.date))}`:&quot;&quot;}`:&quot;&quot;}</div>
+        <div${d.text ? ` dir=&quot;auto&quot;` : &quot;&quot;}>${d.text ? esc(d.text) : `<i>${esc(tx(&quot;citationOnly&quot;))}</i>`}</div>
+        ${docConcepts ? `<div class=&quot;doc-concepts&quot;><b>${esc(tx(&quot;docConcepts&quot;))}</b> ${esc(docConcepts)}</div>` : &quot;&quot;}
       </div>
     </div>`;
   }).join(&quot;&quot;);
 
   $(&quot;#results&quot;).innerHTML = conceptBar + `
-    <div class=&quot;r-head&quot;><h2>${scored.length} compatible document${scored.length===1?&quot;&quot;:&quot;s&quot;}${curJur!==&quot;All&quot;?` — ${esc(curJur)}`:&quot;&quot;}</h2></div>
+    <div class=&quot;r-head&quot;><h2>${esc(tx(&quot;resultsH&quot;, scored.length))}${curJur!==&quot;All&quot;?` — ${esc(jurName(curJur))}`:&quot;&quot;}</h2></div>
     ${rows}
   `;
   wireConceptBar();
@@ -2809,7 +3279,7 @@ function runSearch(){
       saveLocalLearning();
       const now = LEARN.local.votes[key];
       el.querySelectorAll(&quot;.fb-b&quot;).forEach(btn => { const on = !!now &amp;&amp; Number(btn.dataset.v) === now.s; btn.classList.toggle(&quot;on&quot;, on); btn.setAttribute(&quot;aria-pressed&quot;, on); });
-      el.querySelector(&quot;.fb-msg&quot;).textContent = now ? (now.s > 0 ? &quot;Thanks — documents like this will rank higher for cases like yours.&quot; : &quot;Thanks — this will rank lower for cases like yours.&quot;) : &quot;Vote removed.&quot;;
+      el.querySelector(&quot;.fb-msg&quot;).textContent = tx(now ? (now.s > 0 ? &quot;thanksUp&quot; : &quot;thanksDown&quot;) : &quot;voteRemoved&quot;);
       if(now) try{window.parent.postMessage({type:&quot;casebound:signal&quot;, action:&quot;vote&quot;, doc:x.d.id, vote:now.s, rank:Number(el.dataset.idx)+1, jur:curJur, dtype:curType, q:specific}, &quot;*&quot;);}catch(e){}
       // re-learn quietly; the new order shows on the next search so the list doesn't jump under the cursor
       syncLearningHooks(); rebuildIndex(DOCS.map(stripIndex));
@@ -2829,7 +3299,10 @@ function wireConceptBar(){
   const inp = $(&quot;#add-concept&quot;);
   if(inp) inp.addEventListener(&quot;change&quot;, () => {
     const val = inp.value.trim().toLowerCase();
-    const c = ALL_CONCEPT_OPTIONS.find(c => c.label.toLowerCase() === val) || ALL_CONCEPT_OPTIONS.find(c => c.label.toLowerCase().startsWith(val));
+    if(!val) return;
+    const opts = conceptOptions();
+    const c = opts.find(c => clabel(c.id).toLowerCase() === val || c.label.toLowerCase() === val)
+      || opts.find(c => clabel(c.id).toLowerCase().startsWith(val) || c.label.toLowerCase().startsWith(val));
     if(!c) return;
     QADJ.rm.delete(c.id); QADJ.add.add(c.id);
     teachAdd(LAST_QUERY, c.id);
@@ -2841,10 +3314,10 @@ function renderLearningBox(){
   const el = $(&quot;#learn-box&quot;); if(!el) return;
   const s = localStats();
   const shared = LEARN.shared.events;
-  el.innerHTML = `<h4>Learning</h4>
-    <p>Casebound improves as it is used. Rate results and correct the recognised concepts: your feedback re-ranks documents straight away in this browser${shared ? `, and the rankings already reflect <b>${Math.round(shared)}</b> feedback signal${Math.round(shared)===1?&quot;&quot;:&quot;s&quot;} shared by users` : &quot;&quot;}.</p>
-    <p class=&quot;ls&quot;>In this browser: <b>${s.votes}</b> vote${s.votes===1?&quot;&quot;:&quot;s&quot;} · <b>${s.words}</b> word${s.words===1?&quot;&quot;:&quot;s&quot;} taught · <b>${s.blocked}</b> correction${s.blocked===1?&quot;&quot;:&quot;s&quot;}</p>
-    ${s.votes||s.words||s.blocked ? `<button class=&quot;toggle-btn&quot; id=&quot;learn-reset&quot;>Forget what I've taught in this browser</button>` : &quot;&quot;}`;
+  el.innerHTML = `<h4>${esc(tx(&quot;learning&quot;))}</h4>
+    <p>${tx(&quot;learnP&quot;, Math.round(shared))}</p>
+    <p class=&quot;ls&quot;>${tx(&quot;stats&quot;, s.votes, s.words, s.blocked)}</p>
+    ${s.votes||s.words||s.blocked ? `<button class=&quot;toggle-btn&quot; id=&quot;learn-reset&quot;>${esc(tx(&quot;forget&quot;))}</button>` : &quot;&quot;}`;
   const r = $(&quot;#learn-reset&quot;);
   if(r) r.addEventListener(&quot;click&quot;, () => { resetLocalLearning(); relearn(); });
 }
@@ -2865,7 +3338,7 @@ $(&quot;#run&quot;).addEventListener(&quot;click&quot;, runSearch);
 /* ---------------- corpus management: add / export / import ---------------- */
 function refreshCorpusCount(){
   const added = DOCS.length - BASE_COUNT;
-  $(&quot;#corpus-count&quot;).innerHTML = `<b>${DOCS.length}</b> documents in the pool${added>0?` (${added} added this session)`:&quot;&quot;}`;
+  $(&quot;#corpus-count&quot;).innerHTML = tx(&quot;corpusCount&quot;, DOCS.length, added);
 }
 refreshCorpusCount();
 
@@ -2883,17 +3356,17 @@ $(&quot;#add-doc&quot;).addEventListener(&quot;click&quot;, ()=>{
   const status = $(&quot;#corpus-status&quot;);
   if(!jur || !cite || text.length < 15){
     status.className = &quot;corpus-status err&quot;;
-    status.textContent = &quot;Needs at least a jurisdiction, a citation, and a sentence or two of text.&quot;;
+    status.textContent = tx(&quot;errNeeds&quot;);
     return;
   }
-  const doc = { type, jur, cite, title: title || (type===&quot;case&quot; ? &quot;Court not specified&quot; : &quot;&quot;), text };
+  const doc = { type, jur, cite, title: title || (type===&quot;case&quot; ? tx(&quot;courtNS&quot;) : &quot;&quot;), text };
   if(type === &quot;case&quot;) doc.date = date || &quot;&quot;;
   const raw = [...DOCS.map(stripIndex), doc];
   rebuildIndex(raw);
   status.className = &quot;corpus-status&quot;;
   const added = DOCS[DOCS.length-1];
   const tags = Object.keys(added.cdirect).filter(id => CONCEPT_BY_ID[id].depth>0).map(clabel);
-  status.textContent = `Added &quot;${cite}&quot; — the pool now has ${DOCS.length} documents. ` + (tags.length ? `Concepts detected: ${tags.slice(0,6).join(&quot;, &quot;)}.` : `No specific legal concept detected in its text — it will only match at area level.`);
+  status.textContent = tx(&quot;addedMsg&quot;, cite, DOCS.length) + (tags.length ? tx(&quot;tags&quot;, tags.slice(0,6).join(&quot;, &quot;)) : tx(&quot;noTags&quot;));
   $(&quot;#new-jur&quot;).value=&quot;&quot;; $(&quot;#new-cite&quot;).value=&quot;&quot;; $(&quot;#new-title&quot;).value=&quot;&quot;; $(&quot;#new-date&quot;).value=&quot;&quot;; $(&quot;#new-text&quot;).value=&quot;&quot;;
 });
 
@@ -2921,22 +3394,35 @@ $(&quot;#import-btn&quot;).addEventListener(&quot;click&quot;, ()=>{
     if(!Array.isArray(parsed)) throw new Error(&quot;not an array&quot;);
   }catch(e){
     status.className = &quot;corpus-status err&quot;;
-    status.textContent = &quot;That isn't valid JSON — expecting an array of {type, jur, cite, title, text, concepts?} objects.&quot;;
+    status.textContent = tx(&quot;errJson&quot;);
     return;
   }
   const valid = parsed.filter(d => d &amp;&amp; d.jur &amp;&amp; d.cite &amp;&amp; d.text);
   if(!valid.length){
     status.className = &quot;corpus-status err&quot;;
-    status.textContent = &quot;No usable documents found — each needs at least jur, cite and text.&quot;;
+    status.textContent = tx(&quot;errNoDocs&quot;);
     return;
   }
   const existing = DOCS.map(stripIndex);
   rebuildIndex([...existing, ...valid]);
   status.className = &quot;corpus-status&quot;;
-  status.textContent = `Imported ${valid.length} document${valid.length===1?&quot;&quot;:&quot;s&quot;} — the pool now has ${DOCS.length}.`;
+  status.textContent = tx(&quot;imported&quot;, valid.length, DOCS.length);
   $(&quot;#import-text&quot;).value = &quot;&quot;;
   $(&quot;#import-box&quot;).classList.remove(&quot;on&quot;);
 });
+
+/* ---------------- language switch: re-render everything this pane shows ---------------- */
+function rerenderLanguage(){
+  applyStaticText();
+  refreshJurChips();
+  renderTypeChips();
+  renderSamples();
+  renderLearningBox();
+  refreshCorpusCount();
+  $(&quot;#corpus-status&quot;).textContent = &quot;&quot;;
+  if(LAST_QUERY || $(&quot;#facts&quot;).value.trim() || $(&quot;#claim&quot;).value.trim()) runSearch();
+}
+if(CB_I) CB_I.onChange(() => { try{ rerenderLanguage(); }catch(e){} });
 </script>
 <script>
 /* Hub bridge: lets the combined-workspace shell run this case from one shared input. */
