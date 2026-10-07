@@ -28,16 +28,33 @@
     "@media(max-width:1400px){.cb-viewsw .cb-long{display:none}}" +
     "@media(max-width:640px){.cb-viewsw{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 72px);z-index:90;box-shadow:0 4px 14px rgba(0,0,0,.18)}.cb-viewsw button{padding:8px 14px}}";
 
+  var TXT = {
+    en: { aria: "Switch view", client: "Client", clientL: ": research &amp; risk check", lawyer: "Lawyer", lawyerL: ": case board" },
+    it: { aria: "Cambia vista", client: "Cliente", clientL: ": ricerca e verifica del rischio", lawyer: "Avvocato", lawyerL: ": bacheca casi" },
+    es: { aria: "Cambiar de vista", client: "Cliente", clientL: ": investigación y evaluación de riesgo", lawyer: "Abogado", lawyerL: ": tablón de casos" },
+    fr: { aria: "Changer de vue", client: "Client", clientL: " : recherche et évaluation du risque", lawyer: "Avocat", lawyerL: " : tableau des affaires" },
+    de: { aria: "Ansicht wechseln", client: "Mandant", clientL: ": Recherche &amp; Risikocheck", lawyer: "Anwalt", lawyerL: ": Fallbörse" },
+    pt: { aria: "Mudar de vista", client: "Cliente", clientL: ": pesquisa e avaliação de risco", lawyer: "Advogado", lawyerL: ": quadro de casos" },
+    pl: { aria: "Przełącz widok", client: "Klient", clientL: ": wyszukiwanie i ocena ryzyka", lawyer: "Prawnik", lawyerL: ": tablica spraw" },
+    ar: { aria: "تبديل العرض", client: "عميل", clientL: ": البحث وتقييم المخاطر", lawyer: "محامٍ", lawyerL: ": لوحة القضايا" }
+  };
+
   function mount() {
     if (document.querySelector(".cb-viewsw")) return;
     var host = document.querySelector(".top-links");
     if (!host) return;
     var st = document.createElement("style"); st.textContent = CSS; document.head.appendChild(st);
     var box = document.createElement("div");
-    box.className = "cb-viewsw"; box.setAttribute("role", "group"); box.setAttribute("aria-label", "Switch view");
-    box.innerHTML =
-      '<button type="button" data-v="client" aria-pressed="' + (page === "client") + '">Client<span class="cb-long">: research &amp; risk check</span></button>' +
-      '<button type="button" data-v="lawyer" aria-pressed="' + (page === "lawyer") + '">Lawyer<span class="cb-long">: case board</span></button>';
+    box.className = "cb-viewsw"; box.setAttribute("role", "group");
+    function label() {
+      var I = window.CB_I18N, t = (I && I.pick(TXT)) || TXT.en;
+      box.setAttribute("aria-label", t.aria);
+      box.innerHTML =
+        '<button type="button" data-v="client" aria-pressed="' + (page === "client") + '">' + t.client + '<span class="cb-long">' + t.clientL + '</span></button>' +
+        '<button type="button" data-v="lawyer" aria-pressed="' + (page === "lawyer") + '">' + t.lawyer + '<span class="cb-long">' + t.lawyerL + '</span></button>';
+    }
+    label();
+    if (window.CB_I18N) window.CB_I18N.onChange(label);
     box.addEventListener("click", function (e) {
       var b = e.target.closest("button"); if (!b) return;
       if (b.getAttribute("data-v") === "client") { if (page !== "client") window.CaseboundView.toClient(); }
