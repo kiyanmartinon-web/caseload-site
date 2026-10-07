@@ -51,7 +51,7 @@ export const saveUser = (u) => putJSON(userKey(u.id), u);
 // Lawyers start "pending" and only see cases once the admin has verified them
 // against the official register (albo). Any change to the bar details sends a
 // verified lawyer back to "pending".
-export const PRACTICE_AREAS = ["dismissal", "employment", "goods", "contract", "injury", "road", "building", "family", "tenancy", "consumer", "other"];
+export const PRACTICE_AREAS = ["dismissal",  "employment",  "goods",  "contract",  "injury",  "road",  "building",  "consumer",  "tenancy",  "condo",  "neighbours",  "medical",  "insurance",  "travel",  "family",  "inheritance",  "injunction",  "fine",  "tax",  "defamation",  "other"];
 const clip = (v, n) => String(v || "").trim().slice(0, n);
 
 export function cleanLawyer(input, prev) {

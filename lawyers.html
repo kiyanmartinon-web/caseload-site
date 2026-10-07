@@ -193,7 +193,20 @@ footer div{max-width:1300px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
     injury:{label:"Injury / damage", days:1825, rule:"5 years for damage claims (art. 2947 c.c.)"},
     road:{label:"Road accident", days:730, rule:"2 years for road accidents (art. 2947(2) c.c.)"},
     building:{label:"Building defects", days:365, rule:"1 year from discovery to notify the builder (art. 1669 c.c.)"},
-    family:{label:"Family"}, tenancy:{label:"Tenancy"}, consumer:{label:"Consumer"}, other:{label:"Other"}
+    consumer:{label:"Consumer", days:790, rule:"26 months from delivery to enforce the legal guarantee (art. 133 Codice del consumo)"},
+    tenancy:{label:"Tenancy", days:1825, rule:"5 years for unpaid rent (art. 2948 n. 3 c.c.)"},
+    condo:{label:"Condominium", days:30, rule:"30 days to challenge a condominium decision in court (art. 1137 c.c.)"},
+    neighbours:{label:"Neighbours", rule:"No fixed limit to stop an ongoing nuisance (art. 844 c.c.); 5 years to claim damages (art. 2947 c.c.)"},
+    medical:{label:"Medical malpractice", days:3650, rule:"10 years against a hospital or clinic, 5 years against the doctor personally (L. 24/2017, art. 7)"},
+    insurance:{label:"Insurance", days:730, rule:"2 years from the event for most insurance claims (art. 2952 c.c.)"},
+    travel:{label:"Travel", days:730, rule:"2 years for flight claims (Montreal Convention, art. 35)"},
+    family:{label:"Family", rule:"No general time limit for separation or divorce; each unpaid maintenance payment can be claimed for 5 years (art. 2948 n. 2 c.c.)"},
+    inheritance:{label:"Inheritance", days:3650, rule:"10 years to accept an inheritance (art. 480 c.c.)"},
+    injunction:{label:"Payment orders", days:40, rule:"40 days to oppose a payment order (art. 641 c.p.c.)"},
+    fine:{label:"Fines", days:30, rule:"30 days to appeal to the giudice di pace, or 60 days to the Prefetto (artt. 204-bis and 203 Codice della strada)"},
+    tax:{label:"Tax", days:60, rule:"60 days to appeal to the tax court (D.Lgs. 546/1992, art. 21)"},
+    defamation:{label:"Defamation", days:90, rule:"3 months to file a criminal complaint (art. 124 c.p.); 5 years for a civil damages claim (art. 2947 c.c.)"},
+    other:{label:"Other", rule:"Time limits vary by type of claim, so a lawyer needs to tell you which one applies"}
   };
   var STATUS = {interested:"Interested", info:"More info asked", passed:"Passed"};
   var cases = [], selected = null, saving = false, ADMIN_VIEW = false;
@@ -202,6 +215,7 @@ footer div{max-width:1300px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
   function eur(n){ return n ? "€" + Number(n).toLocaleString("it-IT") : "—"; }
   function fmt(d){ return d ? new Date(d).toLocaleDateString("en-GB", {day:"numeric", month:"short", year:"numeric"}) : "—"; }
   function area(c){ return AREAS[c.area] || AREAS.other; }
+  function areaLabel(c){ return c.area === "other" && c.areaOther ? "Other: " + c.areaOther : area(c).label; }
   function daysLeft(c){
     var a = area(c); if(!c.date || !a.days) return null;
     var t = new Date(); t.setHours(0,0,0,0);
@@ -260,7 +274,7 @@ footer div{max-width:1300px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
       if(a !== "all" && c.area !== a) return false;
       if(st === "open" && d === "passed") return false;
       if(["open","all"].indexOf(st) < 0 && d !== st) return false;
-      if(q && [c.title, c.facts, c.city, area(c).label].join(" ").toLowerCase().indexOf(q) < 0) return false;
+      if(q && [c.title, c.facts, c.city, areaLabel(c)].join(" ").toLowerCase().indexOf(q) < 0) return false;
       return true;
     });
     var key = {
@@ -293,7 +307,7 @@ footer div{max-width:1300px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
       var s = score(c), r = risk(c), d = mine(c).decision;
       return '<button type="button" class="item' + (c.id === selected ? " sel" : "") + (d === "passed" ? " passed" : "") + '" data-id="' + esc(c.id) + '">' +
         '<div class="score' + (s.rated ? "" : " est") + '"><b>' + s.total + '</b><span>' + (s.rated ? "score" : "est.") + '</span></div>' +
-        '<div class="item-main"><div class="item-top"><span class="pill p-area">' + esc(area(c).label) + '</span></div>' +
+        '<div class="item-main"><div class="item-top"><span class="pill p-area">' + esc(areaLabel(c)) + '</span></div>' +
         '<div class="item-title">' + esc(c.title) + '</div>' +
         '<div class="item-meta">' + esc(c.city || "—") + ' · ' + eur(c.amount) + ' · ' + c.evidence.length + ' evidence item' + (c.evidence.length === 1 ? "" : "s") + '</div></div>' +
         '<div class="item-side"><span class="pill ' + r.cls + '">' + r.label + '</span><span class="dl ' + dlClass(daysLeft(c)) + '">' + esc(dlText(c)) + '</span>' +
@@ -309,7 +323,7 @@ footer div{max-width:1300px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
     var s = score(c), r = risk(c), m = mine(c);
     var bd = [["Claim strength", s.parts.strength, 35], ["Evidence quality", s.parts.evidence, 25], ["Amount at stake", s.parts.value, 25], ["Time pressure", s.parts.urgency, 15]];
     $("panel").innerHTML =
-      '<div><div class="item-top"><span class="pill p-area">' + esc(area(c).label) + '</span><span class="pill ' + r.cls + '">' + r.label + '</span></div><h2>' + esc(c.title) + '</h2></div>' +
+      '<div><div class="item-top"><span class="pill p-area">' + esc(areaLabel(c)) + '</span><span class="pill ' + r.cls + '">' + r.label + '</span></div><h2>' + esc(c.title) + '</h2></div>' +
       (c.contact ? '<div class="contact">The client shared their details with you: <b>' + esc(c.contact.name || "—") + '</b> · <b>' + esc(c.contact.email) + '</b></div>' : '') +
       '<div><p class="sec-h">Client\'s account</p><p class="facts">' + esc(c.facts) + '</p></div>' +
       ((c.updates || []).length ? '<div><p class="sec-h">Details added later</p>' + c.updates.map(function(u){ return '<p class="facts" style="margin-bottom:6px">' + esc(u.text) + ' <span class="note">(' + fmt(u.at) + ')</span></p>'; }).join("") + '</div>' : '') +

@@ -146,7 +146,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
   <!-- ============ Free / signed-out visitors ============ -->
   <section id="locked" hidden>
     <ul class="why">
-      <li><b>Don't miss the deadline</b><span>Each type of claim has its own time limit, from 60 days to challenge a dismissal to 10 years for a contract. See how long you have left.</span></li>
+      <li><b>Don't miss the deadline</b><span>Each type of claim has its own time limit, from 30 days to challenge a condominium decision or a fine to 10 years for a contract. See how long you have left.</span></li>
       <li><b>See the gaps in your evidence</b><span>Find out whether messages and witnesses are enough, or whether you need a contract, invoice or report first.</span></li>
       <li><b>Connect with a verified lawyer</b><span>Send your case to lawyers we have checked on the official register. You see who is interested, and you decide who gets your contact details.</span></li>
     </ul>
@@ -182,6 +182,11 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
         <div class="f">
           <label for="rc-area">What kind of problem is it?</label>
           <select id="rc-area"></select>
+        </div>
+        <div class="f" id="rc-other-wrap" hidden>
+          <label for="rc-other">Describe the type of problem in a few words</label>
+          <input type="text" id="rc-other" maxlength="80" placeholder="e.g. Dispute with my bank over a loan">
+          <span class="hint">This helps us send your case to lawyers who handle this kind of problem.</span>
         </div>
         <div class="f">
           <label for="rc-facts">What happened?</label>
@@ -265,11 +270,25 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
   var AREAS = {
     dismissal:{label:"Dismissal from a job", dateLabel:"Date you received the dismissal letter", days:60, rule:"60 days to challenge a dismissal in writing (L. 604/1966, art. 6)"},
     employment:{label:"Other work problem (pay, demotion…)", dateLabel:"When did it start?", days:1825, rule:"5 years for most pay and work claims (art. 2948 c.c.)"},
-    goods:{label:"Faulty product you bought", dateLabel:"Delivery date", days:365, rule:"1 year from delivery to sue over defects (art. 1495 c.c.)"},
+    goods:{label:"Faulty product (bought for a business or from a private seller)", dateLabel:"Delivery date", days:365, rule:"1 year from delivery to sue over defects (art. 1495 c.c.)"},
     contract:{label:"Unpaid money or broken contract", dateLabel:"When was payment or performance due?", days:3650, rule:"10 years, the ordinary limit (art. 2946 c.c.)"},
     injury:{label:"Injury or damage caused by someone", dateLabel:"When did it happen?", days:1825, rule:"5 years for damage claims (art. 2947 c.c.)"},
     road:{label:"Road accident", dateLabel:"Date of the accident", days:730, rule:"2 years for road accident claims (art. 2947(2) c.c.)"},
-    building:{label:"Defects in a building", dateLabel:"When did you find out the cause?", days:365, rule:"1 year from discovery to notify the builder (art. 1669 c.c.)"}
+    building:{label:"Defects in a building", dateLabel:"When did you find out the cause?", days:365, rule:"1 year from discovery to notify the builder (art. 1669 c.c.)"},
+    consumer:{label:"Faulty product bought from a shop or online (as a consumer)", dateLabel:"Delivery date", days:790, rule:"26 months from delivery to enforce the legal guarantee (art. 133 Codice del consumo)"},
+    tenancy:{label:"Landlord or tenant problem (rent, deposit)", dateLabel:"When was the rent or deposit due?", days:1825, rule:"5 years for unpaid rent (art. 2948 n. 3 c.c.)"},
+    condo:{label:"Condominium meeting decision", dateLabel:"Date of the meeting (or when you got the minutes, if you weren't there)", days:30, rule:"30 days to challenge a condominium decision in court (art. 1137 c.c.)"},
+    neighbours:{label:"Neighbour dispute (noise, smells, boundaries)", dateLabel:"When did it start?", days:null, rule:"No fixed limit to stop an ongoing nuisance (art. 844 c.c.); 5 years to claim damages (art. 2947 c.c.)", open:true},
+    medical:{label:"Medical error or poor treatment", dateLabel:"When did you find out about the harm?", days:3650, rule:"10 years against a hospital or clinic, 5 years against the doctor personally (L. 24/2017, art. 7)"},
+    insurance:{label:"Insurance claim refused or underpaid", dateLabel:"Date of the event the claim is about", days:730, rule:"2 years from the event for most insurance claims (art. 2952 c.c.)"},
+    travel:{label:"Flight delay, cancellation or lost luggage", dateLabel:"Date of the flight", days:730, rule:"2 years for flight claims (Montreal Convention, art. 35)"},
+    family:{label:"Separation, divorce or child support", dateLabel:"When did it start?", days:null, rule:"No general time limit for separation or divorce; each unpaid maintenance payment can be claimed for 5 years (art. 2948 n. 2 c.c.)", open:true},
+    inheritance:{label:"Inheritance or will", dateLabel:"Date of death", days:3650, rule:"10 years to accept an inheritance (art. 480 c.c.)"},
+    injunction:{label:"Payment order (decreto ingiuntivo) against you", dateLabel:"Date it was served on you", days:40, rule:"40 days to oppose a payment order (art. 641 c.p.c.)"},
+    fine:{label:"Traffic or administrative fine", dateLabel:"Date the fine was served on you", days:30, rule:"30 days to appeal to the giudice di pace, or 60 days to the Prefetto (artt. 204-bis and 203 Codice della strada)"},
+    tax:{label:"Tax assessment or tax bill", dateLabel:"Date it was served on you", days:60, rule:"60 days to appeal to the tax court (D.Lgs. 546/1992, art. 21)"},
+    defamation:{label:"Defamation or insults (including online)", dateLabel:"When did you find out about it?", days:90, rule:"3 months to file a criminal complaint (art. 124 c.p.); 5 years for a civil damages claim (art. 2947 c.c.)"},
+    other:{label:"Something else", dateLabel:"When did it start?", days:null, rule:"Time limits vary by type of claim, so a lawyer needs to tell you which one applies"}
   };
   var last = null, ROLE = "client";
   var EVIDENCE = ["Contract","Emails / messages","Invoices / receipts","Photos / video","Witnesses","Expert report","Official report","Payslips"];
@@ -278,7 +297,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
   function esc(s){ return String(s == null ? "" : s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
   function eur(n){ return "€" + Number(n).toLocaleString("it-IT"); }
   function daysLeft(area, date){
-    if(!date) return null;
+    if(!date || !AREAS[area].days) return null;
     var t = new Date(); t.setHours(0,0,0,0);
     var end = new Date(date + "T00:00:00").getTime() + AREAS[area].days*DAY;
     return Math.round((end - t.getTime())/DAY);
@@ -295,7 +314,9 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
   function check(c){
     var A = AREAS[c.area], d = daysLeft(c.area, c.date), pts = 0, time, ev, det, money;
     var formal = c.evidence.filter(function(e){ return INFORMAL.indexOf(e) < 0; });
-    if(d === null){ pts += 1; time = {v:"warn", label:"Unknown", tip:"Add the date so the time limit can be checked. " + A.rule + "."}; }
+    if(!A.days && A.open) time = {v:"ok", label:"No fixed limit", tip:A.rule + "."};
+    else if(!A.days){ pts += 0.5; time = {v:"warn", label:"Ask a lawyer", tip:A.rule + "."}; }
+    else if(d === null){ pts += 1; time = {v:"warn", label:"Unknown", tip:"Add the date so the time limit can be checked. " + A.rule + "."}; }
     else if(d < 0){ pts += 3; time = {v:"bad", label:"May have expired", tip:"The usual limit is " + lc(A.rule) + ". Some events pause or restart that clock, so have a lawyer look before you give up."}; }
     else if(d <= 60){ pts += 1; time = {v:"warn", label:d + " days left", tip:"Time is short. If you want a lawyer, see one now rather than later."}; }
     else time = {v:"ok", label:left(d), tip:"You are inside the usual time limit: " + lc(A.rule) + "."};
@@ -323,7 +344,12 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
   function buildForm(){
     $("rc-area").innerHTML = Object.keys(AREAS).map(function(k){ return '<option value="' + k + '">' + esc(AREAS[k].label) + '</option>'; }).join("");
     $("rc-evidence").innerHTML = EVIDENCE.map(function(e,i){ return '<label class="check"><input type="checkbox" id="rc-ev-' + i + '" value="' + esc(e) + '"> ' + esc(e) + '</label>'; }).join("");
-    var setLabel = function(){ $("rc-date-label").textContent = AREAS[$("rc-area").value].dateLabel; };
+    var setLabel = function(){
+      var k = $("rc-area").value, wasHidden = $("rc-other-wrap").hidden;
+      $("rc-date-label").textContent = AREAS[k].dateLabel;
+      $("rc-other-wrap").hidden = k !== "other";
+      if(k === "other" && wasHidden) $("rc-other").focus();
+    };
     $("rc-area").addEventListener("change", setLabel); setLabel();
     $("rc-form").addEventListener("input", function(){ $("result").hidden = true; $("result-empty").hidden = false; $("connect").hidden = true; });
     $("c-form").addEventListener("submit", function(e){
@@ -332,7 +358,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       var err = $("c-err"); err.textContent = "";
       if(!$("c-consent").checked){ err.textContent = "Tick the box so verified lawyers can read your case."; return; }
       var btn = $("c-send"); btn.disabled = true;
-      var data = { area:last.area, facts:last.facts, date:last.date, amount:last.amount, evidence:last.evidence,
+      var data = { area:last.area, areaOther:last.areaOther, facts:last.facts, date:last.date, amount:last.amount, evidence:last.evidence,
         title:$("c-title").value, party:$("c-party").value, city:$("c-city").value, goal:$("c-goal").value, consent:true };
       fetch("/api/cases/submit", { method:"POST", credentials:"same-origin", headers:{"Content-Type":"application/json"}, body: JSON.stringify(data) })
         .then(function(r){ return r.json().then(function(j){ if(!r.ok) throw new Error(j.error || "Couldn't send the case. Please try again."); return j; }); })
@@ -344,9 +370,11 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       e.preventDefault();
       var facts = $("rc-facts").value.trim();
       if(facts.length < 40){ $("rc-err").textContent = "Describe what happened in a few sentences first."; $("rc-facts").focus(); return; }
+      var other = $("rc-other").value.trim();
+      if($("rc-area").value === "other" && other.length < 3){ $("rc-err").textContent = "Tell us in a few words what kind of problem it is."; $("rc-other").focus(); return; }
       $("rc-err").textContent = "";
       var c = {
-        area: $("rc-area").value, facts: facts, date: $("rc-date").value || null,
+        area: $("rc-area").value, areaOther: $("rc-area").value === "other" ? other : "", facts: facts, date: $("rc-date").value || null,
         amount: +$("rc-amount").value || 0,
         evidence: Array.prototype.map.call(document.querySelectorAll("#rc-evidence input:checked"), function(x){ return x.value; })
       };

@@ -572,7 +572,7 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
    and the admin list of lawyers to verify. Talks to /api/auth/update and /api/cases/*. */
 (function(){
   var $ = function(id){ return document.getElementById(id); };
-  var AREA_KEYS = ["dismissal","employment","goods","contract","injury","road","building","family","tenancy","consumer","other"];
+  var AREA_KEYS = ["dismissal","employment","goods","contract","injury","road","building","consumer","tenancy","condo","neighbours","medical","insurance","travel","family","inheritance","injunction","fine","tax","defamation","other"];
   var S = {
     en: {
       h:"Profile type", client:"Client", lawyer:"Lawyer",
@@ -584,7 +584,7 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
       verifiedP:"You can review cases sent by clients.", board:"Open the case board", edit:"Edit lawyer details",
       barL:"Bar association", noL:"Register number", cityL:"City", areasL:"Areas of practice", bioL:"Bio",
       save:"Save lawyer profile", saved:"Lawyer profile saved.", switched:"Profile switched.",
-      AREAS:{dismissal:"Dismissal",employment:"Employment",goods:"Faulty goods",contract:"Contracts & debts",injury:"Injury & damage",road:"Road accidents",building:"Building defects",family:"Family",tenancy:"Tenancy",consumer:"Consumer",other:"Other"},
+      AREAS:{dismissal:"Dismissal",employment:"Employment",goods:"Faulty goods",contract:"Contracts & debts",injury:"Injury & damage",road:"Road accidents",building:"Building defects",consumer:"Consumer",tenancy:"Tenancy",condo:"Condominium",neighbours:"Neighbours",medical:"Medical malpractice",insurance:"Insurance",travel:"Travel",family:"Family",inheritance:"Inheritance",injunction:"Payment orders",fine:"Fines",tax:"Tax",defamation:"Defamation",other:"Other"},
       mcH:"Your cases with lawyers",
       mcEmpty:'You haven\'t sent a case to a lawyer yet. Start with the <a href="/risk-check.html">risk check</a>: after your result, you can send the case to verified lawyers.',
       sent:"Sent", reviews:function(n){ return n === 0 ? "No lawyer has reviewed it yet" : n === 1 ? "Reviewed by 1 lawyer" : "Reviewed by " + n + " lawyers"; },
@@ -605,7 +605,7 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
       verifiedP:"Puoi esaminare i casi inviati dai clienti.", board:"Apri la bacheca dei casi", edit:"Modifica i dati da avvocato",
       barL:"Ordine", noL:"N. iscrizione", cityL:"Città", areasL:"Aree di attività", bioL:"Presentazione",
       save:"Salva il profilo da avvocato", saved:"Profilo da avvocato salvato.", switched:"Profilo cambiato.",
-      AREAS:{dismissal:"Licenziamenti",employment:"Lavoro",goods:"Vizi della merce",contract:"Contratti e crediti",injury:"Danni e lesioni",road:"Incidenti stradali",building:"Vizi dell'immobile",family:"Famiglia",tenancy:"Locazioni",consumer:"Consumatori",other:"Altro"},
+      AREAS:{dismissal:"Licenziamenti",employment:"Lavoro",goods:"Vizi della merce",contract:"Contratti e crediti",injury:"Danni e lesioni",road:"Incidenti stradali",building:"Vizi dell'immobile",consumer:"Consumatori",tenancy:"Locazioni",condo:"Condominio",neighbours:"Rapporti di vicinato",medical:"Responsabilità medica",insurance:"Assicurazioni",travel:"Viaggi e trasporti",family:"Famiglia",inheritance:"Successioni",injunction:"Decreti ingiuntivi",fine:"Multe e sanzioni",tax:"Tributario",defamation:"Diffamazione",other:"Altro"},
       mcH:"I tuoi casi inviati agli avvocati",
       mcEmpty:'Non hai ancora inviato un caso a un avvocato. Inizia dalla <a href="/risk-check.html">verifica del rischio</a>: dopo il risultato puoi inviare il caso ad avvocati verificati.',
       sent:"Inviato", reviews:function(n){ return n === 0 ? "Nessun avvocato l'ha ancora esaminato" : n === 1 ? "Esaminato da 1 avvocato" : "Esaminato da " + n + " avvocati"; },
