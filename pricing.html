@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/i18n.js"></script>
 <script src="/theme.js"></script>
 <title>Plans — Casebound</title>
 <meta name="description" content="Casebound subscription plans.">
@@ -30,9 +31,6 @@ a:hover{color:var(--oxblood)}
 .masthead-in{max-width:820px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:16px;height:56px}
 .wordmark{font-family:var(--serif);font-size:21px;font-weight:600;letter-spacing:-.01em;line-height:1;text-decoration:none;color:var(--ink)}
 .wordmark span{color:var(--oxblood)}
-.lang{margin-left:auto;display:flex;gap:2px;background:var(--paper);border:1px solid var(--rule);border-radius:5px;padding:2px}
-.lang button{font-family:var(--sans);font-size:12.5px;font-weight:600;border:none;background:none;color:var(--ink-soft);padding:6px 12px;border-radius:3px;cursor:pointer}
-.lang button[aria-pressed="true"]{background:var(--ink);color:#fff}
 main{max-width:820px;margin:0 auto;padding:34px 20px 70px}
 .kicker{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--oxblood);margin:0 0 6px}
 h1{font-size:34px;line-height:1.15;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
@@ -40,13 +38,13 @@ h1{font-size:34px;line-height:1.15;font-weight:600;margin:0 0 6px;letter-spacing
 h2{font-size:21px;font-weight:600;margin:38px 0 10px;padding-top:18px;border-top:1px solid var(--rule-soft)}
 h3{font-family:var(--sans);font-size:14px;font-weight:700;margin:22px 0 6px}
 p,li{margin:0 0 12px}
-ul{padding-left:22px;margin:0 0 14px}
-.summary{background:var(--paper-2);border:1px solid var(--rule);border-left:4px solid var(--verdigris);border-radius:6px;padding:18px 20px;margin:0 0 10px}
+ul{padding-inline-start:22px;margin:0 0 14px}
+.summary{background:var(--paper-2);border:1px solid var(--rule);border-inline-start:4px solid var(--verdigris);border-radius:6px;padding:18px 20px;margin:0 0 10px}
 .summary h2{border:none;padding:0;margin:0 0 10px;font-size:18px}
 .summary ul{margin:0}
 .summary li{margin-bottom:8px}
 table{width:100%;border-collapse:collapse;font-size:14.5px;margin:6px 0 16px;background:var(--paper-2)}
-th,td{text-align:left;vertical-align:top;border:1px solid var(--rule);padding:9px 11px}
+th,td{text-align:start;vertical-align:top;border:1px solid var(--rule);padding:9px 11px}
 th{font-family:var(--sans);font-size:12px;font-weight:700;background:var(--paper);color:var(--ink-soft)}
 .tbl-wrap{overflow-x:auto}
 mark.ph{background:var(--amber-wash);color:var(--amber);font-family:var(--sans);font-size:.88em;font-weight:600;padding:1px 5px;border-radius:3px}
@@ -57,7 +55,7 @@ footer div{max-width:820px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
 .plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin:8px 0 26px}
 .plan{background:var(--paper-2);border:1px solid var(--rule);border-radius:6px;padding:22px 20px 20px;display:flex;flex-direction:column;position:relative}
 .plan.hl{border-color:var(--oxblood);box-shadow:0 0 0 1px var(--oxblood)}
-.plan .tag{position:absolute;top:-10px;left:18px;background:var(--oxblood);color:#fff;font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:3px}
+.plan .tag{position:absolute;top:-10px;inset-inline-start:18px;background:var(--oxblood);color:#fff;font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:3px}
 .plan h2{border:none;padding:0;margin:0 0 4px;font-size:20px}
 .plan .desc{font-size:15px;color:var(--ink-soft);margin:0 0 14px}
 .price{font-family:var(--sans);margin:0 0 4px}
@@ -65,8 +63,8 @@ footer div{max-width:820px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
 .price span{font-size:13px;color:var(--ink-soft)}
 .trial{font-family:var(--sans);font-size:12.5px;font-weight:600;color:var(--verdigris);margin:0 0 12px}
 .plan ul{list-style:none;padding:0;margin:4px 0 18px;font-size:15px}
-.plan li{padding-left:22px;position:relative;margin-bottom:7px}
-.plan li:before{content:"";position:absolute;left:3px;top:.55em;width:9px;height:5px;border-left:2px solid var(--verdigris);border-bottom:2px solid var(--verdigris);transform:rotate(-45deg)}
+.plan li{padding-inline-start:22px;position:relative;margin-bottom:7px}
+.plan li:before{content:"";position:absolute;inset-inline-start:3px;top:.55em;width:9px;height:5px;border-left:2px solid var(--verdigris);border-bottom:2px solid var(--verdigris);transform:rotate(-45deg)}
 .plan .grow{flex:1}
 .btn{font-family:var(--sans);font-size:14px;font-weight:700;border:1px solid var(--ink);background:var(--ink);color:#fff;border-radius:5px;padding:11px 16px;cursor:pointer;width:100%;text-align:center;text-decoration:none;display:inline-block}
 .btn:hover{background:var(--oxblood);border-color:var(--oxblood);color:#fff}
@@ -89,10 +87,7 @@ footer div{max-width:820px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
 <header class="masthead">
   <div class="masthead-in">
     <a class="wordmark" href="/">Case<span>bound</span></a>
-    <div class="lang" role="group" aria-label="Language">
-      <button type="button" data-lang="en" aria-pressed="true">English</button>
-      <button type="button" data-lang="it" aria-pressed="false">Italiano</button>
-    </div>
+    <div class="lang"></div>
   </div>
 </header>
 
@@ -124,7 +119,7 @@ footer div{max-width:820px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
     <a href="/" data-t="back">← Back to Casebound</a>
     <a href="/terms.html" data-t="terms">Terms of use</a>
     <a href="/privacy.html" data-t="privacy">Privacy notice</a>
-    <a href="mailto:admin@case-bound.com">Contact / complaints: admin@case-bound.com</a>
+    <a href="mailto:admin@case-bound.com" data-t="contact">Contact / complaints: admin@case-bound.com</a>
     <span>© 2026 Kiyan Martinon</span>
   </div>
 </footer>
@@ -150,7 +145,7 @@ footer div{max-width:820px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       fine1:"Subscriptions renew automatically at the end of each period until you cancel. You can cancel at any time and keep access until the end of the period you have paid for.",
       fine2:'Consumers in the EU can withdraw within 14 days of subscribing. Full details are in the <a href="/terms.html#subscriptions">Terms of use</a> and <a href="/privacy.html#payments">Privacy notice</a>.',
       manage:"Already subscribed?", manageLink:"Manage your subscription",
-      back:"← Back to Casebound", terms:"Terms of use", privacy:"Privacy notice",
+      back:"← Back to Casebound", terms:"Terms of use", privacy:"Privacy notice", contact:"Contact / complaints: admin@case-bound.com",
       freeName:"Free", freeDesc:"Try Casebound with no card and no account.", startFree:"Start free",
       freeFeats:function(f){ return [f.analysesPerDay + " new analyses per day", "Up to " + f.savedCases + " saved cases", "Case mindmap and ranked sources"].concat(f.fileUpload ? ["Read PDF, Word and text files"] : []); },
       proFeats:["Risk check: time limit, evidence gaps and a Low / Medium / High rating", "Connect with verified lawyers: send your case and choose who gets your contact details", "Unlimited analyses", "Unlimited saved cases", "Read PDF, Word and text files into your facts"],
@@ -158,7 +153,7 @@ footer div{max-width:820px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       recommended:"Recommended", subscribe:"Subscribe", redirecting:"Opening secure checkout…",
       trial:function(n){ return n + "-day free trial"; },
       per:{day:"day",week:"week",month:"month",year:"year"},
-      every:function(n,u){ return "every " + n + " " + u + "s"; },
+      every:function(n,k){ return "every " + n + " " + k + "s"; },
       loadErr:"Plans could not be loaded. Please refresh the page or try again later.",
       ckErr:"Checkout could not be opened."
     },
@@ -174,7 +169,7 @@ footer div{max-width:820px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       fine1:"Gli abbonamenti si rinnovano automaticamente alla fine di ogni periodo finché non li disdici. Puoi disdire in qualsiasi momento e mantieni l'accesso fino alla fine del periodo già pagato.",
       fine2:'I consumatori nell\'UE possono recedere entro 14 giorni dalla sottoscrizione. Tutti i dettagli sono nelle <a href="/terms.html#subscriptions-it">Condizioni d\'uso</a> e nell\'<a href="/privacy.html#payments-it">Informativa privacy</a>.',
       manage:"Hai già un abbonamento?", manageLink:"Gestisci il tuo abbonamento",
-      back:"← Torna a Casebound", terms:"Condizioni d'uso", privacy:"Informativa privacy",
+      back:"← Torna a Casebound", terms:"Condizioni d'uso", privacy:"Informativa privacy", contact:"Contatti / reclami: admin@case-bound.com",
       freeName:"Gratis", freeDesc:"Prova Casebound senza carta e senza account.", startFree:"Inizia gratis",
       freeFeats:function(f){ return [f.analysesPerDay + " nuove analisi al giorno", "Fino a " + f.savedCases + " casi salvati", "Mappa del caso e fonti ordinate"].concat(f.fileUpload ? ["Lettura di file PDF, Word e di testo"] : []); },
       proFeats:["Verifica del rischio: termini, lacune nelle prove e un giudizio Basso / Medio / Alto", "Contatto con avvocati verificati: invia il tuo caso e scegli tu a chi dare i tuoi contatti", "Analisi illimitate", "Casi salvati illimitati", "Lettura di file PDF, Word e di testo nei fatti"],
@@ -182,14 +177,177 @@ footer div{max-width:820px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       recommended:"Consigliato", subscribe:"Abbonati", redirecting:"Apertura del pagamento sicuro…",
       trial:function(n){ return n + " giorni di prova gratuita"; },
       per:{day:"giorno",week:"settimana",month:"mese",year:"anno"},
-      every:function(n,u){ var pl={giorno:"giorni",settimana:"settimane",mese:"mesi",anno:"anni"}; return "ogni " + n + " " + (pl[u]||u); },
+      every:function(n,k){ var pl={day:"giorni",week:"settimane",month:"mesi",year:"anni"}; return "ogni " + n + " " + (pl[k]||k); },
       loadErr:"Impossibile caricare i piani. Ricarica la pagina o riprova più tardi.",
       ckErr:"Impossibile aprire il pagamento."
+    },
+    es: {
+      docTitle:"Planes — Casebound", kicker:"Planes", title:"Suscríbete a Casebound",
+      lead:"Elige un plan. Stripe gestiona el pago de forma segura: nunca vemos los datos de tu tarjeta.",
+      test:"Modo de prueba: usa la tarjeta 4242 4242 4242 4242, cualquier fecha futura y cualquier CVC. No se cobra dinero real.",
+      canceled:"Se ha cancelado el pago: no se te ha cobrado nada.",
+      loading:"Cargando planes…",
+      closed:"Los planes de pago abrirán pronto. Mientras tanto, puedes usar el plan gratuito.",
+      empty:"Ahora mismo no hay planes a la venta. Vuelve a consultarlo pronto.",
+      fine0:"Para suscribirte necesitas una cuenta gratuita de Casebound: puedes crearla en el siguiente paso.",
+      fine1:"Las suscripciones se renuevan automáticamente al final de cada periodo hasta que las canceles. Puedes cancelar en cualquier momento y mantener el acceso hasta el final del periodo ya pagado.",
+      fine2:'Los consumidores de la UE pueden desistir en un plazo de 14 días desde la suscripción. Todos los detalles están en las <a href="/terms.html#subscriptions">Condiciones de uso</a> y en el <a href="/privacy.html#payments">Aviso de privacidad</a>.',
+      manage:"¿Ya tienes una suscripción?", manageLink:"Gestionar tu suscripción",
+      back:"← Volver a Casebound", terms:"Condiciones de uso", privacy:"Aviso de privacidad", contact:"Contacto / reclamaciones: admin@case-bound.com",
+      freeName:"Gratis", freeDesc:"Prueba Casebound sin tarjeta y sin cuenta.", startFree:"Empezar gratis",
+      freeFeats:function(f){ return [f.analysesPerDay + (f.analysesPerDay === 1 ? " análisis nuevo al día" : " análisis nuevos al día"), "Hasta " + f.savedCases + (f.savedCases === 1 ? " caso guardado" : " casos guardados"), "Mapa del caso y fuentes ordenadas"].concat(f.fileUpload ? ["Lectura de archivos PDF, Word y de texto"] : []); },
+      proFeats:["Evaluación de riesgo: plazos, lagunas en las pruebas y una valoración Bajo / Medio / Alto", "Contacto con abogados verificados: envía tu caso y elige quién recibe tus datos de contacto", "Análisis ilimitados", "Casos guardados ilimitados", "Lectura de archivos PDF, Word y de texto en tus hechos"],
+      newPro:'<b>Novedad en Pro: evaluación de riesgo y contacto con abogados.</b> Descubre si tu caso sigue dentro de plazo y está bien documentado, y luego envíalo a abogados verificados. <a href="/risk-check.html">Descubre cómo funciona</a>',
+      recommended:"Recomendado", subscribe:"Suscribirse", redirecting:"Abriendo el pago seguro…",
+      trial:function(n){ return "Prueba gratis de " + n + (n === 1 ? " día" : " días"); },
+      per:{day:"día",week:"semana",month:"mes",year:"año"},
+      every:function(n,k){ var pl={day:"días",week:"semanas",month:"meses",year:"años"}; return "cada " + n + " " + (pl[k]||k); },
+      loadErr:"No se han podido cargar los planes. Actualiza la página o inténtalo más tarde.",
+      ckErr:"No se ha podido abrir el pago."
+    },
+    fr: {
+      docTitle:"Offres — Casebound", kicker:"Offres", title:"Abonnez-vous à Casebound",
+      lead:"Choisissez une offre. Le paiement est traité en toute sécurité par Stripe : nous ne voyons jamais les données de votre carte.",
+      test:"Mode test — utilisez la carte 4242 4242 4242 4242, une date future et n'importe quel CVC. Aucun montant réel n'est débité.",
+      canceled:"Le paiement a été annulé — vous n'avez pas été débité.",
+      loading:"Chargement des offres…",
+      closed:"Les offres payantes ouvrent bientôt. En attendant, vous pouvez utiliser l'offre gratuite.",
+      empty:"Aucune offre n'est disponible pour le moment. Revenez bientôt.",
+      fine0:"Un compte Casebound gratuit est nécessaire pour vous abonner — vous pourrez le créer à l'étape suivante.",
+      fine1:"Les abonnements se renouvellent automatiquement à la fin de chaque période jusqu'à leur résiliation. Vous pouvez résilier à tout moment et conserver l'accès jusqu'à la fin de la période payée.",
+      fine2:'Les consommateurs de l\'UE peuvent se rétracter dans les 14 jours suivant la souscription. Tous les détails figurent dans les <a href="/terms.html#subscriptions">Conditions d\'utilisation</a> et la <a href="/privacy.html#payments">Politique de confidentialité</a>.',
+      manage:"Déjà abonné ?", manageLink:"Gérer votre abonnement",
+      back:"← Retour à Casebound", terms:"Conditions d'utilisation", privacy:"Politique de confidentialité", contact:"Contact / réclamations : admin@case-bound.com",
+      freeName:"Gratuit", freeDesc:"Essayez Casebound sans carte et sans compte.", startFree:"Commencer gratuitement",
+      freeFeats:function(f){ return [f.analysesPerDay + (f.analysesPerDay === 1 ? " nouvelle analyse par jour" : " nouvelles analyses par jour"), "Jusqu'à " + f.savedCases + (f.savedCases === 1 ? " dossier enregistré" : " dossiers enregistrés"), "Carte du dossier et sources classées"].concat(f.fileUpload ? ["Lecture de fichiers PDF, Word et texte"] : []); },
+      proFeats:["Évaluation du risque : délais, lacunes dans les preuves et une note Faible / Moyen / Élevé", "Mise en relation avec des avocats vérifiés : envoyez votre dossier et choisissez qui reçoit vos coordonnées", "Analyses illimitées", "Dossiers enregistrés illimités", "Lecture de fichiers PDF, Word et texte dans vos faits"],
+      newPro:'<b>Nouveau dans Pro : évaluation du risque et mise en relation avec des avocats.</b> Vérifiez si votre affaire est encore dans les délais et bien documentée, puis envoyez-la à des avocats vérifiés. <a href="/risk-check.html">Voir comment ça marche</a>',
+      recommended:"Recommandé", subscribe:"S'abonner", redirecting:"Ouverture du paiement sécurisé…",
+      trial:function(n){ return "Essai gratuit de " + n + (n === 1 ? " jour" : " jours"); },
+      per:{day:"jour",week:"semaine",month:"mois",year:"an"},
+      every:function(n,k){ return k === "week" ? "toutes les " + n + " semaines" : "tous les " + n + " " + ({day:"jours",month:"mois",year:"ans"}[k] || k); },
+      loadErr:"Impossible de charger les offres. Actualisez la page ou réessayez plus tard.",
+      ckErr:"Impossible d'ouvrir le paiement."
+    },
+    de: {
+      docTitle:"Tarife — Casebound", kicker:"Tarife", title:"Casebound abonnieren",
+      lead:"Wähle einen Tarif. Die Zahlung wird sicher über Stripe abgewickelt – wir sehen deine Kartendaten nie.",
+      test:"Testmodus – verwende die Karte 4242 4242 4242 4242, ein beliebiges zukünftiges Datum und eine beliebige Prüfnummer (CVC). Es wird kein echtes Geld abgebucht.",
+      canceled:"Der Bezahlvorgang wurde abgebrochen – dir wurde nichts berechnet.",
+      loading:"Tarife werden geladen…",
+      closed:"Kostenpflichtige Tarife gibt es bald. Bis dahin kannst du den kostenlosen Tarif nutzen.",
+      empty:"Derzeit sind keine Tarife erhältlich. Schau bald wieder vorbei.",
+      fine0:"Für ein Abo brauchst du ein kostenloses Casebound-Konto – du kannst es im nächsten Schritt erstellen.",
+      fine1:"Abos verlängern sich am Ende jedes Zeitraums automatisch, bis du kündigst. Du kannst jederzeit kündigen und behältst den Zugang bis zum Ende des bezahlten Zeitraums.",
+      fine2:'Verbraucher in der EU können innerhalb von 14 Tagen nach Abschluss widerrufen. Alle Einzelheiten findest du in den <a href="/terms.html#subscriptions">Nutzungsbedingungen</a> und im <a href="/privacy.html#payments">Datenschutzhinweis</a>.',
+      manage:"Schon abonniert?", manageLink:"Abo verwalten",
+      back:"← Zurück zu Casebound", terms:"Nutzungsbedingungen", privacy:"Datenschutzhinweis", contact:"Kontakt / Beschwerden: admin@case-bound.com",
+      freeName:"Kostenlos", freeDesc:"Teste Casebound ohne Karte und ohne Konto.", startFree:"Kostenlos starten",
+      freeFeats:function(f){ return [f.analysesPerDay + (f.analysesPerDay === 1 ? " neue Analyse pro Tag" : " neue Analysen pro Tag"), "Bis zu " + f.savedCases + (f.savedCases === 1 ? " gespeicherter Fall" : " gespeicherte Fälle"), "Fallkarte und sortierte Quellen"].concat(f.fileUpload ? ["PDF-, Word- und Textdateien einlesen"] : []); },
+      proFeats:["Risikocheck: Fristen, Beweislücken und eine Einstufung Niedrig / Mittel / Hoch", "Kontakt zu verifizierten Anwälten: Sende deinen Fall und entscheide selbst, wer deine Kontaktdaten erhält", "Unbegrenzte Analysen", "Unbegrenzt gespeicherte Fälle", "PDF-, Word- und Textdateien in deinen Sachverhalt einlesen"],
+      newPro:'<b>Neu in Pro: Risikocheck und Kontakt zu Anwälten.</b> Finde heraus, ob dein Fall noch fristgerecht und gut belegt ist, und sende ihn dann an verifizierte Anwälte. <a href="/risk-check.html">So funktioniert es</a>',
+      recommended:"Empfohlen", subscribe:"Abonnieren", redirecting:"Sicherer Bezahlvorgang wird geöffnet…",
+      trial:function(n){ return n + (n === 1 ? " Tag" : " Tage") + " kostenlos testen"; },
+      per:{day:"Tag",week:"Woche",month:"Monat",year:"Jahr"},
+      every:function(n,k){ var pl={day:"Tage",week:"Wochen",month:"Monate",year:"Jahre"}; return "alle " + n + " " + (pl[k]||k); },
+      loadErr:"Die Tarife konnten nicht geladen werden. Lade die Seite neu oder versuche es später erneut.",
+      ckErr:"Der Bezahlvorgang konnte nicht geöffnet werden."
+    },
+    pt: {
+      docTitle:"Planos — Casebound", kicker:"Planos", title:"Subscreva o Casebound",
+      lead:"Escolha um plano. O pagamento é processado em segurança pela Stripe — nunca vemos os dados do seu cartão.",
+      test:"Modo de teste — utilize o cartão 4242 4242 4242 4242, qualquer data futura e qualquer CVC. Não é cobrado dinheiro real.",
+      canceled:"O pagamento foi cancelado — não lhe foi cobrado nada.",
+      loading:"A carregar os planos…",
+      closed:"Os planos pagos abrem em breve. Entretanto, pode utilizar o plano gratuito.",
+      empty:"De momento não há planos à venda. Volte a verificar em breve.",
+      fine0:"Precisa de uma conta Casebound gratuita para subscrever — pode criá-la no passo seguinte.",
+      fine1:"As subscrições renovam-se automaticamente no fim de cada período até as cancelar. Pode cancelar a qualquer momento e mantém o acesso até ao fim do período já pago.",
+      fine2:'Os consumidores na UE podem exercer o direito de livre resolução no prazo de 14 dias após a subscrição. Todos os detalhes constam dos <a href="/terms.html#subscriptions">Termos de utilização</a> e do <a href="/privacy.html#payments">Aviso de privacidade</a>.',
+      manage:"Já tem uma subscrição?", manageLink:"Gerir a sua subscrição",
+      back:"← Voltar ao Casebound", terms:"Termos de utilização", privacy:"Aviso de privacidade", contact:"Contacto / reclamações: admin@case-bound.com",
+      freeName:"Gratuito", freeDesc:"Experimente o Casebound sem cartão e sem conta.", startFree:"Começar grátis",
+      freeFeats:function(f){ return [f.analysesPerDay + (f.analysesPerDay === 1 ? " nova análise por dia" : " novas análises por dia"), "Até " + f.savedCases + (f.savedCases === 1 ? " caso guardado" : " casos guardados"), "Mapa do caso e fontes ordenadas"].concat(f.fileUpload ? ["Leitura de ficheiros PDF, Word e de texto"] : []); },
+      proFeats:["Avaliação de risco: prazos, lacunas na prova e uma classificação Baixo / Médio / Alto", "Contacto com advogados verificados: envie o seu caso e escolha quem recebe os seus contactos", "Análises ilimitadas", "Casos guardados ilimitados", "Leitura de ficheiros PDF, Word e de texto para os seus factos"],
+      newPro:'<b>Novidade no Pro: avaliação de risco e contacto com advogados.</b> Saiba se o seu caso ainda está dentro do prazo e bem documentado e, depois, envie-o a advogados verificados. <a href="/risk-check.html">Veja como funciona</a>',
+      recommended:"Recomendado", subscribe:"Subscrever", redirecting:"A abrir o pagamento seguro…",
+      trial:function(n){ return n + (n === 1 ? " dia" : " dias") + " de teste gratuito"; },
+      per:{day:"dia",week:"semana",month:"mês",year:"ano"},
+      every:function(n,k){ var pl={day:"dias",week:"semanas",month:"meses",year:"anos"}; return "a cada " + n + " " + (pl[k]||k); },
+      loadErr:"Não foi possível carregar os planos. Atualize a página ou tente mais tarde.",
+      ckErr:"Não foi possível abrir o pagamento."
+    },
+    pl: {
+      docTitle:"Plany — Casebound", kicker:"Plany", title:"Subskrybuj Casebound",
+      lead:"Wybierz plan. Płatność bezpiecznie obsługuje Stripe — nigdy nie widzimy danych Twojej karty.",
+      test:"Tryb testowy — użyj karty 4242 4242 4242 4242, dowolnej przyszłej daty i dowolnego kodu CVC. Żadne prawdziwe pieniądze nie zostaną pobrane.",
+      canceled:"Płatność została anulowana — nic nie zostało pobrane.",
+      loading:"Ładowanie planów…",
+      closed:"Płatne plany będą dostępne wkrótce. Do tego czasu możesz korzystać z darmowego planu.",
+      empty:"Obecnie nie ma planów w sprzedaży. Zajrzyj tu wkrótce.",
+      fine0:"Aby subskrybować, potrzebujesz darmowego konta Casebound — możesz je utworzyć w następnym kroku.",
+      fine1:"Subskrypcje odnawiają się automatycznie na koniec każdego okresu, dopóki ich nie anulujesz. Możesz anulować w dowolnym momencie i zachować dostęp do końca opłaconego okresu.",
+      fine2:'Konsumenci w UE mogą odstąpić od umowy w ciągu 14 dni od rozpoczęcia subskrypcji. Wszystkie szczegóły znajdziesz w <a href="/terms.html#subscriptions">Warunkach korzystania</a> i <a href="/privacy.html#payments">Informacji o prywatności</a>.',
+      manage:"Masz już subskrypcję?", manageLink:"Zarządzaj subskrypcją",
+      back:"← Wróć do Casebound", terms:"Warunki korzystania", privacy:"Informacja o prywatności", contact:"Kontakt / reklamacje: admin@case-bound.com",
+      freeName:"Darmowy", freeDesc:"Wypróbuj Casebound bez karty i bez konta.", startFree:"Zacznij za darmo",
+      freeFeats:function(f){ var n = f.analysesPerDay; return [n + " " + plPl(n, "nowa analiza", "nowe analizy", "nowych analiz") + " dziennie", f.savedCases === 1 ? "1 zapisana sprawa" : "Do " + f.savedCases + " zapisanych spraw", "Mapa sprawy i uporządkowane źródła"].concat(f.fileUpload ? ["Odczyt plików PDF, Word i tekstowych"] : []); },
+      proFeats:["Ocena ryzyka: terminy, luki w dowodach i ocena Niskie / Średnie / Wysokie", "Kontakt ze zweryfikowanymi prawnikami: wyślij swoją sprawę i zdecyduj, kto otrzyma Twoje dane kontaktowe", "Nielimitowane analizy", "Nielimitowane zapisane sprawy", "Odczyt plików PDF, Word i tekstowych do opisu faktów"],
+      newPro:'<b>Nowość w Pro: ocena ryzyka i kontakt z prawnikami.</b> Sprawdź, czy Twoja sprawa mieści się jeszcze w terminach i jest dobrze udokumentowana, a potem wyślij ją do zweryfikowanych prawników. <a href="/risk-check.html">Zobacz, jak to działa</a>',
+      recommended:"Polecany", subscribe:"Subskrybuj", redirecting:"Otwieranie bezpiecznej płatności…",
+      trial:function(n){ return "Bezpłatny okres próbny: " + n + (n === 1 ? " dzień" : " dni"); },
+      per:{day:"dzień",week:"tydzień",month:"miesiąc",year:"rok"},
+      every:function(n,k){ var f={day:["dzień","dni","dni"],week:["tydzień","tygodnie","tygodni"],month:["miesiąc","miesiące","miesięcy"],year:["rok","lata","lat"]}[k]; return "co " + n + " " + (f ? plPl(n, f[0], f[1], f[2]) : k); },
+      loadErr:"Nie udało się załadować planów. Odśwież stronę lub spróbuj ponownie później.",
+      ckErr:"Nie udało się otworzyć płatności."
+    },
+    ar: {
+      docTitle:"الخطط — Casebound", kicker:"الخطط", title:"اشترك في Casebound",
+      lead:"اختر خطة. تتولى Stripe معالجة الدفع بأمان، ولا نطّلع أبدًا على بيانات بطاقتك.",
+      test:"وضع الاختبار: استخدم البطاقة 4242 4242 4242 4242 وأي تاريخ مستقبلي وأي رمز CVC. لن تُخصم أي أموال حقيقية.",
+      canceled:"أُلغيت عملية الدفع، ولم يُخصم منك أي مبلغ.",
+      loading:"جارٍ تحميل الخطط…",
+      closed:"ستتوفر الخطط المدفوعة قريبًا. حتى ذلك الحين يمكنك استخدام الخطة المجانية.",
+      empty:"لا توجد خطط متاحة حاليًا. يُرجى العودة لاحقًا.",
+      fine0:"تحتاج إلى حساب مجاني في Casebound للاشتراك، ويمكنك إنشاؤه في الخطوة التالية.",
+      fine1:"تتجدد الاشتراكات تلقائيًا في نهاية كل فترة إلى أن تلغيها. يمكنك الإلغاء في أي وقت مع الاحتفاظ بإمكانية الوصول حتى نهاية الفترة المدفوعة.",
+      fine2:'يحق للمستهلكين في الاتحاد الأوروبي الانسحاب خلال 14 يومًا من الاشتراك. تجد التفاصيل كاملة في <a href="/terms.html#subscriptions">شروط الاستخدام</a> و<a href="/privacy.html#payments">إشعار الخصوصية</a>.',
+      manage:"مشترك بالفعل؟", manageLink:"إدارة اشتراكك",
+      back:"→ العودة إلى Casebound", terms:"شروط الاستخدام", privacy:"إشعار الخصوصية", contact:"التواصل / الشكاوى: admin@case-bound.com",
+      freeName:"مجاني", freeDesc:"جرّب Casebound دون بطاقة ودون حساب.", startFree:"ابدأ مجانًا",
+      freeFeats:function(f){ return [arPl(f.analysesPerDay, "تحليل جديد واحد", "تحليلان جديدان", "تحليلات جديدة", "تحليلًا جديدًا") + " يوميًا", arPl(f.savedCases, "قضية محفوظة واحدة", "حتى قضيتين محفوظتين", "قضايا محفوظة", "قضية محفوظة", "حتى "), "خريطة القضية ومصادر مرتبة"].concat(f.fileUpload ? ["قراءة ملفات PDF وWord والملفات النصية"] : []); },
+      proFeats:["تقييم المخاطر: المهل القانونية والثغرات في الأدلة وتصنيف منخفض / متوسط / مرتفع", "التواصل مع محامين موثَّقين: أرسل قضيتك واختر من يحصل على بيانات الاتصال الخاصة بك", "تحليلات غير محدودة", "قضايا محفوظة غير محدودة", "قراءة ملفات PDF وWord والملفات النصية ضمن وقائع قضيتك"],
+      newPro:'<b>جديد في Pro: تقييم المخاطر والتواصل مع المحامين.</b> اعرف ما إذا كانت قضيتك لا تزال ضمن المهل وموثقة جيدًا، ثم أرسلها إلى محامين موثَّقين. <a href="/risk-check.html">تعرّف على طريقة العمل</a>',
+      recommended:"موصى بها", subscribe:"اشترك", redirecting:"جارٍ فتح صفحة الدفع الآمن…",
+      trial:function(n){ return "تجربة مجانية لمدة " + arPl(n, "يوم واحد", "يومين", "أيام", "يومًا"); },
+      per:{day:"يوم",week:"أسبوع",month:"شهر",year:"سنة"},
+      every:function(n,k){ var f={day:["يوم","يومين","أيام","يومًا"],week:["أسبوع","أسبوعين","أسابيع","أسبوعًا"],month:["شهر","شهرين","أشهر","شهرًا"],year:["سنة","سنتين","سنوات","سنة"]}[k]; return "كل " + (f ? arPl(n, f[0], f[1], f[2], f[3]) : n + " " + k); },
+      loadErr:"تعذّر تحميل الخطط. يُرجى تحديث الصفحة أو المحاولة لاحقًا.",
+      ckErr:"تعذّر فتح صفحة الدفع."
     }
   };
+  // Plural helpers. Polish: 1 / 2–4 (not 12–14) / everything else.
+  function plPl(n, one, few, many){ var r = new Intl.PluralRules("pl").select(n); return r === "one" ? one : r === "few" ? few : many; }
+  // Arabic: 1 and 2 take their own words (no digit); 3–10 plural; 11+ singular accusative.
+  function arPl(n, one, two, few, many, pre){
+    var r = new Intl.PluralRules("ar").select(n);
+    if (r === "one") return one;
+    if (r === "two") return two;
+    return (pre || "") + n + " " + (r === "few" ? few : many);
+  }
+  // Server messages (checkout) are in English; translate the ones a buyer can meet.
+  var CK_ERR = {
+    "Subscriptions are not open yet.":{it:"Gli abbonamenti non sono ancora aperti.",es:"Las suscripciones aún no están abiertas.",fr:"Les abonnements ne sont pas encore ouverts.",de:"Abos sind noch nicht verfügbar.",pt:"As subscrições ainda não estão abertas.",pl:"Subskrypcje nie są jeszcze dostępne.",ar:"الاشتراكات غير متاحة بعد."},
+    "Unknown plan.":{it:"Piano sconosciuto.",es:"Plan desconocido.",fr:"Offre inconnue.",de:"Unbekannter Tarif.",pt:"Plano desconhecido.",pl:"Nieznany plan.",ar:"خطة غير معروفة."},
+    "This plan is no longer available.":{it:"Questo piano non è più disponibile.",es:"Este plan ya no está disponible.",fr:"Cette offre n'est plus disponible.",de:"Dieser Tarif ist nicht mehr verfügbar.",pt:"Este plano já não está disponível.",pl:"Ten plan nie jest już dostępny.",ar:"هذه الخطة لم تعد متاحة."},
+    "Request blocked.":{it:"Richiesta bloccata.",es:"Solicitud bloqueada.",fr:"Requête bloquée.",de:"Anfrage blockiert.",pt:"Pedido bloqueado.",pl:"Żądanie zablokowane.",ar:"تم حظر الطلب."},
+    "Invalid request.":{it:"Richiesta non valida.",es:"Solicitud no válida.",fr:"Requête non valide.",de:"Ungültige Anfrage.",pt:"Pedido inválido.",pl:"Nieprawidłowe żądanie.",ar:"طلب غير صالح."}
+  };
+  function ckMsg(m){ return (CK_ERR[m] && CK_ERR[m][lang]) || m; }
   var ZERO_DEC = ["bif","clp","djf","gnf","jpy","kmf","krw","mga","pyg","rwf","ugx","vnd","vuv","xaf","xof","xpf"];
-  var lang = "en", data = null;
-  var btns = document.querySelectorAll(".lang button");
+  var I = window.CB_I18N || null;
+  var lang = I ? I.get() : "en", data = null, errMsg = null;
+  if (!T[lang]) lang = "en";
   var $ = function(id){ return document.getElementById(id); };
 
   function esc(s){ return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
@@ -197,24 +355,35 @@ footer div{max-width:820px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
     var minor = ZERO_DEC.indexOf(cur) >= 0 ? 1 : 100;
     var v = amount / minor;
     try {
-      return new Intl.NumberFormat(lang === "it" ? "it-IT" : "en-IE", { style:"currency", currency:cur.toUpperCase(), minimumFractionDigits: v % 1 ? 2 : 0 }).format(v);
+      return new Intl.NumberFormat(I ? I.locale(lang) : "en-IE", { style:"currency", currency:cur.toUpperCase(), minimumFractionDigits: v % 1 ? 2 : 0 }).format(v);
     } catch(e){ return v.toFixed(2) + " " + cur.toUpperCase(); }
   }
   function period(p){
-    var t = T[lang], u = t.per[p.interval] || p.interval;
-    return p.intervalCount > 1 ? t.every(p.intervalCount, u) : "/ " + u;
+    var t = T[lang];
+    return p.intervalCount > 1 ? t.every(p.intervalCount, p.interval) : "/ " + (t.per[p.interval] || p.interval);
   }
-  function showErr(msg){ var b = $("banner-err"); b.textContent = msg; b.hidden = !msg; }
+  // msg: a function returning the text in the current language (re-run on language switch), or "" to hide.
+  function showErr(msg){ errMsg = msg || null; var b = $("banner-err"); b.textContent = errMsg ? errMsg() : ""; b.hidden = !errMsg; }
+  // Text of the plan in the current language (from /api/plans → tr[lang]), falling back to English.
+  function planText(p, field){
+    var tr = p.tr && p.tr[lang], v = tr && tr[field];
+    if (field === "features") {
+      if (typeof v === "string") v = v.split("|").map(function(x){ return x.trim(); }).filter(Boolean);
+      if (!(v && v.length) && lang === "it" && p.features_it && p.features_it.length) v = p.features_it;
+      return (v && v.length) ? v : (p.features || []);
+    }
+    if (!v && lang === "it") v = p[field + "_it"];
+    return v || p[field];
+  }
 
   function render(){
     var t = T[lang];
-    document.documentElement.lang = lang;
     document.title = t.docTitle;
     document.querySelectorAll("[data-t]").forEach(function(el){
       var v = t[el.getAttribute("data-t")];
       if (typeof v === "string") { if (/<a /.test(v)) el.innerHTML = v; else el.textContent = v; }
     });
-    btns.forEach(function(b){ b.setAttribute("aria-pressed", b.getAttribute("data-lang") === lang ? "true" : "false"); });
+    if (errMsg) $("banner-err").textContent = errMsg();
     var box = $("plans");
     var cur = data && data.plans.length ? data.plans[0].currency : "eur";
     var freeCard = '<article class="plan">' +
@@ -232,9 +401,9 @@ footer div{max-width:820px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       return;
     }
     box.innerHTML = freeCard + data.plans.map(function(p){
-      var name = (lang === "it" && p.name_it) || p.name;
-      var desc = (lang === "it" && p.description_it) || p.description;
-      var feats = (lang === "it" && p.features_it.length) ? p.features_it : p.features;
+      var name = planText(p, "name");
+      var desc = planText(p, "description");
+      var feats = planText(p, "features");
       if (!feats.length) feats = t.proFeats;
       return '<article class="plan' + (p.highlight ? ' hl' : '') + '">' +
         (p.highlight ? '<span class="tag">' + esc(t.recommended) + '</span>' : '') +
@@ -249,7 +418,8 @@ footer div{max-width:820px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
     }).join("");
   }
 
-  function setLang(l){ lang = l; render(); history.replaceState(null, "", location.pathname + location.search + (l === "it" ? "#it" : "")); }
+  function ckErr(){ return T[lang].ckErr; }
+  var LOGIN_NEXT = "/login.html?mode=register&next=" + encodeURIComponent("/pricing.html");
 
   // Payment Link checkout: the buyer must be signed in so the payment is tied to their account
   // (client_reference_id = account id, email pre-filled).
@@ -261,15 +431,16 @@ footer div{max-width:820px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
     fetch("/api/auth/me", { credentials:"same-origin" })
       .then(function(r){ return r.json(); })
       .then(function(j){
-        if (!j || !j.user) { location.href = "/login.html?mode=register&next=" + encodeURIComponent("/pricing.html") + (lang === "it" ? "&lang=it" : ""); return; }
-        if (j.tier === "pro") { location.href = "/account.html" + (lang === "it" ? "?lang=it" : ""); return; }
+        if (!j || !j.user) { location.href = LOGIN_NEXT; return; }
+        if (j.tier === "pro") { location.href = "/account.html"; return; }
         var u = new URL(PAY_LINK);
         u.searchParams.set("client_reference_id", j.user.id);
         if (j.user.email) u.searchParams.set("prefilled_email", j.user.email);
-        u.searchParams.set("locale", lang);
+        // Stripe Checkout has no Arabic; "auto" lets it follow the browser.
+        u.searchParams.set("locale", lang === "ar" ? "auto" : lang);
         location.href = u.toString();
       })
-      .catch(function(){ showErr(T[lang].ckErr); b.disabled = false; b.textContent = label; });
+      .catch(function(){ showErr(ckErr); b.disabled = false; b.textContent = label; });
   });
 
   $("plans").addEventListener("click", function(e){
@@ -283,21 +454,21 @@ footer div{max-width:820px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       .then(function(r){ return r.json().then(function(j){ return { ok:r.ok, j:j }; }); })
       .then(function(res){
         if (res.ok && res.j.url) { location.href = res.j.url; return; }
-        if (res.j.needLogin) { location.href = "/login.html?mode=register&next=" + encodeURIComponent("/pricing.html") + (lang === "it" ? "&lang=it" : ""); return; }
-        if (res.j.hasSubscription) { location.href = "/account.html" + (lang === "it" ? "?lang=it" : ""); return; }
-        throw new Error(res.j.error || T[lang].ckErr);
+        if (res.j.needLogin) { location.href = LOGIN_NEXT; return; }
+        if (res.j.hasSubscription) { location.href = "/account.html"; return; }
+        throw { server: res.j.error || "" };
       })
       .catch(function(err){
-        showErr(T[lang].ckErr + " " + (err && err.message && err.message !== T[lang].ckErr ? err.message : ""));
+        var srv = err && err.server;
+        showErr(function(){ return ckErr() + (srv ? " " + ckMsg(srv) : ""); });
         all.forEach(function(x){ x.disabled = false; }); b.textContent = label;
       });
   });
-  btns.forEach(function(b){ b.addEventListener("click", function(){ setLang(b.getAttribute("data-lang")); }); });
+  if (I) I.onChange(function(c){ lang = T[c] ? c : "en"; render(); });
   // Returning from Stripe with the back button should not leave buttons stuck.
   window.addEventListener("pageshow", function(e){ if (e.persisted) render(); });
 
   var qs = new URLSearchParams(location.search);
-  lang = (location.hash === "#it" || qs.get("lang") === "it" || (!location.hash && /^it\b/i.test(navigator.language || ""))) ? "it" : "en";
   if (qs.get("canceled")) $("banner-canceled").hidden = false;
   render();
 
@@ -311,7 +482,7 @@ footer div{max-width:820px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       if (!j.plans.length) { $("empty").hidden = false; return; }
       render();
     })
-    .catch(function(){ $("loading").hidden = true; showErr(T[lang].loadErr); });
+    .catch(function(){ $("loading").hidden = true; showErr(function(){ return T[lang].loadErr; }); });
 })();
 </script>
 </body>

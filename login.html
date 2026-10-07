@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/i18n.js"></script>
 <script src="/theme.js"></script>
 <title>Sign in — Casebound</title>
 <meta name="description" content="Sign in to Casebound or create an account.">
@@ -30,9 +31,6 @@ a:hover{color:var(--oxblood)}
 .masthead-in{max-width:820px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:16px;height:56px}
 .wordmark{font-family:var(--serif);font-size:21px;font-weight:600;letter-spacing:-.01em;line-height:1;text-decoration:none;color:var(--ink)}
 .wordmark span{color:var(--oxblood)}
-.lang{margin-left:auto;display:flex;gap:2px;background:var(--paper);border:1px solid var(--rule);border-radius:5px;padding:2px}
-.lang button{font-family:var(--sans);font-size:12.5px;font-weight:600;border:none;background:none;color:var(--ink-soft);padding:6px 12px;border-radius:3px;cursor:pointer}
-.lang button[aria-pressed="true"]{background:var(--ink);color:#fff}
 main{max-width:820px;margin:0 auto;padding:34px 20px 70px}
 .kicker{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--oxblood);margin:0 0 6px}
 h1{font-size:34px;line-height:1.15;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
@@ -40,13 +38,13 @@ h1{font-size:34px;line-height:1.15;font-weight:600;margin:0 0 6px;letter-spacing
 h2{font-size:21px;font-weight:600;margin:38px 0 10px;padding-top:18px;border-top:1px solid var(--rule-soft)}
 h3{font-family:var(--sans);font-size:14px;font-weight:700;margin:22px 0 6px}
 p,li{margin:0 0 12px}
-ul{padding-left:22px;margin:0 0 14px}
-.summary{background:var(--paper-2);border:1px solid var(--rule);border-left:4px solid var(--verdigris);border-radius:6px;padding:18px 20px;margin:0 0 10px}
+ul{padding-inline-start:22px;margin:0 0 14px}
+.summary{background:var(--paper-2);border:1px solid var(--rule);border-inline-start:4px solid var(--verdigris);border-radius:6px;padding:18px 20px;margin:0 0 10px}
 .summary h2{border:none;padding:0;margin:0 0 10px;font-size:18px}
 .summary ul{margin:0}
 .summary li{margin-bottom:8px}
 table{width:100%;border-collapse:collapse;font-size:14.5px;margin:6px 0 16px;background:var(--paper-2)}
-th,td{text-align:left;vertical-align:top;border:1px solid var(--rule);padding:9px 11px}
+th,td{text-align:start;vertical-align:top;border:1px solid var(--rule);padding:9px 11px}
 th{font-family:var(--sans);font-size:12px;font-weight:700;background:var(--paper);color:var(--ink-soft)}
 .tbl-wrap{overflow-x:auto}
 mark.ph{background:var(--amber-wash);color:var(--amber);font-family:var(--sans);font-size:.88em;font-weight:600;padding:1px 5px;border-radius:3px}
@@ -56,7 +54,7 @@ footer div{max-width:820px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
 
 main{max-width:460px}
 .tabs2{display:flex;border-bottom:1px solid var(--rule);margin:0 0 22px}
-.tabs2 button{font-family:var(--sans);font-size:14px;font-weight:700;background:none;border:none;border-bottom:2px solid transparent;color:var(--ink-soft);padding:10px 2px;margin-right:22px;cursor:pointer}
+.tabs2 button{font-family:var(--sans);font-size:14px;font-weight:700;background:none;border:none;border-bottom:2px solid transparent;color:var(--ink-soft);padding:10px 2px;margin-inline-end:22px;cursor:pointer}
 .tabs2 button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--oxblood)}
 form{background:var(--paper-2);border:1px solid var(--rule);border-radius:6px;padding:22px 20px}
 label.f{display:block;font-family:var(--sans);font-size:13px;font-weight:600;margin:0 0 5px}
@@ -84,6 +82,7 @@ input:focus{outline:2px solid var(--verdigris);outline-offset:0;border-color:var
 .areas{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 16px}
 .areas label{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--rule);border-radius:14px;padding:5px 10px;font-family:var(--sans);font-size:12.5px;cursor:pointer}
 .areas input{margin:0}
+[dir=rtl] input[type=email],[dir=rtl] input[type=password]{direction:ltr;text-align:right}
 textarea.f-in{width:100%;font:inherit;font-size:15px;padding:10px 12px;border:1px solid var(--rule);border-radius:5px;background:var(--paper-2);color:var(--ink);margin:0 0 16px;min-height:80px;resize:vertical}
 @media(max-width:480px){.roles{grid-template-columns:1fr}}
 [hidden]{display:none!important}
@@ -95,9 +94,7 @@ textarea.f-in{width:100%;font:inherit;font-size:15px;padding:10px 12px;border:1p
 <header class="masthead">
   <div class="masthead-in">
     <a class="wordmark" href="/">Case<span>bound</span></a>
-    <div class="lang" role="group" aria-label="Language">
-      <button type="button" data-lang="en" aria-pressed="true">English</button>
-      <button type="button" data-lang="it" aria-pressed="false">Italiano</button>
+    <div class="lang">
     </div>
   </div>
 </header>
@@ -161,7 +158,7 @@ textarea.f-in{width:100%;font:inherit;font-size:15px;padding:10px 12px;border:1p
     <a href="/pricing.html" data-t="plans">Plans</a>
     <a href="/terms.html" data-t="termsL">Terms of use</a>
     <a href="/privacy.html" data-t="privacyL">Privacy notice</a>
-    <a href="mailto:admin@case-bound.com">Contact / complaints: admin@case-bound.com</a>
+    <a href="mailto:admin@case-bound.com" data-t="contact">Contact / complaints: admin@case-bound.com</a>
     <span>© 2026 Kiyan Martinon</span>
   </div>
 </footer>
@@ -175,7 +172,7 @@ textarea.f-in{width:100%;font:inherit;font-size:15px;padding:10px 12px;border:1p
       pwHint:"At least 10 characters.",
       terms:'I accept the <a href="/terms.html#accounts" target="_blank">Terms of use</a> and have read the <a href="/privacy.html#accounts" target="_blank">Privacy notice</a>.',
       adult:"I am 18 or older.", forgot:"Forgot your password? Email", forgot2:"from your account's address.",
-      back:"← Back to Casebound", plans:"Plans", termsL:"Terms of use", privacyL:"Privacy notice",
+      back:"← Back to Casebound", plans:"Plans", termsL:"Terms of use", privacyL:"Privacy notice", contact:"Contact / complaints: admin@case-bound.com",
       needTerms:"Please accept the Terms of use.", needAdult:"You must be at least 18 to create an account.",
       generic:"Something went wrong. Please try again.",
       roleQ:"I am…", roleClient:"A client", roleClientD:"I have a legal problem and want to research it or find a lawyer.",
@@ -191,7 +188,7 @@ textarea.f-in{width:100%;font:inherit;font-size:15px;padding:10px 12px;border:1p
       pwHint:"Almeno 10 caratteri.",
       terms:'Accetto le <a href="/terms.html#accounts-it" target="_blank">Condizioni d\'uso</a> e ho letto l\'<a href="/privacy.html#accounts-it" target="_blank">Informativa privacy</a>.',
       adult:"Ho almeno 18 anni.", forgot:"Password dimenticata? Scrivi a", forgot2:"dall'indirizzo del tuo account.",
-      back:"← Torna a Casebound", plans:"Piani", termsL:"Condizioni d'uso", privacyL:"Informativa privacy",
+      back:"← Torna a Casebound", plans:"Piani", termsL:"Condizioni d'uso", privacyL:"Informativa privacy", contact:"Contatti / reclami: admin@case-bound.com",
       needTerms:"Accetta le Condizioni d'uso.", needAdult:"Devi avere almeno 18 anni per creare un account.",
       generic:"Qualcosa è andato storto. Riprova.",
       roleQ:"Sono…", roleClient:"Un cliente", roleClientD:"Ho un problema legale e voglio approfondirlo o trovare un avvocato.",
@@ -200,31 +197,134 @@ textarea.f-in{width:100%;font:inherit;font-size:15px;padding:10px 12px;border:1p
       lawNote:"Verifichiamo ogni avvocato sull'albo ufficiale prima che possa vedere qualsiasi caso. Di solito servono uno o due giorni lavorativi.",
       bar:"Ordine di appartenenza", barNo:"Numero di iscrizione all'albo", city:"Città in cui eserciti", areasL:"Aree di attività", bio:"Breve presentazione (facoltativa)",
       needName:"Gli avvocati devono indicare nome e cognome, come risultano all'albo.",
-      AREAS:{dismissal:"Licenziamenti",employment:"Lavoro",goods:"Vizi della merce",contract:"Contratti e crediti",injury:"Danni e lesioni",road:"Incidenti stradali",building:"Vizi dell'immobile",consumer:"Consumatori",tenancy:"Locazioni",condo:"Condominio",neighbours:"Rapporti di vicinato",medical:"Responsabilità medica",insurance:"Assicurazioni",travel:"Viaggi e trasporti",family:"Famiglia",inheritance:"Successioni",injunction:"Decreti ingiuntivi",fine:"Multe e sanzioni",tax:"Tributario",defamation:"Diffamazione",other:"Altro"} }
+      AREAS:{dismissal:"Licenziamenti",employment:"Lavoro",goods:"Vizi della merce",contract:"Contratti e crediti",injury:"Danni e lesioni",road:"Incidenti stradali",building:"Vizi dell'immobile",consumer:"Consumatori",tenancy:"Locazioni",condo:"Condominio",neighbours:"Rapporti di vicinato",medical:"Responsabilità medica",insurance:"Assicurazioni",travel:"Viaggi e trasporti",family:"Famiglia",inheritance:"Successioni",injunction:"Decreti ingiuntivi",fine:"Multe e sanzioni",tax:"Tributario",defamation:"Diffamazione",other:"Altro"} },
+    es: { docLogin:"Iniciar sesión — Casebound", docRegister:"Crear cuenta — Casebound", kicker:"Tu cuenta",
+      titleLogin:"Iniciar sesión", titleRegister:"Crea tu cuenta", lead:"Una sola cuenta para Casebound y tu suscripción.",
+      tabLogin:"Iniciar sesión", tabRegister:"Crear cuenta", email:"Correo electrónico", password:"Contraseña", name:"Nombre (opcional)",
+      pwHint:"Al menos 10 caracteres.",
+      terms:'Acepto las <a href="/terms.html#accounts" target="_blank">Condiciones de uso</a> y he leído el <a href="/privacy.html#accounts" target="_blank">Aviso de privacidad</a>.',
+      adult:"Tengo 18 años o más.", forgot:"¿Has olvidado tu contraseña? Escribe a", forgot2:"desde la dirección de tu cuenta.",
+      back:"← Volver a Casebound", plans:"Planes", termsL:"Condiciones de uso", privacyL:"Aviso de privacidad", contact:"Contacto / reclamaciones: admin@case-bound.com",
+      needTerms:"Acepta las Condiciones de uso.", needAdult:"Debes tener al menos 18 años para crear una cuenta.",
+      generic:"Algo ha salido mal. Inténtalo de nuevo.",
+      roleQ:"Soy…", roleClient:"Un cliente", roleClientD:"Tengo un problema legal y quiero investigarlo o encontrar un abogado.",
+      roleLawyer:"Un abogado", roleLawyerD:"Estoy colegiado en un Ordine degli Avvocati y quiero revisar casos.",
+      nameLawyer:"Nombre completo, tal como figura en el registro",
+      lawNote:"Comprobamos a cada abogado en el registro oficial (albo) antes de que pueda ver ningún caso. Suele tardar uno o dos días hábiles.",
+      bar:"Colegio de abogados", barNo:"Número de colegiado (n. iscrizione albo)", city:"Ciudad donde ejerces", areasL:"Áreas de práctica", bio:"Breve presentación (opcional)",
+      needName:"Los abogados deben indicar su nombre completo, tal como figura en el registro.",
+      AREAS:{dismissal:"Despidos",employment:"Laboral",goods:"Productos defectuosos",contract:"Contratos y deudas",injury:"Daños y lesiones",road:"Accidentes de tráfico",building:"Defectos de construcción",consumer:"Consumo",tenancy:"Arrendamientos",condo:"Comunidades de propietarios",neighbours:"Vecindad",medical:"Negligencia médica",insurance:"Seguros",travel:"Viajes",family:"Familia",inheritance:"Sucesiones",injunction:"Requerimientos de pago",fine:"Multas",tax:"Fiscal",defamation:"Difamación",other:"Otros"} },
+    fr: { docLogin:"Se connecter — Casebound", docRegister:"Créer un compte — Casebound", kicker:"Votre compte",
+      titleLogin:"Se connecter", titleRegister:"Créez votre compte", lead:"Un seul compte pour Casebound et votre abonnement.",
+      tabLogin:"Se connecter", tabRegister:"Créer un compte", email:"E-mail", password:"Mot de passe", name:"Nom (facultatif)",
+      pwHint:"Au moins 10 caractères.",
+      terms:'J\'accepte les <a href="/terms.html#accounts" target="_blank">Conditions d\'utilisation</a> et j\'ai lu la <a href="/privacy.html#accounts" target="_blank">Politique de confidentialité</a>.',
+      adult:"J'ai 18 ans ou plus.", forgot:"Mot de passe oublié ? Écrivez à", forgot2:"depuis l'adresse de votre compte.",
+      back:"← Retour à Casebound", plans:"Offres", termsL:"Conditions d'utilisation", privacyL:"Politique de confidentialité", contact:"Contact / réclamations : admin@case-bound.com",
+      needTerms:"Veuillez accepter les Conditions d'utilisation.", needAdult:"Vous devez avoir au moins 18 ans pour créer un compte.",
+      generic:"Une erreur s'est produite. Veuillez réessayer.",
+      roleQ:"Je suis…", roleClient:"Un client", roleClientD:"J'ai un problème juridique et je veux me renseigner ou trouver un avocat.",
+      roleLawyer:"Un avocat", roleLawyerD:"Je suis inscrit à un Ordine degli Avvocati et je veux examiner des affaires.",
+      nameLawyer:"Nom complet, tel qu'il figure au tableau",
+      lawNote:"Nous vérifions chaque avocat dans le registre officiel (albo) avant qu'il puisse voir une affaire. Cela prend généralement un ou deux jours ouvrés.",
+      bar:"Barreau", barNo:"Numéro d'inscription (n. iscrizione albo)", city:"Ville d'exercice", areasL:"Domaines d'activité", bio:"Courte présentation (facultative)",
+      needName:"Les avocats doivent indiquer leur nom complet, tel qu'il figure au tableau.",
+      AREAS:{dismissal:"Licenciement",employment:"Droit du travail",goods:"Produits défectueux",contract:"Contrats et créances",injury:"Préjudices et dommages",road:"Accidents de la route",building:"Défauts de construction",consumer:"Consommation",tenancy:"Baux",condo:"Copropriété",neighbours:"Voisinage",medical:"Responsabilité médicale",insurance:"Assurances",travel:"Voyages",family:"Famille",inheritance:"Successions",injunction:"Injonctions de payer",fine:"Amendes",tax:"Fiscalité",defamation:"Diffamation",other:"Autre"} },
+    de: { docLogin:"Anmelden — Casebound", docRegister:"Konto erstellen — Casebound", kicker:"Dein Konto",
+      titleLogin:"Anmelden", titleRegister:"Erstelle dein Konto", lead:"Ein Konto für Casebound und dein Abo.",
+      tabLogin:"Anmelden", tabRegister:"Konto erstellen", email:"E-Mail", password:"Passwort", name:"Name (optional)",
+      pwHint:"Mindestens 10 Zeichen.",
+      terms:'Ich akzeptiere die <a href="/terms.html#accounts" target="_blank">Nutzungsbedingungen</a> und habe den <a href="/privacy.html#accounts" target="_blank">Datenschutzhinweis</a> gelesen.',
+      adult:"Ich bin mindestens 18 Jahre alt.", forgot:"Passwort vergessen? Schreib an", forgot2:"von der E-Mail-Adresse deines Kontos.",
+      back:"← Zurück zu Casebound", plans:"Tarife", termsL:"Nutzungsbedingungen", privacyL:"Datenschutzhinweis", contact:"Kontakt / Beschwerden: admin@case-bound.com",
+      needTerms:"Bitte akzeptiere die Nutzungsbedingungen.", needAdult:"Du musst mindestens 18 Jahre alt sein, um ein Konto zu erstellen.",
+      generic:"Etwas ist schiefgelaufen. Bitte versuche es erneut.",
+      roleQ:"Ich bin …", roleClient:"Mandant", roleClientD:"Ich habe ein rechtliches Problem und möchte es recherchieren oder einen Anwalt finden.",
+      roleLawyer:"Anwalt", roleLawyerD:"Ich bin bei einem Ordine degli Avvocati zugelassen und möchte Fälle prüfen.",
+      nameLawyer:"Vollständiger Name, wie im Register eingetragen",
+      lawNote:"Wir prüfen jeden Anwalt im offiziellen Register (albo), bevor er Fälle sehen kann. Das dauert meist ein bis zwei Werktage.",
+      bar:"Anwaltskammer", barNo:"Registernummer (n. iscrizione albo)", city:"Ort deiner Tätigkeit", areasL:"Tätigkeitsbereiche", bio:"Kurzprofil (optional)",
+      needName:"Anwälte müssen ihren vollständigen Namen angeben, wie er im Register steht.",
+      AREAS:{dismissal:"Kündigung",employment:"Arbeitsrecht",goods:"Mangelhafte Ware",contract:"Verträge & Forderungen",injury:"Personen- & Sachschäden",road:"Verkehrsunfälle",building:"Baumängel",consumer:"Verbraucherrecht",tenancy:"Mietrecht",condo:"Wohnungseigentum",neighbours:"Nachbarrecht",medical:"Arzthaftung",insurance:"Versicherungen",travel:"Reiserecht",family:"Familienrecht",inheritance:"Erbrecht",injunction:"Mahnverfahren",fine:"Bußgelder",tax:"Steuerrecht",defamation:"Verleumdung",other:"Sonstiges"} },
+    pt: { docLogin:"Iniciar sessão — Casebound", docRegister:"Criar conta — Casebound", kicker:"A sua conta",
+      titleLogin:"Iniciar sessão", titleRegister:"Crie a sua conta", lead:"Uma só conta para o Casebound e a sua subscrição.",
+      tabLogin:"Iniciar sessão", tabRegister:"Criar conta", email:"E-mail", password:"Palavra-passe", name:"Nome (opcional)",
+      pwHint:"Pelo menos 10 caracteres.",
+      terms:'Aceito os <a href="/terms.html#accounts" target="_blank">Termos de utilização</a> e li o <a href="/privacy.html#accounts" target="_blank">Aviso de privacidade</a>.',
+      adult:"Tenho 18 anos ou mais.", forgot:"Esqueceu-se da palavra-passe? Escreva para", forgot2:"a partir do endereço da sua conta.",
+      back:"← Voltar ao Casebound", plans:"Planos", termsL:"Termos de utilização", privacyL:"Aviso de privacidade", contact:"Contacto / reclamações: admin@case-bound.com",
+      needTerms:"Aceite os Termos de utilização.", needAdult:"Tem de ter pelo menos 18 anos para criar uma conta.",
+      generic:"Ocorreu um erro. Tente novamente.",
+      roleQ:"Sou…", roleClient:"Um cliente", roleClientD:"Tenho um problema jurídico e quero pesquisá-lo ou encontrar um advogado.",
+      roleLawyer:"Um advogado", roleLawyerD:"Estou inscrito num Ordine degli Avvocati e quero analisar casos.",
+      nameLawyer:"Nome completo, tal como consta da inscrição",
+      lawNote:"Verificamos cada advogado no registo oficial (albo) antes de poder ver qualquer caso. Normalmente demora um ou dois dias úteis.",
+      bar:"Ordem dos advogados", barNo:"Número de inscrição (n. iscrizione albo)", city:"Cidade onde exerce", areasL:"Áreas de prática", bio:"Breve apresentação (opcional)",
+      needName:"Os advogados têm de indicar o nome completo, tal como consta da inscrição.",
+      AREAS:{dismissal:"Despedimentos",employment:"Laboral",goods:"Produtos defeituosos",contract:"Contratos e dívidas",injury:"Danos e lesões",road:"Acidentes de viação",building:"Defeitos de construção",consumer:"Consumo",tenancy:"Arrendamento",condo:"Condomínio",neighbours:"Vizinhança",medical:"Negligência médica",insurance:"Seguros",travel:"Viagens",family:"Família",inheritance:"Sucessões",injunction:"Injunções de pagamento",fine:"Multas",tax:"Fiscal",defamation:"Difamação",other:"Outro"} },
+    pl: { docLogin:"Zaloguj się — Casebound", docRegister:"Utwórz konto — Casebound", kicker:"Twoje konto",
+      titleLogin:"Zaloguj się", titleRegister:"Utwórz konto", lead:"Jedno konto do Casebound i Twojej subskrypcji.",
+      tabLogin:"Zaloguj się", tabRegister:"Utwórz konto", email:"E-mail", password:"Hasło", name:"Imię i nazwisko (opcjonalnie)",
+      pwHint:"Co najmniej 10 znaków.",
+      terms:'Akceptuję <a href="/terms.html#accounts" target="_blank">Warunki korzystania</a> i potwierdzam zapoznanie się z <a href="/privacy.html#accounts" target="_blank">Informacją o prywatności</a>.',
+      adult:"Mam co najmniej 18 lat.", forgot:"Nie pamiętasz hasła? Napisz na", forgot2:"z adresu przypisanego do konta.",
+      back:"← Wróć do Casebound", plans:"Plany", termsL:"Warunki korzystania", privacyL:"Informacja o prywatności", contact:"Kontakt / reklamacje: admin@case-bound.com",
+      needTerms:"Zaakceptuj Warunki korzystania.", needAdult:"Aby utworzyć konto, musisz mieć co najmniej 18 lat.",
+      generic:"Coś poszło nie tak. Spróbuj ponownie.",
+      roleQ:"Kim jesteś?", roleClient:"Klient", roleClientD:"Mam problem prawny i chcę go zbadać lub znaleźć prawnika.",
+      roleLawyer:"Prawnik", roleLawyerD:"Mam wpis w Ordine degli Avvocati i chcę przeglądać sprawy.",
+      nameLawyer:"Imię i nazwisko, jak w rejestrze",
+      lawNote:"Każdego prawnika sprawdzamy w oficjalnym rejestrze (albo), zanim zobaczy jakąkolwiek sprawę. Zwykle trwa to jeden lub dwa dni robocze.",
+      bar:"Izba adwokacka", barNo:"Numer wpisu (n. iscrizione albo)", city:"Miasto, w którym praktykujesz", areasL:"Obszary praktyki", bio:"Krótki opis (opcjonalnie)",
+      needName:"Prawnicy muszą podać imię i nazwisko zgodnie z wpisem w rejestrze.",
+      AREAS:{dismissal:"Zwolnienia",employment:"Prawo pracy",goods:"Wadliwy towar",contract:"Umowy i długi",injury:"Szkody i obrażenia",road:"Wypadki drogowe",building:"Wady budowlane",consumer:"Prawa konsumenta",tenancy:"Najem",condo:"Wspólnota mieszkaniowa",neighbours:"Sprawy sąsiedzkie",medical:"Błędy medyczne",insurance:"Ubezpieczenia",travel:"Podróże",family:"Rodzina",inheritance:"Spadki",injunction:"Nakazy zapłaty",fine:"Mandaty",tax:"Podatki",defamation:"Zniesławienie",other:"Inne"} },
+    ar: { docLogin:"تسجيل الدخول — Casebound", docRegister:"إنشاء حساب — Casebound", kicker:"حسابك",
+      titleLogin:"تسجيل الدخول", titleRegister:"أنشئ حسابك", lead:"حساب واحد لـ Casebound ولاشتراكك.",
+      tabLogin:"تسجيل الدخول", tabRegister:"إنشاء حساب", email:"البريد الإلكتروني", password:"كلمة المرور", name:"الاسم (اختياري)",
+      pwHint:"10 أحرف على الأقل.",
+      terms:'أوافق على <a href="/terms.html#accounts" target="_blank">شروط الاستخدام</a> وقد قرأت <a href="/privacy.html#accounts" target="_blank">إشعار الخصوصية</a>.',
+      adult:"عمري 18 عامًا أو أكثر.", forgot:"نسيت كلمة المرور؟ راسل", forgot2:"من عنوان البريد الإلكتروني المسجّل في حسابك.",
+      back:"→ العودة إلى Casebound", plans:"الخطط", termsL:"شروط الاستخدام", privacyL:"إشعار الخصوصية", contact:"التواصل / الشكاوى: admin@case-bound.com",
+      needTerms:"يُرجى الموافقة على شروط الاستخدام.", needAdult:"يجب أن يكون عمرك 18 عامًا على الأقل لإنشاء حساب.",
+      generic:"حدث خطأ ما. يُرجى المحاولة مرة أخرى.",
+      roleQ:"أنا…", roleClient:"عميل", roleClientD:"لديّ مشكلة قانونية وأريد البحث فيها أو العثور على محامٍ.",
+      roleLawyer:"محامٍ", roleLawyerD:"أنا مقيّد في نقابة محامين إيطالية (Ordine degli Avvocati)\u200F وأريد مراجعة القضايا.",
+      nameLawyer:"الاسم الكامل كما هو مقيّد في السجل",
+      lawNote:"نتحقق من كل محامٍ في السجل الرسمي (albo) قبل أن يتمكن من الاطلاع على أي قضية. يستغرق ذلك عادةً يوم عمل أو يومين.",
+      bar:"نقابة المحامين", barNo:"رقم القيد (n. iscrizione albo)\u200F", city:"المدينة التي تمارس فيها المهنة", areasL:"مجالات الممارسة", bio:"نبذة قصيرة (اختياري)",
+      needName:"يجب على المحامين ذكر الاسم الكامل كما هو مقيّد في السجل.",
+      AREAS:{dismissal:"الفصل من العمل",employment:"قانون العمل",goods:"البضائع المعيبة",contract:"العقود والديون",injury:"الأضرار والإصابات",road:"حوادث السير",building:"عيوب البناء",consumer:"حماية المستهلك",tenancy:"الإيجارات",condo:"الملكية المشتركة",neighbours:"شؤون الجوار",medical:"الأخطاء الطبية",insurance:"التأمين",travel:"السفر",family:"الأسرة",inheritance:"المواريث",injunction:"أوامر الأداء",fine:"المخالفات والغرامات",tax:"الضرائب",defamation:"التشهير",other:"أخرى"} }
   };
-  // Server messages are in English; translate the common ones.
-  var IT_ERR = {
-    "Enter a valid email address.":"Inserisci un indirizzo email valido.",
-    "Password must be at least 10 characters.":"La password deve avere almeno 10 caratteri.",
-    "An account with this email already exists. Sign in instead.":"Esiste già un account con questa email. Accedi.",
-    "Wrong email or password.":"Email o password errati.",
-    "Too many attempts. Try again in 15 minutes.":"Troppi tentativi. Riprova tra 15 minuti.",
-    "Enter the bar association (Ordine degli Avvocati) you are registered with.":"Indica l'Ordine degli Avvocati a cui sei iscritto.",
-    "Enter your registration number on the register of lawyers.":"Indica il tuo numero di iscrizione all'albo.",
-    "Choose at least one area of practice.":"Scegli almeno un'area di attività.",
-    "Lawyers need to give their full name, as it appears on the register.":"Gli avvocati devono indicare nome e cognome, come risultano all'albo."
+  // Server messages are in English; translate the ones this page can meet.
+  // Messages that repeat a page string point at its key in T; the rest carry their own translations.
+  var ERR = {
+    "Please accept the Terms of use.":"needTerms",
+    "You must be at least 18 to create an account.":"needAdult",
+    "Lawyers need to give their full name, as it appears on the register.":"needName",
+    "Enter a valid email address.":{it:"Inserisci un indirizzo email valido.",es:"Introduce una dirección de correo electrónico válida.",fr:"Saisissez une adresse e-mail valide.",de:"Gib eine gültige E-Mail-Adresse ein.",pt:"Introduza um endereço de e-mail válido.",pl:"Podaj prawidłowy adres e-mail.",ar:"أدخل عنوان بريد إلكتروني صالحًا."},
+    "Password must be at least 10 characters.":{it:"La password deve avere almeno 10 caratteri.",es:"La contraseña debe tener al menos 10 caracteres.",fr:"Le mot de passe doit comporter au moins 10 caractères.",de:"Das Passwort muss mindestens 10 Zeichen lang sein.",pt:"A palavra-passe deve ter pelo menos 10 caracteres.",pl:"Hasło musi mieć co najmniej 10 znaków.",ar:"يجب أن تتكون كلمة المرور من 10 أحرف على الأقل."},
+    "Password is too long.":{it:"La password è troppo lunga.",es:"La contraseña es demasiado larga.",fr:"Le mot de passe est trop long.",de:"Das Passwort ist zu lang.",pt:"A palavra-passe é demasiado longa.",pl:"Hasło jest za długie.",ar:"كلمة المرور طويلة جدًا."},
+    "An account with this email already exists. Sign in instead.":{it:"Esiste già un account con questa email. Accedi.",es:"Ya existe una cuenta con este correo. Inicia sesión.",fr:"Un compte existe déjà avec cette adresse e-mail. Connectez-vous plutôt.",de:"Mit dieser E-Mail-Adresse gibt es bereits ein Konto. Melde dich stattdessen an.",pt:"Já existe uma conta com este e-mail. Inicie sessão.",pl:"Konto z tym adresem e-mail już istnieje. Zaloguj się.",ar:"يوجد حساب بهذا البريد الإلكتروني بالفعل. سجّل الدخول بدلًا من ذلك."},
+    "Wrong email or password.":{it:"Email o password errati.",es:"Correo o contraseña incorrectos.",fr:"E-mail ou mot de passe incorrect.",de:"E-Mail oder Passwort falsch.",pt:"E-mail ou palavra-passe incorretos.",pl:"Nieprawidłowy e-mail lub hasło.",ar:"البريد الإلكتروني أو كلمة المرور غير صحيحة."},
+    "Too many attempts. Try again in 15 minutes.":{it:"Troppi tentativi. Riprova tra 15 minuti.",es:"Demasiados intentos. Vuelve a intentarlo dentro de 15 minutos.",fr:"Trop de tentatives. Réessayez dans 15 minutes.",de:"Zu viele Versuche. Versuche es in 15 Minuten erneut.",pt:"Demasiadas tentativas. Tente novamente dentro de 15 minutos.",pl:"Zbyt wiele prób. Spróbuj ponownie za 15 minut.",ar:"محاولات كثيرة جدًا. حاول مرة أخرى بعد 15 دقيقة."},
+    "Enter the bar association (Ordine degli Avvocati) you are registered with.":{it:"Indica l'Ordine degli Avvocati a cui sei iscritto.",es:"Indica el colegio de abogados (Ordine degli Avvocati) en el que estás colegiado.",fr:"Indiquez le barreau (Ordine degli Avvocati) auquel vous êtes inscrit.",de:"Gib die Anwaltskammer (Ordine degli Avvocati) an, bei der du zugelassen bist.",pt:"Indique a ordem dos advogados (Ordine degli Avvocati) em que está inscrito.",pl:"Podaj izbę adwokacką (Ordine degli Avvocati), do której należysz.",ar:"أدخل نقابة المحامين (Ordine degli Avvocati) التي أنت مقيّد فيها."},
+    "Enter your registration number on the register of lawyers.":{it:"Indica il tuo numero di iscrizione all'albo.",es:"Indica tu número de colegiado en el registro de abogados.",fr:"Indiquez votre numéro d'inscription au tableau des avocats.",de:"Gib deine Registernummer im Anwaltsverzeichnis an.",pt:"Indique o seu número de inscrição no registo de advogados.",pl:"Podaj swój numer wpisu na listę adwokatów.",ar:"أدخل رقم قيدك في سجل المحامين."},
+    "Choose at least one area of practice.":{it:"Scegli almeno un'area di attività.",es:"Elige al menos un área de práctica.",fr:"Choisissez au moins un domaine d'activité.",de:"Wähle mindestens einen Tätigkeitsbereich.",pt:"Escolha pelo menos uma área de prática.",pl:"Wybierz co najmniej jeden obszar praktyki.",ar:"اختر مجال ممارسة واحدًا على الأقل."},
+    "Request blocked.":{it:"Richiesta bloccata.",es:"Solicitud bloqueada.",fr:"Requête bloquée.",de:"Anfrage blockiert.",pt:"Pedido bloqueado.",pl:"Żądanie zablokowane.",ar:"تم حظر الطلب."},
+    "Invalid request.":{it:"Richiesta non valida.",es:"Solicitud no válida.",fr:"Requête non valide.",de:"Ungültige Anfrage.",pt:"Pedido inválido.",pl:"Nieprawidłowe żądanie.",ar:"طلب غير صالح."}
   };
   var $ = function(id){ return document.getElementById(id); };
   var qs = new URLSearchParams(location.search);
-  var lang = (qs.get("lang") === "it" || location.hash === "#it" || (!qs.get("lang") && /^it\b/i.test(navigator.language || ""))) ? "it" : "en";
+  var I = window.CB_I18N || null;
+  var lang = I ? I.get() : "en";
+  if (!T[lang]) lang = "en";
   var mode = qs.get("mode") === "register" ? "register" : "login";
   var next = qs.get("next") || "/account.html";
   if (!/^\/[A-Za-z0-9._\-\/?=&#]*$/.test(next) || next.indexOf("//") === 0) next = "/account.html";
-  var btns = document.querySelectorAll(".lang button");
+  var errState = null; // { k: key in T } or { s: server message }
 
   function render(){
     var t = T[lang];
-    document.documentElement.lang = lang;
     document.title = mode === "login" ? t.docLogin : t.docRegister;
     document.querySelectorAll("[data-t]").forEach(function(el){
       var v = t[el.getAttribute("data-t")]; if (typeof v !== "string") return;
@@ -234,9 +334,10 @@ textarea.f-in{width:100%;font:inherit;font-size:15px;padding:10px 12px;border:1p
     $("tab-login").setAttribute("aria-selected", mode === "login");
     $("tab-register").setAttribute("aria-selected", mode === "register");
     $("f-login").hidden = mode !== "login"; $("f-register").hidden = mode !== "register";
-    btns.forEach(function(b){ b.setAttribute("aria-pressed", b.getAttribute("data-lang") === lang ? "true" : "false"); });
+    $("err").textContent = errText();
     var picked = Array.prototype.map.call(document.querySelectorAll("#r-areas input:checked"), function(x){ return x.value; });
-    $("r-areas").innerHTML = Object.keys(t.AREAS).sort(function(a,b){ return (a === "other") - (b === "other") || t.AREAS[a].localeCompare(t.AREAS[b]); }).map(function(k){ return '<label><input type="checkbox" value="' + k + '"' + (picked.indexOf(k) >= 0 ? " checked" : "") + '> ' + t.AREAS[k] + '</label>'; }).join("");
+    var loc = I ? I.locale(lang) : "en-IE";
+    $("r-areas").innerHTML = Object.keys(t.AREAS).sort(function(a,b){ return (a === "other") - (b === "other") || t.AREAS[a].localeCompare(t.AREAS[b], loc); }).map(function(k){ return '<label><input type="checkbox" value="' + k + '"' + (picked.indexOf(k) >= 0 ? " checked" : "") + '> ' + t.AREAS[k] + '</label>'; }).join("");
     renderRole();
   }
   function role(){ return (document.querySelector('input[name="role"]:checked') || {}).value || "client"; }
@@ -247,20 +348,27 @@ textarea.f-in{width:100%;font:inherit;font-size:15px;padding:10px 12px;border:1p
   }
   document.querySelectorAll('input[name="role"]').forEach(function(r){ r.addEventListener("change", renderRole); });
   if (qs.get("role") === "lawyer") { document.querySelector('input[name="role"][value="lawyer"]').checked = true; }
-  function err(m){ $("err").textContent = m ? (lang === "it" && IT_ERR[m] ? IT_ERR[m] : m) : ""; $("err").hidden = !m; }
-  function setMode(m){ mode = m; err(""); render(); }
+  function errText(){
+    if (!errState) return "";
+    if (errState.k) return T[lang][errState.k];
+    var e = ERR[errState.s];
+    if (typeof e === "string") return T[lang][e];
+    return (e && e[lang]) || errState.s;
+  }
+  function err(state){ errState = state || null; $("err").textContent = errText(); $("err").hidden = !errState; }
+  function setMode(m){ mode = m; err(null); render(); }
 
   function post(url, data, form){
-    var b = form.querySelector("button[type=submit]"); b.disabled = true; err("");
+    var b = form.querySelector("button[type=submit]"); b.disabled = true; err(null);
     return fetch(url, { method:"POST", credentials:"same-origin", headers:{ "Content-Type":"application/json" }, body: JSON.stringify(data) })
-      .then(function(r){ return r.json().then(function(j){ if (!r.ok) throw new Error(j.error || T[lang].generic); return j; }); })
+      .then(function(r){ return r.json().then(function(j){ if (!r.ok) throw { server: j.error }; return j; }); })
       .then(function(){ location.href = next; })
-      .catch(function(e){ b.disabled = false; err(e.message || T[lang].generic); });
+      .catch(function(e){ b.disabled = false; err(e && e.server ? { s: e.server } : { k: "generic" }); });
   }
 
   $("tab-login").addEventListener("click", function(){ setMode("login"); });
   $("tab-register").addEventListener("click", function(){ setMode("register"); });
-  btns.forEach(function(b){ b.addEventListener("click", function(){ lang = b.getAttribute("data-lang"); render(); }); });
+  if (I) I.onChange(function(c){ lang = T[c] ? c : "en"; render(); });
 
   $("f-login").addEventListener("submit", function(e){
     e.preventDefault();
@@ -268,11 +376,11 @@ textarea.f-in{width:100%;font:inherit;font-size:15px;padding:10px 12px;border:1p
   });
   $("f-register").addEventListener("submit", function(e){
     e.preventDefault();
-    if (!$("r-terms").checked) return err(T[lang].needTerms);
-    if (!$("r-adult").checked) return err(T[lang].needAdult);
+    if (!$("r-terms").checked) return err({ k: "needTerms" });
+    if (!$("r-adult").checked) return err({ k: "needAdult" });
     var data = { name: $("r-name").value, email: $("r-email").value, password: $("r-pw").value, acceptTerms: true, adult: true, lang: lang, role: role() };
     if (data.role === "lawyer") {
-      if (!data.name.trim()) return err(T[lang].needName);
+      if (!data.name.trim()) return err({ k: "needName" });
       data.lawyer = { bar: $("r-bar").value, barNumber: $("r-barno").value, city: $("r-city").value, bio: $("r-bio").value,
         areas: Array.prototype.map.call(document.querySelectorAll("#r-areas input:checked"), function(x){ return x.value; }) };
     }
