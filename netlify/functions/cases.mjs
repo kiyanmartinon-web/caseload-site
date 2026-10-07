@@ -2,7 +2,7 @@
 //
 // Clients (signed in, Pro):
 //   GET  /api/cases/mine                         → {cases:[…]} own cases + interested lawyers
-//   POST /api/cases/submit   {area,areaOther,title,facts,date,amount,evidence,party,city,goal,consent:true}
+//   POST /api/cases/submit   {area,areaOther,title,facts,date,amount,evidence,evidenceNote,party,city,goal,consent:true}
 //   POST /api/cases/share    {id, lawyerId}      share my name + email with that lawyer
 //   POST /api/cases/addinfo  {id, text}          add details after a lawyer asked for more
 //   POST /api/cases/withdraw {id}                delete the case for everyone

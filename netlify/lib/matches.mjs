@@ -53,6 +53,7 @@ export function cleanCase(b) {
   return {
     data: {
       area, title, facts, date, amount, evidence,
+      evidenceNote: clip(b.evidenceNote, 1000),
       areaOther: area === "other" ? clip(b.areaOther, 80) : "",
       party: PARTIES.includes(b.party) ? b.party : "",
       city: clip(b.city, 60),

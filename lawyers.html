@@ -77,6 +77,7 @@ input[type=text],select,textarea{width:100%;background:var(--paper-2);border:1px
 .item-meta{font-size:12px;color:var(--ink-soft);font-variant-numeric:tabular-nums}
 .item-side{display:grid;gap:4px;justify-items:end}
 .pill{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:2px 8px;border-radius:10px;white-space:nowrap}
+.ev-note{margin:8px 0 0;white-space:pre-wrap;font-size:14px;line-height:1.5;color:var(--ink)}
 .p-area{background:var(--slate-wash);color:var(--slate)}
 .p-low{background:var(--verdigris-wash);color:var(--verdigris)}
 .p-med{background:var(--amber-wash);color:var(--amber)}
@@ -331,7 +332,7 @@ footer div{max-width:1300px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
       '<dt>At stake</dt><dd>' + eur(c.amount) + '</dd><dt>Key date</dt><dd>' + fmt(c.date) + '</dd>' +
       '<dt>Time limit</dt><dd class="dl ' + dlClass(daysLeft(c)) + '">' + esc(dlText(c)) + '</dd><dt>Wants</dt><dd>' + esc(c.goal || "—") + '</dd>' +
       '<dt>Sent</dt><dd>' + fmt(c.createdAt) + (c.othersInterested ? ' · ' + c.othersInterested + ' other lawyer' + (c.othersInterested === 1 ? "" : "s") + ' interested' : '') + '</dd></dl>' +
-      '<div><p class="sec-h">Evidence</p><div class="tags">' + (c.evidence.length ? c.evidence.map(function(e){ return '<span class="tag">' + esc(e) + '</span>'; }).join("") : '<span class="tag none">None listed</span>') + '</div></div>' +
+      '<div><p class="sec-h">Evidence</p><div class="tags">' + (c.evidence.length ? c.evidence.map(function(e){ return '<span class="tag">' + esc(e) + '</span>'; }).join("") : '<span class="tag none">None listed</span>') + '</div>' + (c.evidenceNote ? '<p class="ev-note">' + esc(c.evidenceNote) + '</p>' : '') + '</div>' +
       '<div><p class="sec-h">Automatic checks</p><ul class="flags">' + flags(c).map(function(f){ return '<li class="' + f[0] + '">' + esc(f[1]) + '</li>'; }).join("") + '</ul></div>' +
       (ADMIN_VIEW ? '<p class="note"><b>Admin view.</b> You can read every open case. Only verified lawyers can rate cases or contact clients.</p>' :
       '<div class="rate"><p class="sec-h" style="margin:0">Your rating (only you see it)</p>' +

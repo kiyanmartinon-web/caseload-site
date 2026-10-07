@@ -216,6 +216,11 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
           <span class="lbl">What do you have? Tick all that apply.</span>
           <div class="checks" id="rc-evidence"></div>
         </div>
+        <div class="f">
+          <label for="rc-ev-note">Describe your evidence (optional)</label>
+          <textarea id="rc-ev-note" rows="3" maxlength="1000" style="min-height:84px" placeholder="e.g. Signed rental contract from March 2024, 6 WhatsApp messages where the landlord admits the leak, photos of the damage, a plumber's report."></textarea>
+          <span class="hint">What each item is, what it shows, and its date. Lawyers read this when deciding whether to take your case.</span>
+        </div>
       </fieldset>
 
       <div class="actions">
@@ -321,7 +326,8 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
     else if(d <= 60){ pts += 1; time = {v:"warn", label:d + " days left", tip:"Time is short. If you want a lawyer, see one now rather than later."}; }
     else time = {v:"ok", label:left(d), tip:"You are inside the usual time limit: " + lc(A.rule) + "."};
 
-    if(!c.evidence.length){ pts += 2; ev = {v:"bad", label:"None listed", tip:"Without documents it is your word against theirs. Look for contracts, receipts, letters or photos."}; }
+    if(!c.evidence.length && c.evidenceNote){ pts += 1; ev = {v:"warn", label:"Described only", tip:"Tick the boxes that match what you described, so the check can weigh it properly."}; }
+    else if(!c.evidence.length){ pts += 2; ev = {v:"bad", label:"None listed", tip:"Without documents it is your word against theirs. Look for contracts, receipts, letters or photos."}; }
     else if(!formal.length){ pts += 1; ev = {v:"warn", label:"Informal only", tip:"Messages and witnesses help, but a formal document (contract, invoice, official or expert report) makes the case much easier to prove."}; }
     else if(formal.length >= 2) ev = {v:"ok", label:c.evidence.length + " items", tip:"You have documents a lawyer can work with. Keep the originals safe."};
     else ev = {v:"warn", label:c.evidence.length + (c.evidence.length === 1 ? " item" : " items"), tip:"One solid document. A second one (emails, photos, a report) would strengthen it."};
@@ -358,7 +364,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       var err = $("c-err"); err.textContent = "";
       if(!$("c-consent").checked){ err.textContent = "Tick the box so verified lawyers can read your case."; return; }
       var btn = $("c-send"); btn.disabled = true;
-      var data = { area:last.area, areaOther:last.areaOther, facts:last.facts, date:last.date, amount:last.amount, evidence:last.evidence,
+      var data = { area:last.area, areaOther:last.areaOther, facts:last.facts, date:last.date, amount:last.amount, evidence:last.evidence, evidenceNote:last.evidenceNote,
         title:$("c-title").value, party:$("c-party").value, city:$("c-city").value, goal:$("c-goal").value, consent:true };
       fetch("/api/cases/submit", { method:"POST", credentials:"same-origin", headers:{"Content-Type":"application/json"}, body: JSON.stringify(data) })
         .then(function(r){ return r.json().then(function(j){ if(!r.ok) throw new Error(j.error || "Couldn't send the case. Please try again."); return j; }); })
@@ -376,7 +382,8 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       var c = {
         area: $("rc-area").value, areaOther: $("rc-area").value === "other" ? other : "", facts: facts, date: $("rc-date").value || null,
         amount: +$("rc-amount").value || 0,
-        evidence: Array.prototype.map.call(document.querySelectorAll("#rc-evidence input:checked"), function(x){ return x.value; })
+        evidence: Array.prototype.map.call(document.querySelectorAll("#rc-evidence input:checked"), function(x){ return x.value; }),
+        evidenceNote: $("rc-ev-note").value.trim()
       };
       last = c;
       var r = check(c), L = LEVEL[r.level];
