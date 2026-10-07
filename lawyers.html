@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <script src="/theme.js"></script>
+<script src="/view-switch.js" data-page="lawyer"></script>
 <title>Case board — Casebound for lawyers</title>
 <meta name="description" content="Casebound for lawyers: review cases sent by clients, rate them and connect with the ones you want to take on.">
 <meta name="theme-color" content="#6E1F2A">
@@ -36,7 +37,7 @@ h1,h2{text-wrap:balance}
 .wordmark{font-family:var(--serif);font-size:21px;font-weight:600;line-height:1;text-decoration:none;color:var(--ink)}
 .wordmark span{color:var(--oxblood)}
 .wordmark small{display:block;font-family:var(--sans);font-size:10px;font-weight:600;color:var(--ink-soft);letter-spacing:.06em;margin-top:2px}
-.top-links{margin-left:auto;display:flex;gap:14px;font-size:13px;font-weight:600}
+.top-links{margin-left:auto;display:flex;gap:14px;align-items:center;font-size:13px;font-weight:600}
 .top-links a{text-decoration:none;color:var(--ink-soft)} .top-links a:hover{color:var(--oxblood)}
 
 main{max-width:1300px;margin:0 auto;padding:26px 20px 70px}
@@ -155,7 +156,6 @@ footer div{max-width:1300px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
   <div class="masthead-in">
     <a class="wordmark" href="/">Case<span>bound</span><small>FOR LAWYERS</small></a>
     <nav class="top-links" aria-label="Account">
-      <a href="/">Research</a>
       <a href="/account.html" id="top-account">Account</a>
     </nav>
   </div>
@@ -210,7 +210,7 @@ footer div{max-width:1300px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
 
 <footer>
   <div>
-    <a href="/">← Back to Casebound</a>
+    <a href="#" onclick="CaseboundView.toClient();return false;">Switch to the client view</a>
     <a href="/terms.html#lawyers">Terms for lawyers</a>
     <a href="/privacy.html#connect">Privacy: lawyer connections</a>
     <a href="mailto:admin@case-bound.com">Contact / complaints: admin@case-bound.com</a>

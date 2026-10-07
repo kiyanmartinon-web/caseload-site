@@ -747,10 +747,14 @@ details input{font:inherit;font-size:16px;padding:9px 11px;border:1px solid var(
     api("GET", "/api/cases/lawyers").then(function(j){ lawyers = j.lawyers || []; renderAdmin(); }).catch(function(){ renderAdmin(); });
   }
 
-  function renderAll(){ renderKind(); renderCases(); renderAdmin(); }
+  // Keep the lawyer/client view switch (view-switch.js) in step with the profile type.
+  function cacheRole(role){
+    try{ if(role === "lawyer") localStorage.setItem("casebound:role", "lawyer"); else { localStorage.removeItem("casebound:role"); localStorage.removeItem("casebound:view"); } }catch(e){}
+  }
+  function renderAll(){ cacheRole(me && me.user && me.user.role); renderKind(); renderCases(); renderAdmin(); }
   new MutationObserver(renderAll).observe(document.documentElement, { attributes:true, attributeFilter:["lang"] });
   fetch("/api/auth/me", { credentials:"same-origin" }).then(function(r){ return r.json(); }).then(function(j){
-    me = j; if(!j || !j.user) return;
+    me = j; if(!j || !j.user){ cacheRole(""); return; }
     if(j.user.isAdmin && viewAs() === "lawyer"){
       var lb2 = document.createElement("a"); lb2.className = "btn"; lb2.href = "/lawyers.html"; lb2.textContent = "Open the case board";
       var kd = $("kind"); kd.appendChild(lb2); lb2.style.marginTop = "14px";
