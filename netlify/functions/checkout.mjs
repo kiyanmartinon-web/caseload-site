@@ -1,9 +1,9 @@
-// POST /api/checkout  { price: "price_…", lang: "en" | "it" }  →  { url }
+// POST /api/checkout  { price: "price_…", lang: "en" | "it" | "es" | "fr" | "de" | "pt" | "pl" | "ar" }  →  { url }
 // Opens a Stripe Checkout page for a subscription. Which payment methods appear
 // (cards, Apple Pay, Google Pay, PayPal, SEPA, Satispay…) is decided by what you
 // switch on in Stripe → Settings → Payment methods; nothing to change here.
 import { isConfigured, stripe, json, siteOrigin, failure } from "../lib/stripe.mjs";
-import { buildSessionParams } from "../lib/plans.mjs";
+import { buildSessionParams, normLang } from "../lib/plans.mjs";
 import { currentUser, sameOrigin } from "../lib/auth.mjs";
 
 export default async (req) => {
@@ -47,7 +47,7 @@ export default async (req) => {
         return json({ error: "You already have a subscription. Change plan from your account page.", hasSubscription: true }, 409);
       }
     }
-    const params = buildSessionParams(price, siteOrigin(req), body.lang === "it" ? "it" : "en");
+    const params = buildSessionParams(price, siteOrigin(req), normLang(body.lang));
     params.client_reference_id = user.id;
     if (user.stripeCustomer) {
       params.customer = user.stripeCustomer;

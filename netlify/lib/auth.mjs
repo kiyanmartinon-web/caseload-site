@@ -2,6 +2,7 @@
 // Passwords are hashed with scrypt; session tokens are random and only their
 // SHA-256 hash is stored, so a leaked database can't be used to log in.
 import crypto from "node:crypto";
+import { normLang } from "./plans.mjs";
 import { getJSON, putJSON, del } from "./store.mjs";
 
 const SESSION_DAYS = 30;
@@ -93,7 +94,7 @@ export async function createUser({ email, password, name, lang, role, lawyer }) 
     createdAt: now,
     termsAcceptedAt: now,
     termsVersion: TERMS_VERSION,
-    lang: lang === "it" ? "it" : "en",
+    lang: normLang(lang),
     role: role === "lawyer" ? "lawyer" : "client",
     lawyer: role === "lawyer" ? lawyer : null,
     stripeCustomer: "",

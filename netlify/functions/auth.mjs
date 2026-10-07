@@ -22,15 +22,43 @@ import { json, isConfigured, stripe } from "../lib/stripe.mjs";
 import { subscriptionFor, tierOf } from "../lib/subscription.mjs";
 import { issueCode, checkCode, useCode } from "../lib/reset.mjs";
 import { mailConfigured, sendMail } from "../lib/mail.mjs";
+import { LANGS, normLang } from "../lib/plans.mjs";
+
+const CODE_EMAIL = {
+  en: { subject: (c) => `Your Casebound code: ${c}`, intro: "Your code to reset your Casebound password is:",
+        works: (m) => `It works for ${m} minutes. Enter it on the sign-in page to choose a new password.`,
+        ignore: "If you didn't ask for this, ignore this email: your password stays the same." },
+  it: { subject: (c) => `Il tuo codice Casebound: ${c}`, intro: "Il tuo codice per reimpostare la password di Casebound è:",
+        works: (m) => `Vale ${m} minuti. Inseriscilo nella pagina di accesso per scegliere una nuova password.`,
+        ignore: "Se non l'hai richiesto tu, ignora questa email: la tua password non cambia." },
+  es: { subject: (c) => `Tu código de Casebound: ${c}`, intro: "Tu código para restablecer la contraseña de Casebound es:",
+        works: (m) => `Es válido durante ${m} minutos. Introdúcelo en la página de inicio de sesión para elegir una nueva contraseña.`,
+        ignore: "Si no lo has solicitado, ignora este correo: tu contraseña no cambia." },
+  fr: { subject: (c) => `Votre code Casebound : ${c}`, intro: "Votre code pour réinitialiser votre mot de passe Casebound est :",
+        works: (m) => `Il est valable ${m} minutes. Saisissez-le sur la page de connexion pour choisir un nouveau mot de passe.`,
+        ignore: "Si vous n'êtes pas à l'origine de cette demande, ignorez cet e-mail : votre mot de passe reste inchangé." },
+  de: { subject: (c) => `Dein Casebound-Code: ${c}`, intro: "Dein Code zum Zurücksetzen deines Casebound-Passworts lautet:",
+        works: (m) => `Er gilt ${m} Minuten. Gib ihn auf der Anmeldeseite ein, um ein neues Passwort festzulegen.`,
+        ignore: "Wenn du das nicht angefordert hast, ignoriere diese E-Mail: Dein Passwort bleibt unverändert." },
+  pt: { subject: (c) => `O seu código Casebound: ${c}`, intro: "O seu código para redefinir a palavra-passe do Casebound é:",
+        works: (m) => `É válido durante ${m} minutos. Introduza-o na página de início de sessão para escolher uma nova palavra-passe.`,
+        ignore: "Se não fez este pedido, ignore este e-mail: a sua palavra-passe não muda." },
+  pl: { subject: (c) => `Twój kod Casebound: ${c}`, intro: "Twój kod do zresetowania hasła w Casebound to:",
+        works: (m) => `Kod jest ważny przez ${m} min. Wpisz go na stronie logowania, aby ustawić nowe hasło.`,
+        ignore: "Jeśli to nie ty o to prosiłeś, zignoruj tę wiadomość: twoje hasło się nie zmieni." },
+  ar: { subject: (c) => `رمز Casebound الخاص بك: ${c}`, intro: "رمز إعادة تعيين كلمة مرور Casebound الخاصة بك هو:",
+        works: (m) => `الرمز صالح لمدة ${m} دقيقة. أدخله في صفحة تسجيل الدخول لاختيار كلمة مرور جديدة.`,
+        ignore: "إذا لم تطلب ذلك، فتجاهل هذه الرسالة: ستبقى كلمة مرورك كما هي." },
+};
 
 function codeEmail(code, minutes, lang) {
-  const it = lang === "it";
-  const subject = it ? `Il tuo codice Casebound: ${code}` : `Your Casebound code: ${code}`;
-  const lines = it
-    ? [`Il tuo codice per reimpostare la password di Casebound è:`, ``, `    ${code}`, ``, `Vale ${minutes} minuti. Inseriscilo nella pagina di accesso per scegliere una nuova password.`, ``, `Se non l'hai richiesto tu, ignora questa email: la tua password non cambia.`, ``, `Casebound — case-bound.com`]
-    : [`Your code to reset your Casebound password is:`, ``, `    ${code}`, ``, `It works for ${minutes} minutes. Enter it on the sign-in page to choose a new password.`, ``, `If you didn't ask for this, ignore this email: your password stays the same.`, ``, `Casebound — case-bound.com`];
-  const html = `<div style="font-family:Arial,sans-serif;font-size:15px;color:#1b2333;line-height:1.5;max-width:480px">` +
-    `<p>${lines[0]}</p><p style="font-size:30px;font-weight:700;letter-spacing:6px;margin:18px 0">${code}</p>` +
+  const l = normLang(lang);
+  const t = CODE_EMAIL[l];
+  const subject = t.subject(code);
+  const lines = [t.intro, ``, `    ${code}`, ``, t.works(minutes), ``, t.ignore, ``, `Casebound — case-bound.com`];
+  const dir = l === "ar" ? ` dir="rtl"` : "";
+  const html = `<div${dir} style="font-family:Arial,sans-serif;font-size:15px;color:#1b2333;line-height:1.5;max-width:480px">` +
+    `<p>${lines[0]}</p><p dir="ltr" style="font-size:30px;font-weight:700;letter-spacing:6px;margin:18px 0">${code}</p>` +
     `<p>${lines[4]}</p><p style="color:#5b6475;font-size:13px">${lines[6]}</p><p style="color:#5b6475;font-size:13px">Casebound — case-bound.com</p></div>`;
   return { subject, text: lines.join("\n"), html };
 }
@@ -134,7 +162,7 @@ export default async (req, context) => {
     const r = await issueCode(email);
     if (r.code) {
       try {
-        await sendMail({ to: email, ...codeEmail(r.code, r.minutes, b.lang === "it" || b.lang === "en" ? b.lang : user.lang) });
+        await sendMail({ to: email, ...codeEmail(r.code, r.minutes, LANGS.includes(b.lang) ? b.lang : user.lang) });
       } catch (err) {
         console.error("reset email failed", err && err.message);
         return bad("We couldn't send the email just now. Try again in a few minutes.", 502);
@@ -170,7 +198,7 @@ export default async (req, context) => {
 
     if (action === "update") {
       if (typeof b.name === "string") user.name = b.name.trim().slice(0, 100);
-      if (b.lang === "it" || b.lang === "en") user.lang = b.lang;
+      if (typeof b.lang === "string" && LANGS.includes(b.lang)) user.lang = b.lang;
       const role = b.role === "lawyer" || b.role === "client" ? b.role : user.role || "client";
       if (role === "lawyer" && (b.lawyer || user.role !== "lawyer")) {
         if (!user.name) return bad("Lawyers need to give their full name, as it appears on the register.");

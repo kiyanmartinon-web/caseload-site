@@ -4,6 +4,7 @@
 // STRIPE_PORTAL_LOGIN_URL link instead, where Stripe emails them a login code.
 import { isConfigured, stripe, json, siteOrigin, portalLoginUrl, failure } from "../lib/stripe.mjs";
 import { currentUser, sameOrigin } from "../lib/auth.mjs";
+import { normLang, stripeLocale } from "../lib/plans.mjs";
 
 export default async (req) => {
   if (req.method !== "POST") return json({ error: "Method not allowed" }, 405);
@@ -25,11 +26,11 @@ export default async (req) => {
       if (s.status !== "complete" || !s.customer) return json({ error: "Checkout not completed." }, 400);
       customer = typeof s.customer === "string" ? s.customer : s.customer.id;
     }
-    const lang = body.lang === "it" ? "it" : "en";
+    const lang = normLang(body.lang);
     const portal = await stripe("POST", "billing_portal/sessions", {
       customer,
-      return_url: `${siteOrigin(req)}/account.html${lang === "it" ? "?lang=it" : ""}`,
-      locale: lang,
+      return_url: `${siteOrigin(req)}/account.html${lang === "en" ? "" : "?lang=" + lang}`,
+      locale: stripeLocale(lang),
     });
     return json({ url: portal.url });
   } catch (err) {

@@ -1,5 +1,18 @@
 // Pure helpers shared by the functions (kept separate so they can be unit-tested).
 
+// Site languages (keep in step with /i18n.js).
+export const LANGS = ["en", "it", "es", "fr", "de", "pt", "pl", "ar"];
+export function normLang(l) {
+  const c = String(l || "").toLowerCase().slice(0, 2);
+  return LANGS.includes(c) ? c : "en";
+}
+// Stripe Checkout / Customer portal have no Arabic; "auto" lets Stripe use the browser language.
+export function stripeLocale(l) {
+  const c = normLang(l);
+  return c === "ar" ? "auto" : c;
+}
+const splitList = (v) => (v || "").split("|").map((s) => s.trim()).filter(Boolean);
+
 export function toPlan(price) {
   const p = price.product || {};
   const m = p.metadata || {};
@@ -15,7 +28,13 @@ export function toPlan(price) {
     features: (p.marketing_features || []).map((f) => f.name).filter(Boolean),
     name_it: m.name_it || "",
     description_it: m.description_it || "",
-    features_it: (m.features_it || "").split("|").map((s) => s.trim()).filter(Boolean),
+    features_it: splitList(m.features_it),
+    // Translations from product metadata: name_<lang>, description_<lang>, features_<lang> (separated by |).
+    tr: Object.fromEntries(LANGS.filter((c) => c !== "en").map((c) => [c, {
+      name: m["name_" + c] || "",
+      description: m["description_" + c] || "",
+      features: splitList(m["features_" + c]),
+    }])),
     amount: price.unit_amount,
     currency: price.currency,
     interval: r.interval,
@@ -48,13 +67,14 @@ export function buildSessionParams(price, origin, lang) {
   const m = (price.product && price.product.metadata) || {};
   const pm = price.metadata || {};
   const trial = parseInt(pm.trial_days || m.trial_days, 10);
-  const it = lang === "it";
+  const l = normLang(lang);
+  const q = l === "en" ? "" : `&lang=${l}`;
   const params = {
     mode: "subscription",
     line_items: [{ price: price.id, quantity: 1 }],
-    success_url: `${origin}/account.html?session_id={CHECKOUT_SESSION_ID}${it ? "&lang=it" : ""}`,
-    cancel_url: `${origin}/pricing.html?canceled=1${it ? "#it" : ""}`,
-    locale: it ? "it" : "en",
+    success_url: `${origin}/account.html?session_id={CHECKOUT_SESSION_ID}${q}`,
+    cancel_url: `${origin}/pricing.html?canceled=1${q}`,
+    locale: stripeLocale(l),
     allow_promotion_codes: true,
     billing_address_collection: "required",
     tax_id_collection: { enabled: true },
