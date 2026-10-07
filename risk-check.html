@@ -256,7 +256,8 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
         <div class="row">
           <div class="f"><label for="c-party">Who is the other side?</label>
             <select id="c-party"><option>A company</option><option>My employer</option><option>A private person</option><option>A landlord</option><option>A public body</option></select></div>
-          <div class="f"><label for="c-city">Where are you based?</label><input type="text" id="c-city" maxlength="60" placeholder="e.g. Milano"></div>
+          <div class="f"><label for="c-region">Region</label><select id="c-region"><option value="">Choose your region…</option><option>Abruzzo</option><option>Basilicata</option><option>Calabria</option><option>Campania</option><option>Emilia-Romagna</option><option>Friuli-Venezia Giulia</option><option>Lazio</option><option>Liguria</option><option>Lombardia</option><option>Marche</option><option>Molise</option><option>Piemonte</option><option>Puglia</option><option>Sardegna</option><option>Sicilia</option><option>Toscana</option><option>Trentino-Alto Adige</option><option>Umbria</option><option>Valle d&#39;Aosta</option><option>Veneto</option></select></div>
+          <div class="f"><label for="c-city">City</label><input type="text" id="c-city" maxlength="60" placeholder="e.g. Milano"></div>
         </div>
         <div class="f"><label for="c-goal">What outcome do you want?</label><input type="text" id="c-goal" maxlength="200" placeholder="e.g. Get my job back, or compensation"></div>
         <label class="consent"><input type="checkbox" id="c-consent"> <span>I agree that verified lawyers on Casebound may read this case to decide whether to take it on. I understand that no lawyer–client relationship exists until a lawyer confirms it with me directly.</span></label>
@@ -458,10 +459,11 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       e.preventDefault();
       if(!last) return;
       var err = $("c-err"); err.textContent = "";
+      if(!$("c-region").value){ err.textContent = "Choose your region, so lawyers near you can find your case."; $("c-region").focus(); return; }
       if(!$("c-consent").checked){ err.textContent = "Tick the box so verified lawyers can read your case."; return; }
       var btn = $("c-send"); btn.disabled = true;
       var data = { area:last.area, areaOther:last.areaOther, facts:last.facts, date:last.date, amount:last.amount, evidence:last.evidence, evidenceNote:last.evidenceNote,
-        title:$("c-title").value, party:$("c-party").value, city:$("c-city").value, goal:$("c-goal").value, consent:true };
+        title:$("c-title").value, party:$("c-party").value, city:$("c-city").value, region:$("c-region").value, checkLevel:last.level, evidenceLevel:last.evidenceLevel, goal:$("c-goal").value, consent:true };
       fetch("/api/cases/submit", { method:"POST", credentials:"same-origin", headers:{"Content-Type":"application/json"}, body: JSON.stringify(data) })
         .then(function(r){ return r.json().then(function(j){ if(!r.ok) throw new Error(j.error || "Couldn't send the case. Please try again."); return j; }); })
         .then(function(){ $("c-form").hidden = true; $("c-done").hidden = false; })
@@ -484,6 +486,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       };
       last = c;
       var r = check(c), L = LEVEL[r.level];
+      c.level = r.level; c.evidenceLevel = r.evidence.level;
       $("result").innerHTML =
         '<div class="result-top"><span class="level ' + L.cls + '">' + L.label + '</span><h2>' + L.head + '</h2></div>' +
         '<div><div class="meter ' + r.level + '"><i></i><i></i><i></i></div><div class="meter-ends"><span>Low</span><span>Medium</span><span>High</span></div></div>' +

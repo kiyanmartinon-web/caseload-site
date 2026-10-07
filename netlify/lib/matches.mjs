@@ -38,6 +38,7 @@ export async function allCases() {
 
 const EVIDENCE = ["Contract", "Emails / messages", "Invoices / receipts", "Photos / video", "Witnesses", "Expert report", "Official report", "Payslips"];
 const PARTIES = ["A company", "My employer", "A private person", "A landlord", "A public body"];
+export const REGIONS = ["Abruzzo", "Basilicata", "Calabria", "Campania", "Emilia-Romagna", "Friuli-Venezia Giulia", "Lazio", "Liguria", "Lombardia", "Marche", "Molise", "Piemonte", "Puglia", "Sardegna", "Sicilia", "Toscana", "Trentino-Alto Adige", "Umbria", "Valle d'Aosta", "Veneto"];
 const clip = (v, n) => String(v || "").trim().slice(0, n);
 
 export function cleanCase(b) {
@@ -57,6 +58,9 @@ export function cleanCase(b) {
       areaOther: area === "other" ? clip(b.areaOther, 80) : "",
       party: PARTIES.includes(b.party) ? b.party : "",
       city: clip(b.city, 60),
+      region: REGIONS.includes(b.region) ? b.region : "",
+      checkLevel: ["low", "med", "high"].includes(b.checkLevel) ? b.checkLevel : "",
+      evidenceLevel: ["strong", "moderate", "weak", "none"].includes(b.evidenceLevel) ? b.evidenceLevel : "",
       goal: clip(b.goal, 200),
     },
   };

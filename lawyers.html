@@ -58,6 +58,24 @@ main{max-width:1300px;margin:0 auto;padding:26px 20px 70px}
 .stat.warn b{color:var(--amber)} .stat.bad b{color:var(--oxblood)}
 .tools{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
 .tools .f{flex:1 1 180px;display:grid;gap:4px}
+.tools .f-wide{flex:2 1 260px}
+.tools.filters .f{flex:1 1 150px}
+.sortrow{display:flex;gap:6px}
+.sortrow select{flex:1}
+.dir{flex:0 0 38px;border:1px solid var(--rule);background:var(--paper-2);border-radius:5px;font-size:16px;cursor:pointer;color:var(--ink)}
+.dir:hover{border-color:var(--slate)}
+.resbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;font-size:12.5px;color:var(--ink-soft);margin:-2px 0 12px}
+#t-count{font-weight:700;color:var(--ink)}
+.linkbtn{margin-left:auto;background:none;border:0;padding:0;color:var(--slate);font-size:12.5px;font-weight:600;cursor:pointer;text-decoration:underline}
+.p-out{background:var(--paper);border:1px solid var(--rule);color:var(--ink-soft)}
+.p-out.fav{color:var(--verdigris)} .p-out.unf{color:var(--oxblood)}
+.mv{display:flex;flex-direction:column;gap:2px}
+.mv span{display:block;width:26px;height:20px;line-height:20px;text-align:center;border:1px solid var(--rule);border-radius:4px;background:var(--paper);font-size:11px;cursor:pointer}
+.mv span:hover{border-color:var(--slate)}
+.item{cursor:pointer}
+.item.custom{grid-template-columns:30px 62px minmax(0,1fr) auto;cursor:grab}
+.item.dragging{opacity:.4}
+.item.drop{box-shadow:0 -3px 0 var(--verdigris)}
 .tools label{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft)}
 input[type=text],select,textarea{width:100%;background:var(--paper-2);border:1px solid var(--rule);border-radius:5px;padding:8px 10px;font-size:14px}
 .board{display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:16px;align-items:start}
@@ -156,15 +174,33 @@ footer div{max-width:1300px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
   <section id="app" hidden>
     <div class="stats" id="stats"></div>
     <div class="tools">
-      <div class="f"><label for="t-q">Search</label><input type="text" id="t-q" placeholder="Words, city…"></div>
-      <div class="f"><label for="t-area">Area of law</label><select id="t-area"></select></div>
+      <div class="f f-wide"><label for="t-q">Search</label><input type="text" id="t-q" placeholder="Words, city…"></div>
+      <div class="f"><label for="t-sort">Sort by</label>
+        <div class="sortrow"><select id="t-sort">
+          <option value="score">Match score</option><option value="outcome">Possible outcome</option><option value="risk">Risk rating</option>
+          <option value="evidence">Evidence strength</option><option value="deadline">Time left</option><option value="value">Amount at stake</option>
+          <option value="newest">Date sent</option><option value="region">Region</option><option value="area">Area of law</option><option value="custom">My order</option>
+        </select><button type="button" id="t-dir" class="dir" aria-label="Reverse the order" title="Reverse the order">↓</button></div>
+      </div>
       <div class="f"><label for="t-status">Show</label>
         <select id="t-status"><option value="open">Not passed</option><option value="all">All</option><option value="new">Not reviewed by me</option><option value="interested">I'm interested</option><option value="info">I asked for more</option><option value="passed">Passed</option></select>
       </div>
-      <div class="f"><label for="t-sort">Sort by</label>
-        <select id="t-sort"><option value="score">Match score</option><option value="deadline">Deadline (soonest)</option><option value="value">Amount at stake</option><option value="newest">Newest</option></select>
-      </div>
     </div>
+    <div class="tools filters">
+      <div class="f"><label for="t-area">Area of law</label><select id="t-area"></select></div>
+      <div class="f"><label for="t-region">Region</label><select id="t-region"></select></div>
+      <div class="f"><label for="t-outcome">Possible outcome</label>
+        <select id="t-outcome"><option value="all">Any</option><option value="fav">Favourable</option><option value="unc">Uncertain</option><option value="unf">Unfavourable</option></select></div>
+      <div class="f"><label for="t-risk">Risk rating</label>
+        <select id="t-risk"><option value="all">Any</option><option value="low">Low risk</option><option value="med">Medium risk</option><option value="high">High risk</option><option value="none">Not rated</option></select></div>
+      <div class="f"><label for="t-ev">Evidence</label>
+        <select id="t-ev"><option value="all">Any</option><option value="strong">Strong</option><option value="moderate">Moderate</option><option value="weak">Weak</option><option value="none">None</option></select></div>
+      <div class="f"><label for="t-time">Time left</label>
+        <select id="t-time"><option value="all">Any</option><option value="60">60 days or less</option><option value="180">6 months or less</option><option value="ok">More than 6 months</option><option value="gone">May have passed</option><option value="nolimit">No fixed limit / no date</option></select></div>
+      <div class="f"><label for="t-amount">Amount at stake</label>
+        <select id="t-amount"><option value="all">Any</option><option value="0-1000">Under €1,000</option><option value="1000-10000">€1,000 – €10,000</option><option value="10000-50000">€10,000 – €50,000</option><option value="50000-">Over €50,000</option><option value="none">Not given</option></select></div>
+    </div>
+    <div class="resbar"><span id="t-count"></span><span id="t-hint"></span><button type="button" id="t-reset" class="linkbtn">Reset filters</button></div>
     <div class="board">
       <div class="list" id="list"></div>
       <aside class="panel" id="panel" aria-live="polite"></aside>
@@ -210,7 +246,12 @@ footer div{max-width:1300px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
     other:{label:"Other", rule:"Time limits vary by type of claim, so a lawyer needs to tell you which one applies"}
   };
   var STATUS = {interested:"Interested", info:"More info asked", passed:"Passed"};
-  var cases = [], selected = null, saving = false, ADMIN_VIEW = false;
+  var cases = [], selected = null, saving = false, ORDER = [], DESC = true, dragId = null;
+  var REGIONS = ["Abruzzo","Basilicata","Calabria","Campania","Emilia-Romagna","Friuli-Venezia Giulia","Lazio","Liguria","Lombardia","Marche","Molise","Piemonte","Puglia","Sardegna","Sicilia","Toscana","Trentino-Alto Adige","Umbria","Valle d'Aosta","Veneto"];
+  /* For cases sent before clients chose a region: work it out from the city where we can. */
+  var CITY_REGION = {milano:"Lombardia",milan:"Lombardia",bergamo:"Lombardia",brescia:"Lombardia",monza:"Lombardia",como:"Lombardia",pavia:"Lombardia",varese:"Lombardia",roma:"Lazio",rome:"Lazio",latina:"Lazio",napoli:"Campania",naples:"Campania",salerno:"Campania",caserta:"Campania",torino:"Piemonte",turin:"Piemonte",novara:"Piemonte",genova:"Liguria",genoa:"Liguria","la spezia":"Liguria",bologna:"Emilia-Romagna",modena:"Emilia-Romagna",parma:"Emilia-Romagna","reggio emilia":"Emilia-Romagna",rimini:"Emilia-Romagna",ferrara:"Emilia-Romagna",firenze:"Toscana",florence:"Toscana",pisa:"Toscana",livorno:"Toscana",siena:"Toscana",prato:"Toscana",lucca:"Toscana",venezia:"Veneto",venice:"Veneto",verona:"Veneto",padova:"Veneto",padua:"Veneto",vicenza:"Veneto",treviso:"Veneto",trieste:"Friuli-Venezia Giulia",udine:"Friuli-Venezia Giulia",trento:"Trentino-Alto Adige",bolzano:"Trentino-Alto Adige",aosta:"Valle d'Aosta",palermo:"Sicilia",catania:"Sicilia",messina:"Sicilia",siracusa:"Sicilia",cagliari:"Sardegna",sassari:"Sardegna",bari:"Puglia",lecce:"Puglia",taranto:"Puglia",foggia:"Puglia",brindisi:"Puglia","reggio calabria":"Calabria",cosenza:"Calabria",catanzaro:"Calabria",potenza:"Basilicata",matera:"Basilicata",perugia:"Umbria",terni:"Umbria",ancona:"Marche",pesaro:"Marche",pescara:"Abruzzo","l'aquila":"Abruzzo",chieti:"Abruzzo",campobasso:"Molise"};
+  function region(c){ return c.region || CITY_REGION[String(c.city || "").trim().toLowerCase()] || ""; }
+  var ADMIN_VIEW = false;
 
   function esc(s){ return String(s == null ? "" : s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
   function eur(n){ return n ? "€" + Number(n).toLocaleString("it-IT") : "—"; }
@@ -250,9 +291,29 @@ footer div{max-width:1300px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
     return { total: Math.round(total), parts: parts, rated: rated };
   }
   function risk(c){
-    var m = mine(c); if(m.strength == null || m.quality == null) return {cls:"p-unrated", label:"Not rated"};
+    var m = mine(c);
+    if(m.strength == null || m.quality == null){
+      var cl = {low:{cls:"p-low", label:"Low risk (client check)", key:"low"}, med:{cls:"p-med", label:"Medium risk (client check)", key:"med"}, high:{cls:"p-high", label:"High risk (client check)", key:"high"}}[c.checkLevel];
+      return cl || {cls:"p-unrated", label:"Not rated", key:"none"};
+    }
     var a = (m.strength + m.quality)/2;
-    return a >= 4 ? {cls:"p-low", label:"Low risk"} : a >= 2.75 ? {cls:"p-med", label:"Medium risk"} : {cls:"p-high", label:"High risk"};
+    return a >= 4 ? {cls:"p-low", label:"Low risk", key:"low"} : a >= 2.75 ? {cls:"p-med", label:"Medium risk", key:"med"} : {cls:"p-high", label:"High risk", key:"high"};
+  }
+  /* Possible outcome: your own claim-strength rating when you have given one, otherwise an estimate from the match score. */
+  function outcome(c){
+    var s = mine(c).strength, est = s == null, v;
+    if(est){ var t = score(c).total; v = t >= 55 ? "fav" : t >= 30 ? "unc" : "unf"; }
+    else v = s >= 4 ? "fav" : s === 3 ? "unc" : "unf";
+    var L = {fav:"Favourable", unc:"Uncertain", unf:"Unfavourable"}[v];
+    return {key:v, label: L + (est ? " (est.)" : ""), rank:{fav:3, unc:2, unf:1}[v]};
+  }
+  /* Evidence strength: your own evidence rating once you give one, otherwise the client's automatic analysis. */
+  function evidence(c){
+    var q = mine(c).quality;
+    if(q != null) return q >= 4 ? "strong" : q === 3 ? "moderate" : "weak";
+    if(c.evidenceLevel) return c.evidenceLevel;
+    var f = formalCount(c);
+    return !c.evidence.length ? (c.evidenceNote ? "weak" : "none") : f >= 2 ? "strong" : f === 1 ? "moderate" : "weak";
   }
   function flags(c){
     var out = [], d = daysLeft(c), a = area(c);
@@ -268,23 +329,76 @@ footer div{max-width:1300px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
     return out;
   }
 
+  var EVR = {strong:4, moderate:3, weak:2, none:1}, RISKR = {low:3, med:2, high:1, none:0};
+  var FILTERS = ["t-area","t-region","t-outcome","t-risk","t-ev","t-time","t-amount","t-status"];
+  function place(c){ var r = region(c); return [c.city, r].filter(function(x, i, a){ return x && a.indexOf(x) === i; }).join(", ") || "—"; }
   function filtered(){
-    var q = $("t-q").value.trim().toLowerCase(), a = $("t-area").value, st = $("t-status").value, so = $("t-sort").value;
+    var q = $("t-q").value.trim().toLowerCase(), v = {};
+    FILTERS.forEach(function(id){ v[id] = $(id).value; });
     var l = cases.filter(function(c){
-      var d = mine(c).decision || "new";
-      if(a !== "all" && c.area !== a) return false;
+      var d = mine(c).decision || "new", st = v["t-status"], dl = daysLeft(c);
+      if(v["t-area"] !== "all" && c.area !== v["t-area"]) return false;
+      if(v["t-region"] !== "all" && (region(c) || "none") !== v["t-region"]) return false;
+      if(v["t-outcome"] !== "all" && outcome(c).key !== v["t-outcome"]) return false;
+      if(v["t-risk"] !== "all" && risk(c).key !== v["t-risk"]) return false;
+      if(v["t-ev"] !== "all" && evidence(c) !== v["t-ev"]) return false;
+      var tm = v["t-time"];
+      if(tm === "60" && !(dl !== null && dl >= 0 && dl <= 60)) return false;
+      if(tm === "180" && !(dl !== null && dl >= 0 && dl <= 180)) return false;
+      if(tm === "ok" && !(dl !== null && dl > 180)) return false;
+      if(tm === "gone" && !(dl !== null && dl < 0)) return false;
+      if(tm === "nolimit" && dl !== null) return false;
+      var am = v["t-amount"];
+      if(am === "none" && c.amount) return false;
+      if(am !== "all" && am !== "none"){ var r = am.split("-"), lo = +r[0], hi = r[1] ? +r[1] : Infinity; if(!c.amount || c.amount < lo || c.amount >= hi) return false; }
       if(st === "open" && d === "passed") return false;
       if(["open","all"].indexOf(st) < 0 && d !== st) return false;
-      if(q && [c.title, c.facts, c.city, areaLabel(c)].join(" ").toLowerCase().indexOf(q) < 0) return false;
+      if(q && [c.title, c.facts, c.city, region(c), areaLabel(c), c.evidenceNote].join(" ").toLowerCase().indexOf(q) < 0) return false;
       return true;
     });
-    var key = {
-      score:function(x,y){ return score(y).total - score(x).total; },
-      deadline:function(x,y){ var a = daysLeft(x), b = daysLeft(y); return (a === null ? 1e9 : a) - (b === null ? 1e9 : b); },
-      value:function(x,y){ return (y.amount||0) - (x.amount||0); },
-      newest:function(x,y){ return y.createdAt.localeCompare(x.createdAt); }
+    var so = $("t-sort").value;
+    if(so === "custom"){
+      var pos = {}; ORDER.forEach(function(id, i){ pos[id] = i; });
+      return l.sort(function(x,y){ var a = x.id in pos ? pos[x.id] : 1e6, b = y.id in pos ? pos[y.id] : 1e6; return a - b || y.createdAt.localeCompare(x.createdAt); });
+    }
+    /* Each sort key gives a number or text. The arrow flips the direction. */
+    var val = {
+      score:function(c){ return score(c).total; },
+      outcome:function(c){ return outcome(c).rank; },
+      risk:function(c){ return RISKR[risk(c).key]; },
+      evidence:function(c){ return EVR[evidence(c)]; },
+      deadline:function(c){ var d = daysLeft(c); return d === null ? -1e9 : d < 0 ? -1e8 : -d; },
+      value:function(c){ return c.amount || 0; },
+      newest:function(c){ return c.createdAt; },
+      region:function(c){ return region(c) || "~"; },
+      area:function(c){ return areaLabel(c); }
     }[so];
-    return l.sort(key);
+    var text = so === "region" || so === "area", dir = (text ? !DESC : DESC) ? -1 : 1;
+    return l.sort(function(x,y){
+      var a = val(x), b = val(y), r = typeof a === "string" ? a.localeCompare(b) : a - b;
+      return dir * r || score(y).total - score(x).total;
+    });
+  }
+  function sortHint(){
+    var so = $("t-sort").value, up = !DESC;
+    var H = {score:["highest first","lowest first"], outcome:["most favourable first","least favourable first"], risk:["lowest risk first","highest risk first"],
+      evidence:["strongest first","weakest first"], deadline:["most urgent first","most time left first"], value:["largest first","smallest first"],
+      newest:["newest first","oldest first"], region:["A to Z","Z to A"], area:["A to Z","Z to A"]};
+    $("t-dir").hidden = so === "custom";
+    $("t-dir").textContent = up ? "↑" : "↓";
+    $("t-hint").textContent = so === "custom" ? "Drag cases, or use the arrows, to put them in your own order. It is saved to your account." : "Sorted " + H[so][up ? 1 : 0];
+  }
+  function saveOrder(){
+    fetch("/api/cases/order", { method:"POST", credentials:"same-origin", headers:{"Content-Type":"application/json"}, body: JSON.stringify({ ids: ORDER }) }).catch(function(){});
+  }
+  function moveCase(id, beforeId){
+    var vis = filtered().map(function(c){ return c.id; });
+    var rest = ORDER.filter(function(x){ return vis.indexOf(x) < 0; });
+    vis = vis.filter(function(x){ return x !== id; });
+    var at = beforeId == null ? vis.length : vis.indexOf(beforeId); if(at < 0) at = vis.length;
+    vis.splice(at, 0, id);
+    ORDER = vis.concat(rest);
+    saveOrder(); renderList();
   }
   function renderStats(){
     var notPassed = cases.filter(function(c){ return mine(c).decision !== "passed"; });
@@ -303,16 +417,19 @@ footer div{max-width:1300px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
       return;
     }
     var l = filtered();
+    $("t-count").textContent = l.length + " of " + cases.length + " case" + (cases.length === 1 ? "" : "s");
     if(!l.length){ $("list").innerHTML = '<div class="empty">No cases match these filters.</div>'; return; }
+    var custom = $("t-sort").value === "custom";
     $("list").innerHTML = l.map(function(c){
-      var s = score(c), r = risk(c), d = mine(c).decision;
-      return '<button type="button" class="item' + (c.id === selected ? " sel" : "") + (d === "passed" ? " passed" : "") + '" data-id="' + esc(c.id) + '">' +
+      var s = score(c), r = risk(c), d = mine(c).decision, o = outcome(c);
+      return '<div role="button" tabindex="0" class="item' + (custom ? " custom" : "") + (c.id === selected ? " sel" : "") + (d === "passed" ? " passed" : "") + '" data-id="' + esc(c.id) + '"' + (custom ? ' draggable="true"' : '') + '>' +
+        (custom ? '<div class="mv"><span data-mv="up" title="Move up" aria-label="Move up">▲</span><span data-mv="down" title="Move down" aria-label="Move down">▼</span></div>' : '') +
         '<div class="score' + (s.rated ? "" : " est") + '"><b>' + s.total + '</b><span>' + (s.rated ? "score" : "est.") + '</span></div>' +
         '<div class="item-main"><div class="item-top"><span class="pill p-area">' + esc(areaLabel(c)) + '</span></div>' +
         '<div class="item-title">' + esc(c.title) + '</div>' +
-        '<div class="item-meta">' + esc(c.city || "—") + ' · ' + eur(c.amount) + ' · ' + c.evidence.length + ' evidence item' + (c.evidence.length === 1 ? "" : "s") + '</div></div>' +
-        '<div class="item-side"><span class="pill ' + r.cls + '">' + r.label + '</span><span class="dl ' + dlClass(daysLeft(c)) + '">' + esc(dlText(c)) + '</span>' +
-        (d ? '<span class="pill p-status ' + d + '">' + STATUS[d] + '</span>' : '') + '</div></button>';
+        '<div class="item-meta">' + esc(place(c)) + ' · ' + eur(c.amount) + ' · ' + c.evidence.length + ' evidence item' + (c.evidence.length === 1 ? "" : "s") + '</div></div>' +
+        '<div class="item-side"><span class="pill ' + r.cls + '">' + r.label + '</span><span class="pill p-out ' + o.key + '">' + o.label + '</span><span class="dl ' + dlClass(daysLeft(c)) + '">' + esc(dlText(c)) + '</span>' +
+        (d ? '<span class="pill p-status ' + d + '">' + STATUS[d] + '</span>' : '') + '</div></div>';
     }).join("");
   }
   function scaleHTML(field, val){
@@ -324,11 +441,11 @@ footer div{max-width:1300px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
     var s = score(c), r = risk(c), m = mine(c);
     var bd = [["Claim strength", s.parts.strength, 35], ["Evidence quality", s.parts.evidence, 25], ["Amount at stake", s.parts.value, 25], ["Time pressure", s.parts.urgency, 15]];
     $("panel").innerHTML =
-      '<div><div class="item-top"><span class="pill p-area">' + esc(areaLabel(c)) + '</span><span class="pill ' + r.cls + '">' + r.label + '</span></div><h2>' + esc(c.title) + '</h2></div>' +
+      '<div><div class="item-top"><span class="pill p-area">' + esc(areaLabel(c)) + '</span><span class="pill ' + r.cls + '">' + r.label + '</span><span class="pill p-out ' + outcome(c).key + '">' + outcome(c).label + '</span></div><h2>' + esc(c.title) + '</h2></div>' +
       (c.contact ? '<div class="contact">The client shared their details with you: <b>' + esc(c.contact.name || "—") + '</b> · <b>' + esc(c.contact.email) + '</b></div>' : '') +
       '<div><p class="sec-h">Client\'s account</p><p class="facts">' + esc(c.facts) + '</p></div>' +
       ((c.updates || []).length ? '<div><p class="sec-h">Details added later</p>' + c.updates.map(function(u){ return '<p class="facts" style="margin-bottom:6px">' + esc(u.text) + ' <span class="note">(' + fmt(u.at) + ')</span></p>'; }).join("") + '</div>' : '') +
-      '<dl class="kv"><dt>Other side</dt><dd>' + esc(c.party || "—") + '</dd><dt>Location</dt><dd>' + esc(c.city || "—") + '</dd>' +
+      '<dl class="kv"><dt>Other side</dt><dd>' + esc(c.party || "—") + '</dd><dt>Location</dt><dd>' + esc(place(c)) + '</dd>' +
       '<dt>At stake</dt><dd>' + eur(c.amount) + '</dd><dt>Key date</dt><dd>' + fmt(c.date) + '</dd>' +
       '<dt>Time limit</dt><dd class="dl ' + dlClass(daysLeft(c)) + '">' + esc(dlText(c)) + '</dd><dt>Wants</dt><dd>' + esc(c.goal || "—") + '</dd>' +
       '<dt>Sent</dt><dd>' + fmt(c.createdAt) + (c.othersInterested ? ' · ' + c.othersInterested + ' other lawyer' + (c.othersInterested === 1 ? "" : "s") + ' interested' : '') + '</dd></dl>' +
@@ -360,6 +477,13 @@ footer div{max-width:1300px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
       .catch(function(e){ saving = false; var el = $("p-err"); if(el) el.textContent = e.message; });
   }
   $("list").addEventListener("click", function(e){
+    var mv = e.target.closest("[data-mv]");
+    if(mv){
+      var id = mv.closest(".item").dataset.id, ids = filtered().map(function(c){ return c.id; }), i = ids.indexOf(id);
+      if(mv.dataset.mv === "up" && i > 0) moveCase(id, ids[i-1]);
+      if(mv.dataset.mv === "down" && i < ids.length - 1) moveCase(id, i + 2 < ids.length ? ids[i+2] : null);
+      return;
+    }
     var b = e.target.closest(".item"); if(!b) return;
     selected = b.dataset.id; renderList(); renderPanel();
     if(window.innerWidth <= 1050) $("panel").scrollIntoView({behavior:"smooth", block:"start"});
@@ -370,7 +494,24 @@ footer div{max-width:1300px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
     var db = e.target.closest("[data-decision]");
     if(db){ review({ decision: db.dataset.decision, note: ($("note") || {}).value || "" }); }
   });
-  ["t-q","t-area","t-status","t-sort"].forEach(function(id){ $(id).addEventListener("input", renderList); });
+  $("list").addEventListener("keydown", function(e){ if((e.key === "Enter" || e.key === " ") && e.target.classList.contains("item")){ e.preventDefault(); e.target.click(); } });
+  $("list").addEventListener("dragstart", function(e){ var it = e.target.closest(".item"); if(!it) return; dragId = it.dataset.id; it.classList.add("dragging"); e.dataTransfer.effectAllowed = "move"; try { e.dataTransfer.setData("text/plain", dragId); } catch(x){} });
+  $("list").addEventListener("dragover", function(e){ if(!dragId) return; e.preventDefault(); var it = e.target.closest(".item");
+    Array.prototype.forEach.call(document.querySelectorAll(".item.drop"), function(x){ x.classList.remove("drop"); }); if(it && it.dataset.id !== dragId) it.classList.add("drop"); });
+  $("list").addEventListener("drop", function(e){ if(!dragId) return; e.preventDefault(); var it = e.target.closest(".item"), id = dragId; dragId = null; moveCase(id, it ? it.dataset.id : null); });
+  $("list").addEventListener("dragend", function(){ if(dragId){ dragId = null; renderList(); } });
+  /* Remember the lawyer's filters and sort on this device. */
+  var PREFS = "cb-board-prefs";
+  function savePrefs(){ try { var p = {q:$("t-q").value, sort:$("t-sort").value, desc:DESC}; FILTERS.forEach(function(id){ p[id] = $(id).value; }); localStorage.setItem(PREFS, JSON.stringify(p)); } catch(e){} }
+  function hasOpt(sel, v){ return Array.prototype.some.call(sel.options, function(o){ return o.value === v; }); }
+  function loadPrefs(){ try { var p = JSON.parse(localStorage.getItem(PREFS) || "null"); if(!p) return;
+    FILTERS.forEach(function(id){ if(p[id] && hasOpt($(id), p[id])) $(id).value = p[id]; });
+    if(p.sort && hasOpt($("t-sort"), p.sort)) $("t-sort").value = p.sort;
+    if(typeof p.desc === "boolean") DESC = p.desc; $("t-q").value = p.q || ""; } catch(e){} }
+  ["t-q","t-sort"].concat(FILTERS).forEach(function(id){ $(id).addEventListener("input", function(){ sortHint(); renderList(); savePrefs(); }); });
+  $("t-dir").addEventListener("click", function(){ DESC = !DESC; sortHint(); renderList(); savePrefs(); });
+  $("t-reset").addEventListener("click", function(){ FILTERS.forEach(function(id){ $(id).value = id === "t-status" ? "open" : "all"; }); $("t-q").value = ""; sortHint(); renderList(); savePrefs(); });
+  $("t-region").innerHTML = '<option value="all">All regions</option>' + REGIONS.map(function(r){ return '<option value="' + esc(r) + '">' + esc(r) + '</option>'; }).join("") + '<option value="none">Not given</option>';
   $("t-area").innerHTML = '<option value="all">All areas</option>' + Object.keys(AREAS).sort(function(a,b){ return (a === "other") - (b === "other") || AREAS[a].label.localeCompare(AREAS[b].label); }).map(function(k){ return '<option value="' + k + '">' + esc(AREAS[k].label) + '</option>'; }).join("");
 
   function gate(html){ $("loading").hidden = true; $("gate").innerHTML = html; $("gate").hidden = false; }
@@ -382,7 +523,8 @@ footer div{max-width:1300px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
     if(u.role !== "lawyer" && !u.isAdmin) return gate('<h2>This board is for lawyers</h2><p>Your account is a client profile. If you are a lawyer, switch to a lawyer profile on your account page and we will verify your details.</p><div class="actions"><a class="btn" href="/account.html">Go to my account</a></div>');
     if(!ADMIN_VIEW && (!u.lawyer || u.lawyer.status !== "verified")) return gate('<h2>' + (u.lawyer && u.lawyer.status === "rejected" ? "We couldn't verify your details" : "Waiting for verification") + '</h2><p>' + (u.lawyer && u.lawyer.status === "rejected" ? "We couldn't match your name and register number with the official register. Check them on your account page, or write to admin@case-bound.com." : "We are checking your name and register number on the official register of lawyers. You'll be able to see cases once that's done, usually within one or two working days.") + '</p><div class="actions"><a class="btn ghost" href="/account.html">My account</a></div>');
     return fetch("/api/cases/board", { credentials:"same-origin" }).then(function(r){ return r.json(); }).then(function(b){
-      cases = b.cases || [];
+      cases = b.cases || []; ORDER = b.order || [];
+      loadPrefs(); sortHint();
       selected = null;
       $("loading").hidden = true; $("app").hidden = false; renderAll();
     });

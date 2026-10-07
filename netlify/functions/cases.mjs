@@ -9,6 +9,7 @@
 // Lawyers (verified only):
 //   GET  /api/cases/board                        → {cases:[…]} open cases, client identity hidden
 //   POST /api/cases/review   {id, strength, quality, decision, note}
+//   POST /api/cases/order    {ids:[…]}          save the lawyer's own case order ("My order")
 //        decision: "interested" | "info" | "passed"
 // Admin (ADMIN_EMAILS):
 //   GET  /api/cases/lawyers                      → {lawyers:[…]} every lawyer profile
@@ -38,7 +39,8 @@ export default async (req, context) => {
     if (action === "board") {
       if (!isVerifiedLawyer(user) && !isAdmin(user)) return bad("Only verified lawyers can see cases.", 403);
       const open = (await allCases()).filter((c) => c.status === "open");
-      return ok({ cases: await Promise.all(open.map((c) => forLawyer(c, user.id))) });
+      const me = await getUser(user.id);
+      return ok({ cases: await Promise.all(open.map((c) => forLawyer(c, user.id))), order: (me && me.caseOrder) || [] });
     }
     if (action === "lawyers") {
       if (!isAdmin(user)) return bad("Not allowed.", 403);
@@ -79,6 +81,16 @@ export default async (req, context) => {
     u.lawyer.status = b.status;
     u.lawyer.verifiedAt = b.status === "verified" ? new Date().toISOString() : null;
     await saveUser(u);
+    return ok({ ok: true });
+  }
+
+  if (action === "order") {
+    if (!isVerifiedLawyer(user) && !isAdmin(user)) return bad("Only verified lawyers can sort cases.", 403);
+    const ids = Array.isArray(b.ids) ? [...new Set(b.ids.map(String).filter((x) => /^[\w-]{1,64}$/.test(x)))].slice(0, 1000) : [];
+    const me = await getUser(user.id);
+    if (!me) return bad("Please sign in.", 401);
+    me.caseOrder = ids;
+    await saveUser(me);
     return ok({ ok: true });
   }
 
