@@ -3,14 +3,12 @@
 let override = null;
 export function _setTestStore(s) { override = s; }
 
-let cached = null;
+// A fresh store on every call: Netlify hands each request a short-lived access
+// token, so a store kept from an earlier request fails with "Token expired".
 export async function store() {
   if (override) return override;
-  if (!cached) {
-    const { getStore } = await import("@netlify/blobs");
-    cached = getStore({ name: "accounts", consistency: "strong" });
-  }
-  return cached;
+  const { getStore } = await import("@netlify/blobs");
+  return getStore({ name: "accounts", consistency: "strong" });
 }
 
 export async function getJSON(key) {
