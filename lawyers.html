@@ -38,8 +38,9 @@ h1,h2{text-wrap:balance}
 .wordmark{font-family:var(--serif);font-size:21px;font-weight:600;line-height:1;text-decoration:none;color:var(--ink)}
 .wordmark span{color:var(--oxblood)}
 .wordmark small{display:block;font-family:var(--sans);font-size:10px;font-weight:600;color:var(--ink-soft);letter-spacing:.06em;margin-top:2px}
-.top-links{margin-left:auto;display:flex;gap:14px;align-items:center;font-size:13px;font-weight:600}
+.top-links{margin-inline-start:auto;display:flex;gap:14px;align-items:center;font-size:13px;font-weight:600}
 .top-links a{text-decoration:none;color:var(--ink-soft)} .top-links a:hover{color:var(--oxblood)}
+@media(max-width:560px){.masthead-in{flex-wrap:wrap;gap:8px 12px;padding-block:8px}}
 
 main{max-width:1300px;margin:0 auto;padding:26px 20px 70px}
 .head h1{font-family:var(--serif);font-size:28px;font-weight:600;margin:0 0 4px;line-height:1.2}
@@ -68,7 +69,7 @@ main{max-width:1300px;margin:0 auto;padding:26px 20px 70px}
 .dir:hover{border-color:var(--slate)}
 .resbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;font-size:12.5px;color:var(--ink-soft);margin:-2px 0 12px}
 #t-count{font-weight:700;color:var(--ink)}
-.linkbtn{margin-left:auto;background:none;border:0;padding:0;color:var(--slate);font-size:12.5px;font-weight:600;cursor:pointer;text-decoration:underline}
+.linkbtn{margin-inline-start:auto;background:none;border:0;padding:0;color:var(--slate);font-size:12.5px;font-weight:600;cursor:pointer;text-decoration:underline}
 .p-out{background:var(--paper);border:1px solid var(--rule);color:var(--ink-soft)}
 .p-out.fav{color:var(--verdigris)} .p-out.unf{color:var(--oxblood)}
 .mv{display:flex;flex-direction:column;gap:2px}
@@ -83,7 +84,7 @@ input[type=text],select,textarea{width:100%;background:var(--paper-2);border:1px
 .board{display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:16px;align-items:start}
 @media(max-width:1050px){.board{grid-template-columns:1fr}}
 .list{display:grid;gap:8px}
-.item{display:grid;grid-template-columns:62px minmax(0,1fr) auto;gap:14px;align-items:center;text-align:left;width:100%;background:var(--paper-2);border:1px solid var(--rule);border-radius:6px;padding:12px 14px}
+.item{display:grid;grid-template-columns:62px minmax(0,1fr) auto;gap:14px;align-items:center;text-align:start;width:100%;background:var(--paper-2);border:1px solid var(--rule);border-radius:6px;padding:12px 14px}
 .item:hover{border-color:var(--slate)}
 .item.sel{border-color:var(--verdigris);box-shadow:0 0 0 2px var(--verdigris-wash)}
 .item.passed{opacity:.55}
@@ -138,7 +139,7 @@ input[type=text],select,textarea{width:100%;background:var(--paper-2);border:1px
 .bd{display:grid;grid-template-columns:120px 1fr 40px;gap:8px;align-items:center;font-size:11.5px;color:var(--ink-soft)}
 .bd .bar{height:6px;background:var(--rule-soft);border-radius:3px;overflow:hidden}
 .bd .bar i{display:block;height:100%;background:var(--verdigris)}
-.bd b{text-align:right;color:var(--ink);font-variant-numeric:tabular-nums}
+.bd b{text-align:end;color:var(--ink);font-variant-numeric:tabular-nums}
 .total{display:flex;align-items:baseline;justify-content:space-between;border-top:1px solid var(--rule-soft);padding-top:10px}
 .total b{font-size:28px;font-variant-numeric:tabular-nums}
 .decide{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
@@ -155,8 +156,8 @@ footer div{max-width:1300px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
 
 <header class="masthead">
   <div class="masthead-in">
-    <a class="wordmark" href="/">Case<span>bound</span><small>FOR LAWYERS</small></a>
-    <nav class="top-links" aria-label="Account">
+    <a class="wordmark" href="/">Case<span>bound</span><small data-t="forLawyers">FOR LAWYERS</small></a>
+    <nav class="top-links" aria-label="Account" data-t-aria="navAria">
       <a href="/account.html" id="top-account">Account</a>
     </nav>
   </div>
@@ -164,44 +165,44 @@ footer div{max-width:1300px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
 
 <main>
   <div class="head">
-    <h1>Case board</h1>
-    <p>Cases sent by Casebound clients who want a lawyer. You see what happened, the dates, the amount and the evidence, but not who the client is. Mark the cases you want; the client then decides whether to share their name and email with you.</p>
+    <h1 data-t="h1">Case board</h1>
+    <p data-t="lede">Cases sent by Casebound clients who want a lawyer. You see what happened, the dates, the amount and the evidence, but not who the client is. Mark the cases you want; the client then decides whether to share their name and email with you.</p>
   </div>
 
-  <div id="loading" class="state"><p>Loading…</p></div>
+  <div id="loading" class="state"><p data-t="loading">Loading…</p></div>
 
   <section id="gate" class="state" hidden></section>
 
   <section id="app" hidden>
     <div class="stats" id="stats"></div>
     <div class="tools">
-      <div class="f f-wide"><label for="t-q">Search</label><input type="text" id="t-q" placeholder="Words, city…"></div>
-      <div class="f"><label for="t-sort">Sort by</label>
+      <div class="f f-wide"><label for="t-q" data-t="search">Search</label><input type="text" id="t-q" placeholder="Words, city…" data-t-ph="searchPh"></div>
+      <div class="f"><label for="t-sort" data-t="sortBy">Sort by</label>
         <div class="sortrow"><select id="t-sort">
-          <option value="score">Match score</option><option value="outcome">Possible outcome</option><option value="risk">Risk rating</option>
-          <option value="evidence">Evidence strength</option><option value="deadline">Time left</option><option value="value">Amount at stake</option>
-          <option value="newest">Date sent</option><option value="region">Region</option><option value="area">Area of law</option><option value="custom">My order</option>
-        </select><button type="button" id="t-dir" class="dir" aria-label="Reverse the order" title="Reverse the order">↓</button></div>
+          <option value="score" data-t="s_score">Match score</option><option value="outcome" data-t="s_outcome">Possible outcome</option><option value="risk" data-t="s_risk">Risk rating</option>
+          <option value="evidence" data-t="s_evidence">Evidence strength</option><option value="deadline" data-t="s_deadline">Time left</option><option value="value" data-t="s_value">Amount at stake</option>
+          <option value="newest" data-t="s_newest">Date sent</option><option value="region" data-t="s_region">Region</option><option value="area" data-t="s_area">Area of law</option><option value="custom" data-t="s_custom">My order</option>
+        </select><button type="button" id="t-dir" class="dir" aria-label="Reverse the order" title="Reverse the order" data-t-aria="reverse" data-t-title="reverse">↓</button></div>
       </div>
-      <div class="f"><label for="t-status">Show</label>
-        <select id="t-status"><option value="open">Not passed</option><option value="all">All</option><option value="new">Not reviewed by me</option><option value="interested">I'm interested</option><option value="info">I asked for more</option><option value="passed">Passed</option></select>
+      <div class="f"><label for="t-status" data-t="show">Show</label>
+        <select id="t-status"><option value="open" data-t="st_open">Not passed</option><option value="all" data-t="st_all">All</option><option value="new" data-t="st_new">Not reviewed by me</option><option value="interested" data-t="st_interested">I'm interested</option><option value="info" data-t="st_info">I asked for more</option><option value="passed" data-t="st_passed">Passed</option></select>
       </div>
     </div>
     <div class="tools filters">
-      <div class="f"><label for="t-area">Area of law</label><select id="t-area"></select></div>
-      <div class="f"><label for="t-region">Region</label><select id="t-region"></select></div>
-      <div class="f"><label for="t-outcome">Possible outcome</label>
-        <select id="t-outcome"><option value="all">Any</option><option value="fav">Favourable</option><option value="unc">Uncertain</option><option value="unf">Unfavourable</option></select></div>
-      <div class="f"><label for="t-risk">Risk rating</label>
-        <select id="t-risk"><option value="all">Any</option><option value="low">Low risk</option><option value="med">Medium risk</option><option value="high">High risk</option><option value="none">Not rated</option></select></div>
-      <div class="f"><label for="t-ev">Evidence</label>
-        <select id="t-ev"><option value="all">Any</option><option value="strong">Strong</option><option value="moderate">Moderate</option><option value="weak">Weak</option><option value="none">None</option></select></div>
-      <div class="f"><label for="t-time">Time left</label>
-        <select id="t-time"><option value="all">Any</option><option value="60">60 days or less</option><option value="180">6 months or less</option><option value="ok">More than 6 months</option><option value="gone">May have passed</option><option value="nolimit">No fixed limit / no date</option></select></div>
-      <div class="f"><label for="t-amount">Amount at stake</label>
-        <select id="t-amount"><option value="all">Any</option><option value="0-1000">Under €1,000</option><option value="1000-10000">€1,000 – €10,000</option><option value="10000-50000">€10,000 – €50,000</option><option value="50000-">Over €50,000</option><option value="none">Not given</option></select></div>
+      <div class="f"><label for="t-area" data-t="f_area">Area of law</label><select id="t-area"></select></div>
+      <div class="f"><label for="t-region" data-t="f_region">Region</label><select id="t-region"></select></div>
+      <div class="f"><label for="t-outcome" data-t="f_outcome">Possible outcome</label>
+        <select id="t-outcome"><option value="all" data-t="any">Any</option><option value="fav" data-t="o_fav">Favourable</option><option value="unc" data-t="o_unc">Uncertain</option><option value="unf" data-t="o_unf">Unfavourable</option></select></div>
+      <div class="f"><label for="t-risk" data-t="f_risk">Risk rating</label>
+        <select id="t-risk"><option value="all" data-t="any">Any</option><option value="low" data-t="r_low">Low risk</option><option value="med" data-t="r_med">Medium risk</option><option value="high" data-t="r_high">High risk</option><option value="none" data-t="r_none">Not rated</option></select></div>
+      <div class="f"><label for="t-ev" data-t="f_ev">Evidence</label>
+        <select id="t-ev"><option value="all" data-t="any">Any</option><option value="strong" data-t="e_strong">Strong</option><option value="moderate" data-t="e_moderate">Moderate</option><option value="weak" data-t="e_weak">Weak</option><option value="none" data-t="e_none">None</option></select></div>
+      <div class="f"><label for="t-time" data-t="f_time">Time left</label>
+        <select id="t-time"><option value="all" data-t="any">Any</option><option value="60" data-t="tm_60">60 days or less</option><option value="180" data-t="tm_180">6 months or less</option><option value="ok" data-t="tm_ok">More than 6 months</option><option value="gone" data-t="tm_gone">May have passed</option><option value="nolimit" data-t="tm_nolimit">No fixed limit / no date</option></select></div>
+      <div class="f"><label for="t-amount" data-t="f_amount">Amount at stake</label>
+        <select id="t-amount"><option value="all" data-t="any">Any</option><option value="0-1000" data-t="am_0-1000">Under €1,000</option><option value="1000-10000" data-t="am_1000-10000">€1,000 – €10,000</option><option value="10000-50000" data-t="am_10000-50000">€10,000 – €50,000</option><option value="50000-" data-t="am_50000-">Over €50,000</option><option value="none" data-t="am_none">Not given</option></select></div>
     </div>
-    <div class="resbar"><span id="t-count"></span><span id="t-hint"></span><button type="button" id="t-reset" class="linkbtn">Reset filters</button></div>
+    <div class="resbar"><span id="t-count"></span><span id="t-hint"></span><button type="button" id="t-reset" class="linkbtn" data-t="reset">Reset filters</button></div>
     <div class="board">
       <div class="list" id="list"></div>
       <aside class="panel" id="panel" aria-live="polite"></aside>
@@ -211,10 +212,10 @@ footer div{max-width:1300px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
 
 <footer>
   <div>
-    <a href="#" onclick="CaseboundView.toClient();return false;">Switch to the client view</a>
-    <a href="/terms.html#lawyers">Terms for lawyers</a>
-    <a href="/privacy.html#connect">Privacy: lawyer connections</a>
-    <a href="mailto:admin@case-bound.com">Contact / complaints: admin@case-bound.com</a>
+    <a href="#" onclick="CaseboundView.toClient();return false;" data-t="toClient">Switch to the client view</a>
+    <a href="/terms.html#lawyers" data-t="termsL">Terms for lawyers</a>
+    <a href="/privacy.html#connect" data-t="privL">Privacy: lawyer connections</a>
+    <a href="mailto:admin@case-bound.com"><span data-t="contact">Contact / complaints:</span> admin@case-bound.com</a>
     <span>© 2026 Kiyan Martinon</span>
   </div>
 </footer>
@@ -223,30 +224,737 @@ footer div{max-width:1300px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
 (function(){
   var $ = function(id){ return document.getElementById(id); };
   var DAY = 86400000;
-  var AREAS = {
-    dismissal:{label:"Dismissal", days:60, rule:"60 days to challenge a dismissal in writing (L. 604/1966, art. 6)"},
-    employment:{label:"Employment", days:1825, rule:"5 years for most pay and work claims (art. 2948 c.c.)"},
-    goods:{label:"Faulty goods", days:365, rule:"1 year from delivery (art. 1495 c.c.)"},
-    contract:{label:"Contract / debt", days:3650, rule:"10 years, the ordinary limit (art. 2946 c.c.)"},
-    injury:{label:"Injury / damage", days:1825, rule:"5 years for damage claims (art. 2947 c.c.)"},
-    road:{label:"Road accident", days:730, rule:"2 years for road accidents (art. 2947(2) c.c.)"},
-    building:{label:"Building defects", days:365, rule:"1 year from discovery to notify the builder (art. 1669 c.c.)"},
-    consumer:{label:"Consumer", days:790, rule:"26 months from delivery to enforce the legal guarantee (art. 133 Codice del consumo)"},
-    tenancy:{label:"Tenancy", days:1825, rule:"5 years for unpaid rent (art. 2948 n. 3 c.c.)"},
-    condo:{label:"Condominium", days:30, rule:"30 days to challenge a condominium decision in court (art. 1137 c.c.)"},
-    neighbours:{label:"Neighbours", rule:"No fixed limit to stop an ongoing nuisance (art. 844 c.c.); 5 years to claim damages (art. 2947 c.c.)"},
-    medical:{label:"Medical malpractice", days:3650, rule:"10 years against a hospital or clinic, 5 years against the doctor personally (L. 24/2017, art. 7)"},
-    insurance:{label:"Insurance", days:730, rule:"2 years from the event for most insurance claims (art. 2952 c.c.)"},
-    travel:{label:"Travel", days:730, rule:"2 years for flight claims (Montreal Convention, art. 35)"},
-    family:{label:"Family", rule:"No general time limit for separation or divorce; each unpaid maintenance payment can be claimed for 5 years (art. 2948 n. 2 c.c.)"},
-    inheritance:{label:"Inheritance", days:3650, rule:"10 years to accept an inheritance (art. 480 c.c.)"},
-    injunction:{label:"Payment orders", days:40, rule:"40 days to oppose a payment order (art. 641 c.p.c.)"},
-    fine:{label:"Fines", days:30, rule:"30 days to appeal to the giudice di pace, or 60 days to the Prefetto (artt. 204-bis and 203 Codice della strada)"},
-    tax:{label:"Tax", days:60, rule:"60 days to appeal to the tax court (D.Lgs. 546/1992, art. 21)"},
-    defamation:{label:"Defamation", days:90, rule:"3 months to file a criminal complaint (art. 124 c.p.); 5 years for a civil damages claim (art. 2947 c.c.)"},
-    other:{label:"Other", rule:"Time limits vary by type of claim, so a lawyer needs to tell you which one applies"}
+  /* ---------- Language: every visible string in en, it, es, fr, de, pt, pl, ar ---------- */
+  var I18N = window.CB_I18N || null;
+  function lang(){ return I18N ? I18N.get() : "en"; }
+  function loc(){ return I18N ? I18N.locale() : "en-IE"; }
+  function num(n, dec){ return Number(n).toLocaleString(loc(), dec ? {minimumFractionDigits:dec, maximumFractionDigits:dec} : undefined); }
+  /* Plural forms by Intl category (one, two, few, many, other, zero); "#" is replaced by the number. */
+  function P(n, f, dec){
+    var cat = "other";
+    try { cat = new Intl.PluralRules(loc(), dec ? {minimumFractionDigits:dec} : undefined).select(n); } catch(e){ cat = n === 1 ? "one" : "other"; }
+    return (f[cat] != null ? f[cat] : f.other).replace("#", num(n, dec));
+  }
+  var AR_DAYS = {zero:"# يوم", one:"يوم واحد", two:"يومان", few:"# أيام", many:"# يومًا", other:"# يوم"};
+  var AR_MONTHS = {zero:"# شهر", one:"شهر واحد", two:"شهران", few:"# أشهر", many:"# شهرًا", other:"# شهر"};
+  var T = {
+    en: {
+      title:"Case board — Casebound for lawyers",
+      desc:"Casebound for lawyers: review cases sent by clients, rate them and connect with the ones you want to take on.",
+      forLawyers:"FOR LAWYERS", navAria:"Account", research:"Research", account:"Account", signIn:"Sign in",
+      h1:"Case board",
+      lede:"Cases sent by Casebound clients who want a lawyer. You see what happened, the dates, the amount and the evidence, but not who the client is. Mark the cases you want; the client then decides whether to share their name and email with you.",
+      loading:"Loading…", search:"Search", searchPh:"Words, city…", sortBy:"Sort by",
+      s_score:"Match score", s_outcome:"Possible outcome", s_risk:"Risk rating", s_evidence:"Evidence strength", s_deadline:"Time left", s_value:"Amount at stake", s_newest:"Date sent", s_region:"Region", s_area:"Area of law", s_custom:"My order",
+      reverse:"Reverse the order", show:"Show",
+      st_open:"Not passed", st_all:"All", st_new:"Not reviewed by me", st_interested:"I'm interested", st_info:"I asked for more", st_passed:"Passed",
+      f_area:"Area of law", f_region:"Region", f_outcome:"Possible outcome", f_risk:"Risk rating", f_ev:"Evidence", f_time:"Time left", f_amount:"Amount at stake",
+      any:"Any", o_fav:"Favourable", o_unc:"Uncertain", o_unf:"Unfavourable",
+      r_low:"Low risk", r_med:"Medium risk", r_high:"High risk", r_none:"Not rated",
+      rc_low:"Low risk (client check)", rc_med:"Medium risk (client check)", rc_high:"High risk (client check)",
+      e_strong:"Strong", e_moderate:"Moderate", e_weak:"Weak", e_none:"None",
+      tm_60:"60 days or less", tm_180:"6 months or less", tm_ok:"More than 6 months", tm_gone:"May have passed", tm_nolimit:"No fixed limit / no date",
+      am_under:function(a){ return "Under " + a; }, am_over:function(a){ return "Over " + a; }, am_none:"Not given",
+      reset:"Reset filters",
+      back:"← Back to Casebound", toClient:"Switch to the client view", termsL:"Terms for lawyers", privL:"Privacy: lawyer connections", contact:"Contact / complaints:",
+      allRegions:"All regions", allAreas:"All areas", notGiven:"Not given", otherX:"Other: ",
+      stat_interested:"Interested", stat_info:"More info asked", stat_passed:"Passed",
+      noDate:"No date given", checkLimit:"Check the time limit",
+      expired:function(n){ return P(n, {one:"May have expired # day ago", other:"May have expired # days ago"}); },
+      daysLeft:function(n){ return P(n, {one:"# day left", other:"# days left"}); },
+      monthsLeft:function(n){ return P(n, {one:"# month left", other:"# months left"}); },
+      yearsLeft:function(n){ return P(n, {one:"# year left", other:"# years left"}, 1); },
+      est:" (est.)",
+      fl_passed:function(r){ return "Time limit may have passed: " + r + ". Check for interruptions or suspensions."; },
+      fl_urgent:function(n, r){ return "Urgent: about " + P(n, {one:"# day", other:"# days"}) + " left. " + r + "."; },
+      fl_noDate:"No date given, so the time limit can't be checked.", fl_noAuto:"No automatic time-limit check for this area.",
+      fl_noEv:"No evidence listed.", fl_informal:"Only informal evidence (messages or witnesses).",
+      fl_short:"Short description. Key facts may be missing.", fl_noAmount:"No amount at stake given.", fl_ok:"Dated, documented and valued.",
+      H:{score:["highest first","lowest first"], outcome:["most favourable first","least favourable first"], risk:["lowest risk first","highest risk first"],
+        evidence:["strongest first","weakest first"], deadline:["most urgent first","most time left first"], value:["largest first","smallest first"],
+        newest:["newest first","oldest first"], region:["A to Z","Z to A"], area:["A to Z","Z to A"]},
+      sorted:"Sorted ", customHint:"Drag cases, or use the arrows, to put them in your own order. It is saved to your account.",
+      stOpen:"Open cases", stUnrated:"Not rated by you", stUrgent:"Time limit within 60 days", stGone:"Time limit may have passed",
+      noCases:"No cases yet", noCasesT:"Cases appear here when a client sends one from the risk check. Nothing is shown until then.", noMatch:"No cases match these filters.",
+      count:function(l, n){ return l + " of " + P(n, {one:"# case", other:"# cases"}); },
+      up:"Move up", down:"Move down", scoreTag:"score", estTag:"est.",
+      evItems:function(n){ return P(n, {one:"# evidence item", other:"# evidence items"}); },
+      pick:"Pick a case to review it.", waitPanel:"When a case arrives, its details and your rating tools appear here.",
+      bdStrength:"Claim strength", bdEvidence:"Evidence quality", bdValue:"Amount at stake", bdUrgency:"Time pressure",
+      shared:"The client shared their details with you:", clientAcc:"Client's account", later:"Details added later",
+      otherSide:"Other side", location:"Location", atStake:"At stake", keyDate:"Key date", timeLimit:"Time limit", wants:"Wants", sent:"Sent",
+      others:function(n){ return P(n, {one:"# other lawyer interested", other:"# other lawyers interested"}); },
+      evidenceH:"Evidence", noneListed:"None listed", autoChecks:"Automatic checks",
+      adminB:"Admin view.", adminT:"You can read every open case. Only verified lawyers can rate cases or contact clients.",
+      prevB:"Admin preview.", prevT:"This is exactly what a verified lawyer sees. Your ratings and choices stay in this browser and are not sent to the client.",
+      yourRating:"Your rating (only you see it)", qStrength:"How strong is the claim?", weak:"Weak", strong:"Strong", qQuality:"How good is the evidence?", thin:"Thin", solid:"Solid",
+      matchScore:"Match score", estScore:"Estimated score (not rated yet)",
+      msg:"Message to the client (optional)", msgPh:"e.g. I can help. Please also send the dismissal letter.",
+      want:"I want this case", more:"Ask for more", pass:"Pass",
+      decideNote:'The client sees your name, bar association, city, bio and message when you choose "I want this case" or "Ask for more". They never see your rating. Their name and email reach you only if they choose to share them.',
+      saveErr:"Couldn't save.",
+      gSignH:"For lawyers registered in Italy", gSignP:"Create a free lawyer account to review cases sent by Casebound clients. We verify every lawyer against the official register before they can see any case.", gCreate:"Create a lawyer account",
+      gClientH:"This board is for lawyers", gClientP:"Your account is a client profile. If you are a lawyer, switch to a lawyer profile on your account page and we will verify your details.", gGoAcc:"Go to my account",
+      gRejH:"We couldn't verify your details", gRejP:"We couldn't match your name and register number with the official register. Check them on your account page, or write to admin@case-bound.com.",
+      gPendH:"Waiting for verification", gPendP:"We are checking your name and register number on the official register of lawyers. You'll be able to see cases once that's done, usually within one or two working days.",
+      myAccount:"My account", gErrH:"Couldn't load the board", gErrP:"Please refresh the page.",
+      /* Evidence items are stored in English by the risk check; these only change how they are shown. */
+      ev:{},
+      areas:{
+        dismissal:["Dismissal","60 days to challenge a dismissal in writing (L. 604/1966, art. 6)"],
+        employment:["Employment","5 years for most pay and work claims (art. 2948 c.c.)"],
+        goods:["Faulty goods","1 year from delivery (art. 1495 c.c.)"],
+        contract:["Contract / debt","10 years, the ordinary limit (art. 2946 c.c.)"],
+        injury:["Injury / damage","5 years for damage claims (art. 2947 c.c.)"],
+        road:["Road accident","2 years for road accidents (art. 2947(2) c.c.)"],
+        building:["Building defects","1 year from discovery to notify the builder (art. 1669 c.c.)"],
+        consumer:["Consumer","26 months from delivery to enforce the legal guarantee (art. 133 Codice del consumo)"],
+        tenancy:["Tenancy","5 years for unpaid rent (art. 2948 n. 3 c.c.)"],
+        condo:["Condominium","30 days to challenge a condominium decision in court (art. 1137 c.c.)"],
+        neighbours:["Neighbours","No fixed limit to stop an ongoing nuisance (art. 844 c.c.); 5 years to claim damages (art. 2947 c.c.)"],
+        medical:["Medical malpractice","10 years against a hospital or clinic, 5 years against the doctor personally (L. 24/2017, art. 7)"],
+        insurance:["Insurance","2 years from the event for most insurance claims (art. 2952 c.c.)"],
+        travel:["Travel","2 years for flight claims (Montreal Convention, art. 35)"],
+        family:["Family","No general time limit for separation or divorce; each unpaid maintenance payment can be claimed for 5 years (art. 2948 n. 2 c.c.)"],
+        inheritance:["Inheritance","10 years to accept an inheritance (art. 480 c.c.)"],
+        injunction:["Payment orders","40 days to oppose a payment order (art. 641 c.p.c.)"],
+        fine:["Fines","30 days to appeal to the giudice di pace, or 60 days to the Prefetto (artt. 204-bis and 203 Codice della strada)"],
+        tax:["Tax","60 days to appeal to the tax court (D.Lgs. 546/1992, art. 21)"],
+        defamation:["Defamation","3 months to file a criminal complaint (art. 124 c.p.); 5 years for a civil damages claim (art. 2947 c.c.)"],
+        other:["Other","Time limits vary by type of claim, so a lawyer needs to tell you which one applies"]
+      }
+    },
+    it: {
+      title:"Bacheca dei casi — Casebound per avvocati",
+      desc:"Casebound per avvocati: esamina i casi inviati dai clienti, valutali e mettiti in contatto con quelli che vuoi seguire.",
+      forLawyers:"PER AVVOCATI", navAria:"Account", research:"Ricerca", account:"Account", signIn:"Accedi",
+      h1:"Bacheca dei casi",
+      lede:"Casi inviati dai clienti di Casebound che cercano un avvocato. Vedi cosa è successo, le date, l'importo e le prove, ma non chi è il cliente. Segna i casi che ti interessano; sarà poi il cliente a decidere se condividere con te nome ed email.",
+      loading:"Caricamento…", search:"Cerca", searchPh:"Parole, città…", sortBy:"Ordina per",
+      s_score:"Punteggio di affinità", s_outcome:"Esito possibile", s_risk:"Livello di rischio", s_evidence:"Forza delle prove", s_deadline:"Tempo rimasto", s_value:"Importo in gioco", s_newest:"Data di invio", s_region:"Regione", s_area:"Area del diritto", s_custom:"Il mio ordine",
+      reverse:"Inverti l'ordine", show:"Mostra",
+      st_open:"Non scartati", st_all:"Tutti", st_new:"Non ancora esaminati da me", st_interested:"Mi interessano", st_info:"Ho chiesto altre informazioni", st_passed:"Scartati",
+      f_area:"Area del diritto", f_region:"Regione", f_outcome:"Esito possibile", f_risk:"Livello di rischio", f_ev:"Prove", f_time:"Tempo rimasto", f_amount:"Importo in gioco",
+      any:"Qualsiasi", o_fav:"Favorevole", o_unc:"Incerto", o_unf:"Sfavorevole",
+      r_low:"Rischio basso", r_med:"Rischio medio", r_high:"Rischio alto", r_none:"Non valutato",
+      rc_low:"Rischio basso (verifica del cliente)", rc_med:"Rischio medio (verifica del cliente)", rc_high:"Rischio alto (verifica del cliente)",
+      e_strong:"Forti", e_moderate:"Moderate", e_weak:"Deboli", e_none:"Nessuna",
+      tm_60:"60 giorni o meno", tm_180:"6 mesi o meno", tm_ok:"Più di 6 mesi", tm_gone:"Potrebbe essere scaduto", tm_nolimit:"Nessun termine fisso / nessuna data",
+      am_under:function(a){ return "Meno di " + a; }, am_over:function(a){ return "Oltre " + a; }, am_none:"Non indicato",
+      reset:"Azzera i filtri",
+      back:"← Torna a Casebound", toClient:"Passa alla vista cliente", termsL:"Condizioni per gli avvocati", privL:"Privacy: contatti con gli avvocati", contact:"Contatti / reclami:",
+      allRegions:"Tutte le regioni", allAreas:"Tutte le aree", notGiven:"Non indicata", otherX:"Altro: ",
+      stat_interested:"Interessato", stat_info:"Altre info chieste", stat_passed:"Scartato",
+      noDate:"Nessuna data indicata", checkLimit:"Verifica il termine",
+      expired:function(n){ return P(n, {one:"Potrebbe essere scaduto da # giorno", other:"Potrebbe essere scaduto da # giorni"}); },
+      daysLeft:function(n){ return P(n, {one:"Manca # giorno", other:"Mancano # giorni"}); },
+      monthsLeft:function(n){ return P(n, {one:"Manca # mese", other:"Mancano # mesi"}); },
+      yearsLeft:function(n){ return P(n, {one:"Manca # anno", other:"Mancano # anni"}, 1); },
+      est:" (stima)",
+      fl_passed:function(r){ return "Il termine potrebbe essere scaduto: " + r + ". Verifica eventuali interruzioni o sospensioni."; },
+      fl_urgent:function(n, r){ return "Urgente: mancano circa " + P(n, {one:"# giorno", other:"# giorni"}) + ". " + r + "."; },
+      fl_noDate:"Nessuna data indicata, quindi non è possibile verificare il termine.", fl_noAuto:"Nessuna verifica automatica del termine per quest'area.",
+      fl_noEv:"Nessuna prova indicata.", fl_informal:"Solo prove informali (messaggi o testimoni).",
+      fl_short:"Descrizione breve. Potrebbero mancare fatti importanti.", fl_noAmount:"Nessun importo in gioco indicato.", fl_ok:"Datato, documentato e quantificato.",
+      H:{score:["prima i più alti","prima i più bassi"], outcome:["prima i più favorevoli","prima i meno favorevoli"], risk:["prima il rischio più basso","prima il rischio più alto"],
+        evidence:["prima le più forti","prima le più deboli"], deadline:["prima i più urgenti","prima quelli con più tempo"], value:["prima i più alti","prima i più bassi"],
+        newest:["prima i più recenti","prima i meno recenti"], region:["dalla A alla Z","dalla Z alla A"], area:["dalla A alla Z","dalla Z alla A"]},
+      sorted:"Ordinati: ", customHint:"Trascina i casi, o usa le frecce, per metterli nel tuo ordine. L'ordine viene salvato nel tuo account.",
+      stOpen:"Casi aperti", stUnrated:"Non valutati da te", stUrgent:"Termine entro 60 giorni", stGone:"Termine forse scaduto",
+      noCases:"Ancora nessun caso", noCasesT:"I casi compaiono qui quando un cliente ne invia uno dalla valutazione del rischio. Fino ad allora non viene mostrato nulla.", noMatch:"Nessun caso corrisponde a questi filtri.",
+      count:function(l, n){ return l + " di " + P(n, {one:"# caso", other:"# casi"}); },
+      up:"Sposta su", down:"Sposta giù", scoreTag:"punti", estTag:"stima",
+      evItems:function(n){ return P(n, {one:"# prova", other:"# prove"}); },
+      pick:"Scegli un caso per esaminarlo.", waitPanel:"Quando arriva un caso, qui compaiono i dettagli e gli strumenti per valutarlo.",
+      bdStrength:"Fondatezza della pretesa", bdEvidence:"Qualità delle prove", bdValue:"Importo in gioco", bdUrgency:"Urgenza",
+      shared:"Il cliente ha condiviso i suoi dati con te:", clientAcc:"Il racconto del cliente", later:"Dettagli aggiunti in seguito",
+      otherSide:"Controparte", location:"Luogo", atStake:"In gioco", keyDate:"Data chiave", timeLimit:"Termine", wants:"Chiede", sent:"Inviato",
+      others:function(n){ return P(n, {one:"# altro avvocato interessato", other:"altri # avvocati interessati"}); },
+      evidenceH:"Prove", noneListed:"Nessuna indicata", autoChecks:"Controlli automatici",
+      adminB:"Vista amministratore.", adminT:"Puoi leggere tutti i casi aperti. Solo gli avvocati verificati possono valutare i casi o contattare i clienti.",
+      prevB:"Anteprima amministratore.", prevT:"È esattamente ciò che vede un avvocato verificato. Le tue valutazioni e scelte restano in questo browser e non vengono inviate al cliente.",
+      yourRating:"La tua valutazione (la vedi solo tu)", qStrength:"Quanto è fondata la pretesa?", weak:"Debole", strong:"Forte", qQuality:"Quanto sono valide le prove?", thin:"Scarse", solid:"Solide",
+      matchScore:"Punteggio di affinità", estScore:"Punteggio stimato (non ancora valutato)",
+      msg:"Messaggio al cliente (facoltativo)", msgPh:"es. Posso aiutarti. Inviami anche la lettera di licenziamento.",
+      want:"Voglio questo caso", more:"Chiedi di più", pass:"Scarta",
+      decideNote:"Il cliente vede il tuo nome, l'ordine degli avvocati, la città, la bio e il messaggio quando scegli «Voglio questo caso» o «Chiedi di più». Non vede mai la tua valutazione. Il suo nome e la sua email ti arrivano solo se sceglie di condividerli.",
+      saveErr:"Impossibile salvare.",
+      gSignH:"Per avvocati iscritti in Italia", gSignP:"Crea un account avvocato gratuito per esaminare i casi inviati dai clienti di Casebound. Verifichiamo ogni avvocato sull'albo ufficiale prima che possa vedere qualsiasi caso.", gCreate:"Crea un account avvocato",
+      gClientH:"Questa bacheca è per gli avvocati", gClientP:"Il tuo account è un profilo cliente. Se sei un avvocato, passa a un profilo avvocato nella pagina del tuo account e verificheremo i tuoi dati.", gGoAcc:"Vai al mio account",
+      gRejH:"Non siamo riusciti a verificare i tuoi dati", gRejP:"Non abbiamo trovato il tuo nome e il tuo numero di iscrizione nell'albo ufficiale. Controllali nella pagina del tuo account oppure scrivi a admin@case-bound.com.",
+      gPendH:"In attesa di verifica", gPendP:"Stiamo controllando il tuo nome e il tuo numero di iscrizione nell'albo ufficiale degli avvocati. Potrai vedere i casi a verifica completata, di solito entro uno o due giorni lavorativi.",
+      myAccount:"Il mio account", gErrH:"Impossibile caricare la bacheca", gErrP:"Ricarica la pagina.",
+      ev:{"Contract":"Contratto","Emails / messages":"Email / messaggi","Invoices / receipts":"Fatture / ricevute","Photos / video":"Foto / video","Witnesses":"Testimoni","Expert report":"Perizia","Official report":"Verbale ufficiale","Payslips":"Buste paga"},
+      areas:{
+        dismissal:["Licenziamento","60 giorni per impugnare per iscritto un licenziamento (L. 604/1966, art. 6)"],
+        employment:["Lavoro","5 anni per la maggior parte delle pretese retributive e di lavoro (art. 2948 c.c.)"],
+        goods:["Beni difettosi","1 anno dalla consegna (art. 1495 c.c.)"],
+        contract:["Contratti / crediti","10 anni, la prescrizione ordinaria (art. 2946 c.c.)"],
+        injury:["Lesioni / danni","5 anni per il risarcimento dei danni (art. 2947 c.c.)"],
+        road:["Incidente stradale","2 anni per gli incidenti stradali (art. 2947(2) c.c.)"],
+        building:["Difetti di costruzione","1 anno dalla scoperta per denunciarli al costruttore (art. 1669 c.c.)"],
+        consumer:["Consumatori","26 mesi dalla consegna per far valere la garanzia legale (art. 133 Codice del consumo)"],
+        tenancy:["Locazione","5 anni per i canoni non pagati (art. 2948 n. 3 c.c.)"],
+        condo:["Condominio","30 giorni per impugnare in tribunale una delibera condominiale (art. 1137 c.c.)"],
+        neighbours:["Vicinato","Nessun termine fisso per far cessare un'immissione in corso (art. 844 c.c.); 5 anni per chiedere il risarcimento (art. 2947 c.c.)"],
+        medical:["Responsabilità medica","10 anni contro un ospedale o una clinica, 5 anni contro il medico personalmente (L. 24/2017, art. 7)"],
+        insurance:["Assicurazioni","2 anni dal fatto per la maggior parte delle richieste assicurative (art. 2952 c.c.)"],
+        travel:["Viaggi","2 anni per le richieste relative ai voli (Convenzione di Montreal, art. 35)"],
+        family:["Famiglia","Nessun termine generale per separazione o divorzio; ogni assegno di mantenimento non pagato si può chiedere entro 5 anni (art. 2948 n. 2 c.c.)"],
+        inheritance:["Successioni","10 anni per accettare un'eredità (art. 480 c.c.)"],
+        injunction:["Decreti ingiuntivi","40 giorni per opporsi a un decreto ingiuntivo (art. 641 c.p.c.)"],
+        fine:["Multe","30 giorni per ricorrere al giudice di pace, o 60 giorni al Prefetto (artt. 204-bis e 203 Codice della strada)"],
+        tax:["Tributi","60 giorni per ricorrere alla corte di giustizia tributaria (D.Lgs. 546/1992, art. 21)"],
+        defamation:["Diffamazione","3 mesi per presentare querela (art. 124 c.p.); 5 anni per un'azione civile di risarcimento (art. 2947 c.c.)"],
+        other:["Altro","I termini variano a seconda del tipo di pretesa: un avvocato deve indicarti quale si applica"]
+      }
+    },
+    es: {
+      title:"Tablón de casos — Casebound para abogados",
+      desc:"Casebound para abogados: revisa los casos que envían los clientes, valóralos y contacta con los que quieras llevar.",
+      forLawyers:"PARA ABOGADOS", navAria:"Cuenta", research:"Investigación", account:"Cuenta", signIn:"Iniciar sesión",
+      h1:"Tablón de casos",
+      lede:"Casos enviados por clientes de Casebound que buscan un abogado. Ves lo que ocurrió, las fechas, la cuantía y las pruebas, pero no quién es el cliente. Marca los casos que quieras; después, el cliente decide si comparte contigo su nombre y su correo.",
+      loading:"Cargando…", search:"Buscar", searchPh:"Palabras, ciudad…", sortBy:"Ordenar por",
+      s_score:"Puntuación de afinidad", s_outcome:"Resultado posible", s_risk:"Nivel de riesgo", s_evidence:"Solidez de las pruebas", s_deadline:"Tiempo restante", s_value:"Cuantía en juego", s_newest:"Fecha de envío", s_region:"Región", s_area:"Área del derecho", s_custom:"Mi orden",
+      reverse:"Invertir el orden", show:"Mostrar",
+      st_open:"No descartados", st_all:"Todos", st_new:"Sin revisar por mí", st_interested:"Me interesan", st_info:"Pedí más información", st_passed:"Descartados",
+      f_area:"Área del derecho", f_region:"Región", f_outcome:"Resultado posible", f_risk:"Nivel de riesgo", f_ev:"Pruebas", f_time:"Tiempo restante", f_amount:"Cuantía en juego",
+      any:"Cualquiera", o_fav:"Favorable", o_unc:"Incierto", o_unf:"Desfavorable",
+      r_low:"Riesgo bajo", r_med:"Riesgo medio", r_high:"Riesgo alto", r_none:"Sin valorar",
+      rc_low:"Riesgo bajo (evaluación del cliente)", rc_med:"Riesgo medio (evaluación del cliente)", rc_high:"Riesgo alto (evaluación del cliente)",
+      e_strong:"Sólidas", e_moderate:"Moderadas", e_weak:"Débiles", e_none:"Ninguna",
+      tm_60:"60 días o menos", tm_180:"6 meses o menos", tm_ok:"Más de 6 meses", tm_gone:"Puede haber vencido", tm_nolimit:"Sin plazo fijo / sin fecha",
+      am_under:function(a){ return "Menos de " + a; }, am_over:function(a){ return "Más de " + a; }, am_none:"No indicada",
+      reset:"Restablecer filtros",
+      back:"← Volver a Casebound", toClient:"Cambiar a la vista de cliente", termsL:"Condiciones para abogados", privL:"Privacidad: contactos con abogados", contact:"Contacto / reclamaciones:",
+      allRegions:"Todas las regiones", allAreas:"Todas las áreas", notGiven:"No indicada", otherX:"Otro: ",
+      stat_interested:"Interesado", stat_info:"Más información pedida", stat_passed:"Descartado",
+      noDate:"Sin fecha", checkLimit:"Comprueba el plazo",
+      expired:function(n){ return P(n, {one:"Puede haber vencido hace # día", other:"Puede haber vencido hace # días"}); },
+      daysLeft:function(n){ return P(n, {one:"Queda # día", other:"Quedan # días"}); },
+      monthsLeft:function(n){ return P(n, {one:"Queda # mes", other:"Quedan # meses"}); },
+      yearsLeft:function(n){ return P(n, {one:"Queda # año", other:"Quedan # años"}, 1); },
+      est:" (estim.)",
+      fl_passed:function(r){ return "Puede que el plazo haya vencido: " + r + ". Comprueba si hubo interrupciones o suspensiones."; },
+      fl_urgent:function(n, r){ return "Urgente: quedan unos " + P(n, {one:"# día", other:"# días"}) + ". " + r + "."; },
+      fl_noDate:"No hay fecha, así que no se puede comprobar el plazo.", fl_noAuto:"No hay comprobación automática del plazo para esta área.",
+      fl_noEv:"No se indican pruebas.", fl_informal:"Solo pruebas informales (mensajes o testigos).",
+      fl_short:"Descripción breve. Pueden faltar hechos clave.", fl_noAmount:"No se indica la cuantía en juego.", fl_ok:"Con fecha, documentado y cuantificado.",
+      H:{score:["mayor primero","menor primero"], outcome:["más favorable primero","menos favorable primero"], risk:["menor riesgo primero","mayor riesgo primero"],
+        evidence:["más sólidas primero","más débiles primero"], deadline:["más urgentes primero","más tiempo primero"], value:["mayor primero","menor primero"],
+        newest:["más recientes primero","más antiguos primero"], region:["de la A a la Z","de la Z a la A"], area:["de la A a la Z","de la Z a la A"]},
+      sorted:"Orden: ", customHint:"Arrastra los casos, o usa las flechas, para ponerlos en tu propio orden. Se guarda en tu cuenta.",
+      stOpen:"Casos abiertos", stUnrated:"Sin valorar por ti", stUrgent:"Plazo en 60 días o menos", stGone:"Plazo posiblemente vencido",
+      noCases:"Aún no hay casos", noCasesT:"Los casos aparecen aquí cuando un cliente envía uno desde la evaluación de riesgo. Hasta entonces no se muestra nada.", noMatch:"Ningún caso coincide con estos filtros.",
+      count:function(l, n){ return l + " de " + P(n, {one:"# caso", other:"# casos"}); },
+      up:"Subir", down:"Bajar", scoreTag:"puntos", estTag:"estim.",
+      evItems:function(n){ return P(n, {one:"# prueba", other:"# pruebas"}); },
+      pick:"Elige un caso para revisarlo.", waitPanel:"Cuando llegue un caso, aquí aparecerán sus detalles y tus herramientas de valoración.",
+      bdStrength:"Solidez de la pretensión", bdEvidence:"Calidad de las pruebas", bdValue:"Cuantía en juego", bdUrgency:"Urgencia",
+      shared:"El cliente ha compartido sus datos contigo:", clientAcc:"Relato del cliente", later:"Detalles añadidos después",
+      otherSide:"Parte contraria", location:"Lugar", atStake:"En juego", keyDate:"Fecha clave", timeLimit:"Plazo", wants:"Quiere", sent:"Enviado",
+      others:function(n){ return P(n, {one:"# otro abogado interesado", other:"# otros abogados interesados"}); },
+      evidenceH:"Pruebas", noneListed:"Ninguna indicada", autoChecks:"Comprobaciones automáticas",
+      adminB:"Vista de administrador.", adminT:"Puedes leer todos los casos abiertos. Solo los abogados verificados pueden valorar casos o contactar con clientes.",
+      prevB:"Vista previa de administrador.", prevT:"Esto es exactamente lo que ve un abogado verificado. Tus valoraciones y decisiones se quedan en este navegador y no se envían al cliente.",
+      yourRating:"Tu valoración (solo la ves tú)", qStrength:"¿Qué solidez tiene la pretensión?", weak:"Débil", strong:"Sólida", qQuality:"¿Qué calidad tienen las pruebas?", thin:"Escasas", solid:"Sólidas",
+      matchScore:"Puntuación de afinidad", estScore:"Puntuación estimada (aún sin valorar)",
+      msg:"Mensaje al cliente (opcional)", msgPh:"p. ej. Puedo ayudarte. Envíame también la carta de despido.",
+      want:"Quiero este caso", more:"Pedir más", pass:"Descartar",
+      decideNote:"El cliente ve tu nombre, colegio de abogados, ciudad, biografía y mensaje cuando eliges «Quiero este caso» o «Pedir más». Nunca ve tu valoración. Su nombre y su correo solo te llegan si decide compartirlos.",
+      saveErr:"No se pudo guardar.",
+      gSignH:"Para abogados colegiados en Italia", gSignP:"Crea una cuenta de abogado gratuita para revisar los casos que envían los clientes de Casebound. Verificamos a cada abogado en el registro oficial antes de que pueda ver ningún caso.", gCreate:"Crear cuenta de abogado",
+      gClientH:"Este tablón es para abogados", gClientP:"Tu cuenta es un perfil de cliente. Si eres abogado, cambia a un perfil de abogado en la página de tu cuenta y verificaremos tus datos.", gGoAcc:"Ir a mi cuenta",
+      gRejH:"No hemos podido verificar tus datos", gRejP:"No hemos encontrado tu nombre y tu número de colegiado en el registro oficial. Revísalos en la página de tu cuenta o escribe a admin@case-bound.com.",
+      gPendH:"Pendiente de verificación", gPendP:"Estamos comprobando tu nombre y tu número de colegiado en el registro oficial de abogados. Podrás ver los casos cuando terminemos, normalmente en uno o dos días hábiles.",
+      myAccount:"Mi cuenta", gErrH:"No se pudo cargar el tablón", gErrP:"Actualiza la página.",
+      ev:{"Contract":"Contrato","Emails / messages":"Correos / mensajes","Invoices / receipts":"Facturas / recibos","Photos / video":"Fotos / vídeo","Witnesses":"Testigos","Expert report":"Informe pericial","Official report":"Informe oficial","Payslips":"Nóminas"},
+      areas:{
+        dismissal:["Despido","60 días para impugnar un despido por escrito (L. 604/1966, art. 6)"],
+        employment:["Laboral","5 años para la mayoría de reclamaciones salariales y laborales (art. 2948 c.c.)"],
+        goods:["Productos defectuosos","1 año desde la entrega (art. 1495 c.c.)"],
+        contract:["Contratos / deudas","10 años, el plazo ordinario (art. 2946 c.c.)"],
+        injury:["Lesiones / daños","5 años para reclamar daños (art. 2947 c.c.)"],
+        road:["Accidente de tráfico","2 años para accidentes de tráfico (art. 2947(2) c.c.)"],
+        building:["Defectos de construcción","1 año desde su descubrimiento para notificarlos al constructor (art. 1669 c.c.)"],
+        consumer:["Consumo","26 meses desde la entrega para hacer valer la garantía legal (art. 133 Codice del consumo)"],
+        tenancy:["Arrendamientos","5 años para rentas impagadas (art. 2948 n. 3 c.c.)"],
+        condo:["Comunidad de propietarios","30 días para impugnar judicialmente un acuerdo de la comunidad (art. 1137 c.c.)"],
+        neighbours:["Vecinos","Sin plazo fijo para hacer cesar una molestia continuada (art. 844 c.c.); 5 años para reclamar daños (art. 2947 c.c.)"],
+        medical:["Negligencia médica","10 años contra un hospital o clínica, 5 años contra el médico personalmente (L. 24/2017, art. 7)"],
+        insurance:["Seguros","2 años desde el hecho para la mayoría de reclamaciones de seguros (art. 2952 c.c.)"],
+        travel:["Viajes","2 años para reclamaciones de vuelos (Convenio de Montreal, art. 35)"],
+        family:["Familia","Sin plazo general para la separación o el divorcio; cada pensión de alimentos impagada puede reclamarse durante 5 años (art. 2948 n. 2 c.c.)"],
+        inheritance:["Herencias","10 años para aceptar una herencia (art. 480 c.c.)"],
+        injunction:["Requerimientos de pago","40 días para oponerse a un requerimiento de pago (art. 641 c.p.c.)"],
+        fine:["Multas","30 días para recurrir ante el giudice di pace, o 60 días ante el Prefetto (artt. 204-bis y 203 Codice della strada)"],
+        tax:["Impuestos","60 días para recurrir ante el tribunal tributario (D.Lgs. 546/1992, art. 21)"],
+        defamation:["Difamación","3 meses para presentar una denuncia penal (art. 124 c.p.); 5 años para una demanda civil de daños (art. 2947 c.c.)"],
+        other:["Otro","Los plazos varían según el tipo de reclamación, así que un abogado debe indicarte cuál se aplica"]
+      }
+    },
+    fr: {
+      title:"Tableau des affaires — Casebound pour les avocats",
+      desc:"Casebound pour les avocats : examinez les affaires envoyées par les clients, évaluez-les et entrez en contact pour celles que vous souhaitez prendre.",
+      forLawyers:"POUR LES AVOCATS", navAria:"Compte", research:"Recherche", account:"Compte", signIn:"Se connecter",
+      h1:"Tableau des affaires",
+      lede:"Affaires envoyées par des clients de Casebound qui cherchent un avocat. Vous voyez ce qui s'est passé, les dates, le montant et les preuves, mais pas l'identité du client. Signalez les affaires qui vous intéressent ; le client décide ensuite s'il vous communique son nom et son e-mail.",
+      loading:"Chargement…", search:"Rechercher", searchPh:"Mots, ville…", sortBy:"Trier par",
+      s_score:"Score de pertinence", s_outcome:"Issue possible", s_risk:"Niveau de risque", s_evidence:"Solidité des preuves", s_deadline:"Temps restant", s_value:"Montant en jeu", s_newest:"Date d'envoi", s_region:"Région", s_area:"Domaine du droit", s_custom:"Mon ordre",
+      reverse:"Inverser l'ordre", show:"Afficher",
+      st_open:"Non écartées", st_all:"Toutes", st_new:"Non examinées par moi", st_interested:"Qui m'intéressent", st_info:"Plus d'infos demandées", st_passed:"Écartées",
+      f_area:"Domaine du droit", f_region:"Région", f_outcome:"Issue possible", f_risk:"Niveau de risque", f_ev:"Preuves", f_time:"Temps restant", f_amount:"Montant en jeu",
+      any:"Tous", o_fav:"Favorable", o_unc:"Incertaine", o_unf:"Défavorable",
+      r_low:"Risque faible", r_med:"Risque moyen", r_high:"Risque élevé", r_none:"Non évalué",
+      rc_low:"Risque faible (évaluation du client)", rc_med:"Risque moyen (évaluation du client)", rc_high:"Risque élevé (évaluation du client)",
+      e_strong:"Solides", e_moderate:"Moyennes", e_weak:"Faibles", e_none:"Aucune",
+      tm_60:"60 jours ou moins", tm_180:"6 mois ou moins", tm_ok:"Plus de 6 mois", tm_gone:"Peut-être expiré", tm_nolimit:"Pas de délai fixe / pas de date",
+      am_under:function(a){ return "Moins de " + a; }, am_over:function(a){ return "Plus de " + a; }, am_none:"Non indiqué",
+      reset:"Réinitialiser les filtres",
+      back:"← Retour à Casebound", toClient:"Passer à la vue client", termsL:"Conditions pour les avocats", privL:"Confidentialité : mises en relation avec les avocats", contact:"Contact / réclamations :",
+      allRegions:"Toutes les régions", allAreas:"Tous les domaines", notGiven:"Non indiquée", otherX:"Autre : ",
+      stat_interested:"Intéressé", stat_info:"Infos demandées", stat_passed:"Écartée",
+      noDate:"Aucune date indiquée", checkLimit:"Vérifier le délai",
+      expired:function(n){ return P(n, {one:"Peut-être expiré depuis # jour", other:"Peut-être expiré depuis # jours"}); },
+      daysLeft:function(n){ return P(n, {one:"# jour restant", other:"# jours restants"}); },
+      monthsLeft:function(n){ return P(n, {one:"# mois restant", other:"# mois restants"}); },
+      yearsLeft:function(n){ return P(n, {one:"# an restant", other:"# ans restants"}, 1); },
+      est:" (est.)",
+      fl_passed:function(r){ return "Le délai est peut-être expiré : " + r + ". Vérifiez les éventuelles interruptions ou suspensions."; },
+      fl_urgent:function(n, r){ return "Urgent : environ " + P(n, {one:"# jour restant", other:"# jours restants"}) + ". " + r + "."; },
+      fl_noDate:"Aucune date indiquée : impossible de vérifier le délai.", fl_noAuto:"Pas de vérification automatique du délai pour ce domaine.",
+      fl_noEv:"Aucune preuve indiquée.", fl_informal:"Uniquement des preuves informelles (messages ou témoins).",
+      fl_short:"Description courte. Des faits essentiels peuvent manquer.", fl_noAmount:"Aucun montant en jeu indiqué.", fl_ok:"Daté, documenté et chiffré.",
+      H:{score:["le plus élevé d'abord","le plus bas d'abord"], outcome:["la plus favorable d'abord","la moins favorable d'abord"], risk:["risque le plus faible d'abord","risque le plus élevé d'abord"],
+        evidence:["les plus solides d'abord","les plus faibles d'abord"], deadline:["les plus urgentes d'abord","le plus de temps restant d'abord"], value:["le plus élevé d'abord","le plus bas d'abord"],
+        newest:["les plus récentes d'abord","les plus anciennes d'abord"], region:["de A à Z","de Z à A"], area:["de A à Z","de Z à A"]},
+      sorted:"Tri : ", customHint:"Faites glisser les affaires, ou utilisez les flèches, pour les classer dans votre propre ordre. Il est enregistré dans votre compte.",
+      stOpen:"Affaires ouvertes", stUnrated:"Non évaluées par vous", stUrgent:"Délai dans 60 jours ou moins", stGone:"Délai peut-être expiré",
+      noCases:"Aucune affaire pour l'instant", noCasesT:"Les affaires apparaissent ici lorsqu'un client en envoie une depuis l'évaluation du risque. Rien n'est affiché d'ici là.", noMatch:"Aucune affaire ne correspond à ces filtres.",
+      count:function(l, n){ return l + " sur " + P(n, {one:"# affaire", other:"# affaires"}); },
+      up:"Monter", down:"Descendre", scoreTag:"score", estTag:"est.",
+      evItems:function(n){ return P(n, {one:"# preuve", other:"# preuves"}); },
+      pick:"Choisissez une affaire pour l'examiner.", waitPanel:"Quand une affaire arrive, ses détails et vos outils d'évaluation apparaissent ici.",
+      bdStrength:"Solidité de la demande", bdEvidence:"Qualité des preuves", bdValue:"Montant en jeu", bdUrgency:"Urgence",
+      shared:"Le client vous a communiqué ses coordonnées :", clientAcc:"Récit du client", later:"Précisions ajoutées ensuite",
+      otherSide:"Partie adverse", location:"Lieu", atStake:"En jeu", keyDate:"Date clé", timeLimit:"Délai", wants:"Souhaite", sent:"Envoyée",
+      others:function(n){ return P(n, {one:"# autre avocat intéressé", other:"# autres avocats intéressés"}); },
+      evidenceH:"Preuves", noneListed:"Aucune indiquée", autoChecks:"Vérifications automatiques",
+      adminB:"Vue administrateur.", adminT:"Vous pouvez lire toutes les affaires ouvertes. Seuls les avocats vérifiés peuvent évaluer les affaires ou contacter les clients.",
+      prevB:"Aperçu administrateur.", prevT:"C'est exactement ce que voit un avocat vérifié. Vos évaluations et vos choix restent dans ce navigateur et ne sont pas envoyés au client.",
+      yourRating:"Votre évaluation (vous seul la voyez)", qStrength:"La demande est-elle solide ?", weak:"Faible", strong:"Solide", qQuality:"Les preuves sont-elles bonnes ?", thin:"Minces", solid:"Solides",
+      matchScore:"Score de pertinence", estScore:"Score estimé (pas encore évalué)",
+      msg:"Message au client (facultatif)", msgPh:"ex. Je peux vous aider. Envoyez-moi aussi la lettre de licenciement.",
+      want:"Je veux cette affaire", more:"Demander plus", pass:"Écarter",
+      decideNote:"Le client voit votre nom, votre barreau, votre ville, votre bio et votre message lorsque vous choisissez « Je veux cette affaire » ou « Demander plus ». Il ne voit jamais votre évaluation. Son nom et son e-mail ne vous parviennent que s'il choisit de les partager.",
+      saveErr:"Enregistrement impossible.",
+      gSignH:"Pour les avocats inscrits en Italie", gSignP:"Créez un compte avocat gratuit pour examiner les affaires envoyées par les clients de Casebound. Nous vérifions chaque avocat dans le registre officiel avant qu'il puisse voir une affaire.", gCreate:"Créer un compte avocat",
+      gClientH:"Ce tableau est réservé aux avocats", gClientP:"Votre compte est un profil client. Si vous êtes avocat, passez à un profil avocat depuis la page de votre compte et nous vérifierons vos informations.", gGoAcc:"Aller à mon compte",
+      gRejH:"Nous n'avons pas pu vérifier vos informations", gRejP:"Nous n'avons pas trouvé votre nom et votre numéro d'inscription dans le registre officiel. Vérifiez-les sur la page de votre compte ou écrivez à admin@case-bound.com.",
+      gPendH:"Vérification en cours", gPendP:"Nous vérifions votre nom et votre numéro d'inscription dans le registre officiel des avocats. Vous pourrez voir les affaires une fois la vérification terminée, généralement sous un ou deux jours ouvrés.",
+      myAccount:"Mon compte", gErrH:"Impossible de charger le tableau", gErrP:"Veuillez actualiser la page.",
+      ev:{"Contract":"Contrat","Emails / messages":"E-mails / messages","Invoices / receipts":"Factures / reçus","Photos / video":"Photos / vidéo","Witnesses":"Témoins","Expert report":"Rapport d'expert","Official report":"Rapport officiel","Payslips":"Bulletins de paie"},
+      areas:{
+        dismissal:["Licenciement","60 jours pour contester un licenciement par écrit (L. 604/1966, art. 6)"],
+        employment:["Travail","5 ans pour la plupart des demandes salariales et liées au travail (art. 2948 c.c.)"],
+        goods:["Biens défectueux","1 an à compter de la livraison (art. 1495 c.c.)"],
+        contract:["Contrat / créance","10 ans, le délai ordinaire (art. 2946 c.c.)"],
+        injury:["Préjudice / dommages","5 ans pour les demandes de dommages-intérêts (art. 2947 c.c.)"],
+        road:["Accident de la route","2 ans pour les accidents de la route (art. 2947(2) c.c.)"],
+        building:["Vices de construction","1 an à compter de la découverte pour les signaler au constructeur (art. 1669 c.c.)"],
+        consumer:["Consommation","26 mois à compter de la livraison pour faire jouer la garantie légale (art. 133 Codice del consumo)"],
+        tenancy:["Bail","5 ans pour les loyers impayés (art. 2948 n. 3 c.c.)"],
+        condo:["Copropriété","30 jours pour contester en justice une décision de copropriété (art. 1137 c.c.)"],
+        neighbours:["Voisinage","Pas de délai fixe pour faire cesser un trouble continu (art. 844 c.c.) ; 5 ans pour demander des dommages-intérêts (art. 2947 c.c.)"],
+        medical:["Responsabilité médicale","10 ans contre un hôpital ou une clinique, 5 ans contre le médecin personnellement (L. 24/2017, art. 7)"],
+        insurance:["Assurance","2 ans à compter de l'événement pour la plupart des demandes d'assurance (art. 2952 c.c.)"],
+        travel:["Voyage","2 ans pour les réclamations liées aux vols (Convention de Montréal, art. 35)"],
+        family:["Famille","Pas de délai général pour la séparation ou le divorce ; chaque pension alimentaire impayée peut être réclamée pendant 5 ans (art. 2948 n. 2 c.c.)"],
+        inheritance:["Succession","10 ans pour accepter une succession (art. 480 c.c.)"],
+        injunction:["Injonctions de payer","40 jours pour former opposition à une injonction de payer (art. 641 c.p.c.)"],
+        fine:["Amendes","30 jours pour former un recours devant le giudice di pace, ou 60 jours devant le Prefetto (artt. 204-bis et 203 Codice della strada)"],
+        tax:["Fiscalité","60 jours pour saisir le tribunal fiscal (D.Lgs. 546/1992, art. 21)"],
+        defamation:["Diffamation","3 mois pour porter plainte au pénal (art. 124 c.p.) ; 5 ans pour une action civile en dommages-intérêts (art. 2947 c.c.)"],
+        other:["Autre","Les délais varient selon le type de demande : un avocat doit vous indiquer celui qui s'applique"]
+      }
+    },
+    de: {
+      title:"Fallbörse — Casebound für Anwälte",
+      desc:"Casebound für Anwälte: Prüfe Fälle, die Mandanten einsenden, bewerte sie und nimm Kontakt zu denen auf, die du übernehmen möchtest.",
+      forLawyers:"FÜR ANWÄLTE", navAria:"Konto", research:"Recherche", account:"Konto", signIn:"Anmelden",
+      h1:"Fallbörse",
+      lede:"Fälle von Casebound-Mandanten, die einen Anwalt suchen. Du siehst, was passiert ist, die Daten, den Betrag und die Beweise, aber nicht, wer der Mandant ist. Markiere die Fälle, die du möchtest; der Mandant entscheidet dann, ob er dir Namen und E-Mail-Adresse mitteilt.",
+      loading:"Wird geladen…", search:"Suche", searchPh:"Wörter, Stadt…", sortBy:"Sortieren nach",
+      s_score:"Passungswert", s_outcome:"Möglicher Ausgang", s_risk:"Risikoeinstufung", s_evidence:"Beweisstärke", s_deadline:"Verbleibende Zeit", s_value:"Streitwert", s_newest:"Sendedatum", s_region:"Region", s_area:"Rechtsgebiet", s_custom:"Meine Reihenfolge",
+      reverse:"Reihenfolge umkehren", show:"Anzeigen",
+      st_open:"Nicht abgelehnt", st_all:"Alle", st_new:"Von mir nicht geprüft", st_interested:"Interessieren mich", st_info:"Mehr Infos angefragt", st_passed:"Abgelehnt",
+      f_area:"Rechtsgebiet", f_region:"Region", f_outcome:"Möglicher Ausgang", f_risk:"Risikoeinstufung", f_ev:"Beweise", f_time:"Verbleibende Zeit", f_amount:"Streitwert",
+      any:"Alle", o_fav:"Günstig", o_unc:"Ungewiss", o_unf:"Ungünstig",
+      r_low:"Niedriges Risiko", r_med:"Mittleres Risiko", r_high:"Hohes Risiko", r_none:"Nicht bewertet",
+      rc_low:"Niedriges Risiko (Mandanten-Check)", rc_med:"Mittleres Risiko (Mandanten-Check)", rc_high:"Hohes Risiko (Mandanten-Check)",
+      e_strong:"Stark", e_moderate:"Mittel", e_weak:"Schwach", e_none:"Keine",
+      tm_60:"60 Tage oder weniger", tm_180:"6 Monate oder weniger", tm_ok:"Mehr als 6 Monate", tm_gone:"Möglicherweise abgelaufen", tm_nolimit:"Keine feste Frist / kein Datum",
+      am_under:function(a){ return "Unter " + a; }, am_over:function(a){ return "Über " + a; }, am_none:"Nicht angegeben",
+      reset:"Filter zurücksetzen",
+      back:"← Zurück zu Casebound", toClient:"Zur Mandantenansicht wechseln", termsL:"Bedingungen für Anwälte", privL:"Datenschutz: Kontakt mit Anwälten", contact:"Kontakt / Beschwerden:",
+      allRegions:"Alle Regionen", allAreas:"Alle Rechtsgebiete", notGiven:"Nicht angegeben", otherX:"Sonstiges: ",
+      stat_interested:"Interessiert", stat_info:"Mehr Infos angefragt", stat_passed:"Abgelehnt",
+      noDate:"Kein Datum angegeben", checkLimit:"Frist prüfen",
+      expired:function(n){ return P(n, {one:"Möglicherweise seit # Tag abgelaufen", other:"Möglicherweise seit # Tagen abgelaufen"}); },
+      daysLeft:function(n){ return P(n, {one:"Noch # Tag", other:"Noch # Tage"}); },
+      monthsLeft:function(n){ return P(n, {one:"Noch # Monat", other:"Noch # Monate"}); },
+      yearsLeft:function(n){ return P(n, {one:"Noch # Jahr", other:"Noch # Jahre"}, 1); },
+      est:" (gesch.)",
+      fl_passed:function(r){ return "Die Frist ist möglicherweise abgelaufen: " + r + ". Prüfe Unterbrechungen oder Hemmungen."; },
+      fl_urgent:function(n, r){ return "Dringend: noch etwa " + P(n, {one:"# Tag", other:"# Tage"}) + ". " + r + "."; },
+      fl_noDate:"Kein Datum angegeben, daher lässt sich die Frist nicht prüfen.", fl_noAuto:"Für dieses Rechtsgebiet gibt es keine automatische Fristprüfung.",
+      fl_noEv:"Keine Beweise angegeben.", fl_informal:"Nur informelle Beweise (Nachrichten oder Zeugen).",
+      fl_short:"Kurze Beschreibung. Wichtige Fakten fehlen möglicherweise.", fl_noAmount:"Kein Streitwert angegeben.", fl_ok:"Datiert, belegt und beziffert.",
+      H:{score:["höchste zuerst","niedrigste zuerst"], outcome:["günstigste zuerst","ungünstigste zuerst"], risk:["geringstes Risiko zuerst","höchstes Risiko zuerst"],
+        evidence:["stärkste zuerst","schwächste zuerst"], deadline:["dringendste zuerst","meiste Zeit zuerst"], value:["größte zuerst","kleinste zuerst"],
+        newest:["neueste zuerst","älteste zuerst"], region:["A bis Z","Z bis A"], area:["A bis Z","Z bis A"]},
+      sorted:"Sortiert: ", customHint:"Ziehe die Fälle oder nutze die Pfeile, um deine eigene Reihenfolge festzulegen. Sie wird in deinem Konto gespeichert.",
+      stOpen:"Offene Fälle", stUnrated:"Von dir nicht bewertet", stUrgent:"Frist in höchstens 60 Tagen", stGone:"Frist möglicherweise abgelaufen",
+      noCases:"Noch keine Fälle", noCasesT:"Fälle erscheinen hier, sobald ein Mandant einen über den Risikocheck sendet. Bis dahin wird nichts angezeigt.", noMatch:"Keine Fälle entsprechen diesen Filtern.",
+      count:function(l, n){ return l + " von " + P(n, {one:"# Fall", other:"# Fällen"}); },
+      up:"Nach oben", down:"Nach unten", scoreTag:"Wert", estTag:"gesch.",
+      evItems:function(n){ return P(n, {one:"# Beweismittel", other:"# Beweismittel"}); },
+      pick:"Wähle einen Fall aus, um ihn zu prüfen.", waitPanel:"Sobald ein Fall eingeht, erscheinen hier seine Details und deine Bewertungswerkzeuge.",
+      bdStrength:"Stärke des Anspruchs", bdEvidence:"Qualität der Beweise", bdValue:"Streitwert", bdUrgency:"Zeitdruck",
+      shared:"Der Mandant hat seine Daten mit dir geteilt:", clientAcc:"Schilderung des Mandanten", later:"Später ergänzte Angaben",
+      otherSide:"Gegenseite", location:"Ort", atStake:"Streitwert", keyDate:"Stichtag", timeLimit:"Frist", wants:"Ziel", sent:"Gesendet",
+      others:function(n){ return P(n, {one:"# weiterer Anwalt interessiert", other:"# weitere Anwälte interessiert"}); },
+      evidenceH:"Beweise", noneListed:"Keine angegeben", autoChecks:"Automatische Prüfungen",
+      adminB:"Admin-Ansicht.", adminT:"Du kannst alle offenen Fälle lesen. Nur verifizierte Anwälte können Fälle bewerten oder Mandanten kontaktieren.",
+      prevB:"Admin-Vorschau.", prevT:"Genau das sieht ein verifizierter Anwalt. Deine Bewertungen und Entscheidungen bleiben in diesem Browser und werden nicht an den Mandanten gesendet.",
+      yourRating:"Deine Bewertung (nur du siehst sie)", qStrength:"Wie stark ist der Anspruch?", weak:"Schwach", strong:"Stark", qQuality:"Wie gut sind die Beweise?", thin:"Dünn", solid:"Solide",
+      matchScore:"Passungswert", estScore:"Geschätzter Wert (noch nicht bewertet)",
+      msg:"Nachricht an den Mandanten (optional)", msgPh:"z. B. Ich kann helfen. Bitte schicken Sie mir auch das Kündigungsschreiben.",
+      want:"Ich will diesen Fall", more:"Mehr anfragen", pass:"Ablehnen",
+      decideNote:"Der Mandant sieht deinen Namen, deine Anwaltskammer, Stadt, Kurzbiografie und Nachricht, wenn du „Ich will diesen Fall“ oder „Mehr anfragen“ wählst. Deine Bewertung sieht er nie. Seinen Namen und seine E-Mail-Adresse erhältst du nur, wenn er sie teilen möchte.",
+      saveErr:"Speichern nicht möglich.",
+      gSignH:"Für in Italien zugelassene Anwälte", gSignP:"Erstelle ein kostenloses Anwaltskonto, um Fälle von Casebound-Mandanten zu prüfen. Wir prüfen jeden Anwalt anhand des offiziellen Registers, bevor er Fälle sehen kann.", gCreate:"Anwaltskonto erstellen",
+      gClientH:"Diese Fallbörse ist für Anwälte", gClientP:"Dein Konto ist ein Mandantenprofil. Wenn du Anwalt bist, wechsle auf deiner Kontoseite zu einem Anwaltsprofil, und wir prüfen deine Angaben.", gGoAcc:"Zu meinem Konto",
+      gRejH:"Wir konnten deine Angaben nicht verifizieren", gRejP:"Wir konnten deinen Namen und deine Registernummer nicht im offiziellen Register finden. Prüfe sie auf deiner Kontoseite oder schreib an admin@case-bound.com.",
+      gPendH:"Verifizierung ausstehend", gPendP:"Wir prüfen deinen Namen und deine Registernummer im offiziellen Anwaltsregister. Sobald das erledigt ist, kannst du Fälle sehen – in der Regel innerhalb von ein bis zwei Werktagen.",
+      myAccount:"Mein Konto", gErrH:"Die Fallbörse konnte nicht geladen werden", gErrP:"Bitte lade die Seite neu.",
+      ev:{"Contract":"Vertrag","Emails / messages":"E-Mails / Nachrichten","Invoices / receipts":"Rechnungen / Belege","Photos / video":"Fotos / Video","Witnesses":"Zeugen","Expert report":"Gutachten","Official report":"Amtlicher Bericht","Payslips":"Gehaltsabrechnungen"},
+      areas:{
+        dismissal:["Kündigung","60 Tage, um eine Kündigung schriftlich anzufechten (L. 604/1966, art. 6)"],
+        employment:["Arbeitsrecht","5 Jahre für die meisten Lohn- und Arbeitsansprüche (art. 2948 c.c.)"],
+        goods:["Mangelhafte Ware","1 Jahr ab Lieferung (art. 1495 c.c.)"],
+        contract:["Vertrag / Forderung","10 Jahre, die regelmäßige Frist (art. 2946 c.c.)"],
+        injury:["Verletzung / Schaden","5 Jahre für Schadensersatzansprüche (art. 2947 c.c.)"],
+        road:["Verkehrsunfall","2 Jahre bei Verkehrsunfällen (art. 2947(2) c.c.)"],
+        building:["Baumängel","1 Jahr ab Entdeckung, um sie dem Bauunternehmer anzuzeigen (art. 1669 c.c.)"],
+        consumer:["Verbraucherrecht","26 Monate ab Lieferung, um die gesetzliche Gewährleistung geltend zu machen (art. 133 Codice del consumo)"],
+        tenancy:["Miete","5 Jahre für unbezahlte Miete (art. 2948 n. 3 c.c.)"],
+        condo:["Wohnungseigentum","30 Tage, um einen Eigentümerbeschluss gerichtlich anzufechten (art. 1137 c.c.)"],
+        neighbours:["Nachbarschaft","Keine feste Frist, um eine andauernde Störung zu beenden (art. 844 c.c.); 5 Jahre für Schadensersatz (art. 2947 c.c.)"],
+        medical:["Arzthaftung","10 Jahre gegen ein Krankenhaus oder eine Klinik, 5 Jahre gegen den Arzt persönlich (L. 24/2017, art. 7)"],
+        insurance:["Versicherung","2 Jahre ab dem Ereignis für die meisten Versicherungsansprüche (art. 2952 c.c.)"],
+        travel:["Reisen","2 Jahre für Flugansprüche (Montrealer Übereinkommen, art. 35)"],
+        family:["Familie","Keine allgemeine Frist für Trennung oder Scheidung; jede unbezahlte Unterhaltszahlung kann 5 Jahre lang verlangt werden (art. 2948 n. 2 c.c.)"],
+        inheritance:["Erbrecht","10 Jahre, um eine Erbschaft anzunehmen (art. 480 c.c.)"],
+        injunction:["Zahlungsbefehle","40 Tage für den Widerspruch gegen einen Zahlungsbefehl (art. 641 c.p.c.)"],
+        fine:["Bußgelder","30 Tage für den Einspruch beim giudice di pace oder 60 Tage beim Prefetto (artt. 204-bis und 203 Codice della strada)"],
+        tax:["Steuern","60 Tage für die Klage beim Steuergericht (D.Lgs. 546/1992, art. 21)"],
+        defamation:["Verleumdung","3 Monate für einen Strafantrag (art. 124 c.p.); 5 Jahre für eine zivilrechtliche Schadensersatzklage (art. 2947 c.c.)"],
+        other:["Sonstiges","Die Fristen hängen von der Art des Anspruchs ab; ein Anwalt muss dir sagen, welche gilt"]
+      }
+    },
+    pt: {
+      title:"Quadro de casos — Casebound para advogados",
+      desc:"Casebound para advogados: analise os casos enviados pelos clientes, avalie-os e entre em contacto sobre os que pretende aceitar.",
+      forLawyers:"PARA ADVOGADOS", navAria:"Conta", research:"Pesquisa", account:"Conta", signIn:"Iniciar sessão",
+      h1:"Quadro de casos",
+      lede:"Casos enviados por clientes da Casebound que procuram um advogado. Vê o que aconteceu, as datas, o montante e as provas, mas não quem é o cliente. Assinale os casos que pretende; o cliente decide depois se partilha consigo o nome e o e-mail.",
+      loading:"A carregar…", search:"Pesquisar", searchPh:"Palavras, cidade…", sortBy:"Ordenar por",
+      s_score:"Pontuação de adequação", s_outcome:"Resultado possível", s_risk:"Nível de risco", s_evidence:"Solidez das provas", s_deadline:"Tempo restante", s_value:"Montante em causa", s_newest:"Data de envio", s_region:"Região", s_area:"Área do direito", s_custom:"A minha ordem",
+      reverse:"Inverter a ordem", show:"Mostrar",
+      st_open:"Não recusados", st_all:"Todos", st_new:"Não analisados por mim", st_interested:"Do meu interesse", st_info:"Pedi mais informações", st_passed:"Recusados",
+      f_area:"Área do direito", f_region:"Região", f_outcome:"Resultado possível", f_risk:"Nível de risco", f_ev:"Provas", f_time:"Tempo restante", f_amount:"Montante em causa",
+      any:"Qualquer", o_fav:"Favorável", o_unc:"Incerto", o_unf:"Desfavorável",
+      r_low:"Risco baixo", r_med:"Risco médio", r_high:"Risco alto", r_none:"Sem avaliação",
+      rc_low:"Risco baixo (avaliação do cliente)", rc_med:"Risco médio (avaliação do cliente)", rc_high:"Risco alto (avaliação do cliente)",
+      e_strong:"Sólidas", e_moderate:"Moderadas", e_weak:"Fracas", e_none:"Nenhuma",
+      tm_60:"60 dias ou menos", tm_180:"6 meses ou menos", tm_ok:"Mais de 6 meses", tm_gone:"Pode ter expirado", tm_nolimit:"Sem prazo fixo / sem data",
+      am_under:function(a){ return "Menos de " + a; }, am_over:function(a){ return "Mais de " + a; }, am_none:"Não indicado",
+      reset:"Repor filtros",
+      back:"← Voltar à Casebound", toClient:"Mudar para a vista de cliente", termsL:"Termos para advogados", privL:"Privacidade: contactos com advogados", contact:"Contacto / reclamações:",
+      allRegions:"Todas as regiões", allAreas:"Todas as áreas", notGiven:"Não indicada", otherX:"Outro: ",
+      stat_interested:"Interessado", stat_info:"Mais informações pedidas", stat_passed:"Recusado",
+      noDate:"Sem data indicada", checkLimit:"Verificar o prazo",
+      expired:function(n){ return P(n, {one:"Pode ter expirado há # dia", other:"Pode ter expirado há # dias"}); },
+      daysLeft:function(n){ return P(n, {one:"Falta # dia", other:"Faltam # dias"}); },
+      monthsLeft:function(n){ return P(n, {one:"Falta # mês", other:"Faltam # meses"}); },
+      yearsLeft:function(n){ return P(n, {one:"Falta # ano", other:"Faltam # anos"}, 1); },
+      est:" (estim.)",
+      fl_passed:function(r){ return "O prazo pode ter expirado: " + r + ". Verifique eventuais interrupções ou suspensões."; },
+      fl_urgent:function(n, r){ return "Urgente: faltam cerca de " + P(n, {one:"# dia", other:"# dias"}) + ". " + r + "."; },
+      fl_noDate:"Sem data indicada, por isso não é possível verificar o prazo.", fl_noAuto:"Não há verificação automática do prazo para esta área.",
+      fl_noEv:"Nenhuma prova indicada.", fl_informal:"Apenas provas informais (mensagens ou testemunhas).",
+      fl_short:"Descrição curta. Podem faltar factos essenciais.", fl_noAmount:"Nenhum montante em causa indicado.", fl_ok:"Datado, documentado e quantificado.",
+      H:{score:["mais alta primeiro","mais baixa primeiro"], outcome:["mais favorável primeiro","menos favorável primeiro"], risk:["menor risco primeiro","maior risco primeiro"],
+        evidence:["mais sólidas primeiro","mais fracas primeiro"], deadline:["mais urgentes primeiro","mais tempo primeiro"], value:["maior primeiro","menor primeiro"],
+        newest:["mais recentes primeiro","mais antigos primeiro"], region:["de A a Z","de Z a A"], area:["de A a Z","de Z a A"]},
+      sorted:"Ordem: ", customHint:"Arraste os casos, ou use as setas, para os pôr pela sua ordem. A ordem fica guardada na sua conta.",
+      stOpen:"Casos abertos", stUnrated:"Não avaliados por si", stUrgent:"Prazo em 60 dias ou menos", stGone:"Prazo possivelmente expirado",
+      noCases:"Ainda não há casos", noCasesT:"Os casos aparecem aqui quando um cliente envia um a partir da avaliação de risco. Até lá, nada é mostrado.", noMatch:"Nenhum caso corresponde a estes filtros.",
+      count:function(l, n){ return l + " de " + P(n, {one:"# caso", other:"# casos"}); },
+      up:"Mover para cima", down:"Mover para baixo", scoreTag:"pontos", estTag:"estim.",
+      evItems:function(n){ return P(n, {one:"# prova", other:"# provas"}); },
+      pick:"Escolha um caso para o analisar.", waitPanel:"Quando chegar um caso, os detalhes e as suas ferramentas de avaliação aparecem aqui.",
+      bdStrength:"Solidez da pretensão", bdEvidence:"Qualidade das provas", bdValue:"Montante em causa", bdUrgency:"Urgência",
+      shared:"O cliente partilhou os dados consigo:", clientAcc:"Relato do cliente", later:"Detalhes acrescentados depois",
+      otherSide:"Parte contrária", location:"Local", atStake:"Em causa", keyDate:"Data-chave", timeLimit:"Prazo", wants:"Pretende", sent:"Enviado",
+      others:function(n){ return P(n, {one:"# outro advogado interessado", other:"# outros advogados interessados"}); },
+      evidenceH:"Provas", noneListed:"Nenhuma indicada", autoChecks:"Verificações automáticas",
+      adminB:"Vista de administrador.", adminT:"Pode ler todos os casos abertos. Só os advogados verificados podem avaliar casos ou contactar clientes.",
+      prevB:"Pré-visualização de administrador.", prevT:"É exatamente isto que um advogado verificado vê. As suas avaliações e escolhas ficam neste navegador e não são enviadas ao cliente.",
+      yourRating:"A sua avaliação (visível apenas para si)", qStrength:"Qual a solidez da pretensão?", weak:"Fraca", strong:"Sólida", qQuality:"Qual a qualidade das provas?", thin:"Escassas", solid:"Sólidas",
+      matchScore:"Pontuação de adequação", estScore:"Pontuação estimada (ainda sem avaliação)",
+      msg:"Mensagem ao cliente (opcional)", msgPh:"p. ex. Posso ajudar. Envie-me também a carta de despedimento.",
+      want:"Quero este caso", more:"Pedir mais", pass:"Recusar",
+      decideNote:"O cliente vê o seu nome, a ordem dos advogados, a cidade, a biografia e a mensagem quando escolhe «Quero este caso» ou «Pedir mais». Nunca vê a sua avaliação. O nome e o e-mail do cliente só lhe chegam se ele decidir partilhá-los.",
+      saveErr:"Não foi possível guardar.",
+      gSignH:"Para advogados inscritos em Itália", gSignP:"Crie uma conta de advogado gratuita para analisar os casos enviados pelos clientes da Casebound. Verificamos cada advogado no registo oficial antes de poder ver qualquer caso.", gCreate:"Criar conta de advogado",
+      gClientH:"Este quadro é para advogados", gClientP:"A sua conta é um perfil de cliente. Se é advogado, mude para um perfil de advogado na página da sua conta e verificaremos os seus dados.", gGoAcc:"Ir para a minha conta",
+      gRejH:"Não conseguimos verificar os seus dados", gRejP:"Não encontrámos o seu nome e número de inscrição no registo oficial. Confirme-os na página da sua conta ou escreva para admin@case-bound.com.",
+      gPendH:"A aguardar verificação", gPendP:"Estamos a verificar o seu nome e número de inscrição no registo oficial de advogados. Poderá ver os casos quando terminarmos, normalmente dentro de um ou dois dias úteis.",
+      myAccount:"A minha conta", gErrH:"Não foi possível carregar o quadro", gErrP:"Atualize a página.",
+      ev:{"Contract":"Contrato","Emails / messages":"E-mails / mensagens","Invoices / receipts":"Faturas / recibos","Photos / video":"Fotos / vídeo","Witnesses":"Testemunhas","Expert report":"Relatório pericial","Official report":"Relatório oficial","Payslips":"Recibos de vencimento"},
+      areas:{
+        dismissal:["Despedimento","60 dias para impugnar um despedimento por escrito (L. 604/1966, art. 6)"],
+        employment:["Trabalho","5 anos para a maioria dos créditos salariais e laborais (art. 2948 c.c.)"],
+        goods:["Bens defeituosos","1 ano a contar da entrega (art. 1495 c.c.)"],
+        contract:["Contrato / dívida","10 anos, o prazo ordinário (art. 2946 c.c.)"],
+        injury:["Lesões / danos","5 anos para pedidos de indemnização (art. 2947 c.c.)"],
+        road:["Acidente de viação","2 anos para acidentes de viação (art. 2947(2) c.c.)"],
+        building:["Defeitos de construção","1 ano a contar da descoberta para os comunicar ao construtor (art. 1669 c.c.)"],
+        consumer:["Consumo","26 meses a contar da entrega para acionar a garantia legal (art. 133 Codice del consumo)"],
+        tenancy:["Arrendamento","5 anos para rendas em atraso (art. 2948 n. 3 c.c.)"],
+        condo:["Condomínio","30 dias para impugnar judicialmente uma deliberação do condomínio (art. 1137 c.c.)"],
+        neighbours:["Vizinhança","Sem prazo fixo para fazer cessar um incómodo contínuo (art. 844 c.c.); 5 anos para pedir indemnização (art. 2947 c.c.)"],
+        medical:["Negligência médica","10 anos contra um hospital ou clínica, 5 anos contra o médico pessoalmente (L. 24/2017, art. 7)"],
+        insurance:["Seguros","2 anos a contar do evento para a maioria dos pedidos de seguro (art. 2952 c.c.)"],
+        travel:["Viagens","2 anos para reclamações de voos (Convenção de Montreal, art. 35)"],
+        family:["Família","Sem prazo geral para separação ou divórcio; cada pensão de alimentos em atraso pode ser exigida durante 5 anos (art. 2948 n. 2 c.c.)"],
+        inheritance:["Heranças","10 anos para aceitar uma herança (art. 480 c.c.)"],
+        injunction:["Injunções de pagamento","40 dias para deduzir oposição a uma injunção de pagamento (art. 641 c.p.c.)"],
+        fine:["Multas","30 dias para recorrer para o giudice di pace, ou 60 dias para o Prefetto (artt. 204-bis e 203 Codice della strada)"],
+        tax:["Impostos","60 dias para recorrer para o tribunal tributário (D.Lgs. 546/1992, art. 21)"],
+        defamation:["Difamação","3 meses para apresentar queixa-crime (art. 124 c.p.); 5 anos para uma ação cível de indemnização (art. 2947 c.c.)"],
+        other:["Outro","Os prazos variam consoante o tipo de pretensão; um advogado tem de lhe indicar qual se aplica"]
+      }
+    },
+    pl: {
+      title:"Tablica spraw — Casebound dla prawników",
+      desc:"Casebound dla prawników: przeglądaj sprawy przesłane przez klientów, oceniaj je i nawiązuj kontakt w sprawach, które chcesz poprowadzić.",
+      forLawyers:"DLA PRAWNIKÓW", navAria:"Konto", research:"Wyszukiwarka", account:"Konto", signIn:"Zaloguj się",
+      h1:"Tablica spraw",
+      lede:"Sprawy przesłane przez klientów Casebound, którzy szukają prawnika. Widzisz, co się wydarzyło, daty, kwotę i dowody, ale nie to, kim jest klient. Zaznacz sprawy, które chcesz wziąć; klient zdecyduje wtedy, czy udostępni ci swoje imię i nazwisko oraz e-mail.",
+      loading:"Ładowanie…", search:"Szukaj", searchPh:"Słowa, miasto…", sortBy:"Sortuj według",
+      s_score:"Dopasowanie", s_outcome:"Możliwy wynik", s_risk:"Poziom ryzyka", s_evidence:"Siła dowodów", s_deadline:"Pozostały czas", s_value:"Wartość sporu", s_newest:"Data wysłania", s_region:"Region", s_area:"Dziedzina prawa", s_custom:"Moja kolejność",
+      reverse:"Odwróć kolejność", show:"Pokaż",
+      st_open:"Nieodrzucone", st_all:"Wszystkie", st_new:"Jeszcze nieprzejrzane", st_interested:"Interesujące mnie", st_info:"Z prośbą o więcej informacji", st_passed:"Odrzucone",
+      f_area:"Dziedzina prawa", f_region:"Region", f_outcome:"Możliwy wynik", f_risk:"Poziom ryzyka", f_ev:"Dowody", f_time:"Pozostały czas", f_amount:"Wartość sporu",
+      any:"Dowolny", o_fav:"Korzystny", o_unc:"Niepewny", o_unf:"Niekorzystny",
+      r_low:"Niskie ryzyko", r_med:"Średnie ryzyko", r_high:"Wysokie ryzyko", r_none:"Bez oceny",
+      rc_low:"Niskie ryzyko (ocena klienta)", rc_med:"Średnie ryzyko (ocena klienta)", rc_high:"Wysokie ryzyko (ocena klienta)",
+      e_strong:"Mocne", e_moderate:"Umiarkowane", e_weak:"Słabe", e_none:"Brak",
+      tm_60:"60 dni lub mniej", tm_180:"6 miesięcy lub mniej", tm_ok:"Ponad 6 miesięcy", tm_gone:"Termin mógł minąć", tm_nolimit:"Brak stałego terminu / brak daty",
+      am_under:function(a){ return "Poniżej " + a; }, am_over:function(a){ return "Powyżej " + a; }, am_none:"Nie podano",
+      reset:"Wyczyść filtry",
+      back:"← Wróć do Casebound", toClient:"Przełącz na widok klienta", termsL:"Warunki dla prawników", privL:"Prywatność: kontakty z prawnikami", contact:"Kontakt / reklamacje:",
+      allRegions:"Wszystkie regiony", allAreas:"Wszystkie dziedziny", notGiven:"Nie podano", otherX:"Inne: ",
+      stat_interested:"Zainteresowanie", stat_info:"Prośba o więcej", stat_passed:"Odrzucona",
+      noDate:"Nie podano daty", checkLimit:"Sprawdź termin",
+      expired:function(n){ return "Termin mógł minąć " + P(n, {one:"# dzień", few:"# dni", many:"# dni", other:"# dnia"}) + " temu"; },
+      daysLeft:function(n){ return P(n, {one:"Został # dzień", few:"Zostały # dni", many:"Zostało # dni", other:"Zostało # dnia"}); },
+      monthsLeft:function(n){ return P(n, {one:"Został # miesiąc", few:"Zostały # miesiące", many:"Zostało # miesięcy", other:"Zostało # miesiąca"}); },
+      yearsLeft:function(n){ return P(n, {one:"Został # rok", few:"Zostały # lata", many:"Zostało # lat", other:"Zostało # roku"}, 1); },
+      est:" (szac.)",
+      fl_passed:function(r){ return "Termin mógł już minąć: " + r + ". Sprawdź, czy nie doszło do przerwania lub zawieszenia biegu terminu."; },
+      fl_urgent:function(n, r){ return "Pilne: zostało około " + P(n, {one:"# dnia", few:"# dni", many:"# dni", other:"# dnia"}) + ". " + r + "."; },
+      fl_noDate:"Nie podano daty, więc nie można sprawdzić terminu.", fl_noAuto:"Brak automatycznego sprawdzania terminu w tej dziedzinie.",
+      fl_noEv:"Nie wskazano dowodów.", fl_informal:"Tylko nieformalne dowody (wiadomości lub świadkowie).",
+      fl_short:"Krótki opis. Może brakować kluczowych faktów.", fl_noAmount:"Nie podano wartości sporu.", fl_ok:"Z datą, udokumentowana i wyceniona.",
+      H:{score:["od najwyższego","od najniższego"], outcome:["od najkorzystniejszego","od najmniej korzystnego"], risk:["od najniższego ryzyka","od najwyższego ryzyka"],
+        evidence:["od najmocniejszych","od najsłabszych"], deadline:["od najpilniejszych","od najdłuższego terminu"], value:["od najwyższej","od najniższej"],
+        newest:["od najnowszych","od najstarszych"], region:["od A do Z","od Z do A"], area:["od A do Z","od Z do A"]},
+      sorted:"Sortowanie: ", customHint:"Przeciągaj sprawy lub używaj strzałek, aby ustawić własną kolejność. Zapisuje się ona na twoim koncie.",
+      stOpen:"Otwarte sprawy", stUnrated:"Nieocenione przez ciebie", stUrgent:"Termin w ciągu 60 dni", stGone:"Termin mógł minąć",
+      noCases:"Brak spraw", noCasesT:"Sprawy pojawiają się tutaj, gdy klient wyśle sprawę z oceny ryzyka. Do tego czasu nic nie jest wyświetlane.", noMatch:"Żadna sprawa nie pasuje do tych filtrów.",
+      count:function(l, n){ return l + " z " + P(n, {one:"# sprawy", other:"# spraw"}); },
+      up:"Przesuń w górę", down:"Przesuń w dół", scoreTag:"pkt", estTag:"szac.",
+      evItems:function(n){ return P(n, {one:"# dowód", few:"# dowody", many:"# dowodów", other:"# dowodu"}); },
+      pick:"Wybierz sprawę, aby ją przejrzeć.", waitPanel:"Gdy pojawi się sprawa, zobaczysz tutaj jej szczegóły i narzędzia do oceny.",
+      bdStrength:"Siła roszczenia", bdEvidence:"Jakość dowodów", bdValue:"Wartość sporu", bdUrgency:"Presja czasu",
+      shared:"Klient udostępnił ci swoje dane:", clientAcc:"Relacja klienta", later:"Szczegóły dodane później",
+      otherSide:"Druga strona", location:"Miejsce", atStake:"Wartość sporu", keyDate:"Kluczowa data", timeLimit:"Termin", wants:"Oczekuje", sent:"Wysłano",
+      others:function(n){ return "inni zainteresowani prawnicy: " + num(n); },
+      evidenceH:"Dowody", noneListed:"Nie wskazano", autoChecks:"Automatyczne kontrole",
+      adminB:"Widok administratora.", adminT:"Możesz czytać wszystkie otwarte sprawy. Tylko zweryfikowani prawnicy mogą oceniać sprawy i kontaktować się z klientami.",
+      prevB:"Podgląd administratora.", prevT:"Dokładnie to widzi zweryfikowany prawnik. Twoje oceny i decyzje zostają w tej przeglądarce i nie są wysyłane do klienta.",
+      yourRating:"Twoja ocena (widzisz ją tylko ty)", qStrength:"Jak mocne jest roszczenie?", weak:"Słabe", strong:"Mocne", qQuality:"Jak dobre są dowody?", thin:"Skąpe", solid:"Solidne",
+      matchScore:"Dopasowanie", estScore:"Szacowane dopasowanie (jeszcze bez oceny)",
+      msg:"Wiadomość do klienta (opcjonalnie)", msgPh:"np. Mogę pomóc. Proszę przesłać też wypowiedzenie.",
+      want:"Chcę tę sprawę", more:"Poproś o więcej", pass:"Odrzuć",
+      decideNote:"Klient widzi twoje imię i nazwisko, izbę, miasto, bio i wiadomość, gdy wybierzesz „Chcę tę sprawę” lub „Poproś o więcej”. Nigdy nie widzi twojej oceny. Jego imię i nazwisko oraz e-mail trafią do ciebie tylko wtedy, gdy zdecyduje się je udostępnić.",
+      saveErr:"Nie udało się zapisać.",
+      gSignH:"Dla prawników wpisanych na listę we Włoszech", gSignP:"Utwórz bezpłatne konto prawnika, aby przeglądać sprawy przesyłane przez klientów Casebound. Każdego prawnika weryfikujemy w oficjalnym rejestrze, zanim zobaczy jakąkolwiek sprawę.", gCreate:"Utwórz konto prawnika",
+      gClientH:"Ta tablica jest dla prawników", gClientP:"Twoje konto to profil klienta. Jeśli jesteś prawnikiem, przełącz się na profil prawnika na stronie konta, a my zweryfikujemy twoje dane.", gGoAcc:"Przejdź do mojego konta",
+      gRejH:"Nie udało się zweryfikować twoich danych", gRejP:"Nie znaleźliśmy twojego imienia i nazwiska oraz numeru wpisu w oficjalnym rejestrze. Sprawdź je na stronie konta lub napisz na admin@case-bound.com.",
+      gPendH:"Oczekiwanie na weryfikację", gPendP:"Sprawdzamy twoje imię i nazwisko oraz numer wpisu w oficjalnym rejestrze prawników. Sprawy zobaczysz po zakończeniu weryfikacji, zwykle w ciągu jednego lub dwóch dni roboczych.",
+      myAccount:"Moje konto", gErrH:"Nie udało się wczytać tablicy", gErrP:"Odśwież stronę.",
+      ev:{"Contract":"Umowa","Emails / messages":"E-maile / wiadomości","Invoices / receipts":"Faktury / paragony","Photos / video":"Zdjęcia / wideo","Witnesses":"Świadkowie","Expert report":"Opinia biegłego","Official report":"Protokół urzędowy","Payslips":"Paski wypłat"},
+      areas:{
+        dismissal:["Zwolnienie z pracy","60 dni na pisemne zakwestionowanie zwolnienia (L. 604/1966, art. 6)"],
+        employment:["Prawo pracy","5 lat dla większości roszczeń płacowych i pracowniczych (art. 2948 c.c.)"],
+        goods:["Wadliwe towary","1 rok od dostawy (art. 1495 c.c.)"],
+        contract:["Umowa / dług","10 lat, termin ogólny (art. 2946 c.c.)"],
+        injury:["Szkoda / obrażenia","5 lat na roszczenia odszkodowawcze (art. 2947 c.c.)"],
+        road:["Wypadek drogowy","2 lata przy wypadkach drogowych (art. 2947(2) c.c.)"],
+        building:["Wady budowlane","1 rok od wykrycia na zawiadomienie wykonawcy (art. 1669 c.c.)"],
+        consumer:["Sprawy konsumenckie","26 miesięcy od dostawy na skorzystanie z ustawowej gwarancji (art. 133 Codice del consumo)"],
+        tenancy:["Najem","5 lat dla niezapłaconego czynszu (art. 2948 n. 3 c.c.)"],
+        condo:["Wspólnota mieszkaniowa","30 dni na zaskarżenie uchwały wspólnoty do sądu (art. 1137 c.c.)"],
+        neighbours:["Sprawy sąsiedzkie","Brak stałego terminu na powstrzymanie trwających uciążliwości (art. 844 c.c.); 5 lat na roszczenie o odszkodowanie (art. 2947 c.c.)"],
+        medical:["Błąd medyczny","10 lat wobec szpitala lub kliniki, 5 lat wobec samego lekarza (L. 24/2017, art. 7)"],
+        insurance:["Ubezpieczenia","2 lata od zdarzenia dla większości roszczeń ubezpieczeniowych (art. 2952 c.c.)"],
+        travel:["Podróże","2 lata na roszczenia lotnicze (Konwencja montrealska, art. 35)"],
+        family:["Sprawy rodzinne","Brak ogólnego terminu na separację lub rozwód; każdej niezapłaconej raty alimentów można dochodzić przez 5 lat (art. 2948 n. 2 c.c.)"],
+        inheritance:["Spadki","10 lat na przyjęcie spadku (art. 480 c.c.)"],
+        injunction:["Nakazy zapłaty","40 dni na sprzeciw od nakazu zapłaty (art. 641 c.p.c.)"],
+        fine:["Mandaty","30 dni na odwołanie do giudice di pace lub 60 dni do Prefetto (artt. 204-bis i 203 Codice della strada)"],
+        tax:["Podatki","60 dni na odwołanie do sądu podatkowego (D.Lgs. 546/1992, art. 21)"],
+        defamation:["Zniesławienie","3 miesiące na złożenie zawiadomienia o przestępstwie (art. 124 c.p.); 5 lat na powództwo cywilne o odszkodowanie (art. 2947 c.c.)"],
+        other:["Inne","Terminy zależą od rodzaju roszczenia, więc prawnik musi wskazać, który ma zastosowanie"]
+      }
+    },
+    ar: {
+      title:"لوحة القضايا — Casebound للمحامين",
+      desc:"Casebound للمحامين: راجِع القضايا التي يرسلها العملاء وقيّمها وتواصل بشأن القضايا التي تريد تولّيها.",
+      forLawyers:"للمحامين", navAria:"الحساب", research:"البحث", account:"الحساب", signIn:"تسجيل الدخول",
+      h1:"لوحة القضايا",
+      lede:"قضايا أرسلها عملاء Casebound الذين يبحثون عن محامٍ. ترى ما حدث والتواريخ والمبلغ والأدلة، لكنك لا ترى هوية العميل. حدِّد القضايا التي تريدها، ثم يقرّر العميل ما إذا كان سيشاركك اسمه وبريده الإلكتروني.",
+      loading:"جارٍ التحميل…", search:"بحث", searchPh:"كلمات، مدينة…", sortBy:"الترتيب حسب",
+      s_score:"درجة التوافق", s_outcome:"النتيجة المحتملة", s_risk:"مستوى المخاطر", s_evidence:"قوة الأدلة", s_deadline:"الوقت المتبقي", s_value:"المبلغ محل النزاع", s_newest:"تاريخ الإرسال", s_region:"المنطقة", s_area:"مجال القانون", s_custom:"ترتيبي الخاص",
+      reverse:"عكس الترتيب", show:"عرض",
+      st_open:"غير المرفوضة", st_all:"الكل", st_new:"لم أراجعها بعد", st_interested:"تهمّني", st_info:"طلبتُ المزيد من المعلومات", st_passed:"المرفوضة",
+      f_area:"مجال القانون", f_region:"المنطقة", f_outcome:"النتيجة المحتملة", f_risk:"مستوى المخاطر", f_ev:"الأدلة", f_time:"الوقت المتبقي", f_amount:"المبلغ محل النزاع",
+      any:"الكل", o_fav:"مواتية", o_unc:"غير مؤكدة", o_unf:"غير مواتية",
+      r_low:"مخاطر منخفضة", r_med:"مخاطر متوسطة", r_high:"مخاطر مرتفعة", r_none:"غير مقيَّمة",
+      rc_low:"مخاطر منخفضة (تقييم العميل)", rc_med:"مخاطر متوسطة (تقييم العميل)", rc_high:"مخاطر مرتفعة (تقييم العميل)",
+      e_strong:"قوية", e_moderate:"متوسطة", e_weak:"ضعيفة", e_none:"لا توجد",
+      tm_60:"60 يومًا أو أقل", tm_180:"6 أشهر أو أقل", tm_ok:"أكثر من 6 أشهر", tm_gone:"ربما انقضت المهلة", tm_nolimit:"لا مهلة محددة / لا تاريخ",
+      am_under:function(a){ return "أقل من " + a; }, am_over:function(a){ return "أكثر من " + a; }, am_none:"غير محدد",
+      reset:"إعادة ضبط عوامل التصفية",
+      back:"→ العودة إلى Casebound", toClient:"التبديل إلى عرض العميل", termsL:"شروط المحامين", privL:"الخصوصية: التواصل مع المحامين", contact:"التواصل / الشكاوى:",
+      allRegions:"كل المناطق", allAreas:"كل المجالات", notGiven:"غير محددة", otherX:"أخرى: ",
+      stat_interested:"مهتم", stat_info:"طُلب المزيد", stat_passed:"مرفوضة",
+      noDate:"لم يُحدَّد تاريخ", checkLimit:"تحقّق من المهلة",
+      expired:function(n){ return "ربما انقضت المهلة منذ " + P(n, AR_DAYS); },
+      daysLeft:function(n){ return "المتبقي: " + P(n, AR_DAYS); },
+      monthsLeft:function(n){ return "المتبقي: " + P(n, AR_MONTHS); },
+      yearsLeft:function(n){ return "المتبقي: " + num(n, 1) + " سنة"; },
+      est:" (تقديري)",
+      fl_passed:function(r){ return "ربما انقضت المهلة: " + r + ". تحقّق من أي انقطاع أو وقف للمهلة."; },
+      fl_urgent:function(n, r){ return "عاجل: يتبقى نحو " + P(n, AR_DAYS) + ". " + r + "."; },
+      fl_noDate:"لم يُحدَّد تاريخ، لذا لا يمكن التحقق من المهلة.", fl_noAuto:"لا يوجد تحقق تلقائي من المهلة في هذا المجال.",
+      fl_noEv:"لم تُذكر أي أدلة.", fl_informal:"أدلة غير رسمية فقط (رسائل أو شهود).",
+      fl_short:"وصف قصير. قد تنقصه وقائع أساسية.", fl_noAmount:"لم يُذكر المبلغ محل النزاع.", fl_ok:"مؤرَّخة وموثَّقة ومحدَّدة القيمة.",
+      H:{score:["الأعلى أولًا","الأدنى أولًا"], outcome:["الأكثر مواتاة أولًا","الأقل مواتاة أولًا"], risk:["الأقل مخاطرة أولًا","الأعلى مخاطرة أولًا"],
+        evidence:["الأقوى أولًا","الأضعف أولًا"], deadline:["الأكثر إلحاحًا أولًا","الأطول مهلة أولًا"], value:["الأكبر أولًا","الأصغر أولًا"],
+        newest:["الأحدث أولًا","الأقدم أولًا"], region:["من A إلى Z","من Z إلى A"], area:["أبجديًا (أ–ي)","أبجديًا (ي–أ)"]},
+      sorted:"الترتيب: ", customHint:"اسحب القضايا أو استخدم الأسهم لترتيبها كما تريد. يُحفظ الترتيب في حسابك.",
+      stOpen:"القضايا المفتوحة", stUnrated:"لم تقيّمها بعد", stUrgent:"المهلة خلال 60 يومًا", stGone:"ربما انقضت المهلة",
+      noCases:"لا توجد قضايا بعد", noCasesT:"تظهر القضايا هنا عندما يرسل عميل قضية من تقييم المخاطر. لن يُعرض شيء قبل ذلك.", noMatch:"لا توجد قضايا تطابق عوامل التصفية هذه.",
+      count:function(l, n){ return "القضايا: " + num(l) + " من " + num(n); },
+      up:"تحريك لأعلى", down:"تحريك لأسفل", scoreTag:"درجة", estTag:"تقديري",
+      evItems:function(n){ return "الأدلة: " + num(n); },
+      pick:"اختر قضية لمراجعتها.", waitPanel:"عند وصول قضية، تظهر هنا تفاصيلها وأدوات التقييم الخاصة بك.",
+      bdStrength:"قوة الادعاء", bdEvidence:"جودة الأدلة", bdValue:"المبلغ محل النزاع", bdUrgency:"ضغط الوقت",
+      shared:"شارك العميل بياناته معك:", clientAcc:"رواية العميل", later:"تفاصيل أُضيفت لاحقًا",
+      otherSide:"الطرف الآخر", location:"المكان", atStake:"المبلغ", keyDate:"التاريخ الأساسي", timeLimit:"المهلة", wants:"يطلب", sent:"أُرسلت",
+      others:function(n){ return "محامون آخرون مهتمون: " + num(n); },
+      evidenceH:"الأدلة", noneListed:"لم تُذكر أدلة", autoChecks:"فحوص تلقائية",
+      adminB:"عرض المسؤول.", adminT:"يمكنك قراءة كل القضايا المفتوحة. وحدهم المحامون الموثَّقون يمكنهم تقييم القضايا أو التواصل مع العملاء.",
+      prevB:"معاينة المسؤول.", prevT:"هذا بالضبط ما يراه المحامي الموثَّق. تبقى تقييماتك واختياراتك في هذا المتصفح ولا تُرسل إلى العميل.",
+      yourRating:"تقييمك (لا يراه أحد سواك)", qStrength:"ما مدى قوة الادعاء؟", weak:"ضعيف", strong:"قوي", qQuality:"ما مدى جودة الأدلة؟", thin:"شحيحة", solid:"متينة",
+      matchScore:"درجة التوافق", estScore:"درجة تقديرية (لم تُقيَّم بعد)",
+      msg:"رسالة إلى العميل (اختيارية)", msgPh:"مثال: يمكنني المساعدة. يُرجى إرسال خطاب الفصل أيضًا.",
+      want:"أريد هذه القضية", more:"طلب المزيد", pass:"رفض",
+      decideNote:"يرى العميل اسمك ونقابة المحامين التي تنتمي إليها ومدينتك ونبذتك ورسالتك عندما تختار «أريد هذه القضية» أو «طلب المزيد». لا يرى تقييمك أبدًا. ولا يصلك اسمه وبريده الإلكتروني إلا إذا اختار مشاركتهما.",
+      saveErr:"تعذّر الحفظ.",
+      gSignH:"للمحامين المقيَّدين في إيطاليا", gSignP:"أنشئ حساب محامٍ مجانيًا لمراجعة القضايا التي يرسلها عملاء Casebound. نتحقق من كل محامٍ في السجل الرسمي قبل أن يتمكن من رؤية أي قضية.", gCreate:"إنشاء حساب محامٍ",
+      gClientH:"هذه اللوحة مخصّصة للمحامين", gClientP:"حسابك ملف عميل. إذا كنت محاميًا، فانتقل إلى ملف محامٍ من صفحة حسابك وسنتحقق من بياناتك.", gGoAcc:"الانتقال إلى حسابي",
+      gRejH:"تعذّر علينا التحقق من بياناتك", gRejP:"لم نتمكن من مطابقة اسمك ورقم قيدك مع السجل الرسمي. راجِعهما في صفحة حسابك أو راسلنا على admin@case-bound.com.",
+      gPendH:"بانتظار التحقق", gPendP:"نتحقق من اسمك ورقم قيدك في السجل الرسمي للمحامين. ستتمكن من رؤية القضايا بعد الانتهاء، عادةً خلال يوم أو يومَي عمل.",
+      myAccount:"حسابي", gErrH:"تعذّر تحميل اللوحة", gErrP:"يُرجى تحديث الصفحة.",
+      ev:{"Contract":"عقد","Emails / messages":"رسائل بريد إلكتروني / رسائل","Invoices / receipts":"فواتير / إيصالات","Photos / video":"صور / فيديو","Witnesses":"شهود","Expert report":"تقرير خبير","Official report":"تقرير رسمي","Payslips":"قسائم رواتب"},
+      areas:{
+        dismissal:["الفصل من العمل","60 يومًا للطعن كتابيًا في الفصل (L. 604/1966, art. 6)"],
+        employment:["العمل","5 سنوات لمعظم مطالبات الأجور والعمل (art. 2948 c.c.)"],
+        goods:["سلع معيبة","سنة واحدة من التسليم (art. 1495 c.c.)"],
+        contract:["عقود / ديون","10 سنوات، وهي المدة العادية (art. 2946 c.c.)"],
+        injury:["إصابات / أضرار","5 سنوات لمطالبات التعويض عن الأضرار (art. 2947 c.c.)"],
+        road:["حوادث السير","سنتان لحوادث السير (art. 2947(2) c.c.)"],
+        building:["عيوب البناء","سنة واحدة من اكتشاف العيب لإخطار المقاول (art. 1669 c.c.)"],
+        consumer:["حماية المستهلك","26 شهرًا من التسليم للمطالبة بالضمان القانوني (art. 133 Codice del consumo)"],
+        tenancy:["الإيجار","5 سنوات للإيجارات غير المدفوعة (art. 2948 n. 3 c.c.)"],
+        condo:["الملكية المشتركة","30 يومًا للطعن قضائيًا في قرار جمعية الملاك (art. 1137 c.c.)"],
+        neighbours:["الجيران","لا مهلة محددة لوقف إزعاج مستمر (art. 844 c.c.)؛ و5 سنوات للمطالبة بالتعويض (art. 2947 c.c.)"],
+        medical:["الأخطاء الطبية","10 سنوات ضد المستشفى أو العيادة، و5 سنوات ضد الطبيب شخصيًا (L. 24/2017, art. 7)"],
+        insurance:["التأمين","سنتان من تاريخ الواقعة لمعظم مطالبات التأمين (art. 2952 c.c.)"],
+        travel:["السفر","سنتان لمطالبات الرحلات الجوية (اتفاقية مونتريال، art. 35)"],
+        family:["الأسرة","لا مهلة عامة للانفصال أو الطلاق؛ ويمكن المطالبة بكل دفعة نفقة غير مسدّدة خلال 5 سنوات (art. 2948 n. 2 c.c.)"],
+        inheritance:["الإرث","10 سنوات لقبول التركة (art. 480 c.c.)"],
+        injunction:["أوامر الأداء","40 يومًا للاعتراض على أمر الأداء (art. 641 c.p.c.)"],
+        fine:["المخالفات","30 يومًا للطعن أمام giudice di pace، أو 60 يومًا أمام Prefetto (artt. 204-bis و203 Codice della strada)"],
+        tax:["الضرائب","60 يومًا للطعن أمام المحكمة الضريبية (D.Lgs. 546/1992, art. 21)"],
+        defamation:["التشهير","3 أشهر لتقديم شكوى جزائية (art. 124 c.p.)؛ و5 سنوات لدعوى تعويض مدنية (art. 2947 c.c.)"],
+        other:["أخرى","تختلف المهل بحسب نوع المطالبة، لذا يجب أن يحدد لك المحامي المهلة المنطبقة"]
+      }
+    }
   };
-  var STATUS = {interested:"Interested", info:"More info asked", passed:"Passed"};
+  function D(){ return T[lang()] || T.en; }
+  function t(k){
+    var v = D()[k]; if(v == null) v = T.en[k];
+    return typeof v === "function" ? v.apply(null, Array.prototype.slice.call(arguments, 1)) : v;
+  }
+  function areaText(key){
+    var a = (D().areas || {})[key] || T.en.areas[key] || T.en.areas.other;
+    /* In right-to-left text, isolate Latin citations such as "(L. 604/1966, art. 6)" so they keep their order. */
+    return I18N && I18N.isRTL() ? [a[0], a[1].replace(/\([^()]*[A-Za-z][^()]*\)/g, function(m){ return "\u2066" + m + "\u2069"; })] : a;
+  }
+  function evLabel(e){ return (D().ev || {})[e] || e; }
+  /* Time limit in days per area of law (labels and rules are in the language dictionary above). */
+  var AREAS = {
+    dismissal:{days:60},
+    employment:{days:1825},
+    goods:{days:365},
+    contract:{days:3650},
+    injury:{days:1825},
+    road:{days:730},
+    building:{days:365},
+    consumer:{days:790},
+    tenancy:{days:1825},
+    condo:{days:30},
+    neighbours:{},
+    medical:{days:3650},
+    insurance:{days:730},
+    travel:{days:730},
+    family:{},
+    inheritance:{days:3650},
+    injunction:{days:40},
+    fine:{days:30},
+    tax:{days:60},
+    defamation:{days:90},
+    other:{}
+  };
   var cases = [], selected = null, saving = false, ORDER = [], DESC = true, dragId = null;
   var REGIONS = ["Abruzzo","Basilicata","Calabria","Campania","Emilia-Romagna","Friuli-Venezia Giulia","Lazio","Liguria","Lombardia","Marche","Molise","Piemonte","Puglia","Sardegna","Sicilia","Toscana","Trentino-Alto Adige","Umbria","Valle d'Aosta","Veneto"];
   /* For cases sent before clients chose a region: work it out from the city where we can. */
@@ -255,10 +963,11 @@ footer div{max-width:1300px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
   var ADMIN_VIEW = false, PREVIEW = false;
 
   function esc(s){ return String(s == null ? "" : s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
-  function eur(n){ return n ? "€" + Number(n).toLocaleString("it-IT") : "—"; }
-  function fmt(d){ return d ? new Date(d).toLocaleDateString("en-GB", {day:"numeric", month:"short", year:"numeric"}) : "—"; }
-  function area(c){ return AREAS[c.area] || AREAS.other; }
-  function areaLabel(c){ return c.area === "other" && c.areaOther ? "Other: " + c.areaOther : area(c).label; }
+  function money(n){ return new Intl.NumberFormat(loc(), {style:"currency", currency:"EUR", maximumFractionDigits:0}).format(n); }
+  function eur(n){ return n ? money(n) : "—"; }
+  function fmt(d){ return d ? new Date(d).toLocaleDateString(loc(), {day:"numeric", month:"short", year:"numeric"}) : "—"; }
+  function area(c){ var k = AREAS[c.area] ? c.area : "other", tx = areaText(k); return {days: AREAS[k].days, label: tx[0], rule: tx[1]}; }
+  function areaLabel(c){ return c.area === "other" && c.areaOther ? t("otherX") + c.areaOther : area(c).label; }
   function daysLeft(c){
     var a = area(c); if(!c.date || !a.days) return null;
     var t = new Date(); t.setHours(0,0,0,0);
@@ -267,11 +976,11 @@ footer div{max-width:1300px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
   function dlClass(d){ return d === null ? "" : d < 0 ? "gone" : d <= 60 ? "urgent" : ""; }
   function dlText(c){
     var d = daysLeft(c);
-    if(d === null) return area(c).days ? "No date given" : "Check the time limit";
-    if(d < 0) return "May have expired " + (-d) + " days ago";
-    if(d <= 60) return d + " days left";
-    if(d < 730) return Math.round(d/30) + " months left";
-    return (d/365).toFixed(1) + " years left";
+    if(d === null) return area(c).days ? t("noDate") : t("checkLimit");
+    if(d < 0) return t("expired", -d);
+    if(d <= 60) return t("daysLeft", d);
+    if(d < 730) return t("monthsLeft", Math.round(d/30));
+    return t("yearsLeft", Math.round(d/36.5)/10);
   }
   function mine(c){ return c.mine || {}; }
   function formalCount(c){ return c.evidence.filter(function(e){ return e !== "Witnesses" && e !== "Emails / messages"; }).length; }
@@ -294,19 +1003,19 @@ footer div{max-width:1300px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
   function risk(c){
     var m = mine(c);
     if(m.strength == null || m.quality == null){
-      var cl = {low:{cls:"p-low", label:"Low risk (client check)", key:"low"}, med:{cls:"p-med", label:"Medium risk (client check)", key:"med"}, high:{cls:"p-high", label:"High risk (client check)", key:"high"}}[c.checkLevel];
-      return cl || {cls:"p-unrated", label:"Not rated", key:"none"};
+      var cl = {low:{cls:"p-low", label:t("rc_low"), key:"low"}, med:{cls:"p-med", label:t("rc_med"), key:"med"}, high:{cls:"p-high", label:t("rc_high"), key:"high"}}[c.checkLevel];
+      return cl || {cls:"p-unrated", label:t("r_none"), key:"none"};
     }
     var a = (m.strength + m.quality)/2;
-    return a >= 4 ? {cls:"p-low", label:"Low risk", key:"low"} : a >= 2.75 ? {cls:"p-med", label:"Medium risk", key:"med"} : {cls:"p-high", label:"High risk", key:"high"};
+    return a >= 4 ? {cls:"p-low", label:t("r_low"), key:"low"} : a >= 2.75 ? {cls:"p-med", label:t("r_med"), key:"med"} : {cls:"p-high", label:t("r_high"), key:"high"};
   }
   /* Possible outcome: your own claim-strength rating when you have given one, otherwise an estimate from the match score. */
   function outcome(c){
     var s = mine(c).strength, est = s == null, v;
-    if(est){ var t = score(c).total; v = t >= 55 ? "fav" : t >= 30 ? "unc" : "unf"; }
+    if(est){ var tot = score(c).total; v = tot >= 55 ? "fav" : tot >= 30 ? "unc" : "unf"; }
     else v = s >= 4 ? "fav" : s === 3 ? "unc" : "unf";
-    var L = {fav:"Favourable", unc:"Uncertain", unf:"Unfavourable"}[v];
-    return {key:v, label: L + (est ? " (est.)" : ""), rank:{fav:3, unc:2, unf:1}[v]};
+    var L = t("o_" + v);
+    return {key:v, label: L + (est ? t("est") : ""), rank:{fav:3, unc:2, unf:1}[v]};
   }
   /* Evidence strength: your own evidence rating once you give one, otherwise the client's automatic analysis. */
   function evidence(c){
@@ -318,15 +1027,15 @@ footer div{max-width:1300px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
   }
   function flags(c){
     var out = [], d = daysLeft(c), a = area(c);
-    if(d !== null && d < 0) out.push(["bad", "Time limit may have passed: " + a.rule + ". Check for interruptions or suspensions."]);
-    else if(d !== null && d <= 60) out.push(["", "Urgent: about " + d + " days left. " + a.rule + "."]);
-    if(!c.date && a.days) out.push(["", "No date given, so the time limit can't be checked."]);
-    if(!a.days) out.push(["", "No automatic time-limit check for this area."]);
-    if(!c.evidence.length) out.push(["bad", "No evidence listed."]);
-    else if(!formalCount(c)) out.push(["", "Only informal evidence (messages or witnesses)."]);
-    if(c.facts.length < 160) out.push(["", "Short description. Key facts may be missing."]);
-    if(!c.amount) out.push(["", "No amount at stake given."]);
-    if(!out.length) out.push(["ok", "Dated, documented and valued."]);
+    if(d !== null && d < 0) out.push(["bad", t("fl_passed", a.rule)]);
+    else if(d !== null && d <= 60) out.push(["", t("fl_urgent", d, a.rule)]);
+    if(!c.date && a.days) out.push(["", t("fl_noDate")]);
+    if(!a.days) out.push(["", t("fl_noAuto")]);
+    if(!c.evidence.length) out.push(["bad", t("fl_noEv")]);
+    else if(!formalCount(c)) out.push(["", t("fl_informal")]);
+    if(c.facts.length < 160) out.push(["", t("fl_short")]);
+    if(!c.amount) out.push(["", t("fl_noAmount")]);
+    if(!out.length) out.push(["ok", t("fl_ok")]);
     return out;
   }
 
@@ -382,12 +1091,10 @@ footer div{max-width:1300px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
   }
   function sortHint(){
     var so = $("t-sort").value, up = !DESC;
-    var H = {score:["highest first","lowest first"], outcome:["most favourable first","least favourable first"], risk:["lowest risk first","highest risk first"],
-      evidence:["strongest first","weakest first"], deadline:["most urgent first","most time left first"], value:["largest first","smallest first"],
-      newest:["newest first","oldest first"], region:["A to Z","Z to A"], area:["A to Z","Z to A"]};
+    var H = D().H || T.en.H;
     $("t-dir").hidden = so === "custom";
     $("t-dir").textContent = up ? "↑" : "↓";
-    $("t-hint").textContent = so === "custom" ? "Drag cases, or use the arrows, to put them in your own order. It is saved to your account." : "Sorted " + H[so][up ? 1 : 0];
+    $("t-hint").textContent = so === "custom" ? t("customHint") : t("sorted") + H[so][up ? 1 : 0];
   }
   function saveOrder(){
     fetch("/api/cases/order", { method:"POST", credentials:"same-origin", headers:{"Content-Type":"application/json"}, body: JSON.stringify({ ids: ORDER }) }).catch(function(){});
@@ -407,30 +1114,30 @@ footer div{max-width:1300px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
     var urgent = notPassed.filter(function(c){ var d = daysLeft(c); return d !== null && d >= 0 && d <= 60; }).length;
     var gone = notPassed.filter(function(c){ var d = daysLeft(c); return d !== null && d < 0; }).length;
     $("stats").innerHTML =
-      '<div class="stat"><b>' + notPassed.length + '</b><span>Open cases</span></div>' +
-      '<div class="stat"><b>' + unrated + '</b><span>Not rated by you</span></div>' +
-      '<div class="stat warn"><b>' + urgent + '</b><span>Time limit within 60 days</span></div>' +
-      '<div class="stat bad"><b>' + gone + '</b><span>Time limit may have passed</span></div>';
+      '<div class="stat"><b>' + notPassed.length + '</b><span>' + esc(t("stOpen")) + '</span></div>' +
+      '<div class="stat"><b>' + unrated + '</b><span>' + esc(t("stUnrated")) + '</span></div>' +
+      '<div class="stat warn"><b>' + urgent + '</b><span>' + esc(t("stUrgent")) + '</span></div>' +
+      '<div class="stat bad"><b>' + gone + '</b><span>' + esc(t("stGone")) + '</span></div>';
   }
   function renderList(){
     if(!cases.length){
-      $("list").innerHTML = '<div class="empty"><b>No cases yet</b>Cases appear here when a client sends one from the risk check. Nothing is shown until then.</div>';
+      $("list").innerHTML = '<div class="empty"><b>' + esc(t("noCases")) + '</b>' + esc(t("noCasesT")) + '</div>';
       return;
     }
     var l = filtered();
-    $("t-count").textContent = l.length + " of " + cases.length + " case" + (cases.length === 1 ? "" : "s");
-    if(!l.length){ $("list").innerHTML = '<div class="empty">No cases match these filters.</div>'; return; }
+    $("t-count").textContent = t("count", l.length, cases.length);
+    if(!l.length){ $("list").innerHTML = '<div class="empty">' + esc(t("noMatch")) + '</div>'; return; }
     var custom = $("t-sort").value === "custom";
     $("list").innerHTML = l.map(function(c){
       var s = score(c), r = risk(c), d = mine(c).decision, o = outcome(c);
       return '<div role="button" tabindex="0" class="item' + (custom ? " custom" : "") + (c.id === selected ? " sel" : "") + (d === "passed" ? " passed" : "") + '" data-id="' + esc(c.id) + '"' + (custom ? ' draggable="true"' : '') + '>' +
-        (custom ? '<div class="mv"><span data-mv="up" title="Move up" aria-label="Move up">▲</span><span data-mv="down" title="Move down" aria-label="Move down">▼</span></div>' : '') +
-        '<div class="score' + (s.rated ? "" : " est") + '"><b>' + s.total + '</b><span>' + (s.rated ? "score" : "est.") + '</span></div>' +
+        (custom ? '<div class="mv"><span data-mv="up" title="' + esc(t("up")) + '" aria-label="' + esc(t("up")) + '">▲</span><span data-mv="down" title="' + esc(t("down")) + '" aria-label="' + esc(t("down")) + '">▼</span></div>' : '') +
+        '<div class="score' + (s.rated ? "" : " est") + '"><b>' + s.total + '</b><span>' + esc(s.rated ? t("scoreTag") : t("estTag")) + '</span></div>' +
         '<div class="item-main"><div class="item-top"><span class="pill p-area">' + esc(areaLabel(c)) + '</span></div>' +
-        '<div class="item-title">' + esc(c.title) + '</div>' +
-        '<div class="item-meta">' + esc(place(c)) + ' · ' + eur(c.amount) + ' · ' + c.evidence.length + ' evidence item' + (c.evidence.length === 1 ? "" : "s") + '</div></div>' +
-        '<div class="item-side"><span class="pill ' + r.cls + '">' + r.label + '</span><span class="pill p-out ' + o.key + '">' + o.label + '</span><span class="dl ' + dlClass(daysLeft(c)) + '">' + esc(dlText(c)) + '</span>' +
-        (d ? '<span class="pill p-status ' + d + '">' + STATUS[d] + '</span>' : '') + '</div></div>';
+        '<div class="item-title" dir="auto">' + esc(c.title) + '</div>' +
+        '<div class="item-meta">' + esc(place(c)) + ' · ' + eur(c.amount) + ' · ' + esc(t("evItems", c.evidence.length)) + '</div></div>' +
+        '<div class="item-side"><span class="pill ' + r.cls + '">' + esc(r.label) + '</span><span class="pill p-out ' + o.key + '">' + esc(o.label) + '</span><span class="dl ' + dlClass(daysLeft(c)) + '">' + esc(dlText(c)) + '</span>' +
+        (d ? '<span class="pill p-status ' + d + '">' + esc(t("stat_" + d)) + '</span>' : '') + '</div></div>';
     }).join("");
   }
   function scaleHTML(field, val){
@@ -438,33 +1145,33 @@ footer div{max-width:1300px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
   }
   function renderPanel(){
     var c = cases.filter(function(x){ return x.id === selected; })[0];
-    if(!c){ $("panel").innerHTML = '<p class="note">' + (cases.length ? "Pick a case to review it." : "When a case arrives, its details and your rating tools appear here.") + '</p>'; return; }
+    if(!c){ $("panel").innerHTML = '<p class="note">' + esc(cases.length ? t("pick") : t("waitPanel")) + '</p>'; return; }
     var s = score(c), r = risk(c), m = mine(c);
-    var bd = [["Claim strength", s.parts.strength, 35], ["Evidence quality", s.parts.evidence, 25], ["Amount at stake", s.parts.value, 25], ["Time pressure", s.parts.urgency, 15]];
+    var bd = [[t("bdStrength"), s.parts.strength, 35], [t("bdEvidence"), s.parts.evidence, 25], [t("bdValue"), s.parts.value, 25], [t("bdUrgency"), s.parts.urgency, 15]];
     $("panel").innerHTML =
-      '<div><div class="item-top"><span class="pill p-area">' + esc(areaLabel(c)) + '</span><span class="pill ' + r.cls + '">' + r.label + '</span><span class="pill p-out ' + outcome(c).key + '">' + outcome(c).label + '</span></div><h2>' + esc(c.title) + '</h2></div>' +
-      (c.contact ? '<div class="contact">The client shared their details with you: <b>' + esc(c.contact.name || "—") + '</b> · <b>' + esc(c.contact.email) + '</b></div>' : '') +
-      '<div><p class="sec-h">Client\'s account</p><p class="facts">' + esc(c.facts) + '</p></div>' +
-      ((c.updates || []).length ? '<div><p class="sec-h">Details added later</p>' + c.updates.map(function(u){ return '<p class="facts" style="margin-bottom:6px">' + esc(u.text) + ' <span class="note">(' + fmt(u.at) + ')</span></p>'; }).join("") + '</div>' : '') +
-      '<dl class="kv"><dt>Other side</dt><dd>' + esc(c.party || "—") + '</dd><dt>Location</dt><dd>' + esc(place(c)) + '</dd>' +
-      '<dt>At stake</dt><dd>' + eur(c.amount) + '</dd><dt>Key date</dt><dd>' + fmt(c.date) + '</dd>' +
-      '<dt>Time limit</dt><dd class="dl ' + dlClass(daysLeft(c)) + '">' + esc(dlText(c)) + '</dd><dt>Wants</dt><dd>' + esc(c.goal || "—") + '</dd>' +
-      '<dt>Sent</dt><dd>' + fmt(c.createdAt) + (c.othersInterested ? ' · ' + c.othersInterested + ' other lawyer' + (c.othersInterested === 1 ? "" : "s") + ' interested' : '') + '</dd></dl>' +
-      '<div><p class="sec-h">Evidence</p><div class="tags">' + (c.evidence.length ? c.evidence.map(function(e){ return '<span class="tag">' + esc(e) + '</span>'; }).join("") : '<span class="tag none">None listed</span>') + '</div>' + (c.evidenceNote ? '<p class="ev-note">' + esc(c.evidenceNote) + '</p>' : '') + '</div>' +
-      '<div><p class="sec-h">Automatic checks</p><ul class="flags">' + flags(c).map(function(f){ return '<li class="' + f[0] + '">' + esc(f[1]) + '</li>'; }).join("") + '</ul></div>' +
-      (ADMIN_VIEW ? '<p class="note"><b>Admin view.</b> You can read every open case. Only verified lawyers can rate cases or contact clients.</p>' :
-      '<div class="rate">' + (PREVIEW ? '<p class="note" style="margin:0"><b>Admin preview.</b> This is exactly what a verified lawyer sees. Your ratings and choices stay in this browser and are not sent to the client.</p>' : '') + '<p class="sec-h" style="margin:0">Your rating (only you see it)</p>' +
-        '<div><span class="lbl">How strong is the claim?</span>' + scaleHTML("strength", m.strength) + '<div class="scale-ends"><span>Weak</span><span>Strong</span></div></div>' +
-        '<div><span class="lbl">How good is the evidence?</span>' + scaleHTML("quality", m.quality) + '<div class="scale-ends"><span>Thin</span><span>Solid</span></div></div>' +
+      '<div><div class="item-top"><span class="pill p-area">' + esc(areaLabel(c)) + '</span><span class="pill ' + r.cls + '">' + esc(r.label) + '</span><span class="pill p-out ' + outcome(c).key + '">' + esc(outcome(c).label) + '</span></div><h2 dir="auto">' + esc(c.title) + '</h2></div>' +
+      (c.contact ? '<div class="contact">' + esc(t("shared")) + ' <b>' + esc(c.contact.name || "—") + '</b> · <b>' + esc(c.contact.email) + '</b></div>' : '') +
+      '<div><p class="sec-h">' + esc(t("clientAcc")) + '</p><p class="facts" dir="auto">' + esc(c.facts) + '</p></div>' +
+      ((c.updates || []).length ? '<div><p class="sec-h">' + esc(t("later")) + '</p>' + c.updates.map(function(u){ return '<p class="facts" style="margin-bottom:6px"><bdi>' + esc(u.text) + '</bdi> <span class="note">(' + fmt(u.at) + ')</span></p>'; }).join("") + '</div>' : '') +
+      '<dl class="kv"><dt>' + esc(t("otherSide")) + '</dt><dd><bdi>' + esc(c.party || "—") + '</bdi></dd><dt>' + esc(t("location")) + '</dt><dd>' + esc(place(c)) + '</dd>' +
+      '<dt>' + esc(t("atStake")) + '</dt><dd>' + eur(c.amount) + '</dd><dt>' + esc(t("keyDate")) + '</dt><dd>' + fmt(c.date) + '</dd>' +
+      '<dt>' + esc(t("timeLimit")) + '</dt><dd class="dl ' + dlClass(daysLeft(c)) + '">' + esc(dlText(c)) + '</dd><dt>' + esc(t("wants")) + '</dt><dd><bdi>' + esc(c.goal || "—") + '</bdi></dd>' +
+      '<dt>' + esc(t("sent")) + '</dt><dd>' + fmt(c.createdAt) + (c.othersInterested ? ' · ' + esc(t("others", c.othersInterested)) : '') + '</dd></dl>' +
+      '<div><p class="sec-h">' + esc(t("evidenceH")) + '</p><div class="tags">' + (c.evidence.length ? c.evidence.map(function(e){ return '<span class="tag">' + esc(evLabel(e)) + '</span>'; }).join("") : '<span class="tag none">' + esc(t("noneListed")) + '</span>') + '</div>' + (c.evidenceNote ? '<p class="ev-note" dir="auto">' + esc(c.evidenceNote) + '</p>' : '') + '</div>' +
+      '<div><p class="sec-h">' + esc(t("autoChecks")) + '</p><ul class="flags">' + flags(c).map(function(f){ return '<li class="' + f[0] + '">' + esc(f[1]) + '</li>'; }).join("") + '</ul></div>' +
+      (ADMIN_VIEW ? '<p class="note"><b>' + esc(t("adminB")) + '</b> ' + esc(t("adminT")) + '</p>' :
+      '<div class="rate">' + (PREVIEW ? '<p class="note" style="margin:0"><b>' + esc(t("prevB")) + '</b> ' + esc(t("prevT")) + '</p>' : '') + '<p class="sec-h" style="margin:0">' + esc(t("yourRating")) + '</p>' +
+        '<div><span class="lbl">' + esc(t("qStrength")) + '</span>' + scaleHTML("strength", m.strength) + '<div class="scale-ends"><span>' + esc(t("weak")) + '</span><span>' + esc(t("strong")) + '</span></div></div>' +
+        '<div><span class="lbl">' + esc(t("qQuality")) + '</span>' + scaleHTML("quality", m.quality) + '<div class="scale-ends"><span>' + esc(t("thin")) + '</span><span>' + esc(t("solid")) + '</span></div></div>' +
         '<div class="breakdown">' + bd.map(function(b){ return '<div class="bd"><span>' + b[0] + '</span><span class="bar"><i style="width:' + Math.round(b[1]/b[2]*100) + '%"></i></span><b>' + Math.round(b[1]) + '/' + b[2] + '</b></div>'; }).join("") + '</div>' +
-        '<div class="total"><span class="sec-h" style="margin:0">' + (s.rated ? "Match score" : "Estimated score (not rated yet)") + '</span><b>' + s.total + '</b></div>' +
-        '<div><span class="lbl" for="note">Message to the client (optional)</span><textarea id="note" rows="2" maxlength="500" placeholder="e.g. I can help. Please also send the dismissal letter.">' + esc(m.note || "") + '</textarea></div>' +
+        '<div class="total"><span class="sec-h" style="margin:0">' + esc(s.rated ? t("matchScore") : t("estScore")) + '</span><b>' + s.total + '</b></div>' +
+        '<div><span class="lbl" for="note">' + esc(t("msg")) + '</span><textarea id="note" rows="2" maxlength="500" placeholder="' + esc(t("msgPh")) + '">' + esc(m.note || "") + '</textarea></div>' +
         '<div class="decide">' +
-          '<button type="button" class="yes' + (m.decision === "interested" ? " on" : "") + '" data-decision="interested">I want this case</button>' +
-          '<button type="button" class="' + (m.decision === "info" ? "on" : "") + '" data-decision="info">Ask for more</button>' +
-          '<button type="button" class="' + (m.decision === "passed" ? "on" : "") + '" data-decision="passed">Pass</button></div>' +
+          '<button type="button" class="yes' + (m.decision === "interested" ? " on" : "") + '" data-decision="interested">' + esc(t("want")) + '</button>' +
+          '<button type="button" class="' + (m.decision === "info" ? "on" : "") + '" data-decision="info">' + esc(t("more")) + '</button>' +
+          '<button type="button" class="' + (m.decision === "passed" ? "on" : "") + '" data-decision="passed">' + esc(t("pass")) + '</button></div>' +
         '<p class="err" id="p-err" role="alert"></p>' +
-        '<p class="note">The client sees your name, bar association, city, bio and message when you choose "I want this case" or "Ask for more". They never see your rating. Their name and email reach you only if they choose to share them.</p>' +
+        '<p class="note">' + esc(t("decideNote")) + '</p>' +
       '</div>');
   }
   function renderAll(){ renderStats(); renderList(); renderPanel(); }
@@ -482,7 +1189,7 @@ footer div{max-width:1300px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
     if(saving) return; saving = true;
     data.id = selected;
     fetch("/api/cases/review", { method:"POST", credentials:"same-origin", headers:{"Content-Type":"application/json"}, body: JSON.stringify(data) })
-      .then(function(r){ return r.json().then(function(j){ if(!r.ok) throw new Error(j.error || "Couldn't save."); return j; }); })
+      .then(function(r){ return r.json().then(function(j){ if(!r.ok) throw new Error(j.error || t("saveErr")); return j; }); })
       .then(function(j){ cases = cases.map(function(c){ return c.id === j.case.id ? j.case : c; }); saving = false; renderAll(); })
       .catch(function(e){ saving = false; var el = $("p-err"); if(el) el.textContent = e.message; });
   }
@@ -521,28 +1228,70 @@ footer div{max-width:1300px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
   ["t-q","t-sort"].concat(FILTERS).forEach(function(id){ $(id).addEventListener("input", function(){ sortHint(); renderList(); savePrefs(); }); });
   $("t-dir").addEventListener("click", function(){ DESC = !DESC; sortHint(); renderList(); savePrefs(); });
   $("t-reset").addEventListener("click", function(){ FILTERS.forEach(function(id){ $(id).value = id === "t-status" ? "open" : "all"; }); $("t-q").value = ""; sortHint(); renderList(); savePrefs(); });
-  $("t-region").innerHTML = '<option value="all">All regions</option>' + REGIONS.map(function(r){ return '<option value="' + esc(r) + '">' + esc(r) + '</option>'; }).join("") + '<option value="none">Not given</option>';
-  $("t-area").innerHTML = '<option value="all">All areas</option>' + Object.keys(AREAS).sort(function(a,b){ return (a === "other") - (b === "other") || AREAS[a].label.localeCompare(AREAS[b].label); }).map(function(k){ return '<option value="' + k + '">' + esc(AREAS[k].label) + '</option>'; }).join("");
+  /* Filter menus whose options depend on the language: keep the current choice when rebuilding. */
+  function buildSelects(){
+    var rv = $("t-region").value, av = $("t-area").value;
+    $("t-region").innerHTML = '<option value="all">' + esc(t("allRegions")) + '</option>' + REGIONS.map(function(r){ return '<option value="' + esc(r) + '">' + esc(r) + '</option>'; }).join("") + '<option value="none">' + esc(t("notGiven")) + '</option>';
+    $("t-area").innerHTML = '<option value="all">' + esc(t("allAreas")) + '</option>' + Object.keys(AREAS).sort(function(a,b){ return (a === "other") - (b === "other") || areaText(a)[0].localeCompare(areaText(b)[0], loc()); }).map(function(k){ return '<option value="' + k + '">' + esc(areaText(k)[0]) + '</option>'; }).join("");
+    if(rv && hasOpt($("t-region"), rv)) $("t-region").value = rv;
+    if(av && hasOpt($("t-area"), av)) $("t-area").value = av;
+  }
+  /* Static text in the page: data-t (text), data-t-ph (placeholder), data-t-aria, data-t-title. */
+  var signedIn = true;
+  function applyStatic(){
+    document.title = t("title");
+    var md = document.querySelector('meta[name="description"]'); if(md) md.setAttribute("content", t("desc"));
+    Array.prototype.forEach.call(document.querySelectorAll("[data-t]"), function(el){
+      var k = el.getAttribute("data-t"), r = /^am_(\d+)-(\d*)$/.exec(k);
+      el.textContent = r ? (!r[2] ? t("am_over", money(+r[1])) : +r[1] === 0 ? t("am_under", money(+r[2])) : money(+r[1]) + " – " + money(+r[2])) : t(k);
+    });
+    Array.prototype.forEach.call(document.querySelectorAll("[data-t-ph]"), function(el){ el.setAttribute("placeholder", t(el.getAttribute("data-t-ph"))); });
+    Array.prototype.forEach.call(document.querySelectorAll("[data-t-aria]"), function(el){ el.setAttribute("aria-label", t(el.getAttribute("data-t-aria"))); });
+    Array.prototype.forEach.call(document.querySelectorAll("[data-t-title]"), function(el){ el.setAttribute("title", t(el.getAttribute("data-t-title"))); });
+    $("top-account").textContent = signedIn ? t("account") : t("signIn");
+    buildSelects();
+  }
+  applyStatic();
 
-  function gate(html){ $("loading").hidden = true; $("gate").innerHTML = html; $("gate").hidden = false; }
+  /* Gate screens (signed out, client account, waiting for verification, error), kept as a kind so they re-render on a language switch. */
+  var gateKind = null;
+  function gateHTML(k){
+    if(k === "signin") return '<h2>' + esc(t("gSignH")) + '</h2><p>' + esc(t("gSignP")) + '</p><div class="actions"><a class="btn" href="/login.html?mode=register&amp;role=lawyer&amp;next=%2Faccount.html">' + esc(t("gCreate")) + '</a><a class="btn ghost" href="/login.html?next=%2Flawyers.html">' + esc(t("signIn")) + '</a></div>';
+    if(k === "client") return '<h2>' + esc(t("gClientH")) + '</h2><p>' + esc(t("gClientP")) + '</p><div class="actions"><a class="btn" href="/account.html">' + esc(t("gGoAcc")) + '</a></div>';
+    if(k === "rejected" || k === "pending") return '<h2>' + esc(t(k === "rejected" ? "gRejH" : "gPendH")) + '</h2><p>' + esc(t(k === "rejected" ? "gRejP" : "gPendP")) + '</p><div class="actions"><a class="btn ghost" href="/account.html">' + esc(t("myAccount")) + '</a></div>';
+    return '<h2>' + esc(t("gErrH")) + '</h2><p>' + esc(t("gErrP")) + '</p>';
+  }
+  function gate(k){ gateKind = k; $("loading").hidden = true; $("gate").innerHTML = gateHTML(k); $("gate").hidden = false; }
+
+  if(I18N) I18N.onChange(function(){
+    applyStatic();
+    if(gateKind) $("gate").innerHTML = gateHTML(gateKind);
+    if(!$("app").hidden){
+      var n = $("note"), keep = n ? n.value : null, err = $("p-err") ? $("p-err").textContent : "";
+      sortHint(); renderAll();
+      if(keep !== null && $("note")) $("note").value = keep;
+      if(err && $("p-err")) $("p-err").textContent = err;
+    }
+  });
+
   fetch("/api/auth/me", { credentials:"same-origin" }).then(function(r){ return r.json(); }).then(function(j){
     var u = j && j.user;
-    if(!u){ $("top-account").textContent = "Sign in";
-      return gate('<h2>For lawyers registered in Italy</h2><p>Create a free lawyer account to review cases sent by Casebound clients. We verify every lawyer against the official register before they can see any case.</p><div class="actions"><a class="btn" href="/login.html?mode=register&amp;role=lawyer&amp;next=%2Faccount.html">Create a lawyer account</a><a class="btn ghost" href="/login.html?next=%2Flawyers.html">Sign in</a></div>'); }
+    if(!u){ signedIn = false; $("top-account").textContent = t("signIn");
+      return gate("signin"); }
     var view = window.CBView ? window.CBView.get(u) : "admin";
     // Admin previewing as a lawyer: full lawyer screen, but ratings stay in this browser.
     PREVIEW = !!u.isAdmin && view === "lawyer" && !(u.role === "lawyer" && u.lawyer && u.lawyer.status === "verified");
     ADMIN_VIEW = !!u.isAdmin && view === "admin" && !(u.role === "lawyer" && u.lawyer && u.lawyer.status === "verified");
-    if(u.isAdmin && view === "client") return gate('<h2>This board is for lawyers</h2><p>Your account is a client profile. If you are a lawyer, switch to a lawyer profile on your account page and we will verify your details.</p><div class="actions"><a class="btn" href="/account.html">Go to my account</a></div>');
-    if(u.role !== "lawyer" && !u.isAdmin) return gate('<h2>This board is for lawyers</h2><p>Your account is a client profile. If you are a lawyer, switch to a lawyer profile on your account page and we will verify your details.</p><div class="actions"><a class="btn" href="/account.html">Go to my account</a></div>');
-    if(!ADMIN_VIEW && !PREVIEW && (!u.lawyer || u.lawyer.status !== "verified")) return gate('<h2>' + (u.lawyer && u.lawyer.status === "rejected" ? "We couldn't verify your details" : "Waiting for verification") + '</h2><p>' + (u.lawyer && u.lawyer.status === "rejected" ? "We couldn't match your name and register number with the official register. Check them on your account page, or write to admin@case-bound.com." : "We are checking your name and register number on the official register of lawyers. You'll be able to see cases once that's done, usually within one or two working days.") + '</p><div class="actions"><a class="btn ghost" href="/account.html">My account</a></div>');
+    if(u.isAdmin && view === "client") return gate("client");
+    if(u.role !== "lawyer" && !u.isAdmin) return gate("client");
+    if(!ADMIN_VIEW && !PREVIEW && (!u.lawyer || u.lawyer.status !== "verified")) return gate(u.lawyer && u.lawyer.status === "rejected" ? "rejected" : "pending");
     return fetch("/api/cases/board", { credentials:"same-origin" }).then(function(r){ return r.json(); }).then(function(b){
       cases = b.cases || []; ORDER = b.order || [];
       loadPrefs(); sortHint();
       selected = null;
       $("loading").hidden = true; $("app").hidden = false; renderAll();
     });
-  }).catch(function(){ gate('<h2>Couldn\'t load the board</h2><p>Please refresh the page.</p>'); });
+  }).catch(function(){ gate("error"); });
 })();
 </script>
 </body>
