@@ -26,14 +26,12 @@ html,body{margin:0;padding:0;background:var(--paper)}
 body{font-family:var(--serif);color:var(--ink);font-size:16.5px;line-height:1.62;-webkit-font-smoothing:antialiased}
 a{color:var(--verdigris)}
 a:hover{color:var(--oxblood)}
+main a[href^="mailto:"]{direction:ltr;unicode-bidi:isolate;white-space:nowrap}
 :focus-visible{outline:2px solid var(--verdigris);outline-offset:2px}
 .masthead{border-bottom:1px solid var(--rule);background:var(--paper-2)}
 .masthead-in{max-width:820px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:16px;height:56px}
 .wordmark{font-family:var(--serif);font-size:21px;font-weight:600;letter-spacing:-.01em;line-height:1;text-decoration:none;color:var(--ink)}
 .wordmark span{color:var(--oxblood)}
-.lang{margin-left:auto;display:flex;gap:2px;background:var(--paper);border:1px solid var(--rule);border-radius:5px;padding:2px}
-.lang button{font-family:var(--sans);font-size:12.5px;font-weight:600;border:none;background:none;color:var(--ink-soft);padding:6px 12px;border-radius:3px;cursor:pointer}
-.lang button[aria-pressed="true"]{background:var(--ink);color:#fff}
 main{max-width:820px;margin:0 auto;padding:34px 20px 70px}
 .kicker{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--oxblood);margin:0 0 6px}
 h1{font-size:34px;line-height:1.15;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
@@ -41,13 +39,14 @@ h1{font-size:34px;line-height:1.15;font-weight:600;margin:0 0 6px;letter-spacing
 h2{font-size:21px;font-weight:600;margin:38px 0 10px;padding-top:18px;border-top:1px solid var(--rule-soft)}
 h3{font-family:var(--sans);font-size:14px;font-weight:700;margin:22px 0 6px}
 p,li{margin:0 0 12px}
-ul{padding-left:22px;margin:0 0 14px}
-.summary{background:var(--paper-2);border:1px solid var(--rule);border-left:4px solid var(--verdigris);border-radius:6px;padding:18px 20px;margin:0 0 10px}
+ul{padding-inline-start:22px;padding-inline-end:0;margin:0 0 14px}
+.summary{background:var(--paper-2);border:1px solid var(--rule);border-inline-start:4px solid var(--verdigris);border-radius:6px;padding:18px 20px;margin:0 0 10px}
 .summary h2{border:none;padding:0;margin:0 0 10px;font-size:18px}
 .summary ul{margin:0}
 .summary li{margin-bottom:8px}
+.tr-note{font-family:var(--sans);font-size:13.5px;line-height:1.5;color:var(--ink-soft);background:var(--paper-2);border:1px solid var(--rule);border-inline-start:4px solid var(--amber);border-radius:6px;padding:12px 16px;margin:0 0 22px}
 table{width:100%;border-collapse:collapse;font-size:14.5px;margin:6px 0 16px;background:var(--paper-2)}
-th,td{text-align:left;vertical-align:top;border:1px solid var(--rule);padding:9px 11px}
+th,td{text-align:start;vertical-align:top;border:1px solid var(--rule);padding:9px 11px}
 th{font-family:var(--sans);font-size:12px;font-weight:700;background:var(--paper);color:var(--ink-soft)}
 .tbl-wrap{overflow-x:auto}
 mark.ph{background:var(--amber-wash);color:var(--amber);font-family:var(--sans);font-size:.88em;font-weight:600;padding:1px 5px;border-radius:3px}
@@ -56,7 +55,7 @@ footer{border-top:1px solid var(--rule);background:var(--paper-2);font-family:va
 footer div{max-width:820px;margin:0 auto;padding:18px 20px;display:flex;gap:16px;flex-wrap:wrap}
 [hidden]{display:none!important}
 @media(max-width:600px){h1{font-size:28px}body{font-size:16px}}
-@media print{.lang,footer{display:none}body{background:#fff}.summary{border-left-width:2px}}
+@media print{footer{display:none}body{background:#fff}.summary,.tr-note{border-inline-start-width:2px}}
 </style>
 </head>
 <body>
@@ -64,10 +63,6 @@ footer div{max-width:820px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
 <header class="masthead">
   <div class="masthead-in">
     <a class="wordmark" href="/">Case<span>bound</span></a>
-    <div class="lang" role="group" aria-label="Language">
-      <button type="button" data-lang="en" aria-pressed="true">English</button>
-      <button type="button" data-lang="it" aria-pressed="false">Italiano</button>
-    </div>
   </div>
 </header>
 
@@ -204,7 +199,7 @@ footer div{max-width:820px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
 
   <h2>3. Le tue responsabilità</h2>
   <ul>
-    <li><b>Mantieni i fatti anonimi.</b> Non inserire nomi, recapiti, dati sanitari, vicende penali o altre informazioni che identificano una persona reale. Non inserire materiale coperto da segreto professionale o da obblighi di riservatezza. Ciò che scrivi resta nel tuo browser (vedi l'<a href="/privacy.html#it">informativa privacy</a>), ma resti responsabile di ciò che conservi sul tuo dispositivo.</li>
+    <li><b>Mantieni i fatti anonimi.</b> Non inserire nomi, recapiti, dati sanitari, vicende penali o altre informazioni che identificano una persona reale. Non inserire materiale coperto da segreto professionale o da obblighi di riservatezza. Ciò che scrivi resta nel tuo browser (vedi l'<a href="/privacy.html">informativa privacy</a>), ma resti responsabile di ciò che conservi sul tuo dispositivo.</li>
     <li><b>Usalo in modo lecito.</b> Non tentare di disturbare il funzionamento del sito, aggirarne i limiti, estrarne contenuti in massa o usarlo per danneggiare altri.</li>
     <li><b>Età.</b> Per usare Casebound devi avere almeno 18 anni.</li>
   </ul>
@@ -228,8 +223,8 @@ footer div{max-width:820px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
   <p>Miglioriamo continuamente Casebound e possiamo modificare, sospendere o ritirare funzioni dello strumento gratuito, o lo strumento gratuito nel suo insieme, in qualsiasi momento e senza preavviso. Le modifiche ai piani a pagamento seguono la sezione 6. I dati salvati nel browser possono andare persi se cancelli i dati di navigazione o cambi dispositivo. Esporta ciò che vuoi conservare.</p>
 
   <h2 id="subscriptions-it">6. Abbonamenti a pagamento</h2>
-  <p><b>Piano gratuito.</b> Puoi usare Casebound gratis, senza account, entro i limiti indicati nella <a href="/pricing.html#it">pagina dei Piani</a> (ad esempio un numero di analisi al giorno e di casi salvati). I limiti sono conteggiati nel tuo browser. Possiamo modificarli in qualsiasi momento; non riguardano mai un piano a pagamento già acquistato.</p>
-  <p>Accanto al piano gratuito, Casebound offre piani a pagamento che eliminano questi limiti. Il contenuto e il prezzo di ciascun piano sono indicati nella <a href="/pricing.html#it">pagina dei Piani</a> e di nuovo al momento del pagamento, prima che tu paghi.</p>
+  <p><b>Piano gratuito.</b> Puoi usare Casebound gratis, senza account, entro i limiti indicati nella <a href="/pricing.html">pagina dei Piani</a> (ad esempio un numero di analisi al giorno e di casi salvati). I limiti sono conteggiati nel tuo browser. Possiamo modificarli in qualsiasi momento; non riguardano mai un piano a pagamento già acquistato.</p>
+  <p>Accanto al piano gratuito, Casebound offre piani a pagamento che eliminano questi limiti. Il contenuto e il prezzo di ciascun piano sono indicati nella <a href="/pricing.html">pagina dei Piani</a> e di nuovo al momento del pagamento, prima che tu paghi.</p>
   <h3>Contratto e pagamento</h3>
   <ul>
     <li><b>Conclusione del contratto.</b> L'abbonamento inizia quando completi il pagamento. Ricevi conferma e ricevuta via email.</li>
@@ -239,7 +234,7 @@ footer div{max-width:820px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
     <li><b>Pagamenti non riusciti.</b> Se un pagamento non va a buon fine, Stripe riprova e ti avvisa via email. Se resta insoluto, l'abbonamento può essere sospeso o terminato.</li>
   </ul>
   <h3>Disdetta</h3>
-  <p>Puoi disdire in qualsiasi momento, senza indicarne il motivo, dal <a href="/account.html?lang=it">portale di fatturazione</a> o scrivendo a <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>. La disdetta ha effetto alla fine del periodo già pagato e fino ad allora mantieni l'accesso. Salvo il diritto di recesso indicato sotto, o quando la legge lo prevede, i periodi già iniziati non sono rimborsati.</p>
+  <p>Puoi disdire in qualsiasi momento, senza indicarne il motivo, dal <a href="/account.html">portale di fatturazione</a> o scrivendo a <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>. La disdetta ha effetto alla fine del periodo già pagato e fino ad allora mantieni l'accesso. Salvo il diritto di recesso indicato sotto, o quando la legge lo prevede, i periodi già iniziati non sono rimborsati.</p>
   <h3>Diritto di recesso (consumatori)</h3>
   <p>Se sei un consumatore, puoi recedere dal contratto entro <b>14 giorni</b> dalla sua conclusione, senza indicarne il motivo (artt. 52 ss. del Codice del consumo, D.Lgs. 206/2005). Per recedere invia una dichiarazione esplicita a <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>, ad esempio: «Recedo dal mio abbonamento Casebound sottoscritto il [data], email [indirizzo].» È sufficiente inviarla prima della scadenza dei 14 giorni.</p>
   <p>Rimborsiamo tutti i pagamenti ricevuti entro 14 giorni dal ricevimento della tua dichiarazione, con lo stesso mezzo di pagamento che hai usato e senza costi per te (art. 56). Abbonandoti, chiedi che il servizio inizi subito. Se quindi recedi dopo l'inizio del servizio, possiamo trattenere un importo proporzionato alla parte di servizio fornita fino al recesso (art. 57, comma 3). Durante una prova gratuita non è stato pagato nulla, quindi non viene trattenuto nulla.</p>
@@ -256,7 +251,7 @@ footer div{max-width:820px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
   <p>Nulla in queste condizioni limita una responsabilità che la legge non consente di limitare. Ciò comprende la responsabilità per dolo o colpa grave (art. 1229 c.c.) e i diritti irrinunciabili che ti spettano come consumatore.</p>
 
   <h2>8. Privacy</h2>
-  <p>Il trattamento dei dati è descritto nell'<a href="/privacy.html#it">informativa privacy</a>, compreso il programma facoltativo e disattivato di default che aiuta a migliorare i risultati.</p>
+  <p>Il trattamento dei dati è descritto nell'<a href="/privacy.html">informativa privacy</a>, compreso il programma facoltativo e disattivato di default che aiuta a migliorare i risultati.</p>
 
   <h2>9. Modifiche a queste condizioni</h2>
   <p>Possiamo aggiornare queste condizioni. La data in alto indica la versione più recente. Continuare a usare Casebound dopo una modifica significa accettare la nuova versione.</p>
@@ -265,35 +260,663 @@ footer div{max-width:820px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
   <p>Queste condizioni sono regolate dalla legge italiana. Se usi Casebound come consumatore, conservi la tutela delle norme imperative del Paese in cui risiedi e puoi agire davanti al giudice del luogo di tua residenza o domicilio (art. 66-bis del Codice del consumo). Per domande o reclami scrivi prima a <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>. Cerchiamo di risolvere le questioni in via amichevole.</p>
 </main>
 
+<!-- ======================= ESPAÑOL ======================= -->
+<main lang="es" data-lang-block="es" hidden>
+  <p class="kicker">Condiciones de uso</p>
+  <h1>Usar Casebound</h1>
+  <p class="updated">Última actualización: 7 de octubre de 2026</p>
+  <p class="tr-note">Esta traducción se ofrece para tu comodidad. Si difiere de la versión en inglés, prevalece la versión en inglés.</p>
+
+  <section class="summary">
+    <h2>En resumen</h2>
+    <ul>
+      <li><b>Casebound es una herramienta de investigación, no un abogado.</b> Nada de lo que muestra constituye asesoramiento jurídico, y usarlo no crea una relación abogado-cliente.</li>
+      <li><b>Comprueba tú mismo cada fuente.</b> Los resúmenes están simplificados y pueden no estar actualizados; lee siempre el texto oficial.</li>
+      <li><b>No introduzcas datos confidenciales ni identificativos.</b> Usa hechos anonimizados, sobre todo en lo que afecte a clientes u otras personas.</li>
+      <li>Casebound está destinado a personas adultas (mayores de 18 años). Puedes usarlo gratis dentro de los límites del plan gratuito. Los planes de pago opcionales eliminan esos límites; se renuevan automáticamente, pueden cancelarse en cualquier momento e incluyen, para los consumidores, un derecho de desistimiento de 14 días (<a href="#subscriptions-es">sección 6</a>).</li>
+    </ul>
+  </section>
+
+  <h2>1. Quiénes somos</h2>
+  <p>Casebound (case-bound.com) está gestionado por Kiyan Martinon, particular residente en Italia. Contacto: <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>. Al usar el sitio aceptas estas condiciones. Si no las aceptas, te rogamos que no lo uses.</p>
+
+  <h2>2. Qué es Casebound y qué no es</h2>
+  <p>Casebound te ayuda a explorar fuentes jurídicas. Relaciona los hechos de un caso con disposiciones legales, ordena sentencias y otros documentos por similitud textual y te permite guardar tus análisis en tu navegador.</p>
+  <ul>
+    <li><b>No es asesoramiento jurídico.</b> Las clasificaciones y las puntuaciones de similitud se generan automáticamente a partir del texto. No valoran el fondo de tu caso y no sustituyen el consejo de un abogado cualificado.</li>
+    <li><b>Ninguna relación profesional.</b> Usar Casebound o escribirnos no nos convierte en tu abogado ni crea un deber de confidencialidad o de diligencia como el que un abogado tiene con su cliente.</li>
+    <li><b>Exactitud.</b> Trabajamos para mantener el corpus exacto, pero las leyes cambian y los resúmenes simplifican. Comprueba siempre el texto oficial (por ejemplo, en Normattiva, EUR-Lex o la base de datos del propio tribunal) antes de basarte en cualquier fuente.</li>
+  </ul>
+
+  <h3 id="risk-check-es">La evaluación de riesgo (Pro)</h3>
+  <p>Los suscriptores Pro pueden usar la <a href="/risk-check.html">evaluación de riesgo</a>. Califica un caso como riesgo Bajo, Medio o Alto usando solo lo que introduces: si el plazo habitual para ese tipo de reclamación parece haber vencido, qué pruebas indicas, cuánto detalle das y la cuantía en juego. Los plazos están simplificados, y algunos hechos pueden suspenderlos o interrumpirlos. La calificación no valora el fondo de tu caso ni predice el resultado, no es asesoramiento jurídico y no sustituye la valoración de un abogado. La evaluación se realiza en tu navegador: lo que escribes no se nos envía, salvo que decidas enviar el caso a abogados.</p>
+  <h3 id="connect-es">Contacto con un abogado (Pro)</h3>
+  <p>Los suscriptores Pro pueden enviar un caso a los abogados registrados en Casebound. Comprobamos el nombre y el número de colegiado de cada abogado en el registro oficial antes de que pueda ver ningún caso, pero no comprobamos su competencia, disponibilidad ni honorarios, y no recomendamos a ningún abogado. Los abogados ven tu caso sin tu nombre ni tu email. Tú decides si compartes tus datos de contacto con un abogado que muestre interés. Casebound se limita a poneros en contacto. No es parte de ningún acuerdo entre tú y un abogado, no cobra ninguna tarifa ni comisión por ese acuerdo y no es responsable del asesoramiento ni del trabajo del abogado. No existe relación abogado-cliente hasta que un abogado la confirme directamente contigo. Puedes retirar un caso en cualquier momento desde la página de tu cuenta. Cada cliente puede tener hasta cinco casos abiertos a la vez.</p>
+  <h3 id="lawyers-es">Cuentas de abogado</h3>
+  <p>Las cuentas de abogado son gratuitas. Al crear una, confirmas que estás inscrito en un Ordine degli Avvocati (colegio de abogados) italiano con el nombre y el número que indicas, y nos avisarás si eso cambia. Solo puedes usar los casos que ves para decidir si ofreces tus servicios a ese cliente. No debes copiarlos, compartirlos ni usarlos para ningún otro fin, ni contactar con un cliente por ninguna otra vía. Tus contactos con los clientes se rigen por las normas deontológicas que te sean aplicables, incluidas las relativas a la información a los clientes y a la captación de clientes. Podemos suspender o eliminar una cuenta de abogado que incumpla estas condiciones o cuyos datos no podamos verificar.</p>
+
+  <h2>3. Tus responsabilidades</h2>
+  <ul>
+    <li><b>Mantén los hechos anónimos.</b> No introduzcas nombres, datos de contacto, información de salud, asuntos penales ni otra información que identifique a una persona real. No introduzcas material amparado por el secreto profesional o por una obligación de confidencialidad. Lo que escribes se queda en tu navegador (consulta el <a href="/privacy.html">aviso de privacidad</a>), pero sigues siendo responsable de lo que guardas en tu dispositivo.</li>
+    <li><b>Úsalo de forma lícita.</b> No intentes perturbar el sitio, eludir sus límites, extraer sus contenidos de forma masiva ni usarlo para perjudicar a otros.</li>
+    <li><b>Edad.</b> Debes tener al menos 18 años para usar Casebound.</li>
+  </ul>
+
+  <h3 id="accounts-es">Tu cuenta</h3>
+  <ul>
+    <li>No necesitas una cuenta para usar la herramienta de investigación gratuita. La necesitas para contratar una suscripción.</li>
+    <li>Indica una dirección de email real que controles, mantén tu contraseña en privado y no compartas tu cuenta. Avísanos en <a href="mailto:admin@case-bound.com">admin@case-bound.com</a> si crees que otra persona la ha usado.</li>
+    <li>Puedes eliminar tu cuenta en cualquier momento desde la página de la cuenta. Podemos suspender o cerrar una cuenta que incumpla estas condiciones, tras explicarte el motivo salvo que la ley o un riesgo grave lo impidan.</li>
+  </ul>
+
+  <h2>4. Contenidos y propiedad intelectual</h2>
+  <ul>
+    <li>Las leyes, los reglamentos y las resoluciones judiciales son textos oficiales y no están protegidos por derechos de autor (art. 5 de la Ley italiana 633/1941).</li>
+    <li>Los resúmenes, las notas, la taxonomía, el diseño y el código de Casebound son obra nuestra. Puedes usarlos para tu propio estudio e investigación y citar extractos breves indicando la fuente. Te pedimos que no vuelvas a publicar el corpus ni la herramienta en su conjunto sin pedir permiso.</li>
+    <li>Los libros y artículos citados siguen siendo propiedad de sus autores y editores. Casebound solo muestra las citas.</li>
+    <li>El material que añades tú (hechos, archivos, notas) sigue siendo tuyo. Se queda en tu navegador y no lo recibimos.</li>
+  </ul>
+
+  <h2>5. Disponibilidad</h2>
+  <p>Mejoramos Casebound continuamente y podemos modificar, pausar o retirar funciones de la herramienta gratuita, o la herramienta gratuita en su conjunto, en cualquier momento y sin previo aviso. Los cambios en los planes de pago se rigen por la sección 6. Los datos guardados en tu navegador pueden perderse si borras los datos del navegador o cambias de dispositivo. Exporta todo lo que quieras conservar.</p>
+
+  <h2 id="subscriptions-es">6. Suscripciones de pago</h2>
+  <p><b>Plan gratuito.</b> Puedes usar Casebound gratis, sin cuenta, dentro de los límites indicados en la <a href="/pricing.html">página de Planes</a> (por ejemplo, un número de análisis al día y de casos guardados). Los límites se cuentan en tu navegador. Podemos cambiarlos en cualquier momento; nunca afectan a un plan de pago que ya hayas contratado.</p>
+  <p>Además del plan gratuito, Casebound ofrece planes de pago que eliminan esos límites. Lo que incluye cada plan y su precio se muestran en la <a href="/pricing.html">página de Planes</a> y de nuevo en el proceso de pago, antes de que pagues.</p>
+  <h3>Contrato y pago</h3>
+  <ul>
+    <li><b>Cuándo empieza el contrato.</b> Tu suscripción empieza cuando se completa el proceso de pago. Recibes una confirmación y un recibo por email.</li>
+    <li><b>Pago.</b> Los pagos los procesa Stripe. Los métodos de pago disponibles se muestran en el proceso de pago. Nunca vemos ni guardamos los datos completos de tu tarjeta. El precio que se muestra al pagar es el precio total, incluido el IVA aplicable.</li>
+    <li><b>Renovación automática.</b> Los planes se renuevan automáticamente al final de cada periodo de facturación (por ejemplo, mensual o anual), y el cargo se realiza al inicio de cada nuevo periodo, hasta que canceles.</li>
+    <li><b>Pruebas gratuitas.</b> Si un plan incluye una prueba gratuita, no se te cobra nada hasta que termine la prueba. Si cancelas antes de que termine, no pagas nada.</li>
+    <li><b>Pagos fallidos.</b> Si un pago falla, Stripe lo volverá a intentar y te enviará un email. Si sigue sin pagarse, la suscripción puede suspenderse o finalizar.</li>
+  </ul>
+  <h3>Cancelación</h3>
+  <p>Puedes cancelar en cualquier momento, sin indicar el motivo, desde el <a href="/account.html">portal de facturación</a> o escribiendo a <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>. La cancelación surte efecto al final del periodo que ya has pagado, y mantienes el acceso hasta entonces. Salvo el derecho de desistimiento que se indica a continuación, o cuando la ley lo exija, los periodos ya iniciados no se reembolsan.</p>
+  <h3>Derecho de desistimiento (consumidores)</h3>
+  <p>Si eres consumidor, puedes desistir del contrato en un plazo de <b>14 días</b> desde el día de su celebración, sin indicar el motivo (arts. 52 y ss. del Código de Consumo italiano, Decreto Legislativo 206/2005). Para desistir, envía una declaración inequívoca a <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>, por ejemplo: «Desisto de mi suscripción a Casebound contratada el [fecha], email [dirección].» Basta con enviarla antes de que terminen los 14 días.</p>
+  <p>Te reembolsamos todos los pagos recibidos en un plazo de 14 días desde la recepción de tu declaración, utilizando el mismo medio de pago que usaste y sin ningún coste para ti (art. 56). Al suscribirte, nos pides que empecemos a prestar el servicio de inmediato. Por eso, si desistes una vez iniciado el servicio, podemos retener un importe proporcional a la parte del servicio prestada hasta tu desistimiento (art. 57, apdo. 3). Durante una prueba gratuita no se ha pagado nada, así que no se descuenta nada.</p>
+  <h3>Cambios en precios y planes</h3>
+  <ul>
+    <li>Podemos cambiar el precio de un plan. Te avisaremos por email con al menos 30 días de antelación. El nuevo precio solo se aplica a partir de tu siguiente renovación tras ese aviso, y puedes cancelar antes de que entre en vigor.</li>
+    <li>Si dejamos de ofrecer un plan, te avisaremos con al menos 30 días de antelación y te reembolsaremos cualquier periodo prepagado que no hayas podido usar. Podemos poner fin a una suscripción de inmediato por un incumplimiento grave de estas condiciones, por ejemplo un uso abusivo del servicio.</li>
+  </ul>
+  <h3>Facturas y reclamaciones</h3>
+  <p>Los recibos y las facturas están disponibles en el portal de facturación. Para cualquier cuestión de facturación, escribe a <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>. Te responderemos en un plazo de 14 días. Tus derechos legales como consumidor no se ven afectados.</p>
+
+  <h2>7. Responsabilidad</h2>
+  <p>La herramienta gratuita se ofrece sin coste y «tal cual». En la medida en que la ley lo permita, y también para los planes de pago, no somos responsables de las pérdidas derivadas de confiar en los resultados que muestra, de errores u omisiones en el corpus ni de la falta de disponibilidad del servicio.</p>
+  <p>Nada en estas condiciones limita una responsabilidad que la ley no permita limitar. Esto incluye la responsabilidad por dolo o culpa grave (art. 1229 del Código Civil italiano) y cualquier derecho irrenunciable que tengas como consumidor.</p>
+
+  <h2>8. Privacidad</h2>
+  <p>Cómo tratamos los datos se explica en el <a href="/privacy.html">aviso de privacidad</a>, incluido el programa opcional, desactivado por defecto, que ayuda a mejorar las clasificaciones.</p>
+
+  <h2>9. Cambios en estas condiciones</h2>
+  <p>Podemos actualizar estas condiciones. La fecha que aparece arriba indica la versión más reciente. Si sigues usando Casebound después de un cambio, aceptas la nueva versión.</p>
+
+  <h2>10. Ley aplicable y litigios</h2>
+  <p>Estas condiciones se rigen por la ley italiana. Si usas Casebound como consumidor, conservas la protección de las normas imperativas del país en el que resides y puedes acudir a los tribunales del lugar donde vives (art. 66-bis del Código de Consumo italiano). Para preguntas o reclamaciones, escribe primero a <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>. Intentamos resolver las cuestiones de manera amistosa.</p>
+</main>
+
+<!-- ======================= FRANÇAIS ======================= -->
+<main lang="fr" data-lang-block="fr" hidden>
+  <p class="kicker">Conditions d'utilisation</p>
+  <h1>Utiliser Casebound</h1>
+  <p class="updated">Dernière mise à jour : 7 octobre 2026</p>
+  <p class="tr-note">Cette traduction est fournie pour votre commodité. En cas de divergence avec la version anglaise, la version anglaise prévaut.</p>
+
+  <section class="summary">
+    <h2>En bref</h2>
+    <ul>
+      <li><b>Casebound est une aide à la recherche, pas un avocat.</b> Rien de ce qu'il affiche ne constitue un conseil juridique, et son utilisation ne crée aucune relation avocat-client.</li>
+      <li><b>Vérifiez vous-même chaque source.</b> Les résumés sont simplifiés et peuvent ne pas être à jour ; lisez toujours le texte officiel.</li>
+      <li><b>Ne saisissez pas d'informations confidentielles ou identifiantes.</b> Utilisez des faits anonymisés, en particulier pour tout ce qui concerne des clients ou d'autres personnes.</li>
+      <li>Casebound est destiné aux adultes (18 ans et plus). Vous pouvez l'utiliser gratuitement dans les limites de l'offre gratuite. Les offres payantes facultatives suppriment ces limites ; elles se renouvellent automatiquement, peuvent être résiliées à tout moment et s'accompagnent, pour les consommateurs, d'un droit de rétractation de 14 jours (<a href="#subscriptions-fr">section 6</a>).</li>
+    </ul>
+  </section>
+
+  <h2>1. Qui sommes-nous</h2>
+  <p>Casebound (case-bound.com) est exploité par Kiyan Martinon, particulier établi en Italie. Contact : <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>. En utilisant le site, vous acceptez les présentes conditions. Si vous ne les acceptez pas, veuillez ne pas l'utiliser.</p>
+
+  <h2>2. Ce qu'est Casebound et ce qu'il n'est pas</h2>
+  <p>Casebound vous aide à explorer les sources du droit. Il rattache les faits d'une affaire aux dispositions applicables, classe les décisions de justice et d'autres documents par similarité textuelle et vous permet d'enregistrer vos analyses dans votre navigateur.</p>
+  <ul>
+    <li><b>Ce n'est pas un conseil juridique.</b> Les classements et les scores de similarité sont produits automatiquement à partir du texte. Ils n'évaluent pas le bien-fondé de votre affaire et ne remplacent pas l'avis d'un avocat qualifié.</li>
+    <li><b>Aucune relation professionnelle.</b> Utiliser Casebound ou nous écrire ne fait pas de nous votre avocat et ne crée aucune obligation de confidentialité ou de diligence comparable à celle d'un avocat envers son client.</li>
+    <li><b>Exactitude.</b> Nous nous efforçons de maintenir un corpus exact, mais les lois évoluent et les résumés simplifient. Vérifiez toujours le texte officiel (par exemple sur Normattiva, EUR-Lex ou la base de données de la juridiction concernée) avant de vous fonder sur une source.</li>
+  </ul>
+
+  <h3 id="risk-check-fr">L'évaluation du risque (Pro)</h3>
+  <p>Les abonnés Pro peuvent utiliser l'<a href="/risk-check.html">évaluation du risque</a>. Elle classe une affaire en risque Faible, Moyen ou Élevé en se fondant uniquement sur ce que vous saisissez : si le délai habituel pour ce type d'action semble expiré, les preuves que vous indiquez, le niveau de détail fourni et le montant en jeu. Les délais sont simplifiés, et certains événements peuvent les suspendre ou les interrompre. L'évaluation n'apprécie pas le bien-fondé de votre affaire et ne prédit pas son issue ; ce n'est pas un conseil juridique et elle ne remplace pas l'appréciation d'un avocat. L'évaluation s'effectue dans votre navigateur : ce que vous saisissez ne nous est pas transmis, sauf si vous choisissez d'envoyer l'affaire à des avocats.</p>
+  <h3 id="connect-fr">Mise en relation avec un avocat (Pro)</h3>
+  <p>Les abonnés Pro peuvent envoyer une affaire aux avocats inscrits sur Casebound. Nous vérifions le nom et le numéro d'inscription de chaque avocat auprès du tableau officiel avant qu'il puisse voir la moindre affaire, mais nous ne vérifions ni sa compétence, ni sa disponibilité, ni ses honoraires, et nous ne recommandons aucun avocat. Les avocats voient votre affaire sans votre nom ni votre adresse e-mail. C'est vous qui décidez de communiquer ou non vos coordonnées à un avocat qui manifeste son intérêt. Casebound se limite à vous mettre en relation. Il n'est partie à aucun accord entre vous et un avocat, ne perçoit ni frais ni commission sur cet accord et n'est pas responsable des conseils ou du travail de l'avocat. Aucune relation avocat-client n'existe tant qu'un avocat ne l'a pas confirmée directement avec vous. Vous pouvez retirer une affaire à tout moment depuis la page de votre compte. Chaque client peut avoir jusqu'à cinq affaires ouvertes en même temps.</p>
+  <h3 id="lawyers-fr">Comptes avocats</h3>
+  <p>Les comptes avocats sont gratuits. En en créant un, vous confirmez être inscrit à un Ordine degli Avvocati (barreau) italien sous le nom et le numéro que vous indiquez, et vous nous informerez de tout changement. Vous ne pouvez utiliser les affaires que vous consultez que pour décider de proposer ou non vos services à ce client. Vous ne devez pas les copier, les partager ni les utiliser à d'autres fins, ni contacter un client par un autre moyen. Vos relations avec les clients sont régies par les règles déontologiques qui vous sont applicables, y compris celles relatives à l'information des clients et à la recherche de clientèle. Nous pouvons suspendre ou supprimer un compte avocat qui enfreint les présentes conditions ou dont nous ne pouvons pas vérifier les informations.</p>
+
+  <h2>3. Vos responsabilités</h2>
+  <ul>
+    <li><b>Gardez les faits anonymes.</b> Ne saisissez pas de noms, de coordonnées, d'informations de santé, d'affaires pénales ou d'autres informations permettant d'identifier une personne réelle. Ne saisissez pas d'éléments couverts par le secret professionnel ou par une obligation de confidentialité. Ce que vous saisissez reste dans votre navigateur (voir la <a href="/privacy.html">politique de confidentialité</a>), mais vous restez responsable de ce que vous conservez sur votre appareil.</li>
+    <li><b>Utilisez-le de manière licite.</b> N'essayez pas de perturber le site, de contourner ses limites, d'en extraire massivement le contenu ou de l'utiliser pour nuire à autrui.</li>
+    <li><b>Âge.</b> Vous devez avoir au moins 18 ans pour utiliser Casebound.</li>
+  </ul>
+
+  <h3 id="accounts-fr">Votre compte</h3>
+  <ul>
+    <li>Vous n'avez pas besoin de compte pour utiliser l'outil de recherche gratuit. Il vous en faut un pour souscrire un abonnement.</li>
+    <li>Indiquez une adresse e-mail réelle dont vous avez le contrôle, gardez votre mot de passe confidentiel et ne partagez pas votre compte. Prévenez-nous à <a href="mailto:admin@case-bound.com">admin@case-bound.com</a> si vous pensez que quelqu'un d'autre l'a utilisé.</li>
+    <li>Vous pouvez supprimer votre compte à tout moment depuis la page du compte. Nous pouvons suspendre ou fermer un compte qui enfreint les présentes conditions, après vous en avoir indiqué la raison, sauf si la loi ou un risque grave l'empêche.</li>
+  </ul>
+
+  <h2>4. Contenus et propriété intellectuelle</h2>
+  <ul>
+    <li>Les lois, les règlements et les décisions de justice sont des textes officiels et ne sont pas protégés par le droit d'auteur (art. 5 de la loi italienne n° 633/1941).</li>
+    <li>Les résumés, les annotations, la taxonomie, le design et le code de Casebound sont notre œuvre. Vous pouvez les utiliser pour vos propres études et recherches et en citer de courts extraits en mentionnant la source. Merci de ne pas republier le corpus ou l'outil dans son ensemble sans nous le demander.</li>
+    <li>Les livres et articles cités restent la propriété de leurs auteurs et éditeurs. Casebound n'en affiche que les références.</li>
+    <li>Les éléments que vous ajoutez vous-même (faits, fichiers, notes) restent les vôtres. Ils restent dans votre navigateur et nous ne les recevons pas.</li>
+  </ul>
+
+  <h2>5. Disponibilité</h2>
+  <p>Nous améliorons Casebound en permanence et pouvons modifier, suspendre ou retirer des fonctionnalités de l'outil gratuit, ou l'outil gratuit dans son ensemble, à tout moment et sans préavis. Les modifications des offres payantes suivent la section 6. Les données enregistrées dans votre navigateur peuvent être perdues si vous effacez vos données de navigation ou changez d'appareil. Exportez tout ce que vous souhaitez conserver.</p>
+
+  <h2 id="subscriptions-fr">6. Abonnements payants</h2>
+  <p><b>Offre gratuite.</b> Vous pouvez utiliser Casebound gratuitement, sans compte, dans les limites indiquées sur la <a href="/pricing.html">page des Offres</a> (par exemple un nombre d'analyses par jour et d'affaires enregistrées). Les limites sont comptabilisées dans votre navigateur. Nous pouvons les modifier à tout moment ; elles n'affectent jamais une offre payante que vous avez déjà achetée.</p>
+  <p>À côté de l'offre gratuite, Casebound propose des offres payantes qui suppriment ces limites. Le contenu et le prix de chaque offre sont indiqués sur la <a href="/pricing.html">page des Offres</a> et à nouveau lors du paiement, avant que vous ne payiez.</p>
+  <h3>Contrat et paiement</h3>
+  <ul>
+    <li><b>Conclusion du contrat.</b> Votre abonnement commence lorsque le paiement est finalisé. Vous recevez une confirmation et un reçu par e-mail.</li>
+    <li><b>Paiement.</b> Les paiements sont traités par Stripe. Les moyens de paiement disponibles sont indiqués lors du paiement. Nous ne voyons ni ne conservons jamais l'intégralité des données de votre carte. Le prix affiché lors du paiement est le prix total, TVA applicable comprise.</li>
+    <li><b>Renouvellement automatique.</b> Les offres se renouvellent automatiquement à la fin de chaque période de facturation (par exemple mensuelle ou annuelle), et vous êtes débité au début de chaque nouvelle période, jusqu'à ce que vous résiliiez.</li>
+    <li><b>Essais gratuits.</b> Si une offre comprend un essai gratuit, vous n'êtes débité qu'à la fin de l'essai. Si vous résiliez avant la fin de l'essai, vous ne payez rien.</li>
+    <li><b>Échecs de paiement.</b> Si un paiement échoue, Stripe effectuera une nouvelle tentative et vous enverra un e-mail. S'il reste impayé, l'abonnement peut être suspendu ou résilié.</li>
+  </ul>
+  <h3>Résiliation</h3>
+  <p>Vous pouvez résilier à tout moment, sans avoir à vous justifier, depuis le <a href="/account.html">portail de facturation</a> ou en écrivant à <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>. La résiliation prend effet à la fin de la période déjà payée, et vous conservez l'accès jusque-là. Hormis le droit de rétractation ci-dessous, ou lorsque la loi l'exige, les périodes déjà commencées ne sont pas remboursées.</p>
+  <h3>Droit de rétractation (consommateurs)</h3>
+  <p>Si vous êtes un consommateur, vous pouvez vous rétracter du contrat dans un délai de <b>14 jours</b> à compter du jour de sa conclusion, sans avoir à motiver votre décision (art. 52 et suivants du Code de la consommation italien, décret législatif n° 206/2005). Pour vous rétracter, envoyez une déclaration dénuée d'ambiguïté à <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>, par exemple : « Je me rétracte de mon abonnement Casebound souscrit le [date], e-mail [adresse]. » Il suffit de l'envoyer avant l'expiration des 14 jours.</p>
+  <p>Nous remboursons tous les paiements reçus dans les 14 jours suivant la réception de votre déclaration, en utilisant le même moyen de paiement que celui que vous avez utilisé, sans frais pour vous (art. 56). En vous abonnant, vous nous demandez de commencer le service immédiatement. Si vous vous rétractez après le début du service, nous pouvons donc conserver un montant proportionnel à la partie du service fournie jusqu'à votre rétractation (art. 57, al. 3). Pendant un essai gratuit, rien n'a été payé, donc rien n'est déduit.</p>
+  <h3>Modification des prix et des offres</h3>
+  <ul>
+    <li>Nous pouvons modifier le prix d'une offre. Nous vous en informerons par e-mail au moins 30 jours à l'avance. Le nouveau prix ne s'applique qu'à partir de votre prochain renouvellement suivant cette information, et vous pouvez résilier avant son entrée en vigueur.</li>
+    <li>Si nous arrêtons une offre, nous vous en informerons au moins 30 jours à l'avance et rembourserons toute période prépayée que vous n'avez pas pu utiliser. Nous pouvons mettre fin immédiatement à un abonnement en cas de manquement grave aux présentes conditions, par exemple une utilisation abusive du service.</li>
+  </ul>
+  <h3>Factures et réclamations</h3>
+  <p>Les reçus et les factures sont disponibles dans le portail de facturation. Pour toute question de facturation, écrivez à <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>. Nous répondrons dans un délai de 14 jours. Vos droits légaux de consommateur ne sont pas affectés.</p>
+
+  <h2>7. Responsabilité</h2>
+  <p>L'outil gratuit est fourni gratuitement et « en l'état ». Dans la mesure permise par la loi, et y compris pour les offres payantes, nous ne sommes pas responsables des pertes résultant de la confiance accordée aux résultats affichés, d'erreurs ou d'omissions dans le corpus, ou de l'indisponibilité du service.</p>
+  <p>Rien dans les présentes conditions ne limite une responsabilité qui ne peut pas être limitée par la loi. Cela inclut la responsabilité pour faute intentionnelle ou faute lourde (art. 1229 du Code civil italien) et tous les droits auxquels vous ne pouvez pas renoncer en tant que consommateur.</p>
+
+  <h2>8. Confidentialité</h2>
+  <p>La manière dont nous traitons les données est expliquée dans la <a href="/privacy.html">politique de confidentialité</a>, y compris le programme facultatif, désactivé par défaut, qui aide à améliorer les classements.</p>
+
+  <h2>9. Modification des présentes conditions</h2>
+  <p>Nous pouvons mettre à jour les présentes conditions. La date indiquée en haut correspond à la version la plus récente. Continuer à utiliser Casebound après une modification vaut acceptation de la nouvelle version.</p>
+
+  <h2>10. Droit applicable et litiges</h2>
+  <p>Les présentes conditions sont régies par le droit italien. Si vous utilisez Casebound en tant que consommateur, vous conservez la protection des dispositions impératives du pays où vous résidez et vous pouvez saisir les tribunaux du lieu de votre résidence (art. 66-bis du Code de la consommation italien). Pour toute question ou réclamation, écrivez d'abord à <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>. Nous cherchons à régler les différends à l'amiable.</p>
+</main>
+
+<!-- ======================= DEUTSCH ======================= -->
+<main lang="de" data-lang-block="de" hidden>
+  <p class="kicker">Nutzungsbedingungen</p>
+  <h1>Casebound nutzen</h1>
+  <p class="updated">Zuletzt aktualisiert: 7. Oktober 2026</p>
+  <p class="tr-note">Diese Übersetzung wird der Einfachheit halber bereitgestellt. Weicht sie von der englischen Fassung ab, ist die englische Fassung maßgeblich.</p>
+
+  <section class="summary">
+    <h2>Das Wichtigste in Kürze</h2>
+    <ul>
+      <li><b>Casebound ist eine Recherchehilfe, kein Anwalt.</b> Nichts, was es anzeigt, ist Rechtsberatung, und durch die Nutzung entsteht kein Mandatsverhältnis.</li>
+      <li><b>Prüfe jede Quelle selbst.</b> Zusammenfassungen sind vereinfacht und möglicherweise nicht aktuell; lies immer den amtlichen Text.</li>
+      <li><b>Gib keine vertraulichen oder identifizierenden Angaben ein.</b> Verwende anonymisierte Sachverhalte, besonders bei allem, was Mandanten oder andere Personen betrifft.</li>
+      <li>Casebound richtet sich an Erwachsene (ab 18 Jahren). Du kannst es im Rahmen der Grenzen des kostenlosen Tarifs kostenlos nutzen. Optionale kostenpflichtige Tarife heben diese Grenzen auf; sie verlängern sich automatisch, sind jederzeit kündbar und Verbraucher haben ein 14-tägiges Widerrufsrecht (<a href="#subscriptions-de">Abschnitt 6</a>).</li>
+    </ul>
+  </section>
+
+  <h2>1. Wer wir sind</h2>
+  <p>Casebound (case-bound.com) wird von Kiyan Martinon betrieben, einer Privatperson mit Sitz in Italien. Kontakt: <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>. Mit der Nutzung der Website akzeptierst du diese Bedingungen. Wenn du sie nicht akzeptierst, nutze die Website bitte nicht.</p>
+
+  <h2>2. Was Casebound ist und was nicht</h2>
+  <p>Casebound hilft dir, Rechtsquellen zu erschließen. Es ordnet den Sachverhalt eines Falls den passenden Vorschriften zu, sortiert Entscheidungen und andere Dokumente nach textlicher Ähnlichkeit und lässt dich deine Analysen in deinem Browser speichern.</p>
+  <ul>
+    <li><b>Es ist keine Rechtsberatung.</b> Rangfolgen und Ähnlichkeitswerte werden automatisch aus dem Text erzeugt. Sie beurteilen nicht die Erfolgsaussichten deines Falls und ersetzen nicht den Rat einer qualifizierten Anwältin oder eines qualifizierten Anwalts.</li>
+    <li><b>Kein Berufsverhältnis.</b> Die Nutzung von Casebound oder eine Nachricht an uns macht uns nicht zu deinem Anwalt und begründet keine Verschwiegenheits- oder Sorgfaltspflicht, wie sie ein Anwalt gegenüber einem Mandanten hat.</li>
+    <li><b>Richtigkeit.</b> Wir bemühen uns, den Bestand an Quellen richtig zu halten, aber Gesetze ändern sich und Zusammenfassungen vereinfachen. Prüfe immer den amtlichen Text (zum Beispiel auf Normattiva, EUR-Lex oder in der Datenbank des jeweiligen Gerichts), bevor du dich auf eine Quelle verlässt.</li>
+  </ul>
+
+  <h3 id="risk-check-de">Der Risikocheck (Pro)</h3>
+  <p>Pro-Abonnenten können den <a href="/risk-check.html">Risikocheck</a> nutzen. Er stuft einen Fall als Risiko Niedrig, Mittel oder Hoch ein und verwendet dabei nur das, was du eingibst: ob die übliche Frist für diese Art von Anspruch abgelaufen zu sein scheint, welche Beweise du angibst, wie detailliert deine Angaben sind und um welchen Betrag es geht. Fristen sind vereinfacht dargestellt, und manche Ereignisse können sie hemmen oder neu beginnen lassen. Die Einstufung beurteilt nicht die Erfolgsaussichten deines Falls und sagt nicht den Ausgang voraus; sie ist keine Rechtsberatung und ersetzt nicht die Einschätzung eines Anwalts. Der Check läuft in deinem Browser: Was du eingibst, wird nicht an uns gesendet, es sei denn, du entscheidest dich, den Fall an Anwälte zu senden.</p>
+  <h3 id="connect-de">Kontakt zu einem Anwalt (Pro)</h3>
+  <p>Pro-Abonnenten können einen Fall an bei Casebound registrierte Anwälte senden. Bevor ein Anwalt einen Fall sehen kann, prüfen wir Namen und Registernummer im amtlichen Register, aber wir prüfen weder Kompetenz noch Verfügbarkeit oder Honorare und empfehlen keinen Anwalt. Anwälte sehen deinen Fall ohne deinen Namen und deine E-Mail-Adresse. Du entscheidest, ob du deine Kontaktdaten mit einem Anwalt teilst, der Interesse anmeldet. Casebound stellt nur den Kontakt her. Es ist nicht Partei einer Vereinbarung zwischen dir und einem Anwalt, erhält aus dieser Vereinbarung weder Gebühr noch Provision und ist nicht verantwortlich für die Beratung oder Arbeit des Anwalts. Ein Mandatsverhältnis besteht erst, wenn ein Anwalt es direkt mit dir bestätigt. Du kannst einen Fall jederzeit über deine Kontoseite zurückziehen. Jeder Mandant kann bis zu fünf offene Fälle gleichzeitig haben.</p>
+  <h3 id="lawyers-de">Konten für Anwälte</h3>
+  <p>Konten für Anwälte sind kostenlos. Mit der Erstellung eines Kontos bestätigst du, dass du unter dem angegebenen Namen und der angegebenen Nummer bei einem italienischen Ordine degli Avvocati (Rechtsanwaltskammer) eingetragen bist, und du teilst uns mit, wenn sich das ändert. Du darfst die Fälle, die du siehst, nur nutzen, um zu entscheiden, ob du diesem Mandanten deine Dienste anbietest. Du darfst sie nicht kopieren, weitergeben oder für andere Zwecke nutzen, und du darfst einen Mandanten nicht auf anderem Weg kontaktieren. Für deine Kontakte mit Mandanten gelten die für dich maßgeblichen Berufsregeln, einschließlich der Regeln zur Information von Mandanten und zur Mandantengewinnung. Wir können ein Anwaltskonto sperren oder löschen, das gegen diese Bedingungen verstößt oder dessen Angaben wir nicht überprüfen können.</p>
+
+  <h2>3. Deine Pflichten</h2>
+  <ul>
+    <li><b>Halte Sachverhalte anonym.</b> Gib keine Namen, Kontaktdaten, Gesundheitsdaten, Strafsachen oder andere Informationen ein, die eine reale Person identifizieren. Gib kein Material ein, das dem Berufsgeheimnis oder einer Verschwiegenheitspflicht unterliegt. Was du eingibst, bleibt in deinem Browser (siehe den <a href="/privacy.html">Datenschutzhinweis</a>), aber du bleibst dafür verantwortlich, was du auf deinem Gerät speicherst.</li>
+    <li><b>Nutze es rechtmäßig.</b> Versuche nicht, die Website zu stören, ihre Grenzen zu umgehen, sie in großem Umfang automatisiert auszulesen oder sie zu nutzen, um anderen zu schaden.</li>
+    <li><b>Alter.</b> Du musst mindestens 18 Jahre alt sein, um Casebound zu nutzen.</li>
+  </ul>
+
+  <h3 id="accounts-de">Dein Konto</h3>
+  <ul>
+    <li>Für das kostenlose Recherchetool brauchst du kein Konto. Du brauchst eines, um ein Abonnement abzuschließen.</li>
+    <li>Gib eine echte E-Mail-Adresse an, über die du verfügst, halte dein Passwort geheim und teile dein Konto nicht. Melde dich unter <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>, wenn du glaubst, dass jemand anderes es benutzt hat.</li>
+    <li>Du kannst dein Konto jederzeit über die Kontoseite löschen. Wir können ein Konto, das gegen diese Bedingungen verstößt, sperren oder schließen, nachdem wir dir den Grund mitgeteilt haben, es sei denn, das Gesetz oder ein ernstes Risiko steht dem entgegen.</li>
+  </ul>
+
+  <h2>4. Inhalte und geistiges Eigentum</h2>
+  <ul>
+    <li>Gesetze, Verordnungen und Gerichtsentscheidungen sind amtliche Texte und nicht urheberrechtlich geschützt (Art. 5 des italienischen Gesetzes 633/1941).</li>
+    <li>Die Zusammenfassungen, Anmerkungen, die Taxonomie, das Design und der Code von Casebound sind unser Werk. Du darfst sie für dein eigenes Studium und deine eigene Recherche nutzen und kurze Auszüge mit Quellenangabe zitieren. Bitte veröffentliche den Quellenbestand oder das Tool nicht als Ganzes ohne Rückfrage.</li>
+    <li>Zitierte Bücher und Artikel bleiben Eigentum ihrer Autoren und Verlage. Casebound zeigt nur die Fundstellen an.</li>
+    <li>Material, das du selbst hinzufügst (Sachverhalte, Dateien, Notizen), bleibt deines. Es liegt in deinem Browser, und wir erhalten es nicht.</li>
+  </ul>
+
+  <h2>5. Verfügbarkeit</h2>
+  <p>Wir verbessern Casebound laufend und können Funktionen des kostenlosen Tools, oder das kostenlose Tool als Ganzes, jederzeit und ohne Ankündigung ändern, pausieren oder einstellen. Für Änderungen an kostenpflichtigen Tarifen gilt Abschnitt 6. In deinem Browser gespeicherte Daten können verloren gehen, wenn du deine Browserdaten löschst oder das Gerät wechselst. Exportiere alles, was du behalten möchtest.</p>
+
+  <h2 id="subscriptions-de">6. Kostenpflichtige Abonnements</h2>
+  <p><b>Kostenloser Tarif.</b> Du kannst Casebound kostenlos und ohne Konto nutzen, im Rahmen der auf der <a href="/pricing.html">Tarifseite</a> angegebenen Grenzen (zum Beispiel einer Anzahl von Analysen pro Tag und von gespeicherten Fällen). Die Grenzen werden in deinem Browser gezählt. Wir können sie jederzeit ändern; sie betreffen nie einen kostenpflichtigen Tarif, den du bereits gekauft hast.</p>
+  <p>Neben dem kostenlosen Tarif bietet Casebound kostenpflichtige Tarife an, die diese Grenzen aufheben. Was jeder Tarif umfasst und was er kostet, steht auf der <a href="/pricing.html">Tarifseite</a> und noch einmal beim Bezahlvorgang, bevor du zahlst.</p>
+  <h3>Vertrag und Zahlung</h3>
+  <ul>
+    <li><b>Vertragsbeginn.</b> Dein Abonnement beginnt, wenn der Bezahlvorgang abgeschlossen ist. Du erhältst eine Bestätigung und eine Quittung per E-Mail.</li>
+    <li><b>Zahlung.</b> Zahlungen werden von Stripe abgewickelt. Die verfügbaren Zahlungsmethoden werden beim Bezahlvorgang angezeigt. Wir sehen oder speichern niemals deine vollständigen Kartendaten. Der beim Bezahlvorgang angezeigte Preis ist der Endpreis, einschließlich der gegebenenfalls anfallenden Mehrwertsteuer.</li>
+    <li><b>Automatische Verlängerung.</b> Tarife verlängern sich automatisch am Ende jedes Abrechnungszeitraums (zum Beispiel monatlich oder jährlich), und die Abbuchung erfolgt zu Beginn jedes neuen Zeitraums, bis du kündigst.</li>
+    <li><b>Kostenlose Testphasen.</b> Wenn ein Tarif eine kostenlose Testphase enthält, wird dir bis zu deren Ende nichts berechnet. Kündigst du vor dem Ende der Testphase, zahlst du nichts.</li>
+    <li><b>Fehlgeschlagene Zahlungen.</b> Schlägt eine Zahlung fehl, versucht Stripe es erneut und benachrichtigt dich per E-Mail. Bleibt sie unbezahlt, kann das Abonnement ausgesetzt oder beendet werden.</li>
+  </ul>
+  <h3>Kündigung</h3>
+  <p>Du kannst jederzeit ohne Angabe von Gründen kündigen, über das <a href="/account.html">Abrechnungsportal</a> oder per E-Mail an <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>. Die Kündigung wird zum Ende des bereits bezahlten Zeitraums wirksam, und bis dahin behältst du den Zugang. Abgesehen vom unten beschriebenen Widerrufsrecht oder wenn das Gesetz es vorschreibt, werden bereits begonnene Zeiträume nicht erstattet.</p>
+  <h3>Widerrufsrecht (Verbraucher)</h3>
+  <p>Wenn du Verbraucher bist, kannst du den Vertrag binnen <b>14 Tagen</b> ab dem Tag des Vertragsschlusses ohne Angabe von Gründen widerrufen (Art. 52 ff. des italienischen Verbraucherschutzgesetzes, gesetzesvertretendes Dekret 206/2005). Um zu widerrufen, sende eine eindeutige Erklärung an <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>, zum Beispiel: „Ich widerrufe mein am [Datum] abgeschlossenes Casebound-Abonnement, E-Mail [Adresse].“ Es genügt, die Erklärung vor Ablauf der 14 Tage abzusenden.</p>
+  <p>Wir erstatten alle erhaltenen Zahlungen binnen 14 Tagen ab Eingang deiner Erklärung, über dasselbe Zahlungsmittel, das du verwendet hast, und ohne Kosten für dich (Art. 56). Mit dem Abschluss des Abonnements verlangst du, dass wir sofort mit der Leistung beginnen. Widerrufst du also, nachdem die Leistung begonnen hat, können wir einen Betrag einbehalten, der dem Anteil der bis zu deinem Widerruf erbrachten Leistung entspricht (Art. 57 Abs. 3). Während einer kostenlosen Testphase wurde nichts gezahlt, daher wird auch nichts abgezogen.</p>
+  <h3>Änderungen von Preisen und Tarifen</h3>
+  <ul>
+    <li>Wir können den Preis eines Tarifs ändern. Wir informieren dich mindestens 30 Tage im Voraus per E-Mail. Der neue Preis gilt erst ab deiner nächsten Verlängerung nach dieser Mitteilung, und du kannst kündigen, bevor er wirksam wird.</li>
+    <li>Wenn wir einen Tarif einstellen, informieren wir dich mindestens 30 Tage im Voraus und erstatten jeden im Voraus bezahlten Zeitraum, den du nicht nutzen konntest. Bei einem schweren Verstoß gegen diese Bedingungen, zum Beispiel einem Missbrauch des Dienstes, können wir ein Abonnement mit sofortiger Wirkung beenden.</li>
+  </ul>
+  <h3>Rechnungen und Beschwerden</h3>
+  <p>Quittungen und Rechnungen findest du im Abrechnungsportal. Bei allen Fragen zur Abrechnung schreibe an <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>. Wir antworten innerhalb von 14 Tagen. Deine gesetzlichen Rechte als Verbraucher bleiben unberührt.</p>
+
+  <h2>7. Haftung</h2>
+  <p>Das kostenlose Tool wird unentgeltlich und „wie besehen“ bereitgestellt. Soweit gesetzlich zulässig, und auch für kostenpflichtige Tarife, haften wir nicht für Schäden, die daraus entstehen, dass du dich auf die angezeigten Ergebnisse verlässt, aus Fehlern oder Auslassungen im Quellenbestand oder aus der Nichtverfügbarkeit des Dienstes.</p>
+  <p>Nichts in diesen Bedingungen beschränkt eine Haftung, die gesetzlich nicht beschränkt werden kann. Dazu gehört die Haftung für Vorsatz oder grobe Fahrlässigkeit (Art. 1229 des italienischen Zivilgesetzbuchs) sowie alle Rechte, auf die du als Verbraucher nicht verzichten kannst.</p>
+
+  <h2>8. Datenschutz</h2>
+  <p>Wie wir mit Daten umgehen, erklärt der <a href="/privacy.html">Datenschutzhinweis</a>, einschließlich des freiwilligen, standardmäßig deaktivierten Programms, das hilft, die Rangfolgen zu verbessern.</p>
+
+  <h2>9. Änderungen dieser Bedingungen</h2>
+  <p>Wir können diese Bedingungen aktualisieren. Das Datum oben zeigt die aktuelle Fassung. Wenn du Casebound nach einer Änderung weiter nutzt, akzeptierst du die neue Fassung.</p>
+
+  <h2>10. Anwendbares Recht und Streitigkeiten</h2>
+  <p>Diese Bedingungen unterliegen italienischem Recht. Wenn du Casebound als Verbraucher nutzt, behältst du den Schutz der zwingenden Vorschriften des Landes, in dem du lebst, und kannst vor den Gerichten deines Wohnorts klagen (Art. 66-bis des italienischen Verbraucherschutzgesetzes). Bei Fragen oder Beschwerden schreibe bitte zuerst an <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>. Wir bemühen uns um eine einvernehmliche Lösung.</p>
+</main>
+
+<!-- ======================= PORTUGUÊS ======================= -->
+<main lang="pt" data-lang-block="pt" hidden>
+  <p class="kicker">Termos de utilização</p>
+  <h1>Utilizar o Casebound</h1>
+  <p class="updated">Última atualização: 7 de outubro de 2026</p>
+  <p class="tr-note">Esta tradução é disponibilizada por conveniência. Em caso de divergência com a versão em inglês, prevalece a versão em inglês.</p>
+
+  <section class="summary">
+    <h2>Em resumo</h2>
+    <ul>
+      <li><b>O Casebound é um auxiliar de pesquisa, não um advogado.</b> Nada do que apresenta constitui aconselhamento jurídico, e a sua utilização não cria uma relação advogado-cliente.</li>
+      <li><b>Verifique pessoalmente cada fonte.</b> Os resumos são simplificados e podem estar desatualizados; leia sempre o texto oficial.</li>
+      <li><b>Não introduza dados confidenciais ou identificativos.</b> Utilize factos anonimizados, sobretudo em tudo o que envolva clientes ou outras pessoas.</li>
+      <li>O Casebound destina-se a adultos (maiores de 18 anos). Pode utilizá-lo gratuitamente dentro dos limites do plano gratuito. Os planos pagos opcionais eliminam esses limites; renovam-se automaticamente, podem ser cancelados a qualquer momento e conferem aos consumidores um direito de livre resolução de 14 dias (<a href="#subscriptions-pt">secção 6</a>).</li>
+    </ul>
+  </section>
+
+  <h2>1. Quem somos</h2>
+  <p>O Casebound (case-bound.com) é gerido por Kiyan Martinon, pessoa singular residente em Itália. Contacto: <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>. Ao utilizar o site, aceita estes termos. Se não os aceitar, pedimos-lhe que não o utilize.</p>
+
+  <h2>2. O que o Casebound é e o que não é</h2>
+  <p>O Casebound ajuda-o a explorar fontes jurídicas. Associa os factos de um caso às disposições aplicáveis, ordena decisões judiciais e outros documentos por semelhança textual e permite-lhe guardar as suas análises no seu navegador.</p>
+  <ul>
+    <li><b>Não é aconselhamento jurídico.</b> As classificações e as pontuações de semelhança são geradas automaticamente a partir do texto. Não avaliam o mérito do seu caso e não substituem o parecer de um advogado qualificado.</li>
+    <li><b>Nenhuma relação profissional.</b> Utilizar o Casebound ou escrever-nos não faz de nós o seu advogado e não cria qualquer dever de sigilo ou de diligência como o que um advogado tem para com o seu cliente.</li>
+    <li><b>Exatidão.</b> Esforçamo-nos por manter o corpus exato, mas as leis mudam e os resumos simplificam. Verifique sempre o texto oficial (por exemplo, no Normattiva, no EUR-Lex ou na base de dados do próprio tribunal) antes de se basear em qualquer fonte.</li>
+  </ul>
+
+  <h3 id="risk-check-pt">A avaliação de risco (Pro)</h3>
+  <p>Os assinantes Pro podem utilizar a <a href="/risk-check.html">avaliação de risco</a>. Esta classifica um caso como risco Baixo, Médio ou Alto utilizando apenas o que introduz: se o prazo habitual para esse tipo de pretensão parece ter expirado, as provas que indica, o nível de pormenor que fornece e o montante em causa. Os prazos são simplificados e alguns acontecimentos podem suspendê-los ou interrompê-los. A classificação não avalia o mérito do seu caso nem prevê o resultado, não constitui aconselhamento jurídico e não substitui a avaliação de um advogado. A avaliação é feita no seu navegador: o que escreve não nos é enviado, a menos que opte por enviar o caso a advogados.</p>
+  <h3 id="connect-pt">Contacto com um advogado (Pro)</h3>
+  <p>Os assinantes Pro podem enviar um caso aos advogados registados no Casebound. Verificamos o nome e o número de inscrição de cada advogado no registo oficial antes de este poder ver qualquer caso, mas não verificamos a sua competência, disponibilidade ou honorários, e não recomendamos nenhum advogado. Os advogados veem o seu caso sem o seu nome nem o seu email. É o utilizador que decide se partilha os seus dados de contacto com um advogado que manifeste interesse. O Casebound limita-se a pô-los em contacto. Não é parte em qualquer acordo entre o utilizador e um advogado, não recebe qualquer taxa ou comissão desse acordo e não é responsável pelo aconselhamento ou pelo trabalho do advogado. Não existe relação advogado-cliente até que um advogado a confirme diretamente consigo. Pode retirar um caso a qualquer momento na página da sua conta. Cada cliente pode ter até cinco casos abertos em simultâneo.</p>
+  <h3 id="lawyers-pt">Contas de advogado</h3>
+  <p>As contas de advogado são gratuitas. Ao criar uma, confirma que está inscrito numa Ordine degli Avvocati (ordem dos advogados) italiana com o nome e o número que indica, e compromete-se a informar-nos se isso mudar. Só pode utilizar os casos que vê para decidir se oferece os seus serviços a esse cliente. Não pode copiá-los, partilhá-los ou utilizá-los para qualquer outra finalidade, nem contactar um cliente por qualquer outra via. Os seus contactos com clientes regem-se pelas regras deontológicas que lhe são aplicáveis, incluindo as relativas à informação aos clientes e à angariação de clientela. Podemos suspender ou eliminar uma conta de advogado que viole estes termos ou cujos dados não consigamos verificar.</p>
+
+  <h2>3. As suas responsabilidades</h2>
+  <ul>
+    <li><b>Mantenha os factos anónimos.</b> Não introduza nomes, contactos, informações de saúde, matérias penais ou outras informações que identifiquem uma pessoa real. Não introduza material abrangido pelo segredo profissional ou por um dever de confidencialidade. O que escreve fica no seu navegador (consulte o <a href="/privacy.html">aviso de privacidade</a>), mas continua a ser responsável pelo que guarda no seu dispositivo.</li>
+    <li><b>Utilize-o de forma lícita.</b> Não tente perturbar o site, contornar os seus limites, extrair o seu conteúdo em massa ou utilizá-lo para prejudicar terceiros.</li>
+    <li><b>Idade.</b> Tem de ter pelo menos 18 anos para utilizar o Casebound.</li>
+  </ul>
+
+  <h3 id="accounts-pt">A sua conta</h3>
+  <ul>
+    <li>Não precisa de uma conta para utilizar a ferramenta de pesquisa gratuita. Precisa de uma para subscrever uma assinatura.</li>
+    <li>Indique um endereço de email real que controle, mantenha a sua palavra-passe em segredo e não partilhe a sua conta. Avise-nos em <a href="mailto:admin@case-bound.com">admin@case-bound.com</a> se achar que outra pessoa a utilizou.</li>
+    <li>Pode eliminar a sua conta a qualquer momento na página da conta. Podemos suspender ou encerrar uma conta que viole estes termos, depois de lhe explicarmos o motivo, salvo se a lei ou um risco grave o impedirem.</li>
+  </ul>
+
+  <h2>4. Conteúdos e propriedade intelectual</h2>
+  <ul>
+    <li>As leis, os regulamentos e as decisões judiciais são textos oficiais e não estão protegidos por direitos de autor (art. 5.º da Lei italiana n.º 633/1941).</li>
+    <li>Os resumos, as anotações, a taxonomia, o design e o código do Casebound são obra nossa. Pode utilizá-los para o seu próprio estudo e pesquisa e citar excertos curtos com indicação da fonte. Pedimos-lhe que não volte a publicar o corpus ou a ferramenta no seu conjunto sem autorização.</li>
+    <li>Os livros e artigos citados continuam a ser propriedade dos respetivos autores e editores. O Casebound apresenta apenas as referências.</li>
+    <li>O material que o próprio utilizador adiciona (factos, ficheiros, notas) continua a ser seu. Fica no seu navegador e não o recebemos.</li>
+  </ul>
+
+  <h2>5. Disponibilidade</h2>
+  <p>Estamos sempre a melhorar o Casebound e podemos alterar, suspender ou retirar funcionalidades da ferramenta gratuita, ou a ferramenta gratuita no seu conjunto, a qualquer momento e sem aviso prévio. As alterações aos planos pagos seguem a secção 6. Os dados guardados no seu navegador podem perder-se se apagar os dados de navegação ou mudar de dispositivo. Exporte tudo o que pretenda conservar.</p>
+
+  <h2 id="subscriptions-pt">6. Assinaturas pagas</h2>
+  <p><b>Plano gratuito.</b> Pode utilizar o Casebound gratuitamente, sem conta, dentro dos limites indicados na <a href="/pricing.html">página de Planos</a> (por exemplo, um número de análises por dia e de casos guardados). Os limites são contabilizados no seu navegador. Podemos alterá-los a qualquer momento; nunca afetam um plano pago que já tenha adquirido.</p>
+  <p>Para além do plano gratuito, o Casebound oferece planos pagos que eliminam esses limites. O que cada plano inclui e quanto custa é indicado na <a href="/pricing.html">página de Planos</a> e novamente no processo de pagamento, antes de pagar.</p>
+  <h3>Contrato e pagamento</h3>
+  <ul>
+    <li><b>Início do contrato.</b> A sua assinatura começa quando o processo de pagamento é concluído. Recebe uma confirmação e um recibo por email.</li>
+    <li><b>Pagamento.</b> Os pagamentos são processados pela Stripe. Os meios de pagamento disponíveis são indicados no processo de pagamento. Nunca vemos nem guardamos os dados completos do seu cartão. O preço apresentado no pagamento é o preço total, incluindo o IVA aplicável.</li>
+    <li><b>Renovação automática.</b> Os planos renovam-se automaticamente no fim de cada período de faturação (por exemplo, mensal ou anual), e a cobrança é feita no início de cada novo período, até que cancele.</li>
+    <li><b>Períodos experimentais gratuitos.</b> Se um plano incluir um período experimental gratuito, não lhe é cobrado nada até ao fim desse período. Se cancelar antes de terminar, não paga nada.</li>
+    <li><b>Pagamentos falhados.</b> Se um pagamento falhar, a Stripe tentará novamente e enviar-lhe-á um email. Se continuar por pagar, a assinatura pode ser suspensa ou terminada.</li>
+  </ul>
+  <h3>Cancelamento</h3>
+  <p>Pode cancelar a qualquer momento, sem indicar o motivo, no <a href="/account.html">portal de faturação</a> ou escrevendo para <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>. O cancelamento produz efeitos no fim do período já pago, e mantém o acesso até lá. Salvo o direito de livre resolução indicado abaixo, ou quando a lei o exija, os períodos já iniciados não são reembolsados.</p>
+  <h3>Direito de livre resolução (consumidores)</h3>
+  <p>Se for consumidor, pode resolver o contrato no prazo de <b>14 dias</b> a contar do dia da sua celebração, sem indicar qualquer motivo (art. 52.º e seguintes do Código do Consumo italiano, Decreto Legislativo n.º 206/2005). Para exercer este direito, envie uma declaração inequívoca para <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>, por exemplo: «Resolvo a minha assinatura do Casebound subscrita em [data], email [endereço].» Basta enviá-la antes de terminarem os 14 dias.</p>
+  <p>Reembolsamos todos os pagamentos recebidos no prazo de 14 dias a contar da receção da sua declaração, utilizando o mesmo meio de pagamento que utilizou e sem quaisquer custos para si (art. 56.º). Ao subscrever, pede-nos que iniciemos o serviço de imediato. Assim, se exercer o direito de livre resolução depois de o serviço ter começado, podemos reter um montante proporcional à parte do serviço prestada até ao momento da resolução (art. 57.º, n.º 3). Durante um período experimental gratuito nada foi pago, pelo que nada é deduzido.</p>
+  <h3>Alterações a preços e planos</h3>
+  <ul>
+    <li>Podemos alterar o preço de um plano. Avisá-lo-emos por email com pelo menos 30 dias de antecedência. O novo preço só se aplica a partir da sua próxima renovação após esse aviso, e pode cancelar antes de entrar em vigor.</li>
+    <li>Se descontinuarmos um plano, avisá-lo-emos com pelo menos 30 dias de antecedência e reembolsaremos qualquer período pré-pago que não tenha podido utilizar. Podemos terminar uma assinatura de imediato em caso de violação grave destes termos, por exemplo uma utilização abusiva do serviço.</li>
+  </ul>
+  <h3>Faturas e reclamações</h3>
+  <p>Os recibos e as faturas estão disponíveis no portal de faturação. Para qualquer questão de faturação, escreva para <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>. Respondemos no prazo de 14 dias. Os seus direitos legais enquanto consumidor não são afetados.</p>
+
+  <h2>7. Responsabilidade</h2>
+  <p>A ferramenta gratuita é disponibilizada sem custos e «tal como está». Na medida em que a lei o permita, e também para os planos pagos, não somos responsáveis por perdas resultantes da confiança depositada nos resultados apresentados, de erros ou omissões no corpus ou da indisponibilidade do serviço.</p>
+  <p>Nada nestes termos limita uma responsabilidade que a lei não permita limitar. Isto inclui a responsabilidade por dolo ou culpa grave (art. 1229.º do Código Civil italiano) e quaisquer direitos irrenunciáveis que tenha enquanto consumidor.</p>
+
+  <h2>8. Privacidade</h2>
+  <p>A forma como tratamos os dados é explicada no <a href="/privacy.html">aviso de privacidade</a>, incluindo o programa opcional, desativado por predefinição, que ajuda a melhorar as classificações.</p>
+
+  <h2>9. Alterações a estes termos</h2>
+  <p>Podemos atualizar estes termos. A data no topo indica a versão mais recente. Continuar a utilizar o Casebound após uma alteração significa que aceita a nova versão.</p>
+
+  <h2>10. Lei aplicável e litígios</h2>
+  <p>Estes termos regem-se pela lei italiana. Se utilizar o Casebound enquanto consumidor, mantém a proteção das normas imperativas do país onde reside e pode intentar ações nos tribunais do local onde reside (art. 66.º-bis do Código do Consumo italiano). Para questões ou reclamações, escreva primeiro para <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>. Procuramos resolver as questões de forma amigável.</p>
+</main>
+
+<!-- ======================= POLSKI ======================= -->
+<main lang="pl" data-lang-block="pl" hidden>
+  <p class="kicker">Warunki korzystania</p>
+  <h1>Korzystanie z Casebound</h1>
+  <p class="updated">Ostatnia aktualizacja: 7 października 2026</p>
+  <p class="tr-note">To tłumaczenie udostępniamy dla wygody. Jeśli różni się od wersji angielskiej, rozstrzygająca jest wersja angielska.</p>
+
+  <section class="summary">
+    <h2>W skrócie</h2>
+    <ul>
+      <li><b>Casebound to narzędzie badawcze, a nie prawnik.</b> Nic, co pokazuje, nie jest poradą prawną, a korzystanie z niego nie tworzy relacji prawnik–klient.</li>
+      <li><b>Sam sprawdzaj każde źródło.</b> Streszczenia są uproszczone i mogą być nieaktualne; zawsze czytaj oficjalny tekst.</li>
+      <li><b>Nie wpisuj poufnych ani identyfikujących danych.</b> Używaj zanonimizowanych faktów, zwłaszcza we wszystkim, co dotyczy klientów lub innych osób.</li>
+      <li>Casebound jest przeznaczony dla osób pełnoletnich (18+). Możesz korzystać z niego bezpłatnie w granicach limitów planu darmowego. Opcjonalne plany płatne znoszą te limity; odnawiają się automatycznie, można je anulować w dowolnym momencie, a konsumentom przysługuje 14-dniowe prawo odstąpienia od umowy (<a href="#subscriptions-pl">punkt 6</a>).</li>
+    </ul>
+  </section>
+
+  <h2>1. Kim jesteśmy</h2>
+  <p>Casebound (case-bound.com) prowadzi Kiyan Martinon, osoba fizyczna mieszkająca we Włoszech. Kontakt: <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>. Korzystając z serwisu, akceptujesz niniejsze warunki. Jeśli ich nie akceptujesz, prosimy, nie korzystaj z serwisu.</p>
+
+  <h2>2. Czym Casebound jest, a czym nie jest</h2>
+  <p>Casebound pomaga ci przeglądać źródła prawa. Przyporządkowuje fakty sprawy do przepisów, porządkuje orzeczenia i inne dokumenty według podobieństwa tekstu i pozwala zapisywać twoje analizy w przeglądarce.</p>
+  <ul>
+    <li><b>To nie jest porada prawna.</b> Rankingi i wskaźniki podobieństwa są generowane automatycznie na podstawie tekstu. Nie oceniają zasadności twojej sprawy i nie zastępują porady wykwalifikowanego prawnika.</li>
+    <li><b>Brak relacji zawodowej.</b> Korzystanie z Casebound ani napisanie do nas nie czyni nas twoim prawnikiem i nie tworzy obowiązku zachowania poufności ani staranności, jaki prawnik ma wobec klienta.</li>
+    <li><b>Dokładność.</b> Dbamy o to, by korpus był dokładny, ale prawo się zmienia, a streszczenia upraszczają. Zanim oprzesz się na jakimkolwiek źródle, zawsze sprawdź oficjalny tekst (na przykład w Normattiva, EUR-Lex lub w bazie danych danego sądu).</li>
+  </ul>
+
+  <h3 id="risk-check-pl">Ocena ryzyka (Pro)</h3>
+  <p>Subskrybenci Pro mogą korzystać z <a href="/risk-check.html">oceny ryzyka</a>. Ocenia ona sprawę jako ryzyko Niskie, Średnie lub Wysokie wyłącznie na podstawie tego, co wpiszesz: czy zwykły termin dla tego rodzaju roszczenia wydaje się upłynąć, jakie dowody wymieniasz, ile szczegółów podajesz i o jaką kwotę chodzi. Terminy są uproszczone, a niektóre zdarzenia mogą je zawiesić lub przerwać. Ocena nie bada zasadności twojej sprawy ani nie przewiduje jej wyniku, nie jest poradą prawną i nie zastępuje oceny prawnika. Ocena działa w twojej przeglądarce: to, co wpisujesz, nie jest do nas wysyłane, chyba że zdecydujesz się wysłać sprawę do prawników.</p>
+  <h3 id="connect-pl">Kontakt z prawnikiem (Pro)</h3>
+  <p>Subskrybenci Pro mogą wysłać sprawę do prawników zarejestrowanych w Casebound. Zanim prawnik zobaczy jakąkolwiek sprawę, sprawdzamy jego imię i nazwisko oraz numer wpisu w oficjalnym rejestrze, ale nie sprawdzamy jego kompetencji, dostępności ani wynagrodzenia i nie polecamy żadnego prawnika. Prawnicy widzą twoją sprawę bez twojego imienia i nazwiska oraz adresu e-mail. To ty decydujesz, czy udostępnić swoje dane kontaktowe prawnikowi, który zgłosi zainteresowanie. Casebound jedynie umożliwia kontakt. Nie jest stroną żadnej umowy między tobą a prawnikiem, nie pobiera z tytułu takiej umowy żadnej opłaty ani prowizji i nie odpowiada za porady ani pracę prawnika. Relacja prawnik–klient nie powstaje, dopóki prawnik nie potwierdzi jej bezpośrednio z tobą. Możesz w każdej chwili wycofać sprawę na stronie swojego konta. Każdy klient może mieć jednocześnie maksymalnie pięć otwartych spraw.</p>
+  <h3 id="lawyers-pl">Konta dla prawników</h3>
+  <p>Konta dla prawników są bezpłatne. Zakładając takie konto, potwierdzasz, że jesteś wpisany do włoskiej Ordine degli Avvocati (izby adwokackiej) pod podanym imieniem i nazwiskiem oraz numerem, i poinformujesz nas, jeśli to się zmieni. Sprawy, które widzisz, możesz wykorzystywać wyłącznie do podjęcia decyzji, czy zaoferować swoje usługi danemu klientowi. Nie możesz ich kopiować, udostępniać ani wykorzystywać w żadnym innym celu ani kontaktować się z klientem inną drogą. Twoje kontakty z klientami podlegają obowiązującym cię zasadom etyki zawodowej, w tym zasadom dotyczącym informowania klientów i pozyskiwania klientów. Możemy zawiesić lub usunąć konto prawnika, który narusza niniejsze warunki lub którego danych nie możemy zweryfikować.</p>
+
+  <h2>3. Twoje obowiązki</h2>
+  <ul>
+    <li><b>Zachowuj anonimowość faktów.</b> Nie wpisuj imion i nazwisk, danych kontaktowych, informacji o zdrowiu, spraw karnych ani innych informacji identyfikujących rzeczywistą osobę. Nie wpisuj materiałów objętych tajemnicą zawodową lub obowiązkiem zachowania poufności. To, co wpisujesz, zostaje w twojej przeglądarce (zob. <a href="/privacy.html">informację o prywatności</a>), ale nadal odpowiadasz za to, co przechowujesz na swoim urządzeniu.</li>
+    <li><b>Korzystaj zgodnie z prawem.</b> Nie próbuj zakłócać działania serwisu, obchodzić jego limitów, masowo pobierać jego treści ani wykorzystywać go do szkodzenia innym.</li>
+    <li><b>Wiek.</b> Aby korzystać z Casebound, musisz mieć ukończone 18 lat.</li>
+  </ul>
+
+  <h3 id="accounts-pl">Twoje konto</h3>
+  <ul>
+    <li>Do korzystania z bezpłatnego narzędzia badawczego nie potrzebujesz konta. Potrzebujesz go, aby wykupić subskrypcję.</li>
+    <li>Podaj prawdziwy adres e-mail, nad którym masz kontrolę, nie ujawniaj hasła i nie udostępniaj konta innym. Daj nam znać na <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>, jeśli uważasz, że ktoś inny z niego korzystał.</li>
+    <li>Możesz w każdej chwili usunąć swoje konto na stronie konta. Możemy zawiesić lub zamknąć konto naruszające niniejsze warunki, po wyjaśnieniu ci przyczyny, chyba że uniemożliwia to prawo lub poważne ryzyko.</li>
+  </ul>
+
+  <h2>4. Treści i własność intelektualna</h2>
+  <ul>
+    <li>Ustawy, rozporządzenia i orzeczenia sądowe są tekstami urzędowymi i nie są chronione prawem autorskim (art. 5 włoskiej ustawy nr 633/1941).</li>
+    <li>Streszczenia, glosy, taksonomia, projekt graficzny i kod Casebound są naszym dziełem. Możesz z nich korzystać do własnej nauki i badań oraz cytować krótkie fragmenty z podaniem źródła. Prosimy, nie publikuj ponownie korpusu ani narzędzia w całości bez pytania nas o zgodę.</li>
+    <li>Cytowane książki i artykuły pozostają własnością ich autorów i wydawców. Casebound pokazuje jedynie odwołania do nich.</li>
+    <li>Materiały, które dodajesz sam (fakty, pliki, notatki), pozostają twoje. Są przechowywane w twojej przeglądarce i ich nie otrzymujemy.</li>
+  </ul>
+
+  <h2>5. Dostępność</h2>
+  <p>Stale ulepszamy Casebound i możemy w dowolnym momencie i bez uprzedzenia zmieniać, wstrzymywać lub wycofywać funkcje bezpłatnego narzędzia albo bezpłatne narzędzie w całości. Zmiany planów płatnych podlegają punktowi 6. Dane zapisane w przeglądarce mogą zostać utracone, jeśli wyczyścisz dane przeglądarki lub zmienisz urządzenie. Wyeksportuj wszystko, co chcesz zachować.</p>
+
+  <h2 id="subscriptions-pl">6. Płatne subskrypcje</h2>
+  <p><b>Plan darmowy.</b> Możesz korzystać z Casebound bezpłatnie, bez konta, w granicach limitów podanych na <a href="/pricing.html">stronie Plany</a> (na przykład liczby analiz dziennie i zapisanych spraw). Limity są liczone w twojej przeglądarce. Możemy je zmienić w dowolnym momencie; nigdy nie dotyczą one planu płatnego, który już kupiłeś.</p>
+  <p>Oprócz planu darmowego Casebound oferuje plany płatne, które znoszą te limity. Co obejmuje każdy plan i ile kosztuje, pokazujemy na <a href="/pricing.html">stronie Plany</a> oraz ponownie podczas realizacji płatności, zanim zapłacisz.</p>
+  <h3>Umowa i płatność</h3>
+  <ul>
+    <li><b>Zawarcie umowy.</b> Twoja subskrypcja zaczyna się po zakończeniu procesu płatności. Otrzymujesz potwierdzenie i paragon e-mailem.</li>
+    <li><b>Płatność.</b> Płatności obsługuje Stripe. Dostępne metody płatności są pokazywane podczas realizacji płatności. Nigdy nie widzimy ani nie przechowujemy pełnych danych twojej karty. Cena pokazana przy płatności jest ceną całkowitą, obejmującą należny podatek VAT.</li>
+    <li><b>Automatyczne odnawianie.</b> Plany odnawiają się automatycznie na koniec każdego okresu rozliczeniowego (na przykład miesięcznego lub rocznego), a opłata jest pobierana na początku każdego nowego okresu, dopóki nie anulujesz subskrypcji.</li>
+    <li><b>Bezpłatne okresy próbne.</b> Jeśli plan obejmuje bezpłatny okres próbny, nie pobieramy opłaty przed jego zakończeniem. Jeśli anulujesz przed końcem okresu próbnego, nic nie płacisz.</li>
+    <li><b>Nieudane płatności.</b> Jeśli płatność się nie powiedzie, Stripe ponowi próbę i wyśle ci e-mail. Jeśli płatność nadal nie zostanie uregulowana, subskrypcja może zostać zawieszona lub zakończona.</li>
+  </ul>
+  <h3>Anulowanie</h3>
+  <p>Możesz anulować subskrypcję w dowolnym momencie, bez podawania przyczyny, w <a href="/account.html">portalu rozliczeniowym</a> lub pisząc na <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>. Anulowanie staje się skuteczne z końcem już opłaconego okresu, a do tego czasu zachowujesz dostęp. Poza opisanym niżej prawem odstąpienia od umowy lub gdy wymaga tego prawo, za rozpoczęte okresy nie przysługuje zwrot.</p>
+  <h3>Prawo odstąpienia od umowy (konsumenci)</h3>
+  <p>Jeśli jesteś konsumentem, możesz odstąpić od umowy w terminie <b>14 dni</b> od dnia jej zawarcia, bez podawania przyczyny (art. 52 i nast. włoskiego Kodeksu konsumenckiego, dekret ustawodawczy nr 206/2005). Aby odstąpić od umowy, wyślij jednoznaczne oświadczenie na <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>, na przykład: „Odstępuję od mojej subskrypcji Casebound zawartej dnia [data], e-mail [adres].” Wystarczy wysłać je przed upływem 14 dni.</p>
+  <p>Zwracamy wszystkie otrzymane płatności w terminie 14 dni od otrzymania twojego oświadczenia, przy użyciu tej samej metody płatności, z której skorzystałeś, bez żadnych kosztów po twojej stronie (art. 56). Wykupując subskrypcję, prosisz nas o natychmiastowe rozpoczęcie świadczenia usługi. Jeśli więc odstąpisz od umowy po rozpoczęciu świadczenia usługi, możemy zatrzymać kwotę proporcjonalną do części usługi wykonanej do chwili odstąpienia (art. 57 ust. 3). W bezpłatnym okresie próbnym nic nie zostało zapłacone, więc nic nie jest potrącane.</p>
+  <h3>Zmiany cen i planów</h3>
+  <ul>
+    <li>Możemy zmienić cenę planu. Poinformujemy cię o tym e-mailem z co najmniej 30-dniowym wyprzedzeniem. Nowa cena obowiązuje dopiero od pierwszego odnowienia po tym powiadomieniu, a przed jej wejściem w życie możesz anulować subskrypcję.</li>
+    <li>Jeśli wycofamy plan, powiadomimy cię z co najmniej 30-dniowym wyprzedzeniem i zwrócimy opłatę za każdy opłacony z góry okres, z którego nie mogłeś skorzystać. Możemy zakończyć subskrypcję ze skutkiem natychmiastowym w razie poważnego naruszenia niniejszych warunków, na przykład nadużywania usługi.</li>
+  </ul>
+  <h3>Faktury i reklamacje</h3>
+  <p>Paragony i faktury są dostępne w portalu rozliczeniowym. We wszystkich sprawach dotyczących rozliczeń pisz na <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>. Odpowiemy w ciągu 14 dni. Nie ma to wpływu na twoje ustawowe prawa konsumenta.</p>
+
+  <h2>7. Odpowiedzialność</h2>
+  <p>Bezpłatne narzędzie jest udostępniane nieodpłatnie i „w stanie, w jakim jest”. W zakresie dopuszczalnym przez prawo, również w przypadku planów płatnych, nie odpowiadamy za szkody wynikające z polegania na wyświetlanych wynikach, z błędów lub braków w korpusie ani z niedostępności usługi.</p>
+  <p>Nic w niniejszych warunkach nie ogranicza odpowiedzialności, której nie można ograniczyć zgodnie z prawem. Obejmuje to odpowiedzialność za winę umyślną lub rażące niedbalstwo (art. 1229 włoskiego Kodeksu cywilnego) oraz wszelkie prawa, których jako konsument nie możesz się zrzec.</p>
+
+  <h2>8. Prywatność</h2>
+  <p>Sposób, w jaki przetwarzamy dane, opisujemy w <a href="/privacy.html">informacji o prywatności</a>, w tym opcjonalny, domyślnie wyłączony program, który pomaga ulepszać rankingi.</p>
+
+  <h2>9. Zmiany niniejszych warunków</h2>
+  <p>Możemy aktualizować niniejsze warunki. Data na górze strony wskazuje najnowszą wersję. Dalsze korzystanie z Casebound po zmianie oznacza akceptację nowej wersji.</p>
+
+  <h2>10. Prawo właściwe i spory</h2>
+  <p>Niniejsze warunki podlegają prawu włoskiemu. Jeśli korzystasz z Casebound jako konsument, zachowujesz ochronę wynikającą z bezwzględnie obowiązujących przepisów kraju, w którym mieszkasz, i możesz wnieść sprawę do sądu właściwego dla twojego miejsca zamieszkania (art. 66-bis włoskiego Kodeksu konsumenckiego). W razie pytań lub reklamacji napisz najpierw na <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>. Staramy się rozwiązywać sprawy polubownie.</p>
+</main>
+
+<!-- ======================= العربية ======================= -->
+<main lang="ar" dir="rtl" data-lang-block="ar" hidden>
+  <p class="kicker">شروط الاستخدام</p>
+  <h1>استخدام Casebound</h1>
+  <p class="updated">آخر تحديث: 7 أكتوبر 2026</p>
+  <p class="tr-note">هذه الترجمة مقدَّمة للتيسير. وفي حال اختلافها عن النسخة الإنجليزية، تكون النسخة الإنجليزية هي المعتمدة.</p>
+
+  <section class="summary">
+    <h2>باختصار</h2>
+    <ul>
+      <li><b>Casebound أداة بحث وليس محاميًا.</b> لا شيء مما يعرضه يُعدّ استشارة قانونية، ولا ينشأ عن استخدامه أي علاقة بين محامٍ وموكّله.</li>
+      <li><b>تحقّق بنفسك من كل مصدر.</b> الملخصات مبسّطة وقد لا تكون محدَّثة؛ اقرأ النص الرسمي دائمًا.</li>
+      <li><b>لا تُدخل بيانات سرية أو بيانات تكشف الهوية.</b> استخدم وقائع مجهَّلة، خاصةً في كل ما يتعلق بالعملاء أو بأشخاص آخرين.</li>
+      <li>Casebound مخصّص للبالغين (18 عامًا فأكثر). يمكنك استخدامه مجانًا ضمن حدود الخطة المجانية. أما الخطط المدفوعة الاختيارية فترفع هذه الحدود؛ وهي تتجدّد تلقائيًا، ويمكن إلغاؤها في أي وقت، ويتمتّع المستهلكون فيها بحق الانسحاب خلال 14 يومًا (<a href="#subscriptions-ar">البند 6</a>).</li>
+    </ul>
+  </section>
+
+  <h2>1. من نحن</h2>
+  <p>يدير Casebound (case-bound.com) Kiyan Martinon، وهو شخص طبيعي مقيم في إيطاليا. للتواصل: <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>. باستخدامك الموقع فإنك تقبل هذه الشروط. وإن لم تقبلها، فنرجو منك عدم استخدامه.</p>
+
+  <h2>2. ما هو Casebound وما ليس هو</h2>
+  <p>يساعدك Casebound على استكشاف المصادر القانونية. فهو يربط وقائع القضية بالنصوص القانونية ذات الصلة، ويرتّب الأحكام القضائية والوثائق الأخرى بحسب التشابه النصي، ويتيح لك حفظ تحليلاتك في متصفحك.</p>
+  <ul>
+    <li><b>ليس استشارة قانونية.</b> تُنتَج الترتيبات ودرجات التشابه آليًا انطلاقًا من النص. وهي لا تقيّم موضوع قضيتك ولا تغني عن مشورة محامٍ مؤهَّل.</li>
+    <li><b>لا علاقة مهنية.</b> إن استخدامك Casebound أو مراسلتك لنا لا يجعلنا محاميك، ولا ينشئ أي التزام بالسرية أو بالعناية من النوع الذي يقع على المحامي تجاه موكّله.</li>
+    <li><b>الدقة.</b> نعمل على الحفاظ على دقة مجموعة المصادر، لكن القوانين تتغيّر والملخصات تبسّط. تحقّق دائمًا من النص الرسمي (مثلًا على Normattiva أو EUR-Lex أو قاعدة بيانات المحكمة نفسها) قبل الاعتماد على أي مصدر.</li>
+  </ul>
+
+  <h3 id="risk-check-ar">تقييم المخاطر (Pro)</h3>
+  <p>يمكن لمشتركي Pro استخدام <a href="/risk-check.html">تقييم المخاطر</a>. وهو يصنّف القضية بمستوى مخاطر منخفض أو متوسط أو مرتفع اعتمادًا فقط على ما تُدخله: هل يبدو أن المهلة المعتادة لهذا النوع من الدعاوى قد انقضت، وما الأدلة التي تذكرها، ومدى التفاصيل التي تقدّمها، والمبلغ موضوع النزاع. المُهل مبسّطة، وقد تؤدي بعض الوقائع إلى وقفها أو قطعها. لا يقيّم هذا التصنيف موضوع قضيتك ولا يتنبأ بنتيجتها، وليس استشارة قانونية، ولا يحلّ محل تقييم المحامي. يجري التقييم في متصفحك: فما تكتبه لا يُرسَل إلينا، إلا إذا اخترت إرسال القضية إلى محامين.</p>
+  <h3 id="connect-ar">التواصل مع محامٍ (Pro)</h3>
+  <p>يمكن لمشتركي Pro إرسال قضية إلى المحامين المسجَّلين في Casebound. نتحقّق من اسم كل محامٍ ورقم قيده في السجل الرسمي قبل أن يتمكّن من رؤية أي قضية، لكننا لا نتحقّق من كفاءته أو مدى توفّره أو أتعابه، ولا نوصي بأي محامٍ. يرى المحامون قضيتك دون اسمك أو بريدك الإلكتروني. وأنت من يقرّر ما إذا كنت ستشارك بيانات الاتصال الخاصة بك مع محامٍ يبدي اهتمامه. يقتصر دور Casebound على تيسير التواصل بينكما. فهو ليس طرفًا في أي اتفاق بينك وبين المحامي، ولا يتقاضى أي رسوم أو عمولة من ذلك الاتفاق، ولا يتحمّل مسؤولية مشورة المحامي أو عمله. ولا تقوم أي علاقة بين محامٍ وموكّله إلا بعد أن يؤكّدها المحامي معك مباشرة. يمكنك سحب القضية في أي وقت من صفحة حسابك. ويمكن لكل عميل أن تكون لديه خمس قضايا مفتوحة كحدّ أقصى في الوقت نفسه.</p>
+  <h3 id="lawyers-ar">حسابات المحامين</h3>
+  <p>حسابات المحامين مجانية. وبإنشائك حسابًا منها، تؤكّد أنك مقيَّد في إحدى نقابات المحامين الإيطالية (Ordine degli Avvocati) بالاسم والرقم اللذين تقدّمهما، وتتعهّد بإبلاغنا بأي تغيير في ذلك. لا يجوز لك استخدام القضايا التي تطّلع عليها إلا لتقرّر ما إذا كنت ستعرض خدماتك على ذلك العميل. ولا يجوز لك نسخها أو مشاركتها أو استخدامها لأي غرض آخر، ولا التواصل مع العميل بأي وسيلة أخرى. تخضع اتصالاتك بالعملاء لقواعد السلوك المهني السارية عليك، بما فيها القواعد المتعلقة بإعلام العملاء واستقطابهم. ويجوز لنا تعليق أو حذف حساب المحامي الذي يخالف هذه الشروط أو الذي يتعذّر علينا التحقق من بياناته.</p>
+
+  <h2>3. مسؤولياتك</h2>
+  <ul>
+    <li><b>حافظ على إخفاء هوية الوقائع.</b> لا تُدخل أسماء أو بيانات اتصال أو معلومات صحية أو مسائل جنائية أو أي معلومات أخرى تكشف هوية شخص حقيقي. ولا تُدخل مواد مشمولة بالسر المهني أو بالتزام بالسرية. يبقى ما تكتبه في متصفحك (انظر <a href="/privacy.html">إشعار الخصوصية</a>)، لكنك تظل مسؤولًا عمّا تحفظه على جهازك.</li>
+    <li><b>استخدمه بصورة مشروعة.</b> لا تحاول تعطيل الموقع أو التحايل على حدوده أو استخراج محتواه بكميات كبيرة أو استخدامه للإضرار بالآخرين.</li>
+    <li><b>السن.</b> يجب ألا يقل عمرك عن 18 عامًا لاستخدام Casebound.</li>
+  </ul>
+
+  <h3 id="accounts-ar">حسابك</h3>
+  <ul>
+    <li>لا تحتاج إلى حساب لاستخدام أداة البحث المجانية. وتحتاج إلى حساب لشراء اشتراك.</li>
+    <li>قدّم عنوان بريد إلكتروني حقيقيًا تتحكّم فيه، وحافظ على سرية كلمة المرور، ولا تشارك حسابك مع غيرك. أبلغنا على <a href="mailto:admin@case-bound.com">admin@case-bound.com</a> إذا اعتقدت أن شخصًا آخر قد استخدمه.</li>
+    <li>يمكنك حذف حسابك في أي وقت من صفحة الحساب. ويجوز لنا تعليق أو إغلاق الحساب الذي يخالف هذه الشروط، بعد أن نبيّن لك السبب، ما لم يمنع ذلك القانونُ أو خطرٌ جسيم.</li>
+  </ul>
+
+  <h2>4. المحتوى والملكية الفكرية</h2>
+  <ul>
+    <li>القوانين واللوائح والأحكام القضائية نصوص رسمية لا تحميها حقوق المؤلف (المادة 5 من القانون الإيطالي رقم 633/1941).</li>
+    <li>الملخصات والتعليقات والتصنيف والتصميم والشيفرة البرمجية الخاصة بـ Casebound من عملنا. يمكنك استخدامها لدراستك وبحثك الشخصيين، واقتباس مقتطفات قصيرة منها مع ذكر المصدر. ونرجو منك عدم إعادة نشر مجموعة المصادر أو الأداة بأكملها دون استئذاننا.</li>
+    <li>تظل الكتب والمقالات المستشهد بها ملكًا لمؤلفيها وناشريها. ولا يعرض Casebound سوى الإحالات إليها.</li>
+    <li>المواد التي تضيفها بنفسك (الوقائع والملفات والملاحظات) تبقى ملكًا لك. فهي تبقى في متصفحك ولا نتلقّاها.</li>
+  </ul>
+
+  <h2>5. التوفّر</h2>
+  <p>نعمل باستمرار على تحسين Casebound، ويجوز لنا تغيير ميزات الأداة المجانية أو إيقافها مؤقتًا أو سحبها، أو الأداة المجانية بأكملها، في أي وقت ودون إشعار مسبق. وتخضع التغييرات على الخطط المدفوعة للبند 6. وقد تُفقد البيانات المحفوظة في متصفحك إذا مسحت بيانات المتصفح أو غيّرت جهازك. صدِّر كل ما تريد الاحتفاظ به.</p>
+
+  <h2 id="subscriptions-ar">6. الاشتراكات المدفوعة</h2>
+  <p><b>الخطة المجانية.</b> يمكنك استخدام Casebound مجانًا ودون حساب، ضمن الحدود المبيّنة في <a href="/pricing.html">صفحة الخطط</a> (مثل عدد التحليلات في اليوم وعدد القضايا المحفوظة). تُحتسَب هذه الحدود في متصفحك. ويجوز لنا تغييرها في أي وقت؛ ولا تمسّ أبدًا خطة مدفوعة سبق أن اشتريتها.</p>
+  <p>إلى جانب الخطة المجانية، يقدّم Casebound خططًا مدفوعة ترفع هذه الحدود. وتُبيَّن مزايا كل خطة وسعرها في <a href="/pricing.html">صفحة الخطط</a> ومرة أخرى عند إتمام الدفع، قبل أن تدفع.</p>
+  <h3>العقد والدفع</h3>
+  <ul>
+    <li><b>بدء العقد.</b> يبدأ اشتراكك عند اكتمال عملية الدفع. وتتلقّى تأكيدًا وإيصالًا عبر البريد الإلكتروني.</li>
+    <li><b>الدفع.</b> تتولّى Stripe معالجة المدفوعات. وتُعرض وسائل الدفع المتاحة عند إتمام الدفع. لا نطّلع أبدًا على بيانات بطاقتك كاملةً ولا نحفظها. والسعر المعروض عند الدفع هو السعر الكامل، شاملًا ضريبة القيمة المضافة المطبَّقة إن وُجدت.</li>
+    <li><b>التجديد التلقائي.</b> تتجدّد الخطط تلقائيًا في نهاية كل فترة فوترة (شهرية أو سنوية مثلًا)، ويُخصم المبلغ في بداية كل فترة جديدة، إلى أن تلغي الاشتراك.</li>
+    <li><b>الفترات التجريبية المجانية.</b> إذا تضمّنت الخطة فترة تجريبية مجانية، فلن يُخصم منك أي مبلغ قبل انتهائها. وإذا ألغيت قبل انتهاء الفترة التجريبية، فلن تدفع شيئًا.</li>
+    <li><b>الدفعات المتعثّرة.</b> إذا تعذّر الدفع، تعيد Stripe المحاولة وترسل إليك رسالة بالبريد الإلكتروني. وإذا ظلّ المبلغ غير مسدَّد، فقد يُعلَّق الاشتراك أو يُنهى.</li>
+  </ul>
+  <h3>الإلغاء</h3>
+  <p>يمكنك الإلغاء في أي وقت، دون إبداء أي سبب، من <a href="/account.html">بوابة الفوترة</a> أو بالكتابة إلى <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>. ويسري الإلغاء في نهاية الفترة التي دفعت مقابلها، وتحتفظ بإمكانية الوصول حتى ذلك الحين. وباستثناء حق الانسحاب المبيّن أدناه، أو حيث يقتضي القانون ذلك، لا تُستردّ قيمة الفترات التي بدأت بالفعل.</p>
+  <h3>حق الانسحاب (للمستهلكين)</h3>
+  <p>إذا كنت مستهلكًا، يحق لك الانسحاب من العقد خلال <b>14 يومًا</b> من يوم إبرامه، دون إبداء أي سبب (المواد 52 وما يليها من قانون المستهلك الإيطالي، المرسوم التشريعي رقم 206/2005). وللانسحاب، أرسل إقرارًا صريحًا إلى <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>، مثلًا: «أنسحب من اشتراكي في Casebound المبرم بتاريخ [التاريخ]، البريد الإلكتروني [العنوان].» ويكفي أن ترسله قبل انقضاء مهلة الـ 14 يومًا.</p>
+  <p>نردّ إليك جميع المبالغ المستلمة خلال 14 يومًا من تلقّي إقرارك، باستخدام وسيلة الدفع نفسها التي استخدمتها، ودون أي تكلفة عليك (المادة 56). وباشتراكك فإنك تطلب منا بدء تقديم الخدمة فورًا. لذلك، إذا انسحبت بعد بدء الخدمة، يجوز لنا الاحتفاظ بمبلغ يتناسب مع الجزء المقدَّم من الخدمة حتى تاريخ انسحابك (المادة 57، الفقرة 3). وخلال الفترة التجريبية المجانية لم يُدفع أي مبلغ، وبالتالي لا يُخصم شيء.</p>
+  <h3>تغيير الأسعار والخطط</h3>
+  <ul>
+    <li>يجوز لنا تغيير سعر أي خطة. وسنبلغك بذلك عبر البريد الإلكتروني قبل 30 يومًا على الأقل. ولا يُطبَّق السعر الجديد إلا ابتداءً من أول تجديد لاحق لذلك الإشعار، ويمكنك الإلغاء قبل سريانه.</li>
+    <li>إذا أوقفنا خطة ما، فسنمنحك إشعارًا مسبقًا لا يقل عن 30 يومًا، وسنردّ إليك قيمة أي فترة مدفوعة مسبقًا لم تتمكّن من استخدامها. ويجوز لنا إنهاء الاشتراك فورًا في حال مخالفة جسيمة لهذه الشروط، كإساءة استخدام الخدمة مثلًا.</li>
+  </ul>
+  <h3>الفواتير والشكاوى</h3>
+  <p>تتوفّر الإيصالات والفواتير في بوابة الفوترة. ولأي استفسار يتعلق بالفوترة، اكتب إلى <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>. وسنردّ عليك خلال 14 يومًا. ولا يمسّ ذلك حقوقك القانونية بصفتك مستهلكًا.</p>
+
+  <h2>7. المسؤولية</h2>
+  <p>تُقدَّم الأداة المجانية دون مقابل و«على حالها». وفي الحدود التي يسمح بها القانون، وكذلك بالنسبة إلى الخطط المدفوعة، لا نتحمّل المسؤولية عن أي خسارة تنشأ عن الاعتماد على النتائج التي تعرضها، أو عن أخطاء أو إغفالات في مجموعة المصادر، أو عن عدم توفّر الخدمة.</p>
+  <p>لا شيء في هذه الشروط يحدّ من مسؤولية لا يجوز الحدّ منها قانونًا. ويشمل ذلك المسؤولية عن الغش أو الخطأ الجسيم (المادة 1229 من القانون المدني الإيطالي)، وأي حقوق مقرَّرة لك بصفتك مستهلكًا لا يجوز التنازل عنها.</p>
+
+  <h2>8. الخصوصية</h2>
+  <p>نشرح كيفية تعاملنا مع البيانات في <a href="/privacy.html">إشعار الخصوصية</a>، بما في ذلك البرنامج الاختياري، المعطَّل افتراضيًا، الذي يساعد على تحسين الترتيبات.</p>
+
+  <h2>9. التغييرات على هذه الشروط</h2>
+  <p>يجوز لنا تحديث هذه الشروط. ويشير التاريخ المذكور في الأعلى إلى أحدث نسخة. واستمرارك في استخدام Casebound بعد أي تغيير يعني قبولك للنسخة الجديدة.</p>
+
+  <h2>10. القانون الواجب التطبيق والنزاعات</h2>
+  <p>تخضع هذه الشروط للقانون الإيطالي. وإذا كنت تستخدم Casebound بصفتك مستهلكًا، فإنك تحتفظ بالحماية التي توفّرها القواعد الآمرة في البلد الذي تقيم فيه، ويحق لك رفع الدعوى أمام محاكم مكان إقامتك (المادة 66 مكرر من قانون المستهلك الإيطالي). وللأسئلة أو الشكاوى، اكتب أولًا إلى <a href="mailto:admin@case-bound.com">admin@case-bound.com</a>. ونسعى إلى حلّ المسائل بصورة ودية.</p>
+</main>
+
 <footer>
   <div>
-    <a href="/">← Back to Casebound</a>
-    <a href="/privacy.html">Privacy notice</a>
-    <a href="/pricing.html">Plans &amp; subscriptions</a>
-    <a href="mailto:admin@case-bound.com">Contact / complaints: admin@case-bound.com</a>
+    <a href="/" data-t="back">← Back to Casebound</a>
+    <a href="/privacy.html" data-t="privacy">Privacy notice</a>
+    <a href="/pricing.html" data-t="plans">Plans &amp; subscriptions</a>
+    <a href="mailto:admin@case-bound.com"><span data-t="contact">Contact / complaints</span>: admin@case-bound.com</a>
     <span>© 2026 Kiyan Martinon</span>
   </div>
 </footer>
 
 <script>
 (function(){
-  var btns = document.querySelectorAll(".lang button");
-  function setLang(l){
-    document.documentElement.lang = l;
+  var I = window.CB_I18N || { get: function(){ return "en"; }, set: function(){}, onChange: function(){}, pick: function(d){ return d.en; }, codes: ["en"] };
+  var CODES = I.codes || ["en", "it", "es", "fr", "de", "pt", "pl", "ar"];
+  var TITLE = {
+    en: "Terms of use — Casebound",
+    it: "Condizioni d'uso — Casebound",
+    es: "Condiciones de uso — Casebound",
+    fr: "Conditions d'utilisation — Casebound",
+    de: "Nutzungsbedingungen — Casebound",
+    pt: "Termos de utilização — Casebound",
+    pl: "Warunki korzystania — Casebound",
+    ar: "شروط الاستخدام — Casebound"
+  };
+  var DESC = {
+    en: "The terms for using Casebound, a legal research aid.",
+    it: "Le condizioni per usare Casebound, uno strumento di supporto alla ricerca giuridica.",
+    es: "Las condiciones para usar Casebound, una herramienta de investigación jurídica.",
+    fr: "Les conditions d'utilisation de Casebound, une aide à la recherche juridique.",
+    de: "Die Bedingungen für die Nutzung von Casebound, einer juristischen Recherchehilfe.",
+    pt: "Os termos de utilização do Casebound, um auxiliar de pesquisa jurídica.",
+    pl: "Warunki korzystania z Casebound, narzędzia do badań prawniczych.",
+    ar: "شروط استخدام Casebound، أداة للبحث القانوني."
+  };
+  var T = {
+    back:    { en: "← Back to Casebound", it: "← Torna a Casebound", es: "← Volver a Casebound", fr: "← Retour à Casebound", de: "← Zurück zu Casebound", pt: "← Voltar ao Casebound", pl: "← Wróć do Casebound", ar: "→ العودة إلى Casebound" },
+    privacy: { en: "Privacy notice", it: "Informativa privacy", es: "Aviso de privacidad", fr: "Politique de confidentialité", de: "Datenschutzhinweis", pt: "Aviso de privacidade", pl: "Informacja o prywatności", ar: "إشعار الخصوصية" },
+    plans:   { en: "Plans & subscriptions", it: "Piani e abbonamenti", es: "Planes y suscripciones", fr: "Offres et abonnements", de: "Tarife und Abonnements", pt: "Planos e assinaturas", pl: "Plany i subskrypcje", ar: "الخطط والاشتراكات" },
+    contact: { en: "Contact / complaints", it: "Contatti / reclami", es: "Contacto / reclamaciones", fr: "Contact / réclamations", de: "Kontakt / Beschwerden", pt: "Contacto / reclamações", pl: "Kontakt / reklamacje", ar: "التواصل / الشكاوى" }
+  };
+  function has(c){ return !!document.querySelector('[data-lang-block="' + c + '"]'); }
+  function shown(){ var c = I.get(); return has(c) ? c : "en"; }
+  function render(){
+    var l = shown();
     document.querySelectorAll("[data-lang-block]").forEach(function(b){ b.hidden = b.getAttribute("data-lang-block") !== l; });
-    btns.forEach(function(b){ b.setAttribute("aria-pressed", b.getAttribute("data-lang") === l ? "true" : "false"); });
-    document.title = l === "it" ? "Condizioni d'uso — Casebound" : "Terms of use — Casebound";
+    document.querySelectorAll("[data-t]").forEach(function(el){ var d = T[el.getAttribute("data-t")]; if (d) el.textContent = d[l] || d.en; });
+    document.title = TITLE[l] || TITLE.en;
+    var m = document.querySelector('meta[name="description"]');
+    if (m) m.setAttribute("content", DESC[l] || DESC.en);
   }
-  btns.forEach(function(b){ b.addEventListener("click", function(){ setLang(b.getAttribute("data-lang")); }); });
-  var h = location.hash.replace(/^#/, "");
-  var itBrowser = /^it\b/i.test(navigator.language || "");
-  var want = (h === "it" || /-it$/.test(h)) ? "it" : (h === "en" ? "en" : (itBrowser ? "it" : "en"));
-  setLang(want);
-  if (h && h !== "it" && h !== "en") {
-    var base = h.replace(/-it$/, "");
-    var el = document.getElementById(want === "it" ? base + "-it" : base);
-    if (el) setTimeout(function(){ el.scrollIntoView(); }, 0);
+  /* Deep links: #subscriptions opens that section in the current language;
+     #subscriptions-it (or -es, -fr, …) switches to that language first. */
+  function goToHash(){
+    var h = location.hash.replace(/^#/, "");
+    try { h = decodeURIComponent(h); } catch (e) {}
+    if (!h) return;
+    var base = h, m = /^(.+)-([a-z]{2})$/.exec(h);
+    if (m && CODES.indexOf(m[2]) >= 0 && m[2] !== "en" && document.getElementById(h)) {
+      base = m[1];
+      if (m[2] !== I.get()) I.set(m[2]);
+    }
+    var l = shown();
+    var el = document.getElementById(l === "en" ? base : base + "-" + l) || document.getElementById(h);
+    if (el && !el.closest("[hidden]")) setTimeout(function(){ el.scrollIntoView(); }, 0);
   }
+  I.onChange(render);
+  window.addEventListener("hashchange", goToHash);
+  render();
+  goToHash();
 })();
 </script>
 </body>
