@@ -113,6 +113,19 @@ textarea{font-family:var(--serif);font-size:15px;line-height:1.5;min-height:140p
 .verdict.ok{color:var(--verdigris)} .verdict.warn{color:var(--amber)} .verdict.bad{color:var(--oxblood)}
 .tip{grid-column:2;font-size:13px;color:var(--ink-soft);line-height:1.45}
 @media(max-width:520px){.factor{grid-template-columns:1fr}.tip{grid-column:1}}
+.ev-an{display:grid;gap:10px;border-top:1px solid var(--rule);padding-top:16px}
+.ev-an h3{margin:0;font-family:var(--serif);font-size:18px;font-weight:600;flex:1 1 260px;line-height:1.3}
+.ev-kicker{margin:0;font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
+.ev-an .factor{grid-template-columns:190px minmax(0,1fr)}
+@media (max-width:560px){.ev-an .factor{grid-template-columns:1fr}.ev-an .tip{grid-column:1}}
+.ev-text{margin:0;font-size:14px;line-height:1.5}
+.ev-h{margin:6px 0 0;font-size:13px;font-weight:700}
+.ev-key,.ev-warn{margin:0;padding:0;list-style:none;display:grid;gap:6px;font-size:13.5px}
+.ev-key li{display:flex;gap:8px;align-items:baseline;padding:8px 12px;border-radius:5px;background:var(--paper)}
+.ev-key li.has span{color:var(--verdigris);font-weight:700}
+.ev-key li.miss{color:var(--ink-soft)}
+.ev-key li.miss i{color:var(--amber);font-style:normal;font-weight:600;font-size:12px}
+.ev-warn li{padding:8px 12px;border-radius:5px;background:var(--amber-wash);color:var(--ink);line-height:1.45}
 .fine{font-size:12.5px;color:var(--ink-soft);margin:0;line-height:1.5}
 .c-h{margin:0;font-family:var(--serif);font-size:20px;font-weight:600}
 .consent{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--ink-soft);line-height:1.45}
@@ -314,6 +327,90 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
   }
   function lc(s){ return s.charAt(0).toLowerCase() + s.slice(1); }
 
+  /* ---- Evidence analysis ----
+     Reads the ticked boxes and the client's own description (English or Italian) and rates each piece.
+     Keyword-based and run in the browser: it is a guide to what a lawyer will look for, not a legal opinion. */
+  var EV_ITEMS = [
+    {id:"admission", name:"Written admission by the other side", s:"strong", re:/\b(admit|admits|admitted|admission|acknowledg\w*|ammett\w*|ammesso|ammissione|riconosc\w*)/i, why:"When the other side admits the problem in writing, it is one of the most persuasive things you can show."},
+    {id:"contract", name:"Contract or written agreement", s:"strong", re:/contract|contratt\w*|agreement|\blease\b|accordo|scrittura privata/i, why:"Shows what was agreed. Keep the signed original."},
+    {id:"pec", name:"Certified email (PEC) or registered letter", s:"strong", re:/\bpec\b|certified e-?mail|raccomandat\w*|registered (letter|mail|post)|\ba\/r\b/i, why:"Gives legal proof of what you sent and when it arrived, which can also interrupt a time limit (art. 2943 c.c.)."},
+    {id:"payment", name:"Proof of payment or costs", s:"strong", re:/invoice|receipt|fattur\w*|ricevut\w*|scontrin\w*|bank transfer|bonifico|bank statement|estratto conto|payslip|busta paga|cedolin\w*/i, why:"Documents the money involved, which is what you can claim back."},
+    {id:"official", name:"Police or official report", s:"strong", re:/police|polizia|carabinieri|vigili|verbale|denuncia|official report|constatazione amichevole|\bcid\b|accident report/i, why:"Written by a third party at the time, so it is hard to dispute."},
+    {id:"expert", name:"Expert or technical report", s:"strong", re:/expert report|perizia|perito|surveyor|engineer|geometra|technical report|plumber|mechanic|meccanico|\bctp\b/i, why:"An independent professional's view of the cause and cost of the damage."},
+    {id:"medical", name:"Medical records", s:"strong", re:/medical (record|report|certificate)|certificato medico|referto|cartella clinica|pronto soccorso|emergency room|\ber\b visit|hospital (record|report|discharge)|dimissione/i, why:"Proves the injury, its seriousness and when it was treated."},
+    {id:"letter", name:"The decision or letter you are challenging", s:"strong", re:/(dismissal|termination) letter|lettera di licenziamento|licenziamento|decreto ingiuntivo|cartella esattoriale|avviso di accertamento|\bfine\b|multa|minutes|verbale di assemblea/i, why:"The document itself fixes the date the time limit starts and what exactly you are challenging."},
+    {id:"photos", name:"Photos or video", s:"support", re:/photo|foto|picture|immagin\w*|video/i, why:"Shows the damage or situation. Photos with a visible date or metadata carry more weight."},
+    {id:"messages", name:"Emails or messages", s:"support", re:/e-?mail|whatsapp|messag\w*|\bsms\b|\bchat\b|telegram/i, why:"Shows what was said, but can be disputed. Export full chats instead of cropped screenshots."},
+    {id:"witness", name:"Witnesses", s:"support", re:/witness|testimon\w*|saw it|saw what|ha visto/i, why:"Courts hear witnesses, but memories fade. Write down their names and what they saw now."},
+    {id:"recording", name:"Audio recording", s:"support", re:/record(ed|ing)|registrazion\w*|registrat[oa] la|audio/i, why:"Recording a conversation you take part in is generally usable in Italy, but the other side can contest it."},
+    {id:"screens", name:"Screenshots", s:"support", re:/screenshot|screen shot|schermat\w*/i, why:"Useful, but easy to challenge. Keep the original messages or page too, with the date and link."}
+  ];
+  var EV_WEAK = [
+    {re:/verbal(ly)?|\boral(ly)?\b|by phone|phone call|over the phone|told me|verbalmente|a voce|al telefono|per telefono/i, msg:"Part of it was only said out loud. Verbal agreements are valid but hard to prove. Confirm it now by email or PEC."},
+    {re:/unsigned|not signed|never signed|non firmat\w*|draft|bozza/i, msg:"An unsigned document proves much less than a signed one. Look for any message where the other side accepted it."},
+    {re:/\blost\b|deleted|cancellat\w*|smarrit\w*|don'?t have|no longer have|non ho più|non li ho/i, msg:"Some evidence seems to be lost. Ask the other side, your bank, phone provider or email account for copies before they disappear."},
+    {re:/only (a )?(photo)?cop(y|ies)|solo (una )?(foto)?copi\w*|photocop\w*/i, msg:"You mention only copies. Keep looking for originals; a copy can be challenged."}
+  ];
+  /* What lawyers usually want to see, by type of problem. Each entry: label and a test on the text. */
+  var EV_KEY = {
+    dismissal:[["The dismissal letter",/dismissal|termination|licenziament/i],["Employment contract",/contract|contratt/i],["Payslips",/payslip|busta paga|cedolin/i],["Any written warnings",/warning|disciplinar|contestazion|richiam/i]],
+    employment:[["Employment contract",/contract|contratt/i],["Payslips",/payslip|busta paga|cedolin/i],["Records of hours or tasks",/timesheet|hours|ore|orari|turni|shift/i],["Messages with your employer",/e-?mail|messag|whatsapp|chat|pec/i]],
+    goods:[["Receipt or invoice",/receipt|invoice|ricevut|fattur|scontrin/i],["Photos of the defect",/photo|foto|video/i],["Written complaint to the seller",/complain|reclam|e-?mail|pec|raccomandat|letter|lettera/i]],
+    consumer:[["Receipt, invoice or order confirmation",/receipt|invoice|order|ricevut|fattur|scontrin|ordine/i],["Photos of the defect",/photo|foto|video/i],["Written complaint to the seller",/complain|reclam|e-?mail|pec|raccomandat|letter|lettera/i]],
+    contract:[["The contract or agreement",/contract|contratt|agreement|accordo/i],["Invoices or proof of what was delivered",/invoice|fattur|receipt|ricevut|delivery|consegna|ddt/i],["A formal demand for payment",/demand|diffida|messa in mora|sollecit|pec|raccomandat|reminder/i]],
+    injury:[["Medical records",/medical|medic|referto|certificat|pronto soccorso|hospital|ospedal/i],["Photos",/photo|foto|video/i],["Witnesses",/witness|testimon/i],["Receipts for your costs",/receipt|invoice|ricevut|fattur/i]],
+    road:[["Police report or joint accident form (CID)",/police|polizia|carabinieri|vigili|verbale|constatazione|\bcid\b|accident report/i],["Photos of the scene and damage",/photo|foto|video/i],["Repair quote or invoice",/quote|preventiv|invoice|fattur|repair|riparazion/i],["Medical records, if anyone was hurt",/medical|referto|certificat|pronto soccorso|hospital/i]],
+    building:[["Expert or technical report",/expert|perizia|perito|engineer|geometra|technical/i],["Photos of the defects",/photo|foto|video/i],["Purchase deed or building contract",/deed|rogito|atto|contract|contratt/i],["Written notice to the builder",/notice|denuncia|pec|raccomandat|letter|lettera|e-?mail/i]],
+    tenancy:[["The lease (ideally registered)",/lease|contract|contratt|locazion/i],["Proof of rent or deposit paid",/bank|bonifico|receipt|ricevut|transfer|payment|pagament|deposit|cauzion/i],["Photos or inventory at move-in and move-out",/photo|foto|video|inventor|check-?in|check-?out/i],["Written requests (PEC or registered letter)",/pec|raccomandat|letter|lettera|e-?mail/i]],
+    condo:[["Minutes of the meeting",/minutes|verbale/i],["The meeting notice",/notice|convocazion|avviso/i],["Condominium rules",/rules|regolamento/i]],
+    neighbours:[["Photos or video",/photo|foto|video|record|registrazion/i],["Noise measurement or expert report",/measur|decibel|\bdb\b|fonometr|expert|perizia/i],["Witnesses",/witness|testimon|neighbou?rs?|vicin/i],["Written complaints sent",/complain|pec|raccomandat|letter|lettera|e-?mail|diffida/i]],
+    medical:[["Full medical records",/record|cartella|referto|discharge|dimission/i],["An independent medical opinion",/opinion|second|expert|perizia|medico legale|parere/i],["Receipts for treatment costs",/receipt|invoice|ricevut|fattur/i]],
+    insurance:[["The policy",/policy|polizza/i],["Your claim and the insurer's reply",/claim|refus|denial|rifiut|sinistro|reply|risposta|letter|lettera|e-?mail|pec/i],["Proof of the damage",/photo|foto|expert|perizia|invoice|fattur|report/i]],
+    travel:[["Booking or boarding pass",/booking|boarding|prenotazion|carta d'imbarco|ticket|bigliett/i],["The airline's notice of delay or cancellation",/notice|e-?mail|sms|cancel|delay|ritard|cancellaz/i],["Receipts for extra costs",/receipt|invoice|ricevut|fattur/i],["Lost-luggage report (PIR), if relevant",/\bpir\b|property irregularity|lost luggage|bagagli/i]],
+    family:[["Marriage, birth or residence certificates",/certificat|marriage|matrimon|birth|nascita/i],["Income documents",/income|reddit|payslip|busta paga|tax return|dichiarazion|\b730\b|cud/i],["Any existing court order",/order|sentenza|decreto|provvediment|omologa/i],["Records of maintenance payments",/bank|bonifico|transfer|payment|pagament|maintenance|mantenimento/i]],
+    inheritance:[["Death certificate",/death|morte|decesso/i],["The will, if there is one",/\bwill\b|testament/i],["Documents showing family relationship",/certificat|famiglia|family|stato di famiglia/i],["List of assets",/asset|bene|beni|property|immobil|conto|account/i]],
+    injunction:[["The payment order itself",/decreto|order|ingiunzion/i],["The contract or invoices it is based on",/contract|contratt|invoice|fattur/i],["Proof of any payment you made",/bank|bonifico|receipt|ricevut|transfer|payment|pagament/i]],
+    fine:[["The fine (verbale)",/fine|multa|verbale|sanzion/i],["Photos of the signs or place",/photo|foto|video|sign|cartell/i],["Proof of where you were",/receipt|ricevut|ticket|witness|testimon|gps|record/i]],
+    tax:[["The tax assessment or bill",/assessment|accertament|cartella|avviso/i],["Your tax returns",/return|dichiarazion|\b730\b|unico|modello/i],["Invoices and receipts supporting your figures",/invoice|fattur|receipt|ricevut/i]],
+    defamation:[["Screenshots with date and link",/screenshot|schermat|link|url/i],["People who saw it",/witness|testimon|saw|visto/i],["A certified copy of the page",/certif|notai|notar|forensic|copia conforme/i]],
+    other:[["Any written document",/contract|contratt|letter|lettera|e-?mail|pec|invoice|fattur|receipt|ricevut/i],["Dated records",/\d{4}|dated|date|data/i],["Witnesses",/witness|testimon/i]]
+  };
+  function analyseEvidence(c){
+    var text = c.evidence.join(". ") + ". " + (c.evidenceNote || "");
+    if(!c.evidence.length && !c.evidenceNote) return {level:"none", items:[], weak:[], key:(EV_KEY[c.area]||EV_KEY.other).map(function(k){ return [k[0], false]; })};
+    var items = EV_ITEMS.filter(function(i){ return i.re.test(text); });
+    var weak = EV_WEAK.filter(function(w){ return w.re.test(c.evidenceNote || ""); }).map(function(w){ return w.msg; });
+    if(c.area === "dismissal" && EV_WEAK[0].re.test(c.facts + " " + (c.evidenceNote || "")))
+      weak.unshift("If you were dismissed only verbally, note that in Italy a dismissal must be given in writing; a verbal one is generally invalid (L. 604/1966, art. 2). Write down the date, time and who was there, and see a lawyer quickly.");
+    var key = (EV_KEY[c.area] || EV_KEY.other).map(function(k){ return [k[0], k[1].test(text)]; });
+    var S = items.filter(function(i){ return i.s === "strong"; }).length, U = items.length - S;
+    var cover = key.filter(function(k){ return k[1]; }).length / key.length;
+    var level = (S >= 3 || (S >= 2 && cover >= 0.5)) ? "strong" : (S >= 1 || U >= 2) ? "moderate" : "weak";
+    if(weak.length && level === "strong" && cover < 0.75) level = "moderate";
+    if(weak.length && !S) level = "weak";
+    if(c.evidenceNote && /\b20\d\d\b|\b19\d\d\b|\d{1,2}[\/.-]\d{1,2}|dated|datat/i.test(c.evidenceNote) === false && level !== "none")
+      weak.push("Add dates to each item. A lawyer needs to know when each document or message was made.");
+    return {level:level, items:items, weak:weak, key:key};
+  }
+  var EV_LEVEL = {
+    strong:{cls:"l-low", label:"Strong evidence", head:"Yes, this can help your case", text:"You have the kind of documents a lawyer can build a case on. Keep the originals safe and don't hand them over without a copy."},
+    moderate:{cls:"l-med", label:"Moderate evidence", head:"It helps, but it may not be enough on its own", text:"What you have supports your story, but the other side could dispute it. The missing items below would make it much harder to argue with."},
+    weak:{cls:"l-high", label:"Weak evidence", head:"On its own, this is unlikely to carry the case", text:"Right now it would mostly be your word against theirs. Try to get at least one written document before you go further."},
+    none:{cls:"l-high", label:"No evidence yet", head:"Nothing to analyse yet", text:"Tick what you have or describe it in the box above, then run the check again."}
+  };
+  function evidenceHTML(a, areaLabel){
+    var L = EV_LEVEL[a.level];
+    return '<section class="ev-an"><p class="ev-kicker">Evidence analysis</p>' +
+      '<div class="result-top"><span class="level ' + L.cls + '">' + L.label + '</span><h3>' + L.head + '</h3></div>' +
+      '<p class="ev-text">' + L.text + '</p>' +
+      (a.items.length ? '<p class="ev-h">What you have</p><ul class="factors">' + a.items.map(function(i){
+        return '<li class="factor"><b>' + esc(i.name) + '</b><span class="verdict ' + (i.s === "strong" ? "ok" : "warn") + '">' + (i.s === "strong" ? "Strong" : "Supporting") + '</span><span class="tip">' + esc(i.why) + '</span></li>'; }).join("") + '</ul>' : '') +
+      '<p class="ev-h">What lawyers usually want for ' + esc(areaLabel) + '</p><ul class="ev-key">' + a.key.map(function(k){
+        return '<li class="' + (k[1] ? "has" : "miss") + '"><span aria-hidden="true">' + (k[1] ? "✓" : "–") + '</span>' + esc(k[0]) + (k[1] ? "" : ' <i>missing</i>') + '</li>'; }).join("") + '</ul>' +
+      (a.weak.length ? '<p class="ev-h">Watch out</p><ul class="ev-warn">' + a.weak.map(function(w){ return '<li>' + esc(w) + '</li>'; }).join("") + '</ul>' : '') +
+      '</section>';
+  }
+
   /* The check: rates how hard the case looks to pursue from what was entered.
      It looks at time limit, evidence, detail and amount only. It never predicts the outcome. */
   function check(c){
@@ -326,12 +423,11 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
     else if(d <= 60){ pts += 1; time = {v:"warn", label:d + " days left", tip:"Time is short. If you want a lawyer, see one now rather than later."}; }
     else time = {v:"ok", label:left(d), tip:"You are inside the usual time limit: " + lc(A.rule) + "."};
 
-    if(!c.evidence.length && c.evidenceNote){ pts += 1; ev = {v:"warn", label:"Described only", tip:"Tick the boxes that match what you described, so the check can weigh it properly."}; }
-    else if(!c.evidence.length){ pts += 2; ev = {v:"bad", label:"None listed", tip:"Without documents it is your word against theirs. Look for contracts, receipts, letters or photos."}; }
-    else if(!formal.length){ pts += 1; ev = {v:"warn", label:"Informal only", tip:"Messages and witnesses help, but a formal document (contract, invoice, official or expert report) makes the case much easier to prove."}; }
-    else if(formal.length >= 2) ev = {v:"ok", label:c.evidence.length + " items", tip:"You have documents a lawyer can work with. Keep the originals safe."};
-    else ev = {v:"warn", label:c.evidence.length + (c.evidence.length === 1 ? " item" : " items"), tip:"One solid document. A second one (emails, photos, a report) would strengthen it."};
-
+    var an = analyseEvidence(c);
+    if(an.level === "none"){ pts += 2; ev = {v:"bad", label:"None listed", tip:"Without documents it is your word against theirs. Look for contracts, receipts, letters or photos."}; }
+    else if(an.level === "weak"){ pts += 1; ev = {v:"warn", label:"Weak", tip:"See the evidence analysis below for what is missing."}; }
+    else if(an.level === "moderate") ev = {v:"warn", label:"Moderate", tip:"Useful, but a key document is missing. See the evidence analysis below."};
+    else ev = {v:"ok", label:"Strong", tip:"You have documents a lawyer can work with. Keep the originals safe."};
     if(c.facts.length < 160){ pts += 1; det = {v:"warn", label:"Brief", tip:"Add what happened step by step, with dates and what it cost you."}; }
     else det = {v:"ok", label:"Clear", tip:"Enough detail for a lawyer to understand the situation."};
 
@@ -339,7 +435,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
     else if(c.amount < 1000) money = {v:"warn", label:eur(c.amount), tip:"Small claims can still be pursued, but legal costs may outweigh what you recover. Ask about mediation or the giudice di pace."};
     else money = {v:"ok", label:eur(c.amount), tip:"Large enough that a lawyer can justify the work."};
 
-    return { level: pts >= 3 ? "high" : pts >= 1.5 ? "med" : "low", factors:[["Time limit",time],["Evidence",ev],["Detail",det],["Amount",money]] };
+    return { evidence: an, level: pts >= 3 ? "high" : pts >= 1.5 ? "med" : "low", factors:[["Time limit",time],["Evidence",ev],["Detail",det],["Amount",money]] };
   }
   var LEVEL = {
     low:{cls:"l-low", label:"Low risk", head:"Your case looks well prepared"},
@@ -391,6 +487,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
         '<div class="result-top"><span class="level ' + L.cls + '">' + L.label + '</span><h2>' + L.head + '</h2></div>' +
         '<div><div class="meter ' + r.level + '"><i></i><i></i><i></i></div><div class="meter-ends"><span>Low</span><span>Medium</span><span>High</span></div></div>' +
         '<ul class="factors">' + r.factors.map(function(f){ return '<li class="factor"><b>' + f[0] + '</b><span class="verdict ' + f[1].v + '">' + esc(f[1].label) + '</span><span class="tip">' + esc(f[1].tip) + '</span></li>'; }).join("") + '</ul>' +
+        evidenceHTML(r.evidence, c.area === "other" && c.areaOther ? lc(c.areaOther) : lc(AREAS[c.area].label)) +
         '<p class="fine">This is an automatic check of how timely, documented and complete your case is, based only on what you entered. Time limits are simplified and some events can pause or restart them. It is not legal advice and does not say whether you would win. Only a lawyer can judge that.</p>' +
         '<div class="actions"><button class="btn" type="button" id="rc-research">Find the law behind it</button><button class="btn ghost" type="button" id="rc-edit">Edit my answers</button></div>';
       $("result").hidden = false; $("result-empty").hidden = true;
