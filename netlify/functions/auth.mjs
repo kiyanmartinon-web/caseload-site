@@ -9,6 +9,8 @@
 // /api/auth/password  POST {password, newPassword}       change password (signs out other devices)
 // /api/auth/logout-all POST {}                           sign out on every device
 // /api/auth/export    GET   → JSON download of everything stored about the account
+// /api/auth/forgot    POST {email, lang}                 email a 6-digit code (same answer whether or not the account exists)
+// /api/auth/reset     POST {email, code, password}       set a new password with the code; signs in, signs out other devices
 import {
   normEmail, validEmail, passwordProblem, findUserByEmail, createUser, verifyPassword,
   isLocked, recordFailure, recordSuccess, createSession, sessionCookie, currentUser,
@@ -18,6 +20,20 @@ import {
 import { allCases, deleteCase, saveCase } from "../lib/matches.mjs";
 import { json, isConfigured, stripe } from "../lib/stripe.mjs";
 import { subscriptionFor, tierOf } from "../lib/subscription.mjs";
+import { issueCode, checkCode, useCode } from "../lib/reset.mjs";
+import { mailConfigured, sendMail } from "../lib/mail.mjs";
+
+function codeEmail(code, minutes, lang) {
+  const it = lang === "it";
+  const subject = it ? `Il tuo codice Casebound: ${code}` : `Your Casebound code: ${code}`;
+  const lines = it
+    ? [`Il tuo codice per reimpostare la password di Casebound è:`, ``, `    ${code}`, ``, `Vale ${minutes} minuti. Inseriscilo nella pagina di accesso per scegliere una nuova password.`, ``, `Se non l'hai richiesto tu, ignora questa email: la tua password non cambia.`, ``, `Casebound — case-bound.com`]
+    : [`Your code to reset your Casebound password is:`, ``, `    ${code}`, ``, `It works for ${minutes} minutes. Enter it on the sign-in page to choose a new password.`, ``, `If you didn't ask for this, ignore this email: your password stays the same.`, ``, `Casebound — case-bound.com`];
+  const html = `<div style="font-family:Arial,sans-serif;font-size:15px;color:#1b2333;line-height:1.5;max-width:480px">` +
+    `<p>${lines[0]}</p><p style="font-size:30px;font-weight:700;letter-spacing:6px;margin:18px 0">${code}</p>` +
+    `<p>${lines[4]}</p><p style="color:#5b6475;font-size:13px">${lines[6]}</p><p style="color:#5b6475;font-size:13px">Casebound — case-bound.com</p></div>`;
+  return { subject, text: lines.join("\n"), html };
+}
 
 const ok = (body, cookie) => json(body, 200, cookie ? { "Set-Cookie": cookie } : {});
 const bad = (msg, status = 400) => json({ error: msg }, status);
@@ -103,6 +119,46 @@ export default async (req, context) => {
     if (!user) { await verifyPassword(b.password, "scrypt$AAAAAAAAAAAAAAAAAAAAAA==$AAAA"); return bad(generic, 401); }
     if (isLocked(user)) return bad("Too many attempts. Try again in 15 minutes.", 429);
     if (!(await verifyPassword(b.password, user.passwordHash))) { await recordFailure(user); return bad(generic, 401); }
+    await recordSuccess(user);
+    const s = await createSession(user.id);
+    return ok({ user: publicUser(user) }, sessionCookie(req, s.token, s.exp));
+  }
+
+  if (action === "forgot") {
+    const email = normEmail(b.email);
+    if (!validEmail(email)) return bad("Enter a valid email address.");
+    if (!mailConfigured()) return bad("Password reset by email isn't switched on yet. Email admin@case-bound.com.", 503);
+    const user = await findUserByEmail(email);
+    // Same answer whether or not there is an account, so nobody can test which emails are registered.
+    if (!user) return ok({ ok: true });
+    const r = await issueCode(email);
+    if (r.code) {
+      try {
+        await sendMail({ to: email, ...codeEmail(r.code, r.minutes, b.lang === "it" || b.lang === "en" ? b.lang : user.lang) });
+      } catch (err) {
+        console.error("reset email failed", err && err.message);
+        return bad("We couldn't send the email just now. Try again in a few minutes.", 502);
+      }
+    }
+    return ok({ ok: true });
+  }
+
+  if (action === "reset") {
+    const email = normEmail(b.email);
+    const wrong = "That code is wrong. Check the email and try again.";
+    if (!validEmail(email) || !/^\s*\d{3}\s?\d{3}\s*$/.test(String(b.code || ""))) return bad(wrong);
+    const pw = passwordProblem(b.password);
+    if (pw) return bad(pw);
+    const user = await findUserByEmail(email);
+    if (!user) return bad("That code has expired. Ask for a new one.");
+    const res = await checkCode(email, b.code);
+    if (res === "wrong") return bad(wrong);
+    if (res === "expired") return bad("That code has expired. Ask for a new one.");
+    if (res === "locked") return bad("Too many wrong codes. Ask for a new one.", 429);
+    await useCode(email);
+    user.failedLogins = 0; user.lockedUntil = 0;
+    user.emailVerifiedAt = new Date().toISOString();   // they proved they read this inbox
+    await changePassword(user, b.password);             // saves, and signs out every other device
     await recordSuccess(user);
     const s = await createSession(user.id);
     return ok({ user: publicUser(user) }, sessionCookie(req, s.token, s.exp));

@@ -70,6 +70,10 @@ input:focus{outline:2px solid var(--verdigris);outline-offset:0;border-color:var
 .btn[disabled]{opacity:.55;cursor:progress}
 .banner{font-family:var(--sans);font-size:13.5px;border-radius:6px;padding:11px 14px;margin:0 0 16px;background:var(--oxblood-wash);color:var(--oxblood);border:1px solid #E2C9CC}
 .alt{font-family:var(--sans);font-size:13px;color:var(--ink-soft);margin:14px 0 0}
+.linkbtn{background:none;border:none;padding:0;font:inherit;color:var(--verdigris);text-decoration:underline;cursor:pointer}
+.linkbtn:hover{color:var(--oxblood)}
+input.code{font-size:24px;letter-spacing:.35em;text-align:center;font-variant-numeric:tabular-nums}
+.okmsg{color:var(--verdigris);font-weight:600}
 .roles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 18px;border:none;padding:0}
 .roles legend{font-family:var(--sans);font-size:13px;font-weight:600;margin:0 0 6px;padding:0}
 .role{display:block;cursor:pointer}
@@ -120,7 +124,26 @@ textarea.f-in{width:100%;font:inherit;font-size:15px;padding:10px 12px;border:1p
     <label class="f" for="l-pw" data-t="password">Password</label>
     <input type="password" id="l-pw" autocomplete="current-password" required>
     <button class="btn" type="submit" data-t="tabLogin">Sign in</button>
-    <p class="alt"><span data-t="forgot">Forgot your password? Email</span> <a href="mailto:admin@case-bound.com?subject=Casebound%20password%20reset">admin@case-bound.com</a> <span data-t="forgot2">from your account's address.</span></p>
+    <p class="alt"><button type="button" class="linkbtn" id="to-forgot" data-t="forgot">Forgot your password?</button></p>
+  </form>
+
+  <form id="f-forgot" novalidate hidden>
+    <p class="note" id="fg-lead" style="margin:0 0 16px"></p>
+    <div id="fg-step1">
+      <label class="f" for="fg-email" data-t="email">Email</label>
+      <input type="email" id="fg-email" autocomplete="email" required>
+      <button class="btn" type="submit" id="fg-send" data-t="sendCode">Email me a code</button>
+    </div>
+    <div id="fg-step2" hidden>
+      <label class="f" for="fg-code" data-t="codeL">6-digit code</label>
+      <input type="text" id="fg-code" inputmode="numeric" autocomplete="one-time-code" maxlength="7" pattern="[0-9 ]*" class="code">
+      <label class="f" for="fg-pw" data-t="newPw">New password</label>
+      <input type="password" id="fg-pw" autocomplete="new-password">
+      <p class="hint" data-t="pwHint">At least 10 characters.</p>
+      <button class="btn" type="submit" id="fg-save" data-t="setPw">Set new password and sign in</button>
+      <p class="alt"><button type="button" class="linkbtn" id="fg-resend" data-t="resend">Send a new code</button> <span id="fg-resent" class="okmsg" hidden></span></p>
+    </div>
+    <p class="alt"><button type="button" class="linkbtn" id="fg-back" data-t="backLogin">← Back to sign in</button></p>
   </form>
 
   <form id="f-register" novalidate hidden>
@@ -174,7 +197,12 @@ textarea.f-in{width:100%;font:inherit;font-size:15px;padding:10px 12px;border:1p
       tabLogin:"Sign in", tabRegister:"Create account", email:"Email", password:"Password", name:"Name (optional)",
       pwHint:"At least 10 characters.",
       terms:'I accept the <a href="/terms.html#accounts" target="_blank">Terms of use</a> and have read the <a href="/privacy.html#accounts" target="_blank">Privacy notice</a>.',
-      adult:"I am 18 or older.", forgot:"Forgot your password? Email", forgot2:"from your account's address.",
+      adult:"I am 18 or older.", forgot:"Forgot your password?",
+      titleForgot:"Reset your password", docForgot:"Reset password — Casebound",
+      fgLead1:"Enter the email you signed up with. We'll send you a 6-digit code to prove it's yours.",
+      fgLead2:function(e){ return "If there's an account for " + e + ", we've sent it a 6-digit code. It works for 15 minutes. Check your spam folder if you don't see it."; },
+      sendCode:"Email me a code", codeL:"6-digit code", newPw:"New password", setPw:"Set new password and sign in",
+      resend:"Send a new code", resent:"Sent.", backLogin:"← Back to sign in", needCode:"Enter the 6-digit code from the email.",
       back:"← Back to Casebound", plans:"Plans", termsL:"Terms of use", privacyL:"Privacy notice",
       needTerms:"Please accept the Terms of use.", needAdult:"You must be at least 18 to create an account.",
       generic:"Something went wrong. Please try again.",
@@ -190,7 +218,12 @@ textarea.f-in{width:100%;font:inherit;font-size:15px;padding:10px 12px;border:1p
       tabLogin:"Accedi", tabRegister:"Crea un account", email:"Email", password:"Password", name:"Nome (facoltativo)",
       pwHint:"Almeno 10 caratteri.",
       terms:'Accetto le <a href="/terms.html#accounts-it" target="_blank">Condizioni d\'uso</a> e ho letto l\'<a href="/privacy.html#accounts-it" target="_blank">Informativa privacy</a>.',
-      adult:"Ho almeno 18 anni.", forgot:"Password dimenticata? Scrivi a", forgot2:"dall'indirizzo del tuo account.",
+      adult:"Ho almeno 18 anni.", forgot:"Password dimenticata?",
+      titleForgot:"Reimposta la password", docForgot:"Reimposta la password — Casebound",
+      fgLead1:"Inserisci l'email con cui ti sei registrato. Ti invieremo un codice di 6 cifre per confermare che è tua.",
+      fgLead2:function(e){ return "Se esiste un account per " + e + ", gli abbiamo inviato un codice di 6 cifre. Vale 15 minuti. Se non lo vedi, controlla la posta indesiderata."; },
+      sendCode:"Inviami un codice", codeL:"Codice di 6 cifre", newPw:"Nuova password", setPw:"Imposta la nuova password e accedi",
+      resend:"Invia un nuovo codice", resent:"Inviato.", backLogin:"← Torna all'accesso", needCode:"Inserisci il codice di 6 cifre ricevuto via email.",
       back:"← Torna a Casebound", plans:"Piani", termsL:"Condizioni d'uso", privacyL:"Informativa privacy",
       needTerms:"Accetta le Condizioni d'uso.", needAdult:"Devi avere almeno 18 anni per creare un account.",
       generic:"Qualcosa è andato storto. Riprova.",
@@ -212,12 +245,18 @@ textarea.f-in{width:100%;font:inherit;font-size:15px;padding:10px 12px;border:1p
     "Enter the bar association (Ordine degli Avvocati) you are registered with.":"Indica l'Ordine degli Avvocati a cui sei iscritto.",
     "Enter your registration number on the register of lawyers.":"Indica il tuo numero di iscrizione all'albo.",
     "Choose at least one area of practice.":"Scegli almeno un'area di attività.",
-    "Lawyers need to give their full name, as it appears on the register.":"Gli avvocati devono indicare nome e cognome, come risultano all'albo."
+    "Lawyers need to give their full name, as it appears on the register.":"Gli avvocati devono indicare nome e cognome, come risultano all'albo.",
+    "That code is wrong. Check the email and try again.":"Il codice è errato. Controlla l'email e riprova.",
+    "That code has expired. Ask for a new one.":"Il codice è scaduto. Richiedine uno nuovo.",
+    "Too many wrong codes. Ask for a new one.":"Troppi codici errati. Richiedine uno nuovo.",
+    "We couldn't send the email just now. Try again in a few minutes.":"Non siamo riusciti a inviare l'email. Riprova tra qualche minuto.",
+    "Password reset by email isn't switched on yet. Email admin@case-bound.com.":"Il ripristino della password via email non è ancora attivo. Scrivi a admin@case-bound.com."
   };
   var $ = function(id){ return document.getElementById(id); };
   var qs = new URLSearchParams(location.search);
   var lang = (qs.get("lang") === "it" || location.hash === "#it" || (!qs.get("lang") && /^it\b/i.test(navigator.language || ""))) ? "it" : "en";
-  var mode = qs.get("mode") === "register" ? "register" : "login";
+  var mode = qs.get("mode") === "register" ? "register" : qs.get("mode") === "forgot" ? "forgot" : "login";
+  var fgSent = false, fgEmail = "";
   var next = qs.get("next") || "/account.html";
   if (!/^\/[A-Za-z0-9._\-\/?=&#]*$/.test(next) || next.indexOf("//") === 0) next = "/account.html";
   var btns = document.querySelectorAll(".lang button");
@@ -225,12 +264,16 @@ textarea.f-in{width:100%;font:inherit;font-size:15px;padding:10px 12px;border:1p
   function render(){
     var t = T[lang];
     document.documentElement.lang = lang;
-    document.title = mode === "login" ? t.docLogin : t.docRegister;
+    document.title = mode === "login" ? t.docLogin : mode === "forgot" ? t.docForgot : t.docRegister;
     document.querySelectorAll("[data-t]").forEach(function(el){
       var v = t[el.getAttribute("data-t")]; if (typeof v !== "string") return;
       if (/<a /.test(v)) el.innerHTML = v; else el.textContent = v;
     });
-    $("h1").textContent = mode === "login" ? t.titleLogin : t.titleRegister;
+    $("h1").textContent = mode === "login" ? t.titleLogin : mode === "forgot" ? t.titleForgot : t.titleRegister;
+    document.querySelector(".tabs2").hidden = mode === "forgot";
+    $("f-forgot").hidden = mode !== "forgot";
+    $("fg-step1").hidden = fgSent; $("fg-step2").hidden = !fgSent;
+    $("fg-lead").textContent = fgSent ? t.fgLead2(fgEmail) : t.fgLead1;
     $("tab-login").setAttribute("aria-selected", mode === "login");
     $("tab-register").setAttribute("aria-selected", mode === "register");
     $("f-login").hidden = mode !== "login"; $("f-register").hidden = mode !== "register";
@@ -251,7 +294,7 @@ textarea.f-in{width:100%;font:inherit;font-size:15px;padding:10px 12px;border:1p
   function setMode(m){ mode = m; err(""); render(); }
 
   function post(url, data, form){
-    var b = form.querySelector("button[type=submit]"); b.disabled = true; err("");
+    var b = Array.prototype.filter.call(form.querySelectorAll("button[type=submit]"), function(x){ return x.offsetParent; })[0] || form.querySelector("button[type=submit]"); b.disabled = true; err("");
     return fetch(url, { method:"POST", credentials:"same-origin", headers:{ "Content-Type":"application/json" }, body: JSON.stringify(data) })
       .then(function(r){ return r.json().then(function(j){ if (!r.ok) throw new Error(j.error || T[lang].generic); return j; }); })
       .then(function(){ location.href = next; })
@@ -266,6 +309,31 @@ textarea.f-in{width:100%;font:inherit;font-size:15px;padding:10px 12px;border:1p
     e.preventDefault();
     post("/api/auth/login", { email: $("l-email").value, password: $("l-pw").value }, this);
   });
+  /* ---- forgot password: email a code, then set a new password ---- */
+  function sendCode(email){
+    return fetch("/api/auth/forgot", { method:"POST", credentials:"same-origin", headers:{ "Content-Type":"application/json" }, body: JSON.stringify({ email: email, lang: lang }) })
+      .then(function(r){ return r.json().then(function(j){ if (!r.ok) throw new Error(j.error || T[lang].generic); return j; }); });
+  }
+  $("to-forgot").addEventListener("click", function(){ $("fg-email").value = $("l-email").value; fgSent = false; setMode("forgot"); $("fg-email").focus(); });
+  $("fg-back").addEventListener("click", function(){ if (fgEmail) $("l-email").value = fgEmail; setMode("login"); });
+  $("fg-resend").addEventListener("click", function(){
+    var b = this; b.disabled = true; err(""); $("fg-resent").hidden = true;
+    sendCode(fgEmail).then(function(){ $("fg-resent").textContent = T[lang].resent; $("fg-resent").hidden = false; })
+      .catch(function(e){ err(e.message); }).then(function(){ setTimeout(function(){ b.disabled = false; }, 30000); });
+  });
+  $("f-forgot").addEventListener("submit", function(e){
+    e.preventDefault(); err("");
+    if (!fgSent) {
+      var b = $("fg-send"); b.disabled = true;
+      fgEmail = $("fg-email").value.trim();
+      sendCode(fgEmail).then(function(){ fgSent = true; render(); $("fg-code").focus(); })
+        .catch(function(er){ err(er.message); }).then(function(){ b.disabled = false; });
+      return;
+    }
+    if (!/^\d{6}$/.test($("fg-code").value.replace(/\s/g, ""))) return err(T[lang].needCode);
+    post("/api/auth/reset", { email: fgEmail, code: $("fg-code").value.replace(/\s/g, ""), password: $("fg-pw").value }, this);
+  });
+
   $("f-register").addEventListener("submit", function(e){
     e.preventDefault();
     if (!$("r-terms").checked) return err(T[lang].needTerms);
