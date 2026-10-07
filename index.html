@@ -43,22 +43,25 @@ button,a{-webkit-tap-highlight-color:rgba(110,31,42,.12)}
 .wordmark{font-family:var(--serif);font-size:21px;font-weight:600;letter-spacing:-.01em;line-height:1;white-space:nowrap;
   color:var(--ink);text-decoration:none}
 .wordmark span{color:var(--oxblood)}
-.wordmark small{display:block;font-family:var(--sans);font-size:10px;font-weight:600;color:var(--ink-soft);letter-spacing:.03em;margin-top:1px}
-.tabs{display:flex;gap:2px;margin-left:8px;align-self:stretch}
+.wordmark small{display:block;font-family:var(--sans);font-size:10px;font-weight:600;color:var(--ink-soft);letter-spacing:.03em;margin-top:1px;text-transform:uppercase}
+.tabs{display:flex;gap:2px;margin-inline-start:8px;align-self:stretch}
 .tab{background:none;border:none;border-bottom:2px solid transparent;padding:0 14px;font-size:13.5px;font-weight:600;
   color:var(--ink-soft);display:flex;align-items:center;white-space:nowrap}
 .tab:hover:not(:disabled){color:var(--ink)}
 .tab.on{color:var(--ink);border-bottom-color:var(--oxblood)}
 .tab:disabled{opacity:.45;cursor:default}
-.tab .n{margin-right:7px;font-size:10.5px;font-weight:700;width:18px;height:18px;border-radius:50%;display:inline-grid;place-items:center;
+.tab .n{margin-inline-end:7px;font-size:10.5px;font-weight:700;width:18px;height:18px;border-radius:50%;display:inline-grid;place-items:center;
   border:1px solid var(--rule);color:var(--ink-soft)}
 .tab.on .n{background:var(--oxblood);border-color:var(--oxblood);color:#fff}
-.top-links{margin-left:auto;display:flex;gap:16px;align-items:center}
+.top-links{margin-inline-start:auto;display:flex;gap:16px;align-items:center}
+/* the language menu (mounted by /i18n.js) sits right after the top links; .top-links already takes the free space */
+.masthead-in .cb-lang{margin-inline-start:0}
+.tab .short{display:none}
 .top-links a{font-size:13px;font-weight:600;color:var(--ink-soft);text-decoration:none;white-space:nowrap}
 .top-links a:hover{color:var(--oxblood)}
 .top-links a#top-account{color:var(--paper-2);background:var(--ink);padding:7px 12px;border-radius:5px}
 .top-links a#top-account:hover{background:var(--oxblood)}
-.top-links .pro-mini,.sf-links .pro-mini{font-size:9.5px;font-weight:700;letter-spacing:.05em;padding:1px 5px;border-radius:3px;background:var(--oxblood);color:var(--paper-2);margin-left:4px;vertical-align:1px}
+.top-links .pro-mini,.sf-links .pro-mini{font-size:9.5px;font-weight:700;letter-spacing:.05em;padding:1px 5px;border-radius:3px;background:var(--oxblood);color:var(--paper-2);margin-inline-start:4px;vertical-align:1px}
 
 /* ---------- views ---------- */
 .views{position:relative;flex:1 1 auto;min-height:0}
@@ -84,7 +87,7 @@ html[data-theme="dark"] .brand-mark text{fill:var(--paper)}
   font-size:13.5px;display:grid;place-items:center}
 .step-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
 .step-head label,.step-head .lbl{font-size:16px;font-weight:600;color:var(--ink)}
-.opt{font-weight:500;color:var(--ink-soft);font-size:13px;margin-left:4px}
+.opt{font-weight:500;color:var(--ink-soft);font-size:13px;margin-inline-start:4px}
 .step-hint{font-size:13px;color:var(--ink-soft);margin:4px 0 12px;line-height:1.45}
 .start textarea,.start input[type=text]{width:100%;background:var(--paper);border:1px solid var(--rule);border-radius:7px;
   padding:12px 14px;font-family:var(--serif);font-size:15px;line-height:1.5;color:var(--ink)}
@@ -116,7 +119,7 @@ html[data-theme="dark"] .brand-mark text{fill:var(--paper)}
 .out-opt .ic{display:block;color:var(--oxblood);margin-bottom:8px}
 .out-opt b{display:block;font-size:14px;font-weight:600;margin-bottom:3px}
 .out-opt small{display:block;font-size:12px;color:var(--ink-soft);line-height:1.4}
-.out-opt .rec{position:absolute;top:10px;right:10px;font-size:9.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+.out-opt .rec{position:absolute;top:10px;inset-inline-end:10px;font-size:9.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
   color:var(--verdigris);background:var(--verdigris-wash);padding:2px 6px;border-radius:3px}
 
 .refine{margin-top:16px;display:grid;gap:10px}
@@ -132,7 +135,7 @@ html[data-theme="dark"] .brand-mark text{fill:var(--paper)}
 .refine.off{opacity:.45}
 .refine.off .pill{pointer-events:none}
 
-.start-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding-top:6px;margin-left:46px}
+.start-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding-top:6px;margin-inline-start:46px}
 .hub-btn{padding:13px 26px;background:var(--oxblood);color:#fff;border:none;border-radius:7px;font-size:15px;font-weight:600;white-space:nowrap}
 .hub-btn:hover{background:#57181f}
 .hub-btn:disabled{opacity:.5;cursor:default}
@@ -140,7 +143,7 @@ html[data-theme="dark"] .brand-mark text{fill:var(--paper)}
 .hub-btn.secondary:hover{background:var(--rule-soft)}
 .hub-status{font-size:13px;font-weight:600;color:var(--oxblood);flex:1 1 240px}
 .hub-status a,.res-note a{color:var(--oxblood);font-weight:700}
-.plan-bar{margin:16px 0 0 46px;font-size:12px;color:var(--ink-soft);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.plan-bar{margin:16px 0 0;margin-inline-start:46px;font-size:12px;color:var(--ink-soft);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .plan-bar .pb-tag{font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:3px;
   background:var(--paper);border:1px solid var(--rule);color:var(--ink-soft)}
 .plan-bar .pb-tag.pro{background:var(--verdigris-wash);border-color:transparent;color:var(--verdigris)}
@@ -152,7 +155,7 @@ html[data-theme="dark"] .brand-mark text{fill:var(--paper)}
 .recent-head h2{font-family:var(--serif);font-size:18px;font-weight:600;margin:0}
 .link-btn{background:none;border:none;padding:0;font-size:13px;font-weight:600;color:var(--oxblood)}
 .recent-list{display:grid;gap:8px}
-.recent-item{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:var(--paper-2);border:1px solid var(--rule);
+.recent-item{display:flex;align-items:center;gap:14px;width:100%;text-align:start;background:var(--paper-2);border:1px solid var(--rule);
   border-radius:8px;padding:12px 14px;color:var(--ink)}
 .recent-item:hover{border-color:var(--oxblood)}
 .recent-item .ri-main{flex:1;min-width:0}
@@ -177,8 +180,8 @@ html[data-theme="dark"] .brand-mark text{fill:var(--paper)}
 
 .frames{position:relative;flex:1 1 auto;min-height:0}
 .analysis-split{display:flex;height:100%}
-.analysis-pane{flex:1 1 50%;display:flex;flex-direction:column;min-width:0;border-right:1px solid var(--rule)}
-.analysis-pane:last-child{border-right:none}
+.analysis-pane{flex:1 1 50%;display:flex;flex-direction:column;min-width:0;border-inline-end:1px solid var(--rule)}
+.analysis-pane:last-child{border-inline-end:none}
 .analysis-split[data-show="map"] .pane-sources,.analysis-split[data-show="sources"] .pane-map{display:none}
 .analysis-pane-h{flex:0 0 auto;padding:8px 14px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;
   color:var(--ink-soft);background:var(--paper-2);border-bottom:1px solid var(--rule)}
@@ -242,7 +245,7 @@ html[data-theme="dark"] .brand-mark text{fill:var(--paper)}
   font-family:var(--sans);font-size:12px;min-width:0}
 .case-card-proj .proj-select{flex:1}
 .res-title-in{width:100%;font-family:var(--serif);font-size:16px;font-weight:600;color:var(--ink);background:transparent;border:1px solid transparent;
-  border-radius:5px;padding:2px 6px;margin-left:-7px;text-overflow:ellipsis}
+  border-radius:5px;padding:2px 6px;margin-inline-start:-7px;text-overflow:ellipsis}
 .res-title-in:hover{border-color:var(--rule)}
 .res-title-in:focus{border-color:var(--verdigris);background:var(--paper);outline:none}
 .res-file{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink-soft);white-space:nowrap}
@@ -267,7 +270,7 @@ html[data-theme="dark"] .seg button[aria-checked="true"]{box-shadow:0 1px 2px rg
 
 @media(max-width:900px){
   .analysis-split{flex-direction:column}
-  .analysis-pane{border-right:none;border-bottom:1px solid var(--rule)}
+  .analysis-pane{border-inline-end:none;border-bottom:1px solid var(--rule)}
   .analysis-pane:last-child{border-bottom:none}
   /* phones & small tablets: one scrolling page, no nested scroll areas */
   html,body{height:auto}
@@ -287,10 +290,11 @@ html[data-theme="dark"] .seg button[aria-checked="true"]{box-shadow:0 1px 2px rg
   .masthead-in{padding:0 max(14px, env(safe-area-inset-left));gap:10px;height:54px}
   .wordmark{font-size:19px}
   .wordmark small{display:none}
-  .tabs{margin-left:0;gap:0}
+  .tabs{margin-inline-start:0;gap:0}
   .tab{padding:0 8px;font-size:13px}
   .tab .n{display:none}
   .tab .long{display:none}
+  .tab .short{display:inline}
   .top-links{gap:10px}
   .top-links a[href="/pricing.html"],.top-links a.rc-link{display:none}
   .top-links a#top-account{padding:6px 10px;font-size:12.5px}
@@ -305,7 +309,7 @@ html[data-theme="dark"] .seg button[aria-checked="true"]{box-shadow:0 1px 2px rg
   .step-n{width:26px;height:26px;font-size:12px}
   .out-opts{grid-template-columns:1fr}
   .refine-l{width:100%}
-  .start-actions,.plan-bar{margin-left:0}
+  .start-actions,.plan-bar{margin-inline-start:0}
   .hub-btn{width:100%;padding:15px 18px;font-size:16px}
   .hub-btn.secondary{width:auto}
   /* 16px stops iPhone Safari from zooming into the field on tap */
@@ -344,21 +348,52 @@ html[data-theme="dark"] .seg button[aria-checked="true"]{box-shadow:0 1px 2px rg
   .wordmark{font-size:15px}
   .tab{padding:0 4px;font-size:12px}
 }
+/* masthead with the language + Settings menus: labels run longer in some languages, so it
+   sheds the Risk check link (it is in the footer), then the step numbers, then puts the tabs on a row of their own */
+@media(max-width:1399px){
+  .top-links a.rc-link{display:none}
+}
+@media(max-width:1279px){
+  .tab .n{display:none}
+  .tab .long{display:none}
+  .tab .short{display:inline}
+}
+@media(max-width:1100px){
+  .masthead-in{flex-wrap:wrap;height:auto;row-gap:2px;padding-top:8px}
+  .masthead-in .wordmark{order:0}
+  .masthead-in .top-links{order:1}
+  .masthead-in .cb-lang{order:2}
+  .masthead-in .cb-set{order:3}
+  .tabs{order:4;flex:1 0 100%;height:40px;margin-inline-start:-8px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+}
+@media(max-width:760px){
+  .masthead-in{height:auto;padding-top:6px}
+  .tabs{height:38px;margin-inline-start:-5px}
+  .consent{white-space:normal}
+}
+@media(max-width:480px){
+  /* icon-only language menu; the select keeps its accessible name */
+  html .masthead-in .cb-lang select{width:34px;max-width:34px;padding:6px 0;color:transparent}
+  html .masthead-in .cb-lang select option{color:var(--ink)}
+  .masthead-in .cb-lang::after{display:none}
+  .masthead-in .cb-lang svg{inset-inline-start:9px}
+}
 </style>
 </head>
 <body>
 
 <header class="masthead">
   <div class="masthead-in">
-    <a class="wordmark" href="#" data-go="start">Case<span>bound</span><small>LEGAL RESEARCH</small></a>
-    <nav class="tabs" aria-label="Sections">
-      <button class="tab on" data-go="start"><span class="n">1</span>New case</button>
-      <button class="tab" data-go="results" id="tab-results" disabled><span class="n">2</span>Results</button>
-      <button class="tab" data-go="cases">Saved<span class="long">&nbsp;cases</span></button>
+    <a class="wordmark" href="#" data-go="start">Case<span>bound</span><small data-t="legalResearch">Legal research</small></a>
+    <nav class="tabs" aria-label="Sections" data-t-aria="navSections">
+      <button class="tab on" data-go="start"><span class="n">1</span><span data-t="tabNew">New case</span></button>
+      <button class="tab" data-go="results" id="tab-results" disabled><span class="n">2</span><span data-t="tabResults">Results</span></button>
+      <button class="tab" data-go="cases"><span class="long" data-t="savedCases">Saved cases</span><span class="short" data-t="tabSavedShort">Saved</span></button>
     </nav>
-    <nav class="top-links" aria-label="Account">
-      <a href="/risk-check.html" class="rc-link">Risk check<span class="pro-mini">PRO</span></a>
-      <a href="/pricing.html">Plans</a>
+    <nav class="top-links" aria-label="Account" data-t-aria="navAccount">
+      <a href="/risk-check.html" class="rc-link"><span data-t="riskCheck">Risk check</span><span class="pro-mini">PRO</span></a>
+      <a href="/pricing.html" data-t="plans">Plans</a>
       <a href="/account.html" id="top-account">Sign in</a>
     </nav>
   </div>
@@ -367,74 +402,74 @@ html[data-theme="dark"] .seg button[aria-checked="true"]{box-shadow:0 1px 2px rg
 <main class="views">
 
 <!-- ================= PAGE 1 — describe the case ================= -->
-<section id="view-start" class="view on" aria-label="New case">
+<section id="view-start" class="view on" aria-label="New case" data-t-aria="tabNew">
   <div class="start">
     <div class="brand-lockup" aria-label="Casebound">
       <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="12" fill="var(--oxblood)"/><text x="32" y="44" font-family="Georgia,serif" font-size="36" font-weight="700" text-anchor="middle" fill="#fff">C</text></svg>
-      <div class="brand-name">Case<span>bound</span><small>Legal research</small></div>
+      <div class="brand-name">Case<span>bound</span><small data-t="legalResearch">Legal research</small></div>
     </div>
-    <h1>Tell us about your case.</h1>
-    <p class="start-lede">Describe what happened and choose what you need back. Casebound maps the facts to the governing Italian Civil Code articles and ranks matching provisions and rulings from Italy, the EU, France, the UK, the US, Germany and international law — contract, employment, data protection, competition, finance, tax, criminal, environmental and more — by the legal concepts they share with your case.</p>
+    <h1 data-t="h1">Tell us about your case.</h1>
+    <p class="start-lede" data-t="lede">Describe what happened and choose what you need back. Casebound maps the facts to the governing Italian Civil Code articles and ranks matching provisions and rulings from Italy, the EU, France, the UK, the US, Germany and international law — contract, employment, data protection, competition, finance, tax, criminal, environmental and more — by the legal concepts they share with your case.</p>
 
     <form class="start-card" id="start-form" novalidate>
       <div class="step">
         <div class="step-n">1</div>
         <div>
           <div class="step-head">
-            <label for="hub-facts">What happened?</label>
-            <button type="button" class="hub-file-btn" id="hub-file-btn">+ Add file</button>
+            <label for="hub-facts" data-t="q1">What happened?</label>
+            <button type="button" class="hub-file-btn" id="hub-file-btn" data-t="addFile">+ Add file</button>
             <input type="file" id="hub-file-input" accept=".txt,.md,.markdown,.pdf,.docx" multiple hidden>
           </div>
-          <p class="step-hint">The parties, what was agreed, the dates, and what went wrong. Plain language is fine. You can also drop a PDF, Word or text file into the box.</p>
-          <textarea id="hub-facts" placeholder="e.g. A buyer ordered manufacturing equipment. Delivery was six weeks late, and the buyer now claims the profit it lost while waiting…"></textarea>
+          <p class="step-hint" data-t="hint1">The parties, what was agreed, the dates, and what went wrong. Plain language is fine. You can also drop a PDF, Word or text file into the box.</p>
+          <textarea id="hub-facts" data-t-ph="phFacts" placeholder="e.g. A buyer ordered manufacturing equipment. Delivery was six weeks late, and the buyer now claims the profit it lost while waiting…"></textarea>
           <div class="field-foot"><span class="hub-file-status" id="hub-file-status"></span><span class="count" id="facts-count"></span></div>
-          <div class="examples" id="examples">Or try an example:</div>
+          <div class="examples" id="examples"><span data-t="tryExample">Or try an example:</span></div>
         </div>
       </div>
 
       <div class="step">
         <div class="step-n">2</div>
         <div>
-          <div class="step-head"><label for="hub-claim">What do you want to establish? <span class="opt">optional</span></label></div>
-          <p class="step-hint">The outcome you are arguing for. It sharpens the ranking.</p>
-          <input type="text" id="hub-claim" placeholder="e.g. recover lost profit for the delay">
+          <div class="step-head"><label for="hub-claim"><span data-t="q2">What do you want to establish?</span> <span class="opt" data-t="optional">optional</span></label></div>
+          <p class="step-hint" data-t="hint2">The outcome you are arguing for. It sharpens the ranking.</p>
+          <input type="text" id="hub-claim" data-t-ph="phClaim" placeholder="e.g. recover lost profit for the delay">
         </div>
       </div>
 
       <div class="step">
         <div class="step-n">3</div>
         <div>
-          <div class="step-head"><span class="lbl" id="out-label">What should the result show?</span></div>
-          <p class="step-hint">You can switch between these on the results page too.</p>
+          <div class="step-head"><span class="lbl" id="out-label" data-t="q3">What should the result show?</span></div>
+          <p class="step-hint" data-t="hint3">You can switch between these on the results page too.</p>
           <div class="out-opts" role="radiogroup" aria-labelledby="out-label">
             <label class="out-opt"><input type="radio" name="output" value="both" checked><span class="box">
-              <span class="rec">Recommended</span>
+              <span class="rec" data-t="recommended">Recommended</span>
               <svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="4" width="8" height="16" rx="1.5"/><rect x="13" y="4" width="8" height="16" rx="1.5"/></svg>
-              <b>Full analysis</b><small>Mindmap and ranked sources side by side.</small></span></label>
+              <b data-t="outBoth">Full analysis</b><small data-t="outBothD">Mindmap and ranked sources side by side.</small></span></label>
             <label class="out-opt"><input type="radio" name="output" value="map"><span class="box">
               <svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="3"/><circle cx="4.5" cy="5" r="2"/><circle cx="19.5" cy="5" r="2"/><circle cx="4.5" cy="19" r="2"/><circle cx="19.5" cy="19" r="2"/><path d="M6 6.4 9.8 10M18 6.4 14.2 10M6 17.6 9.8 14M18 17.6 14.2 14"/></svg>
-              <b>Case mindmap</b><small>Your case mapped into legal-concept files, each holding its documents.</small></span></label>
+              <b data-t="caseMindmap">Case mindmap</b><small data-t="outMapD">Your case mapped into legal-concept files, each holding its documents.</small></span></label>
             <label class="out-opt"><input type="radio" name="output" value="sources"><span class="box">
               <svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M8 6h12M8 12h12M8 18h12"/><path d="M3.5 6h.01M3.5 12h.01M3.5 18h.01" stroke-width="2.6" stroke-linecap="round"/></svg>
-              <b>Compatible sources</b><small>Provisions and rulings ranked by how well they fit.</small></span></label>
+              <b data-t="compatSources">Compatible sources</b><small data-t="outSrcD">Provisions and rulings ranked by how well they fit.</small></span></label>
           </div>
           <div class="refine" id="refine">
-            <div class="refine-row"><span class="refine-l" id="jur-label">Jurisdiction</span>
+            <div class="refine-row"><span class="refine-l" id="jur-label" data-t="jurisdiction">Jurisdiction</span>
               <div class="pills" role="radiogroup" aria-labelledby="jur-label">
-                <label class="pill"><input type="radio" name="jur" value="All" checked><span>All</span></label>
-                <label class="pill"><input type="radio" name="jur" value="Italy"><span>Italy</span></label>
-                <label class="pill"><input type="radio" name="jur" value="European Union"><span>EU</span></label>
-                <label class="pill"><input type="radio" name="jur" value="France"><span>France</span></label>
-                <label class="pill"><input type="radio" name="jur" value="United Kingdom"><span>UK</span></label>
-                <label class="pill"><input type="radio" name="jur" value="United States"><span>US</span></label>
-                <label class="pill"><input type="radio" name="jur" value="Germany"><span>Germany</span></label>
-                <label class="pill"><input type="radio" name="jur" value="International"><span>Int'l</span></label>
+                <label class="pill"><input type="radio" name="jur" value="All" checked><span data-t="jurAll">All</span></label>
+                <label class="pill"><input type="radio" name="jur" value="Italy"><span data-t="jurIT">Italy</span></label>
+                <label class="pill"><input type="radio" name="jur" value="European Union"><span data-t="jurEU">EU</span></label>
+                <label class="pill"><input type="radio" name="jur" value="France"><span data-t="jurFR">France</span></label>
+                <label class="pill"><input type="radio" name="jur" value="United Kingdom"><span data-t="jurUK">UK</span></label>
+                <label class="pill"><input type="radio" name="jur" value="United States"><span data-t="jurUS">US</span></label>
+                <label class="pill"><input type="radio" name="jur" value="Germany"><span data-t="jurDE">Germany</span></label>
+                <label class="pill"><input type="radio" name="jur" value="International"><span data-t="jurIntl">Int'l</span></label>
               </div></div>
-            <div class="refine-row"><span class="refine-l" id="type-label">Source type</span>
+            <div class="refine-row"><span class="refine-l" id="type-label" data-t="sourceType">Source type</span>
               <div class="pills" role="radiogroup" aria-labelledby="type-label">
-                <label class="pill"><input type="radio" name="dtype" value="all" checked><span>Everything</span></label>
-                <label class="pill"><input type="radio" name="dtype" value="provision"><span>Provisions</span></label>
-                <label class="pill"><input type="radio" name="dtype" value="case"><span>Case law</span></label>
+                <label class="pill"><input type="radio" name="dtype" value="all" checked><span data-t="typeAll">Everything</span></label>
+                <label class="pill"><input type="radio" name="dtype" value="provision"><span data-t="typeProv">Provisions</span></label>
+                <label class="pill"><input type="radio" name="dtype" value="case"><span data-t="typeCase">Case law</span></label>
               </div></div>
           </div>
         </div>
@@ -442,41 +477,41 @@ html[data-theme="dark"] .seg button[aria-checked="true"]{box-shadow:0 1px 2px rg
 
       <div class="start-actions">
         <button type="submit" class="hub-btn" id="hub-run">Analyze case &rarr;</button>
-        <label class="hub-file">Save to <select class="proj-select" id="hub-project" aria-label="Project to save this case in"></select></label>
+        <label class="hub-file"><span data-t="saveTo">Save to</span> <select class="proj-select" id="hub-project" aria-label="Project to save this case in" data-t-aria="saveToAria"></select></label>
         <div class="hub-status" id="hub-status" role="status" aria-live="polite"></div>
       </div>
       <div class="plan-bar" id="plan-bar" aria-live="polite"></div>
     </form>
-    <p class="start-foot">Every analysis is saved in this browser under <b>Saved cases</b>, so you can reopen it later. Give it a title and file it in a project from the results page or Saved cases.</p>
+    <p class="start-foot" data-th="startFoot">Every analysis is saved in this browser under <b>Saved cases</b>, so you can reopen it later. Give it a title and file it in a project from the results page or Saved cases.</p>
 
     <div class="recent" id="recent" hidden>
-      <div class="recent-head"><h2>Recent cases</h2><button type="button" class="link-btn" data-go="cases">View all</button></div>
+      <div class="recent-head"><h2 data-t="recentCases">Recent cases</h2><button type="button" class="link-btn" data-go="cases" data-t="viewAll">View all</button></div>
       <div class="recent-list" id="recent-list"></div>
     </div>
   </div>
 </section>
 
 <!-- ================= PAGE 2 — results ================= -->
-<section id="view-results" class="view" aria-label="Results">
+<section id="view-results" class="view" aria-label="Results" data-t-aria="tabResults">
   <div class="res-bar">
     <div class="res-bar-in">
-      <button type="button" class="back-btn" data-go="start">&larr; Edit case</button>
-      <div class="res-summary"><input type="text" class="res-title-in" id="res-title" value="Your case" maxlength="120" aria-label="Case title (click to rename)" title="Click to rename"><div class="res-meta" id="res-meta"></div></div>
-      <label class="res-file">Project <select class="proj-select" id="res-project" aria-label="Project for this case"></select></label>
-      <div class="seg" role="radiogroup" aria-label="Show" id="res-output">
-        <button type="button" role="radio" data-out="both" aria-checked="true">Both</button>
-        <button type="button" role="radio" data-out="map" aria-checked="false">Mindmap</button>
-        <button type="button" role="radio" data-out="sources" aria-checked="false">Sources</button>
+      <button type="button" class="back-btn" data-go="start" data-t="editCase">&larr; Edit case</button>
+      <div class="res-summary"><input type="text" class="res-title-in" id="res-title" dir="auto" value="Your case" maxlength="120" aria-label="Case title (click to rename)" title="Click to rename" data-t-aria="titleAria" data-t-title="clickRename"><div class="res-meta" id="res-meta"></div></div>
+      <label class="res-file"><span data-t="project">Project</span> <select class="proj-select" id="res-project" aria-label="Project for this case" data-t-aria="projForCase"></select></label>
+      <div class="seg" role="radiogroup" aria-label="Show" data-t-aria="show" id="res-output">
+        <button type="button" role="radio" data-out="both" aria-checked="true" data-t="segBoth">Both</button>
+        <button type="button" role="radio" data-out="map" aria-checked="false" data-t="segMap">Mindmap</button>
+        <button type="button" role="radio" data-out="sources" aria-checked="false" data-t="segSrc">Sources</button>
       </div>
-      <button type="button" class="hub-btn secondary" id="res-new">New case</button>
+      <button type="button" class="hub-btn secondary" id="res-new" data-t="tabNew">New case</button>
     </div>
     <div class="res-note" id="res-note"></div>
   </div>
   <div class="frames">
-    <div class="res-empty" id="res-empty" hidden><div><h2>No case analyzed yet</h2><p>Describe your case first and the results will appear here.</p><button type="button" class="hub-btn" data-go="start">Start a case</button></div></div>
+    <div class="res-empty" id="res-empty" hidden><div><h2 data-t="emptyH">No case analyzed yet</h2><p data-t="emptyP">Describe your case first and the results will appear here.</p><button type="button" class="hub-btn" data-go="start" data-t="startCase">Start a case</button></div></div>
     <div class="analysis-split" id="analysis-split" data-show="both">
       <div class="analysis-pane pane-map">
-        <div class="analysis-pane-h">Case mindmap</div>
+        <div class="analysis-pane-h" data-t="caseMindmap">Case mindmap</div>
         <iframe id="frame-atlas" title="Casebound Atlas" srcdoc="<!DOCTYPE html>
 <html lang=&quot;en&quot;>
 <head>
@@ -1596,7 +1631,7 @@ window.addEventListener(&quot;message&quot;, function(ev){
 "></iframe>
       </div>
       <div class="analysis-pane pane-sources">
-        <div class="analysis-pane-h">Compatible sources</div>
+        <div class="analysis-pane-h" data-t="compatSources">Compatible sources</div>
         <iframe id="frame-finder" title="Casebound Finder" srcdoc="<!DOCTYPE html>
 <html lang=&quot;en&quot;>
 <head>
@@ -2508,16 +2543,16 @@ window.addEventListener(&quot;message&quot;, function(ev){
 </section>
 
 <!-- ================= Saved cases ================= -->
-<section id="view-cases" class="view" aria-label="Saved cases">
+<section id="view-cases" class="view" aria-label="Saved cases" data-t-aria="savedCases">
   <div class="cases-view-in">
     <div class="cases-view-head">
-      <h2>Saved cases</h2>
+      <h2 data-t="savedCases">Saved cases</h2>
       <div class="cases-view-tools">
-        <input type="text" id="cases-search" placeholder="Search titles, facts, projects…" aria-label="Search saved cases">
-        <button class="cases-clear-btn" id="cases-clear-all">Clear all</button>
+        <input type="text" id="cases-search" placeholder="Search titles, facts, projects…" aria-label="Search saved cases" data-t-ph="searchPh" data-t-aria="searchAria">
+        <button class="cases-clear-btn" id="cases-clear-all" data-t="clearAll">Clear all</button>
       </div>
     </div>
-    <div class="proj-bar" id="proj-bar" role="toolbar" aria-label="Projects"></div>
+    <div class="proj-bar" id="proj-bar" role="toolbar" aria-label="Projects" data-t-aria="projects"></div>
     <div class="proj-head" id="proj-head" hidden></div>
     <div class="cases-grid" id="cases-grid"></div>
   </div>
@@ -2527,13 +2562,608 @@ window.addEventListener(&quot;message&quot;, function(ev){
 
 <footer class="site-foot">
   <div class="site-foot-in">
-    <span class="sf-note"><b>Research aid, not legal advice.</b> Check every source before relying on it. What you type stays in this browser.</span>
-    <span class="sf-links"><a href="/risk-check.html">Risk check<span class="pro-mini">PRO</span></a><a href="/lawyers.html">For lawyers</a><a href="/pricing.html">Plans</a><a href="/account.html">Account</a><a href="/terms.html">Terms</a><a href="/privacy.html">Privacy</a><a href="mailto:admin@case-bound.com?subject=Casebound%20%E2%80%94%20contact%20or%20complaint">Contact</a></span>
-    <label class="consent" title="Shares your result ratings and the legal concepts recognised in your case — never your text or files. Off by default."><input type="checkbox" id="improve-consent"> Help improve rankings <a href="/privacy.html#improve">(what's sent)</a></label>
+    <span class="sf-note" data-th="footNote"><b>Research aid, not legal advice.</b> Check every source before relying on it. What you type stays in this browser.</span>
+    <span class="sf-links"><a href="/risk-check.html"><span data-t="riskCheck">Risk check</span><span class="pro-mini">PRO</span></a><a href="/lawyers.html" data-t="forLawyers">For lawyers</a><a href="/pricing.html" data-t="plans">Plans</a><a href="/account.html" data-t="account">Account</a><a href="/terms.html" data-t="terms">Terms</a><a href="/privacy.html" data-t="privacy">Privacy</a><a data-t="contact" href="mailto:admin@case-bound.com?subject=Casebound%20%E2%80%94%20contact%20or%20complaint">Contact</a></span>
+    <label class="consent" data-t-title="consentTitle" title="Shares your result ratings and the legal concepts recognised in your case — never your text or files. Off by default."><input type="checkbox" id="improve-consent"> <span data-t="consent">Help improve rankings</span> <a href="/privacy.html#improve" data-t="consentWhat">(what's sent)</a></label>
   </div>
 </footer>
 
 <script src="/plan-limits.js"></script>
+<script>
+/* ---------------- language: this page's own words (the two panes translate themselves) ----------------
+   The language is chosen in the menu mounted by /i18n.js. Text in the markup carries
+   data-t (text), data-th (HTML), data-t-aria / data-t-ph / data-t-title (attributes);
+   everything the script writes asks t(key, ...args). Values may be functions (plurals). */
+const I18N = window.CB_I18N || { get: () => "en", locale: () => "en-IE", onChange: () => {}, isRTL: () => false };
+/* plural forms by Intl.PluralRules category ("#" = the number) */
+const P = (forms) => (n) => {
+  let c = "other";
+  try{ c = new Intl.PluralRules(I18N.locale()).select(n); }catch(e){}
+  return String(forms[c] != null ? forms[c] : forms.other).replace("#", n);
+};
+const PAGE_STR = {
+  en: {
+    docTitle: "Casebound — legal research workspace",
+    metaDesc: "Casebound maps your case facts to the governing Italian Civil Code articles, ranks similar Cassazione rulings, and compares sources across Italy, the EU, France, the UK, the US, Germany and international law, matched by shared legal concepts.",
+    legalResearch: "Legal research", navSections: "Sections", tabNew: "New case", tabResults: "Results",
+    savedCases: "Saved cases", tabSavedShort: "Saved", navAccount: "Account",
+    riskCheck: "Risk check", plans: "Plans", signIn: "Sign in", account: "Account",
+    h1: "Tell us about your case.",
+    lede: "Describe what happened and choose what you need back. Casebound maps the facts to the governing Italian Civil Code articles and ranks matching provisions and rulings from Italy, the EU, France, the UK, the US, Germany and international law — contract, employment, data protection, competition, finance, tax, criminal, environmental and more — by the legal concepts they share with your case.",
+    q1: "What happened?", addFile: "+ Add file",
+    hint1: "The parties, what was agreed, the dates, and what went wrong. Plain language is fine. You can also drop a PDF, Word or text file into the box.",
+    phFacts: "e.g. A buyer ordered manufacturing equipment. Delivery was six weeks late, and the buyer now claims the profit it lost while waiting…",
+    tryExample: "Or try an example:",
+    examples: ["Late delivery, lost profit", "Rejecting goods for a minor defect", "Employee moved to lower-grade duties", "Unfair jurisdiction clause"],
+    q2: "What do you want to establish?", optional: "optional",
+    hint2: "The outcome you are arguing for. It sharpens the ranking.",
+    phClaim: "e.g. recover lost profit for the delay",
+    q3: "What should the result show?", hint3: "You can switch between these on the results page too.",
+    recommended: "Recommended", outBoth: "Full analysis", outBothD: "Mindmap and ranked sources side by side.",
+    caseMindmap: "Case mindmap", outMapD: "Your case mapped into legal-concept files, each holding its documents.",
+    compatSources: "Compatible sources", outSrcD: "Provisions and rulings ranked by how well they fit.",
+    jurisdiction: "Jurisdiction", jurAll: "All", jurIT: "Italy", jurEU: "EU", jurFR: "France", jurUK: "UK", jurUS: "US", jurDE: "Germany", jurIntl: "Int'l",
+    sourceType: "Source type", typeAll: "Everything", typeProv: "Provisions", typeCase: "Case law",
+    analyze: "Analyze case →", analyzing: "Analyzing…", saveTo: "Save to", saveToAria: "Project to save this case in",
+    startFoot: "Every analysis is saved in this browser under <b>Saved cases</b>, so you can reopen it later. Give it a title and file it in a project from the results page or Saved cases.",
+    recentCases: "Recent cases", viewAll: "View all", open: "Open →",
+    editCase: "← Edit case", yourCase: "Your case", titleAria: "Case title (click to rename)", clickRename: "Click to rename",
+    project: "Project", projForCase: "Project for this case", show: "Show", segBoth: "Both", segMap: "Mindmap", segSrc: "Sources",
+    emptyH: "No case analyzed yet", emptyP: "Describe your case first and the results will appear here.", startCase: "Start a case",
+    goal: "Goal:",
+    srcFrom: (j, ty) => "Sources from " + j + (ty ? ", " + ty : ""),
+    jurMeta: { "All": "all jurisdictions", "European Union": "EU", "United Kingdom": "UK", "United States": "US" },
+    onlyProv: "provisions only", onlyCase: "case law only",
+    outLabel: { both: "Mindmap + sources", map: "Mindmap", sources: "Sources" },
+    applyFilters: "Apply filters",
+    searchPh: "Search titles, facts, projects…", searchAria: "Search saved cases", clearAll: "Clear all", projects: "Projects",
+    allCases: "All cases", noProject: "No project", newProjectChip: "+ New project", newProjectOpt: "+ New project…",
+    projNamePh: "Project name, e.g. Contract law essay", newProjAria: "New project name", add: "Add", cancel: "Cancel",
+    projNameAria: "Project name", save: "Save", nCases: P({ one: "# case", other: "# cases" }),
+    newCaseHere: "+ New case here", rename: "Rename", deleteProject: "Delete project",
+    emptySearch: "No saved cases match that search.", emptyAllFiled: "Every case is filed in a project.",
+    emptyProject: "No cases in this project yet. Start one with <b>+ New case here</b>, or move a case in from <b>All cases</b> using its Project menu.",
+    emptyNone: "No cases saved yet. Analyze one and it lands here, ready to reopen.",
+    caseTitleAria: "Case title", renameCase: "Rename case", openResults: "Open results", edit: "Edit", remove: "Remove",
+    promptNewProject: "Name the new project:",
+    confirmClear: "Remove all saved cases from this browser? Your projects stay, empty.",
+    confirmDelProject: (n) => `Delete the project "${n}"? Its cases are kept and moved to No project.`,
+    notSaved: (n, link) => `Not saved: the free plan keeps ${n} cases. Delete one in Saved cases, or ${link}.`,
+    upgradeKeep: "upgrade to keep them all", upgradeUnlimited: "Upgrade for unlimited use",
+    fullAccess: "Full access",
+    proText: 'Unlimited analyses, saved cases and file reading, plus the <a href="/risk-check.html">risk check</a> and lawyer connections.',
+    freePlan: "Free plan",
+    leftToday: (l, m) => `${l} of ${m} analyses left today`,
+    upTo: P({ one: "up to # saved case", other: "up to # saved cases" }),
+    proExtras: " · file reading, risk check and lawyer connections on Pro", upgrade: "Upgrade",
+    fileNeedsPro: (link) => `Reading files is part of the paid plans. ${link}, or paste the text into the box.`, seePlans: "See plans",
+    readingOne: (n) => `Reading ${n}…`, readingMany: (n) => `Reading ${n} files…`,
+    addedAll: (a) => `Added ${a} to the facts.`, addedSome: (a, f) => `Added ${a}. Couldn't read ${f}.`,
+    failedAll: (f) => `Couldn't read ${f}. Try pasting the text directly.`,
+    noText: "no readable text", readerLoad: "couldn't load the reader for this file type",
+    unsupported: (ext) => `.${ext} isn't supported — use .txt, .md, .pdf or .docx`,
+    fromFile: (n) => `— From ${n} —`, sep: ", ",
+    moreDetail: "Add a bit more detail on what happened. A sentence or two is enough.",
+    usedAll: (m, link) => `You've used today's ${m} free analyses. Saved cases still reopen for free. ${link}, or come back tomorrow.`,
+    words: P({ one: "# word", other: "# words" }),
+    footNote: "<b>Research aid, not legal advice.</b> Check every source before relying on it. What you type stays in this browser.",
+    forLawyers: "For lawyers", terms: "Terms", privacy: "Privacy", contact: "Contact",
+    consent: "Help improve rankings", consentWhat: "(what's sent)",
+    consentTitle: "Shares your result ratings and the legal concepts recognised in your case — never your text or files. Off by default."
+  },
+  it: {
+    docTitle: "Casebound — spazio di ricerca giuridica",
+    metaDesc: "Casebound collega i fatti del tuo caso agli articoli del Codice civile italiano applicabili, ordina le sentenze della Cassazione più simili e confronta fonti di Italia, UE, Francia, Regno Unito, Stati Uniti, Germania e diritto internazionale, abbinate per concetti giuridici comuni.",
+    legalResearch: "Ricerca giuridica", navSections: "Sezioni", tabNew: "Nuovo caso", tabResults: "Risultati",
+    savedCases: "Casi salvati", tabSavedShort: "Salvati", navAccount: "Account",
+    riskCheck: "Verifica del rischio", plans: "Piani", signIn: "Accedi", account: "Account",
+    h1: "Raccontaci il tuo caso.",
+    lede: "Descrivi cosa è successo e scegli cosa ti serve. Casebound collega i fatti agli articoli del Codice civile italiano applicabili e ordina le disposizioni e le sentenze pertinenti di Italia, UE, Francia, Regno Unito, Stati Uniti, Germania e diritto internazionale — contratti, lavoro, protezione dei dati, concorrenza, finanza, fisco, penale, ambiente e altro — in base ai concetti giuridici che hanno in comune con il tuo caso.",
+    q1: "Cosa è successo?", addFile: "+ Aggiungi file",
+    hint1: "Le parti, cosa era stato concordato, le date e cosa è andato storto. Va bene un linguaggio semplice. Puoi anche trascinare nel riquadro un file PDF, Word o di testo.",
+    phFacts: "es. Un acquirente ha ordinato macchinari per la produzione. La consegna è arrivata con sei settimane di ritardo e ora l'acquirente chiede il profitto perso durante l'attesa…",
+    tryExample: "Oppure prova un esempio:",
+    examples: ["Consegna in ritardo, mancato guadagno", "Rifiuto della merce per un difetto minore", "Dipendente adibito a mansioni inferiori", "Clausola sul foro abusiva"],
+    q2: "Cosa vuoi dimostrare?", optional: "facoltativo",
+    hint2: "Il risultato che sostieni. Rende l'ordinamento più preciso.",
+    phClaim: "es. recuperare il mancato guadagno dovuto al ritardo",
+    q3: "Cosa deve mostrare il risultato?", hint3: "Puoi passare dall'una all'altra anche nella pagina dei risultati.",
+    recommended: "Consigliato", outBoth: "Analisi completa", outBothD: "Mappa e fonti ordinate affiancate.",
+    caseMindmap: "Mappa del caso", outMapD: "Il tuo caso organizzato in cartelle di concetti giuridici, ciascuna con i suoi documenti.",
+    compatSources: "Fonti compatibili", outSrcD: "Disposizioni e sentenze ordinate per pertinenza.",
+    jurisdiction: "Giurisdizione", jurAll: "Tutte", jurIT: "Italia", jurEU: "UE", jurFR: "Francia", jurUK: "Regno Unito", jurUS: "USA", jurDE: "Germania", jurIntl: "Internaz.",
+    sourceType: "Tipo di fonte", typeAll: "Tutto", typeProv: "Disposizioni", typeCase: "Giurisprudenza",
+    analyze: "Analizza il caso →", analyzing: "Analisi in corso…", saveTo: "Salva in", saveToAria: "Progetto in cui salvare questo caso",
+    startFoot: "Ogni analisi viene salvata in questo browser in <b>Casi salvati</b>, così puoi riaprirla in seguito. Dalle un titolo e archiviala in un progetto dalla pagina dei risultati o da Casi salvati.",
+    recentCases: "Casi recenti", viewAll: "Vedi tutti", open: "Apri →",
+    editCase: "← Modifica il caso", yourCase: "Il tuo caso", titleAria: "Titolo del caso (clicca per rinominare)", clickRename: "Clicca per rinominare",
+    project: "Progetto", projForCase: "Progetto di questo caso", show: "Mostra", segBoth: "Entrambi", segMap: "Mappa", segSrc: "Fonti",
+    emptyH: "Nessun caso analizzato", emptyP: "Descrivi prima il tuo caso: i risultati appariranno qui.", startCase: "Inizia un caso",
+    goal: "Obiettivo:",
+    srcFrom: (j, ty) => "Fonti: " + j + (ty ? ", " + ty : ""),
+    jurMeta: { "All": "tutte le giurisdizioni", "Italy": "Italia", "European Union": "UE", "France": "Francia", "United Kingdom": "Regno Unito", "United States": "Stati Uniti", "Germany": "Germania", "International": "diritto internazionale" },
+    onlyProv: "solo disposizioni", onlyCase: "solo giurisprudenza",
+    outLabel: { both: "Mappa + fonti", map: "Mappa", sources: "Fonti" },
+    applyFilters: "Applica i filtri",
+    searchPh: "Cerca titoli, fatti, progetti…", searchAria: "Cerca nei casi salvati", clearAll: "Elimina tutti", projects: "Progetti",
+    allCases: "Tutti i casi", noProject: "Nessun progetto", newProjectChip: "+ Nuovo progetto", newProjectOpt: "+ Nuovo progetto…",
+    projNamePh: "Nome del progetto, es. Tesina di diritto dei contratti", newProjAria: "Nome del nuovo progetto", add: "Aggiungi", cancel: "Annulla",
+    projNameAria: "Nome del progetto", save: "Salva", nCases: P({ one: "# caso", other: "# casi" }),
+    newCaseHere: "+ Nuovo caso qui", rename: "Rinomina", deleteProject: "Elimina progetto",
+    emptySearch: "Nessun caso salvato corrisponde alla ricerca.", emptyAllFiled: "Ogni caso è archiviato in un progetto.",
+    emptyProject: "Ancora nessun caso in questo progetto. Iniziane uno con <b>+ Nuovo caso qui</b>, oppure sposta qui un caso da <b>Tutti i casi</b> con il suo menu Progetto.",
+    emptyNone: "Nessun caso salvato. Analizzane uno e lo troverai qui, pronto da riaprire.",
+    caseTitleAria: "Titolo del caso", renameCase: "Rinomina il caso", openResults: "Apri i risultati", edit: "Modifica", remove: "Rimuovi",
+    promptNewProject: "Nome del nuovo progetto:",
+    confirmClear: "Rimuovere tutti i casi salvati da questo browser? I progetti restano, vuoti.",
+    confirmDelProject: (n) => `Eliminare il progetto "${n}"? I suoi casi vengono conservati e spostati in Nessun progetto.`,
+    notSaved: (n, link) => `Non salvato: il piano gratuito conserva ${n} casi. Eliminane uno in Casi salvati, oppure ${link}.`,
+    upgradeKeep: "passa a Pro per conservarli tutti", upgradeUnlimited: "Passa a Pro per un uso illimitato",
+    fullAccess: "Accesso completo",
+    proText: 'Analisi, casi salvati e lettura di file illimitati, più la <a href="/risk-check.html">verifica del rischio</a> e il contatto con avvocati.',
+    freePlan: "Piano gratuito",
+    leftToday: (l, m) => `${l} analisi su ${m} rimaste oggi`,
+    upTo: P({ one: "fino a # caso salvato", other: "fino a # casi salvati" }),
+    proExtras: " · lettura di file, verifica del rischio e contatto con avvocati con Pro", upgrade: "Passa a Pro",
+    fileNeedsPro: (link) => `La lettura dei file è inclusa nei piani a pagamento. ${link}, oppure incolla il testo nel riquadro.`, seePlans: "Vedi i piani",
+    readingOne: (n) => `Lettura di ${n}…`, readingMany: (n) => `Lettura di ${n} file…`,
+    addedAll: (a) => `Aggiunto ai fatti: ${a}.`, addedSome: (a, f) => `Aggiunto: ${a}. Impossibile leggere: ${f}.`,
+    failedAll: (f) => `Impossibile leggere: ${f}. Prova a incollare direttamente il testo.`,
+    noText: "nessun testo leggibile", readerLoad: "impossibile caricare il lettore per questo tipo di file",
+    unsupported: (ext) => `.${ext} non è supportato — usa .txt, .md, .pdf o .docx`,
+    fromFile: (n) => `— Da ${n} —`,
+    moreDetail: "Aggiungi qualche dettaglio in più su cosa è successo. Bastano una o due frasi.",
+    usedAll: (m, link) => `Hai usato le ${m} analisi gratuite di oggi. I casi salvati si riaprono comunque gratis. ${link}, oppure torna domani.`,
+    words: P({ one: "# parola", other: "# parole" }),
+    footNote: "<b>Supporto alla ricerca, non consulenza legale.</b> Verifica ogni fonte prima di farvi affidamento. Ciò che scrivi resta in questo browser.",
+    forLawyers: "Per avvocati", terms: "Condizioni d'uso", privacy: "Privacy", contact: "Contatti",
+    consent: "Aiuta a migliorare gli ordinamenti", consentWhat: "(cosa viene inviato)",
+    consentTitle: "Condivide le tue valutazioni dei risultati e i concetti giuridici riconosciuti nel tuo caso — mai il tuo testo o i tuoi file. Disattivato per impostazione predefinita."
+  },
+  es: {
+    docTitle: "Casebound — espacio de investigación jurídica",
+    metaDesc: "Casebound relaciona los hechos de tu caso con los artículos aplicables del Código Civil italiano, clasifica las sentencias más parecidas de la Cassazione y compara fuentes de Italia, la UE, Francia, el Reino Unido, EE. UU., Alemania y el derecho internacional, enlazadas por conceptos jurídicos comunes.",
+    legalResearch: "Investigación jurídica", navSections: "Secciones", tabNew: "Nuevo caso", tabResults: "Resultados",
+    savedCases: "Casos guardados", tabSavedShort: "Guardados", navAccount: "Cuenta",
+    riskCheck: "Evaluación de riesgo", plans: "Planes", signIn: "Iniciar sesión", account: "Cuenta",
+    h1: "Cuéntanos tu caso.",
+    lede: "Describe lo que pasó y elige qué necesitas. Casebound relaciona los hechos con los artículos aplicables del Código Civil italiano y clasifica las disposiciones y sentencias pertinentes de Italia, la UE, Francia, el Reino Unido, EE. UU., Alemania y el derecho internacional — contratos, laboral, protección de datos, competencia, finanzas, fiscal, penal, medio ambiente y más — según los conceptos jurídicos que comparten con tu caso.",
+    q1: "¿Qué pasó?", addFile: "+ Añadir archivo",
+    hint1: "Las partes, lo que se acordó, las fechas y qué salió mal. Puedes usar un lenguaje sencillo. También puedes soltar un archivo PDF, Word o de texto en el recuadro.",
+    phFacts: "p. ej. Un comprador encargó maquinaria de fabricación. La entrega llegó con seis semanas de retraso y ahora el comprador reclama el beneficio que perdió mientras esperaba…",
+    tryExample: "O prueba un ejemplo:",
+    examples: ["Entrega tardía, lucro cesante", "Rechazo de mercancía por un defecto menor", "Empleado relegado a funciones inferiores", "Cláusula de jurisdicción abusiva"],
+    q2: "¿Qué quieres demostrar?", optional: "opcional",
+    hint2: "El resultado que defiendes. Afina la clasificación.",
+    phClaim: "p. ej. recuperar el lucro cesante por el retraso",
+    q3: "¿Qué debe mostrar el resultado?", hint3: "También puedes cambiar entre estas opciones en la página de resultados.",
+    recommended: "Recomendado", outBoth: "Análisis completo", outBothD: "Mapa y fuentes clasificadas lado a lado.",
+    caseMindmap: "Mapa del caso", outMapD: "Tu caso organizado en carpetas de conceptos jurídicos, cada una con sus documentos.",
+    compatSources: "Fuentes compatibles", outSrcD: "Disposiciones y sentencias clasificadas según su pertinencia.",
+    jurisdiction: "Jurisdicción", jurAll: "Todas", jurIT: "Italia", jurEU: "UE", jurFR: "Francia", jurUK: "Reino Unido", jurUS: "EE. UU.", jurDE: "Alemania", jurIntl: "Internac.",
+    sourceType: "Tipo de fuente", typeAll: "Todo", typeProv: "Disposiciones", typeCase: "Jurisprudencia",
+    analyze: "Analizar caso →", analyzing: "Analizando…", saveTo: "Guardar en", saveToAria: "Proyecto en el que guardar este caso",
+    startFoot: "Cada análisis se guarda en este navegador en <b>Casos guardados</b>, para que puedas volver a abrirlo. Ponle un título y archívalo en un proyecto desde la página de resultados o desde Casos guardados.",
+    recentCases: "Casos recientes", viewAll: "Ver todos", open: "Abrir →",
+    editCase: "← Editar caso", yourCase: "Tu caso", titleAria: "Título del caso (haz clic para renombrar)", clickRename: "Haz clic para renombrar",
+    project: "Proyecto", projForCase: "Proyecto de este caso", show: "Mostrar", segBoth: "Ambos", segMap: "Mapa", segSrc: "Fuentes",
+    emptyH: "Aún no has analizado ningún caso", emptyP: "Describe primero tu caso y los resultados aparecerán aquí.", startCase: "Empezar un caso",
+    goal: "Objetivo:",
+    srcFrom: (j, ty) => "Fuentes: " + j + (ty ? ", " + ty : ""),
+    jurMeta: { "All": "todas las jurisdicciones", "Italy": "Italia", "European Union": "UE", "France": "Francia", "United Kingdom": "Reino Unido", "United States": "EE. UU.", "Germany": "Alemania", "International": "derecho internacional" },
+    onlyProv: "solo disposiciones", onlyCase: "solo jurisprudencia",
+    outLabel: { both: "Mapa + fuentes", map: "Mapa", sources: "Fuentes" },
+    applyFilters: "Aplicar filtros",
+    searchPh: "Buscar títulos, hechos, proyectos…", searchAria: "Buscar en casos guardados", clearAll: "Borrar todo", projects: "Proyectos",
+    allCases: "Todos los casos", noProject: "Sin proyecto", newProjectChip: "+ Nuevo proyecto", newProjectOpt: "+ Nuevo proyecto…",
+    projNamePh: "Nombre del proyecto, p. ej. Trabajo de derecho contractual", newProjAria: "Nombre del nuevo proyecto", add: "Añadir", cancel: "Cancelar",
+    projNameAria: "Nombre del proyecto", save: "Guardar", nCases: P({ one: "# caso", other: "# casos" }),
+    newCaseHere: "+ Nuevo caso aquí", rename: "Renombrar", deleteProject: "Eliminar proyecto",
+    emptySearch: "Ningún caso guardado coincide con la búsqueda.", emptyAllFiled: "Todos los casos están archivados en un proyecto.",
+    emptyProject: "Aún no hay casos en este proyecto. Empieza uno con <b>+ Nuevo caso aquí</b> o mueve aquí un caso desde <b>Todos los casos</b> con su menú Proyecto.",
+    emptyNone: "Aún no has guardado ningún caso. Analiza uno y aparecerá aquí, listo para volver a abrirlo.",
+    caseTitleAria: "Título del caso", renameCase: "Renombrar caso", openResults: "Abrir resultados", edit: "Editar", remove: "Eliminar",
+    promptNewProject: "Nombre del nuevo proyecto:",
+    confirmClear: "¿Eliminar todos los casos guardados de este navegador? Tus proyectos se mantienen, vacíos.",
+    confirmDelProject: (n) => `¿Eliminar el proyecto "${n}"? Sus casos se conservan y pasan a Sin proyecto.`,
+    notSaved: (n, link) => `No guardado: el plan gratuito conserva ${n} casos. Elimina uno en Casos guardados o ${link}.`,
+    upgradeKeep: "mejora tu plan para conservarlos todos", upgradeUnlimited: "Mejora tu plan para un uso ilimitado",
+    fullAccess: "Acceso completo",
+    proText: 'Análisis, casos guardados y lectura de archivos ilimitados, además de la <a href="/risk-check.html">evaluación de riesgo</a> y el contacto con abogados.',
+    freePlan: "Plan gratuito",
+    leftToday: (l, m) => `Te quedan ${l} de ${m} análisis hoy`,
+    upTo: P({ one: "hasta # caso guardado", other: "hasta # casos guardados" }),
+    proExtras: " · lectura de archivos, evaluación de riesgo y contacto con abogados en Pro", upgrade: "Mejorar plan",
+    fileNeedsPro: (link) => `La lectura de archivos forma parte de los planes de pago. ${link}, o pega el texto en el recuadro.`, seePlans: "Ver planes",
+    readingOne: (n) => `Leyendo ${n}…`, readingMany: (n) => `Leyendo ${n} archivos…`,
+    addedAll: (a) => `Añadido a los hechos: ${a}.`, addedSome: (a, f) => `Añadido: ${a}. No se pudo leer: ${f}.`,
+    failedAll: (f) => `No se pudo leer: ${f}. Prueba a pegar el texto directamente.`,
+    noText: "sin texto legible", readerLoad: "no se pudo cargar el lector para este tipo de archivo",
+    unsupported: (ext) => `.${ext} no es compatible — usa .txt, .md, .pdf o .docx`,
+    fromFile: (n) => `— De ${n} —`,
+    moreDetail: "Añade algo más de detalle sobre lo que pasó. Basta con una o dos frases.",
+    usedAll: (m, link) => `Ya has usado los ${m} análisis gratuitos de hoy. Los casos guardados se siguen abriendo gratis. ${link}, o vuelve mañana.`,
+    words: P({ one: "# palabra", other: "# palabras" }),
+    footNote: "<b>Herramienta de investigación, no asesoramiento jurídico.</b> Comprueba cada fuente antes de basarte en ella. Lo que escribes se queda en este navegador.",
+    forLawyers: "Para abogados", terms: "Condiciones", privacy: "Privacidad", contact: "Contacto",
+    consent: "Ayuda a mejorar la clasificación", consentWhat: "(qué se envía)",
+    consentTitle: "Comparte tus valoraciones de los resultados y los conceptos jurídicos reconocidos en tu caso — nunca tu texto ni tus archivos. Desactivado por defecto."
+  },
+  fr: {
+    docTitle: "Casebound — espace de recherche juridique",
+    metaDesc: "Casebound rattache les faits de votre affaire aux articles applicables du Code civil italien, classe les arrêts de la Cassazione les plus proches et compare les sources d'Italie, de l'UE, de France, du Royaume-Uni, des États-Unis, d'Allemagne et du droit international, reliées par des notions juridiques communes.",
+    legalResearch: "Recherche juridique", navSections: "Rubriques", tabNew: "Nouveau dossier", tabResults: "Résultats",
+    savedCases: "Dossiers enregistrés", tabSavedShort: "Enregistrés", navAccount: "Compte",
+    riskCheck: "Évaluation du risque", plans: "Offres", signIn: "Se connecter", account: "Compte",
+    h1: "Parlez-nous de votre affaire.",
+    lede: "Décrivez ce qui s'est passé et choisissez ce dont vous avez besoin. Casebound rattache les faits aux articles applicables du Code civil italien et classe les dispositions et décisions pertinentes d'Italie, de l'UE, de France, du Royaume-Uni, des États-Unis, d'Allemagne et du droit international — contrats, travail, protection des données, concurrence, finance, fiscalité, pénal, environnement et plus encore — selon les notions juridiques qu'elles partagent avec votre affaire.",
+    q1: "Que s'est-il passé ?", addFile: "+ Ajouter un fichier",
+    hint1: "Les parties, ce qui avait été convenu, les dates et ce qui a mal tourné. Un langage simple suffit. Vous pouvez aussi déposer un fichier PDF, Word ou texte dans le cadre.",
+    phFacts: "ex. Un acheteur a commandé des équipements de production. La livraison a eu six semaines de retard et l'acheteur réclame maintenant le bénéfice perdu pendant l'attente…",
+    tryExample: "Ou essayez un exemple :",
+    examples: ["Livraison tardive, manque à gagner", "Refus de marchandises pour un défaut mineur", "Salarié affecté à des tâches inférieures", "Clause attributive de juridiction abusive"],
+    q2: "Que voulez-vous établir ?", optional: "facultatif",
+    hint2: "Le résultat que vous défendez. Il affine le classement.",
+    phClaim: "ex. obtenir réparation du manque à gagner dû au retard",
+    q3: "Que doit montrer le résultat ?", hint3: "Vous pourrez aussi basculer entre ces vues sur la page des résultats.",
+    recommended: "Recommandé", outBoth: "Analyse complète", outBothD: "Carte et sources classées côte à côte.",
+    caseMindmap: "Carte du dossier", outMapD: "Votre affaire organisée en dossiers de notions juridiques, chacun avec ses documents.",
+    compatSources: "Sources compatibles", outSrcD: "Dispositions et décisions classées selon leur pertinence.",
+    jurisdiction: "Juridiction", jurAll: "Toutes", jurIT: "Italie", jurEU: "UE", jurFR: "France", jurUK: "Royaume-Uni", jurUS: "États-Unis", jurDE: "Allemagne", jurIntl: "Internat.",
+    sourceType: "Type de source", typeAll: "Tout", typeProv: "Dispositions", typeCase: "Jurisprudence",
+    analyze: "Analyser l'affaire →", analyzing: "Analyse en cours…", saveTo: "Enregistrer dans", saveToAria: "Projet dans lequel enregistrer ce dossier",
+    startFoot: "Chaque analyse est enregistrée dans ce navigateur, sous <b>Dossiers enregistrés</b>, pour que vous puissiez la rouvrir plus tard. Donnez-lui un titre et classez-la dans un projet depuis la page des résultats ou les Dossiers enregistrés.",
+    recentCases: "Dossiers récents", viewAll: "Tout voir", open: "Ouvrir →",
+    editCase: "← Modifier l'affaire", yourCase: "Votre affaire", titleAria: "Titre du dossier (cliquez pour renommer)", clickRename: "Cliquez pour renommer",
+    project: "Projet", projForCase: "Projet de ce dossier", show: "Afficher", segBoth: "Les deux", segMap: "Carte", segSrc: "Sources",
+    emptyH: "Aucune affaire analysée pour l'instant", emptyP: "Décrivez d'abord votre affaire : les résultats apparaîtront ici.", startCase: "Commencer un dossier",
+    goal: "Objectif :",
+    srcFrom: (j, ty) => "Sources : " + j + (ty ? ", " + ty : ""),
+    jurMeta: { "All": "toutes juridictions", "Italy": "Italie", "European Union": "UE", "France": "France", "United Kingdom": "Royaume-Uni", "United States": "États-Unis", "Germany": "Allemagne", "International": "droit international" },
+    onlyProv: "dispositions uniquement", onlyCase: "jurisprudence uniquement",
+    outLabel: { both: "Carte + sources", map: "Carte", sources: "Sources" },
+    applyFilters: "Appliquer les filtres",
+    searchPh: "Rechercher titres, faits, projets…", searchAria: "Rechercher dans les dossiers enregistrés", clearAll: "Tout effacer", projects: "Projets",
+    allCases: "Tous les dossiers", noProject: "Sans projet", newProjectChip: "+ Nouveau projet", newProjectOpt: "+ Nouveau projet…",
+    projNamePh: "Nom du projet, ex. Mémoire de droit des contrats", newProjAria: "Nom du nouveau projet", add: "Ajouter", cancel: "Annuler",
+    projNameAria: "Nom du projet", save: "Enregistrer", nCases: P({ one: "# dossier", other: "# dossiers" }),
+    newCaseHere: "+ Nouveau dossier ici", rename: "Renommer", deleteProject: "Supprimer le projet",
+    emptySearch: "Aucun dossier enregistré ne correspond à cette recherche.", emptyAllFiled: "Tous les dossiers sont classés dans un projet.",
+    emptyProject: "Aucun dossier dans ce projet pour l'instant. Commencez-en un avec <b>+ Nouveau dossier ici</b>, ou déplacez-y un dossier depuis <b>Tous les dossiers</b> via son menu Projet.",
+    emptyNone: "Aucun dossier enregistré pour l'instant. Analysez une affaire : elle arrivera ici, prête à être rouverte.",
+    caseTitleAria: "Titre du dossier", renameCase: "Renommer le dossier", openResults: "Ouvrir les résultats", edit: "Modifier", remove: "Supprimer",
+    promptNewProject: "Nom du nouveau projet :",
+    confirmClear: "Supprimer tous les dossiers enregistrés de ce navigateur ? Vos projets restent, vides.",
+    confirmDelProject: (n) => `Supprimer le projet « ${n} » ? Ses dossiers sont conservés et déplacés vers Sans projet.`,
+    notSaved: (n, link) => `Non enregistré : l'offre gratuite conserve ${n} dossiers. Supprimez-en un dans Dossiers enregistrés, ou ${link}.`,
+    upgradeKeep: "passez à Pro pour tous les conserver", upgradeUnlimited: "Passez à Pro pour un usage illimité",
+    fullAccess: "Accès complet",
+    proText: 'Analyses, dossiers enregistrés et lecture de fichiers illimités, plus l\'<a href="/risk-check.html">évaluation du risque</a> et la mise en relation avec des avocats.',
+    freePlan: "Offre gratuite",
+    leftToday: (l, m) => P({ one: "Il vous reste # analyse sur " + m + " aujourd'hui", other: "Il vous reste # analyses sur " + m + " aujourd'hui" })(l),
+    upTo: P({ one: "jusqu'à # dossier enregistré", other: "jusqu'à # dossiers enregistrés" }),
+    proExtras: " · lecture de fichiers, évaluation du risque et mise en relation avec des avocats avec Pro", upgrade: "Passer à Pro",
+    fileNeedsPro: (link) => `La lecture de fichiers fait partie des offres payantes. ${link}, ou collez le texte dans le cadre.`, seePlans: "Voir les offres",
+    readingOne: (n) => `Lecture de ${n}…`, readingMany: (n) => `Lecture de ${n} fichiers…`,
+    addedAll: (a) => `Ajouté aux faits : ${a}.`, addedSome: (a, f) => `Ajouté : ${a}. Lecture impossible : ${f}.`,
+    failedAll: (f) => `Lecture impossible : ${f}. Essayez de coller le texte directement.`,
+    noText: "aucun texte lisible", readerLoad: "impossible de charger le lecteur pour ce type de fichier",
+    unsupported: (ext) => `.${ext} n'est pas pris en charge — utilisez .txt, .md, .pdf ou .docx`,
+    fromFile: (n) => `— Extrait de ${n} —`,
+    moreDetail: "Ajoutez un peu plus de détails sur ce qui s'est passé. Une phrase ou deux suffisent.",
+    usedAll: (m, link) => `Vous avez utilisé vos ${m} analyses gratuites du jour. Les dossiers enregistrés se rouvrent toujours gratuitement. ${link}, ou revenez demain.`,
+    words: P({ one: "# mot", other: "# mots" }),
+    footNote: "<b>Aide à la recherche, pas un conseil juridique.</b> Vérifiez chaque source avant de vous y fier. Ce que vous saisissez reste dans ce navigateur.",
+    forLawyers: "Pour les avocats", terms: "Conditions", privacy: "Confidentialité", contact: "Contact",
+    consent: "Aider à améliorer le classement", consentWhat: "(ce qui est envoyé)",
+    consentTitle: "Partage vos évaluations des résultats et les notions juridiques reconnues dans votre affaire — jamais votre texte ni vos fichiers. Désactivé par défaut."
+  },
+  de: {
+    docTitle: "Casebound — Arbeitsbereich für juristische Recherche",
+    metaDesc: "Casebound ordnet die Fakten deines Falls den einschlägigen Artikeln des italienischen Zivilgesetzbuchs zu, sortiert ähnliche Entscheidungen der Cassazione und vergleicht Quellen aus Italien, der EU, Frankreich, dem Vereinigten Königreich, den USA, Deutschland und dem Völkerrecht – verknüpft über gemeinsame Rechtsbegriffe.",
+    legalResearch: "Juristische Recherche", navSections: "Bereiche", tabNew: "Neuer Fall", tabResults: "Ergebnisse",
+    savedCases: "Gespeicherte Fälle", tabSavedShort: "Gespeichert", navAccount: "Konto",
+    riskCheck: "Risikocheck", plans: "Tarife", signIn: "Anmelden", account: "Konto",
+    h1: "Erzähl uns von deinem Fall.",
+    lede: "Beschreibe, was passiert ist, und wähle, was du brauchst. Casebound ordnet die Fakten den einschlägigen Artikeln des italienischen Zivilgesetzbuchs zu und sortiert passende Vorschriften und Entscheidungen aus Italien, der EU, Frankreich, dem Vereinigten Königreich, den USA, Deutschland und dem Völkerrecht – Vertrags-, Arbeits-, Datenschutz-, Wettbewerbs-, Finanz-, Steuer-, Straf-, Umweltrecht und mehr – nach den Rechtsbegriffen, die sie mit deinem Fall teilen.",
+    q1: "Was ist passiert?", addFile: "+ Datei hinzufügen",
+    hint1: "Die Parteien, was vereinbart war, die Daten und was schiefgelaufen ist. Einfache Sprache genügt. Du kannst auch eine PDF-, Word- oder Textdatei in das Feld ziehen.",
+    phFacts: "z. B. Ein Käufer hat Fertigungsanlagen bestellt. Die Lieferung kam sechs Wochen zu spät, und der Käufer verlangt nun den Gewinn, der ihm während des Wartens entgangen ist…",
+    tryExample: "Oder probier ein Beispiel:",
+    examples: ["Verspätete Lieferung, entgangener Gewinn", "Ablehnung der Ware wegen eines kleinen Mangels", "Versetzung auf eine geringerwertige Tätigkeit", "Missbräuchliche Gerichtsstandsklausel"],
+    q2: "Was möchtest du erreichen?", optional: "optional",
+    hint2: "Das Ergebnis, für das du argumentierst. Es schärft die Rangfolge.",
+    phClaim: "z. B. entgangenen Gewinn wegen der Verspätung ersetzt bekommen",
+    q3: "Was soll das Ergebnis zeigen?", hint3: "Du kannst auch auf der Ergebnisseite zwischen den Ansichten wechseln.",
+    recommended: "Empfohlen", outBoth: "Vollständige Analyse", outBothD: "Fallkarte und sortierte Quellen nebeneinander.",
+    caseMindmap: "Fallkarte", outMapD: "Dein Fall, gegliedert in Ordner nach Rechtsbegriffen, jeweils mit den passenden Dokumenten.",
+    compatSources: "Passende Quellen", outSrcD: "Vorschriften und Entscheidungen, sortiert danach, wie gut sie passen.",
+    jurisdiction: "Rechtsordnung", jurAll: "Alle", jurIT: "Italien", jurEU: "EU", jurFR: "Frankreich", jurUK: "UK", jurUS: "USA", jurDE: "Deutschland", jurIntl: "International",
+    sourceType: "Quellenart", typeAll: "Alles", typeProv: "Vorschriften", typeCase: "Rechtsprechung",
+    analyze: "Fall analysieren →", analyzing: "Wird analysiert…", saveTo: "Speichern in", saveToAria: "Projekt, in dem dieser Fall gespeichert wird",
+    startFoot: "Jede Analyse wird in diesem Browser unter <b>Gespeicherte Fälle</b> gespeichert, damit du sie später wieder öffnen kannst. Gib ihr einen Titel und ordne sie auf der Ergebnisseite oder unter Gespeicherte Fälle einem Projekt zu.",
+    recentCases: "Letzte Fälle", viewAll: "Alle anzeigen", open: "Öffnen →",
+    editCase: "← Fall bearbeiten", yourCase: "Dein Fall", titleAria: "Falltitel (zum Umbenennen klicken)", clickRename: "Zum Umbenennen klicken",
+    project: "Projekt", projForCase: "Projekt für diesen Fall", show: "Anzeigen", segBoth: "Beides", segMap: "Karte", segSrc: "Quellen",
+    emptyH: "Noch kein Fall analysiert", emptyP: "Beschreibe zuerst deinen Fall, dann erscheinen hier die Ergebnisse.", startCase: "Fall beginnen",
+    goal: "Ziel:",
+    srcFrom: (j, ty) => "Quellen: " + j + (ty ? ", " + ty : ""),
+    jurMeta: { "All": "alle Rechtsordnungen", "Italy": "Italien", "European Union": "EU", "France": "Frankreich", "United Kingdom": "Vereinigtes Königreich", "United States": "USA", "Germany": "Deutschland", "International": "Völkerrecht" },
+    onlyProv: "nur Vorschriften", onlyCase: "nur Rechtsprechung",
+    outLabel: { both: "Karte + Quellen", map: "Karte", sources: "Quellen" },
+    applyFilters: "Filter anwenden",
+    searchPh: "Titel, Fakten, Projekte durchsuchen…", searchAria: "Gespeicherte Fälle durchsuchen", clearAll: "Alle löschen", projects: "Projekte",
+    allCases: "Alle Fälle", noProject: "Kein Projekt", newProjectChip: "+ Neues Projekt", newProjectOpt: "+ Neues Projekt…",
+    projNamePh: "Projektname, z. B. Hausarbeit Vertragsrecht", newProjAria: "Name des neuen Projekts", add: "Hinzufügen", cancel: "Abbrechen",
+    projNameAria: "Projektname", save: "Speichern", nCases: P({ one: "# Fall", other: "# Fälle" }),
+    newCaseHere: "+ Neuer Fall hier", rename: "Umbenennen", deleteProject: "Projekt löschen",
+    emptySearch: "Keine gespeicherten Fälle passen zu dieser Suche.", emptyAllFiled: "Jeder Fall ist einem Projekt zugeordnet.",
+    emptyProject: "Noch keine Fälle in diesem Projekt. Beginne einen mit <b>+ Neuer Fall hier</b> oder verschiebe einen Fall aus <b>Alle Fälle</b> über sein Projekt-Menü hierher.",
+    emptyNone: "Noch keine Fälle gespeichert. Analysiere einen, dann landet er hier und lässt sich wieder öffnen.",
+    caseTitleAria: "Falltitel", renameCase: "Fall umbenennen", openResults: "Ergebnisse öffnen", edit: "Bearbeiten", remove: "Entfernen",
+    promptNewProject: "Name des neuen Projekts:",
+    confirmClear: "Alle gespeicherten Fälle aus diesem Browser entfernen? Deine Projekte bleiben bestehen, aber leer.",
+    confirmDelProject: (n) => `Projekt „${n}“ löschen? Seine Fälle bleiben erhalten und werden nach „Kein Projekt“ verschoben.`,
+    notSaved: (n, link) => `Nicht gespeichert: Im kostenlosen Tarif bleiben ${n} Fälle gespeichert. Lösche einen unter Gespeicherte Fälle oder ${link}.`,
+    upgradeKeep: "upgrade, um alle zu behalten", upgradeUnlimited: "Upgrade für unbegrenzte Nutzung",
+    fullAccess: "Voller Zugriff",
+    proText: 'Unbegrenzte Analysen, gespeicherte Fälle und Dateien, dazu der <a href="/risk-check.html">Risikocheck</a> und Kontakt zu Anwälten.',
+    freePlan: "Kostenloser Tarif",
+    leftToday: (l, m) => `Heute noch ${l} von ${m} Analysen übrig`,
+    upTo: P({ one: "bis zu # gespeicherter Fall", other: "bis zu # gespeicherte Fälle" }),
+    proExtras: " · Dateien lesen, Risikocheck und Kontakt zu Anwälten mit Pro", upgrade: "Upgrade",
+    fileNeedsPro: (link) => `Dateien lesen ist Teil der kostenpflichtigen Tarife. ${link} oder füge den Text in das Feld ein.`, seePlans: "Tarife ansehen",
+    readingOne: (n) => `${n} wird gelesen…`, readingMany: (n) => `${n} Dateien werden gelesen…`,
+    addedAll: (a) => `Zu den Fakten hinzugefügt: ${a}.`, addedSome: (a, f) => `Hinzugefügt: ${a}. Nicht lesbar: ${f}.`,
+    failedAll: (f) => `Nicht lesbar: ${f}. Füge den Text am besten direkt ein.`,
+    noText: "kein lesbarer Text", readerLoad: "der Leser für diesen Dateityp konnte nicht geladen werden",
+    unsupported: (ext) => `.${ext} wird nicht unterstützt – verwende .txt, .md, .pdf oder .docx`,
+    fromFile: (n) => `— Aus ${n} —`,
+    moreDetail: "Beschreib etwas genauer, was passiert ist. Ein, zwei Sätze reichen.",
+    usedAll: (m, link) => `Du hast die ${m} kostenlosen Analysen für heute verbraucht. Gespeicherte Fälle lassen sich weiterhin kostenlos öffnen. ${link} oder komm morgen wieder.`,
+    words: P({ one: "# Wort", other: "# Wörter" }),
+    footNote: "<b>Recherchehilfe, keine Rechtsberatung.</b> Prüfe jede Quelle, bevor du dich darauf verlässt. Was du eingibst, bleibt in diesem Browser.",
+    forLawyers: "Für Anwälte", terms: "Nutzungsbedingungen", privacy: "Datenschutz", contact: "Kontakt",
+    consent: "Hilf, die Rangfolge zu verbessern", consentWhat: "(was gesendet wird)",
+    consentTitle: "Teilt deine Bewertungen der Ergebnisse und die in deinem Fall erkannten Rechtsbegriffe – nie deinen Text oder deine Dateien. Standardmäßig aus."
+  },
+  pt: {
+    docTitle: "Casebound — espaço de pesquisa jurídica",
+    metaDesc: "O Casebound relaciona os factos do seu caso com os artigos aplicáveis do Código Civil italiano, ordena as decisões mais semelhantes da Cassazione e compara fontes de Itália, da UE, de França, do Reino Unido, dos EUA, da Alemanha e do direito internacional, ligadas por conceitos jurídicos comuns.",
+    legalResearch: "Pesquisa jurídica", navSections: "Secções", tabNew: "Novo caso", tabResults: "Resultados",
+    savedCases: "Casos guardados", tabSavedShort: "Guardados", navAccount: "Conta",
+    riskCheck: "Avaliação de risco", plans: "Planos", signIn: "Iniciar sessão", account: "Conta",
+    h1: "Fale-nos do seu caso.",
+    lede: "Descreva o que aconteceu e escolha o que precisa. O Casebound relaciona os factos com os artigos aplicáveis do Código Civil italiano e ordena as disposições e decisões pertinentes de Itália, da UE, de França, do Reino Unido, dos EUA, da Alemanha e do direito internacional — contratos, trabalho, proteção de dados, concorrência, finanças, fiscal, penal, ambiente e mais — pelos conceitos jurídicos que partilham com o seu caso.",
+    q1: "O que aconteceu?", addFile: "+ Adicionar ficheiro",
+    hint1: "As partes, o que foi acordado, as datas e o que correu mal. Pode usar linguagem simples. Também pode largar um ficheiro PDF, Word ou de texto na caixa.",
+    phFacts: "ex. Um comprador encomendou equipamento de produção. A entrega chegou com seis semanas de atraso e o comprador reclama agora o lucro que perdeu enquanto esperava…",
+    tryExample: "Ou experimente um exemplo:",
+    examples: ["Entrega atrasada, lucros cessantes", "Recusa de mercadoria por um defeito menor", "Trabalhador colocado em funções inferiores", "Cláusula de foro abusiva"],
+    q2: "O que pretende demonstrar?", optional: "opcional",
+    hint2: "O resultado que defende. Torna a ordenação mais precisa.",
+    phClaim: "ex. recuperar os lucros cessantes pelo atraso",
+    q3: "O que deve mostrar o resultado?", hint3: "Também pode alternar entre estas opções na página de resultados.",
+    recommended: "Recomendado", outBoth: "Análise completa", outBothD: "Mapa e fontes ordenadas lado a lado.",
+    caseMindmap: "Mapa do caso", outMapD: "O seu caso organizado em pastas de conceitos jurídicos, cada uma com os seus documentos.",
+    compatSources: "Fontes compatíveis", outSrcD: "Disposições e decisões ordenadas pela sua adequação.",
+    jurisdiction: "Jurisdição", jurAll: "Todas", jurIT: "Itália", jurEU: "UE", jurFR: "França", jurUK: "Reino Unido", jurUS: "EUA", jurDE: "Alemanha", jurIntl: "Internac.",
+    sourceType: "Tipo de fonte", typeAll: "Tudo", typeProv: "Disposições", typeCase: "Jurisprudência",
+    analyze: "Analisar caso →", analyzing: "A analisar…", saveTo: "Guardar em", saveToAria: "Projeto onde guardar este caso",
+    startFoot: "Cada análise fica guardada neste navegador em <b>Casos guardados</b>, para que a possa reabrir mais tarde. Dê-lhe um título e arquive-a num projeto a partir da página de resultados ou de Casos guardados.",
+    recentCases: "Casos recentes", viewAll: "Ver todos", open: "Abrir →",
+    editCase: "← Editar caso", yourCase: "O seu caso", titleAria: "Título do caso (clique para mudar o nome)", clickRename: "Clique para mudar o nome",
+    project: "Projeto", projForCase: "Projeto deste caso", show: "Mostrar", segBoth: "Ambos", segMap: "Mapa", segSrc: "Fontes",
+    emptyH: "Ainda não analisou nenhum caso", emptyP: "Descreva primeiro o seu caso e os resultados aparecerão aqui.", startCase: "Começar um caso",
+    goal: "Objetivo:",
+    srcFrom: (j, ty) => "Fontes: " + j + (ty ? ", " + ty : ""),
+    jurMeta: { "All": "todas as jurisdições", "Italy": "Itália", "European Union": "UE", "France": "França", "United Kingdom": "Reino Unido", "United States": "EUA", "Germany": "Alemanha", "International": "direito internacional" },
+    onlyProv: "só disposições", onlyCase: "só jurisprudência",
+    outLabel: { both: "Mapa + fontes", map: "Mapa", sources: "Fontes" },
+    applyFilters: "Aplicar filtros",
+    searchPh: "Pesquisar títulos, factos, projetos…", searchAria: "Pesquisar casos guardados", clearAll: "Apagar tudo", projects: "Projetos",
+    allCases: "Todos os casos", noProject: "Sem projeto", newProjectChip: "+ Novo projeto", newProjectOpt: "+ Novo projeto…",
+    projNamePh: "Nome do projeto, ex. Trabalho de direito dos contratos", newProjAria: "Nome do novo projeto", add: "Adicionar", cancel: "Cancelar",
+    projNameAria: "Nome do projeto", save: "Guardar", nCases: P({ one: "# caso", other: "# casos" }),
+    newCaseHere: "+ Novo caso aqui", rename: "Mudar o nome", deleteProject: "Eliminar projeto",
+    emptySearch: "Nenhum caso guardado corresponde a essa pesquisa.", emptyAllFiled: "Todos os casos estão arquivados num projeto.",
+    emptyProject: "Ainda não há casos neste projeto. Comece um com <b>+ Novo caso aqui</b> ou mova para aqui um caso de <b>Todos os casos</b> através do respetivo menu Projeto.",
+    emptyNone: "Ainda não há casos guardados. Analise um e ele aparecerá aqui, pronto a reabrir.",
+    caseTitleAria: "Título do caso", renameCase: "Mudar o nome do caso", openResults: "Abrir resultados", edit: "Editar", remove: "Remover",
+    promptNewProject: "Nome do novo projeto:",
+    confirmClear: "Remover todos os casos guardados deste navegador? Os seus projetos mantêm-se, vazios.",
+    confirmDelProject: (n) => `Eliminar o projeto "${n}"? Os respetivos casos são mantidos e passam para Sem projeto.`,
+    notSaved: (n, link) => `Não guardado: o plano gratuito guarda ${n} casos. Elimine um em Casos guardados ou ${link}.`,
+    upgradeKeep: "mude de plano para os guardar todos", upgradeUnlimited: "Mude de plano para utilização ilimitada",
+    fullAccess: "Acesso total",
+    proText: 'Análises, casos guardados e leitura de ficheiros ilimitados, além da <a href="/risk-check.html">avaliação de risco</a> e do contacto com advogados.',
+    freePlan: "Plano gratuito",
+    leftToday: (l, m) => `Restam-lhe ${l} de ${m} análises hoje`,
+    upTo: P({ one: "até # caso guardado", other: "até # casos guardados" }),
+    proExtras: " · leitura de ficheiros, avaliação de risco e contacto com advogados no Pro", upgrade: "Mudar de plano",
+    fileNeedsPro: (link) => `A leitura de ficheiros faz parte dos planos pagos. ${link} ou cole o texto na caixa.`, seePlans: "Ver planos",
+    readingOne: (n) => `A ler ${n}…`, readingMany: (n) => `A ler ${n} ficheiros…`,
+    addedAll: (a) => `Adicionado aos factos: ${a}.`, addedSome: (a, f) => `Adicionado: ${a}. Não foi possível ler: ${f}.`,
+    failedAll: (f) => `Não foi possível ler: ${f}. Experimente colar o texto diretamente.`,
+    noText: "sem texto legível", readerLoad: "não foi possível carregar o leitor para este tipo de ficheiro",
+    unsupported: (ext) => `.${ext} não é suportado — use .txt, .md, .pdf ou .docx`,
+    fromFile: (n) => `— De ${n} —`,
+    moreDetail: "Acrescente um pouco mais de detalhe sobre o que aconteceu. Uma ou duas frases chegam.",
+    usedAll: (m, link) => `Já usou as ${m} análises gratuitas de hoje. Os casos guardados continuam a abrir gratuitamente. ${link} ou volte amanhã.`,
+    words: P({ one: "# palavra", other: "# palavras" }),
+    footNote: "<b>Auxiliar de pesquisa, não aconselhamento jurídico.</b> Verifique cada fonte antes de confiar nela. O que escreve fica neste navegador.",
+    forLawyers: "Para advogados", terms: "Termos", privacy: "Privacidade", contact: "Contacto",
+    consent: "Ajude a melhorar a ordenação", consentWhat: "(o que é enviado)",
+    consentTitle: "Partilha as suas avaliações dos resultados e os conceitos jurídicos reconhecidos no seu caso — nunca o seu texto nem os seus ficheiros. Desativado por predefinição."
+  },
+  pl: {
+    docTitle: "Casebound — przestrzeń do badań prawnych",
+    metaDesc: "Casebound przypisuje fakty Twojej sprawy do właściwych artykułów włoskiego kodeksu cywilnego, szereguje najbardziej podobne orzeczenia Cassazione i porównuje źródła z Włoch, UE, Francji, Wielkiej Brytanii, USA, Niemiec i prawa międzynarodowego, dopasowane według wspólnych pojęć prawnych.",
+    legalResearch: "Badania prawne", navSections: "Sekcje", tabNew: "Nowa sprawa", tabResults: "Wyniki",
+    savedCases: "Zapisane sprawy", tabSavedShort: "Zapisane", navAccount: "Konto",
+    riskCheck: "Ocena ryzyka", plans: "Plany", signIn: "Zaloguj się", account: "Konto",
+    h1: "Opowiedz nam o swojej sprawie.",
+    lede: "Opisz, co się stało, i wybierz, czego potrzebujesz. Casebound przypisuje fakty do właściwych artykułów włoskiego kodeksu cywilnego i szereguje pasujące przepisy oraz orzeczenia z Włoch, UE, Francji, Wielkiej Brytanii, USA, Niemiec i prawa międzynarodowego — umowy, prawo pracy, ochrona danych, konkurencja, finanse, podatki, prawo karne, środowisko i nie tylko — według pojęć prawnych, które łączą je z Twoją sprawą.",
+    q1: "Co się stało?", addFile: "+ Dodaj plik",
+    hint1: "Strony, co uzgodniono, daty i co poszło nie tak. Wystarczy prosty język. Możesz też upuścić w polu plik PDF, Word lub tekstowy.",
+    phFacts: "np. Kupujący zamówił maszyny produkcyjne. Dostawa spóźniła się o sześć tygodni, a kupujący domaga się teraz zysku utraconego w czasie oczekiwania…",
+    tryExample: "Albo wypróbuj przykład:",
+    examples: ["Opóźniona dostawa, utracony zysk", "Odrzucenie towaru z powodu drobnej wady", "Pracownik przeniesiony na niższe stanowisko", "Niedozwolona klauzula jurysdykcyjna"],
+    q2: "Co chcesz wykazać?", optional: "opcjonalnie",
+    hint2: "Wynik, za którym argumentujesz. Uściśla ranking.",
+    phClaim: "np. odzyskać utracony zysk z powodu opóźnienia",
+    q3: "Co ma pokazać wynik?", hint3: "Możesz też przełączać widoki na stronie wyników.",
+    recommended: "Polecane", outBoth: "Pełna analiza", outBothD: "Mapa i uszeregowane źródła obok siebie.",
+    caseMindmap: "Mapa sprawy", outMapD: "Twoja sprawa podzielona na foldery pojęć prawnych, każdy z własnymi dokumentami.",
+    compatSources: "Pasujące źródła", outSrcD: "Przepisy i orzeczenia uszeregowane według dopasowania.",
+    jurisdiction: "Jurysdykcja", jurAll: "Wszystkie", jurIT: "Włochy", jurEU: "UE", jurFR: "Francja", jurUK: "Wlk. Brytania", jurUS: "USA", jurDE: "Niemcy", jurIntl: "Międzynar.",
+    sourceType: "Rodzaj źródła", typeAll: "Wszystko", typeProv: "Przepisy", typeCase: "Orzecznictwo",
+    analyze: "Analizuj sprawę →", analyzing: "Analizowanie…", saveTo: "Zapisz w", saveToAria: "Projekt, w którym zapisać tę sprawę",
+    startFoot: "Każda analiza jest zapisywana w tej przeglądarce w sekcji <b>Zapisane sprawy</b>, więc możesz ją później ponownie otworzyć. Nadaj jej tytuł i przypisz do projektu na stronie wyników lub w Zapisanych sprawach.",
+    recentCases: "Ostatnie sprawy", viewAll: "Zobacz wszystkie", open: "Otwórz →",
+    editCase: "← Edytuj sprawę", yourCase: "Twoja sprawa", titleAria: "Tytuł sprawy (kliknij, aby zmienić nazwę)", clickRename: "Kliknij, aby zmienić nazwę",
+    project: "Projekt", projForCase: "Projekt tej sprawy", show: "Pokaż", segBoth: "Oba", segMap: "Mapa", segSrc: "Źródła",
+    emptyH: "Nie przeanalizowano jeszcze żadnej sprawy", emptyP: "Najpierw opisz swoją sprawę, a wyniki pojawią się tutaj.", startCase: "Rozpocznij sprawę",
+    goal: "Cel:",
+    srcFrom: (j, ty) => "Źródła: " + j + (ty ? ", " + ty : ""),
+    jurMeta: { "All": "wszystkie jurysdykcje", "Italy": "Włochy", "European Union": "UE", "France": "Francja", "United Kingdom": "Wielka Brytania", "United States": "USA", "Germany": "Niemcy", "International": "prawo międzynarodowe" },
+    onlyProv: "tylko przepisy", onlyCase: "tylko orzecznictwo",
+    outLabel: { both: "Mapa + źródła", map: "Mapa", sources: "Źródła" },
+    applyFilters: "Zastosuj filtry",
+    searchPh: "Szukaj w tytułach, faktach, projektach…", searchAria: "Szukaj w zapisanych sprawach", clearAll: "Usuń wszystkie", projects: "Projekty",
+    allCases: "Wszystkie sprawy", noProject: "Bez projektu", newProjectChip: "+ Nowy projekt", newProjectOpt: "+ Nowy projekt…",
+    projNamePh: "Nazwa projektu, np. Esej z prawa umów", newProjAria: "Nazwa nowego projektu", add: "Dodaj", cancel: "Anuluj",
+    projNameAria: "Nazwa projektu", save: "Zapisz", nCases: P({ one: "# sprawa", few: "# sprawy", many: "# spraw", other: "# sprawy" }),
+    newCaseHere: "+ Nowa sprawa tutaj", rename: "Zmień nazwę", deleteProject: "Usuń projekt",
+    emptySearch: "Żadna zapisana sprawa nie pasuje do wyszukiwania.", emptyAllFiled: "Każda sprawa jest przypisana do projektu.",
+    emptyProject: "W tym projekcie nie ma jeszcze spraw. Rozpocznij nową przyciskiem <b>+ Nowa sprawa tutaj</b> albo przenieś tu sprawę z <b>Wszystkich spraw</b> za pomocą jej menu Projekt.",
+    emptyNone: "Nie masz jeszcze zapisanych spraw. Przeanalizuj jedną, a trafi tutaj, gotowa do ponownego otwarcia.",
+    caseTitleAria: "Tytuł sprawy", renameCase: "Zmień nazwę sprawy", openResults: "Otwórz wyniki", edit: "Edytuj", remove: "Usuń",
+    promptNewProject: "Nazwa nowego projektu:",
+    confirmClear: "Usunąć wszystkie zapisane sprawy z tej przeglądarki? Projekty zostaną, ale puste.",
+    confirmDelProject: (n) => `Usunąć projekt „${n}”? Jego sprawy zostaną zachowane i przeniesione do „Bez projektu”.`,
+    notSaved: (n, link) => P({ one: "Nie zapisano: plan darmowy pozwala zapisać do # sprawy. Usuń jedną w Zapisanych sprawach albo ", other: "Nie zapisano: plan darmowy pozwala zapisać do # spraw. Usuń jedną w Zapisanych sprawach albo " })(n) + link + ".",
+    upgradeKeep: "przejdź na Pro, aby zachować wszystkie", upgradeUnlimited: "Przejdź na Pro, aby korzystać bez limitów",
+    fullAccess: "Pełny dostęp",
+    proText: 'Nielimitowane analizy, zapisane sprawy i odczyt plików, a także <a href="/risk-check.html">ocena ryzyka</a> i kontakt z prawnikami.',
+    freePlan: "Plan darmowy",
+    leftToday: (l, m) => `Dziś pozostało: ${l} z ${m} analiz`,
+    upTo: P({ one: "do # zapisanej sprawy", other: "do # zapisanych spraw" }),
+    proExtras: " · odczyt plików, ocena ryzyka i kontakt z prawnikami w Pro", upgrade: "Przejdź na Pro",
+    fileNeedsPro: (link) => `Odczyt plików jest dostępny w płatnych planach. ${link} albo wklej tekst do pola.`, seePlans: "Zobacz plany",
+    readingOne: (n) => `Odczytywanie: ${n}…`, readingMany: (n) => `Odczytywanie plików (${n})…`,
+    addedAll: (a) => `Dodano do faktów: ${a}.`, addedSome: (a, f) => `Dodano: ${a}. Nie udało się odczytać: ${f}.`,
+    failedAll: (f) => `Nie udało się odczytać: ${f}. Spróbuj wkleić tekst bezpośrednio.`,
+    noText: "brak czytelnego tekstu", readerLoad: "nie udało się wczytać czytnika dla tego typu pliku",
+    unsupported: (ext) => `format .${ext} nie jest obsługiwany — użyj .txt, .md, .pdf lub .docx`,
+    fromFile: (n) => `— Z pliku ${n} —`,
+    moreDetail: "Dodaj trochę więcej szczegółów o tym, co się stało. Wystarczy zdanie lub dwa.",
+    usedAll: (m, link) => `Wykorzystano już dzisiejsze darmowe analizy (${m}). Zapisane sprawy nadal otworzysz za darmo. ${link} albo wróć jutro.`,
+    words: P({ one: "# słowo", few: "# słowa", many: "# słów", other: "# słowa" }),
+    footNote: "<b>Narzędzie badawcze, a nie porada prawna.</b> Sprawdź każde źródło, zanim na nim polegasz. To, co wpisujesz, zostaje w tej przeglądarce.",
+    forLawyers: "Dla prawników", terms: "Warunki", privacy: "Prywatność", contact: "Kontakt",
+    consent: "Pomóż ulepszyć ranking", consentWhat: "(co jest wysyłane)",
+    consentTitle: "Udostępnia Twoje oceny wyników i pojęcia prawne rozpoznane w Twojej sprawie — nigdy Twój tekst ani pliki. Domyślnie wyłączone."
+  },
+  ar: {
+    docTitle: "Casebound — مساحة عمل للبحث القانوني",
+    metaDesc: "يربط Casebound وقائع قضيتك بمواد القانون المدني الإيطالي ذات الصلة، ويرتّب أحكام محكمة النقض الإيطالية الأكثر تشابهًا، ويقارن المصادر من إيطاليا والاتحاد الأوروبي وفرنسا والمملكة المتحدة والولايات المتحدة وألمانيا والقانون الدولي وفق المفاهيم القانونية المشتركة.",
+    legalResearch: "البحث القانوني", navSections: "الأقسام", tabNew: "قضية جديدة", tabResults: "النتائج",
+    savedCases: "القضايا المحفوظة", tabSavedShort: "المحفوظة", navAccount: "الحساب",
+    riskCheck: "تقييم المخاطر", plans: "الخطط", signIn: "تسجيل الدخول", account: "الحساب",
+    h1: "أخبرنا عن قضيتك.",
+    lede: "صِف ما حدث واختر ما تحتاج إليه. يربط Casebound الوقائع بمواد القانون المدني الإيطالي ذات الصلة، ويرتّب النصوص القانونية والأحكام المطابقة من إيطاليا والاتحاد الأوروبي وفرنسا والمملكة المتحدة والولايات المتحدة وألمانيا والقانون الدولي — العقود والعمل وحماية البيانات والمنافسة والتمويل والضرائب والقانون الجنائي والبيئة وغيرها — بحسب المفاهيم القانونية المشتركة بينها وبين قضيتك.",
+    q1: "ماذا حدث؟", addFile: "+ إضافة ملف",
+    hint1: "الأطراف، وما اتُّفق عليه، والتواريخ، وما الذي سار على نحو خاطئ. يمكنك الكتابة بلغة بسيطة، ويمكنك أيضًا إفلات ملف PDF أو Word أو ملف نصي في المربع.",
+    phFacts: "مثال: طلب مشترٍ معدات تصنيع. تأخر التسليم ستة أسابيع، ويطالب المشتري الآن بالربح الذي فاته أثناء الانتظار…",
+    tryExample: "أو جرّب مثالًا:",
+    examples: ["تأخر التسليم وفوات الربح", "رفض البضاعة بسبب عيب بسيط", "نقل موظف إلى مهام أدنى درجة", "شرط اختصاص قضائي تعسفي"],
+    q2: "ما الذي تريد إثباته؟", optional: "اختياري",
+    hint2: "النتيجة التي تدافع عنها. تساعد على دقة الترتيب.",
+    phClaim: "مثال: استرداد الربح الفائت بسبب التأخير",
+    q3: "ماذا يجب أن تعرض النتيجة؟", hint3: "يمكنك التبديل بين هذه الخيارات في صفحة النتائج أيضًا.",
+    recommended: "موصى به", outBoth: "تحليل كامل", outBothD: "الخريطة والمصادر المرتّبة جنبًا إلى جنب.",
+    caseMindmap: "خريطة القضية", outMapD: "قضيتك مرتّبة في ملفات مفاهيم قانونية، يضم كل منها وثائقه.",
+    compatSources: "المصادر المتوافقة", outSrcD: "نصوص قانونية وأحكام مرتّبة بحسب مدى ملاءمتها.",
+    jurisdiction: "الولاية القضائية", jurAll: "الكل", jurIT: "إيطاليا", jurEU: "الاتحاد الأوروبي", jurFR: "فرنسا", jurUK: "المملكة المتحدة", jurUS: "الولايات المتحدة", jurDE: "ألمانيا", jurIntl: "دولي",
+    sourceType: "نوع المصدر", typeAll: "الكل", typeProv: "النصوص القانونية", typeCase: "السوابق القضائية",
+    analyze: "حلّل القضية ←", analyzing: "جارٍ التحليل…", saveTo: "حفظ في", saveToAria: "المشروع الذي تُحفظ فيه هذه القضية",
+    startFoot: "يُحفظ كل تحليل في هذا المتصفح ضمن <b>القضايا المحفوظة</b>، لتتمكن من إعادة فتحه لاحقًا. أعطه عنوانًا وضعه في مشروع من صفحة النتائج أو من القضايا المحفوظة.",
+    recentCases: "القضايا الأخيرة", viewAll: "عرض الكل", open: "فتح ←",
+    editCase: "→ تعديل القضية", yourCase: "قضيتك", titleAria: "عنوان القضية (انقر لإعادة التسمية)", clickRename: "انقر لإعادة التسمية",
+    project: "المشروع", projForCase: "مشروع هذه القضية", show: "عرض", segBoth: "كلاهما", segMap: "الخريطة", segSrc: "المصادر",
+    emptyH: "لم تُحلَّل أي قضية بعد", emptyP: "صِف قضيتك أولًا وستظهر النتائج هنا.", startCase: "ابدأ قضية",
+    goal: "الهدف:",
+    srcFrom: (j, ty) => "المصادر: " + j + (ty ? "، " + ty : ""),
+    jurMeta: { "All": "جميع الولايات القضائية", "Italy": "إيطاليا", "European Union": "الاتحاد الأوروبي", "France": "فرنسا", "United Kingdom": "المملكة المتحدة", "United States": "الولايات المتحدة", "Germany": "ألمانيا", "International": "القانون الدولي" },
+    onlyProv: "النصوص القانونية فقط", onlyCase: "السوابق القضائية فقط",
+    outLabel: { both: "الخريطة + المصادر", map: "الخريطة", sources: "المصادر" },
+    applyFilters: "تطبيق عوامل التصفية",
+    searchPh: "ابحث في العناوين والوقائع والمشاريع…", searchAria: "البحث في القضايا المحفوظة", clearAll: "مسح الكل", projects: "المشاريع",
+    allCases: "كل القضايا", noProject: "بلا مشروع", newProjectChip: "+ مشروع جديد", newProjectOpt: "+ مشروع جديد…",
+    projNamePh: "اسم المشروع، مثل: بحث في قانون العقود", newProjAria: "اسم المشروع الجديد", add: "إضافة", cancel: "إلغاء",
+    projNameAria: "اسم المشروع", save: "حفظ", nCases: (n) => `القضايا: ${n}`,
+    newCaseHere: "+ قضية جديدة هنا", rename: "إعادة تسمية", deleteProject: "حذف المشروع",
+    emptySearch: "لا توجد قضايا محفوظة تطابق هذا البحث.", emptyAllFiled: "كل القضايا مُدرجة في مشاريع.",
+    emptyProject: "لا توجد قضايا في هذا المشروع بعد. ابدأ واحدة عبر <b>+ قضية جديدة هنا</b>، أو انقل إليه قضية من <b>كل القضايا</b> باستخدام قائمة المشروع الخاصة بها.",
+    emptyNone: "لا توجد قضايا محفوظة بعد. حلّل قضية وستظهر هنا جاهزة لإعادة فتحها.",
+    caseTitleAria: "عنوان القضية", renameCase: "إعادة تسمية القضية", openResults: "فتح النتائج", edit: "تعديل", remove: "إزالة",
+    promptNewProject: "اسم المشروع الجديد:",
+    confirmClear: "هل تريد إزالة كل القضايا المحفوظة من هذا المتصفح؟ ستبقى مشاريعك ولكن فارغة.",
+    confirmDelProject: (n) => `هل تريد حذف المشروع «${n}»؟ ستُحفظ قضاياه وتُنقل إلى «بلا مشروع».`,
+    notSaved: (n, link) => `لم تُحفظ: الحد الأقصى للقضايا المحفوظة في الخطة المجانية هو ${n}. احذف إحداها من القضايا المحفوظة، أو ${link}.`,
+    upgradeKeep: "رقِّ خطتك للاحتفاظ بها جميعًا", upgradeUnlimited: "رقِّ خطتك للاستخدام غير المحدود",
+    fullAccess: "وصول كامل",
+    proText: 'تحليلات وقضايا محفوظة وقراءة ملفات بلا حدود، إضافةً إلى <a href="/risk-check.html">تقييم المخاطر</a> والتواصل مع المحامين.',
+    freePlan: "الخطة المجانية",
+    leftToday: (l, m) => `التحليلات المتبقية اليوم: ${l} من ${m}`,
+    upTo: (n) => `الحد الأقصى للقضايا المحفوظة: ${n}`,
+    proExtras: " · قراءة الملفات وتقييم المخاطر والتواصل مع المحامين متاحة في Pro", upgrade: "ترقية",
+    fileNeedsPro: (link) => `قراءة الملفات جزء من الخطط المدفوعة. ${link}، أو الصق النص في المربع.`, seePlans: "اطّلع على الخطط",
+    readingOne: (n) => `جارٍ قراءة ${n}…`, readingMany: (n) => `جارٍ قراءة الملفات (${n})…`,
+    addedAll: (a) => `أُضيف إلى الوقائع: ${a}.`, addedSome: (a, f) => `أُضيف: ${a}. تعذّرت قراءة: ${f}.`,
+    failedAll: (f) => `تعذّرت قراءة: ${f}. جرّب لصق النص مباشرةً.`,
+    noText: "لا يوجد نص قابل للقراءة", readerLoad: "تعذّر تحميل قارئ هذا النوع من الملفات",
+    unsupported: (ext) => `الامتداد ‎.${ext}‎ غير مدعوم — استخدم .txt أو .md أو .pdf أو .docx`,
+    fromFile: (n) => `— من ${n} —`, sep: "، ",
+    moreDetail: "أضف مزيدًا من التفاصيل عمّا حدث. تكفي جملة أو جملتان.",
+    usedAll: (m, link) => `استخدمت التحليلات المجانية المتاحة لليوم (${m}). لا يزال بإمكانك إعادة فتح القضايا المحفوظة مجانًا. ${link}، أو عُد غدًا.`,
+    words: (n) => `عدد الكلمات: ${n}`,
+    footNote: "<b>أداة بحث وليست استشارة قانونية.</b> تحقّق من كل مصدر قبل الاعتماد عليه. ما تكتبه يبقى في هذا المتصفح.",
+    forLawyers: "للمحامين", terms: "الشروط", privacy: "الخصوصية", contact: "التواصل",
+    consent: "ساعد في تحسين الترتيب", consentWhat: "(ما الذي يُرسَل)",
+    consentTitle: "يشارك تقييماتك للنتائج والمفاهيم القانونية المتعرَّف عليها في قضيتك — وليس نصك أو ملفاتك أبدًا. معطّل افتراضيًا."
+  }
+};
+function t(key, ...args){
+  const d = PAGE_STR[I18N.get()] || PAGE_STR.en;
+  const v = d[key] != null ? d[key] : PAGE_STR.en[key];
+  return typeof v === "function" ? v(...args) : v;
+}
+/* the markup's own words: data-t (text), data-th (HTML), data-t-aria / data-t-ph / data-t-title (attributes) */
+function applyPageText(){
+  document.querySelectorAll("[data-t]").forEach(el => { el.textContent = t(el.dataset.t); });
+  document.querySelectorAll("[data-th]").forEach(el => { el.innerHTML = t(el.dataset.th); });
+  document.querySelectorAll("[data-t-aria]").forEach(el => el.setAttribute("aria-label", t(el.dataset.tAria)));
+  document.querySelectorAll("[data-t-ph]").forEach(el => el.setAttribute("placeholder", t(el.dataset.tPh)));
+  document.querySelectorAll("[data-t-title]").forEach(el => el.setAttribute("title", t(el.dataset.tTitle)));
+  document.title = t("docTitle");
+  const meta = (sel, v) => { const m = document.querySelector(sel); if(m) m.setAttribute("content", v); };
+  meta('meta[name="description"]', t("metaDesc"));
+  meta('meta[property="og:title"]', t("docTitle"));
+  meta('meta[property="og:description"]', t("metaDesc"));
+}
+/* status lines the script writes: remembered as a function so a language switch re-words them */
+function say(el, fn){
+  el._say = fn || null;
+  el.innerHTML = fn ? fn() : "";
+  el._said = el.innerHTML;
+}
+function resay(el){
+  if(el && el._say && el.innerHTML === el._said){ el.innerHTML = el._say(); el._said = el.innerHTML; }
+}
+applyPageText();
+</script>
 <script>
 const $id = (id) => document.getElementById(id);
 function escHtml(s){
@@ -2597,20 +3227,20 @@ function usedToday(){
 function countAnalysis(){
   try{ localStorage.setItem(USAGE_KEY, JSON.stringify({ day: today(), n: usedToday() + 1 })); }catch(e){}
 }
-const upgradeLink = (txt) => `<a href="/pricing.html">${txt || "Upgrade for unlimited use"}</a>`;
+const upgradeLink = (txt) => `<a href="/pricing.html">${txt || t("upgradeUnlimited")}</a>`;
 function renderPlanBar(){
   const top = $id("top-account");
-  if(top) top.textContent = SIGNED_IN ? "Account" : "Sign in";
+  if(top) top.textContent = t(SIGNED_IN ? "account" : "signIn");
   const bar = $id("plan-bar");
   if(!bar) return;
   if(isPro()){
-    bar.innerHTML = `<span class="pb-tag pro">Full access</span><span>Unlimited analyses, saved cases and file reading, plus the <a href="/risk-check.html">risk check</a> and lawyer connections.</span>`;
+    bar.innerHTML = `<span class="pb-tag pro">${t("fullAccess")}</span><span>${t("proText")}</span>`;
     return;
   }
   const left = Math.max(0, FREE.analysesPerDay - usedToday());
-  bar.innerHTML = `<span class="pb-tag">Free plan</span>` +
-    `<span>${left} of ${FREE.analysesPerDay} analyses left today · up to ${FREE.savedCases} saved cases${FREE.fileUpload ? "" : " · file reading, risk check and lawyer connections on Pro"}</span>` +
-    upgradeLink("Upgrade") + (SIGNED_IN ? "" : ` <a href="/login.html?next=/">Sign in</a>`);
+  bar.innerHTML = `<span class="pb-tag">${t("freePlan")}</span>` +
+    `<span>${t("leftToday", left, FREE.analysesPerDay)} · ${t("upTo", FREE.savedCases)}${FREE.fileUpload ? "" : t("proExtras")}</span>` +
+    upgradeLink(t("upgrade")) + (SIGNED_IN ? "" : ` <a href="/login.html?next=/">${t("signIn")}</a>`);
 }
 renderPlanBar();
 
@@ -2621,9 +3251,10 @@ try{
 }catch(e){}
 
 /* ---------------- the form on page 1 ---------------- */
-const OUTPUT_LABEL = { both: "Mindmap + sources", map: "Mindmap", sources: "Sources" };
-const JUR_SHORT = { "All": "all jurisdictions", "European Union": "EU", "United Kingdom": "UK", "United States": "US" };
-const TYPE_LABEL = { all: "", provision: "provisions only", case: "case law only" };
+const OUTPUT_LABEL = { both: "Mindmap + sources", map: "Mindmap", sources: "Sources" };   // the valid outputs; shown as t("outLabel")
+const outLabel = (o) => t("outLabel")[o] || t("outLabel").both;
+const jurLabel = (j) => t("jurMeta")[j] || j;
+const typeLabel = (d) => d === "provision" ? t("onlyProv") : d === "case" ? t("onlyCase") : "";
 const radioVal = (name) => (document.querySelector(`input[name="${name}"]:checked`) || {}).value;
 function setRadio(name, value){
   const el = document.querySelector(`input[name="${name}"][value="${CSS.escape(value||"")}"]`);
@@ -2655,9 +3286,9 @@ function syncRefine(){
 document.querySelectorAll('input[name="output"]').forEach(r => r.addEventListener("change", syncRefine));
 function updateCount(){
   const n = $id("hub-facts").value.trim().split(/\s+/).filter(Boolean).length;
-  $id("facts-count").textContent = n ? `${n} word${n===1?"":"s"}` : "";
+  $id("facts-count").textContent = n ? t("words", n) : "";
 }
-$id("hub-facts").addEventListener("input", () => { updateCount(); $id("hub-status").textContent = ""; });
+$id("hub-facts").addEventListener("input", () => { updateCount(); say($id("hub-status")); });
 
 const EXAMPLES = [
   { tag: "Late delivery, lost profit", jur: "All",
@@ -2673,13 +3304,19 @@ const EXAMPLES = [
     facts: "A consumer signed a standard-form contract with a business. The form contained a jurisdiction clause requiring disputes to be litigated in the seller's home country. The consumer never negotiated this clause individually.",
     claim: "challenge the jurisdiction clause as unfair" }
 ];
-$id("examples").insertAdjacentHTML("beforeend",
-  EXAMPLES.map((x,i)=>`<button type="button" data-ex="${i}">${escHtml(x.tag)}</button>`).join(""));
+/* the example buttons carry translated tags; the example facts themselves stay as written (the matcher reads them) */
+function renderExamples(){
+  $id("examples").querySelectorAll("[data-ex]").forEach(b => b.remove());
+  const tags = t("examples") || [];
+  $id("examples").insertAdjacentHTML("beforeend",
+    EXAMPLES.map((x,i)=>`<button type="button" data-ex="${i}">${escHtml(tags[i] || x.tag)}</button>`).join(""));
+}
+renderExamples();
 $id("examples").addEventListener("click", e => {
   const b = e.target.closest("[data-ex]"); if(!b) return;
   const x = EXAMPLES[b.dataset.ex];
   fillForm({ facts: x.facts, claim: x.claim, output: radioVal("output"), jur: x.jur, dtype: "all" });
-  $id("hub-file-status").textContent = "";
+  say($id("hub-file-status"));
   $id("hub-run").focus();
 });
 
@@ -2688,7 +3325,7 @@ let pdfjsReady = null, mammothReady = null;
 function loadScript(src){
   return new Promise((resolve, reject)=>{
     const s = document.createElement("script");
-    s.src = src; s.onload = resolve; s.onerror = ()=>reject(new Error("couldn't load the reader for this file type"));
+    s.src = src; s.onload = resolve; s.onerror = ()=>reject(Object.assign(new Error("couldn't load the reader for this file type"), { cbKey: "readerLoad" }));
     document.head.appendChild(s);
   });
 }
@@ -2719,7 +3356,7 @@ async function extractFileText(file){
     const result = await window.mammoth.extractRawText({ arrayBuffer: await file.arrayBuffer() });
     return result.value;
   }
-  throw new Error(`.${ext} isn't supported — use .txt, .md, .pdf or .docx`);
+  throw Object.assign(new Error(`.${ext} isn't supported — use .txt, .md, .pdf or .docx`), { cbKey: "unsupported", cbArg: ext });
 }
 async function handleHubFiles(fileList){
   const files = Array.from(fileList || []);
@@ -2728,33 +3365,35 @@ async function handleHubFiles(fileList){
   await tierReady;
   if(!isPro() && !FREE.fileUpload){
     status.className = "hub-file-status err";
-    status.innerHTML = `Reading files is part of the paid plans. ${upgradeLink("See plans")}, or paste the text into the box.`;
+    say(status, () => t("fileNeedsPro", upgradeLink(t("seePlans"))));
     return;
   }
   const facts = $id("hub-facts");
   btn.disabled = true;
   status.className = "hub-file-status";
-  status.textContent = files.length===1 ? `Reading ${files[0].name}…` : `Reading ${files.length} files…`;
-  const added = [], failed = [];
+  say(status, () => files.length===1 ? t("readingOne", escHtml(files[0].name)) : t("readingMany", files.length));
+  const added = [], failed = [];   // failed: { name, why() }
   for(const file of files){
     try{
       const text = (await extractFileText(file)).trim();
       if(text){
-        facts.value += `${facts.value.trim() ? "\n\n" : ""}— From ${file.name} —\n${text}`;
+        facts.value += `${facts.value.trim() ? "\n\n" : ""}${t("fromFile", file.name)}\n${text}`;
         added.push(file.name);
-      } else failed.push(`${file.name} (no readable text)`);
-    }catch(e){ failed.push(`${file.name} (${e.message})`); }
+      } else failed.push({ name: file.name, why: () => t("noText") });
+    }catch(e){ failed.push({ name: file.name, why: () => e.cbKey ? t(e.cbKey, e.cbArg) : e.message }); }
   }
   btn.disabled = false; updateCount();
+  const addedList = () => added.map(escHtml).join(t("sep"));
+  const failedList = () => failed.map(f => `${escHtml(f.name)} (${escHtml(f.why())})`).join(t("sep"));
   if(added.length && !failed.length){
     status.className = "hub-file-status ok";
-    status.textContent = `Added ${added.join(", ")} to the facts.`;
+    say(status, () => t("addedAll", addedList()));
   } else if(added.length){
     status.className = "hub-file-status err";
-    status.textContent = `Added ${added.join(", ")}. Couldn't read ${failed.join(", ")}.`;
+    say(status, () => t("addedSome", addedList(), failedList()));
   } else {
     status.className = "hub-file-status err";
-    status.textContent = `Couldn't read ${failed.join(", ")}. Try pasting the text directly.`;
+    say(status, () => t("failedAll", failedList()));
   }
 }
 $id("hub-file-btn").addEventListener("click", ()=> $id("hub-file-input").click());
@@ -2788,9 +3427,17 @@ function styleFrame(f){
     const d = f.contentDocument;
     if(d && d.head && !d.getElementById("cb-embed")){
       const s = d.createElement("style"); s.id = "cb-embed"; s.textContent = EMBED_CSS; d.head.appendChild(s);
-      const run = d.getElementById("run"); if(run) run.textContent = "Apply filters";
     }
+    labelFrame(f);
     if(d && window.CBTheme) window.CBTheme.attach(d);
+  }catch(e){}
+}
+/* the panes' filter button reads "Apply filters" here (the case itself is entered on page 1); titles follow the language */
+function labelFrame(f){
+  try{
+    f.title = "Casebound — " + t(f === PANES.map ? "caseMindmap" : "compatSources");
+    const run = f.contentDocument && f.contentDocument.getElementById("run");
+    if(run) run.textContent = t("applyFilters");
   }catch(e){}
 }
 function fitFrame(f){
@@ -2858,7 +3505,7 @@ $id("res-output").addEventListener("keydown", e => {
 });
 $id("res-new").addEventListener("click", () => {
   fillForm({ output: radioVal("output") });
-  $id("hub-file-status").textContent = ""; $id("hub-status").textContent = "";
+  say($id("hub-file-status")); say($id("hub-status"));
   showView("start");
 });
 
@@ -2868,13 +3515,13 @@ function renderSummary(){
   const ti = $id("res-title");
   ti.value = saved ? saved.label : caseLabel(CURRENT.facts, CURRENT.claim);
   ti.disabled = !saved;
-  ti.title = saved ? "Click to rename" : "";
+  ti.title = saved ? t("clickRename") : "";
   $id("res-project").parentNode.hidden = !saved;
   if(saved) fillProjectSelect($id("res-project"), saved.projectId);
   const bits = [];
-  if(CURRENT.claim) bits.push(`Goal: <b>${escHtml(CURRENT.claim)}</b>`);
+  if(CURRENT.claim) bits.push(`${t("goal")} <b>${escHtml(CURRENT.claim)}</b>`);
   if(CURRENT.output !== "map"){
-    bits.push("Sources from " + escHtml(JUR_SHORT[CURRENT.jur] || CURRENT.jur) + (TYPE_LABEL[CURRENT.dtype] ? ", " + TYPE_LABEL[CURRENT.dtype] : ""));
+    bits.push(t("srcFrom", escHtml(jurLabel(CURRENT.jur)), typeLabel(CURRENT.dtype)));
   }
   $id("res-meta").innerHTML = bits.join(" · ");
 }
@@ -2934,32 +3581,32 @@ function findSaved(c){
 }
 /* fills a <select> with Unfiled + projects + "New project…" */
 function fillProjectSelect(sel, current){
-  const opts = [`<option value="">No project</option>`]
+  const opts = [`<option value="">${t("noProject")}</option>`]
     .concat(loadProjects().slice().sort((a,b)=>a.name.localeCompare(b.name))
       .map(p => `<option value="${p.id}">${escHtml(p.name)}</option>`))
-    .concat([`<option value="${NEW_PROJ}">+ New project…</option>`]);
+    .concat([`<option value="${NEW_PROJ}">${t("newProjectOpt")}</option>`]);
   sel.innerHTML = opts.join("");
   sel.value = current && projectById(current) ? current : "";
 }
 /* handles the "New project…" choice in any select; returns the chosen id (or null) */
 function resolveProjectChoice(sel, previous){
   if(sel.value !== NEW_PROJ) return sel.value || null;
-  const name = prompt("Name the new project:");
+  const name = prompt(t("promptNewProject"));
   const p = createProject(name);
   if(!p){ sel.value = previous || ""; return undefined; }
   return p.id;
 }
 
 function caseLabel(facts, claim){
-  const base = (claim || facts).replace(/\s+/g," ").replace(/^— From .+? —\s*/,"").trim();
+  const base = (claim || facts).replace(/\s+/g," ").replace(/^— .+? —\s*/,"").trim();   // drops a leading "— From file.pdf —" (any language)
   return base.length > 70 ? base.slice(0,70)+"…" : base;
 }
 function fmtSavedAt(iso){
   const d = new Date(iso);
-  return d.toLocaleDateString(undefined,{month:"short",day:"numeric"}) + " · " +
-    d.toLocaleTimeString(undefined,{hour:"numeric",minute:"2-digit"});
+  return d.toLocaleDateString(I18N.locale(),{month:"short",day:"numeric"}) + " · " +
+    d.toLocaleTimeString(I18N.locale(),{hour:"numeric",minute:"2-digit"});
 }
-/* returns "" when saved, or a note explaining why it wasn't */
+/* returns "" when saved, or a function giving the note that explains why it wasn't */
 function saveCase(c, projectId){
   let list = loadCases();
   const i = list.findIndex(x => x.facts === c.facts && x.claim === c.claim);
@@ -2970,7 +3617,7 @@ function saveCase(c, projectId){
     list.unshift(Object.assign(existing, rec));
   } else {
     if(!isPro() && list.length >= FREE.savedCases){
-      return `Not saved: the free plan keeps ${FREE.savedCases} cases. Delete one in Saved cases, or ${upgradeLink("upgrade to keep them all")}.`;
+      return () => t("notSaved", FREE.savedCases, upgradeLink(t("upgradeKeep")));
     }
     list.unshift(Object.assign({
       id: Date.now()+"-"+Math.random().toString(36).slice(2,7),
@@ -2996,13 +3643,13 @@ function renderProjectBar(all){
   const count = (f) => all.filter(f).length;
   const chip = (id, name, n) =>
     `<button type="button" class="proj-chip" data-proj="${id}" aria-pressed="${PROJ_FILTER === id}"><span class="nm">${name}</span><span class="ct">${n}</span></button>`;
-  let html = chip("all", "All cases", all.length);
+  let html = chip("all", escHtml(t("allCases")), all.length);
   const unfiled = count(c => !c.projectId || !projects.some(p => p.id === c.projectId));
-  if(projects.length) html += chip("none", "No project", unfiled);
+  if(projects.length) html += chip("none", escHtml(t("noProject")), unfiled);
   html += projects.map(p => chip(p.id, escHtml(p.name), count(c => c.projectId === p.id))).join("");
   html += ADDING_PROJECT
-    ? `<span class="proj-new"><input type="text" id="proj-new-name" maxlength="60" placeholder="Project name, e.g. Contract law essay" aria-label="New project name"><button type="button" class="mini-btn primary" data-pact="create">Add</button><button type="button" class="mini-btn" data-pact="cancel-add">Cancel</button></span>`
-    : `<button type="button" class="proj-chip add" data-pact="add">+ New project</button>`;
+    ? `<span class="proj-new"><input type="text" id="proj-new-name" maxlength="60" placeholder="${escHtml(t("projNamePh"))}" aria-label="${escHtml(t("newProjAria"))}"><button type="button" class="mini-btn primary" data-pact="create">${t("add")}</button><button type="button" class="mini-btn" data-pact="cancel-add">${t("cancel")}</button></span>`
+    : `<button type="button" class="proj-chip add" data-pact="add">${t("newProjectChip")}</button>`;
   $id("proj-bar").innerHTML = html;
   if(ADDING_PROJECT) setTimeout(()=>{ const i = $id("proj-new-name"); if(i) i.focus(); }, 0);
 
@@ -3012,11 +3659,11 @@ function renderProjectBar(all){
   if(p){
     const n = count(c => c.projectId === p.id);
     head.innerHTML = EDITING_PROJECT
-      ? `<input type="text" id="proj-rename" maxlength="60" value="${escHtml(p.name)}" aria-label="Project name"><button type="button" class="mini-btn primary" data-pact="save-name">Save</button><button type="button" class="mini-btn" data-pact="cancel-name">Cancel</button>`
-      : `<h3 title="${escHtml(p.name)}">${escHtml(p.name)}</h3><span class="meta">${n} case${n===1?"":"s"}</span>
-         <button type="button" class="mini-btn primary" data-pact="new-case">+ New case here</button>
-         <button type="button" class="mini-btn" data-pact="rename">Rename</button>
-         <button type="button" class="mini-btn danger" data-pact="delete">Delete project</button>`;
+      ? `<input type="text" id="proj-rename" maxlength="60" value="${escHtml(p.name)}" aria-label="${escHtml(t("projNameAria"))}"><button type="button" class="mini-btn primary" data-pact="save-name">${t("save")}</button><button type="button" class="mini-btn" data-pact="cancel-name">${t("cancel")}</button>`
+      : `<h3 title="${escHtml(p.name)}">${escHtml(p.name)}</h3><span class="meta">${t("nCases", n)}</span>
+         <button type="button" class="mini-btn primary" data-pact="new-case">${t("newCaseHere")}</button>
+         <button type="button" class="mini-btn" data-pact="rename">${t("rename")}</button>
+         <button type="button" class="mini-btn danger" data-pact="delete">${t("deleteProject")}</button>`;
     if(EDITING_PROJECT) setTimeout(()=>{ const i = $id("proj-rename"); if(i){ i.focus(); i.select(); } }, 0);
   }
 }
@@ -3035,26 +3682,26 @@ function renderCases(){
   const grid = $id("cases-grid");
   if(!list.length){
     grid.innerHTML = `<div class="cases-empty-full">${
-      q ? "No saved cases match that search." :
-      PROJ_FILTER === "none" ? "Every case is filed in a project." :
-      PROJ_FILTER !== "all" ? `No cases in this project yet. Start one with <b>+ New case here</b>, or move a case in from <b>All cases</b> using its Project menu.` :
-      `No cases saved yet. Analyze one and it lands here, ready to reopen.<br><button type="button" class="hub-btn" data-go="start">Start a case</button>`
+      q ? t("emptySearch") :
+      PROJ_FILTER === "none" ? t("emptyAllFiled") :
+      PROJ_FILTER !== "all" ? t("emptyProject") :
+      `${t("emptyNone")}<br><button type="button" class="hub-btn" data-go="start">${t("startCase")}</button>`
     }</div>`;
     return;
   }
   grid.innerHTML = list.map(c => `
     <div class="case-card">
       <div class="case-card-top">${RENAMING_CASE === c.id
-        ? `<input type="text" class="case-card-title-in" data-title-for="${c.id}" maxlength="120" value="${escHtml(c.label)}" aria-label="Case title">`
-        : `<div class="case-card-label">${escHtml(c.label)}</div><button type="button" class="case-card-rename" data-act="rename" data-id="${c.id}" title="Rename" aria-label="Rename case">&#9998;</button>`}</div>
-      <div class="case-card-date">${fmtSavedAt(c.savedAt)} · ${OUTPUT_LABEL[c.output] || OUTPUT_LABEL.both}</div>
+        ? `<input type="text" class="case-card-title-in" data-title-for="${c.id}" maxlength="120" value="${escHtml(c.label)}" aria-label="${escHtml(t("caseTitleAria"))}">`
+        : `<div class="case-card-label">${escHtml(c.label)}</div><button type="button" class="case-card-rename" data-act="rename" data-id="${c.id}" title="${escHtml(t("rename"))}" aria-label="${escHtml(t("renameCase"))}">&#9998;</button>`}</div>
+      <div class="case-card-date">${fmtSavedAt(c.savedAt)} · ${outLabel(c.output)}</div>
       ${c.claim ? `<div class="case-card-claim">${escHtml(c.claim)}</div>` : ""}
       <div class="case-card-facts">${escHtml(c.facts)}</div>
-      <label class="case-card-proj">Project <select class="proj-select" data-proj-for="${c.id}" aria-label="Project for this case"></select></label>
+      <label class="case-card-proj">${t("project")} <select class="proj-select" data-proj-for="${c.id}" aria-label="${escHtml(t("projForCase"))}"></select></label>
       <div class="case-card-actions">
-        <button class="case-card-open" data-act="load" data-id="${c.id}">Open results</button>
-        <button class="case-card-open" data-act="edit" data-id="${c.id}" style="flex:0 0 auto;background:var(--paper);color:var(--ink);border:1px solid var(--rule)">Edit</button>
-        <button class="case-card-del" data-act="del" data-id="${c.id}" title="Remove" aria-label="Remove">&times;</button>
+        <button class="case-card-open" data-act="load" data-id="${c.id}">${t("openResults")}</button>
+        <button class="case-card-open" data-act="edit" data-id="${c.id}" style="flex:0 0 auto;background:var(--paper);color:var(--ink);border:1px solid var(--rule)">${t("edit")}</button>
+        <button class="case-card-del" data-act="del" data-id="${c.id}" title="${escHtml(t("remove"))}" aria-label="${escHtml(t("remove"))}">&times;</button>
       </div>
     </div>`).join("");
   grid.querySelectorAll("select[data-proj-for]").forEach(sel => {
@@ -3073,7 +3720,7 @@ function renderRecent(){
     <button type="button" class="recent-item" data-act="load" data-id="${c.id}">
       <span class="ri-main"><span class="ri-t">${escHtml(c.label)}</span>
       <span class="ri-m">${fmtSavedAt(c.savedAt)}${pn ? " · " + escHtml(pn) : ""}${c.claim ? " · " + escHtml(c.claim) : ""}</span></span>
-      <span class="ri-go">Open &rarr;</span>
+      <span class="ri-go">${t("open")}</span>
     </button>`; }).join("");
 }
 function renderHubProject(pref){
@@ -3119,7 +3766,7 @@ $id("cases-grid").addEventListener("change", e => {
 $id("recent-list").addEventListener("click", onCaseAction);
 $id("cases-search").addEventListener("input", renderCases);
 $id("cases-clear-all").addEventListener("click", ()=>{
-  if(!confirm("Remove all saved cases from this browser? Your projects stay, empty.")) return;
+  if(!confirm(t("confirmClear"))) return;
   persistCases([]); renderCases(); renderRecent();
 });
 
@@ -3144,14 +3791,14 @@ function onProjAction(e){
   }
   else if(act === "delete"){
     const p = projectById(PROJ_FILTER); if(!p) return;
-    if(!confirm(`Delete the project "${p.name}"? Its cases are kept and moved to No project.`)) return;
+    if(!confirm(t("confirmDelProject", p.name))) return;
     deleteProject(p.id); renderHubProject(); renderRecent(); if(CURRENT) renderSummary();
     setProjFilter("all");
   }
   else if(act === "new-case"){
     const pid = PROJ_FILTER;
     fillForm({ output: radioVal("output") });
-    $id("hub-file-status").textContent = ""; $id("hub-status").textContent = "";
+    say($id("hub-file-status")); say($id("hub-status"));
     renderHubProject(pid);
     showView("start");
   }
@@ -3200,20 +3847,20 @@ async function runAnalysis(opts){
   const c = readForm();
   const status = $id("hub-status");
   const btn = $id("hub-run");
-  status.textContent = "";
+  say(status);
   if(c.facts.length < 15){
-    status.textContent = "Add a bit more detail on what happened. A sentence or two is enough.";
+    say(status, () => t("moreDetail"));
     showView("start", { keepFocus: true });
     $id("hub-facts").focus();
     return;
   }
-  btn.disabled = true; btn.textContent = "Analyzing…";
+  btn.disabled = true; btn.textContent = t("analyzing");
   await tierReady;
   const known = loadCases().some(x => x.facts === c.facts && x.claim === c.claim);
   const counts = !isPro() && !reopen && !known;
   if(counts && usedToday() >= FREE.analysesPerDay){
-    btn.disabled = false; btn.innerHTML = "Analyze case &rarr;";
-    status.innerHTML = `You've used today's ${FREE.analysesPerDay} free analyses. Saved cases still reopen for free. ${upgradeLink()}, or come back tomorrow.`;
+    btn.disabled = false; btn.textContent = t("analyze");
+    say(status, () => t("usedAll", FREE.analysesPerDay, upgradeLink()));
     showView("start", { keepFocus: true });
     return;
   }
@@ -3221,13 +3868,13 @@ async function runAnalysis(opts){
   CURRENT = c;
   rememberCurrent();
   if(counts) countAnalysis();
-  $id("res-note").innerHTML = saveCase(c, reopen ? undefined : ($id("hub-project").value || null));
+  say($id("res-note"), saveCase(c, reopen ? undefined : ($id("hub-project").value || null)) || null);
   renderSummary();
   sendSignal({ action: "analysis_run" });
   renderPlanBar();
   setOutput(c.output, false);
   $id("tab-results").disabled = false;
-  btn.disabled = false; btn.innerHTML = "Analyze case &rarr;";
+  btn.disabled = false; btn.textContent = t("analyze");
   showView("results");
   // run the panes once the results page is laid out, so the mindmap fits its pane
   requestAnimationFrame(() => { sendToPane("map", c); sendToPane("sources", c); });
@@ -3237,9 +3884,23 @@ $id("hub-facts").addEventListener("keydown", e => {
   if(e.key === "Enter" && (e.metaKey || e.ctrlKey)){ e.preventDefault(); runAnalysis(); }
 });
 
+/* ---------------- language switch: re-word everything this page wrote ---------------- */
+I18N.onChange(() => {
+  applyPageText();
+  renderExamples(); updateCount(); renderPlanBar(); renderRecent(); renderHubProject();
+  if($id("view-cases").classList.contains("on")) renderCases();
+  if(CURRENT) renderSummary(); else $id("res-title").value = t("yourCase");
+  const btn = $id("hub-run"); btn.textContent = t(btn.disabled ? "analyzing" : "analyze");
+  ["hub-status","hub-file-status","res-note"].forEach(id => resay($id(id)));
+  // after the panes have re-worded themselves (their listeners run after this one)
+  setTimeout(() => paneFrames.forEach(labelFrame), 0);
+});
+
 /* ---------------- first load ---------------- */
 (function init(){
   syncRefine(); updateCount(); renderRecent(); renderHubProject("");
+  $id("hub-run").textContent = t("analyze"); $id("res-title").value = t("yourCase");
+  paneFrames.forEach(labelFrame);
   let saved = null;
   try{ saved = JSON.parse(sessionStorage.getItem(CURRENT_KEY) || "null"); }catch(e){}
   if(saved && saved.facts) fillForm(saved);
