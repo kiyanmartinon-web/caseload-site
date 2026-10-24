@@ -354,6 +354,11 @@ html[data-theme="dark"] .seg button[aria-checked="true"]{box-shadow:0 1px 2px rg
   .top-links a.rc-link{display:none}
 }
 @media(max-width:1279px){
+  .top-links a.ci-link{display:none}
+}
+.start-quick{margin:-14px 0 22px;font-size:14px;font-weight:600}
+.start-quick a{text-decoration:none;border-bottom:1px solid currentColor}
+@media(max-width:1279px){
   .tab .n{display:none}
   .tab .long{display:none}
   .tab .short{display:inline}
@@ -392,6 +397,7 @@ html[data-theme="dark"] .seg button[aria-checked="true"]{box-shadow:0 1px 2px rg
       <button class="tab" data-go="cases"><span class="long" data-t="savedCases">Saved cases</span><span class="short" data-t="tabSavedShort">Saved</span></button>
     </nav>
     <nav class="top-links" aria-label="Account" data-t-aria="navAccount">
+      <a href="/can-i.html" class="ci-link" data-t="canI">Can I…?</a>
       <a href="/risk-check.html" class="rc-link"><span data-t="riskCheck">Risk check</span><span class="pro-mini">PRO</span></a>
       <a href="/pricing.html" data-t="plans">Plans</a>
       <a href="/account.html" id="top-account">Sign in</a>
@@ -410,6 +416,7 @@ html[data-theme="dark"] .seg button[aria-checked="true"]{box-shadow:0 1px 2px rg
     </div>
     <h1 data-t="h1">Tell us about your case.</h1>
     <p class="start-lede" data-t="lede">Describe what happened and choose what you need back. Casebound maps the facts to the governing Italian Civil Code articles and ranks matching provisions and rulings from Italy, the EU, France, the UK, the US, Germany and international law — contract, employment, data protection, competition, finance, tax, criminal, environmental and more — by the legal concepts they share with your case.</p>
+    <p class="start-quick"><a href="/can-i.html" data-t="quickCanI">Just need a quick yes or no? Ask “Can I…?” — free →</a></p>
 
     <form class="start-card" id="start-form" novalidate>
       <div class="step">
@@ -3476,7 +3483,7 @@ window.addEventListener(&quot;message&quot;, function(ev){
 <footer class="site-foot">
   <div class="site-foot-in">
     <span class="sf-note" data-th="footNote"><b>Research aid, not legal advice.</b> Check every source before relying on it. What you type stays in this browser.</span>
-    <span class="sf-links"><a href="/risk-check.html"><span data-t="riskCheck">Risk check</span><span class="pro-mini">PRO</span></a><a href="/lawyers.html" data-t="forLawyers">For lawyers</a><a href="/pricing.html" data-t="plans">Plans</a><a href="/account.html" data-t="account">Account</a><a href="/terms.html" data-t="terms">Terms</a><a href="/privacy.html" data-t="privacy">Privacy</a><a data-t="contact" href="mailto:admin@case-bound.com?subject=Casebound%20%E2%80%94%20contact%20or%20complaint">Contact</a></span>
+    <span class="sf-links"><a href="/can-i.html" data-t="canI">Can I…?</a><a href="/risk-check.html"><span data-t="riskCheck">Risk check</span><span class="pro-mini">PRO</span></a><a href="/lawyers.html" data-t="forLawyers">For lawyers</a><a href="/pricing.html" data-t="plans">Plans</a><a href="/account.html" data-t="account">Account</a><a href="/terms.html" data-t="terms">Terms</a><a href="/privacy.html" data-t="privacy">Privacy</a><a data-t="contact" href="mailto:admin@case-bound.com?subject=Casebound%20%E2%80%94%20contact%20or%20complaint">Contact</a></span>
     <label class="consent" data-t-title="consentTitle" title="Shares your result ratings and the legal concepts recognised in your case — never your text or files. Off by default."><input type="checkbox" id="improve-consent"> <span data-t="consent">Help improve rankings</span> <a href="/privacy.html#improve" data-t="consentWhat">(what's sent)</a></label>
   </div>
 </footer>
@@ -3500,7 +3507,7 @@ const PAGE_STR = {
     metaDesc: "Casebound maps your case facts to the governing Italian Civil Code articles, ranks similar Cassazione rulings, and compares sources across Italy, the EU, France, the UK, the US, Germany and international law, matched by shared legal concepts.",
     legalResearch: "Legal research", navSections: "Sections", tabNew: "New case", tabResults: "Results",
     savedCases: "Saved cases", tabSavedShort: "Saved", navAccount: "Account",
-    riskCheck: "Risk check", plans: "Plans", signIn: "Sign in", account: "Account",
+    riskCheck: "Risk check", canI: "Can I…?", quickCanI: "Just need a quick yes or no? Ask “Can I…?” — free →", plans: "Plans", signIn: "Sign in", account: "Account",
     h1: "Tell us about your case.",
     lede: "Describe what happened and choose what you need back. Casebound maps the facts to the governing Italian Civil Code articles and ranks matching provisions and rulings from Italy, the EU, France, the UK, the US, Germany and international law — contract, employment, data protection, competition, finance, tax, criminal, environmental and more — by the legal concepts they share with your case.",
     q1: "What happened?", addFile: "+ Add file",
@@ -3569,7 +3576,7 @@ const PAGE_STR = {
     metaDesc: "Casebound collega i fatti del tuo caso agli articoli del Codice civile italiano applicabili, ordina le sentenze della Cassazione più simili e confronta fonti di Italia, UE, Francia, Regno Unito, Stati Uniti, Germania e diritto internazionale, abbinate per concetti giuridici comuni.",
     legalResearch: "Ricerca giuridica", navSections: "Sezioni", tabNew: "Nuovo caso", tabResults: "Risultati",
     savedCases: "Casi salvati", tabSavedShort: "Salvati", navAccount: "Account",
-    riskCheck: "Verifica del rischio", plans: "Piani", signIn: "Accedi", account: "Account",
+    riskCheck: "Verifica del rischio", canI: "Posso…?", quickCanI: "Ti basta un sì o un no? Chiedi a “Posso…?” — gratis →", plans: "Piani", signIn: "Accedi", account: "Account",
     h1: "Raccontaci il tuo caso.",
     lede: "Descrivi cosa è successo e scegli cosa ti serve. Casebound collega i fatti agli articoli del Codice civile italiano applicabili e ordina le disposizioni e le sentenze pertinenti di Italia, UE, Francia, Regno Unito, Stati Uniti, Germania e diritto internazionale — contratti, lavoro, protezione dei dati, concorrenza, finanza, fisco, penale, ambiente e altro — in base ai concetti giuridici che hanno in comune con il tuo caso.",
     q1: "Cosa è successo?", addFile: "+ Aggiungi file",
@@ -3638,7 +3645,7 @@ const PAGE_STR = {
     metaDesc: "Casebound relaciona los hechos de tu caso con los artículos aplicables del Código Civil italiano, clasifica las sentencias más parecidas de la Cassazione y compara fuentes de Italia, la UE, Francia, el Reino Unido, EE. UU., Alemania y el derecho internacional, enlazadas por conceptos jurídicos comunes.",
     legalResearch: "Investigación jurídica", navSections: "Secciones", tabNew: "Nuevo caso", tabResults: "Resultados",
     savedCases: "Casos guardados", tabSavedShort: "Guardados", navAccount: "Cuenta",
-    riskCheck: "Evaluación de riesgo", plans: "Planes", signIn: "Iniciar sesión", account: "Cuenta",
+    riskCheck: "Evaluación de riesgo", canI: "¿Puedo…?", quickCanI: "¿Solo necesitas un sí o un no? Pregunta en “¿Puedo…?” — gratis →", plans: "Planes", signIn: "Iniciar sesión", account: "Cuenta",
     h1: "Cuéntanos tu caso.",
     lede: "Describe lo que pasó y elige qué necesitas. Casebound relaciona los hechos con los artículos aplicables del Código Civil italiano y clasifica las disposiciones y sentencias pertinentes de Italia, la UE, Francia, el Reino Unido, EE. UU., Alemania y el derecho internacional — contratos, laboral, protección de datos, competencia, finanzas, fiscal, penal, medio ambiente y más — según los conceptos jurídicos que comparten con tu caso.",
     q1: "¿Qué pasó?", addFile: "+ Añadir archivo",
@@ -3707,7 +3714,7 @@ const PAGE_STR = {
     metaDesc: "Casebound rattache les faits de votre affaire aux articles applicables du Code civil italien, classe les arrêts de la Cassazione les plus proches et compare les sources d'Italie, de l'UE, de France, du Royaume-Uni, des États-Unis, d'Allemagne et du droit international, reliées par des notions juridiques communes.",
     legalResearch: "Recherche juridique", navSections: "Rubriques", tabNew: "Nouveau dossier", tabResults: "Résultats",
     savedCases: "Dossiers enregistrés", tabSavedShort: "Enregistrés", navAccount: "Compte",
-    riskCheck: "Évaluation du risque", plans: "Offres", signIn: "Se connecter", account: "Compte",
+    riskCheck: "Évaluation du risque", canI: "Ai-je le droit… ?", quickCanI: "Juste besoin d'un oui ou d'un non ? Demandez à « Ai-je le droit… ? » — gratuit →", plans: "Offres", signIn: "Se connecter", account: "Compte",
     h1: "Parlez-nous de votre affaire.",
     lede: "Décrivez ce qui s'est passé et choisissez ce dont vous avez besoin. Casebound rattache les faits aux articles applicables du Code civil italien et classe les dispositions et décisions pertinentes d'Italie, de l'UE, de France, du Royaume-Uni, des États-Unis, d'Allemagne et du droit international — contrats, travail, protection des données, concurrence, finance, fiscalité, pénal, environnement et plus encore — selon les notions juridiques qu'elles partagent avec votre affaire.",
     q1: "Que s'est-il passé ?", addFile: "+ Ajouter un fichier",
@@ -3776,7 +3783,7 @@ const PAGE_STR = {
     metaDesc: "Casebound ordnet die Fakten deines Falls den einschlägigen Artikeln des italienischen Zivilgesetzbuchs zu, sortiert ähnliche Entscheidungen der Cassazione und vergleicht Quellen aus Italien, der EU, Frankreich, dem Vereinigten Königreich, den USA, Deutschland und dem Völkerrecht – verknüpft über gemeinsame Rechtsbegriffe.",
     legalResearch: "Juristische Recherche", navSections: "Bereiche", tabNew: "Neuer Fall", tabResults: "Ergebnisse",
     savedCases: "Gespeicherte Fälle", tabSavedShort: "Gespeichert", navAccount: "Konto",
-    riskCheck: "Risikocheck", plans: "Tarife", signIn: "Anmelden", account: "Konto",
+    riskCheck: "Risikocheck", canI: "Darf ich…?", quickCanI: "Nur ein schnelles Ja oder Nein? Frag bei „Darf ich…?“ – kostenlos →", plans: "Tarife", signIn: "Anmelden", account: "Konto",
     h1: "Erzähl uns von deinem Fall.",
     lede: "Beschreibe, was passiert ist, und wähle, was du brauchst. Casebound ordnet die Fakten den einschlägigen Artikeln des italienischen Zivilgesetzbuchs zu und sortiert passende Vorschriften und Entscheidungen aus Italien, der EU, Frankreich, dem Vereinigten Königreich, den USA, Deutschland und dem Völkerrecht – Vertrags-, Arbeits-, Datenschutz-, Wettbewerbs-, Finanz-, Steuer-, Straf-, Umweltrecht und mehr – nach den Rechtsbegriffen, die sie mit deinem Fall teilen.",
     q1: "Was ist passiert?", addFile: "+ Datei hinzufügen",
@@ -3845,7 +3852,7 @@ const PAGE_STR = {
     metaDesc: "O Casebound relaciona os factos do seu caso com os artigos aplicáveis do Código Civil italiano, ordena as decisões mais semelhantes da Cassazione e compara fontes de Itália, da UE, de França, do Reino Unido, dos EUA, da Alemanha e do direito internacional, ligadas por conceitos jurídicos comuns.",
     legalResearch: "Pesquisa jurídica", navSections: "Secções", tabNew: "Novo caso", tabResults: "Resultados",
     savedCases: "Casos guardados", tabSavedShort: "Guardados", navAccount: "Conta",
-    riskCheck: "Avaliação de risco", plans: "Planos", signIn: "Iniciar sessão", account: "Conta",
+    riskCheck: "Avaliação de risco", canI: "Posso…?", quickCanI: "Só precisa de um sim ou não? Pergunte no “Posso…?” — grátis →", plans: "Planos", signIn: "Iniciar sessão", account: "Conta",
     h1: "Fale-nos do seu caso.",
     lede: "Descreva o que aconteceu e escolha o que precisa. O Casebound relaciona os factos com os artigos aplicáveis do Código Civil italiano e ordena as disposições e decisões pertinentes de Itália, da UE, de França, do Reino Unido, dos EUA, da Alemanha e do direito internacional — contratos, trabalho, proteção de dados, concorrência, finanças, fiscal, penal, ambiente e mais — pelos conceitos jurídicos que partilham com o seu caso.",
     q1: "O que aconteceu?", addFile: "+ Adicionar ficheiro",
@@ -3914,7 +3921,7 @@ const PAGE_STR = {
     metaDesc: "Casebound przypisuje fakty Twojej sprawy do właściwych artykułów włoskiego kodeksu cywilnego, szereguje najbardziej podobne orzeczenia Cassazione i porównuje źródła z Włoch, UE, Francji, Wielkiej Brytanii, USA, Niemiec i prawa międzynarodowego, dopasowane według wspólnych pojęć prawnych.",
     legalResearch: "Badania prawne", navSections: "Sekcje", tabNew: "Nowa sprawa", tabResults: "Wyniki",
     savedCases: "Zapisane sprawy", tabSavedShort: "Zapisane", navAccount: "Konto",
-    riskCheck: "Ocena ryzyka", plans: "Plany", signIn: "Zaloguj się", account: "Konto",
+    riskCheck: "Ocena ryzyka", canI: "Czy mogę…?", quickCanI: "Potrzebujesz tylko „tak” lub „nie”? Zapytaj w „Czy mogę…?” — za darmo →", plans: "Plany", signIn: "Zaloguj się", account: "Konto",
     h1: "Opowiedz nam o swojej sprawie.",
     lede: "Opisz, co się stało, i wybierz, czego potrzebujesz. Casebound przypisuje fakty do właściwych artykułów włoskiego kodeksu cywilnego i szereguje pasujące przepisy oraz orzeczenia z Włoch, UE, Francji, Wielkiej Brytanii, USA, Niemiec i prawa międzynarodowego — umowy, prawo pracy, ochrona danych, konkurencja, finanse, podatki, prawo karne, środowisko i nie tylko — według pojęć prawnych, które łączą je z Twoją sprawą.",
     q1: "Co się stało?", addFile: "+ Dodaj plik",
@@ -3983,7 +3990,7 @@ const PAGE_STR = {
     metaDesc: "يربط Casebound وقائع قضيتك بمواد القانون المدني الإيطالي ذات الصلة، ويرتّب أحكام محكمة النقض الإيطالية الأكثر تشابهًا، ويقارن المصادر من إيطاليا والاتحاد الأوروبي وفرنسا والمملكة المتحدة والولايات المتحدة وألمانيا والقانون الدولي وفق المفاهيم القانونية المشتركة.",
     legalResearch: "البحث القانوني", navSections: "الأقسام", tabNew: "قضية جديدة", tabResults: "النتائج",
     savedCases: "القضايا المحفوظة", tabSavedShort: "المحفوظة", navAccount: "الحساب",
-    riskCheck: "تقييم المخاطر", plans: "الخطط", signIn: "تسجيل الدخول", account: "الحساب",
+    riskCheck: "تقييم المخاطر", canI: "هل يمكنني…؟", quickCanI: "تحتاج فقط إلى نعم أو لا؟ اسأل في «هل يمكنني…؟» — مجانًا ←", plans: "الخطط", signIn: "تسجيل الدخول", account: "الحساب",
     h1: "أخبرنا عن قضيتك.",
     lede: "صِف ما حدث واختر ما تحتاج إليه. يربط Casebound الوقائع بمواد القانون المدني الإيطالي ذات الصلة، ويرتّب النصوص القانونية والأحكام المطابقة من إيطاليا والاتحاد الأوروبي وفرنسا والمملكة المتحدة والولايات المتحدة وألمانيا والقانون الدولي — العقود والعمل وحماية البيانات والمنافسة والتمويل والضرائب والقانون الجنائي والبيئة وغيرها — بحسب المفاهيم القانونية المشتركة بينها وبين قضيتك.",
     q1: "ماذا حدث؟", addFile: "+ إضافة ملف",

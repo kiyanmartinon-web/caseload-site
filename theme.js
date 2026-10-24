@@ -130,7 +130,7 @@
           plans: "Plans", terms: "Terms of use", privacy: "Privacy notice", contact: "Contact / complaints",
           home: "Casebound home", viewAs: "Admin · view pages as", vAdmin: "Admin", vClient: "Client", vLawyer: "Lawyer",
           viewHint: "Only changes what the pages show you. Your account stays admin.",
-          gRisk: "Risk check", gMine: "My cases", gBoard: "Case board", gAcc: "Account",
+          gRisk: "Risk check", gCanI: "Can I…?", gMine: "My cases", gBoard: "Case board", gAcc: "Account",
           bannerP: "Admin preview: you are seeing the site as a", bannerC: "client", bannerL: "lawyer", back: "Back to admin view",
           switchTo: "Switch to" },
     it: { settings: "Impostazioni", appearance: "Aspetto", light: "Chiaro", dark: "Scuro", system: "Auto",
@@ -138,7 +138,7 @@
           plans: "Piani", terms: "Condizioni d'uso", privacy: "Informativa privacy", contact: "Contatti / reclami",
           home: "Home di Casebound", viewAs: "Admin · vedi le pagine come", vAdmin: "Admin", vClient: "Cliente", vLawyer: "Avvocato",
           viewHint: "Cambia solo ciò che le pagine ti mostrano. Il tuo account resta admin.",
-          gRisk: "Verifica del rischio", gMine: "I miei casi", gBoard: "Bacheca casi", gAcc: "Account",
+          gRisk: "Verifica del rischio", gCanI: "Posso…?", gMine: "I miei casi", gBoard: "Bacheca casi", gAcc: "Account",
           bannerP: "Anteprima admin: stai vedendo il sito come", bannerC: "cliente", bannerL: "avvocato", back: "Torna alla vista admin",
           switchTo: "Passa a" },
     es: { settings: "Ajustes", appearance: "Apariencia", light: "Claro", dark: "Oscuro", system: "Auto",
@@ -146,7 +146,7 @@
           plans: "Planes", terms: "Condiciones de uso", privacy: "Aviso de privacidad", contact: "Contacto / reclamaciones",
           home: "Inicio de Casebound", viewAs: "Admin · ver las páginas como", vAdmin: "Admin", vClient: "Cliente", vLawyer: "Abogado",
           viewHint: "Solo cambia lo que te muestran las páginas. Tu cuenta sigue siendo admin.",
-          gRisk: "Evaluación de riesgo", gMine: "Mis casos", gBoard: "Tablón de casos", gAcc: "Cuenta",
+          gRisk: "Evaluación de riesgo", gCanI: "¿Puedo…?", gMine: "Mis casos", gBoard: "Tablón de casos", gAcc: "Cuenta",
           bannerP: "Vista previa de admin: estás viendo el sitio como", bannerC: "cliente", bannerL: "abogado", back: "Volver a la vista de admin",
           switchTo: "Cambiar a" },
     fr: { settings: "Paramètres", appearance: "Apparence", light: "Clair", dark: "Sombre", system: "Auto",
@@ -154,7 +154,7 @@
           plans: "Offres", terms: "Conditions d'utilisation", privacy: "Politique de confidentialité", contact: "Contact / réclamations",
           home: "Accueil Casebound", viewAs: "Admin · voir les pages en tant que", vAdmin: "Admin", vClient: "Client", vLawyer: "Avocat",
           viewHint: "Change uniquement ce que les pages vous montrent. Votre compte reste admin.",
-          gRisk: "Évaluation du risque", gMine: "Mes affaires", gBoard: "Tableau des affaires", gAcc: "Compte",
+          gRisk: "Évaluation du risque", gCanI: "Ai-je le droit… ?", gMine: "Mes affaires", gBoard: "Tableau des affaires", gAcc: "Compte",
           bannerP: "Aperçu admin : vous voyez le site en tant que", bannerC: "client", bannerL: "avocat", back: "Revenir à la vue admin",
           switchTo: "Passer à" },
     de: { settings: "Einstellungen", appearance: "Darstellung", light: "Hell", dark: "Dunkel", system: "Auto",
@@ -162,7 +162,7 @@
           plans: "Tarife", terms: "Nutzungsbedingungen", privacy: "Datenschutzhinweis", contact: "Kontakt / Beschwerden",
           home: "Casebound-Startseite", viewAs: "Admin · Seiten anzeigen als", vAdmin: "Admin", vClient: "Mandant", vLawyer: "Anwalt",
           viewHint: "Ändert nur, was dir die Seiten zeigen. Dein Konto bleibt Admin.",
-          gRisk: "Risikocheck", gMine: "Meine Fälle", gBoard: "Fallbörse", gAcc: "Konto",
+          gRisk: "Risikocheck", gCanI: "Darf ich…?", gMine: "Meine Fälle", gBoard: "Fallbörse", gAcc: "Konto",
           bannerP: "Admin-Vorschau: Du siehst die Website als", bannerC: "Mandant", bannerL: "Anwalt", back: "Zurück zur Admin-Ansicht",
           switchTo: "Wechseln zu" },
     pt: { settings: "Definições", appearance: "Aparência", light: "Claro", dark: "Escuro", system: "Auto",
@@ -170,7 +170,7 @@
           plans: "Planos", terms: "Termos de utilização", privacy: "Aviso de privacidade", contact: "Contacto / reclamações",
           home: "Início do Casebound", viewAs: "Admin · ver as páginas como", vAdmin: "Admin", vClient: "Cliente", vLawyer: "Advogado",
           viewHint: "Só muda o que as páginas lhe mostram. A sua conta continua a ser admin.",
-          gRisk: "Avaliação de risco", gMine: "Os meus casos", gBoard: "Quadro de casos", gAcc: "Conta",
+          gRisk: "Avaliação de risco", gCanI: "Posso…?", gMine: "Os meus casos", gBoard: "Quadro de casos", gAcc: "Conta",
           bannerP: "Pré-visualização de admin: está a ver o site como", bannerC: "cliente", bannerL: "advogado", back: "Voltar à vista de admin",
           switchTo: "Mudar para" },
     pl: { settings: "Ustawienia", appearance: "Wygląd", light: "Jasny", dark: "Ciemny", system: "Auto",
@@ -178,7 +178,7 @@
           plans: "Plany", terms: "Warunki korzystania", privacy: "Informacja o prywatności", contact: "Kontakt / reklamacje",
           home: "Strona główna Casebound", viewAs: "Admin · pokaż strony jako", vAdmin: "Admin", vClient: "Klient", vLawyer: "Prawnik",
           viewHint: "Zmienia tylko to, co pokazują ci strony. Twoje konto pozostaje kontem admina.",
-          gRisk: "Ocena ryzyka", gMine: "Moje sprawy", gBoard: "Tablica spraw", gAcc: "Konto",
+          gRisk: "Ocena ryzyka", gCanI: "Czy mogę…?", gMine: "Moje sprawy", gBoard: "Tablica spraw", gAcc: "Konto",
           bannerP: "Podgląd admina: widzisz stronę jako", bannerC: "klient", bannerL: "prawnik", back: "Wróć do widoku admina",
           switchTo: "Przełącz na" },
     ar: { settings: "الإعدادات", appearance: "المظهر", light: "فاتح", dark: "داكن", system: "تلقائي",
@@ -186,7 +186,7 @@
           plans: "الخطط", terms: "شروط الاستخدام", privacy: "إشعار الخصوصية", contact: "التواصل / الشكاوى",
           home: "الصفحة الرئيسية لـ Casebound", viewAs: "المسؤول · عرض الصفحات بصفة", vAdmin: "المسؤول", vClient: "عميل", vLawyer: "محامٍ",
           viewHint: "يغيّر فقط ما تعرضه لك الصفحات. يبقى حسابك حساب مسؤول.",
-          gRisk: "تقييم المخاطر", gMine: "قضاياي", gBoard: "لوحة القضايا", gAcc: "الحساب",
+          gRisk: "تقييم المخاطر", gCanI: "هل يمكنني…؟", gMine: "قضاياي", gBoard: "لوحة القضايا", gAcc: "الحساب",
           bannerP: "معاينة المسؤول: أنت ترى الموقع بصفة", bannerC: "عميل", bannerL: "محامٍ", back: "العودة إلى عرض المسؤول",
           switchTo: "التبديل إلى" }
   };
@@ -285,8 +285,8 @@
       var go = wrap.querySelector("#cb-go");
       if (go) {
         var links = vc === "lawyer" ? [["/lawyers.html", t.gBoard], ["/account.html", t.gAcc]]
-          : vc === "client" ? [["/risk-check.html", t.gRisk], ["/account.html#mycases", t.gMine]]
-          : [["/risk-check.html", t.gRisk], ["/lawyers.html", t.gBoard], ["/account.html", t.gAcc]];
+          : vc === "client" ? [["/can-i.html", t.gCanI], ["/risk-check.html", t.gRisk], ["/account.html#mycases", t.gMine]]
+          : [["/can-i.html", t.gCanI], ["/risk-check.html", t.gRisk], ["/lawyers.html", t.gBoard], ["/account.html", t.gAcc]];
         go.innerHTML = links.map(function (l) { return '<a href="' + l[0] + '">' + l[1] + '</a>'; }).join("");
       }
       if (bar) paintBar();

@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script src="/i18n.js"></script>
+<script src="/theme.js"></script>
+<script src="/view-switch.js" data-page="client"></script>
+<title>Can I…? — Casebound</title>
+<meta name="description" content="Ask whether you're allowed to do something. Get a yes or no, where it's allowed and where it isn't, and the conditions that come with it. Free.">
+<meta name="theme-color" content="#6E1F2A">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%236E1F2A'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='36' font-weight='700' text-anchor='middle' fill='%23fff'%3EC%3C/text%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Can I…? — Casebound">
+<meta property="og:description" content="A yes or no to everyday legal questions, country by country, with the conditions that apply.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F7F7F4; --paper-2:#FFFFFF; --ink:#1A2438; --ink-soft:#5A6376;
+  --rule:#D8D7CF; --rule-soft:#E8E7E0;
+  --oxblood:#6E1F2A; --oxblood-wash:#F3EAEB;
+  --verdigris:#29565A; --verdigris-wash:#E7EFEF;
+  --amber:#8A5A12; --amber-wash:#F7EEDD;
+  --slate:#3C4A5C; --slate-wash:#EBEEF1;
+  --serif:"Source Serif 4",Georgia,serif; --sans:"Archivo",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;padding:0;background:var(--paper)}
+body{font-family:var(--sans);color:var(--ink);font-size:14.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--verdigris)} a:hover{color:var(--oxblood)}
+button,input,select,textarea{font-family:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--verdigris);outline-offset:2px}
+h1,h2{text-wrap:balance}
+
+.masthead{border-bottom:1px solid var(--rule);background:var(--paper-2)}
+.masthead-in{max-width:880px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:16px;min-height:56px}
+.wordmark{font-family:var(--serif);font-size:21px;font-weight:600;letter-spacing:-.01em;line-height:1;text-decoration:none;color:var(--ink)}
+.wordmark span{color:var(--oxblood)}
+.top-links{margin-inline-start:auto;display:flex;gap:14px;align-items:center;font-size:13px;font-weight:600}
+.top-links a{text-decoration:none;color:var(--ink-soft)} .top-links a:hover{color:var(--oxblood)}
+.pro-mini{font-size:9px;font-weight:700;letter-spacing:.06em;padding:1px 4px;border-radius:3px;background:var(--oxblood);color:var(--paper-2);margin-inline-start:4px;vertical-align:1px}
+@media(max-width:600px){.masthead-in{flex-wrap:wrap;row-gap:4px;padding-top:8px;padding-bottom:8px}.top-links{order:3;width:100%;margin-inline-start:0;flex-wrap:wrap;gap:12px}}
+
+main{max-width:880px;margin:0 auto;padding:34px 20px 70px}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--oxblood);margin:0 0 8px}
+.free-badge{font-size:10px;font-weight:700;letter-spacing:.06em;padding:2px 7px;border-radius:3px;background:var(--verdigris);color:var(--paper-2)}
+h1{font-family:var(--serif);font-size:34px;line-height:1.15;font-weight:600;margin:0 0 10px;letter-spacing:-.01em}
+.lede{font-family:var(--serif);font-size:17px;color:var(--ink-soft);margin:0 0 26px;max-width:62ch}
+@media(max-width:600px){h1{font-size:28px}}
+
+/* ---------- ask box ---------- */
+.ask{border:1px solid var(--rule);background:var(--paper-2);border-radius:6px;padding:18px;display:grid;gap:14px}
+.q-wrap{display:flex;align-items:flex-start;gap:10px;border:1px solid var(--rule);border-radius:5px;background:var(--paper);padding:10px 12px}
+.q-wrap:focus-within{border-color:var(--verdigris);box-shadow:0 0 0 1px var(--verdigris)}
+.q-pre{font-family:var(--serif);font-size:19px;font-weight:600;color:var(--oxblood);white-space:nowrap;line-height:1.45}
+.q-wrap textarea{flex:1;border:0;background:transparent;font-family:var(--serif);font-size:18px;line-height:1.45;resize:none;min-height:56px;padding:0;outline:none}
+.ask-row{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap}
+.f{display:grid;gap:5px;min-width:0}
+.f label{font-size:13px;font-weight:600}
+select{background:var(--paper);border:1px solid var(--rule);border-radius:5px;padding:9px 10px;font-size:14.5px;min-width:190px}
+.btn{font-family:var(--sans);font-size:14px;font-weight:700;border:1px solid var(--oxblood);background:var(--oxblood);color:#fff;border-radius:5px;padding:10px 20px;text-align:center;text-decoration:none;display:inline-block}
+.btn:hover{background:#57181f;color:#fff}
+.btn:disabled{opacity:.6;cursor:wait}
+.btn.ghost{background:var(--paper-2);color:var(--ink);border-color:var(--rule)}
+.btn.ghost:hover{background:var(--paper);color:var(--oxblood)}
+.ask-row .btn{margin-inline-start:auto}
+.meta{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:12.5px;color:var(--ink-soft)}
+.msg{border-radius:5px;padding:12px 14px;font-size:14px;line-height:1.5}
+.msg.bad{background:var(--oxblood-wash);color:var(--oxblood)}
+.msg.info{background:var(--slate-wash);color:var(--slate)}
+
+/* ---------- answer ---------- */
+.answer{margin-top:22px;border:1px solid var(--rule);background:var(--paper-2);border-radius:6px;overflow:hidden}
+.a-top{padding:20px 20px 18px;display:grid;gap:10px;border-bottom:1px solid var(--rule)}
+.a-q{margin:0;font-size:13px;color:var(--ink-soft)}
+.a-head{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap}
+.big{font-family:var(--sans);font-size:15px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:10px 16px;border-radius:5px;flex:none}
+.v-yes{background:var(--verdigris-wash);color:var(--verdigris)}
+.v-no{background:var(--oxblood-wash);color:var(--oxblood)}
+.v-depends{background:var(--amber-wash);color:var(--amber)}
+.v-unclear{background:var(--slate-wash);color:var(--slate)}
+.a-head h2{margin:0;font-family:var(--serif);font-size:21px;font-weight:600;line-height:1.3;flex:1 1 300px}
+.a-exp{margin:0;font-family:var(--serif);font-size:16px;line-height:1.55}
+.askback{margin:0;padding:10px 14px;border-inline-start:3px solid var(--amber);background:var(--amber-wash);border-radius:0 5px 5px 0;font-size:14px}
+.sec{padding:18px 20px;border-bottom:1px solid var(--rule-soft);display:grid;gap:10px}
+.sec:last-child{border-bottom:0}
+.sec h3{margin:0;font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--ink-soft)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.dot{width:9px;height:9px;border-radius:50%;display:inline-block}
+.d-yes{background:var(--verdigris)} .d-no{background:var(--oxblood)} .d-depends{background:var(--amber)} .d-unclear{background:var(--slate)}
+.places{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:0;padding:0;list-style:none}
+@media(max-width:640px){.places{grid-template-columns:1fr}}
+.place{border:1px solid var(--rule-soft);border-inline-start:4px solid var(--slate);border-radius:5px;padding:10px 12px;background:var(--paper);display:grid;gap:3px}
+.place.p-yes{border-inline-start-color:var(--verdigris)}
+.place.p-no{border-inline-start-color:var(--oxblood)}
+.place.p-depends{border-inline-start-color:var(--amber)}
+.place.home{box-shadow:0 0 0 1px var(--ink-soft)}
+.p-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.p-top b{font-size:14px}
+.p-v{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:3px}
+.p-here{font-size:11px;color:var(--ink-soft);margin-inline-start:auto}
+.p-note{font-size:13.5px;color:var(--ink);line-height:1.45}
+.ticks{margin:0;padding:0;list-style:none;display:grid;gap:7px;font-size:14px}
+.ticks li{position:relative;padding-inline-start:22px;line-height:1.45}
+.ticks li:before{content:"";position:absolute;inset-inline-start:3px;top:.45em;width:9px;height:5px;border-left:2px solid var(--verdigris);border-bottom:2px solid var(--verdigris);transform:rotate(-45deg)}
+.warns li:before{border:0;width:8px;height:8px;border-radius:50%;background:var(--oxblood);transform:none;top:.5em}
+.steps{margin:0;padding-inline-start:20px;display:grid;gap:6px;font-size:14px}
+.laws{display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;list-style:none}
+.laws li{font-size:12.5px;border:1px solid var(--rule);border-radius:14px;padding:4px 10px;background:var(--paper)}
+.a-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.fine{font-size:12.5px;color:var(--ink-soft);margin:0;line-height:1.5}
+
+/* ---------- recent ---------- */
+.recent{margin-top:30px;display:grid;gap:8px}
+.recent-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.recent-h h2{margin:0;font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
+.linkish{background:none;border:0;padding:0;color:var(--verdigris);font-size:12.5px;font-weight:600;text-decoration:underline}
+.recent ul{margin:0;padding:0;list-style:none;display:grid;gap:6px}
+.recent li button{width:100%;text-align:start;display:flex;gap:10px;align-items:center;background:var(--paper-2);border:1px solid var(--rule);border-radius:5px;padding:9px 12px;font-size:14px}
+.recent li button:hover{border-color:var(--verdigris)}
+.recent li .p-v{flex:none}
+.recent li span.t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+.spin{display:inline-block;width:14px;height:14px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:sp .8s linear infinite;vertical-align:-2px;margin-inline-end:8px}
+@keyframes sp{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.spin{animation:none}}
+
+footer{border-top:1px solid var(--rule);background:var(--paper-2);font-size:12.5px;color:var(--ink-soft)}
+footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px;flex-wrap:wrap}
+@media print{.masthead,.ask,.recent,footer,.a-actions{display:none!important}.answer{border:0}}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-in">
+    <a class="wordmark" href="/">Case<span>bound</span></a>
+    <nav class="top-links" aria-label="Account" data-ta="navAria">
+      <a href="/" data-t="navResearch">Research</a>
+      <a href="/risk-check.html"><span data-t="navRisk">Risk check</span><span class="pro-mini">PRO</span></a>
+      <a href="/pricing.html" data-t="navPlans">Plans</a>
+      <a href="/account.html" id="top-account">Sign in</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <p class="kicker"><span class="free-badge" data-t="free">FREE</span> <span data-t="kicker">Can I…?</span></p>
+  <h1 data-t="h1">Ask whether you're allowed to do something.</h1>
+  <p class="lede" data-t="lede">Type a question in plain words. You get a yes or no, where it's allowed and where it isn't, and the conditions that come with it.</p>
+
+  <form class="ask" id="ask" novalidate>
+    <label class="q-wrap" for="q">
+      <span class="q-pre" data-t="qPre">Can I</span>
+      <textarea id="q" rows="2" maxlength="600" data-tp="qPh" placeholder="record a phone call without telling the other person?"></textarea>
+    </label>
+    <div class="ask-row">
+      <div class="f">
+        <label for="home" data-t="homeL">Where are you?</label>
+        <select id="home"></select>
+      </div>
+      <button class="btn" id="go" type="submit" data-t="ask">Check</button>
+    </div>
+    <div class="meta"><span id="left"></span><span data-t="private">Your question is sent to our AI provider to write the answer. Casebound doesn't keep it.</span></div>
+    <div id="msg" class="msg" hidden role="status"></div>
+  </form>
+
+  <section id="answer" class="answer" hidden aria-live="polite"></section>
+
+  <section id="recent" class="recent" hidden>
+    <div class="recent-h"><h2 data-t="recentH">Your recent questions</h2><button type="button" class="linkish" id="clear" data-t="clear">Clear</button></div>
+    <ul id="recent-list"></ul>
+    <p class="fine" data-t="recentNote">Kept only in this browser.</p>
+  </section>
+</main>
+
+<footer>
+  <div>
+    <a href="/" data-t="back">← Back to Casebound</a>
+    <a href="/terms.html#can-i" data-t="how">How "Can I…?" works</a>
+    <a href="/terms.html" data-t="terms">Terms of use</a>
+    <a href="/privacy.html#can-i" data-t="privacyL">Privacy notice</a>
+    <a href="mailto:admin@case-bound.com" data-t="contact">Contact / complaints: admin@case-bound.com</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var $ = function(id){ return document.getElementById(id); };
+  var I = window.CB_I18N || null;
+  var lang = I ? I.get() : "en";
+  var loc = function(){ return I ? I.locale() : "en-IE"; };
+  var PLACES = ["IT","ES","FR","DE","PT","PL","GB","US"];
+  var HOME_KEY = "casebound:caniHome", RECENT_KEY = "casebound:caniRecent";
+  var STATE = { configured:true, tier:"free", signedIn:false, limit:5, used:0 };
+  var current = null;   // { q, home, answer, at }
+  var busy = false;
+
+  /* ---------------- wording, by language ---------------- */
+  var T = {
+    en: {
+      docTitle:"Can I…? — Casebound", navAria:"Account", navResearch:"Research", navRisk:"Risk check", navPlans:"Plans", signIn:"Sign in", account:"Account",
+      free:"Free", kicker:"Can I…?", h1:"Ask whether you're allowed to do something.",
+      lede:"Type a question in plain words. You get a yes or no, where it's allowed and where it isn't, and the conditions that come with it.",
+      qPre:"Can I", qPh:"record a phone call without telling the other person?", homeL:"Where are you?", elsewhere:"Somewhere else",
+      ask:"Check", asking:"Checking…", private:"Your question is sent to our AI provider to write the answer. Casebound doesn't keep it.",
+      left:function(n,l){ return n + " of " + l + " questions left today"; },
+      upgrade:'Want more? <a href="/pricing.html">Casebound Pro</a> gives you up to 60 a day.',
+      errShort:"Write a little more so there's a question to answer.", errLong:"Please keep the question under 600 characters.",
+      errLimitFree:'You\'ve used today\'s free questions. They come back tomorrow, or <a href="/pricing.html">go Pro</a> for up to 60 a day.',
+      errLimitPro:"You've reached today's limit. Your questions come back tomorrow.",
+      errBusy:"Lots of people are asking right now and today's capacity is used up. Please try again tomorrow.",
+      errFailed:"We couldn't get an answer just now. Please try again in a minute.",
+      notConfigured:"\"Can I…?\" isn't switched on yet. Check back soon.",
+      v:{ yes:"Yes", no:"No", depends:"It depends", unclear:"Unclear" },
+      youAsked:"You asked", placesH:"Where you can and where you can't", here:"You are here",
+      condH:"Conditions that apply", ifNotH:"If you do it where it's not allowed", lawsH:"The rules behind it", stepsH:"What to do next", askBackH:"To give a sharper answer:",
+      research:"Find the law behind it", lawyer:"Talk to a lawyer", another:"Ask another question", print:"Print",
+      fine:"General information written by AI from the rules as we understand them, not legal advice. Laws change and details matter: check with the authority or a lawyer before you act.",
+      recentH:"Your recent questions", clear:"Clear", recentNote:"Kept only in this browser.",
+      back:"← Back to Casebound", how:"How \"Can I…?\" works", terms:"Terms of use", privacyL:"Privacy notice", contact:"Contact / complaints: admin@case-bound.com"
+    },
+    it: {
+      docTitle:"Posso…? — Casebound", navAria:"Account", navResearch:"Ricerca", navRisk:"Verifica del rischio", navPlans:"Piani", signIn:"Accedi", account:"Account",
+      free:"Gratis", kicker:"Posso…?", h1:"Chiedi se puoi fare una cosa.",
+      lede:"Scrivi la domanda con parole semplici. Ottieni un sì o un no, dove è consentito e dove no, e le condizioni da rispettare.",
+      qPre:"Posso", qPh:"registrare una telefonata senza dirlo all'altra persona?", homeL:"Dove ti trovi?", elsewhere:"Altrove",
+      ask:"Verifica", asking:"Verifica in corso…", private:"La domanda viene inviata al nostro fornitore di IA per scrivere la risposta. Casebound non la conserva.",
+      left:function(n,l){ return "Ti restano " + n + " domande su " + l + " oggi"; },
+      upgrade:'Ne vuoi di più? Con <a href="/pricing.html">Casebound Pro</a> arrivi a 60 al giorno.',
+      errShort:"Scrivi qualcosa in più, così c'è una domanda a cui rispondere.", errLong:"La domanda deve stare sotto i 600 caratteri.",
+      errLimitFree:'Hai usato le domande gratuite di oggi. Tornano domani, oppure <a href="/pricing.html">passa a Pro</a> per averne fino a 60 al giorno.',
+      errLimitPro:"Hai raggiunto il limite di oggi. Le domande tornano domani.",
+      errBusy:"In questo momento molte persone stanno facendo domande e la capacità di oggi è esaurita. Riprova domani.",
+      errFailed:"Non siamo riusciti a ottenere una risposta. Riprova tra un minuto.",
+      notConfigured:"\"Posso…?\" non è ancora attivo. Torna a trovarci presto.",
+      v:{ yes:"Sì", no:"No", depends:"Dipende", unclear:"Non chiaro" },
+      youAsked:"Hai chiesto", placesH:"Dove puoi e dove non puoi", here:"Sei qui",
+      condH:"Condizioni da rispettare", ifNotH:"Se lo fai dove non è consentito", lawsH:"Le norme di riferimento", stepsH:"Cosa fare adesso", askBackH:"Per una risposta più precisa:",
+      research:"Trova le norme", lawyer:"Parla con un avvocato", another:"Fai un'altra domanda", print:"Stampa",
+      fine:"Informazione generale scritta dall'IA in base alle norme come le intendiamo, non consulenza legale. Le leggi cambiano e i dettagli contano: verifica con l'autorità competente o un avvocato prima di agire.",
+      recentH:"Le tue domande recenti", clear:"Cancella", recentNote:"Conservate solo in questo browser.",
+      back:"← Torna a Casebound", how:"Come funziona \"Posso…?\"", terms:"Termini d'uso", privacyL:"Informativa privacy", contact:"Contatti / reclami: admin@case-bound.com"
+    },
+    es: {
+      docTitle:"¿Puedo…? — Casebound", navAria:"Cuenta", navResearch:"Investigación", navRisk:"Evaluación de riesgo", navPlans:"Planes", signIn:"Iniciar sesión", account:"Cuenta",
+      free:"Gratis", kicker:"¿Puedo…?", h1:"Pregunta si puedes hacer algo.",
+      lede:"Escribe tu pregunta con palabras sencillas. Obtienes un sí o un no, dónde está permitido y dónde no, y las condiciones que lo acompañan.",
+      qPre:"¿Puedo", qPh:"grabar una llamada sin avisar a la otra persona?", homeL:"¿Dónde estás?", elsewhere:"En otro lugar",
+      ask:"Comprobar", asking:"Comprobando…", private:"Tu pregunta se envía a nuestro proveedor de IA para redactar la respuesta. Casebound no la guarda.",
+      left:function(n,l){ return "Te quedan " + n + " de " + l + " preguntas hoy"; },
+      upgrade:'¿Quieres más? Con <a href="/pricing.html">Casebound Pro</a> tienes hasta 60 al día.',
+      errShort:"Escribe un poco más para que haya una pregunta que responder.", errLong:"La pregunta debe tener menos de 600 caracteres.",
+      errLimitFree:'Has usado las preguntas gratuitas de hoy. Vuelven mañana, o <a href="/pricing.html">hazte Pro</a> para tener hasta 60 al día.',
+      errLimitPro:"Has alcanzado el límite de hoy. Tus preguntas vuelven mañana.",
+      errBusy:"Mucha gente está preguntando ahora mismo y se ha agotado la capacidad de hoy. Vuelve a intentarlo mañana.",
+      errFailed:"No hemos podido obtener una respuesta. Inténtalo de nuevo en un minuto.",
+      notConfigured:"\"¿Puedo…?\" todavía no está activado. Vuelve pronto.",
+      v:{ yes:"Sí", no:"No", depends:"Depende", unclear:"No está claro" },
+      youAsked:"Has preguntado", placesH:"Dónde puedes y dónde no", here:"Estás aquí",
+      condH:"Condiciones que se aplican", ifNotH:"Si lo haces donde no está permitido", lawsH:"Las normas aplicables", stepsH:"Qué hacer ahora", askBackH:"Para darte una respuesta más precisa:",
+      research:"Encuentra la ley aplicable", lawyer:"Habla con un abogado", another:"Haz otra pregunta", print:"Imprimir",
+      fine:"Información general redactada por IA según las normas tal como las entendemos, no asesoramiento jurídico. Las leyes cambian y los detalles importan: consulta a la autoridad o a un abogado antes de actuar.",
+      recentH:"Tus preguntas recientes", clear:"Borrar", recentNote:"Guardadas solo en este navegador.",
+      back:"← Volver a Casebound", how:"Cómo funciona \"¿Puedo…?\"", terms:"Condiciones de uso", privacyL:"Aviso de privacidad", contact:"Contacto / reclamaciones: admin@case-bound.com"
+    },
+    fr: {
+      docTitle:"Ai-je le droit… ? — Casebound", navAria:"Compte", navResearch:"Recherche", navRisk:"Évaluation du risque", navPlans:"Offres", signIn:"Se connecter", account:"Compte",
+      free:"Gratuit", kicker:"Ai-je le droit… ?", h1:"Demandez si vous avez le droit de faire quelque chose.",
+      lede:"Posez votre question avec des mots simples. Vous obtenez un oui ou un non, où c'est permis et où ça ne l'est pas, et les conditions à respecter.",
+      qPre:"Puis-je", qPh:"enregistrer un appel sans prévenir l'autre personne ?", homeL:"Où êtes-vous ?", elsewhere:"Ailleurs",
+      ask:"Vérifier", asking:"Vérification…", private:"Votre question est transmise à notre prestataire d'IA pour rédiger la réponse. Casebound ne la conserve pas.",
+      left:function(n,l){ return "Il vous reste " + n + " question" + (n > 1 ? "s" : "") + " sur " + l + " aujourd'hui"; },
+      upgrade:'Besoin de plus ? Avec <a href="/pricing.html">Casebound Pro</a>, jusqu\'à 60 par jour.',
+      errShort:"Écrivez un peu plus pour qu'il y ait une question à traiter.", errLong:"La question doit faire moins de 600 caractères.",
+      errLimitFree:'Vous avez utilisé les questions gratuites du jour. Elles reviennent demain, ou <a href="/pricing.html">passez à Pro</a> pour jusqu\'à 60 par jour.',
+      errLimitPro:"Vous avez atteint la limite du jour. Vos questions reviennent demain.",
+      errBusy:"Beaucoup de personnes posent des questions en ce moment et la capacité du jour est épuisée. Réessayez demain.",
+      errFailed:"Impossible d'obtenir une réponse pour l'instant. Réessayez dans une minute.",
+      notConfigured:"« Ai-je le droit… ? » n'est pas encore activé. Revenez bientôt.",
+      v:{ yes:"Oui", no:"Non", depends:"Ça dépend", unclear:"Incertain" },
+      youAsked:"Votre question", placesH:"Où c'est permis et où ça ne l'est pas", here:"Vous êtes ici",
+      condH:"Conditions à respecter", ifNotH:"Si vous le faites là où c'est interdit", lawsH:"Les règles applicables", stepsH:"Que faire maintenant", askBackH:"Pour une réponse plus précise :",
+      research:"Trouver les textes applicables", lawyer:"Parler à un avocat", another:"Poser une autre question", print:"Imprimer",
+      fine:"Information générale rédigée par une IA d'après les règles telles que nous les comprenons, pas un conseil juridique. Les lois évoluent et les détails comptent : vérifiez auprès de l'autorité compétente ou d'un avocat avant d'agir.",
+      recentH:"Vos questions récentes", clear:"Effacer", recentNote:"Conservées uniquement dans ce navigateur.",
+      back:"← Retour à Casebound", how:"Fonctionnement de « Ai-je le droit… ? »", terms:"Conditions d'utilisation", privacyL:"Politique de confidentialité", contact:"Contact / réclamations : admin@case-bound.com"
+    },
+    de: {
+      docTitle:"Darf ich…? — Casebound", navAria:"Konto", navResearch:"Recherche", navRisk:"Risikocheck", navPlans:"Tarife", signIn:"Anmelden", account:"Konto",
+      free:"Kostenlos", kicker:"Darf ich…?", h1:"Frag, ob du etwas darfst.",
+      lede:"Stell deine Frage in einfachen Worten. Du bekommst ein Ja oder Nein, wo es erlaubt ist und wo nicht, und welche Bedingungen gelten.",
+      qPre:"Darf ich", qPh:"ein Telefonat aufnehmen, ohne es der anderen Person zu sagen?", homeL:"Wo bist du?", elsewhere:"Anderswo",
+      ask:"Prüfen", asking:"Wird geprüft…", private:"Deine Frage wird an unseren KI-Anbieter gesendet, um die Antwort zu schreiben. Casebound speichert sie nicht.",
+      left:function(n,l){ return "Heute noch " + n + " von " + l + " Fragen"; },
+      upgrade:'Mehr gewünscht? Mit <a href="/pricing.html">Casebound Pro</a> bis zu 60 pro Tag.',
+      errShort:"Schreib etwas mehr, damit es eine Frage zu beantworten gibt.", errLong:"Die Frage muss unter 600 Zeichen bleiben.",
+      errLimitFree:'Du hast die kostenlosen Fragen für heute aufgebraucht. Morgen gibt es neue, oder <a href="/pricing.html">wechsle zu Pro</a> für bis zu 60 pro Tag.',
+      errLimitPro:"Du hast das heutige Limit erreicht. Morgen gibt es neue Fragen.",
+      errBusy:"Gerade fragen sehr viele, und die Kapazität für heute ist ausgeschöpft. Bitte versuch es morgen noch einmal.",
+      errFailed:"Wir konnten gerade keine Antwort bekommen. Bitte versuch es in einer Minute noch einmal.",
+      notConfigured:"„Darf ich…?“ ist noch nicht eingeschaltet. Schau bald wieder vorbei.",
+      v:{ yes:"Ja", no:"Nein", depends:"Kommt darauf an", unclear:"Unklar" },
+      youAsked:"Deine Frage", placesH:"Wo du es darfst und wo nicht", here:"Du bist hier",
+      condH:"Bedingungen", ifNotH:"Wenn du es tust, wo es nicht erlaubt ist", lawsH:"Die zugrunde liegenden Vorschriften", stepsH:"Was du jetzt tun kannst", askBackH:"Für eine genauere Antwort:",
+      research:"Rechtsgrundlagen finden", lawyer:"Mit einem Anwalt sprechen", another:"Weitere Frage stellen", print:"Drucken",
+      fine:"Allgemeine Information, von einer KI auf Grundlage der Vorschriften verfasst, wie wir sie verstehen – keine Rechtsberatung. Gesetze ändern sich und Details zählen: Kläre es vor dem Handeln mit der Behörde oder einem Anwalt.",
+      recentH:"Deine letzten Fragen", clear:"Löschen", recentNote:"Nur in diesem Browser gespeichert.",
+      back:"← Zurück zu Casebound", how:"So funktioniert „Darf ich…?“", terms:"Nutzungsbedingungen", privacyL:"Datenschutzhinweis", contact:"Kontakt / Beschwerden: admin@case-bound.com"
+    },
+    pt: {
+      docTitle:"Posso…? — Casebound", navAria:"Conta", navResearch:"Pesquisa", navRisk:"Avaliação de risco", navPlans:"Planos", signIn:"Iniciar sessão", account:"Conta",
+      free:"Grátis", kicker:"Posso…?", h1:"Pergunte se pode fazer alguma coisa.",
+      lede:"Escreva a pergunta em palavras simples. Recebe um sim ou um não, onde é permitido e onde não é, e as condições que se aplicam.",
+      qPre:"Posso", qPh:"gravar uma chamada sem avisar a outra pessoa?", homeL:"Onde está?", elsewhere:"Noutro sítio",
+      ask:"Verificar", asking:"A verificar…", private:"A sua pergunta é enviada ao nosso fornecedor de IA para redigir a resposta. A Casebound não a guarda.",
+      left:function(n,l){ return "Restam-lhe " + n + " de " + l + " perguntas hoje"; },
+      upgrade:'Quer mais? Com o <a href="/pricing.html">Casebound Pro</a> tem até 60 por dia.',
+      errShort:"Escreva um pouco mais para haver uma pergunta a responder.", errLong:"A pergunta deve ter menos de 600 caracteres.",
+      errLimitFree:'Já usou as perguntas gratuitas de hoje. Voltam amanhã, ou <a href="/pricing.html">passe para Pro</a> para ter até 60 por dia.',
+      errLimitPro:"Atingiu o limite de hoje. As perguntas voltam amanhã.",
+      errBusy:"Muitas pessoas estão a perguntar neste momento e a capacidade de hoje esgotou-se. Tente novamente amanhã.",
+      errFailed:"Não conseguimos obter uma resposta agora. Tente novamente dentro de um minuto.",
+      notConfigured:"O \"Posso…?\" ainda não está ativo. Volte em breve.",
+      v:{ yes:"Sim", no:"Não", depends:"Depende", unclear:"Pouco claro" },
+      youAsked:"A sua pergunta", placesH:"Onde pode e onde não pode", here:"Está aqui",
+      condH:"Condições aplicáveis", ifNotH:"Se o fizer onde não é permitido", lawsH:"As regras aplicáveis", stepsH:"O que fazer a seguir", askBackH:"Para uma resposta mais precisa:",
+      research:"Encontrar a lei aplicável", lawyer:"Falar com um advogado", another:"Fazer outra pergunta", print:"Imprimir",
+      fine:"Informação geral redigida por IA com base nas regras tal como as entendemos, não aconselhamento jurídico. As leis mudam e os pormenores contam: confirme junto da autoridade ou de um advogado antes de agir.",
+      recentH:"As suas perguntas recentes", clear:"Apagar", recentNote:"Guardadas apenas neste navegador.",
+      back:"← Voltar à Casebound", how:"Como funciona o \"Posso…?\"", terms:"Termos de utilização", privacyL:"Aviso de privacidade", contact:"Contacto / reclamações: admin@case-bound.com"
+    },
+    pl: {
+      docTitle:"Czy mogę…? — Casebound", navAria:"Konto", navResearch:"Wyszukiwanie", navRisk:"Ocena ryzyka", navPlans:"Plany", signIn:"Zaloguj się", account:"Konto",
+      free:"Za darmo", kicker:"Czy mogę…?", h1:"Zapytaj, czy wolno ci coś zrobić.",
+      lede:"Napisz pytanie prostymi słowami. Dostaniesz odpowiedź tak lub nie, gdzie jest to dozwolone, a gdzie nie, oraz warunki, które trzeba spełnić.",
+      qPre:"Czy mogę", qPh:"nagrać rozmowę telefoniczną bez informowania drugiej osoby?", homeL:"Gdzie jesteś?", elsewhere:"Gdzie indziej",
+      ask:"Sprawdź", asking:"Sprawdzanie…", private:"Twoje pytanie jest wysyłane do naszego dostawcy AI, aby przygotować odpowiedź. Casebound go nie przechowuje.",
+      left:function(n,l){ return "Pozostało pytań na dziś: " + n + " z " + l; },
+      upgrade:'Chcesz więcej? Z <a href="/pricing.html">Casebound Pro</a> masz do 60 dziennie.',
+      errShort:"Napisz trochę więcej, żeby było na co odpowiedzieć.", errLong:"Pytanie musi mieć mniej niż 600 znaków.",
+      errLimitFree:'Wykorzystano dzisiejsze darmowe pytania. Wrócą jutro albo <a href="/pricing.html">przejdź na Pro</a>, aby mieć do 60 dziennie.',
+      errLimitPro:"Osiągnięto dzisiejszy limit. Pytania wrócą jutro.",
+      errBusy:"Teraz pyta bardzo wiele osób i dzisiejsza pula się wyczerpała. Spróbuj ponownie jutro.",
+      errFailed:"Nie udało się teraz uzyskać odpowiedzi. Spróbuj ponownie za minutę.",
+      notConfigured:"„Czy mogę…?” nie jest jeszcze włączone. Zajrzyj wkrótce.",
+      v:{ yes:"Tak", no:"Nie", depends:"To zależy", unclear:"Niejasne" },
+      youAsked:"Twoje pytanie", placesH:"Gdzie wolno, a gdzie nie", here:"Jesteś tutaj",
+      condH:"Warunki", ifNotH:"Jeśli zrobisz to tam, gdzie jest zabronione", lawsH:"Przepisy, na których to się opiera", stepsH:"Co zrobić dalej", askBackH:"Aby odpowiedź była dokładniejsza:",
+      research:"Znajdź przepisy", lawyer:"Porozmawiaj z prawnikiem", another:"Zadaj kolejne pytanie", print:"Drukuj",
+      fine:"Informacja ogólna przygotowana przez AI na podstawie przepisów w naszym rozumieniu, a nie porada prawna. Przepisy się zmieniają, a szczegóły mają znaczenie: przed działaniem sprawdź w urzędzie lub u prawnika.",
+      recentH:"Twoje ostatnie pytania", clear:"Wyczyść", recentNote:"Przechowywane tylko w tej przeglądarce.",
+      back:"← Wróć do Casebound", how:"Jak działa „Czy mogę…?”", terms:"Regulamin", privacyL:"Informacja o prywatności", contact:"Kontakt / reklamacje: admin@case-bound.com"
+    },
+    ar: {
+      docTitle:"هل يمكنني…؟ — Casebound", navAria:"الحساب", navResearch:"البحث", navRisk:"تقييم المخاطر", navPlans:"الخطط", signIn:"تسجيل الدخول", account:"الحساب",
+      free:"مجاني", kicker:"هل يمكنني…؟", h1:"اسأل إن كان يحق لك القيام بأمر ما.",
+      lede:"اكتب سؤالك بكلمات بسيطة. ستحصل على نعم أو لا، وأين يُسمح بذلك وأين لا يُسمح، والشروط المرتبطة به.",
+      qPre:"هل يمكنني", qPh:"تسجيل مكالمة هاتفية دون إخبار الطرف الآخر؟", homeL:"أين أنت؟", elsewhere:"مكان آخر",
+      ask:"تحقّق", asking:"جارٍ التحقق…", private:"يُرسَل سؤالك إلى مزوّد الذكاء الاصطناعي لدينا لكتابة الإجابة. لا يحتفظ به Casebound.",
+      left:function(n,l){ return "تبقّى لك اليوم " + n + " من " + l + " أسئلة"; },
+      upgrade:'تريد المزيد؟ مع <a href="/pricing.html">Casebound Pro</a> يصل العدد إلى 60 سؤالًا يوميًا.',
+      errShort:"اكتب المزيد قليلًا ليكون هناك سؤال يمكن الإجابة عنه.", errLong:"يجب ألا يتجاوز السؤال 600 حرف.",
+      errLimitFree:'استخدمت أسئلة اليوم المجانية. تعود غدًا، أو <a href="/pricing.html">اشترك في Pro</a> لتحصل على ما يصل إلى 60 سؤالًا يوميًا.',
+      errLimitPro:"بلغت حدّ اليوم. تعود أسئلتك غدًا.",
+      errBusy:"يطرح كثيرون أسئلتهم الآن ونفدت سعة اليوم. يُرجى المحاولة مجددًا غدًا.",
+      errFailed:"تعذّر الحصول على إجابة الآن. حاول مرة أخرى بعد دقيقة.",
+      notConfigured:"خدمة «هل يمكنني…؟» غير مفعّلة بعد. عُد قريبًا.",
+      v:{ yes:"نعم", no:"لا", depends:"يعتمد", unclear:"غير واضح" },
+      youAsked:"سؤالك", placesH:"أين يمكنك وأين لا يمكنك", here:"أنت هنا",
+      condH:"الشروط المطبّقة", ifNotH:"إذا فعلته حيث لا يُسمح به", lawsH:"القواعد التي يستند إليها", stepsH:"ماذا تفعل الآن", askBackH:"للحصول على إجابة أدق:",
+      research:"ابحث عن القانون المطبّق", lawyer:"تحدّث إلى محامٍ", another:"اطرح سؤالًا آخر", print:"طباعة",
+      fine:"معلومات عامة كتبها الذكاء الاصطناعي استنادًا إلى القواعد كما نفهمها، وليست استشارة قانونية. القوانين تتغير والتفاصيل مهمة: تحقّق لدى الجهة المختصة أو محامٍ قبل التصرف.",
+      recentH:"أسئلتك الأخيرة", clear:"مسح", recentNote:"محفوظة في هذا المتصفح فقط.",
+      back:"→ العودة إلى Casebound", how:"كيف تعمل خدمة «هل يمكنني…؟»", terms:"شروط الاستخدام", privacyL:"إشعار الخصوصية", contact:"التواصل / الشكاوى: admin@case-bound.com"
+    }
+  };
+  var t = function(){ return T[lang] || T.en; };
+  var esc = function(s){ return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); };
+  var store = {
+    get: function(k, d){ try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch(e){ return d; } },
+    set: function(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} }
+  };
+
+  /* ---------------- "Where are you?" ---------------- */
+  function regionName(code){
+    try { return new Intl.DisplayNames([loc()], { type:"region" }).of(code); } catch(e){ return code; }
+  }
+  function guessHome(){
+    var saved = store.get(HOME_KEY, null);
+    if (saved !== null) return saved;
+    var l = (navigator.language || "").split("-");
+    var r = (l[1] || "").toUpperCase();
+    if (PLACES.indexOf(r) >= 0) return r;
+    var byLang = { it:"IT", es:"ES", fr:"FR", de:"DE", pt:"PT", pl:"PL" };
+    return byLang[lang] || "IT";
+  }
+  function fillHome(){
+    var sel = $("home"), v = sel.value || guessHome();
+    sel.innerHTML = PLACES.map(function(c){ return '<option value="' + c + '">' + esc(regionName(c)) + '</option>'; }).join("") +
+      '<option value="">' + esc(t().elsewhere) + '</option>';
+    sel.value = v;
+  }
+
+  /* ---------------- counter and messages ---------------- */
+  function paintLeft(){
+    var el = $("left");
+    if (!STATE.configured) { el.textContent = ""; return; }
+    var left = Math.max(0, STATE.limit - STATE.used);
+    el.innerHTML = esc(t().left(left, STATE.limit)) + (STATE.tier !== "pro" ? " · " + t().upgrade : "");
+  }
+  function say(html, kind){
+    var m = $("msg");
+    if (!html) { m.hidden = true; m.innerHTML = ""; return; }
+    m.className = "msg " + (kind || "bad"); m.innerHTML = html; m.hidden = false;
+  }
+
+  /* ---------------- the answer ---------------- */
+  function pill(v){ return '<span class="p-v v-' + v + '">' + esc(t().v[v] || v) + '</span>'; }
+  function list(items, cls){
+    return '<ul class="ticks' + (cls ? " " + cls : "") + '">' + items.map(function(x){ return "<li>" + esc(x) + "</li>"; }).join("") + "</ul>";
+  }
+  function render(){
+    var box = $("answer");
+    if (!current) { box.hidden = true; box.innerHTML = ""; return; }
+    var a = current.answer, tt = t(), h = "";
+    h += '<div class="a-top">';
+    h += '<p class="a-q">' + esc(tt.youAsked) + ': <b>' + esc(tt.qPre + " " + current.q.replace(/^(can i|posso|puedo|¿puedo|puis-je|darf ich|czy mogę|هل يمكنني)\s+/i, "")) + '</b></p>';
+    h += '<div class="a-head"><span class="big v-' + a.verdict + '">' + esc(tt.v[a.verdict]) + '</span><h2>' + esc(a.headline) + '</h2></div>';
+    if (a.explanation) h += '<p class="a-exp">' + esc(a.explanation) + '</p>';
+    if (a.askBack) h += '<p class="askback"><b>' + esc(tt.askBackH) + '</b> ' + esc(a.askBack) + '</p>';
+    h += '</div>';
+
+    if (a.places && a.places.length) {
+      var home = current.home;
+      var places = a.places.slice().sort(function(x, y){ return (y.code === home) - (x.code === home); });
+      h += '<div class="sec"><h3>' + esc(tt.placesH) + '</h3>';
+      h += '<div class="legend">' + ["yes","depends","no","unclear"].map(function(v){ return '<span><i class="dot d-' + v + '"></i>' + esc(tt.v[v]) + '</span>'; }).join("") + '</div>';
+      h += '<ul class="places">' + places.map(function(p){
+        return '<li class="place p-' + p.verdict + (p.code === home ? " home" : "") + '"><div class="p-top"><b>' + esc(p.name) + '</b>' + pill(p.verdict) +
+          (p.code === home ? '<span class="p-here">' + esc(tt.here) + '</span>' : "") + '</div><div class="p-note">' + esc(p.note) + '</div></li>';
+      }).join("") + '</ul></div>';
+    }
+    if (a.conditions && a.conditions.length) h += '<div class="sec"><h3>' + esc(tt.condH) + '</h3>' + list(a.conditions) + '</div>';
+    if (a.ifNot && a.ifNot.length) h += '<div class="sec"><h3>' + esc(tt.ifNotH) + '</h3>' + list(a.ifNot, "warns") + '</div>';
+    if (a.nextSteps && a.nextSteps.length) h += '<div class="sec"><h3>' + esc(tt.stepsH) + '</h3><ol class="steps">' + a.nextSteps.map(function(x){ return "<li>" + esc(x) + "</li>"; }).join("") + '</ol></div>';
+    if (a.laws && a.laws.length) h += '<div class="sec"><h3>' + esc(tt.lawsH) + '</h3><ul class="laws">' + a.laws.map(function(x){ return '<li><bdi>' + esc(x) + '</bdi></li>'; }).join("") + '</ul></div>';
+    h += '<div class="sec"><div class="a-actions">' +
+      '<button type="button" class="btn" id="a-research">' + esc(tt.research) + '</button>' +
+      '<a class="btn ghost" href="/risk-check.html">' + esc(tt.lawyer) + '</a>' +
+      '<button type="button" class="btn ghost" id="a-another">' + esc(tt.another) + '</button>' +
+      '<button type="button" class="btn ghost" id="a-print">' + esc(tt.print) + '</button>' +
+      '</div><p class="fine">' + esc(tt.fine) + '</p></div>';
+    box.innerHTML = h;
+    box.hidden = false;
+  }
+
+  /* ---------------- recent questions (this browser only) ---------------- */
+  function recent(){ return store.get(RECENT_KEY, []).filter(function(r){ return r && r.q && r.answer; }); }
+  function remember(item){
+    var all = recent().filter(function(r){ return !(r.q === item.q && r.home === item.home && r.lang === item.lang); });
+    all.unshift(item);
+    store.set(RECENT_KEY, all.slice(0, 12));
+    paintRecent();
+  }
+  function paintRecent(){
+    var all = recent(), box = $("recent");
+    box.hidden = !all.length;
+    $("recent-list").innerHTML = all.map(function(r, i){
+      return '<li><button type="button" data-i="' + i + '">' + pill(r.answer.verdict) + '<span class="t">' + esc(r.q) + '</span></button></li>';
+    }).join("");
+  }
+
+  /* ---------------- asking ---------------- */
+  function setBusy(v){
+    busy = v;
+    var b = $("go");
+    b.disabled = v;
+    b.innerHTML = v ? '<span class="spin" aria-hidden="true"></span>' + esc(t().asking) : esc(t().ask);
+  }
+  function submit(e){
+    if (e) e.preventDefault();
+    if (busy) return;
+    var q = $("q").value.replace(/\s+/g, " ").trim();
+    var home = $("home").value;
+    store.set(HOME_KEY, home);
+    if (!STATE.configured) return say(esc(t().notConfigured), "info");
+    if (q.length < 6) return say(esc(t().errShort));
+    if (q.length > 600) return say(esc(t().errLong));
+    var full = /^(can i|posso|puedo|¿puedo|puis-je|darf ich|czy mogę|هل يمكنني)(\s|$)/i.test(q) ? q : t().qPre + " " + q;
+    say("");
+    setBusy(true);
+    fetch("/api/can-i", {
+      method:"POST", credentials:"same-origin", headers:{ "Content-Type":"application/json" },
+      body: JSON.stringify({ question: full, lang: lang, home: home })
+    }).then(function(r){ return r.json().catch(function(){ return {}; }).then(function(b){ return { ok:r.ok, status:r.status, b:b }; }); })
+      .then(function(res){
+        var b = res.b || {};
+        if (typeof b.used === "number") STATE.used = b.used;
+        if (typeof b.limit === "number") STATE.limit = b.limit;
+        if (b.tier) STATE.tier = b.tier;
+        paintLeft();
+        if (res.ok && b.answer) {
+          current = { q: q, home: home, lang: lang, answer: b.answer, at: Date.now() };
+          remember(current);
+          render();
+          $("answer").scrollIntoView({ behavior:"smooth", block:"start" });
+          return;
+        }
+        var err = b.error;
+        if (err === "limit") say(STATE.tier === "pro" ? esc(t().errLimitPro) : t().errLimitFree);
+        else if (err === "busy") say(esc(t().errBusy));
+        else if (err === "short") say(esc(t().errShort));
+        else if (err === "long") say(esc(t().errLong));
+        else if (err === "not_configured") { STATE.configured = false; say(esc(t().notConfigured), "info"); paintLeft(); }
+        else say(esc(t().errFailed));
+      })
+      .catch(function(){ say(esc(t().errFailed)); })
+      .then(function(){ setBusy(false); });
+  }
+
+  /* ---------------- wiring ---------------- */
+  function applyLang(){
+    var tt = t();
+    document.title = tt.docTitle;
+    document.querySelectorAll("[data-t]").forEach(function(el){ var k = el.getAttribute("data-t"); if (typeof tt[k] === "string") el.textContent = tt[k]; });
+    document.querySelectorAll("[data-tp]").forEach(function(el){ el.placeholder = tt[el.getAttribute("data-tp")]; });
+    document.querySelectorAll("[data-ta]").forEach(function(el){ el.setAttribute("aria-label", tt[el.getAttribute("data-ta")]); });
+    $("top-account").textContent = STATE.signedIn ? tt.account : tt.signIn;
+    fillHome();
+    setBusy(busy);
+    paintLeft();
+    paintRecent();
+    render();
+  }
+
+  $("ask").addEventListener("submit", submit);
+  $("q").addEventListener("keydown", function(e){ if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); submit(); } });
+  $("home").addEventListener("change", function(){ store.set(HOME_KEY, $("home").value); });
+  $("clear").addEventListener("click", function(){ store.set(RECENT_KEY, []); paintRecent(); });
+  $("recent-list").addEventListener("click", function(e){
+    var b = e.target.closest("button[data-i]"); if (!b) return;
+    var r = recent()[Number(b.getAttribute("data-i"))]; if (!r) return;
+    current = r; $("q").value = r.q; if (PLACES.indexOf(r.home) >= 0 || r.home === "") $("home").value = r.home;
+    render(); $("answer").scrollIntoView({ behavior:"smooth", block:"start" });
+  });
+  $("answer").addEventListener("click", function(e){
+    var id = e.target && e.target.id;
+    if (id === "a-research" && current) {
+      try { sessionStorage.setItem("casebound:prefill", (current.answer.researchQuery || current.q)); } catch(err){}
+      location.href = "/";
+    }
+    if (id === "a-another") { current = null; render(); $("q").value = ""; $("q").focus(); window.scrollTo({ top:0, behavior:"smooth" }); }
+    if (id === "a-print") window.print();
+  });
+  if (I) I.onChange(function(c){ lang = c; applyLang(); });
+
+  applyLang();
+  fetch("/api/can-i", { credentials:"same-origin" }).then(function(r){ return r.ok ? r.json() : null; }).then(function(b){
+    if (!b) return;
+    STATE.configured = !!b.configured; STATE.tier = b.tier || "free"; STATE.signedIn = !!b.signedIn;
+    STATE.limit = b.limit || STATE.limit; STATE.used = b.used || 0;
+    $("top-account").textContent = STATE.signedIn ? t().account : t().signIn;
+    paintLeft();
+    if (!STATE.configured) say(esc(t().notConfigured), "info");
+  }).catch(function(){});
+  try { var pre = new URLSearchParams(location.search).get("q"); if (pre) $("q").value = pre.slice(0, 600); } catch(e){}
+})();
+</script>
+</body>
+</html>
