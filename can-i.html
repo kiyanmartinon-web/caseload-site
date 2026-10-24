@@ -54,7 +54,7 @@ h1{font-family:var(--serif);font-size:34px;line-height:1.15;font-weight:600;marg
 @media(max-width:600px){h1{font-size:28px}}
 
 /* ---------- ask box ---------- */
-.ask{border:1px solid var(--rule);background:var(--paper-2);border-radius:6px;padding:18px;display:grid;gap:14px}
+.ask{border:1px solid var(--rule);background:var(--paper-2);border-radius:6px;padding:18px;display:grid;grid-template-columns:minmax(0,1fr);gap:14px}
 .q-wrap{display:flex;align-items:flex-start;gap:10px;border:1px solid var(--rule);border-radius:5px;background:var(--paper);padding:10px 12px}
 .q-wrap:focus-within{border-color:var(--verdigris);box-shadow:0 0 0 1px var(--verdigris)}
 .q-pre{font-family:var(--serif);font-size:19px;font-weight:600;color:var(--oxblood);white-space:nowrap;line-height:1.45}
@@ -69,6 +69,7 @@ select{background:var(--paper);border:1px solid var(--rule);border-radius:5px;pa
 .btn.ghost{background:var(--paper-2);color:var(--ink);border-color:var(--rule)}
 .btn.ghost:hover{background:var(--paper);color:var(--oxblood)}
 .ask-row .btn{margin-inline-start:auto}
+@media(max-width:560px){.ask-row .f{flex:1 1 100%}.ask-row .f select{width:100%;min-width:0}.ask-row .btn{flex:1 1 100%;margin:0}}
 .meta{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:12.5px;color:var(--ink-soft)}
 .msg{border-radius:5px;padding:12px 14px;font-size:14px;line-height:1.5}
 .msg.bad{background:var(--oxblood-wash);color:var(--oxblood)}
@@ -89,7 +90,7 @@ select{background:var(--paper);border:1px solid var(--rule);border-radius:5px;pa
 .askback{margin:0;padding:10px 14px;border-inline-start:3px solid var(--amber);background:var(--amber-wash);border-radius:0 5px 5px 0;font-size:14px}
 .sec{padding:18px 20px;border-bottom:1px solid var(--rule-soft);display:grid;gap:10px}
 .sec:last-child{border-bottom:0}
-.sec h3{margin:0;font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
+.sec h3{margin:0;font-size:14px;font-weight:650;color:var(--ink)}
 .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--ink-soft)}
 .legend span{display:inline-flex;align-items:center;gap:6px}
 .dot{width:9px;height:9px;border-radius:50%;display:inline-block}
@@ -125,7 +126,7 @@ select{background:var(--paper);border:1px solid var(--rule);border-radius:5px;pa
 /* ---------- recent ---------- */
 .recent{margin-top:30px;display:grid;gap:8px}
 .recent-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
-.recent-h h2{margin:0;font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
+.recent-h h2{margin:0;font-size:16px;font-weight:650;letter-spacing:-.01em;color:var(--ink)}
 .linkish{background:none;border:0;padding:0;color:var(--verdigris);font-size:12.5px;font-weight:600;text-decoration:underline}
 .recent ul{margin:0;padding:0;list-style:none;display:grid;gap:6px}
 .recent li button{width:100%;text-align:start;display:flex;gap:10px;align-items:center;background:var(--paper-2);border:1px solid var(--rule);border-radius:5px;padding:9px 12px;font-size:14px}

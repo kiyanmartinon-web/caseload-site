@@ -71,9 +71,14 @@ export async function subscriptionFor(user) {
 }
 
 // Paid features stay on during a trial and while Stripe retries a failed payment.
+// Verified lawyers get Casebound Pro free for now (the lawyer side's "Cases & clients" is a
+// Pro feature that also needs verification). Set to false to make lawyers subscribe like clients.
+export const FREE_PRO_FOR_VERIFIED_LAWYERS = true;
+
 export function tierOf(user, subscription) {
   // Admin accounts (ADMIN_EMAILS) always have full Pro access, with no subscription needed.
   if (isAdmin(user)) return "pro";
+  if (FREE_PRO_FOR_VERIFIED_LAWYERS && user && user.role === "lawyer" && user.lawyer && user.lawyer.status === "verified") return "pro";
   const st = subscription && subscription.status;
   return ["active", "trialing", "past_due"].includes(st) || (st === "unknown" && user.stripeCustomer) ? "pro" : "free";
 }

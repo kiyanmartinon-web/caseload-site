@@ -17,6 +17,12 @@
 import { currentUser, sameOrigin, isAdmin, isVerifiedLawyer, getUser, saveUser } from "../lib/auth.mjs";
 import { json } from "../lib/stripe.mjs";
 import { subscriptionFor, tierOf } from "../lib/subscription.mjs";
+
+// The lawyer side ("Cases & clients") is a Pro feature on top of verification. Verified lawyers
+// currently get Pro free (FREE_PRO_FOR_VERIFIED_LAWYERS in lib/subscription.mjs).
+async function lawyerPro(user) {
+  return isAdmin(user) || tierOf(user, await subscriptionFor(user)) === "pro";
+}
 import { getCase, saveCase, deleteCase, allCases, cleanCase, newCase, forClient, forLawyer } from "../lib/matches.mjs";
 import { store as accountsStore } from "../lib/store.mjs";
 
@@ -38,6 +44,7 @@ export default async (req, context) => {
     }
     if (action === "board") {
       if (!isVerifiedLawyer(user) && !isAdmin(user)) return bad("Only verified lawyers can see cases.", 403);
+      if (!(await lawyerPro(user))) return bad("Cases & clients is part of Casebound Pro.", 402);
       const open = (await allCases()).filter((c) => c.status === "open");
       const me = await getUser(user.id);
       return ok({ cases: await Promise.all(open.map((c) => forLawyer(c, user.id))), order: (me && me.caseOrder) || [] });
@@ -86,6 +93,7 @@ export default async (req, context) => {
 
   if (action === "order") {
     if (!isVerifiedLawyer(user) && !isAdmin(user)) return bad("Only verified lawyers can sort cases.", 403);
+    if (!(await lawyerPro(user))) return bad("Cases & clients is part of Casebound Pro.", 402);
     const ids = Array.isArray(b.ids) ? [...new Set(b.ids.map(String).filter((x) => /^[\w-]{1,64}$/.test(x)))].slice(0, 1000) : [];
     const me = await getUser(user.id);
     if (!me) return bad("Please sign in.", 401);
@@ -117,6 +125,7 @@ export default async (req, context) => {
 
   if (action === "review") {
     if (!isVerifiedLawyer(user)) return bad("Only verified lawyers can review cases.", 403);
+    if (!(await lawyerPro(user))) return bad("Cases & clients is part of Casebound Pro.", 402);
     if (c.status !== "open") return bad("This case is closed.", 409);
     const n = (v) => { const x = Math.round(Number(v)); return x >= 1 && x <= 5 ? x : null; };
     const prev = (c.reviews || {})[user.id] || {};
