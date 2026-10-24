@@ -199,18 +199,45 @@ export function shapeAnswer(raw) {
   };
 }
 
+// Where answers come from: ANTHROPIC_API_KEY (+ ANTHROPIC_BASE_URL when set). If no key is
+// set in Netlify, Netlify's AI Gateway injects both automatically and bills Netlify credits.
+const baseUrl = () => (process.env.ANTHROPIC_BASE_URL || "https://api.anthropic.com").replace(/\/+$/, "");
 export function isConfigured() { return !!process.env.ANTHROPIC_API_KEY; }
 
-export async function ask({ question, lang, home, notes, context }) {
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+/** One Messages API call with a time limit; retries once if the API is busy. */
+async function callModel(body, { timeoutMs = 45000 } = {}) {
+  const deadline = Date.now() + timeoutMs;
+  for (let attempt = 0; ; attempt++) {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), Math.max(1000, deadline - Date.now()));
+    let res;
+    try {
+      res = await fetch(`${baseUrl()}/v1/messages`, {
+        method: "POST",
+        signal: ctrl.signal,
+        headers: { "content-type": "application/json", "x-api-key": process.env.ANTHROPIC_API_KEY, "anthropic-version": "2023-06-01" },
+        body: JSON.stringify(body),
+      });
+    } catch (e) {
+      const err = new Error(e && e.name === "AbortError" ? "anthropic timeout" : `anthropic network: ${e && e.message}`);
+      err.status = e && e.name === "AbortError" ? 504 : 502;
+      throw err;
+    } finally { clearTimeout(timer); }
+    if (res.ok) return res.json();
+    const t = await res.text().catch(() => "");
+    const busy = res.status === 429 || res.status === 529 || res.status >= 500;
+    if (busy && attempt === 0 && deadline - Date.now() > 20000) { await sleep(1500); continue; }
+    const err = new Error(`anthropic ${res.status}: ${t.slice(0, 300)}`);
+    err.status = res.status;
+    throw err;
+  }
+}
+
+export async function ask({ question, lang, home, notes, context, timeoutMs }) {
   const homeName = (PLACES.find((p) => p[0] === home) || [null, home || "not given"])[1];
-  const res = await fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST",
-    headers: {
-      "content-type": "application/json",
-      "x-api-key": process.env.ANTHROPIC_API_KEY,
-      "anthropic-version": "2023-06-01",
-    },
-    body: JSON.stringify({
+  const data = await callModel({
       model: process.env.CANI_MODEL || DEFAULT_MODEL,
       max_tokens: 3500,
       system: SYSTEM,
@@ -228,16 +255,12 @@ export async function ask({ question, lang, home, notes, context }) {
             : `Question (what they typed after "Can I"): ${question}`) +
           (notes && notes.length ? `\n\nNotes from Casebound's review of earlier answers to this question:\n- ${notes.join("\n- ")}` : ""),
       }],
-    }),
-  });
-  if (!res.ok) {
-    const t = await res.text().catch(() => "");
-    const err = new Error(`anthropic ${res.status}: ${t.slice(0, 300)}`);
-    err.status = res.status;
+  }, { timeoutMs });
+  const block = (data.content || []).find((c) => c.type === "tool_use");
+  if (!block) {
+    const err = new Error(`no tool_use block (stop_reason ${data.stop_reason})`);
+    err.status = data.stop_reason === "refusal" ? 451 : 502;
     throw err;
   }
-  const data = await res.json();
-  const block = (data.content || []).find((c) => c.type === "tool_use");
-  if (!block) throw new Error("no tool_use block");
   return shapeAnswer(block.input);
 }

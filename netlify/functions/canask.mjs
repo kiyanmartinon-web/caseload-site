@@ -55,7 +55,10 @@ export default async (req, context) => {
       if (total >= cap) return bad("busy", 429, { used: n, limit: w.limit, tier: w.tier });
     }
 
-    let answer = await ask({ question: q.text, lang, home, context: followUp });
+    // Netlify stops a function after 60 s: the first answer gets up to 45 s, and the
+    // learning-loop rewrite below only runs if enough time is left for it.
+    const started = Date.now();
+    let answer = await ask({ question: q.text, lang, home, context: followUp, timeoutMs: 45000 });
     const used = await count(w.key);
 
     // Learning loop: if this issue has lawyer corrections, disputed or unstable countries,
@@ -65,8 +68,9 @@ export default async (req, context) => {
       const match = await findIssue(answer.researchQuery);
       const notes = match ? notesFor(match.issue) : [];
       let revised = false;
-      if (notes.length) {
-        try { answer = await ask({ question: q.text, lang, home, notes, context: followUp }); revised = true; }
+      const left = 52000 - (Date.now() - started);
+      if (notes.length && left > 15000) {
+        try { answer = await ask({ question: q.text, lang, home, notes, context: followUp, timeoutMs: left }); revised = true; }
         catch (e) { console.error("[can-i] revise", e && e.message); }
       }
       if (match && match.score >= STRICT_MATCH) answer = applyFixes(answer, match.issue);
@@ -80,6 +84,8 @@ export default async (req, context) => {
     console.error("[can-i]", err && err.message);
     // A rejected or missing API key isn't something a retry fixes: say the feature is off.
     if (err && (err.status === 401 || err.status === 403)) return bad("not_configured", 503);
+    if (err && err.status === 451) return bad("refused", 422);
+    if (err && (err.status === 429 || err.status === 529 || err.status === 504)) return bad("busy_now", 503);
     return bad("failed", 502);
   }
 };
