@@ -6,6 +6,7 @@
 <script src="/i18n.js"></script>
 <script src="/terms-gate.js" defer></script>
 <script src="/theme.js"></script>
+<script src="/shell.js" defer></script>
 <script src="/view-switch.js" data-page="lawyer"></script>
 <title>Case board — Casebound for lawyers</title>
 <meta name="description" content="Casebound for lawyers: review cases sent by clients, rate them and connect with the ones you want to take on.">
@@ -42,7 +43,7 @@ h1,h2{text-wrap:balance}
 .top-links a{text-decoration:none;color:var(--ink-soft)} .top-links a:hover{color:var(--oxblood)}
 @media(max-width:560px){.masthead-in{flex-wrap:wrap;gap:8px 12px;padding-block:8px}}
 
-main{max-width:1300px;margin:0 auto;padding:26px 20px 70px}
+main{max-width:880px;margin:0 auto;padding:34px 20px 70px}
 .head h1{font-family:var(--serif);font-size:28px;font-weight:600;margin:0 0 4px;line-height:1.2}
 .head p{margin:0 0 18px;color:var(--ink-soft);max-width:75ch}
 .state{background:var(--paper-2);border:1px solid var(--rule);border-radius:6px;padding:22px;max-width:640px}
@@ -149,7 +150,7 @@ input[type=text],select,textarea{width:100%;background:var(--paper-2);border:1px
 .note{font-size:11.5px;color:var(--ink-soft);line-height:1.45;margin:0}
 .err{color:var(--oxblood);font-size:12.5px;font-weight:600;margin:0}
 footer{border-top:1px solid var(--rule);background:var(--paper-2);font-size:12.5px;color:var(--ink-soft)}
-footer div{max-width:1300px;margin:0 auto;padding:18px 20px;display:flex;gap:16px;flex-wrap:wrap}
+footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px;flex-wrap:wrap}
 </style>
 <link rel="stylesheet" href="/brand.css">
 </head>
@@ -157,9 +158,8 @@ footer div{max-width:1300px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
 
 <header class="masthead">
   <div class="masthead-in">
-    <a class="wordmark" href="/">Case<span>bound</span><small data-t="forLawyers">For lawyers</small></a>
+    <a class="wordmark" href="/">Case<span>bound</span></a>
     <nav class="top-links" aria-label="Account" data-t-aria="navAria">
-      <a href="/research.html" data-t="build">Case building</a>
       <a href="/account.html" id="top-account">Account</a>
     </nav>
   </div>

@@ -3,8 +3,8 @@
    (view-switch.js). Client: Can I…?, Find a lawyer (Pro), Risk check (Pro). Lawyer: Case building,
    Cases & clients (Pro, verified lawyers). Both: Plans and Sign in / Account. It marks the page
    you are on and keeps the footer at the bottom of the window
-   on short pages. Load it after i18n.js and theme.js. The research app (research.html) and the
-   lawyers' case board keep their own top bars. Nothing here is sent anywhere except the usual
+   on short pages. Load it after i18n.js and theme.js. The lawyer pages (Case building and the
+   case board) use the same top bar as the client pages. Nothing here is sent anywhere except the usual
    /api/auth/me check, used only to label the account link. */
 (function () {
   "use strict";
@@ -23,8 +23,6 @@
   function t() { var l = I ? I.get() : "en"; return T[l] || T.en; }
 
   var path = location.pathname.replace(/\/index\.html$/, "/");
-  // The research app and the lawyers' board have their own top bars.
-  if (/\/(research|lawyers)\.html$/.test(path)) return;
 
   var CSS = [
     /* footer stays at the bottom of the window on short pages */

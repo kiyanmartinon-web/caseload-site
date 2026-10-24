@@ -7,6 +7,11 @@
 <script src="/terms-gate.js" defer></script>
 <script src="/theme.js"></script>
 <script src="/view-switch.js" data-page="info"></script>
+<script>
+/* the homepage opens on the chosen side: Client starts with Can I…?, Lawyer with Case building */
+(function(){function f(v){document.documentElement.setAttribute("data-side",v==="lawyer"?"lawyer":"client");}
+f(window.CaseboundView?CaseboundView.side():"client");document.addEventListener("cb:side",function(e){f(e.detail);});})();
+</script>
 <script src="/shell.js" defer></script>
 <title>Casebound — find the law that decides your case</title>
 <meta name="description" content="Describe what happened in plain words. Casebound finds and ranks the provisions and rulings that govern it, across Italy, the EU, France, Germany, the UK, the US and international law.">
@@ -40,6 +45,18 @@ img,svg{display:block}
 html[data-theme="dark"] .btn.quiet{color:var(--ink)!important}
 html[data-theme="dark"] .found .btn.primary:hover{color:var(--ink)!important}
 .fine{font-size:13.5px;color:var(--ink-soft);margin:16px 0 0}
+
+/* ---------- the two openings: Can I…? for clients, Case building for lawyers ---------- */
+html[data-side="lawyer"] .hero-client,html:not([data-side="lawyer"]) .hero-lawyer,html:not([data-side="lawyer"]) #cani-row{display:none}
+.hero-client{align-items:center}
+.hero-client .tag{margin-bottom:18px}
+.hero-ask{display:grid;gap:12px;background:var(--paper-2);border:1px solid var(--rule);border-radius:14px;padding:14px;max-width:560px;box-shadow:0 24px 48px -32px color-mix(in srgb,var(--ink) 35%,transparent)}
+.hero-ask label{display:flex;align-items:flex-start;gap:10px;background:var(--paper);border:1px solid var(--rule);border-radius:var(--radius);padding:12px 14px;cursor:text}
+.hero-ask label:focus-within{border-color:var(--verdigris);box-shadow:0 0 0 1px var(--verdigris)}
+.hero-ask b{font-family:var(--law);font-size:20px;font-weight:500;color:var(--oxblood);white-space:nowrap;line-height:1.4}
+.hero-ask textarea{flex:1;min-width:0;border:0;background:none;resize:none;font:inherit;font-size:17px;line-height:1.45;color:var(--ink);padding:2px 0;outline:none}
+.hero-ask .btn{justify-self:end}
+.hero-client .panel{margin:0}
 
 /* the case file: the one bold element on the page */
 .file{background:var(--paper-2);border:1px solid var(--rule);border-radius:14px;box-shadow:0 1px 0 var(--rule-soft),0 24px 48px -28px color-mix(in srgb,var(--ink) 35%,transparent);overflow:hidden}
@@ -196,7 +213,31 @@ footer .wrap{padding-top:36px;padding-bottom:40px;display:grid;grid-template-col
 </header>
 
 <main>
-  <div class="wrap hero">
+  <div class="wrap hero hero-client">
+    <div>
+      <span class="tag free" data-t="caniTag">Free, 5 questions a day</span>
+      <h1 data-t="caniH">Ask whether you're allowed to do something.</h1>
+      <p class="sub" data-t="caniP">Type an everyday question. You get yes, no or it depends, country by country, with the conditions and the rules behind the answer.</p>
+      <form class="hero-ask" action="/can-i.html" method="get">
+        <label><b data-t="caniPre">Can I</b><textarea name="q" rows="2" maxlength="600" data-t-ph="caniQ" placeholder="record a phone call without telling the other person?"></textarea></label>
+        <button class="btn primary" type="submit" data-t="caniGo">Check</button>
+      </form>
+      <p class="fine" data-t="caniP2">Casebound doesn't keep your question</p>
+    </div>
+    <div class="panel" aria-hidden="true">
+      <span class="ex corner" data-t="dEx">Example</span>
+      <p class="q"><b data-t="caniPre">Can I</b> <span data-t="caniQ">record a phone call without telling the other person?</span></p>
+      <p class="verdict"><i data-t="dep">It depends</i></p>
+      <ul class="countries">
+        <li><b data-t="jIT">Italy</b><span class="y" data-t="cIT">Yes, if you take part in the call</span></li>
+        <li><b data-t="jDE">Germany</b><span class="n" data-t="cDE">No, recording private words without consent is a crime</span></li>
+        <li><b data-t="jUKl">United Kingdom</b><span class="y" data-t="cUK">Yes, for your own records</span></li>
+        <li><b data-t="jUS">United States</b><span class="d" data-t="cUS">Depends on the state: some need everyone's consent</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="wrap hero hero-lawyer">
     <div>
       <h1 data-t="h1">Tell us what happened. We'll find the law that decides it.</h1>
       <p class="sub" data-t="sub">Describe your situation in plain words. Casebound ranks the provisions and rulings that govern it, across Italy, the EU, France, Germany, the UK, the US and international law.</p>
@@ -263,7 +304,7 @@ footer .wrap{padding-top:36px;padding-bottom:40px;display:grid;grid-template-col
   </section>
 
   <div class="rows">
-    <section class="wrap row" aria-labelledby="cani-h">
+    <section class="wrap row" id="cani-row" aria-labelledby="cani-h">
       <div class="row-copy">
         <span class="tag free" data-t="caniTag">Free, 5 questions a day</span>
         <h2 id="cani-h" data-t="caniH">Ask whether you're allowed to do something.</h2>
@@ -404,5 +445,9 @@ footer .wrap{padding-top:36px;padding-bottom:40px;display:grid;grid-template-col
 
 <script src="/concept-labels.js"></script>
 <script src="/landing-i18n.js"></script>
+<script>
+document.querySelectorAll(".hero-ask textarea").forEach(function(t){t.addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();if(t.value.trim())t.form.submit();}});});
+document.querySelectorAll(".hero-ask").forEach(function(f){f.addEventListener("submit",function(e){if(!f.q.value.trim()){e.preventDefault();f.q.focus();}});});
+</script>
 </body>
 </html>

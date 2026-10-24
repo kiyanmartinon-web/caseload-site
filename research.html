@@ -7,6 +7,7 @@
 <script src="/terms-gate.js" defer></script>
 <script src="/concept-labels.js"></script>
 <script src="/theme.js"></script>
+<script src="/shell.js" defer></script>
 <script src="/view-switch.js" data-page="lawyer"></script>
 <title>Casebound — legal research workspace</title>
 <meta name="apple-mobile-web-app-title" content="Casebound">
@@ -65,6 +66,12 @@ a.tab{text-decoration:none}
 .top-links a#top-account{color:var(--paper-2);background:var(--ink);padding:7px 12px;border-radius:5px}
 .top-links a#top-account:hover{background:var(--oxblood)}
 .top-links .pro-mini,.sf-links .pro-mini,.tabs .pro-mini{font-size:9.5px;font-weight:700;letter-spacing:.05em;padding:1px 5px;border-radius:3px;background:var(--oxblood);color:var(--paper-2);margin-inline-start:4px;vertical-align:1px}
+
+/* the New case / Results / Saved cases steps sit in a bar under the shared top bar */
+.subbar{border-bottom:1px solid var(--rule);background:var(--paper-2);flex:0 0 auto;z-index:49}
+.subbar .subbar-in{max-width:1180px;margin:0 auto;padding:0 24px;height:44px;display:flex;gap:2px}
+.subbar .tab:first-child{padding-inline-start:0}
+@media(max-width:760px){.subbar .subbar-in{padding:0 10px;height:42px;overflow-x:auto;scrollbar-width:none}.subbar .subbar-in::-webkit-scrollbar{display:none}}
 
 /* ---------- views ---------- */
 .views{position:relative;flex:1 1 auto;min-height:0}
@@ -400,19 +407,19 @@ html[data-theme="dark"] .seg button[aria-checked="true"]{box-shadow:0 1px 2px rg
 
 <header class="masthead">
   <div class="masthead-in">
-    <a class="wordmark" href="#" data-go="start">Case<span>bound</span><small data-t="legalResearch">Legal research</small></a>
-    <nav class="tabs" aria-label="Sections" data-t-aria="navSections">
-      <a class="tab" href="/lawyers.html"><span data-t="casesNav">Cases &amp; clients</span><span class="pro-mini">PRO</span></a>
-      <button class="tab on" data-go="start"><span class="n">1</span><span data-t="tabNew">New case</span></button>
-      <button class="tab" data-go="results" id="tab-results" disabled><span class="n">2</span><span data-t="tabResults">Results</span></button>
-      <button class="tab" data-go="cases"><span class="long" data-t="savedCases">Saved cases</span><span class="short" data-t="tabSavedShort">Saved</span></button>
-    </nav>
+    <a class="wordmark" href="/">Case<span>bound</span></a>
     <nav class="top-links" aria-label="Account" data-t-aria="navAccount">
-      <a href="/pricing.html" data-t="plans">Plans</a>
       <a href="/account.html" id="top-account">Sign in</a>
     </nav>
   </div>
 </header>
+<div class="subbar">
+  <nav class="tabs subbar-in" aria-label="Sections" data-t-aria="navSections">
+    <button class="tab on" data-go="start"><span class="n">1</span><span data-t="tabNew">New case</span></button>
+    <button class="tab" data-go="results" id="tab-results" disabled><span class="n">2</span><span data-t="tabResults">Results</span></button>
+    <button class="tab" data-go="cases"><span class="long" data-t="savedCases">Saved cases</span><span class="short" data-t="tabSavedShort">Saved</span></button>
+  </nav>
+</div>
 
 <main class="views">
 
