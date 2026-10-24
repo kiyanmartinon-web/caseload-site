@@ -21,8 +21,12 @@ async function store() {
   return getStore({ name: "canask", consistency: "strong" });
 }
 
-export const LIMITS = { free: 5, pro: 5 };
-export const MAX_QUESTION = 600;
+// Free: 5 questions a day. Pro: unlimited (null = no daily limit). A Pro account still
+// has a silent fair-use ceiling (CANI_PRO_FAIR_USE, default 300 a day) so a leaked
+// login or a script can't run up the API bill; no person asking by hand gets near it.
+export const LIMITS = { free: 5, pro: null };
+export const PRO_FAIR_USE = () => Number(process.env.CANI_PRO_FAIR_USE) || 300;
+export const MAX_QUESTION = 2000;
 export const DEFAULT_MODEL = "claude-sonnet-5-5";
 
 // Places every answer covers (Casebound's languages), in this order.
@@ -74,12 +78,30 @@ export async function count(who, day = today()) {
 
 export function cleanQuestion(q) {
   const t = String(q || "").replace(/\s+/g, " ").trim();
-  if (t.length < 6) return { error: "short" };
+  if (t.length < 3) return { error: "short" };
   if (t.length > MAX_QUESTION) return { error: "long" };
   return { text: t };
 }
 
+/** Pure: tidy the earlier exchange a follow-up refers to. */
+export function cleanContext(c) {
+  if (!c || typeof c !== "object") return null;
+  const clip = (v, n) => String(v == null ? "" : v).replace(/\s+/g, " ").trim().slice(0, n);
+  const out = { question: clip(c.question, 700), understood: clip(c.understood, 300), headline: clip(c.headline, 300), askBack: clip(c.askBack, 300) };
+  return out.question ? out : null;
+}
+
 const SYSTEM = `You are the "Can I…?" checker on Casebound, a legal research site. People ask everyday questions about whether something is legal or allowed ("Can I record a phone call?", "Can I sublet my flat?", "Can I drive in Europe with my US licence?").
+
+Understanding the question comes first. People write the way they talk, so read generously:
+- The box on the page starts with the words "Can I", so the text may just continue that ("sublet my flat?", "fire someone on maternity leave"), or be a full question of any shape ("is it legal to…", "am I allowed to…", "what happens if I…", "do I have to…", "can my landlord…", "can they make me…"), or a short story of what happened ending in a question, or no question at all ("my boss reads my work emails"). In every case work out what the person really wants to know and answer that.
+- Fix typos, missing words, slang, abbreviations, voice-dictation errors and mixed languages silently. Understand questions written in any language, whatever the answer language.
+- When the question is about what someone else may do to the person (landlord, employer, police, neighbour, ex-partner, school, airline, shop), the verdict is about whether THAT party is allowed, and conditions/if_not/next_steps tell the person what they can do about it.
+- When the person describes a situation, pick out the legal question that matters most to them; put up to 3 other distinct questions they also asked or clearly need answered in also.
+- If the question names a place (a city, region or country), that is where it applies: cover it first, even if it isn't in the places list, and judge the main verdict for it. Otherwise use where the person says they are.
+- Use every detail they give (age, nationality, job, dates, amounts, who else is involved) to sharpen the answer, but never repeat names or identifying details back.
+- understood: restate in one plain sentence, in the answer language, the question you are answering, as you understood it (start with "Can I…" / "Can my landlord…" etc. in that language), so the person can see you got it right.
+- Only use verdict "unclear" with ask_back when the question genuinely can't be answered either way; when one missing fact would change the answer, still answer for the most likely case and put that fact in ask_back.
 
 Answer with the give_answer tool. Rules:
 - Lead with a committed verdict: "yes", "no", "depends" (allowed only under conditions, or the answer splits by place) or "unclear" (the question is too vague to answer — then put one clarifying question in ask_back and still give what you can).
@@ -100,6 +122,7 @@ const TOOL = {
   input_schema: {
     type: "object",
     properties: {
+      understood: { type: "string", description: "The question as you understood it, one sentence in the answer language." },
       verdict: { type: "string", enum: ["yes", "no", "depends", "unclear"] },
       headline: { type: "string", description: "One sentence, starting with Yes / No / It depends (in the answer language)." },
       explanation: { type: "string", description: "2–4 plain sentences." },
@@ -120,10 +143,23 @@ const TOOL = {
       if_not: { type: "array", items: { type: "string" } },
       laws: { type: "array", items: { type: "string" } },
       next_steps: { type: "array", items: { type: "string" } },
+      also: {
+        type: "array",
+        description: "Up to 3 other distinct questions the person asked or clearly needs answered, each with a short answer. Empty if none.",
+        items: {
+          type: "object",
+          properties: {
+            question: { type: "string", description: "The question, one short sentence in the answer language." },
+            verdict: { type: "string", enum: ["yes", "no", "depends", "unclear"] },
+            answer: { type: "string", description: "One or two plain sentences." },
+          },
+          required: ["question", "verdict", "answer"],
+        },
+      },
       ask_back: { type: "string", description: "A clarifying question, or empty." },
       research_query: { type: "string" },
     },
-    required: ["verdict", "headline", "explanation", "places", "conditions", "if_not", "laws", "next_steps", "ask_back", "research_query"],
+    required: ["understood", "verdict", "headline", "explanation", "places", "conditions", "if_not", "laws", "next_steps", "ask_back", "research_query"],
   },
 };
 
@@ -137,13 +173,18 @@ export function shapeAnswer(raw) {
   const places = (Array.isArray(r.places) ? r.places : [])
     .map((p) => ({ code: str(p && p.code, 8).toUpperCase(), name: str(p && p.name, 60), verdict: V.includes(p && p.verdict) ? p.verdict : "unclear", note: str(p && p.note, 400) }))
     .filter((p) => p.code && p.name)
-    .slice(0, 11);
-  // Main places first, in the fixed order; any extras after.
+    .slice(0, 12);
+  // Extra places only appear when the question is about them, so they lead; then the fixed order.
   places.sort((a, b) => {
     const ia = PLACE_CODES.indexOf(a.code), ib = PLACE_CODES.indexOf(b.code);
-    return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib);
+    return (ia < 0 ? -1 : ia) - (ib < 0 ? -1 : ib);
   });
+  const also = (Array.isArray(r.also) ? r.also : [])
+    .map((x) => ({ question: str(x && x.question, 250), verdict: V.includes(x && x.verdict) ? x.verdict : "unclear", answer: str(x && x.answer, 500) }))
+    .filter((x) => x.question && x.answer)
+    .slice(0, 3);
   return {
+    understood: str(r.understood, 300),
     verdict: V.includes(r.verdict) ? r.verdict : "unclear",
     headline: str(r.headline, 300),
     explanation: str(r.explanation, 1200),
@@ -152,6 +193,7 @@ export function shapeAnswer(raw) {
     ifNot: list(r.if_not, 6),
     laws: list(r.laws, 8, 160),
     nextSteps: list(r.next_steps, 6),
+    also,
     askBack: str(r.ask_back, 300),
     researchQuery: str(r.research_query, 200),
   };
@@ -159,7 +201,7 @@ export function shapeAnswer(raw) {
 
 export function isConfigured() { return !!process.env.ANTHROPIC_API_KEY; }
 
-export async function ask({ question, lang, home, notes }) {
+export async function ask({ question, lang, home, notes, context }) {
   const homeName = (PLACES.find((p) => p[0] === home) || [null, home || "not given"])[1];
   const res = await fetch("https://api.anthropic.com/v1/messages", {
     method: "POST",
@@ -170,13 +212,20 @@ export async function ask({ question, lang, home, notes }) {
     },
     body: JSON.stringify({
       model: process.env.CANI_MODEL || DEFAULT_MODEL,
-      max_tokens: 2500,
+      max_tokens: 3500,
       system: SYSTEM,
       tools: [TOOL],
       tool_choice: { type: "tool", name: "give_answer" },
       messages: [{
         role: "user",
-        content: `Answer language: ${LANG_NAMES[lang] || "English"}\nThe person is in: ${homeName}\nToday's date: ${today()}\n\nQuestion: ${question}` +
+        content: `Answer language: ${LANG_NAMES[lang] || "English"}\nThe person is in: ${homeName}\nToday's date: ${today()}\n\n` +
+          (context
+            ? `This is a follow-up. Earlier they asked: ${context.question}\n` +
+              (context.understood ? `You understood it as: ${context.understood}\n` : "") +
+              (context.headline ? `You answered: ${context.headline}\n` : "") +
+              (context.askBack ? `You asked them: ${context.askBack}\n` : "") +
+              `Now they add: ${question}\n\nAnswer the earlier question again with what they have now added (or their new question, if it is a different one), as one complete answer.`
+            : `Question (what they typed after "Can I"): ${question}`) +
           (notes && notes.length ? `\n\nNotes from Casebound's review of earlier answers to this question:\n- ${notes.join("\n- ")}` : ""),
       }],
     }),

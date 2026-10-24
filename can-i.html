@@ -88,6 +88,16 @@ select{background:var(--paper);border:1px solid var(--rule);border-radius:5px;pa
 .v-unclear{background:var(--slate-wash);color:var(--slate)}
 .a-head h2{margin:0;font-family:var(--serif);font-size:21px;font-weight:600;line-height:1.3;flex:1 1 300px}
 .a-exp{margin:0;font-family:var(--serif);font-size:16px;line-height:1.55}
+.understood{margin:0;font-size:13.5px;color:var(--ink-soft)}
+.understood b{color:var(--ink);font-weight:600}
+.also{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.also li{border:1px solid var(--rule-soft);border-radius:5px;padding:10px 12px;background:var(--paper);display:grid;gap:4px}
+.also .p-top b{font-size:14px;font-weight:600}
+.fu{display:grid;gap:8px}
+.fu textarea{width:100%;border:1px solid var(--rule);border-radius:5px;padding:9px 11px;font-family:var(--serif);font-size:16px;line-height:1.45;min-height:60px;background:var(--paper);resize:vertical}
+.fu-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.fu-row .fine{margin:0}
+.meta a{color:var(--oxblood)}
 .askback{margin:0;padding:10px 14px;border-inline-start:3px solid var(--amber);background:var(--amber-wash);border-radius:0 5px 5px 0;font-size:14px}
 .sec{padding:18px 20px;border-bottom:1px solid var(--rule-soft);display:grid;gap:10px}
 .sec:last-child{border-bottom:0}
@@ -200,7 +210,7 @@ footer div{max-width:1180px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
   <form class="ask" id="ask" novalidate>
     <label class="q-wrap" for="q">
       <span class="q-pre" data-t="qPre">Can I</span>
-      <textarea id="q" rows="2" maxlength="600" data-tp="qPh" placeholder="record a phone call without telling the other person?"></textarea>
+      <textarea id="q" rows="2" maxlength="2000" data-tp="qPh" placeholder="record a phone call without telling the other person?"></textarea>
     </label>
     <div class="ask-row">
       <div class="f">
@@ -270,6 +280,7 @@ footer div{max-width:1180px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
   /* ---------------- wording, by language ---------------- */
   var T = {
     en: {
+      unlimited:"Unlimited questions with Pro", proHint:"Unlimited with Pro", errLimitFree:"You've used today's 5 free questions. They come back tomorrow, or <a href=\"/pricing.html\">go Pro</a> to ask as many as you like.", errFairUse:"You've asked a very large number of questions today, so we've paused new ones until tomorrow. If you need more, write to admin@case-bound.com.", understoodH:"We read this as", alsoH:"You also asked", fuH:"Add details or ask a follow-up", fuPh:"e.g. I'm 17 / it's a rented flat in Milan / what if they already did it?", fuBtn:"Update the answer", fuNote:"Counts as a new question.", fuNotePro:"",
       rateQ:"Was this answer right?", rateRight:"Right", rateWrong:"Wrong", whichWrong:"Which countries were wrong? Tap all that apply.", sendFlags:"Send", rateThanks:"Thanks. Every rating makes the next answer to this question more accurate.", rateNote:"Ratings are pooled anonymously: only the vote and the countries you flag, never your question.", rateErr:"Couldn't send your rating. Please try again.", rateOld:"This answer is too old to rate. Ask again to rate a fresh answer.", revised:"Improved using lawyers' corrections and readers' ratings of earlier answers to this question.", trust:"{p}% of {n} readers rated answers to this question right.", checked:"Checked by a lawyer", fixH:"Correct this answer as a verified lawyer", fixPlace:"Country", fixVerdict:"Correct verdict", fixNote:"Why (the rule, article or condition). Readers' future answers will follow it.", fixSave:"Save correction", fixDone:"Saved. Future answers to this question will follow your correction.", fixErr:"Couldn't save the correction.",
       savedH:"Saved answers", seeAll:"See all in Saved cases", removeL:"Remove",
       navSaved:"Saved cases", saveBtn:"Save", savedOk:"Saved", seeSaved:"See it in Saved cases →", projL:"Project", noProject:"No project", newProjectOpt:"+ New project…", promptProject:"Name the new project", notSaved:function(n){ return "The free plan keeps up to " + n + " saved items. Remove one in <a href=\"/#cases\">Saved cases</a> or <a href=\"/pricing.html\">go Pro</a> to keep more."; },
@@ -279,7 +290,7 @@ footer div{max-width:1180px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
       qPre:"Can I", qPh:"record a phone call without telling the other person?", homeL:"Where are you?", elsewhere:"Somewhere else",
       ask:"Check", asking:"Checking…", private:"Your question is sent to our AI provider to write the answer. Casebound doesn't keep it.",
       left:function(n,l){ return n + " of " + l + " questions left today"; },
-      errShort:"Write a little more so there's a question to answer.", errLong:"Please keep the question under 600 characters.",
+      errShort:"Write a little more so there's a question to answer.", errLong:"Please keep the question under 2000 characters.",
       errLimitPro:"You've reached today's limit. Your questions come back tomorrow.",
       errBusy:"Lots of people are asking right now and today's capacity is used up. Please try again tomorrow.",
       errFailed:"We couldn't get an answer just now. Please try again in a minute.",
@@ -294,6 +305,7 @@ footer div{max-width:1180px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
       back:"← Back to Casebound", how:"How \"Can I…?\" works", terms:"Terms of use", privacyL:"Privacy notice", contact:"Contact / complaints: admin@case-bound.com"
     },
     it: {
+      unlimited:"Domande illimitate con Pro", proHint:"Illimitate con Pro", errLimitFree:"Hai usato le 5 domande gratuite di oggi. Tornano domani, oppure <a href=\"/pricing.html\">passa a Pro</a> per farne quante vuoi.", errFairUse:"Oggi hai fatto un numero molto alto di domande, quindi le nuove sono in pausa fino a domani. Se te ne servono altre, scrivi a admin@case-bound.com.", understoodH:"Abbiamo capito così", alsoH:"Hai chiesto anche", fuH:"Aggiungi dettagli o fai un'altra domanda", fuPh:"es. ho 17 anni / è un appartamento in affitto a Milano / e se l'hanno già fatto?", fuBtn:"Aggiorna la risposta", fuNote:"Conta come una nuova domanda.", fuNotePro:"",
       rateQ:"Questa risposta era corretta?", rateRight:"Corretta", rateWrong:"Sbagliata", whichWrong:"Quali paesi erano sbagliati? Seleziona tutti quelli che valgono.", sendFlags:"Invia", rateThanks:"Grazie. Ogni valutazione rende più precisa la prossima risposta a questa domanda.", rateNote:"Le valutazioni sono raccolte in forma anonima: solo il voto e i paesi segnalati, mai la tua domanda.", rateErr:"Impossibile inviare la valutazione. Riprova.", rateOld:"Questa risposta è troppo vecchia per essere valutata. Fai di nuovo la domanda per valutarne una nuova.", revised:"Migliorata grazie alle correzioni degli avvocati e alle valutazioni dei lettori sulle risposte precedenti a questa domanda.", trust:"Il {p}% di {n} lettori ha valutato corrette le risposte a questa domanda.", checked:"Verificato da un avvocato", fixH:"Correggi questa risposta come avvocato verificato", fixPlace:"Paese", fixVerdict:"Esito corretto", fixNote:"Perché (la norma, l'articolo o la condizione). Le risposte future la seguiranno.", fixSave:"Salva correzione", fixDone:"Salvato. Le prossime risposte a questa domanda seguiranno la tua correzione.", fixErr:"Impossibile salvare la correzione.",
       savedH:"Risposte salvate", seeAll:"Vedi tutte in Casi salvati", removeL:"Rimuovi",
       navSaved:"Casi salvati", saveBtn:"Salva", savedOk:"Salvato", seeSaved:"Vedilo in Casi salvati →", projL:"Progetto", noProject:"Nessun progetto", newProjectOpt:"+ Nuovo progetto…", promptProject:"Dai un nome al nuovo progetto", notSaved:function(n){ return "Il piano gratuito conserva fino a " + n + " elementi salvati. Rimuovine uno in <a href=\"/#cases\">Casi salvati</a> oppure <a href=\"/pricing.html\">passa a Pro</a> per salvarne di più."; },
@@ -303,7 +315,7 @@ footer div{max-width:1180px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
       qPre:"Posso", qPh:"registrare una telefonata senza dirlo all'altra persona?", homeL:"Dove ti trovi?", elsewhere:"Altrove",
       ask:"Verifica", asking:"Verifica in corso…", private:"La domanda viene inviata al nostro fornitore di IA per scrivere la risposta. Casebound non la conserva.",
       left:function(n,l){ return "Ti restano " + n + " domande su " + l + " oggi"; },
-      errShort:"Scrivi qualcosa in più, così c'è una domanda a cui rispondere.", errLong:"La domanda deve stare sotto i 600 caratteri.",
+      errShort:"Scrivi qualcosa in più, così c'è una domanda a cui rispondere.", errLong:"La domanda deve stare sotto i 2000 caratteri.",
       errLimitPro:"Hai raggiunto il limite di oggi. Le domande tornano domani.",
       errBusy:"In questo momento molte persone stanno facendo domande e la capacità di oggi è esaurita. Riprova domani.",
       errFailed:"Non siamo riusciti a ottenere una risposta. Riprova tra un minuto.",
@@ -318,6 +330,7 @@ footer div{max-width:1180px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
       back:"← Torna a Casebound", how:"Come funziona \"Posso…?\"", terms:"Termini d'uso", privacyL:"Informativa privacy", contact:"Contatti / reclami: admin@case-bound.com"
     },
     es: {
+      unlimited:"Preguntas ilimitadas con Pro", proHint:"Ilimitadas con Pro", errLimitFree:"Has usado las 5 preguntas gratuitas de hoy. Vuelven mañana, o <a href=\"/pricing.html\">hazte Pro</a> para preguntar todo lo que quieras.", errFairUse:"Hoy has hecho un número muy alto de preguntas, así que pausamos las nuevas hasta mañana. Si necesitas más, escribe a admin@case-bound.com.", understoodH:"Lo hemos entendido así", alsoH:"También preguntaste", fuH:"Añade detalles o haz otra pregunta", fuPh:"p. ej. tengo 17 años / es un piso de alquiler en Madrid / ¿y si ya lo han hecho?", fuBtn:"Actualizar la respuesta", fuNote:"Cuenta como una pregunta nueva.", fuNotePro:"",
       rateQ:"¿Era correcta esta respuesta?", rateRight:"Correcta", rateWrong:"Incorrecta", whichWrong:"¿Qué países estaban mal? Marca todos los que correspondan.", sendFlags:"Enviar", rateThanks:"Gracias. Cada valoración hace más precisa la próxima respuesta a esta pregunta.", rateNote:"Las valoraciones se agrupan de forma anónima: solo el voto y los países que marques, nunca tu pregunta.", rateErr:"No se pudo enviar tu valoración. Inténtalo de nuevo.", rateOld:"Esta respuesta es demasiado antigua para valorarla. Vuelve a preguntar para valorar una nueva.", revised:"Mejorada con las correcciones de abogados y las valoraciones de lectores sobre respuestas anteriores a esta pregunta.", trust:"El {p}% de {n} lectores valoró como correctas las respuestas a esta pregunta.", checked:"Revisado por un abogado", fixH:"Corrige esta respuesta como abogado verificado", fixPlace:"País", fixVerdict:"Respuesta correcta", fixNote:"Por qué (la norma, el artículo o la condición). Las respuestas futuras la seguirán.", fixSave:"Guardar corrección", fixDone:"Guardado. Las próximas respuestas a esta pregunta seguirán tu corrección.", fixErr:"No se pudo guardar la corrección.",
       savedH:"Respuestas guardadas", seeAll:"Ver todas en Casos guardados", removeL:"Eliminar",
       navSaved:"Casos guardados", saveBtn:"Guardar", savedOk:"Guardado", seeSaved:"Verlo en Casos guardados →", projL:"Proyecto", noProject:"Sin proyecto", newProjectOpt:"+ Nuevo proyecto…", promptProject:"Pon nombre al nuevo proyecto", notSaved:function(n){ return "El plan gratuito guarda hasta " + n + " elementos. Elimina uno en <a href=\"/#cases\">Casos guardados</a> o <a href=\"/pricing.html\">hazte Pro</a> para guardar más."; },
@@ -327,7 +340,7 @@ footer div{max-width:1180px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
       qPre:"¿Puedo", qPh:"grabar una llamada sin avisar a la otra persona?", homeL:"¿Dónde estás?", elsewhere:"En otro lugar",
       ask:"Comprobar", asking:"Comprobando…", private:"Tu pregunta se envía a nuestro proveedor de IA para redactar la respuesta. Casebound no la guarda.",
       left:function(n,l){ return "Te quedan " + n + " de " + l + " preguntas hoy"; },
-      errShort:"Escribe un poco más para que haya una pregunta que responder.", errLong:"La pregunta debe tener menos de 600 caracteres.",
+      errShort:"Escribe un poco más para que haya una pregunta que responder.", errLong:"La pregunta debe tener menos de 2000 caracteres.",
       errLimitPro:"Has alcanzado el límite de hoy. Tus preguntas vuelven mañana.",
       errBusy:"Mucha gente está preguntando ahora mismo y se ha agotado la capacidad de hoy. Vuelve a intentarlo mañana.",
       errFailed:"No hemos podido obtener una respuesta. Inténtalo de nuevo en un minuto.",
@@ -342,6 +355,7 @@ footer div{max-width:1180px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
       back:"← Volver a Casebound", how:"Cómo funciona \"¿Puedo…?\"", terms:"Condiciones de uso", privacyL:"Aviso de privacidad", contact:"Contacto / reclamaciones: admin@case-bound.com"
     },
     fr: {
+      unlimited:"Questions illimitées avec Pro", proHint:"Illimitées avec Pro", errLimitFree:"Vous avez utilisé vos 5 questions gratuites du jour. Elles reviennent demain, ou <a href=\"/pricing.html\">passez à Pro</a> pour en poser autant que vous voulez.", errFairUse:"Vous avez posé un très grand nombre de questions aujourd'hui : les nouvelles sont en pause jusqu'à demain. S'il vous en faut plus, écrivez à admin@case-bound.com.", understoodH:"Nous avons compris", alsoH:"Vous avez aussi demandé", fuH:"Ajoutez des détails ou posez une autre question", fuPh:"ex. j'ai 17 ans / c'est un appartement loué à Lyon / et s'ils l'ont déjà fait ?", fuBtn:"Mettre à jour la réponse", fuNote:"Compte comme une nouvelle question.", fuNotePro:"",
       rateQ:"Cette réponse était-elle juste ?", rateRight:"Juste", rateWrong:"Fausse", whichWrong:"Quels pays étaient faux ? Sélectionnez tous ceux qui s'appliquent.", sendFlags:"Envoyer", rateThanks:"Merci. Chaque avis rend la prochaine réponse à cette question plus précise.", rateNote:"Les avis sont regroupés de façon anonyme : seulement le vote et les pays signalés, jamais votre question.", rateErr:"Impossible d'envoyer votre avis. Réessayez.", rateOld:"Cette réponse est trop ancienne pour être notée. Reposez la question pour en noter une nouvelle.", revised:"Améliorée grâce aux corrections d'avocats et aux avis des lecteurs sur les réponses précédentes à cette question.", trust:"{p} % de {n} lecteurs ont jugé justes les réponses à cette question.", checked:"Vérifié par un avocat", fixH:"Corriger cette réponse en tant qu'avocat vérifié", fixPlace:"Pays", fixVerdict:"Bonne réponse", fixNote:"Pourquoi (la règle, l'article ou la condition). Les réponses futures la suivront.", fixSave:"Enregistrer la correction", fixDone:"Enregistré. Les prochaines réponses à cette question suivront votre correction.", fixErr:"Impossible d'enregistrer la correction.",
       savedH:"Réponses enregistrées", seeAll:"Tout voir dans Dossiers enregistrés", removeL:"Supprimer",
       navSaved:"Dossiers enregistrés", saveBtn:"Enregistrer", savedOk:"Enregistré", seeSaved:"Voir dans Dossiers enregistrés →", projL:"Projet", noProject:"Aucun projet", newProjectOpt:"+ Nouveau projet…", promptProject:"Nommez le nouveau projet", notSaved:function(n){ return "L'offre gratuite conserve jusqu'à " + n + " éléments enregistrés. Supprimez-en un dans <a href=\"/#cases\">Dossiers enregistrés</a> ou <a href=\"/pricing.html\">passez à Pro</a> pour en garder plus."; },
@@ -351,7 +365,7 @@ footer div{max-width:1180px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
       qPre:"Puis-je", qPh:"enregistrer un appel sans prévenir l'autre personne ?", homeL:"Où êtes-vous ?", elsewhere:"Ailleurs",
       ask:"Vérifier", asking:"Vérification…", private:"Votre question est transmise à notre prestataire d'IA pour rédiger la réponse. Casebound ne la conserve pas.",
       left:function(n,l){ return "Il vous reste " + n + " question" + (n > 1 ? "s" : "") + " sur " + l + " aujourd'hui"; },
-      errShort:"Écrivez un peu plus pour qu'il y ait une question à traiter.", errLong:"La question doit faire moins de 600 caractères.",
+      errShort:"Écrivez un peu plus pour qu'il y ait une question à traiter.", errLong:"La question doit faire moins de 2000 caractères.",
       errLimitPro:"Vous avez atteint la limite du jour. Vos questions reviennent demain.",
       errBusy:"Beaucoup de personnes posent des questions en ce moment et la capacité du jour est épuisée. Réessayez demain.",
       errFailed:"Impossible d'obtenir une réponse pour l'instant. Réessayez dans une minute.",
@@ -366,6 +380,7 @@ footer div{max-width:1180px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
       back:"← Retour à Casebound", how:"Fonctionnement de « Ai-je le droit… ? »", terms:"Conditions d'utilisation", privacyL:"Politique de confidentialité", contact:"Contact / réclamations : admin@case-bound.com"
     },
     de: {
+      unlimited:"Unbegrenzte Fragen mit Pro", proHint:"Unbegrenzt mit Pro", errLimitFree:"Du hast die 5 kostenlosen Fragen für heute verbraucht. Morgen gibt es neue, oder <a href=\"/pricing.html\">hol dir Pro</a> und frag so viel du willst.", errFairUse:"Du hast heute sehr viele Fragen gestellt, deshalb pausieren neue Fragen bis morgen. Wenn du mehr brauchst, schreib an admin@case-bound.com.", understoodH:"So haben wir es verstanden", alsoH:"Du hast auch gefragt", fuH:"Details ergänzen oder nachfragen", fuPh:"z. B. ich bin 17 / es ist eine Mietwohnung in Berlin / und wenn sie es schon getan haben?", fuBtn:"Antwort aktualisieren", fuNote:"Zählt als neue Frage.", fuNotePro:"",
       rateQ:"War diese Antwort richtig?", rateRight:"Richtig", rateWrong:"Falsch", whichWrong:"Welche Länder waren falsch? Alle zutreffenden antippen.", sendFlags:"Senden", rateThanks:"Danke. Jede Bewertung macht die nächste Antwort auf diese Frage genauer.", rateNote:"Bewertungen werden anonym zusammengefasst: nur die Stimme und die markierten Länder, nie deine Frage.", rateErr:"Deine Bewertung konnte nicht gesendet werden. Bitte versuche es erneut.", rateOld:"Diese Antwort ist zu alt für eine Bewertung. Frag noch einmal, um eine neue zu bewerten.", revised:"Verbessert durch Korrekturen von Anwälten und Bewertungen früherer Antworten auf diese Frage.", trust:"{p} % von {n} Lesern haben die Antworten auf diese Frage als richtig bewertet.", checked:"Von einem Anwalt geprüft", fixH:"Diese Antwort als verifizierter Anwalt korrigieren", fixPlace:"Land", fixVerdict:"Richtiges Ergebnis", fixNote:"Warum (Vorschrift, Artikel oder Bedingung). Künftige Antworten folgen ihr.", fixSave:"Korrektur speichern", fixDone:"Gespeichert. Künftige Antworten auf diese Frage folgen deiner Korrektur.", fixErr:"Die Korrektur konnte nicht gespeichert werden.",
       savedH:"Gespeicherte Antworten", seeAll:"Alle in Gespeicherte Fälle ansehen", removeL:"Entfernen",
       navSaved:"Gespeicherte Fälle", saveBtn:"Speichern", savedOk:"Gespeichert", seeSaved:"In Gespeicherte Fälle ansehen →", projL:"Projekt", noProject:"Kein Projekt", newProjectOpt:"+ Neues Projekt…", promptProject:"Gib dem neuen Projekt einen Namen", notSaved:function(n){ return "Der kostenlose Tarif speichert bis zu " + n + " Einträge. Entferne einen unter <a href=\"/#cases\">Gespeicherte Fälle</a> oder <a href=\"/pricing.html\">wechsle zu Pro</a>, um mehr zu behalten."; },
@@ -375,7 +390,7 @@ footer div{max-width:1180px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
       qPre:"Darf ich", qPh:"ein Telefonat aufnehmen, ohne es der anderen Person zu sagen?", homeL:"Wo bist du?", elsewhere:"Anderswo",
       ask:"Prüfen", asking:"Wird geprüft…", private:"Deine Frage wird an unseren KI-Anbieter gesendet, um die Antwort zu schreiben. Casebound speichert sie nicht.",
       left:function(n,l){ return "Heute noch " + n + " von " + l + " Fragen"; },
-      errShort:"Schreib etwas mehr, damit es eine Frage zu beantworten gibt.", errLong:"Die Frage muss unter 600 Zeichen bleiben.",
+      errShort:"Schreib etwas mehr, damit es eine Frage zu beantworten gibt.", errLong:"Die Frage muss unter 2000 Zeichen bleiben.",
       errLimitPro:"Du hast das heutige Limit erreicht. Morgen gibt es neue Fragen.",
       errBusy:"Gerade fragen sehr viele, und die Kapazität für heute ist ausgeschöpft. Bitte versuch es morgen noch einmal.",
       errFailed:"Wir konnten gerade keine Antwort bekommen. Bitte versuch es in einer Minute noch einmal.",
@@ -390,6 +405,7 @@ footer div{max-width:1180px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
       back:"← Zurück zu Casebound", how:"So funktioniert „Darf ich…?“", terms:"Nutzungsbedingungen", privacyL:"Datenschutzhinweis", contact:"Kontakt / Beschwerden: admin@case-bound.com"
     },
     pt: {
+      unlimited:"Perguntas ilimitadas com Pro", proHint:"Ilimitadas com Pro", errLimitFree:"Usou as 5 perguntas gratuitas de hoje. Voltam amanhã, ou <a href=\"/pricing.html\">passe a Pro</a> para perguntar o que quiser.", errFairUse:"Fez um número muito elevado de perguntas hoje, por isso as novas ficam em pausa até amanhã. Se precisar de mais, escreva para admin@case-bound.com.", understoodH:"Entendemos assim", alsoH:"Também perguntou", fuH:"Acrescente detalhes ou faça outra pergunta", fuPh:"ex. tenho 17 anos / é um apartamento arrendado em Lisboa / e se já o fizeram?", fuBtn:"Atualizar a resposta", fuNote:"Conta como uma nova pergunta.", fuNotePro:"",
       rateQ:"Esta resposta estava certa?", rateRight:"Certa", rateWrong:"Errada", whichWrong:"Que países estavam errados? Selecione todos os que se aplicam.", sendFlags:"Enviar", rateThanks:"Obrigado. Cada avaliação torna mais precisa a próxima resposta a esta pergunta.", rateNote:"As avaliações são agregadas de forma anónima: apenas o voto e os países assinalados, nunca a sua pergunta.", rateErr:"Não foi possível enviar a avaliação. Tente novamente.", rateOld:"Esta resposta é demasiado antiga para ser avaliada. Pergunte de novo para avaliar uma nova.", revised:"Melhorada com as correções de advogados e as avaliações dos leitores a respostas anteriores a esta pergunta.", trust:"{p}% de {n} leitores avaliaram como certas as respostas a esta pergunta.", checked:"Verificado por um advogado", fixH:"Corrigir esta resposta como advogado verificado", fixPlace:"País", fixVerdict:"Resposta correta", fixNote:"Porquê (a norma, o artigo ou a condição). As respostas futuras vão segui-la.", fixSave:"Guardar correção", fixDone:"Guardado. As próximas respostas a esta pergunta vão seguir a sua correção.", fixErr:"Não foi possível guardar a correção.",
       savedH:"Respostas guardadas", seeAll:"Ver todas em Casos guardados", removeL:"Remover",
       navSaved:"Casos guardados", saveBtn:"Guardar", savedOk:"Guardado", seeSaved:"Ver em Casos guardados →", projL:"Projeto", noProject:"Sem projeto", newProjectOpt:"+ Novo projeto…", promptProject:"Dê um nome ao novo projeto", notSaved:function(n){ return "O plano gratuito guarda até " + n + " itens. Remova um em <a href=\"/#cases\">Casos guardados</a> ou <a href=\"/pricing.html\">passe para Pro</a> para guardar mais."; },
@@ -399,7 +415,7 @@ footer div{max-width:1180px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
       qPre:"Posso", qPh:"gravar uma chamada sem avisar a outra pessoa?", homeL:"Onde está?", elsewhere:"Noutro sítio",
       ask:"Verificar", asking:"A verificar…", private:"A sua pergunta é enviada ao nosso fornecedor de IA para redigir a resposta. A Casebound não a guarda.",
       left:function(n,l){ return "Restam-lhe " + n + " de " + l + " perguntas hoje"; },
-      errShort:"Escreva um pouco mais para haver uma pergunta a responder.", errLong:"A pergunta deve ter menos de 600 caracteres.",
+      errShort:"Escreva um pouco mais para haver uma pergunta a responder.", errLong:"A pergunta deve ter menos de 2000 caracteres.",
       errLimitPro:"Atingiu o limite de hoje. As perguntas voltam amanhã.",
       errBusy:"Muitas pessoas estão a perguntar neste momento e a capacidade de hoje esgotou-se. Tente novamente amanhã.",
       errFailed:"Não conseguimos obter uma resposta agora. Tente novamente dentro de um minuto.",
@@ -414,6 +430,7 @@ footer div{max-width:1180px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
       back:"← Voltar à Casebound", how:"Como funciona o \"Posso…?\"", terms:"Termos de utilização", privacyL:"Aviso de privacidade", contact:"Contacto / reclamações: admin@case-bound.com"
     },
     pl: {
+      unlimited:"Nielimitowane pytania z Pro", proHint:"Bez limitu z Pro", errLimitFree:"Wykorzystano 5 darmowych pytań na dziś. Wrócą jutro albo <a href=\"/pricing.html\">przejdź na Pro</a>, żeby pytać bez limitu.", errFairUse:"Zadano dziś bardzo dużo pytań, więc nowe są wstrzymane do jutra. Jeśli potrzebujesz więcej, napisz na admin@case-bound.com.", understoodH:"Tak to zrozumieliśmy", alsoH:"Pytasz też", fuH:"Dodaj szczegóły lub zadaj kolejne pytanie", fuPh:"np. mam 17 lat / to wynajmowane mieszkanie w Warszawie / a jeśli już to zrobili?", fuBtn:"Zaktualizuj odpowiedź", fuNote:"Liczy się jako nowe pytanie.", fuNotePro:"",
       rateQ:"Czy ta odpowiedź była poprawna?", rateRight:"Poprawna", rateWrong:"Błędna", whichWrong:"Które kraje były błędne? Zaznacz wszystkie, które pasują.", sendFlags:"Wyślij", rateThanks:"Dziękujemy. Każda ocena sprawia, że następna odpowiedź na to pytanie jest dokładniejsza.", rateNote:"Oceny są zbierane anonimowo: tylko głos i zaznaczone kraje, nigdy Twoje pytanie.", rateErr:"Nie udało się wysłać oceny. Spróbuj ponownie.", rateOld:"Ta odpowiedź jest zbyt stara, by ją ocenić. Zadaj pytanie ponownie, aby ocenić nową.", revised:"Ulepszona dzięki poprawkom prawników i ocenom czytelników wcześniejszych odpowiedzi na to pytanie.", trust:"{p}% z {n} czytelników oceniło odpowiedzi na to pytanie jako poprawne.", checked:"Sprawdzone przez prawnika", fixH:"Popraw tę odpowiedź jako zweryfikowany prawnik", fixPlace:"Kraj", fixVerdict:"Poprawna odpowiedź", fixNote:"Dlaczego (przepis, artykuł lub warunek). Przyszłe odpowiedzi będą się do tego stosować.", fixSave:"Zapisz poprawkę", fixDone:"Zapisano. Następne odpowiedzi na to pytanie będą zgodne z Twoją poprawką.", fixErr:"Nie udało się zapisać poprawki.",
       savedH:"Zapisane odpowiedzi", seeAll:"Zobacz wszystkie w Zapisanych sprawach", removeL:"Usuń",
       navSaved:"Zapisane sprawy", saveBtn:"Zapisz", savedOk:"Zapisano", seeSaved:"Zobacz w Zapisanych sprawach →", projL:"Projekt", noProject:"Bez projektu", newProjectOpt:"+ Nowy projekt…", promptProject:"Nazwij nowy projekt", notSaved:function(n){ return "Plan darmowy przechowuje do " + n + " zapisanych pozycji. Usuń jedną w <a href=\"/#cases\">Zapisanych sprawach</a> lub <a href=\"/pricing.html\">przejdź na Pro</a>, aby zapisać więcej."; },
@@ -423,7 +440,7 @@ footer div{max-width:1180px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
       qPre:"Czy mogę", qPh:"nagrać rozmowę telefoniczną bez informowania drugiej osoby?", homeL:"Gdzie jesteś?", elsewhere:"Gdzie indziej",
       ask:"Sprawdź", asking:"Sprawdzanie…", private:"Twoje pytanie jest wysyłane do naszego dostawcy AI, aby przygotować odpowiedź. Casebound go nie przechowuje.",
       left:function(n,l){ return "Pozostało pytań na dziś: " + n + " z " + l; },
-      errShort:"Napisz trochę więcej, żeby było na co odpowiedzieć.", errLong:"Pytanie musi mieć mniej niż 600 znaków.",
+      errShort:"Napisz trochę więcej, żeby było na co odpowiedzieć.", errLong:"Pytanie musi mieć mniej niż 2000 znaków.",
       errLimitPro:"Osiągnięto dzisiejszy limit. Pytania wrócą jutro.",
       errBusy:"Teraz pyta bardzo wiele osób i dzisiejsza pula się wyczerpała. Spróbuj ponownie jutro.",
       errFailed:"Nie udało się teraz uzyskać odpowiedzi. Spróbuj ponownie za minutę.",
@@ -438,6 +455,7 @@ footer div{max-width:1180px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
       back:"← Wróć do Casebound", how:"Jak działa „Czy mogę…?”", terms:"Regulamin", privacyL:"Informacja o prywatności", contact:"Kontakt / reklamacje: admin@case-bound.com"
     },
     ar: {
+      unlimited:"أسئلة غير محدودة مع Pro", proHint:"غير محدودة مع Pro", errLimitFree:"استخدمت أسئلتك المجانية الخمسة لهذا اليوم. تعود غدًا، أو <a href=\"/pricing.html\">اشترك في Pro</a> لتسأل كما تشاء.", errFairUse:"طرحت عددًا كبيرًا جدًا من الأسئلة اليوم، لذا أوقفنا الأسئلة الجديدة مؤقتًا حتى الغد. إن احتجت إلى المزيد، راسلنا على admin@case-bound.com.", understoodH:"فهمنا سؤالك هكذا", alsoH:"سألت أيضًا", fuH:"أضف تفاصيل أو اطرح سؤالًا آخر", fuPh:"مثلًا: عمري 17 عامًا / إنها شقة مستأجرة في باريس / وماذا لو فعلوا ذلك بالفعل؟", fuBtn:"حدّث الإجابة", fuNote:"يُحتسب سؤالًا جديدًا.", fuNotePro:"",
       rateQ:"هل كانت هذه الإجابة صحيحة؟", rateRight:"صحيحة", rateWrong:"خاطئة", whichWrong:"ما الدول التي كانت خاطئة؟ اختر كل ما ينطبق.", sendFlags:"إرسال", rateThanks:"شكرًا. كل تقييم يجعل الإجابة التالية عن هذا السؤال أدق.", rateNote:"تُجمع التقييمات دون الكشف عن الهوية: التصويت والدول التي تحددها فقط، وليس سؤالك أبدًا.", rateErr:"تعذّر إرسال تقييمك. حاول مرة أخرى.", rateOld:"هذه الإجابة أقدم من أن تُقيَّم. اطرح السؤال مجددًا لتقييم إجابة جديدة.", revised:"تم تحسينها بفضل تصحيحات المحامين وتقييمات القرّاء للإجابات السابقة عن هذا السؤال.", trust:"قيّم {p}% من {n} قارئ الإجابات عن هذا السؤال بأنها صحيحة.", checked:"راجعها محامٍ", fixH:"صحّح هذه الإجابة بصفتك محاميًا موثّقًا", fixPlace:"الدولة", fixVerdict:"الحكم الصحيح", fixNote:"السبب (القاعدة أو المادة أو الشرط). ستتبعه الإجابات القادمة.", fixSave:"حفظ التصحيح", fixDone:"تم الحفظ. ستتبع الإجابات القادمة عن هذا السؤال تصحيحك.", fixErr:"تعذّر حفظ التصحيح.",
       savedH:"الإجابات المحفوظة", seeAll:"اعرض الكل في القضايا المحفوظة", removeL:"حذف",
       navSaved:"القضايا المحفوظة", saveBtn:"حفظ", savedOk:"تم الحفظ", seeSaved:"اعرضه في القضايا المحفوظة ←", projL:"المشروع", noProject:"بلا مشروع", newProjectOpt:"+ مشروع جديد…", promptProject:"سمِّ المشروع الجديد", notSaved:function(n){ return "تحتفظ الخطة المجانية بما يصل إلى " + n + " عناصر محفوظة. احذف واحدًا من <a href=\"/#cases\">القضايا المحفوظة</a> أو <a href=\"/pricing.html\">اشترك في Pro</a> لحفظ المزيد."; },
@@ -447,7 +465,7 @@ footer div{max-width:1180px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
       qPre:"هل يمكنني", qPh:"تسجيل مكالمة هاتفية دون إخبار الطرف الآخر؟", homeL:"أين أنت؟", elsewhere:"مكان آخر",
       ask:"تحقّق", asking:"جارٍ التحقق…", private:"يُرسَل سؤالك إلى مزوّد الذكاء الاصطناعي لدينا لكتابة الإجابة. لا يحتفظ به Casebound.",
       left:function(n,l){ return "تبقّى لك اليوم " + n + " من " + l + " أسئلة"; },
-      errShort:"اكتب المزيد قليلًا ليكون هناك سؤال يمكن الإجابة عنه.", errLong:"يجب ألا يتجاوز السؤال 600 حرف.",
+      errShort:"اكتب المزيد قليلًا ليكون هناك سؤال يمكن الإجابة عنه.", errLong:"يجب ألا يتجاوز السؤال 2000 حرف.",
       errLimitPro:"بلغت حدّ اليوم. تعود أسئلتك غدًا.",
       errBusy:"يطرح كثيرون أسئلتهم الآن ونفدت سعة اليوم. يُرجى المحاولة مجددًا غدًا.",
       errFailed:"تعذّر الحصول على إجابة الآن. حاول مرة أخرى بعد دقيقة.",
@@ -493,8 +511,9 @@ footer div{max-width:1180px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
   function paintLeft(){
     var el = $("left");
     if (!STATE.configured) { el.textContent = ""; return; }
+    if (STATE.limit === null) { el.textContent = t().unlimited; return; }
     var left = Math.max(0, STATE.limit - STATE.used);
-    el.textContent = t().left(left, STATE.limit);
+    el.innerHTML = esc(t().left(left, STATE.limit)) + ' · <a href="/pricing.html">' + esc(t().proHint) + '</a>';
   }
   function say(html, kind){
     var m = $("msg");
@@ -573,7 +592,8 @@ footer div{max-width:1180px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
     if (!current) { box.hidden = true; box.innerHTML = ""; return; }
     var a = current.answer, tt = t(), h = "";
     h += '<div class="a-top">';
-    h += '<p class="a-q">' + esc(tt.youAsked) + ': <b>' + esc(tt.qPre + " " + current.q.replace(/^(can i|posso|puedo|¿puedo|puis-je|darf ich|czy mogę|هل يمكنني)\s+/i, "")) + '</b></p>';
+    h += '<p class="a-q">' + esc(tt.youAsked) + ': <b>' + esc(shownQ(current.q)) + '</b></p>';
+    if (a.understood) h += '<p class="understood">' + esc(tt.understoodH) + ': <b>' + esc(a.understood) + '</b></p>';
     h += '<div class="a-head"><span class="big v-' + a.verdict + '">' + esc(tt.v[a.verdict]) + '</span><h2>' + esc(a.headline) + '</h2></div>';
     if (a.explanation) h += '<p class="a-exp">' + esc(a.explanation) + '</p>';
     if (a.askBack) h += '<p class="askback"><b>' + esc(tt.askBackH) + '</b> ' + esc(a.askBack) + '</p>';
@@ -590,10 +610,19 @@ footer div{max-width:1180px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
           (p.code === home ? '<span class="p-here">' + esc(tt.here) + '</span>' : "") + '</div><div class="p-note">' + esc(p.note) + '</div></li>';
       }).join("") + '</ul></div>';
     }
+    if (a.also && a.also.length) {
+      h += '<div class="sec"><h3>' + esc(tt.alsoH) + '</h3><ul class="also">' + a.also.map(function(x){
+        return '<li class="p-' + x.verdict + '"><div class="p-top"><b>' + esc(x.question) + '</b>' + pill(x.verdict) + '</div><div class="p-note">' + esc(x.answer) + '</div></li>';
+      }).join("") + '</ul></div>';
+    }
     if (a.conditions && a.conditions.length) h += '<div class="sec"><h3>' + esc(tt.condH) + '</h3>' + list(a.conditions) + '</div>';
     if (a.ifNot && a.ifNot.length) h += '<div class="sec"><h3>' + esc(tt.ifNotH) + '</h3>' + list(a.ifNot, "warns") + '</div>';
     if (a.nextSteps && a.nextSteps.length) h += '<div class="sec"><h3>' + esc(tt.stepsH) + '</h3><ol class="steps">' + a.nextSteps.map(function(x){ return "<li>" + esc(x) + "</li>"; }).join("") + '</ol></div>';
     if (a.laws && a.laws.length) h += '<div class="sec"><h3>' + esc(tt.lawsH) + '</h3><ul class="laws">' + a.laws.map(function(x){ return '<li><bdi>' + esc(x) + '</bdi></li>'; }).join("") + '</ul></div>';
+    h += '<form class="sec fu" id="fu-form" novalidate><h3><label for="fu">' + esc(tt.fuH) + '</label></h3>' +
+      '<textarea id="fu" rows="2" maxlength="2000" placeholder="' + esc(tt.fuPh) + '">' + esc(fuDraft) + '</textarea>' +
+      '<div class="fu-row"><button class="btn" type="submit" id="fu-go"' + (busy ? " disabled" : "") + '>' + esc(tt.fuBtn) + '</button>' +
+      (STATE.limit === null ? "" : '<span class="fine">' + esc(tt.fuNote) + '</span>') + '</div></form>';
     h += learnHTML();
     h += saveRow();
     h += '<div class="sec"><div class="a-actions">' +
@@ -739,43 +768,69 @@ footer div{max-width:1180px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
     var b = $("go");
     b.disabled = v;
     b.innerHTML = v ? '<span class="spin" aria-hidden="true"></span>' + esc(t().asking) : esc(t().ask);
+    var f = $("fu-go");
+    if (f) { f.disabled = v; f.innerHTML = v ? '<span class="spin" aria-hidden="true"></span>' + esc(t().asking) : esc(t().fuBtn); }
   }
+  var PRE_RE = /^(can i|posso|puedo|¿puedo|puis-je|darf ich|czy mogę|هل يمكنني)(\s|$)/i;
+  // Show what was typed; add "Can I" only when the text simply continues it.
+  var FULL_RE = /^(is|are|am|does|can|could|may|must|should|what|when|where|who|why|how|will|would|my|our|if|è|e'|posso|può|puo|devo|cosa|come|quando|perché|il|la|mio|mia|es|puede|¿|qué|como|mi|est|est-ce|ai-je|dois|que|quoi|mon|ma|ist|darf|kann|muss|was|wie|mein|meine|é|pode|posso|devo|o|czy|jak|co|mój|moja|هل|ما|كيف)\b/i;
+  function shownQ(q){
+    q = String(q || "");
+    if (PRE_RE.test(q) || FULL_RE.test(q) || q.indexOf(" · ") > 0) return q;
+    return t().qPre + " " + q;
+  }
+  var fuDraft = "";
   function submit(e){
     if (e) e.preventDefault();
-    if (busy) return;
     var q = $("q").value.replace(/\s+/g, " ").trim();
     var home = $("home").value;
     store.set(HOME_KEY, home);
+    send(q, home, null);
+  }
+  function submitFollowUp(e){
+    if (e) e.preventDefault();
+    if (!current) return;
+    var add = ($("fu") && $("fu").value || "").replace(/\s+/g, " ").trim();
+    fuDraft = add;
+    var a = current.answer || {};
+    send(add, current.home, { question: current.q, understood: a.understood || "", headline: a.headline || "", askBack: a.askBack || "" }, true);
+  }
+  function send(q, home, ctx, isFollowUp){
+    if (busy) return;
     if (!STATE.configured) return say(esc(t().notConfigured), "info");
-    if (q.length < 6) return say(esc(t().errShort));
-    if (q.length > 600) return say(esc(t().errLong));
-    var full = /^(can i|posso|puedo|¿puedo|puis-je|darf ich|czy mogę|هل يمكنني)(\s|$)/i.test(q) ? q : t().qPre + " " + q;
+    if (q.length < 3) return isFollowUp ? null : say(esc(t().errShort));
+    if (q.length > 2000) return say(esc(t().errLong));
     say("");
     setBusy(true);
+    var payload = { question: q, lang: lang, home: home };
+    if (ctx) payload.context = ctx;
     fetch("/api/can-i", {
       method:"POST", credentials:"same-origin", headers:{ "Content-Type":"application/json" },
-      body: JSON.stringify({ question: full, lang: lang, home: home })
+      body: JSON.stringify(payload)
     }).then(function(r){ return r.json().catch(function(){ return {}; }).then(function(b){ return { ok:r.ok, status:r.status, b:b }; }); })
       .then(function(res){
         var b = res.b || {};
         if (typeof b.used === "number") STATE.used = b.used;
-        if (typeof b.limit === "number") STATE.limit = b.limit;
+        if ("limit" in b && (typeof b.limit === "number" || b.limit === null)) STATE.limit = b.limit;
         if (b.tier) STATE.tier = b.tier;
         paintLeft();
         if (res.ok && b.answer) {
-          current = { q: q, home: home, lang: lang, answer: b.answer, learn: b.learn || null, at: Date.now() }; saveNote = ""; resetLearnUI();
+          var shown = ctx ? ctx.question + " · " + q : q;
+          current = { q: shown, home: home, lang: lang, answer: b.answer, learn: b.learn || null, at: Date.now() }; saveNote = ""; resetLearnUI(); fuDraft = "";
           remember(current);
           render();
           $("answer").scrollIntoView({ behavior:"smooth", block:"start" });
           return;
         }
         var err = b.error;
-        if (err === "limit") say(esc(t().errLimitPro));
+        if (err === "limit") say(STATE.tier === "pro" ? esc(t().errLimitPro) : t().errLimitFree);
+        else if (err === "fair_use") say(esc(t().errFairUse));
         else if (err === "busy") say(esc(t().errBusy));
         else if (err === "short") say(esc(t().errShort));
         else if (err === "long") say(esc(t().errLong));
         else if (err === "not_configured") { STATE.configured = false; say(esc(t().notConfigured), "info"); paintLeft(); }
         else say(esc(t().errFailed));
+        if (isFollowUp) $("msg").scrollIntoView({ behavior:"smooth", block:"center" });
       })
       .catch(function(){ say(esc(t().errFailed)); })
       .then(function(){ setBusy(false); });
@@ -840,6 +895,9 @@ footer div{max-width:1180px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
     if (id === "a-print") window.print();
     if (id === "a-save") saveAnswer();
   });
+  $("answer").addEventListener("submit", function(e){ if (e.target && e.target.id === "fu-form") submitFollowUp(e); });
+  $("answer").addEventListener("input", function(e){ if (e.target && e.target.id === "fu") fuDraft = e.target.value; });
+  $("answer").addEventListener("keydown", function(e){ if (e.target && e.target.id === "fu" && e.key === "Enter" && !e.shiftKey) { e.preventDefault(); submitFollowUp(); } });
   $("answer").addEventListener("change", function(e){
     if (e.target && e.target.id === "a-proj" && savedEntry()) saveAnswer();
   });
@@ -849,12 +907,12 @@ footer div{max-width:1180px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
   fetch("/api/can-i", { credentials:"same-origin" }).then(function(r){ return r.ok ? r.json() : null; }).then(function(b){
     if (!b) return;
     STATE.configured = !!b.configured; STATE.tier = b.tier || "free"; STATE.signedIn = !!b.signedIn;
-    STATE.limit = b.limit || STATE.limit; STATE.used = b.used || 0;
+    STATE.limit = ("limit" in b && (typeof b.limit === "number" || b.limit === null)) ? b.limit : STATE.limit; STATE.used = b.used || 0;
     $("top-account").textContent = STATE.signedIn ? t().account : t().signIn;
     paintLeft();
     if (!STATE.configured) say(esc(t().notConfigured), "info");
   }).catch(function(){});
-  try { var pre = new URLSearchParams(location.search).get("q"); if (pre) $("q").value = pre.slice(0, 600); } catch(e){}
+  try { var pre = new URLSearchParams(location.search).get("q"); if (pre) $("q").value = pre.slice(0, 2000); } catch(e){}
   /* opened from Saved cases: /can-i.html?open=<id> */
   try {
     var openId = new URLSearchParams(location.search).get("open");

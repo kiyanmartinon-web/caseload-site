@@ -1,12 +1,14 @@
 // /api/can-i — the "Can I…?" checker (free for everyone, with a daily limit).
 //   GET  → { configured, tier, limit, used }
-//   POST { question, lang, home }  → { answer, used, limit }
+//   POST { question, lang, home, context? }  → { answer, used, limit }
 //        home: where the person is (IT, ES, FR, DE, PT, PL, GB, US or "")
+//        context: { question, understood, headline, askBack } of the answer a follow-up adds to
+//   limit is null for Pro (unlimited).
 import { currentUser, sameOrigin } from "../lib/auth.mjs";
 import { json } from "../lib/stripe.mjs";
 import { normLang } from "../lib/plans.mjs";
 import { subscriptionFor, tierOf } from "../lib/subscription.mjs";
-import { LIMITS, PLACES, whoKey, usage, count, cleanQuestion, isConfigured, ask } from "../lib/canask.mjs";
+import { LIMITS, PRO_FAIR_USE, PLACES, whoKey, usage, count, cleanQuestion, cleanContext, isConfigured, ask } from "../lib/canask.mjs";
 import { findIssue, notesFor, applyFixes, recordAnswer, trustFor, STRICT_MATCH } from "../lib/canlearn.mjs";
 import { isAdmin, isVerifiedLawyer } from "../lib/auth.mjs";
 
@@ -19,7 +21,7 @@ async function who(req, context) {
     try { tier = tierOf(user, await subscriptionFor(user)); } catch { tier = "free"; }
   }
   const key = await whoKey(user, context && context.ip);
-  return { user, tier, key, limit: LIMITS[tier] };
+  return { user, tier, key, limit: tier in LIMITS ? LIMITS[tier] : LIMITS.free };
 }
 
 export default async (req, context) => {
@@ -32,7 +34,7 @@ export default async (req, context) => {
     if (req.method !== "POST") return bad("Method not allowed", 405);
     if (!sameOrigin(req)) return bad("Request blocked.", 403);
     if (!isConfigured()) return bad("not_configured", 503);
-    if (Number(req.headers.get("content-length") || 0) > 4000) return bad("long", 413);
+    if (Number(req.headers.get("content-length") || 0) > 12000) return bad("long", 413);
 
     let b;
     try { b = await req.json(); } catch { return bad("Invalid request."); }
@@ -40,14 +42,20 @@ export default async (req, context) => {
     if (q.error) return bad(q.error);
     const lang = normLang(b.lang);
     const home = PLACES.some((p) => p[0] === b.home) ? b.home : "";
+    const followUp = cleanContext(b.context);
 
     const w = await who(req, context);
     const { n, total } = await usage(w.key);
-    if (n >= w.limit) return bad("limit", 429, { used: n, limit: w.limit, tier: w.tier });
-    const cap = Number(process.env.CANI_DAILY_CAP) || 400;
-    if (total >= cap) return bad("busy", 429, { used: n, limit: w.limit, tier: w.tier });
+    if (w.limit === null) {
+      // Pro: unlimited, outside the shared daily cap; only the fair-use ceiling applies.
+      if (n >= PRO_FAIR_USE()) return bad("fair_use", 429, { used: n, limit: null, tier: w.tier });
+    } else {
+      if (n >= w.limit) return bad("limit", 429, { used: n, limit: w.limit, tier: w.tier });
+      const cap = Number(process.env.CANI_DAILY_CAP) || 400;
+      if (total >= cap) return bad("busy", 429, { used: n, limit: w.limit, tier: w.tier });
+    }
 
-    let answer = await ask({ question: q.text, lang, home });
+    let answer = await ask({ question: q.text, lang, home, context: followUp });
     const used = await count(w.key);
 
     // Learning loop: if this issue has lawyer corrections, disputed or unstable countries,
@@ -58,7 +66,7 @@ export default async (req, context) => {
       const notes = match ? notesFor(match.issue) : [];
       let revised = false;
       if (notes.length) {
-        try { answer = await ask({ question: q.text, lang, home, notes }); revised = true; }
+        try { answer = await ask({ question: q.text, lang, home, notes, context: followUp }); revised = true; }
         catch (e) { console.error("[can-i] revise", e && e.message); }
       }
       if (match && match.score >= STRICT_MATCH) answer = applyFixes(answer, match.issue);

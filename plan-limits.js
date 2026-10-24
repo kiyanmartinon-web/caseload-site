@@ -5,6 +5,6 @@ window.CASEBOUND_FREE = {
   analysesPerDay: 3,   // new analyses per day (reopening a saved case doesn't count)
   savedCases: 3,       // cases kept in the Cases tab
   fileUpload: false,   // reading PDF / Word / text files into the facts field
-  canAskPerDay: 5      // "Can I…?" questions per day. Display only: the real limit is
-                       // LIMITS in netlify/lib/canask.mjs (keep the two in step)
+  canAskPerDay: 5      // "Can I…?" questions per day (Pro: unlimited). Display only: the real
+                       // limit is LIMITS in netlify/lib/canask.mjs (keep the two in step)
 };
