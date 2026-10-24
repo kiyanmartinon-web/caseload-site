@@ -5,10 +5,10 @@
 
    Loaded in <head> with data-page="client" (Can I…?, risk check), "lawyer" (research tool,
    case board) or "info" (homepage, plans, account, sign-in, legal pages: they belong to both).
-   On a client or lawyer page the switch shows that page's side, and picking the other side opens
-   that side's first page. On an info page it simply switches the menu.
+   Picking a side always opens that side's first page: Client → Can I…?, Lawyer → Case building.
+   On a client or lawyer page the switch shows that page's side.
    The choice is kept in this browser (casebound:view). Lawyer accounts treat the case board as
-   home: on client pages they are sent to it unless they chose "Client". The role is cached
+   home side: on client pages they are sent to Case building unless they chose "Client". The role is cached
    (casebound:role) so that redirect happens before the page paints. */
 (function () {
   var ROLE_KEY = "casebound:role", VIEW_KEY = "casebound:view";
@@ -26,8 +26,7 @@
   }
   function choose(v) {
     set(VIEW_KEY, v);
-    if (page === "info") { render(); document.dispatchEvent(new CustomEvent("cb:side", { detail: v })); }
-    else if (v !== page) location.href = HOME[v];
+    if (v !== page) location.href = HOME[v];
   }
   window.CaseboundView = {
     side: side,
@@ -35,9 +34,9 @@
     toLawyer: function () { set(VIEW_KEY, "lawyer"); location.href = "/lawyers.html"; }
   };
 
-  // Fast path: a lawyer who hasn't chosen the client side goes straight to the board.
+  // Fast path: a lawyer who hasn't chosen the client side goes straight to Case building.
   if (page === "client" && get(ROLE_KEY) === "lawyer" && get(VIEW_KEY) !== "client") {
-    location.replace("/lawyers.html");
+    location.replace(HOME.lawyer);
     return;
   }
 
@@ -82,7 +81,7 @@
     box.addEventListener("click", function (e) {
       var b = e.target.closest("button"); if (!b) return;
       var v = b.getAttribute("data-v");
-      if (v !== side() || page !== "info") choose(v);
+      if (v !== page) choose(v);
     });
     // right after the logo (and its "for lawyers" label)
     var wm = head.querySelector(".wordmark");
@@ -94,7 +93,7 @@
     set(ROLE_KEY, role === "lawyer" ? "lawyer" : "");
     if (role !== "lawyer") return;
     if (page === "lawyer") set(VIEW_KEY, "lawyer");
-    if (page === "client" && get(VIEW_KEY) !== "client") { location.replace("/lawyers.html"); return; }
+    if (page === "client" && get(VIEW_KEY) !== "client") { location.replace(HOME.lawyer); return; }
     if (page === "info") { render(); document.dispatchEvent(new CustomEvent("cb:side", { detail: side() })); }
   }
 

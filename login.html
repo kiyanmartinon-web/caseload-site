@@ -440,7 +440,7 @@ textarea.f-in{width:100%;font:inherit;font-size:15px;padding:10px 12px;border:1p
       .then(function(j){
         var law = j && j.user && j.user.role === "lawyer";
         try { if (law) { localStorage.setItem("casebound:role", "lawyer"); localStorage.setItem("casebound:view", "lawyer"); } else { localStorage.removeItem("casebound:role"); localStorage.removeItem("casebound:view"); } } catch (e) {}
-        location.href = law && (next === "/account.html" || next === "/" || next === "/research.html") ? "/lawyers.html" : next;
+        location.href = law && (next === "/account.html" || next === "/") ? "/research.html" : next;
       })
       .catch(function(e){ b.disabled = false; err(e && e.server ? { s: e.server } : { k: "generic" }); });
   }
