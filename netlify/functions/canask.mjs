@@ -78,6 +78,8 @@ export default async (req, context) => {
     return json({ answer, learn, used, limit: w.limit, tier: w.tier }, 200, { "Cache-Control": "no-store" });
   } catch (err) {
     console.error("[can-i]", err && err.message);
+    // A rejected or missing API key isn't something a retry fixes: say the feature is off.
+    if (err && (err.status === 401 || err.status === 403)) return bad("not_configured", 503);
     return bad("failed", 502);
   }
 };
