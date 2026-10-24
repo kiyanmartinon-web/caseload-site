@@ -21,6 +21,13 @@
   status = 301
   force = true
 
+# Claude Code skill files are for development, not visitors.
+[[redirects]]
+  from = "/.claude/*"
+  to = "/"
+  status = 301
+  force = true
+
 [[redirects]]
   from = "/node_modules/*"
   to = "/"
