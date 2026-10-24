@@ -7,6 +7,8 @@ import { json } from "../lib/stripe.mjs";
 import { normLang } from "../lib/plans.mjs";
 import { subscriptionFor, tierOf } from "../lib/subscription.mjs";
 import { LIMITS, PLACES, whoKey, usage, count, cleanQuestion, isConfigured, ask } from "../lib/canask.mjs";
+import { findIssue, notesFor, applyFixes, recordAnswer, trustFor, STRICT_MATCH } from "../lib/canlearn.mjs";
+import { isAdmin, isVerifiedLawyer } from "../lib/auth.mjs";
 
 const bad = (error, status = 400, extra = {}) => json({ error, ...extra }, status);
 
@@ -45,9 +47,27 @@ export default async (req, context) => {
     const cap = Number(process.env.CANI_DAILY_CAP) || 400;
     if (total >= cap) return bad("busy", 429, { used: n, limit: w.limit, tier: w.tier });
 
-    const answer = await ask({ question: q.text, lang, home });
+    let answer = await ask({ question: q.text, lang, home });
     const used = await count(w.key);
-    return json({ answer, used, limit: w.limit, tier: w.tier }, 200, { "Cache-Control": "no-store" });
+
+    // Learning loop: if this issue has lawyer corrections, disputed or unstable countries,
+    // answer again with those notes, then make sure a lawyer's verdict wins.
+    let learn = null;
+    try {
+      const match = await findIssue(answer.researchQuery);
+      const notes = match ? notesFor(match.issue) : [];
+      let revised = false;
+      if (notes.length) {
+        try { answer = await ask({ question: q.text, lang, home, notes }); revised = true; }
+        catch (e) { console.error("[can-i] revise", e && e.message); }
+      }
+      if (match && match.score >= STRICT_MATCH) answer = applyFixes(answer, match.issue);
+      const token = await recordAnswer(answer, match, { revised });
+      const canFix = !!w.user && (isAdmin(w.user) || isVerifiedLawyer(w.user));
+      learn = token ? { token, revised, canFix, ...trustFor(match && match.issue) } : null;
+    } catch (e) { console.error("[can-i] learn", e && e.message); }
+
+    return json({ answer, learn, used, limit: w.limit, tier: w.tier }, 200, { "Cache-Control": "no-store" });
   } catch (err) {
     console.error("[can-i]", err && err.message);
     return bad("failed", 502);

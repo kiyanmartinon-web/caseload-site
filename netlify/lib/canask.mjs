@@ -91,7 +91,8 @@ Answer with the give_answer tool. Rules:
 - Write plainly for a non-lawyer, in the requested language. Keep every item short. No hedging boilerplate: the page already says this is general information, not legal advice.
 - If rules changed recently or you are unsure about a place, set that place's verdict to "unclear" rather than guessing, and say what to check.
 - If the question asks how to harm someone, evade the police, or commit a crime, answer the legal question (usually "no") and the consequences, but give no practical help with the harmful act.
-- research_query: a short neutral description of the legal issue (max 25 words, in English) for Casebound's research tool.`;
+- research_query: a short neutral description of the legal issue (max 25 words, in English) for Casebound's research tool. Phrase it generically and canonically, so the same question asked in other words or languages gets the same description (e.g. "recording a phone call without the other party's consent"). Never include names, addresses, dates, amounts or any other detail about the person or anyone else.
+- If the message includes "Notes from Casebound's review", they come from verified lawyers and from readers' ratings of earlier answers to this same question. Follow a lawyer's verdict for a place, and explain it in that place's note. Re-check anything flagged.`;
 
 const TOOL = {
   name: "give_answer",
@@ -158,7 +159,7 @@ export function shapeAnswer(raw) {
 
 export function isConfigured() { return !!process.env.ANTHROPIC_API_KEY; }
 
-export async function ask({ question, lang, home }) {
+export async function ask({ question, lang, home, notes }) {
   const homeName = (PLACES.find((p) => p[0] === home) || [null, home || "not given"])[1];
   const res = await fetch("https://api.anthropic.com/v1/messages", {
     method: "POST",
@@ -175,7 +176,8 @@ export async function ask({ question, lang, home }) {
       tool_choice: { type: "tool", name: "give_answer" },
       messages: [{
         role: "user",
-        content: `Answer language: ${LANG_NAMES[lang] || "English"}\nThe person is in: ${homeName}\nToday's date: ${today()}\n\nQuestion: ${question}`,
+        content: `Answer language: ${LANG_NAMES[lang] || "English"}\nThe person is in: ${homeName}\nToday's date: ${today()}\n\nQuestion: ${question}` +
+          (notes && notes.length ? `\n\nNotes from Casebound's review of earlier answers to this question:\n- ${notes.join("\n- ")}` : ""),
       }],
     }),
   });

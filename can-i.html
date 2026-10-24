@@ -150,7 +150,28 @@ select{background:var(--paper);border:1px solid var(--rule);border-radius:5px;pa
 
 footer{border-top:1px solid var(--rule);background:var(--paper-2);font-size:12.5px;color:var(--ink-soft)}
 footer div{max-width:1180px;margin:0 auto;padding:18px 20px;display:flex;gap:16px;flex-wrap:wrap}
-@media print{.masthead,.ask,.recent,footer,.a-actions,.save-row{display:none!important}.answer{border:0}}
+/* ---------- learning: ratings and lawyer corrections ---------- */
+.learn{padding:16px 20px;border-bottom:1px solid var(--rule-soft);display:grid;gap:10px;background:var(--paper)}
+.learn-q{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.learn-q b{font-size:14px;font-weight:650}
+.rbtn{font-size:13.5px;font-weight:700;border:1px solid var(--rule);background:var(--paper-2);border-radius:5px;padding:7px 14px}
+.rbtn:hover{border-color:var(--verdigris)}
+.rbtn[aria-pressed="true"].up{background:var(--verdigris-wash);border-color:var(--verdigris);color:var(--verdigris)}
+.rbtn[aria-pressed="true"].down{background:var(--oxblood-wash);border-color:var(--oxblood);color:var(--oxblood)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{font-size:12.5px;border:1px solid var(--rule);border-radius:14px;padding:5px 11px;background:var(--paper-2)}
+.chip[aria-pressed="true"]{background:var(--oxblood);border-color:var(--oxblood);color:#fff}
+.learn .fine b{color:var(--ink)}
+.trust{font-size:12.5px;color:var(--ink-soft);margin:0}
+.checked{font-size:10.5px;font-weight:700;letter-spacing:.04em;padding:2px 7px;border-radius:3px;background:var(--verdigris);color:#fff}
+.revised{margin:0;font-size:12.5px;color:var(--verdigris);font-weight:600}
+.fixbox{border:1px dashed var(--rule);border-radius:5px;padding:12px;display:grid;gap:8px;background:var(--paper-2)}
+.fixbox h4{margin:0;font-size:13.5px}
+.fixrow{display:flex;gap:8px;flex-wrap:wrap}
+.fixrow select{min-width:0;padding:7px 9px;font-size:13.5px}
+.fixbox textarea{width:100%;border:1px solid var(--rule);border-radius:5px;padding:8px 10px;font-size:13.5px;min-height:56px;background:var(--paper)}
+.ok-t{font-size:13.5px;font-weight:600;color:var(--verdigris)}
+@media print{.masthead,.ask,.recent,footer,.a-actions,.save-row,.learn{display:none!important}.answer{border:0}}
 </style>
 <link rel="stylesheet" href="/brand.css">
 </head>
@@ -249,6 +270,7 @@ footer div{max-width:1180px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
   /* ---------------- wording, by language ---------------- */
   var T = {
     en: {
+      rateQ:"Was this answer right?", rateRight:"Right", rateWrong:"Wrong", whichWrong:"Which countries were wrong? Tap all that apply.", sendFlags:"Send", rateThanks:"Thanks. Every rating makes the next answer to this question more accurate.", rateNote:"Ratings are pooled anonymously: only the vote and the countries you flag, never your question.", rateErr:"Couldn't send your rating. Please try again.", rateOld:"This answer is too old to rate. Ask again to rate a fresh answer.", revised:"Improved using lawyers' corrections and readers' ratings of earlier answers to this question.", trust:"{p}% of {n} readers rated answers to this question right.", checked:"Checked by a lawyer", fixH:"Correct this answer as a verified lawyer", fixPlace:"Country", fixVerdict:"Correct verdict", fixNote:"Why (the rule, article or condition). Readers' future answers will follow it.", fixSave:"Save correction", fixDone:"Saved. Future answers to this question will follow your correction.", fixErr:"Couldn't save the correction.",
       savedH:"Saved answers", seeAll:"See all in Saved cases", removeL:"Remove",
       navSaved:"Saved cases", saveBtn:"Save", savedOk:"Saved", seeSaved:"See it in Saved cases →", projL:"Project", noProject:"No project", newProjectOpt:"+ New project…", promptProject:"Name the new project", notSaved:function(n){ return "The free plan keeps up to " + n + " saved items. Remove one in <a href=\"/#cases\">Saved cases</a> or <a href=\"/pricing.html\">go Pro</a> to keep more."; },
       docTitle:"Can I…? — Casebound", navAria:"Account", navResearch:"Research", navRisk:"Risk check", navPlans:"Plans", signIn:"Sign in", account:"Account",
@@ -272,6 +294,7 @@ footer div{max-width:1180px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
       back:"← Back to Casebound", how:"How \"Can I…?\" works", terms:"Terms of use", privacyL:"Privacy notice", contact:"Contact / complaints: admin@case-bound.com"
     },
     it: {
+      rateQ:"Questa risposta era corretta?", rateRight:"Corretta", rateWrong:"Sbagliata", whichWrong:"Quali paesi erano sbagliati? Seleziona tutti quelli che valgono.", sendFlags:"Invia", rateThanks:"Grazie. Ogni valutazione rende più precisa la prossima risposta a questa domanda.", rateNote:"Le valutazioni sono raccolte in forma anonima: solo il voto e i paesi segnalati, mai la tua domanda.", rateErr:"Impossibile inviare la valutazione. Riprova.", rateOld:"Questa risposta è troppo vecchia per essere valutata. Fai di nuovo la domanda per valutarne una nuova.", revised:"Migliorata grazie alle correzioni degli avvocati e alle valutazioni dei lettori sulle risposte precedenti a questa domanda.", trust:"Il {p}% di {n} lettori ha valutato corrette le risposte a questa domanda.", checked:"Verificato da un avvocato", fixH:"Correggi questa risposta come avvocato verificato", fixPlace:"Paese", fixVerdict:"Esito corretto", fixNote:"Perché (la norma, l'articolo o la condizione). Le risposte future la seguiranno.", fixSave:"Salva correzione", fixDone:"Salvato. Le prossime risposte a questa domanda seguiranno la tua correzione.", fixErr:"Impossibile salvare la correzione.",
       savedH:"Risposte salvate", seeAll:"Vedi tutte in Casi salvati", removeL:"Rimuovi",
       navSaved:"Casi salvati", saveBtn:"Salva", savedOk:"Salvato", seeSaved:"Vedilo in Casi salvati →", projL:"Progetto", noProject:"Nessun progetto", newProjectOpt:"+ Nuovo progetto…", promptProject:"Dai un nome al nuovo progetto", notSaved:function(n){ return "Il piano gratuito conserva fino a " + n + " elementi salvati. Rimuovine uno in <a href=\"/#cases\">Casi salvati</a> oppure <a href=\"/pricing.html\">passa a Pro</a> per salvarne di più."; },
       docTitle:"Posso…? — Casebound", navAria:"Account", navResearch:"Ricerca", navRisk:"Verifica del rischio", navPlans:"Piani", signIn:"Accedi", account:"Account",
@@ -295,6 +318,7 @@ footer div{max-width:1180px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
       back:"← Torna a Casebound", how:"Come funziona \"Posso…?\"", terms:"Termini d'uso", privacyL:"Informativa privacy", contact:"Contatti / reclami: admin@case-bound.com"
     },
     es: {
+      rateQ:"¿Era correcta esta respuesta?", rateRight:"Correcta", rateWrong:"Incorrecta", whichWrong:"¿Qué países estaban mal? Marca todos los que correspondan.", sendFlags:"Enviar", rateThanks:"Gracias. Cada valoración hace más precisa la próxima respuesta a esta pregunta.", rateNote:"Las valoraciones se agrupan de forma anónima: solo el voto y los países que marques, nunca tu pregunta.", rateErr:"No se pudo enviar tu valoración. Inténtalo de nuevo.", rateOld:"Esta respuesta es demasiado antigua para valorarla. Vuelve a preguntar para valorar una nueva.", revised:"Mejorada con las correcciones de abogados y las valoraciones de lectores sobre respuestas anteriores a esta pregunta.", trust:"El {p}% de {n} lectores valoró como correctas las respuestas a esta pregunta.", checked:"Revisado por un abogado", fixH:"Corrige esta respuesta como abogado verificado", fixPlace:"País", fixVerdict:"Respuesta correcta", fixNote:"Por qué (la norma, el artículo o la condición). Las respuestas futuras la seguirán.", fixSave:"Guardar corrección", fixDone:"Guardado. Las próximas respuestas a esta pregunta seguirán tu corrección.", fixErr:"No se pudo guardar la corrección.",
       savedH:"Respuestas guardadas", seeAll:"Ver todas en Casos guardados", removeL:"Eliminar",
       navSaved:"Casos guardados", saveBtn:"Guardar", savedOk:"Guardado", seeSaved:"Verlo en Casos guardados →", projL:"Proyecto", noProject:"Sin proyecto", newProjectOpt:"+ Nuevo proyecto…", promptProject:"Pon nombre al nuevo proyecto", notSaved:function(n){ return "El plan gratuito guarda hasta " + n + " elementos. Elimina uno en <a href=\"/#cases\">Casos guardados</a> o <a href=\"/pricing.html\">hazte Pro</a> para guardar más."; },
       docTitle:"¿Puedo…? — Casebound", navAria:"Cuenta", navResearch:"Investigación", navRisk:"Evaluación de riesgo", navPlans:"Planes", signIn:"Iniciar sesión", account:"Cuenta",
@@ -318,6 +342,7 @@ footer div{max-width:1180px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
       back:"← Volver a Casebound", how:"Cómo funciona \"¿Puedo…?\"", terms:"Condiciones de uso", privacyL:"Aviso de privacidad", contact:"Contacto / reclamaciones: admin@case-bound.com"
     },
     fr: {
+      rateQ:"Cette réponse était-elle juste ?", rateRight:"Juste", rateWrong:"Fausse", whichWrong:"Quels pays étaient faux ? Sélectionnez tous ceux qui s'appliquent.", sendFlags:"Envoyer", rateThanks:"Merci. Chaque avis rend la prochaine réponse à cette question plus précise.", rateNote:"Les avis sont regroupés de façon anonyme : seulement le vote et les pays signalés, jamais votre question.", rateErr:"Impossible d'envoyer votre avis. Réessayez.", rateOld:"Cette réponse est trop ancienne pour être notée. Reposez la question pour en noter une nouvelle.", revised:"Améliorée grâce aux corrections d'avocats et aux avis des lecteurs sur les réponses précédentes à cette question.", trust:"{p} % de {n} lecteurs ont jugé justes les réponses à cette question.", checked:"Vérifié par un avocat", fixH:"Corriger cette réponse en tant qu'avocat vérifié", fixPlace:"Pays", fixVerdict:"Bonne réponse", fixNote:"Pourquoi (la règle, l'article ou la condition). Les réponses futures la suivront.", fixSave:"Enregistrer la correction", fixDone:"Enregistré. Les prochaines réponses à cette question suivront votre correction.", fixErr:"Impossible d'enregistrer la correction.",
       savedH:"Réponses enregistrées", seeAll:"Tout voir dans Dossiers enregistrés", removeL:"Supprimer",
       navSaved:"Dossiers enregistrés", saveBtn:"Enregistrer", savedOk:"Enregistré", seeSaved:"Voir dans Dossiers enregistrés →", projL:"Projet", noProject:"Aucun projet", newProjectOpt:"+ Nouveau projet…", promptProject:"Nommez le nouveau projet", notSaved:function(n){ return "L'offre gratuite conserve jusqu'à " + n + " éléments enregistrés. Supprimez-en un dans <a href=\"/#cases\">Dossiers enregistrés</a> ou <a href=\"/pricing.html\">passez à Pro</a> pour en garder plus."; },
       docTitle:"Ai-je le droit… ? — Casebound", navAria:"Compte", navResearch:"Recherche", navRisk:"Évaluation du risque", navPlans:"Offres", signIn:"Se connecter", account:"Compte",
@@ -341,6 +366,7 @@ footer div{max-width:1180px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
       back:"← Retour à Casebound", how:"Fonctionnement de « Ai-je le droit… ? »", terms:"Conditions d'utilisation", privacyL:"Politique de confidentialité", contact:"Contact / réclamations : admin@case-bound.com"
     },
     de: {
+      rateQ:"War diese Antwort richtig?", rateRight:"Richtig", rateWrong:"Falsch", whichWrong:"Welche Länder waren falsch? Alle zutreffenden antippen.", sendFlags:"Senden", rateThanks:"Danke. Jede Bewertung macht die nächste Antwort auf diese Frage genauer.", rateNote:"Bewertungen werden anonym zusammengefasst: nur die Stimme und die markierten Länder, nie deine Frage.", rateErr:"Deine Bewertung konnte nicht gesendet werden. Bitte versuche es erneut.", rateOld:"Diese Antwort ist zu alt für eine Bewertung. Frag noch einmal, um eine neue zu bewerten.", revised:"Verbessert durch Korrekturen von Anwälten und Bewertungen früherer Antworten auf diese Frage.", trust:"{p} % von {n} Lesern haben die Antworten auf diese Frage als richtig bewertet.", checked:"Von einem Anwalt geprüft", fixH:"Diese Antwort als verifizierter Anwalt korrigieren", fixPlace:"Land", fixVerdict:"Richtiges Ergebnis", fixNote:"Warum (Vorschrift, Artikel oder Bedingung). Künftige Antworten folgen ihr.", fixSave:"Korrektur speichern", fixDone:"Gespeichert. Künftige Antworten auf diese Frage folgen deiner Korrektur.", fixErr:"Die Korrektur konnte nicht gespeichert werden.",
       savedH:"Gespeicherte Antworten", seeAll:"Alle in Gespeicherte Fälle ansehen", removeL:"Entfernen",
       navSaved:"Gespeicherte Fälle", saveBtn:"Speichern", savedOk:"Gespeichert", seeSaved:"In Gespeicherte Fälle ansehen →", projL:"Projekt", noProject:"Kein Projekt", newProjectOpt:"+ Neues Projekt…", promptProject:"Gib dem neuen Projekt einen Namen", notSaved:function(n){ return "Der kostenlose Tarif speichert bis zu " + n + " Einträge. Entferne einen unter <a href=\"/#cases\">Gespeicherte Fälle</a> oder <a href=\"/pricing.html\">wechsle zu Pro</a>, um mehr zu behalten."; },
       docTitle:"Darf ich…? — Casebound", navAria:"Konto", navResearch:"Recherche", navRisk:"Risikocheck", navPlans:"Tarife", signIn:"Anmelden", account:"Konto",
@@ -364,6 +390,7 @@ footer div{max-width:1180px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
       back:"← Zurück zu Casebound", how:"So funktioniert „Darf ich…?“", terms:"Nutzungsbedingungen", privacyL:"Datenschutzhinweis", contact:"Kontakt / Beschwerden: admin@case-bound.com"
     },
     pt: {
+      rateQ:"Esta resposta estava certa?", rateRight:"Certa", rateWrong:"Errada", whichWrong:"Que países estavam errados? Selecione todos os que se aplicam.", sendFlags:"Enviar", rateThanks:"Obrigado. Cada avaliação torna mais precisa a próxima resposta a esta pergunta.", rateNote:"As avaliações são agregadas de forma anónima: apenas o voto e os países assinalados, nunca a sua pergunta.", rateErr:"Não foi possível enviar a avaliação. Tente novamente.", rateOld:"Esta resposta é demasiado antiga para ser avaliada. Pergunte de novo para avaliar uma nova.", revised:"Melhorada com as correções de advogados e as avaliações dos leitores a respostas anteriores a esta pergunta.", trust:"{p}% de {n} leitores avaliaram como certas as respostas a esta pergunta.", checked:"Verificado por um advogado", fixH:"Corrigir esta resposta como advogado verificado", fixPlace:"País", fixVerdict:"Resposta correta", fixNote:"Porquê (a norma, o artigo ou a condição). As respostas futuras vão segui-la.", fixSave:"Guardar correção", fixDone:"Guardado. As próximas respostas a esta pergunta vão seguir a sua correção.", fixErr:"Não foi possível guardar a correção.",
       savedH:"Respostas guardadas", seeAll:"Ver todas em Casos guardados", removeL:"Remover",
       navSaved:"Casos guardados", saveBtn:"Guardar", savedOk:"Guardado", seeSaved:"Ver em Casos guardados →", projL:"Projeto", noProject:"Sem projeto", newProjectOpt:"+ Novo projeto…", promptProject:"Dê um nome ao novo projeto", notSaved:function(n){ return "O plano gratuito guarda até " + n + " itens. Remova um em <a href=\"/#cases\">Casos guardados</a> ou <a href=\"/pricing.html\">passe para Pro</a> para guardar mais."; },
       docTitle:"Posso…? — Casebound", navAria:"Conta", navResearch:"Pesquisa", navRisk:"Avaliação de risco", navPlans:"Planos", signIn:"Iniciar sessão", account:"Conta",
@@ -387,6 +414,7 @@ footer div{max-width:1180px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
       back:"← Voltar à Casebound", how:"Como funciona o \"Posso…?\"", terms:"Termos de utilização", privacyL:"Aviso de privacidade", contact:"Contacto / reclamações: admin@case-bound.com"
     },
     pl: {
+      rateQ:"Czy ta odpowiedź była poprawna?", rateRight:"Poprawna", rateWrong:"Błędna", whichWrong:"Które kraje były błędne? Zaznacz wszystkie, które pasują.", sendFlags:"Wyślij", rateThanks:"Dziękujemy. Każda ocena sprawia, że następna odpowiedź na to pytanie jest dokładniejsza.", rateNote:"Oceny są zbierane anonimowo: tylko głos i zaznaczone kraje, nigdy Twoje pytanie.", rateErr:"Nie udało się wysłać oceny. Spróbuj ponownie.", rateOld:"Ta odpowiedź jest zbyt stara, by ją ocenić. Zadaj pytanie ponownie, aby ocenić nową.", revised:"Ulepszona dzięki poprawkom prawników i ocenom czytelników wcześniejszych odpowiedzi na to pytanie.", trust:"{p}% z {n} czytelników oceniło odpowiedzi na to pytanie jako poprawne.", checked:"Sprawdzone przez prawnika", fixH:"Popraw tę odpowiedź jako zweryfikowany prawnik", fixPlace:"Kraj", fixVerdict:"Poprawna odpowiedź", fixNote:"Dlaczego (przepis, artykuł lub warunek). Przyszłe odpowiedzi będą się do tego stosować.", fixSave:"Zapisz poprawkę", fixDone:"Zapisano. Następne odpowiedzi na to pytanie będą zgodne z Twoją poprawką.", fixErr:"Nie udało się zapisać poprawki.",
       savedH:"Zapisane odpowiedzi", seeAll:"Zobacz wszystkie w Zapisanych sprawach", removeL:"Usuń",
       navSaved:"Zapisane sprawy", saveBtn:"Zapisz", savedOk:"Zapisano", seeSaved:"Zobacz w Zapisanych sprawach →", projL:"Projekt", noProject:"Bez projektu", newProjectOpt:"+ Nowy projekt…", promptProject:"Nazwij nowy projekt", notSaved:function(n){ return "Plan darmowy przechowuje do " + n + " zapisanych pozycji. Usuń jedną w <a href=\"/#cases\">Zapisanych sprawach</a> lub <a href=\"/pricing.html\">przejdź na Pro</a>, aby zapisać więcej."; },
       docTitle:"Czy mogę…? — Casebound", navAria:"Konto", navResearch:"Wyszukiwanie", navRisk:"Ocena ryzyka", navPlans:"Plany", signIn:"Zaloguj się", account:"Konto",
@@ -410,6 +438,7 @@ footer div{max-width:1180px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
       back:"← Wróć do Casebound", how:"Jak działa „Czy mogę…?”", terms:"Regulamin", privacyL:"Informacja o prywatności", contact:"Kontakt / reklamacje: admin@case-bound.com"
     },
     ar: {
+      rateQ:"هل كانت هذه الإجابة صحيحة؟", rateRight:"صحيحة", rateWrong:"خاطئة", whichWrong:"ما الدول التي كانت خاطئة؟ اختر كل ما ينطبق.", sendFlags:"إرسال", rateThanks:"شكرًا. كل تقييم يجعل الإجابة التالية عن هذا السؤال أدق.", rateNote:"تُجمع التقييمات دون الكشف عن الهوية: التصويت والدول التي تحددها فقط، وليس سؤالك أبدًا.", rateErr:"تعذّر إرسال تقييمك. حاول مرة أخرى.", rateOld:"هذه الإجابة أقدم من أن تُقيَّم. اطرح السؤال مجددًا لتقييم إجابة جديدة.", revised:"تم تحسينها بفضل تصحيحات المحامين وتقييمات القرّاء للإجابات السابقة عن هذا السؤال.", trust:"قيّم {p}% من {n} قارئ الإجابات عن هذا السؤال بأنها صحيحة.", checked:"راجعها محامٍ", fixH:"صحّح هذه الإجابة بصفتك محاميًا موثّقًا", fixPlace:"الدولة", fixVerdict:"الحكم الصحيح", fixNote:"السبب (القاعدة أو المادة أو الشرط). ستتبعه الإجابات القادمة.", fixSave:"حفظ التصحيح", fixDone:"تم الحفظ. ستتبع الإجابات القادمة عن هذا السؤال تصحيحك.", fixErr:"تعذّر حفظ التصحيح.",
       savedH:"الإجابات المحفوظة", seeAll:"اعرض الكل في القضايا المحفوظة", removeL:"حذف",
       navSaved:"القضايا المحفوظة", saveBtn:"حفظ", savedOk:"تم الحفظ", seeSaved:"اعرضه في القضايا المحفوظة ←", projL:"المشروع", noProject:"بلا مشروع", newProjectOpt:"+ مشروع جديد…", promptProject:"سمِّ المشروع الجديد", notSaved:function(n){ return "تحتفظ الخطة المجانية بما يصل إلى " + n + " عناصر محفوظة. احذف واحدًا من <a href=\"/#cases\">القضايا المحفوظة</a> أو <a href=\"/pricing.html\">اشترك في Pro</a> لحفظ المزيد."; },
       docTitle:"هل يمكنني…؟ — Casebound", navAria:"الحساب", navResearch:"البحث", navRisk:"تقييم المخاطر", navPlans:"الخطط", signIn:"تسجيل الدخول", account:"الحساب",
@@ -528,7 +557,7 @@ footer div{max-width:1180px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
       var label = (t().qPre + " " + current.q).replace(/\s+/g, " ").trim();
       var rec = { id: "ci-" + Date.now() + "-" + Math.random().toString(36).slice(2,7), kind: "cani", output: "cani",
         label: label.length > 120 ? label.slice(0, 119) + "…" : label, facts: current.q, claim: "",
-        question: current.q, home: current.home, lang: current.lang, answer: current.answer,
+        question: current.q, home: current.home, lang: current.lang, answer: current.answer, learn: current.learn || null,
         projectId: proj, savedAt: new Date().toISOString() };
       list.unshift(rec); current.savedId = rec.id;
     }
@@ -557,6 +586,7 @@ footer div{max-width:1180px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
       h += '<div class="legend">' + ["yes","depends","no","unclear"].map(function(v){ return '<span><i class="dot d-' + v + '"></i>' + esc(tt.v[v]) + '</span>'; }).join("") + '</div>';
       h += '<ul class="places">' + places.map(function(p){
         return '<li class="place p-' + p.verdict + (p.code === home ? " home" : "") + '"><div class="p-top"><b>' + esc(p.name) + '</b>' + pill(p.verdict) +
+          (p.reviewed ? '<span class="checked">✓ ' + esc(tt.checked) + '</span>' : "") +
           (p.code === home ? '<span class="p-here">' + esc(tt.here) + '</span>' : "") + '</div><div class="p-note">' + esc(p.note) + '</div></li>';
       }).join("") + '</ul></div>';
     }
@@ -564,6 +594,7 @@ footer div{max-width:1180px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
     if (a.ifNot && a.ifNot.length) h += '<div class="sec"><h3>' + esc(tt.ifNotH) + '</h3>' + list(a.ifNot, "warns") + '</div>';
     if (a.nextSteps && a.nextSteps.length) h += '<div class="sec"><h3>' + esc(tt.stepsH) + '</h3><ol class="steps">' + a.nextSteps.map(function(x){ return "<li>" + esc(x) + "</li>"; }).join("") + '</ol></div>';
     if (a.laws && a.laws.length) h += '<div class="sec"><h3>' + esc(tt.lawsH) + '</h3><ul class="laws">' + a.laws.map(function(x){ return '<li><bdi>' + esc(x) + '</bdi></li>'; }).join("") + '</ul></div>';
+    h += learnHTML();
     h += saveRow();
     h += '<div class="sec"><div class="a-actions">' +
       '<button type="button" class="btn" id="a-research">' + esc(tt.research) + '</button>' +
@@ -573,6 +604,87 @@ footer div{max-width:1180px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
       '</div><p class="fine">' + esc(tt.fine) + '</p></div>';
     box.innerHTML = h;
     box.hidden = false;
+  }
+
+  /* ---------------- learning: rate the answer, lawyers correct it ---------------- */
+  var LS = { flags: [], picking: false, msg: "", msgKind: "", fixMsg: "" };
+  function learnHTML(){
+    var L = current && current.learn, tt = t();
+    if (!L || !L.token) return "";
+    var r = current.rated || null, h = '<div class="learn">';
+    if (L.revised) h += '<p class="revised">↻ ' + esc(tt.revised) + '</p>';
+    var votes = (L.up || 0) + (L.down || 0);
+    if (votes >= 5) h += '<p class="trust">' + esc(tt.trust.replace("{p}", Math.round(100 * L.up / votes)).replace("{n}", Math.round(votes))) + '</p>';
+    h += '<div class="learn-q"><b>' + esc(tt.rateQ) + '</b>' +
+      '<button type="button" class="rbtn up" data-rate="1" aria-pressed="' + (r && r.v > 0 ? "true" : "false") + '">👍 ' + esc(tt.rateRight) + '</button>' +
+      '<button type="button" class="rbtn down" data-rate="-1" aria-pressed="' + ((r && r.v < 0) || LS.picking ? "true" : "false") + '">👎 ' + esc(tt.rateWrong) + '</button></div>';
+    if (LS.picking) {
+      var codes = (current.answer.places || []).map(function(p){ return p.code; }).filter(function(c){ return PLACES.indexOf(c) >= 0; });
+      h += '<p class="fine">' + esc(tt.whichWrong) + '</p><div class="chips">' + codes.map(function(c){
+        var name = ((current.answer.places || []).filter(function(p){ return p.code === c; })[0] || {}).name || regionName(c);
+        return '<button type="button" class="chip" data-flag="' + c + '" aria-pressed="' + (LS.flags.indexOf(c) >= 0 ? "true" : "false") + '">' + esc(name) + '</button>';
+      }).join("") + '</div><div><button type="button" class="btn" id="a-flag-send">' + esc(tt.sendFlags) + '</button></div>';
+    }
+    if (LS.msg) h += '<p class="' + (LS.msgKind === "ok" ? "ok-t" : "save-note") + '">' + esc(LS.msg) + '</p>';
+    h += '<p class="fine">' + esc(tt.rateNote) + '</p>';
+    if (L.canFix) {
+      var opts = (current.answer.places || []).filter(function(p){ return PLACES.indexOf(p.code) >= 0; });
+      h += '<div class="fixbox"><h4>' + esc(tt.fixH) + '</h4><div class="fixrow">' +
+        '<label class="fine">' + esc(tt.fixPlace) + ' <select id="fx-place">' + opts.map(function(p){ return '<option value="' + p.code + '"' + (p.code === current.home ? " selected" : "") + '>' + esc(p.name) + '</option>'; }).join("") + '</select></label>' +
+        '<label class="fine">' + esc(tt.fixVerdict) + ' <select id="fx-verdict">' + ["yes","no","depends","unclear"].map(function(v){ return '<option value="' + v + '">' + esc(tt.v[v]) + '</option>'; }).join("") + '</select></label></div>' +
+        '<textarea id="fx-note" maxlength="400" placeholder="' + esc(tt.fixNote) + '"></textarea>' +
+        '<div><button type="button" class="btn ghost" id="a-fix-save">' + esc(tt.fixSave) + '</button> ' +
+        (LS.fixMsg ? '<span class="' + (LS.fixMsg === tt.fixDone ? "ok-t" : "save-note") + '">' + esc(LS.fixMsg) + '</span>' : '') + '</div></div>';
+    }
+    return h + '</div>';
+  }
+  function keepRated(){
+    var all = recent().map(function(r){ return (r.q === current.q && r.home === current.home && r.lang === current.lang) ? Object.assign(r, { rated: current.rated, learn: current.learn }) : r; });
+    store.set(RECENT_KEY, all);
+  }
+  function post(url, body){
+    return fetch(url, { method:"POST", credentials:"same-origin", headers:{ "Content-Type":"application/json" }, body: JSON.stringify(body) })
+      .then(function(r){ return r.json().catch(function(){ return {}; }).then(function(b){ if (!r.ok) { var e = new Error(b.error || "failed"); e.code = b.error; throw e; } return b; }); });
+  }
+  function sendRating(v, flags){
+    var tt = t();
+    post("/api/can-i/rate", { token: current.learn.token, vote: v, wrong: flags || [] }).then(function(b){
+      current.rated = { v: v, wrong: flags || [] };
+      if (b.trust) { current.learn.up = b.trust.up; current.learn.down = b.trust.down; }
+      LS.picking = false; LS.msg = tt.rateThanks; LS.msgKind = "ok";
+      keepRated(); render();
+    }).catch(function(e){ LS.msg = e && e.code === "expired" ? tt.rateOld : tt.rateErr; LS.msgKind = "bad"; render(); });
+  }
+  function resetLearnUI(){ LS.flags = []; LS.picking = false; LS.msg = ""; LS.fixMsg = ""; }
+  function onLearnClick(e){
+    if (!current || !current.learn) return false;
+    var r = e.target.closest("button[data-rate]");
+    if (r) {
+      var v = Number(r.getAttribute("data-rate"));
+      if (v > 0) { LS.flags = []; sendRating(1); }
+      else { LS.picking = true; LS.msg = ""; LS.flags = (current.rated && current.rated.wrong) || []; render(); }
+      return true;
+    }
+    var f = e.target.closest("button[data-flag]");
+    if (f) {
+      var c = f.getAttribute("data-flag"), i = LS.flags.indexOf(c);
+      if (i >= 0) LS.flags.splice(i, 1); else LS.flags.push(c);
+      render(); return true;
+    }
+    if (e.target.id === "a-flag-send") { sendRating(-1, LS.flags.slice()); return true; }
+    if (e.target.id === "a-fix-save") {
+      var tt = t(), btn = e.target; btn.disabled = true;
+      post("/api/can-i/fix", { token: current.learn.token, place: $("fx-place").value, verdict: $("fx-verdict").value, note: $("fx-note").value })
+        .then(function(){
+          LS.fixMsg = tt.fixDone;
+          var code = $("fx-place").value, verdict = $("fx-verdict").value;
+          current.answer.places = current.answer.places.map(function(p){ return p.code === code ? Object.assign({}, p, { verdict: verdict, reviewed: true }) : p; });
+          keepRated(); render();
+        })
+        .catch(function(er){ LS.fixMsg = (er && er.code && er.code.length > 12) ? er.code : tt.fixErr; render(); });
+      return true;
+    }
+    return false;
   }
 
   /* ---------------- recent questions (this browser only) ---------------- */
@@ -651,7 +763,7 @@ footer div{max-width:1180px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
         if (b.tier) STATE.tier = b.tier;
         paintLeft();
         if (res.ok && b.answer) {
-          current = { q: q, home: home, lang: lang, answer: b.answer, at: Date.now() }; saveNote = "";
+          current = { q: q, home: home, lang: lang, answer: b.answer, learn: b.learn || null, at: Date.now() }; saveNote = ""; resetLearnUI();
           remember(current);
           render();
           $("answer").scrollIntoView({ behavior:"smooth", block:"start" });
@@ -698,8 +810,8 @@ footer div{max-width:1180px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
     }
     var o = e.target.closest("button[data-open]"); if (!o) return;
     var c = savedAnswers().filter(function(x){ return x.id === o.getAttribute("data-open"); })[0]; if (!c) return;
-    current = { q: c.question || c.facts, home: c.home || "", lang: c.lang || lang, answer: c.answer, at: Date.parse(c.savedAt) || Date.now(), savedId: c.id };
-    $("q").value = current.q; saveNote = "";
+    current = { q: c.question || c.facts, home: c.home || "", lang: c.lang || lang, answer: c.answer, learn: c.learn || null, at: Date.parse(c.savedAt) || Date.now(), savedId: c.id };
+    $("q").value = current.q; saveNote = ""; resetLearnUI();
     if (PLACES.indexOf(current.home) >= 0 || current.home === "") $("home").value = current.home;
     render(); $("answer").scrollIntoView({ behavior:"smooth", block:"start" });
   });
@@ -714,10 +826,11 @@ footer div{max-width:1180px;margin:0 auto;padding:18px 20px;display:flex;gap:16p
     }
     var b = e.target.closest("button[data-i]"); if (!b) return;
     var r = recent()[Number(b.getAttribute("data-i"))]; if (!r) return;
-    current = r; saveNote = ""; $("q").value = r.q; if (PLACES.indexOf(r.home) >= 0 || r.home === "") $("home").value = r.home;
+    current = r; saveNote = ""; resetLearnUI(); $("q").value = r.q; if (PLACES.indexOf(r.home) >= 0 || r.home === "") $("home").value = r.home;
     render(); $("answer").scrollIntoView({ behavior:"smooth", block:"start" });
   });
   $("answer").addEventListener("click", function(e){
+    if (onLearnClick(e)) return;
     var id = e.target && e.target.id;
     if (id === "a-research" && current) {
       try { sessionStorage.setItem("casebound:prefill", (current.answer.researchQuery || current.q)); } catch(err){}

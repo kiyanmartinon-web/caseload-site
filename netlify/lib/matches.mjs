@@ -8,6 +8,7 @@
 //    "Share my contact details" for that lawyer.
 import crypto from "node:crypto";
 import { getUser, PRACTICE_AREAS } from "./auth.mjs";
+import { anonymiseCase } from "./riskmodel.mjs";
 
 let override = null;
 export function _setTestStore(s) { override = s; }
@@ -26,7 +27,11 @@ export async function getCase(id) {
   return (await s.get(key(id), { type: "json" })) || null;
 }
 export async function saveCase(c) { const s = await store(); await s.setJSON(key(c.id), c); }
-export async function deleteCase(id) { const s = await store(); await s.delete(key(id)); }
+export async function deleteCase(id) {
+  const s = await store(); await s.delete(key(id));
+  // lawyers' ratings of this case stay only as anonymous training rows for the risk model
+  await anonymiseCase(id).catch((e) => console.error("[risk model] anonymise", e && e.message));
+}
 export async function allCases() {
   const s = await store();
   const { blobs } = await s.list({ prefix: "case/" });

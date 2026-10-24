@@ -26,6 +26,7 @@ async function lawyerPro(user) {
 }
 import { getCase, saveCase, deleteCase, allCases, cleanCase, newCase, forClient, forLawyer } from "../lib/matches.mjs";
 import { store as accountsStore } from "../lib/store.mjs";
+import { recordReview } from "../lib/riskmodel.mjs";
 
 const ok = (b) => json(b, 200);
 const bad = (msg, status = 400) => json({ error: msg }, status);
@@ -141,6 +142,8 @@ export default async (req, context) => {
       sharedAt: prev.sharedAt || null,
     };
     await saveCase(c);
+    // the strength rating teaches the risk check (netlify/lib/riskmodel.mjs)
+    await recordReview(c, user.id, c.reviews[user.id]).catch((e) => console.error("[risk model] record", e && e.message));
     return ok({ case: await forLawyer(c, user.id) });
   }
 

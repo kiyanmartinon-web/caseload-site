@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/i18n.js"></script>
+<script src="/theme.js"></script>
+<script src="/view-switch.js" data-page="info"></script>
+<script src="/shell.js" defer></script>
+<title>Learning &amp; accuracy — Casebound</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#6E1F2A">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%236E1F2A'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='36' font-weight='700' text-anchor='middle' fill='%23fff'%3EC%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --paper:#F7F7F4; --paper-2:#FFFFFF; --ink:#1A2438; --ink-soft:#5A6376;
+  --rule:#D8D7CF; --rule-soft:#E8E7E0;
+  --oxblood:#6E1F2A; --oxblood-wash:#F3EAEB;
+  --verdigris:#29565A; --verdigris-wash:#E7EFEF;
+  --amber:#8A5A12; --amber-wash:#F7EEDD;
+  --slate:#3C4A5C; --slate-wash:#EBEEF1;
+  --serif:"Source Serif 4",Georgia,serif; --sans:"Archivo",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;padding:0;background:var(--paper)}
+body{font-family:var(--sans);color:var(--ink);font-size:14.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--verdigris)} a:hover{color:var(--oxblood)}
+button,input,select,textarea{font-family:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--verdigris);outline-offset:2px}
+.masthead{border-bottom:1px solid var(--rule);background:var(--paper-2)}
+.masthead-in{max-width:1080px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:16px;min-height:56px}
+.wordmark{font-family:var(--serif);font-size:21px;font-weight:600;letter-spacing:-.01em;line-height:1;text-decoration:none;color:var(--ink)}
+.wordmark span{color:var(--oxblood)}
+main{max-width:1080px;margin:0 auto;padding:30px 20px 70px;display:grid;gap:22px}
+.kicker{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--oxblood);margin:0 0 6px}
+h1{font-family:var(--serif);font-size:32px;line-height:1.15;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+.lede{font-family:var(--serif);font-size:16.5px;color:var(--ink-soft);margin:0;max-width:70ch}
+.card{border:1px solid var(--rule);background:var(--paper-2);border-radius:6px;padding:18px 20px;display:grid;gap:14px;min-width:0}
+.card h2{margin:0;font-family:var(--serif);font-size:21px;font-weight:600}
+.card h3{margin:0;font-size:14px;font-weight:650}
+.note{font-size:13px;color:var(--ink-soft);margin:0;line-height:1.5}
+.tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+@media(max-width:820px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.tile{border:1px solid var(--rule);background:var(--paper-2);border-radius:6px;padding:14px 16px;display:grid;gap:4px;align-content:start}
+.tile .k{font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft)}
+.tile .v{font-family:var(--serif);font-size:30px;font-weight:600;line-height:1.1;font-variant-numeric:tabular-nums}
+.tile .s{font-size:12.5px;color:var(--ink-soft)}
+.up{color:var(--verdigris)} .down{color:var(--oxblood)}
+.chart{width:100%;height:auto;display:block}
+.chart text{font-family:var(--sans);font-size:10px;fill:var(--ink-soft)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--ink-soft)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-inline-end:6px;vertical-align:-1px}
+.tbl{width:100%;border-collapse:collapse;font-size:13.5px;font-variant-numeric:tabular-nums}
+.tbl th{font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-soft);text-align:start;padding:6px 8px;border-bottom:1px solid var(--rule)}
+.tbl td{padding:7px 8px;border-bottom:1px solid var(--rule-soft);vertical-align:middle}
+.tbl td.n,.tbl th.n{text-align:end}
+.scroll{overflow-x:auto}
+.bar{height:8px;border-radius:4px;background:var(--rule-soft);position:relative;min-width:80px}
+.bar i{position:absolute;inset-block:0;inset-inline-start:0;border-radius:4px;background:var(--oxblood)}
+.bar.good i{background:var(--verdigris)}
+.pill{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:3px;background:var(--slate-wash);color:var(--slate)}
+.pill.on{background:var(--verdigris-wash);color:var(--verdigris)}
+.pill.warn{background:var(--amber-wash);color:var(--amber)}
+.pill.bad{background:var(--oxblood-wash);color:var(--oxblood)}
+.issue{border:1px solid var(--rule-soft);border-radius:6px;padding:12px 14px;display:grid;gap:8px;background:var(--paper)}
+.issue-h{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.issue-h b{font-family:var(--serif);font-size:16px;font-weight:600;flex:1 1 300px}
+.issue-h span{font-size:12.5px;color:var(--ink-soft)}
+.places{display:flex;gap:6px;flex-wrap:wrap}
+.pl{font-size:12px;border:1px solid var(--rule);border-radius:12px;padding:3px 9px;background:var(--paper-2)}
+.pl.flag{border-color:var(--oxblood);color:var(--oxblood)}
+.pl.unst{border-color:var(--amber);color:var(--amber)}
+.pl.fixed{border-color:var(--verdigris);color:var(--verdigris);font-weight:600}
+.fix{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.fix select,.fix input{border:1px solid var(--rule);border-radius:5px;padding:6px 8px;font-size:13px;background:var(--paper-2)}
+.fix input{flex:1 1 240px;min-width:0}
+.btn{font-size:13px;font-weight:700;border:1px solid var(--oxblood);background:var(--oxblood);color:#fff;border-radius:5px;padding:7px 14px;text-decoration:none;display:inline-block}
+.btn.ghost{background:var(--paper-2);color:var(--ink);border-color:var(--rule)}
+.btn:disabled{opacity:.6}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px}
+@media(max-width:820px){.grid2{grid-template-columns:1fr}}
+.cm td{text-align:center}
+.cm td.hit{background:var(--verdigris-wash);font-weight:700}
+.msg{border-radius:5px;padding:12px 14px;font-size:14px;background:var(--slate-wash);color:var(--slate)}
+.ok-t{font-size:12.5px;color:var(--verdigris);font-weight:600}
+code{font-size:12.5px;background:var(--rule-soft);padding:1px 5px;border-radius:3px}
+</style>
+<link rel="stylesheet" href="/brand.css">
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-in">
+    <a class="wordmark" href="/">Case<span>bound</span></a>
+  </div>
+</header>
+
+<main>
+  <div>
+    <p class="kicker">Admin · Learning &amp; accuracy</p>
+    <h1>How Casebound is learning</h1>
+    <p class="lede">Every answer on the site improves from feedback. This page shows how accurate each tool is, what it has learned, and which answers need a lawyer's correction.</p>
+  </div>
+
+  <p class="msg" id="msg">Loading…</p>
+
+  <div id="body" hidden>
+    <div class="tiles" id="tiles"></div>
+  </div>
+
+  <section class="card" id="cani" hidden>
+    <h2>“Can I…?” answers</h2>
+    <p class="note">Readers rate each answer Right or Wrong and flag the countries that were wrong; verified lawyers can correct a country. When a new question matches an issue with corrections, repeated “wrong” flags or unstable past verdicts, the answer is written again with those notes, and a lawyer’s verdict always wins.</p>
+    <div>
+      <h3>Last 30 days</h3>
+      <div class="legend"><span><i style="background:var(--slate)"></i>Answers</span><span><i style="background:var(--verdigris)"></i>Rated right</span><span><i style="background:var(--oxblood)"></i>Rated wrong</span><span><i style="background:var(--amber)"></i>Re-written with review notes</span></div>
+      <svg class="chart" id="days" viewBox="0 0 900 190" role="img" aria-label="Answers and ratings per day"></svg>
+    </div>
+    <div class="scroll">
+      <h3>By country</h3>
+      <table class="tbl" id="places"></table>
+    </div>
+    <div>
+      <h3>Needs a lawyer’s look</h3>
+      <p class="note">Issues where readers flag a country as wrong (Bayesian estimate of the wrong-rate ≥ 60% with at least 3 flags) or where past verdicts disagree. Saving a correction applies to every future answer to the same question.</p>
+      <div id="attention" style="display:grid;gap:10px;margin-top:10px"></div>
+    </div>
+  </section>
+
+  <section class="card" id="risk" hidden>
+    <h2>Risk check</h2>
+    <p class="note">Each strength rating a verified lawyer gives a published case (1–5) is a training example. The penalty points are re-fitted with a ridge regression that starts from the hand-set rules, and the fit is switched on only when 5-fold cross-validation shows it matches lawyers better than the rules — on both error and the low / medium / high level.</p>
+    <div class="grid2">
+      <div class="scroll"><h3>Accuracy against lawyers (cross-validated)</h3><table class="tbl" id="risk-metrics"></table></div>
+      <div class="scroll"><h3>Lawyers’ level vs. the rules’ level</h3><table class="tbl cm" id="risk-cm"></table></div>
+    </div>
+    <div class="scroll"><h3>Penalty points: rules vs. learned</h3><table class="tbl" id="risk-table"></table></div>
+  </section>
+
+  <section class="card" id="finder" hidden>
+    <h2>Research Finder rankings</h2>
+    <p class="note">Opt-in “Relevant / Not relevant” ratings and opened results, pooled per document and legal concept. Rankings move by at most ±18 points.</p>
+    <div class="grid2">
+      <div class="scroll"><h3>Most useful documents</h3><table class="tbl" id="f-best"></table></div>
+      <div class="scroll"><h3>Most often rejected</h3><table class="tbl" id="f-worst"></table></div>
+    </div>
+  </section>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  var $ = function(id){ return document.getElementById(id); };
+  var esc = function(s){ return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); };
+  var pct = function(x){ return x == null ? "—" : Math.round(x * 100) + "%"; };
+  var num = function(x){ return (Math.round((x || 0) * 10) / 10).toLocaleString("en-GB"); };
+  var NAMES = { IT:"Italy", ES:"Spain", FR:"France", DE:"Germany", PT:"Portugal", PL:"Poland", GB:"United Kingdom", US:"United States" };
+  var V = { yes:"Yes", no:"No", depends:"It depends", unclear:"Unclear" };
+  var DATA = null;
+
+  function tile(k, v, s, cls){ return '<div class="tile"><span class="k">' + esc(k) + '</span><span class="v ' + (cls || "") + '">' + esc(v) + '</span><span class="s">' + s + '</span></div>'; }
+
+  function tiles(d){
+    var c = d.canI || {}, r = d.risk || {}, f = d.finder || {}, h = "";
+    var rated = (c.up || 0) + (c.down || 0);
+    h += tile("Can I…? rated right", pct(c.rightRate), num(rated) + " ratings · " + num(c.answers) + " answers · " + (c.issues || 0) + " issues");
+    var lift = (c.revisedRightRate != null && c.plainRightRate != null) ? Math.round((c.revisedRightRate - c.plainRightRate) * 100) : null;
+    h += tile("Re-written answers", pct(c.revisedRightRate), "rated right, vs " + pct(c.plainRightRate) + " for first answers" + (lift != null ? ' (<b class="' + (lift >= 0 ? "up" : "down") + '">' + (lift >= 0 ? "+" : "") + lift + ' pts</b>)' : ""));
+    var m = r.metrics || {};
+    h += tile("Risk check vs lawyers", m.learned && r.n ? pct(r.active ? m.learned.acc : m.rule.acc) : "—",
+      (r.n || 0) + " lawyer ratings · " + (r.active ? '<span class="pill on">learned points on</span>' : '<span class="pill">rules (' + (r.n || 0) + '/' + (r.minRows || 15) + ' needed)</span>'));
+    h += tile("Finder results relevant", pct(f.relevantRate), num(f.events) + " signals · " + (f.docs || 0) + " documents rated");
+    $("tiles").innerHTML = h;
+  }
+
+  function daysChart(days){
+    var W = 900, H = 190, pad = 26, n = days.length, bw = (W - pad * 2) / n;
+    var max = Math.max(4, Math.max.apply(null, days.map(function(d){ return Math.max(d.answers || 0, (d.up || 0) + (d.down || 0)); })));
+    var y = function(v){ return H - 22 - (H - 40) * v / max; };
+    var s = '<line x1="' + pad + '" x2="' + (W - pad) + '" y1="' + (H - 22) + '" y2="' + (H - 22) + '" stroke="var(--rule)"/>';
+    s += '<text x="' + (pad - 4) + '" y="' + (y(max) + 3) + '" text-anchor="end">' + max + '</text><text x="' + (pad - 4) + '" y="' + (H - 19) + '" text-anchor="end">0</text>';
+    days.forEach(function(d, i){
+      var x = pad + i * bw, a = d.answers || 0, up = Math.max(0, d.up || 0), dn = Math.max(0, d.down || 0), rv = d.revised || 0;
+      var tip = d.day + ": " + a + " answers, " + num(up) + " right, " + num(dn) + " wrong, " + rv + " re-written";
+      s += '<g><title>' + esc(tip) + '</title>';
+      s += '<rect x="' + (x + 1) + '" y="' + y(a) + '" width="' + (bw * 0.45 - 1) + '" height="' + (H - 22 - y(a)) + '" fill="var(--slate)" opacity=".35" rx="1"/>';
+      if (rv) s += '<rect x="' + (x + 1) + '" y="' + y(rv) + '" width="' + (bw * 0.45 - 1) + '" height="' + (H - 22 - y(rv)) + '" fill="var(--amber)" rx="1"/>';
+      s += '<rect x="' + (x + bw * 0.5) + '" y="' + y(up) + '" width="' + (bw * 0.42) + '" height="' + (H - 22 - y(up)) + '" fill="var(--verdigris)" rx="1"/>';
+      s += '<rect x="' + (x + bw * 0.5) + '" y="' + y(up + dn) + '" width="' + (bw * 0.42) + '" height="' + (y(up) - y(up + dn)) + '" fill="var(--oxblood)" rx="1"/>';
+      s += '</g>';
+      if (i % 5 === 0 || i === n - 1) s += '<text x="' + (x + bw / 2) + '" y="' + (H - 6) + '" text-anchor="middle">' + esc(d.day.slice(5)) + '</text>';
+    });
+    $("days").innerHTML = s;
+  }
+
+  function placesTable(byPlace){
+    var h = '<tr><th>Country</th><th class="n">Rated right</th><th class="n">Flagged wrong</th><th>Wrong-rate (Bayesian)</th><th class="n">Lawyer fixes</th><th class="n">Disputed</th><th class="n">Unstable</th></tr>';
+    Object.keys(byPlace).forEach(function(code){
+      var p = byPlace[code], wr = (p.wrong + 1) / (p.right + p.wrong + 2);
+      h += '<tr><td>' + esc(NAMES[code] || code) + '</td><td class="n">' + num(p.right) + '</td><td class="n">' + num(p.wrong) + '</td>' +
+        '<td><div class="bar' + (wr < 0.3 ? " good" : "") + '" title="' + pct(wr) + '"><i style="width:' + Math.round(wr * 100) + '%"></i></div></td>' +
+        '<td class="n">' + p.fixes + '</td><td class="n">' + p.disputed + '</td><td class="n">' + p.unstable + '</td></tr>';
+    });
+    $("places").innerHTML = h;
+  }
+
+  function issueHTML(it){
+    var codes = Object.keys(it.places);
+    var chips = codes.map(function(c){
+      var p = it.places[c], cls = p.fix ? "fixed" : p.disputed ? "flag" : p.unstable ? "unst" : "";
+      var said = p.fix ? "lawyer: " + V[p.fix.verdict] : p.said ? V[p.said] : "—";
+      var extra = p.fix ? "" : (p.wrong ? " · " + num(p.wrong) + " wrong" : "") + (p.unstable ? " · " + Object.keys(p.counts).map(function(k){ return k + " " + p.counts[k]; }).join("/") : "");
+      return '<span class="pl ' + cls + '" title="' + esc(p.fix && p.fix.note ? p.fix.note : "") + '">' + esc(c) + ': ' + esc(said + extra) + '</span>';
+    }).join("");
+    var first = codes.filter(function(c){ return it.places[c].disputed || it.places[c].unstable; })[0] || codes[0] || "IT";
+    return '<div class="issue" data-id="' + esc(it.id) + '"><div class="issue-h"><b>' + esc(it.q) + '</b><span>' + it.n + ' answers · ' + num(it.up) + ' right · ' + num(it.down) + ' wrong</span></div>' +
+      '<div class="places">' + chips + '</div>' +
+      '<div class="fix"><select data-f="place">' + Object.keys(NAMES).map(function(c){ return '<option value="' + c + '"' + (c === first ? " selected" : "") + '>' + esc(NAMES[c]) + '</option>'; }).join("") + '</select>' +
+      '<select data-f="verdict"><option value="yes">Yes</option><option value="no">No</option><option value="depends">It depends</option><option value="unclear">Unclear</option><option value="">— remove correction</option></select>' +
+      '<input data-f="note" maxlength="400" placeholder="Rule, article or condition (shown to the model)">' +
+      '<button type="button" class="btn ghost" data-save>Save</button><span class="ok-t" data-ok></span></div></div>';
+  }
+
+  function riskSection(r){
+    var m = r.metrics || { rule:{}, learned:{} };
+    $("risk-metrics").innerHTML = '<tr><th></th><th class="n">Mean error (points)</th><th class="n">Right level</th></tr>' +
+      '<tr><td>Hand-set rules</td><td class="n">' + (r.n ? m.rule.mae : "—") + '</td><td class="n">' + (r.n ? pct(m.rule.acc) : "—") + '</td></tr>' +
+      '<tr><td>Learned from lawyers ' + (r.active ? '<span class="pill on">on</span>' : '<span class="pill">off</span>') + '</td><td class="n">' + (r.n ? m.learned.mae : "—") + '</td><td class="n">' + (r.n ? pct(m.learned.acc) : "—") + '</td></tr>' +
+      '<tr><td colspan="3" class="note">' + (r.n || 0) + ' ratings. ' + (r.n < (r.minRows || 15) ? "Needs at least " + (r.minRows || 15) + " before it can switch on." : r.active ? "Beats the rules, so the site uses it." : "Not better than the rules yet, so the site keeps the rules.") + ' Bias: ' + (r.bias || 0) + '</td></tr>';
+    var L = ["low","med","high"], cm = r.confusion || {};
+    var h = '<tr><th>Lawyers said ↓ / rules said →</th>' + L.map(function(l){ return '<th class="n">' + l + '</th>'; }).join("") + '</tr>';
+    L.forEach(function(a){ h += '<tr><td>' + a + '</td>' + L.map(function(b){ return '<td class="' + (a === b ? "hit" : "") + '">' + ((cm[a] || {})[b] || 0) + '</td>'; }).join("") + '</tr>'; });
+    $("risk-cm").innerHTML = h;
+    var LBL = { time:"Time limit", evidence:"Evidence", detail:"Detail", amount:"Amount" };
+    var t = '<tr><th>Factor</th><th>Value</th><th class="n">Rules</th><th class="n">Learned</th><th class="n">Change</th></tr>';
+    Object.keys(r.rules || {}).forEach(function(g){
+      Object.keys(r.rules[g]).forEach(function(k){
+        var a = r.rules[g][k], b = ((r.learnedTable || {})[g] || {})[k], d = b == null ? null : Math.round((b - a) * 100) / 100;
+        t += '<tr><td>' + esc(LBL[g] || g) + '</td><td>' + esc(k) + '</td><td class="n">' + a + '</td><td class="n">' + (b == null ? "—" : b) + '</td><td class="n ' + (d > 0 ? "down" : d < 0 ? "up" : "") + '">' + (d == null || !r.n ? "—" : (d > 0 ? "+" : "") + d) + '</td></tr>';
+      });
+    });
+    $("risk-table").innerHTML = t;
+  }
+
+  function docs(list, id){
+    $(id).innerHTML = list && list.length ? '<tr><th>Document</th><th class="n">Relevant</th><th class="n">Not relevant</th><th class="n">Concepts</th></tr>' + list.map(function(d){
+      return '<tr><td><code>' + esc(d.id) + '</code></td><td class="n up">' + num(d.up) + '</td><td class="n down">' + num(d.down) + '</td><td class="n">' + d.concepts + '</td></tr>';
+    }).join("") : '<tr><td class="note">No ratings yet.</td></tr>';
+  }
+
+  function render(d){
+    DATA = d;
+    $("msg").hidden = true; $("body").hidden = false;
+    tiles(d);
+    if (d.canI) {
+      $("cani").hidden = false;
+      daysChart(d.canI.days || []);
+      placesTable(d.canI.byPlace || {});
+      $("attention").innerHTML = (d.canI.attention || []).length ? d.canI.attention.map(issueHTML).join("") :
+        '<p class="note">Nothing flagged yet. Recent issues:</p>' + (d.canI.recent || []).slice(0, 8).map(issueHTML).join("");
+    }
+    if (d.risk) { $("risk").hidden = false; riskSection(d.risk); }
+    if (d.finder) { $("finder").hidden = false; docs(d.finder.best, "f-best"); docs(d.finder.worst, "f-worst"); }
+  }
+
+  $("attention").addEventListener("click", function(e){
+    var b = e.target.closest("button[data-save]"); if (!b) return;
+    var box = b.closest(".issue"), get = function(f){ return box.querySelector('[data-f="' + f + '"]').value; };
+    b.disabled = true;
+    fetch("/api/can-i/fix", { method:"POST", credentials:"same-origin", headers:{ "Content-Type":"application/json" },
+      body: JSON.stringify({ issueId: box.getAttribute("data-id"), place: get("place"), verdict: get("verdict"), note: get("note") }) })
+      .then(function(r){ return r.json().then(function(j){ if (!r.ok) throw new Error(j.error || "Failed"); return j; }); })
+      .then(function(j){
+        var tmp = document.createElement("div"); tmp.innerHTML = issueHTML(j.issue);
+        box.replaceWith(tmp.firstChild);
+        var nb = $("attention").querySelector('[data-id="' + j.issue.id + '"] [data-ok]'); if (nb) nb.textContent = "Saved";
+      })
+      .catch(function(er){ b.disabled = false; box.querySelector("[data-ok]").textContent = er.message; });
+  });
+
+  fetch("/api/insights", { credentials:"same-origin" })
+    .then(function(r){ return r.json().then(function(j){ return { ok:r.ok, j:j }; }); })
+    .then(function(x){
+      if (!x.ok) { $("msg").innerHTML = 'This page is for the Casebound admin. <a href="/login.html">Sign in</a> with the admin account.'; return; }
+      render(x.j);
+    })
+    .catch(function(){ $("msg").textContent = "Couldn't load the numbers. Try again in a minute."; });
+})();
+</script>
+</body>
+</html>

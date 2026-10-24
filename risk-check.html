@@ -322,6 +322,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
   /* ---------------- wording, by language ---------------- */
   var T = {
     en: {
+      calibrated:"Calibrated with {n} ratings of real cases by verified lawyers, and re-checked as more come in.",
       docTitle:"Risk check & lawyers — Casebound Pro",
       metaDesc:"Casebound Pro risk check: see whether your legal problem is still on time and well documented, then connect with a verified lawyer.",
       navAria:"Account", navResearch:"Research", navCanI:"Can I…?", navPlans:"Plans", signIn:"Sign in", account:"Account",
@@ -459,6 +460,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       }
     },
     it: {
+      calibrated:"Calibrato con {n} valutazioni di casi reali da parte di avvocati verificati, e aggiornato man mano che ne arrivano altre.",
       docTitle:"Verifica del rischio e avvocati — Casebound Pro",
       metaDesc:"Verifica del rischio di Casebound Pro: scopri se il tuo problema legale è ancora nei termini e ben documentato, poi mettiti in contatto con un avvocato verificato.",
       navAria:"Account", navResearch:"Ricerca", navCanI:"Posso…?", navPlans:"Piani", signIn:"Accedi", account:"Account",
@@ -596,6 +598,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       }
     },
     es: {
+      calibrated:"Calibrado con {n} valoraciones de casos reales hechas por abogados verificados, y revisado a medida que llegan más.",
       docTitle:"Evaluación de riesgo y abogados — Casebound Pro",
       metaDesc:"Evaluación de riesgo de Casebound Pro: comprueba si tu problema legal sigue dentro de plazo y bien documentado, y contacta con un abogado verificado.",
       navAria:"Cuenta", navResearch:"Investigación", navCanI:"¿Puedo…?", navPlans:"Planes", signIn:"Iniciar sesión", account:"Cuenta",
@@ -733,6 +736,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       }
     },
     fr: {
+      calibrated:"Calibré à partir de {n} évaluations de cas réels par des avocats vérifiés, et réajusté à mesure qu'il en arrive d'autres.",
       docTitle:"Évaluation du risque et avocats — Casebound Pro",
       metaDesc:"Évaluation du risque Casebound Pro : vérifiez si votre problème juridique est encore dans les délais et bien documenté, puis entrez en contact avec un avocat vérifié.",
       navAria:"Compte", navResearch:"Recherche", navCanI:"Ai-je le droit… ?", navPlans:"Offres", signIn:"Se connecter", account:"Compte",
@@ -870,6 +874,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       }
     },
     de: {
+      calibrated:"Kalibriert mit {n} Bewertungen echter Fälle durch verifizierte Anwälte und laufend neu geprüft, wenn weitere hinzukommen.",
       docTitle:"Risikocheck & Anwälte — Casebound Pro",
       metaDesc:"Risikocheck von Casebound Pro: Prüfe, ob dein rechtliches Problem noch fristgerecht und gut belegt ist, und nimm dann Kontakt zu einem verifizierten Anwalt auf.",
       navAria:"Konto", navResearch:"Recherche", navCanI:"Darf ich…?", navPlans:"Tarife", signIn:"Anmelden", account:"Konto",
@@ -1007,6 +1012,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       }
     },
     pt: {
+      calibrated:"Calibrado com {n} avaliações de casos reais feitas por advogados verificados, e revisto à medida que chegam mais.",
       docTitle:"Avaliação de risco e advogados — Casebound Pro",
       metaDesc:"Avaliação de risco do Casebound Pro: veja se o seu problema jurídico ainda está dentro do prazo e bem documentado e contacte um advogado verificado.",
       navAria:"Conta", navResearch:"Pesquisa", navCanI:"Posso…?", navPlans:"Planos", signIn:"Iniciar sessão", account:"Conta",
@@ -1144,6 +1150,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       }
     },
     pl: {
+      calibrated:"Skalibrowane na podstawie {n} ocen prawdziwych spraw przez zweryfikowanych prawników i aktualizowane wraz z kolejnymi.",
       docTitle:"Ocena ryzyka i prawnicy — Casebound Pro",
       metaDesc:"Ocena ryzyka w Casebound Pro: sprawdź, czy twoja sprawa prawna wciąż mieści się w terminie i jest dobrze udokumentowana, a potem skontaktuj się ze zweryfikowanym prawnikiem.",
       navAria:"Konto", navResearch:"Wyszukiwanie", navCanI:"Czy mogę…?", navPlans:"Plany", signIn:"Zaloguj się", account:"Konto",
@@ -1285,6 +1292,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       }
     },
     ar: {
+      calibrated:"مُعايَر على {n} تقييمًا لقضايا حقيقية من محامين موثّقين، ويُعاد ضبطه كلما وصلت تقييمات جديدة.",
       docTitle:"تقييم المخاطر والمحامون — Casebound Pro",
       metaDesc:"تقييم المخاطر في Casebound Pro: اعرف ما إذا كانت مشكلتك القانونية لا تزال ضمن المهلة وموثقة جيدًا، ثم تواصل مع محامٍ موثَّق.",
       navAria:"الحساب", navResearch:"البحث", navCanI:"هل يمكنني…؟", navPlans:"الخطط", signIn:"تسجيل الدخول", account:"الحساب",
@@ -1555,28 +1563,44 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
 
   /* The check: rates how hard the case looks to pursue from what was entered.
      It looks at time limit, evidence, detail and amount only. It never predicts the outcome. */
+  /* Penalty points per factor. They start as the hand-set rules below; /api/risk-model re-fits them from
+     verified lawyers' strength ratings of published cases and switches the fit on only when it predicts
+     lawyers' ratings better than the rules (netlify/lib/riskmodel.mjs). */
+  var RULES = { time:{ok:0, open:0, ask:0.5, unknown:1, short:1, expired:3}, evidence:{strong:0, moderate:0, weak:1, none:2},
+    detail:{clear:0, brief:1}, amount:{large:0, small:0, none:0.5} };
+  var MODEL = null;
+  function P(g, k){
+    var m = MODEL && MODEL.active && MODEL.table && MODEL.table[g];
+    return m && typeof m[k] === "number" ? m[k] : RULES[g][k];
+  }
+  fetch("/api/risk-model", { credentials:"omit" }).then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(m){ if(m && m.active && m.table){ MODEL = m; if(last && !$("result").hidden) renderResult(last); } }).catch(function(){});
+
+  /* The check: rates how hard the case looks to pursue from what was entered.
+     It looks at time limit, evidence, detail and amount only. It never predicts the outcome. */
   function check(c){
-    var tt = t(), A = AREAS[c.area], R = area(c.area).rule, d = daysLeft(c.area, c.date), pts = 0, time, ev, det, money;
-    if(!A.days && A.open) time = {v:"ok", label:tt.noLimit, tip:R + "."};
-    else if(!A.days){ pts += 0.5; time = {v:"warn", label:tt.askLawyer, tip:R + "."}; }
-    else if(d === null){ pts += 1; time = {v:"warn", label:tt.unknown, tip:tt.unknownTip(R)}; }
-    else if(d < 0){ pts += 3; time = {v:"bad", label:tt.expired, tip:tt.expiredTip(lc(R))}; }
-    else if(d <= 60){ pts += 1; time = {v:"warn", label:left(d), tip:tt.shortTip}; }
-    else time = {v:"ok", label:left(d), tip:tt.insideTip(lc(R))};
+    var tt = t(), A = AREAS[c.area], R = area(c.area).rule, d = daysLeft(c.area, c.date), pts = MODEL && MODEL.active ? (MODEL.bias || 0) : 0, time, ev, det, money;
+    if(!A.days && A.open){ pts += P("time","open"); time = {v:"ok", label:tt.noLimit, tip:R + "."}; }
+    else if(!A.days){ pts += P("time","ask"); time = {v:"warn", label:tt.askLawyer, tip:R + "."}; }
+    else if(d === null){ pts += P("time","unknown"); time = {v:"warn", label:tt.unknown, tip:tt.unknownTip(R)}; }
+    else if(d < 0){ pts += P("time","expired"); time = {v:"bad", label:tt.expired, tip:tt.expiredTip(lc(R))}; }
+    else if(d <= 60){ pts += P("time","short"); time = {v:"warn", label:left(d), tip:tt.shortTip}; }
+    else { pts += P("time","ok"); time = {v:"ok", label:left(d), tip:tt.insideTip(lc(R))}; }
 
     var an = analyseEvidence(c);
-    if(an.level === "none"){ pts += 2; ev = {v:"bad", label:tt.evNone, tip:tt.evNoneTip}; }
-    else if(an.level === "weak"){ pts += 1; ev = {v:"warn", label:tt.evWeak, tip:tt.evWeakTip}; }
+    pts += P("evidence", an.level);
+    if(an.level === "none") ev = {v:"bad", label:tt.evNone, tip:tt.evNoneTip};
+    else if(an.level === "weak") ev = {v:"warn", label:tt.evWeak, tip:tt.evWeakTip};
     else if(an.level === "moderate") ev = {v:"warn", label:tt.evModerate, tip:tt.evModerateTip};
     else ev = {v:"ok", label:tt.evStrong, tip:tt.evStrongTip};
-    if(c.facts.length < 160){ pts += 1; det = {v:"warn", label:tt.brief, tip:tt.briefTip}; }
-    else det = {v:"ok", label:tt.clear, tip:tt.clearTip};
+    if(c.facts.length < 160){ pts += P("detail","brief"); det = {v:"warn", label:tt.brief, tip:tt.briefTip}; }
+    else { pts += P("detail","clear"); det = {v:"ok", label:tt.clear, tip:tt.clearTip}; }
 
-    if(!c.amount){ pts += 0.5; money = {v:"warn", label:tt.notGiven, tip:tt.notGivenTip}; }
-    else if(c.amount < 1000) money = {v:"warn", label:eur(c.amount), tip:tt.smallTip};
-    else money = {v:"ok", label:eur(c.amount), tip:tt.bigTip};
+    if(!c.amount){ pts += P("amount","none"); money = {v:"warn", label:tt.notGiven, tip:tt.notGivenTip}; }
+    else if(c.amount < 1000){ pts += P("amount","small"); money = {v:"warn", label:eur(c.amount), tip:tt.smallTip}; }
+    else { pts += P("amount","large"); money = {v:"ok", label:eur(c.amount), tip:tt.bigTip}; }
 
-    return { evidence: an, level: pts >= 3 ? "high" : pts >= 1.5 ? "med" : "low", factors:[[tt.fTime,time],[tt.fEvidence,ev],[tt.fDetail,det],[tt.fAmount,money]] };
+    return { evidence: an, points: pts, level: pts >= 3 ? "high" : pts >= 1.5 ? "med" : "low", factors:[[tt.fTime,time],[tt.fEvidence,ev],[tt.fDetail,det],[tt.fAmount,money]] };
   }
   var LEVEL_CLS = {low:"l-low", med:"l-med", high:"l-high"};
 
@@ -1606,6 +1630,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       '<div><div class="meter ' + r.level + '"><i></i><i></i><i></i></div><div class="meter-ends"><span>' + esc(tt.meter[0]) + '</span><span>' + esc(tt.meter[1]) + '</span><span>' + esc(tt.meter[2]) + '</span></div></div>' +
       '<ul class="factors">' + r.factors.map(function(f){ return '<li class="factor"><b>' + esc(f[0]) + '</b><span class="verdict ' + f[1].v + '">' + esc(f[1].label) + '</span><span class="tip">' + esc(f[1].tip) + '</span></li>'; }).join("") + '</ul>' +
       evidenceHTML(r.evidence, c.area, c.area === "other" && c.areaOther ? lc(c.areaOther) : lc(area(c.area).label)) +
+      (MODEL && MODEL.active ? '<p class="fine">' + esc(tt.calibrated.replace("{n}", MODEL.n)) + '</p>' : '') +
       '<p class="fine">' + esc(tt.fine) + '</p>' +
       '<div class="actions"><button class="btn" type="button" id="rc-research">' + esc(tt.research) + '</button><button class="btn ghost" type="button" id="rc-edit">' + esc(tt.edit) + '</button></div>';
   }
