@@ -134,6 +134,9 @@ textarea{font-family:var(--serif);font-size:15px;line-height:1.5;min-height:140p
 .c-h{margin:0;font-family:var(--serif);font-size:20px;font-weight:600}
 .consent{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--ink-soft);line-height:1.45}
 .consent input{margin-top:3px;accent-color:var(--verdigris)}
+.pub-toggle{font-size:14px;color:var(--ink);font-weight:500}
+#pub-fields{display:grid;gap:14px;margin-top:12px}
+#pub-fields[hidden]{display:none}
 .c-ok{margin:0 0 10px;font-size:14px;color:var(--verdigris)}
 
 footer{border-top:1px solid var(--rule);background:var(--paper-2);font-size:12.5px;color:var(--ink-soft)}
@@ -242,8 +245,26 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
         </div>
       </fieldset>
 
+      <fieldset id="rc-pub-fs">
+        <legend data-t="legPublish">Publish to lawyers</legend>
+        <label class="consent pub-toggle"><input type="checkbox" id="rc-publish"> <span data-t="pubL">Also publish this case so verified lawyers can see it</span></label>
+        <div id="pub-fields" hidden>
+          <p class="private" style="margin:0" data-t="pubHint">When you press the button, your case is checked and published together with its full risk analysis.</p>
+          <div class="f"><label for="c-title" data-t="cTitleL">Sum it up in one line</label><input type="text" id="c-title" maxlength="120" placeholder="e.g. Fired two weeks after reporting a safety problem" data-tp="cTitlePh"></div>
+          <div class="row">
+            <div class="f"><label for="c-party" data-t="cPartyL">Who is the other side?</label>
+              <select id="c-party"><option value="A company" data-t="pCompany">A company</option><option value="My employer" data-t="pEmployer">My employer</option><option value="A private person" data-t="pPerson">A private person</option><option value="A landlord" data-t="pLandlord">A landlord</option><option value="A public body" data-t="pPublic">A public body</option></select></div>
+            <div class="f"><label for="c-region" data-t="cRegionL">Region</label><select id="c-region"><option value="" data-t="cRegionPh">Choose your region…</option><option>Abruzzo</option><option>Basilicata</option><option>Calabria</option><option>Campania</option><option>Emilia-Romagna</option><option>Friuli-Venezia Giulia</option><option>Lazio</option><option>Liguria</option><option>Lombardia</option><option>Marche</option><option>Molise</option><option>Piemonte</option><option>Puglia</option><option>Sardegna</option><option>Sicilia</option><option>Toscana</option><option>Trentino-Alto Adige</option><option>Umbria</option><option>Valle d&#39;Aosta</option><option>Veneto</option></select></div>
+            <div class="f"><label for="c-city" data-t="cCityL">City</label><input type="text" id="c-city" maxlength="60" placeholder="e.g. Milano" data-tp="cCityPh"></div>
+          </div>
+          <div class="f"><label for="c-goal" data-t="cGoalL">What outcome do you want?</label><input type="text" id="c-goal" maxlength="200" placeholder="e.g. Get my job back, or compensation" data-tp="cGoalPh"></div>
+          <label class="consent"><input type="checkbox" id="c-consent"> <span data-t="consent">I agree that verified lawyers on Casebound may read this case to decide whether to take it on.</span></label>
+        </div>
+        <p id="rc-pub-lawyer" class="private" hidden data-t="lawyerP">You're signed in with a lawyer profile.</p>
+      </fieldset>
+
       <div class="actions">
-        <button class="btn" type="submit" data-t="submit">Check my risk</button>
+        <button class="btn" type="submit" id="rc-submit" data-t="submit">Check my risk</button>
         <span id="rc-err" class="err" role="alert"></span>
       </div>
       <p class="private" data-t="private">The check runs in your browser. Nothing you type is sent anywhere unless you choose to send your case to lawyers.</p>
@@ -257,19 +278,9 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
         <h2 class="c-h" data-t="connectH">Connect with a lawyer</h2>
         <p class="private" style="margin-top:4px" data-t="connectP">Send this case to lawyers we have verified on the official register. They see what you wrote, the dates, the amount and your evidence, but not your name or email. When a lawyer wants your case, you see their profile on your <a href="/account.html">account page</a> and choose whether to share your contact details.</p>
       </div>
-      <form id="c-form" class="form" novalidate>
-        <div class="f"><label for="c-title" data-t="cTitleL">Sum it up in one line</label><input type="text" id="c-title" maxlength="120" placeholder="e.g. Fired two weeks after reporting a safety problem" data-tp="cTitlePh"></div>
-        <div class="row">
-          <div class="f"><label for="c-party" data-t="cPartyL">Who is the other side?</label>
-            <select id="c-party"><option value="A company" data-t="pCompany">A company</option><option value="My employer" data-t="pEmployer">My employer</option><option value="A private person" data-t="pPerson">A private person</option><option value="A landlord" data-t="pLandlord">A landlord</option><option value="A public body" data-t="pPublic">A public body</option></select></div>
-          <div class="f"><label for="c-region" data-t="cRegionL">Region</label><select id="c-region"><option value="" data-t="cRegionPh">Choose your region…</option><option>Abruzzo</option><option>Basilicata</option><option>Calabria</option><option>Campania</option><option>Emilia-Romagna</option><option>Friuli-Venezia Giulia</option><option>Lazio</option><option>Liguria</option><option>Lombardia</option><option>Marche</option><option>Molise</option><option>Piemonte</option><option>Puglia</option><option>Sardegna</option><option>Sicilia</option><option>Toscana</option><option>Trentino-Alto Adige</option><option>Umbria</option><option>Valle d&#39;Aosta</option><option>Veneto</option></select></div>
-          <div class="f"><label for="c-city" data-t="cCityL">City</label><input type="text" id="c-city" maxlength="60" placeholder="e.g. Milano" data-tp="cCityPh"></div>
-        </div>
-        <div class="f"><label for="c-goal" data-t="cGoalL">What outcome do you want?</label><input type="text" id="c-goal" maxlength="200" placeholder="e.g. Get my job back, or compensation" data-tp="cGoalPh"></div>
-        <label class="consent"><input type="checkbox" id="c-consent"> <span data-t="consent">I agree that verified lawyers on Casebound may read this case to decide whether to take it on. I understand that no lawyer–client relationship exists until a lawyer confirms it with me directly.</span></label>
-        <div class="actions"><button class="btn" type="submit" id="c-send" data-t="send">Send to verified lawyers</button><span id="c-err" class="err" role="alert"></span></div>
-      </form>
-      <div id="c-done" hidden><p class="c-ok" data-t="doneP"><b>Your case was sent.</b> Lawyers' replies appear on your account page.</p><div class="actions"><a class="btn" href="/account.html" data-t="goAccount">Go to my account</a></div></div>
+      <div id="c-pending"><p class="private" data-t="notPubP">This case isn't published yet.</p><div class="actions"><button class="btn" type="button" id="c-publish" data-t="pubBtn">Publish this case</button></div></div>
+      <span id="c-err" class="err" role="alert"></span>
+      <div id="c-done" hidden><p class="c-ok" data-t="donePub"><b>Your case was sent.</b> Lawyers' replies appear on your account page.</p><div class="actions"><a class="btn" href="/account.html" data-t="goAccount">Go to my account</a></div></div>
       <div id="c-lawyer" hidden><p class="private" data-t="lawyerP">You're signed in with a lawyer profile. To send a case of your own, switch to a client profile on your <a href="/account.html">account page</a>.</p></div>
     </section>
   </section>
@@ -343,6 +354,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       cRegionL:"Region", cRegionPh:"Choose your region…", cCityL:"City", cCityPh:"e.g. Milano", cGoalL:"What outcome do you want?", cGoalPh:"e.g. Get my job back, or compensation",
       consent:"I agree that verified lawyers on Casebound may read this case to decide whether to take it on. I understand that no lawyer–client relationship exists until a lawyer confirms it with me directly.",
       send:"Send to verified lawyers", doneP:"<b>Your case was sent.</b> Lawyers' replies appear on your account page.", goAccount:"Go to my account",
+      legPublish:"Publish to lawyers", pubL:"Also publish this case so verified lawyers can see it", pubHint:"When you press the button, your case is checked and published together with its full risk analysis. Lawyers never see your name or email unless you choose to share them.", submitPub:"Check my risk and publish", notPubP:"This case isn't published yet. Publish it and verified lawyers see your description together with this full analysis.", pubBtn:"Publish this case", errTitle:"Add a one-line summary of the problem.", donePub:"<b>Your case is published with its full risk analysis.</b> Verified lawyers can see it now. Their replies appear on your account page.",
       lawyerP:'You\'re signed in with a lawyer profile. To send a case of your own, switch to a client profile on your <a href="/account.html">account page</a>.',
       back:"← Back to Casebound", how:"How the risk check works", terms:"Terms of use", privacy:"Privacy notice", contact:"Contact / complaints: admin@case-bound.com",
       errFacts:"Describe what happened in a few sentences first.", errArea:"Choose what kind of problem it is.", errOther:"Tell us in a few words what kind of problem it is.",
@@ -479,6 +491,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       cRegionL:"Regione", cRegionPh:"Scegli la tua regione…", cCityL:"Città", cCityPh:"es. Milano", cGoalL:"Che risultato vuoi ottenere?", cGoalPh:"es. Riavere il mio posto di lavoro, o un risarcimento",
       consent:"Accetto che gli avvocati verificati su Casebound possano leggere questo caso per decidere se seguirlo. Capisco che non esiste alcun rapporto avvocato–cliente finché un avvocato non lo conferma direttamente con me.",
       send:"Invia ad avvocati verificati", doneP:"<b>Il tuo caso è stato inviato.</b> Le risposte degli avvocati compariranno nella pagina del tuo account.", goAccount:"Vai al mio account",
+      legPublish:"Pubblica per gli avvocati", pubL:"Pubblica anche questo caso, così gli avvocati verificati possono vederlo", pubHint:"Quando premi il pulsante, il caso viene verificato e pubblicato insieme all'analisi completa del rischio. Gli avvocati non vedono mai il tuo nome o la tua email, a meno che tu non scelga di condividerli.", submitPub:"Verifica il rischio e pubblica", notPubP:"Questo caso non è ancora pubblicato. Pubblicalo e gli avvocati verificati vedranno la tua descrizione insieme a questa analisi completa.", pubBtn:"Pubblica questo caso", errTitle:"Aggiungi un riassunto del problema in una riga.", donePub:"<b>Il tuo caso è pubblicato con l'analisi completa del rischio.</b> Gli avvocati verificati possono vederlo ora. Le loro risposte compariranno nella pagina del tuo account.",
       lawyerP:'Hai effettuato l\'accesso con un profilo da avvocato. Per inviare un tuo caso, passa a un profilo cliente nella <a href="/account.html">pagina del tuo account</a>.',
       back:"← Torna a Casebound", how:"Come funziona la verifica del rischio", terms:"Condizioni d'uso", privacy:"Informativa privacy", contact:"Contatti / reclami: admin@case-bound.com",
       errFacts:"Prima descrivi in qualche frase cosa è successo.", errArea:"Scegli che tipo di problema è.", errOther:"Dicci in poche parole che tipo di problema è.",
@@ -615,6 +628,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       cRegionL:"Región", cRegionPh:"Elige tu región…", cCityL:"Ciudad", cCityPh:"p. ej. Milano", cGoalL:"¿Qué resultado quieres conseguir?", cGoalPh:"p. ej. Recuperar mi trabajo o una indemnización",
       consent:"Acepto que los abogados verificados de Casebound puedan leer este caso para decidir si lo aceptan. Entiendo que no existe ninguna relación abogado–cliente hasta que un abogado me la confirme directamente.",
       send:"Enviar a abogados verificados", doneP:"<b>Tu caso se ha enviado.</b> Las respuestas de los abogados aparecerán en la página de tu cuenta.", goAccount:"Ir a mi cuenta",
+      legPublish:"Publicar para abogados", pubL:"Publicar también este caso para que lo vean abogados verificados", pubHint:"Al pulsar el botón, tu caso se evalúa y se publica junto con su análisis de riesgo completo. Los abogados nunca ven tu nombre ni tu correo, salvo que decidas compartirlos.", submitPub:"Evaluar mi riesgo y publicar", notPubP:"Este caso aún no está publicado. Publícalo y los abogados verificados verán tu descripción junto con este análisis completo.", pubBtn:"Publicar este caso", errTitle:"Añade un resumen del problema en una línea.", donePub:"<b>Tu caso está publicado con su análisis de riesgo completo.</b> Los abogados verificados ya pueden verlo. Sus respuestas aparecerán en la página de tu cuenta.",
       lawyerP:'Has iniciado sesión con un perfil de abogado. Para enviar un caso propio, cambia a un perfil de cliente en la <a href="/account.html">página de tu cuenta</a>.',
       back:"← Volver a Casebound", how:"Cómo funciona la evaluación de riesgo", terms:"Condiciones de uso", privacy:"Aviso de privacidad", contact:"Contacto / reclamaciones: admin@case-bound.com",
       errFacts:"Primero describe en unas frases lo que pasó.", errArea:"Elige qué tipo de problema es.", errOther:"Dinos en pocas palabras qué tipo de problema es.",
@@ -751,6 +765,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       cRegionL:"Région", cRegionPh:"Choisissez votre région…", cCityL:"Ville", cCityPh:"ex. Milano", cGoalL:"Quel résultat souhaitez-vous ?", cGoalPh:"ex. Retrouver mon emploi, ou être indemnisé",
       consent:"J'accepte que les avocats vérifiés de Casebound puissent lire cette affaire pour décider s'ils la prennent en charge. Je comprends qu'aucune relation avocat–client n'existe tant qu'un avocat ne me l'a pas confirmée directement.",
       send:"Envoyer aux avocats vérifiés", doneP:"<b>Votre affaire a été envoyée.</b> Les réponses des avocats apparaîtront sur la page de votre compte.", goAccount:"Aller à mon compte",
+      legPublish:"Publier pour les avocats", pubL:"Publier aussi cette affaire pour que des avocats vérifiés puissent la voir", pubHint:"Quand vous appuyez sur le bouton, votre affaire est évaluée puis publiée avec son analyse de risque complète. Les avocats ne voient jamais votre nom ni votre e-mail, sauf si vous choisissez de les partager.", submitPub:"Évaluer mon risque et publier", notPubP:"Cette affaire n'est pas encore publiée. Publiez-la et les avocats vérifiés verront votre description avec cette analyse complète.", pubBtn:"Publier cette affaire", errTitle:"Ajoutez un résumé du problème en une ligne.", donePub:"<b>Votre affaire est publiée avec son analyse de risque complète.</b> Les avocats vérifiés peuvent la voir dès maintenant. Leurs réponses apparaîtront sur la page de votre compte.",
       lawyerP:'Vous êtes connecté avec un profil d\'avocat. Pour envoyer votre propre affaire, passez à un profil client sur la <a href="/account.html">page de votre compte</a>.',
       back:"← Retour à Casebound", how:"Fonctionnement de l'évaluation du risque", terms:"Conditions d'utilisation", privacy:"Politique de confidentialité", contact:"Contact / réclamations : admin@case-bound.com",
       errFacts:"Décrivez d'abord ce qui s'est passé en quelques phrases.", errArea:"Choisissez le type de problème.", errOther:"Indiquez en quelques mots de quel type de problème il s'agit.",
@@ -887,6 +902,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       cRegionL:"Region", cRegionPh:"Wähle deine Region…", cCityL:"Stadt", cCityPh:"z. B. Milano", cGoalL:"Welches Ergebnis möchtest du erreichen?", cGoalPh:"z. B. Meinen Job zurückbekommen oder eine Entschädigung",
       consent:"Ich bin einverstanden, dass verifizierte Anwälte auf Casebound diesen Fall lesen, um zu entscheiden, ob sie ihn übernehmen. Mir ist bewusst, dass kein Mandatsverhältnis besteht, bis ein Anwalt es mir direkt bestätigt.",
       send:"An verifizierte Anwälte senden", doneP:"<b>Dein Fall wurde gesendet.</b> Antworten der Anwälte erscheinen auf deiner Kontoseite.", goAccount:"Zu meinem Konto",
+      legPublish:"Für Anwälte veröffentlichen", pubL:"Diesen Fall auch veröffentlichen, damit verifizierte Anwälte ihn sehen", pubHint:"Wenn du den Button drückst, wird dein Fall geprüft und zusammen mit der vollständigen Risikoanalyse veröffentlicht. Anwälte sehen deinen Namen und deine E-Mail nie, es sei denn, du gibst sie frei.", submitPub:"Risiko prüfen und veröffentlichen", notPubP:"Dieser Fall ist noch nicht veröffentlicht. Veröffentliche ihn, und verifizierte Anwälte sehen deine Beschreibung zusammen mit dieser vollständigen Analyse.", pubBtn:"Diesen Fall veröffentlichen", errTitle:"Fasse das Problem in einer Zeile zusammen.", donePub:"<b>Dein Fall ist mit der vollständigen Risikoanalyse veröffentlicht.</b> Verifizierte Anwälte können ihn jetzt sehen. Ihre Antworten erscheinen auf deiner Kontoseite.",
       lawyerP:'Du bist mit einem Anwaltsprofil angemeldet. Um einen eigenen Fall zu senden, wechsle auf deiner <a href="/account.html">Kontoseite</a> zu einem Mandantenprofil.',
       back:"← Zurück zu Casebound", how:"So funktioniert der Risikocheck", terms:"Nutzungsbedingungen", privacy:"Datenschutzhinweis", contact:"Kontakt / Beschwerden: admin@case-bound.com",
       errFacts:"Beschreibe zuerst in ein paar Sätzen, was passiert ist.", errArea:"Wähle aus, um welche Art von Problem es geht.", errOther:"Sag uns in wenigen Worten, um welche Art von Problem es geht.",
@@ -1023,6 +1039,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       cRegionL:"Região", cRegionPh:"Escolha a sua região…", cCityL:"Cidade", cCityPh:"ex. Milano", cGoalL:"Que resultado pretende?", cGoalPh:"ex. Recuperar o meu emprego, ou uma indemnização",
       consent:"Aceito que os advogados verificados no Casebound possam ler este caso para decidir se o aceitam. Compreendo que não existe qualquer relação advogado–cliente até que um advogado ma confirme diretamente.",
       send:"Enviar a advogados verificados", doneP:"<b>O seu caso foi enviado.</b> As respostas dos advogados aparecem na página da sua conta.", goAccount:"Ir para a minha conta",
+      legPublish:"Publicar para advogados", pubL:"Publicar também este caso para que advogados verificados o possam ver", pubHint:"Ao carregar no botão, o seu caso é avaliado e publicado com a análise de risco completa. Os advogados nunca veem o seu nome nem o seu e-mail, a menos que decida partilhá-los.", submitPub:"Avaliar o meu risco e publicar", notPubP:"Este caso ainda não está publicado. Publique-o e os advogados verificados verão a sua descrição juntamente com esta análise completa.", pubBtn:"Publicar este caso", errTitle:"Acrescente um resumo do problema numa linha.", donePub:"<b>O seu caso está publicado com a análise de risco completa.</b> Os advogados verificados já o podem ver. As respostas aparecem na página da sua conta.",
       lawyerP:'Iniciou sessão com um perfil de advogado. Para enviar um caso seu, mude para um perfil de cliente na <a href="/account.html">página da sua conta</a>.',
       back:"← Voltar ao Casebound", how:"Como funciona a avaliação de risco", terms:"Termos de utilização", privacy:"Aviso de privacidade", contact:"Contacto / reclamações: admin@case-bound.com",
       errFacts:"Primeiro, descreva em algumas frases o que aconteceu.", errArea:"Escolha o tipo de problema.", errOther:"Diga-nos em poucas palavras que tipo de problema é.",
@@ -1159,6 +1176,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       cRegionL:"Region", cRegionPh:"Wybierz swój region…", cCityL:"Miasto", cCityPh:"np. Milano", cGoalL:"Jaki wynik chcesz osiągnąć?", cGoalPh:"np. Powrót do pracy albo odszkodowanie",
       consent:"Zgadzam się, aby zweryfikowani prawnicy w Casebound mogli przeczytać tę sprawę i zdecydować, czy ją przyjąć. Rozumiem, że relacja prawnik–klient nie powstaje, dopóki prawnik nie potwierdzi jej bezpośrednio ze mną.",
       send:"Wyślij do zweryfikowanych prawników", doneP:"<b>Twoja sprawa została wysłana.</b> Odpowiedzi prawników pojawią się na stronie twojego konta.", goAccount:"Przejdź do konta",
+      legPublish:"Opublikuj dla prawników", pubL:"Opublikuj też tę sprawę, aby zweryfikowani prawnicy mogli ją zobaczyć", pubHint:"Po naciśnięciu przycisku sprawa zostanie oceniona i opublikowana razem z pełną analizą ryzyka. Prawnicy nigdy nie widzą twojego imienia ani e-maila, chyba że zdecydujesz się je udostępnić.", submitPub:"Oceń ryzyko i opublikuj", notPubP:"Ta sprawa nie jest jeszcze opublikowana. Opublikuj ją, a zweryfikowani prawnicy zobaczą twój opis razem z tą pełną analizą.", pubBtn:"Opublikuj tę sprawę", errTitle:"Dodaj jednozdaniowe podsumowanie problemu.", donePub:"<b>Twoja sprawa jest opublikowana z pełną analizą ryzyka.</b> Zweryfikowani prawnicy już ją widzą. Ich odpowiedzi pojawią się na stronie twojego konta.",
       lawyerP:'Jesteś zalogowany z profilem prawnika. Aby wysłać własną sprawę, przełącz się na profil klienta na <a href="/account.html">stronie konta</a>.',
       back:"← Wróć do Casebound", how:"Jak działa ocena ryzyka", terms:"Warunki korzystania", privacy:"Informacja o prywatności", contact:"Kontakt / reklamacje: admin@case-bound.com",
       errFacts:"Najpierw opisz w kilku zdaniach, co się stało.", errArea:"Wybierz rodzaj problemu.", errOther:"Napisz w kilku słowach, jakiego rodzaju to problem.",
@@ -1299,6 +1317,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       cRegionL:"المنطقة", cRegionPh:"اختر منطقتك…", cCityL:"المدينة", cCityPh:"مثلًا Milano", cGoalL:"ما النتيجة التي تريدها؟", cGoalPh:"مثلًا: استعادة وظيفتي أو الحصول على تعويض",
       consent:"أوافق على أن يقرأ المحامون الموثَّقون في Casebound هذه القضية ليقرروا ما إذا كانوا سيتولونها. وأفهم أنه لا تنشأ أي علاقة بين محامٍ وعميل إلى أن يؤكدها لي محامٍ مباشرةً.",
       send:"أرسل إلى محامين موثَّقين", doneP:"<b>أُرسلت قضيتك.</b> تظهر ردود المحامين في صفحة حسابك.", goAccount:"انتقل إلى حسابي",
+      legPublish:"النشر للمحامين", pubL:"انشر هذه القضية أيضًا ليتمكن المحامون الموثَّقون من رؤيتها", pubHint:"عند الضغط على الزر، تُقيَّم قضيتك وتُنشر مع تحليل المخاطر الكامل. لا يرى المحامون اسمك أو بريدك الإلكتروني أبدًا إلا إذا اخترت مشاركتهما.", submitPub:"قيِّم المخاطر وانشر", notPubP:"هذه القضية غير منشورة بعد. انشرها وسيرى المحامون الموثَّقون وصفك مع هذا التحليل الكامل.", pubBtn:"انشر هذه القضية", errTitle:"أضف ملخصًا للمشكلة في سطر واحد.", donePub:"<b>نُشرت قضيتك مع تحليل المخاطر الكامل.</b> يمكن للمحامين الموثَّقين رؤيتها الآن. تظهر ردودهم في صفحة حسابك.",
       lawyerP:'لقد سجلت الدخول بملف محامٍ. لإرسال قضية خاصة بك، انتقل إلى ملف عميل في <a href="/account.html">صفحة حسابك</a>.',
       back:"→ العودة إلى Casebound", how:"كيف يعمل تقييم المخاطر", terms:"شروط الاستخدام", privacy:"إشعار الخصوصية", contact:"التواصل / الشكاوى: admin@case-bound.com",
       errFacts:"صِف أولًا ما حدث في بضع جمل.", errArea:"اختر نوع المشكلة.", errOther:"أخبرنا في كلمات قليلة عن نوع المشكلة.",
@@ -1561,6 +1580,24 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
   }
   var LEVEL_CLS = {low:"l-low", med:"l-med", high:"l-high"};
 
+  /* The whole analysis as plain text and codes, sent with a published case so lawyers see exactly what the client saw. */
+  function analysisSnapshot(c){
+    var tt = t(), r = check(c), L = tt.level[r.level], a = r.evidence, EL = tt.evLevel[a.level], names = tt.key[c.area] || tt.key.other;
+    var areaLabel = c.area === "other" && c.areaOther ? lc(c.areaOther) : lc(area(c.area).label);
+    return {
+      lang: lang, level: r.level, label: L[0], headline: L[1],
+      factors: r.factors.map(function(f){ return {name:f[0], v:f[1].v, label:f[1].label, tip:f[1].tip}; }),
+      evidence: {
+        level: a.level, label: EL[0], headline: EL[1], text: EL[2],
+        have: a.items.map(function(i){ var e = tt.ev[i.id]; return {name:e[0], strong:i.s === "strong", tip:e[1]}; }),
+        wantH: tt.wantFor(areaLabel),
+        want: a.key.map(function(has, n){ return {name:names[n], has:!!has}; }),
+        warn: a.weak.map(function(w){ return typeof w === "number" ? tt.weak[w] : tt[w]; })
+      },
+      note: tt.fine
+    };
+  }
+
   function renderResult(c){
     var tt = t(), r = check(c), L = tt.level[r.level];
     c.level = r.level; c.evidenceLevel = r.evidence.level;
@@ -1591,22 +1628,21 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       if(k === "other" && wasHidden) $("rc-other").focus();
     };
     $("rc-area").addEventListener("change", setLabel); setLabel();
-    $("rc-form").addEventListener("input", function(){ $("result").hidden = true; $("result-empty").hidden = false; $("connect").hidden = true; });
-    $("c-form").addEventListener("submit", function(e){
-      e.preventDefault();
-      if(!last) return;
-      setErr("c-err");
-      if(!$("c-region").value){ setErr("c-err", "errRegion"); $("c-region").focus(); return; }
-      if(!$("c-consent").checked){ setErr("c-err", "errConsent"); return; }
-      var btn = $("c-send"); btn.disabled = true;
-      var data = { area:last.area, areaOther:last.areaOther, facts:last.facts, date:last.date, amount:last.amount, evidence:last.evidence, evidenceNote:last.evidenceNote,
-        title:$("c-title").value, party:$("c-party").value, city:$("c-city").value, region:$("c-region").value, checkLevel:last.level, evidenceLevel:last.evidenceLevel, goal:$("c-goal").value, consent:true };
-      fetch("/api/cases/submit", { method:"POST", credentials:"same-origin", headers:{"Content-Type":"application/json"}, body: JSON.stringify(data) })
-        .then(function(r){ return r.json().then(function(j){ if(!r.ok){ var x = new Error(j.error || ""); x.server = !!j.error; throw x; } return j; }); })
-        .then(function(){ $("c-form").hidden = true; $("c-done").hidden = false; })
-        .catch(function(er){ if(er && er.server) setErr("c-err", null, er.message); else setErr("c-err", "errSend"); })
-        .then(function(){ btn.disabled = false; });
+    $("rc-form").addEventListener("input", function(e){ if(e.target.closest && e.target.closest("#rc-pub-fs")) return; $("result").hidden = true; $("result-empty").hidden = false; $("connect").hidden = true; });
+    var pubToggle = function(){
+      var on = $("rc-publish").checked;
+      $("pub-fields").hidden = !on;
+      $("rc-submit").textContent = on ? t().submitPub : t().submit;
+    };
+    $("rc-publish").addEventListener("change", function(){ pubToggle(); if($("rc-publish").checked) $("c-title").focus(); });
+    $("c-publish").addEventListener("click", function(){
+      $("rc-publish").checked = true; pubToggle();
+      $("rc-pub-fs").scrollIntoView({behavior:"smooth", block:"start"});
+      setTimeout(function(){ $("c-title").focus(); }, 350);
     });
+    if(ROLE === "lawyer"){ $("rc-publish").disabled = true; $("rc-pub-lawyer").hidden = false; }
+    else if(location.hash === "#connect"){ $("rc-publish").checked = true; }
+    pubToggle();
     $("rc-form").addEventListener("submit", function(e){
       e.preventDefault();
       var facts = $("rc-facts").value.trim();
@@ -1614,6 +1650,12 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       if(!$("rc-area").value){ setErr("rc-err", "errArea"); $("rc-area").focus(); return; }
       var other = $("rc-other").value.trim();
       if($("rc-area").value === "other" && other.length < 3){ setErr("rc-err", "errOther"); $("rc-other").focus(); return; }
+      var pub = $("rc-publish").checked && ROLE !== "lawyer";
+      if(pub){
+        if($("c-title").value.trim().length < 6){ setErr("rc-err", "errTitle"); $("c-title").focus(); return; }
+        if(!$("c-region").value){ setErr("rc-err", "errRegion"); $("c-region").focus(); return; }
+        if(!$("c-consent").checked){ setErr("rc-err", "errConsent"); $("c-consent").focus(); return; }
+      }
       setErr("rc-err");
       var c = {
         area: $("rc-area").value, areaOther: $("rc-area").value === "other" ? other : "", facts: facts, date: $("rc-date").value || null,
@@ -1625,9 +1667,25 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       renderResult(c);
       $("result").hidden = false; $("result-empty").hidden = true;
       $("connect").hidden = false; $("c-done").hidden = true;
-      $("c-form").hidden = ROLE === "lawyer"; $("c-lawyer").hidden = ROLE !== "lawyer";
+      $("c-pending").hidden = ROLE === "lawyer" || pub; $("c-lawyer").hidden = ROLE !== "lawyer";
       $("result").scrollIntoView({behavior:"smooth", block:"start"});
+      if(pub) publish(c);
     });
+    function publish(c){
+      var btn = $("rc-submit"); btn.disabled = true;
+      var data = { area:c.area, areaOther:c.areaOther, facts:c.facts, date:c.date, amount:c.amount, evidence:c.evidence, evidenceNote:c.evidenceNote,
+        title:$("c-title").value, party:$("c-party").value, city:$("c-city").value, region:$("c-region").value, goal:$("c-goal").value,
+        checkLevel:c.level, evidenceLevel:c.evidenceLevel, analysis:analysisSnapshot(c), consent:true };
+      fetch("/api/cases/submit", { method:"POST", credentials:"same-origin", headers:{"Content-Type":"application/json"}, body: JSON.stringify(data) })
+        .then(function(r){ return r.json().then(function(j){ if(!r.ok){ var x = new Error(j.error || ""); x.server = !!j.error; throw x; } return j; }); })
+        .then(function(){
+          $("c-pending").hidden = true; $("c-done").hidden = false; setErr("c-err");
+          /* Published: untick so editing and re-checking doesn't post the same case twice. */
+          $("rc-publish").checked = false; $("c-consent").checked = false; pubToggle();
+        })
+        .catch(function(er){ $("c-pending").hidden = false; if(er && er.server) setErr("c-err", null, er.message); else setErr("c-err", "errSend"); })
+        .then(function(){ btn.disabled = false; });
+    }
     $("result").addEventListener("click", function(e){
       if(e.target.id === "rc-edit"){ $("result").hidden = true; $("result-empty").hidden = false; $("connect").hidden = true; $("rc-facts").focus(); }
       if(e.target.id === "rc-research"){
@@ -1651,7 +1709,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
     $("top-account").textContent = SIGNED ? tt.account : tt.signIn;
     $("signin-link").textContent = SIGNED ? tt.manage : tt.havePro;
     document.querySelectorAll("#rc-evidence [data-ev]").forEach(function(el){ var e = EVIDENCE[+el.getAttribute("data-ev")]; el.textContent = tt.evid[e] || e; });
-    if(BUILT){ fillAreas(); setDateLabel(); }
+    if(BUILT){ fillAreas(); setDateLabel(); $("rc-submit").textContent = $("rc-publish").checked ? tt.submitPub : tt.submit; }
     Object.keys(ERR).forEach(function(id){ if(ERR[id]) $(id).textContent = tt[ERR[id]]; });
     if(last && !$("result").hidden) renderResult(last);
   }

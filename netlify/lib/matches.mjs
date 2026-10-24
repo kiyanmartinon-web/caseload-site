@@ -60,7 +60,35 @@ export function cleanCase(b) {
       checkLevel: ["low", "med", "high"].includes(b.checkLevel) ? b.checkLevel : "",
       evidenceLevel: ["strong", "moderate", "weak", "none"].includes(b.evidenceLevel) ? b.evidenceLevel : "",
       goal: clip(b.goal, 200),
+      analysis: cleanAnalysis(b.analysis),
     },
+  };
+}
+
+// The client's full risk-check result, generated in the browser when the case is published.
+// Kept as plain text in the client's language (lawyers see what the client saw); everything is clipped.
+const LANGS = ["en", "it", "es", "fr", "de", "pt", "pl", "ar"];
+function cleanAnalysis(a) {
+  if (!a || typeof a !== "object") return null;
+  const arr = (v, n) => (Array.isArray(v) ? v.slice(0, n) : []);
+  const pick = (v, list) => (list.includes(v) ? v : "");
+  const level = pick(a.level, ["low", "med", "high"]);
+  if (!level) return null;
+  const ev = a.evidence && typeof a.evidence === "object" ? a.evidence : {};
+  return {
+    lang: pick(a.lang, LANGS) || "en",
+    level, label: clip(a.label, 60), headline: clip(a.headline, 200),
+    factors: arr(a.factors, 6).map((f) => ({ name: clip(f && f.name, 60), v: pick(f && f.v, ["ok", "warn", "bad"]) || "warn", label: clip(f && f.label, 80), tip: clip(f && f.tip, 400) })),
+    evidence: {
+      level: pick(ev.level, ["strong", "moderate", "weak", "none"]),
+      label: clip(ev.label, 60), headline: clip(ev.headline, 200), text: clip(ev.text, 600),
+      have: arr(ev.have, 15).map((h) => ({ name: clip(h && h.name, 80), strong: !!(h && h.strong), tip: clip(h && h.tip, 300) })),
+      wantH: clip(ev.wantH, 160),
+      want: arr(ev.want, 8).map((w) => ({ name: clip(w && w.name, 120), has: !!(w && w.has) })),
+      warn: arr(ev.warn, 8).map((w) => clip(w, 300)).filter(Boolean),
+    },
+    note: clip(a.note, 400),
+    at: new Date().toISOString(),
   };
 }
 

@@ -128,6 +128,17 @@ input[type=text],select,textarea{width:100%;background:var(--paper-2);border:1px
 .flags li{font-size:12.5px;padding:7px 10px;border-radius:5px;background:var(--amber-wash);color:var(--amber);line-height:1.4}
 .flags li.bad{background:var(--oxblood-wash);color:var(--oxblood)}
 .flags li.ok{background:var(--verdigris-wash);color:var(--verdigris)}
+.an{border:1px solid var(--rule-soft);border-radius:8px;padding:12px 14px;display:grid;gap:10px}
+.an h3{font-size:14px;margin:0;line-height:1.35}
+.an-top{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.an-f{display:grid;gap:6px;margin:0;padding:0;list-style:none}
+.an-f li{font-size:12.5px;line-height:1.4;display:grid;grid-template-columns:auto 1fr;gap:2px 8px}
+.an-f li b{grid-column:1}
+.an-f li .v{grid-column:2;justify-self:start;font-weight:600}
+.an-f li .tp{grid-column:1/-1;color:var(--ink-soft)}
+.an-f .v.ok{color:var(--verdigris)}.an-f .v.warn{color:var(--amber)}.an-f .v.bad{color:var(--oxblood)}
+.an-key{display:grid;gap:3px;margin:0;padding:0;list-style:none;font-size:12.5px}
+.an-key li.miss{color:var(--ink-soft)}
 .contact{background:var(--verdigris-wash);color:var(--verdigris);border-radius:5px;padding:10px 12px;font-size:13px}
 .contact b{color:var(--ink)}
 .rate{display:grid;gap:12px;border-top:1px solid var(--rule-soft);padding-top:14px}
@@ -287,6 +298,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       otherSide:"Other side", location:"Location", atStake:"At stake", keyDate:"Key date", timeLimit:"Time limit", wants:"Wants", sent:"Sent",
       others:function(n){ return P(n, {one:"# other lawyer interested", other:"# other lawyers interested"}); },
       evidenceH:"Evidence", noneListed:"None listed", autoChecks:"Automatic checks",
+      anH:"Client's risk check — full analysis", anNote:"Generated automatically when the client published the case. It is a guide, not a legal opinion.", anLang:function(l){ return "Written in {lang}, the client's language.".replace("{lang}", l); }, anEv:"Evidence",
       adminB:"Admin view.", adminT:"You can read every open case. Only verified lawyers can rate cases or contact clients.",
       prevB:"Admin preview.", prevT:"This is exactly what a verified lawyer sees. Your ratings and choices stay in this browser and are not sent to the client.",
       yourRating:"Your rating (only you see it)", qStrength:"How strong is the claim?", weak:"Weak", strong:"Strong", qQuality:"How good is the evidence?", thin:"Thin", solid:"Solid",
@@ -373,6 +385,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       otherSide:"Controparte", location:"Luogo", atStake:"In gioco", keyDate:"Data chiave", timeLimit:"Termine", wants:"Chiede", sent:"Inviato",
       others:function(n){ return P(n, {one:"# altro avvocato interessato", other:"altri # avvocati interessati"}); },
       evidenceH:"Prove", noneListed:"Nessuna indicata", autoChecks:"Controlli automatici",
+      anH:"Verifica del rischio del cliente — analisi completa", anNote:"Generata automaticamente quando il cliente ha pubblicato il caso. È un orientamento, non un parere legale.", anLang:function(l){ return "Scritta in {lang}, la lingua del cliente.".replace("{lang}", l); }, anEv:"Prove",
       adminB:"Vista amministratore.", adminT:"Puoi leggere tutti i casi aperti. Solo gli avvocati verificati possono valutare i casi o contattare i clienti.",
       prevB:"Anteprima amministratore.", prevT:"È esattamente ciò che vede un avvocato verificato. Le tue valutazioni e scelte restano in questo browser e non vengono inviate al cliente.",
       yourRating:"La tua valutazione (la vedi solo tu)", qStrength:"Quanto è fondata la pretesa?", weak:"Debole", strong:"Forte", qQuality:"Quanto sono valide le prove?", thin:"Scarse", solid:"Solide",
@@ -458,6 +471,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       otherSide:"Parte contraria", location:"Lugar", atStake:"En juego", keyDate:"Fecha clave", timeLimit:"Plazo", wants:"Quiere", sent:"Enviado",
       others:function(n){ return P(n, {one:"# otro abogado interesado", other:"# otros abogados interesados"}); },
       evidenceH:"Pruebas", noneListed:"Ninguna indicada", autoChecks:"Comprobaciones automáticas",
+      anH:"Evaluación de riesgo del cliente — análisis completo", anNote:"Generado automáticamente cuando el cliente publicó el caso. Es una orientación, no un dictamen jurídico.", anLang:function(l){ return "Escrito en {lang}, el idioma del cliente.".replace("{lang}", l); }, anEv:"Pruebas",
       adminB:"Vista de administrador.", adminT:"Puedes leer todos los casos abiertos. Solo los abogados verificados pueden valorar casos o contactar con clientes.",
       prevB:"Vista previa de administrador.", prevT:"Esto es exactamente lo que ve un abogado verificado. Tus valoraciones y decisiones se quedan en este navegador y no se envían al cliente.",
       yourRating:"Tu valoración (solo la ves tú)", qStrength:"¿Qué solidez tiene la pretensión?", weak:"Débil", strong:"Sólida", qQuality:"¿Qué calidad tienen las pruebas?", thin:"Escasas", solid:"Sólidas",
@@ -543,6 +557,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       otherSide:"Partie adverse", location:"Lieu", atStake:"En jeu", keyDate:"Date clé", timeLimit:"Délai", wants:"Souhaite", sent:"Envoyée",
       others:function(n){ return P(n, {one:"# autre avocat intéressé", other:"# autres avocats intéressés"}); },
       evidenceH:"Preuves", noneListed:"Aucune indiquée", autoChecks:"Vérifications automatiques",
+      anH:"Évaluation du risque du client — analyse complète", anNote:"Générée automatiquement lors de la publication de l'affaire par le client. C'est une indication, pas un avis juridique.", anLang:function(l){ return "Rédigée en {lang}, la langue du client.".replace("{lang}", l); }, anEv:"Preuves",
       adminB:"Vue administrateur.", adminT:"Vous pouvez lire toutes les affaires ouvertes. Seuls les avocats vérifiés peuvent évaluer les affaires ou contacter les clients.",
       prevB:"Aperçu administrateur.", prevT:"C'est exactement ce que voit un avocat vérifié. Vos évaluations et vos choix restent dans ce navigateur et ne sont pas envoyés au client.",
       yourRating:"Votre évaluation (vous seul la voyez)", qStrength:"La demande est-elle solide ?", weak:"Faible", strong:"Solide", qQuality:"Les preuves sont-elles bonnes ?", thin:"Minces", solid:"Solides",
@@ -628,6 +643,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       otherSide:"Gegenseite", location:"Ort", atStake:"Streitwert", keyDate:"Stichtag", timeLimit:"Frist", wants:"Ziel", sent:"Gesendet",
       others:function(n){ return P(n, {one:"# weiterer Anwalt interessiert", other:"# weitere Anwälte interessiert"}); },
       evidenceH:"Beweise", noneListed:"Keine angegeben", autoChecks:"Automatische Prüfungen",
+      anH:"Risiko-Check des Mandanten — vollständige Analyse", anNote:"Automatisch erstellt, als der Mandant den Fall veröffentlicht hat. Eine Orientierung, kein Rechtsgutachten.", anLang:function(l){ return "Verfasst auf {lang}, der Sprache des Mandanten.".replace("{lang}", l); }, anEv:"Beweise",
       adminB:"Admin-Ansicht.", adminT:"Du kannst alle offenen Fälle lesen. Nur verifizierte Anwälte können Fälle bewerten oder Mandanten kontaktieren.",
       prevB:"Admin-Vorschau.", prevT:"Genau das sieht ein verifizierter Anwalt. Deine Bewertungen und Entscheidungen bleiben in diesem Browser und werden nicht an den Mandanten gesendet.",
       yourRating:"Deine Bewertung (nur du siehst sie)", qStrength:"Wie stark ist der Anspruch?", weak:"Schwach", strong:"Stark", qQuality:"Wie gut sind die Beweise?", thin:"Dünn", solid:"Solide",
@@ -713,6 +729,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       otherSide:"Parte contrária", location:"Local", atStake:"Em causa", keyDate:"Data-chave", timeLimit:"Prazo", wants:"Pretende", sent:"Enviado",
       others:function(n){ return P(n, {one:"# outro advogado interessado", other:"# outros advogados interessados"}); },
       evidenceH:"Provas", noneListed:"Nenhuma indicada", autoChecks:"Verificações automáticas",
+      anH:"Avaliação de risco do cliente — análise completa", anNote:"Gerada automaticamente quando o cliente publicou o caso. É uma orientação, não um parecer jurídico.", anLang:function(l){ return "Escrita em {lang}, a língua do cliente.".replace("{lang}", l); }, anEv:"Provas",
       adminB:"Vista de administrador.", adminT:"Pode ler todos os casos abertos. Só os advogados verificados podem avaliar casos ou contactar clientes.",
       prevB:"Pré-visualização de administrador.", prevT:"É exatamente isto que um advogado verificado vê. As suas avaliações e escolhas ficam neste navegador e não são enviadas ao cliente.",
       yourRating:"A sua avaliação (visível apenas para si)", qStrength:"Qual a solidez da pretensão?", weak:"Fraca", strong:"Sólida", qQuality:"Qual a qualidade das provas?", thin:"Escassas", solid:"Sólidas",
@@ -798,6 +815,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       otherSide:"Druga strona", location:"Miejsce", atStake:"Wartość sporu", keyDate:"Kluczowa data", timeLimit:"Termin", wants:"Oczekuje", sent:"Wysłano",
       others:function(n){ return "inni zainteresowani prawnicy: " + num(n); },
       evidenceH:"Dowody", noneListed:"Nie wskazano", autoChecks:"Automatyczne kontrole",
+      anH:"Ocena ryzyka klienta — pełna analiza", anNote:"Wygenerowana automatycznie, gdy klient opublikował sprawę. To wskazówka, a nie opinia prawna.", anLang:function(l){ return "Napisana w języku: {lang} (język klienta).".replace("{lang}", l); }, anEv:"Dowody",
       adminB:"Widok administratora.", adminT:"Możesz czytać wszystkie otwarte sprawy. Tylko zweryfikowani prawnicy mogą oceniać sprawy i kontaktować się z klientami.",
       prevB:"Podgląd administratora.", prevT:"Dokładnie to widzi zweryfikowany prawnik. Twoje oceny i decyzje zostają w tej przeglądarce i nie są wysyłane do klienta.",
       yourRating:"Twoja ocena (widzisz ją tylko ty)", qStrength:"Jak mocne jest roszczenie?", weak:"Słabe", strong:"Mocne", qQuality:"Jak dobre są dowody?", thin:"Skąpe", solid:"Solidne",
@@ -883,6 +901,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       otherSide:"الطرف الآخر", location:"المكان", atStake:"المبلغ", keyDate:"التاريخ الأساسي", timeLimit:"المهلة", wants:"يطلب", sent:"أُرسلت",
       others:function(n){ return "محامون آخرون مهتمون: " + num(n); },
       evidenceH:"الأدلة", noneListed:"لم تُذكر أدلة", autoChecks:"فحوص تلقائية",
+      anH:"تقييم المخاطر الخاص بالعميل — التحليل الكامل", anNote:"أُنشئ تلقائيًا عندما نشر العميل القضية. وهو إرشاد وليس رأيًا قانونيًا.", anLang:function(l){ return "مكتوب باللغة {lang}، لغة العميل.".replace("{lang}", l); }, anEv:"الأدلة",
       adminB:"عرض المسؤول.", adminT:"يمكنك قراءة كل القضايا المفتوحة. وحدهم المحامون الموثَّقون يمكنهم تقييم القضايا أو التواصل مع العملاء.",
       prevB:"معاينة المسؤول.", prevT:"هذا بالضبط ما يراه المحامي الموثَّق. تبقى تقييماتك واختياراتك في هذا المتصفح ولا تُرسل إلى العميل.",
       yourRating:"تقييمك (لا يراه أحد سواك)", qStrength:"ما مدى قوة الادعاء؟", weak:"ضعيف", strong:"قوي", qQuality:"ما مدى جودة الأدلة؟", thin:"شحيحة", solid:"متينة",
@@ -933,6 +952,24 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
     return I18N && I18N.isRTL() ? [a[0], a[1].replace(/\([^()]*[A-Za-z][^()]*\)/g, function(m){ return "\u2066" + m + "\u2069"; })] : a;
   }
   function evLabel(e){ return (D().ev || {})[e] || e; }
+  /* The client's full risk check, saved with the case when it was published (client's language). */
+  function analysisHTML(c){
+    var a = c.analysis; if(!a || !a.level) return "";
+    var e = a.evidence || {}, cls = {low:"p-low", med:"p-med", high:"p-high"}[a.level] || "p-unrated";
+    var evCls = {strong:"p-low", moderate:"p-med", weak:"p-high", none:"p-high"}[e.level] || "p-unrated";
+    var langName = a.lang;
+    try{ langName = new Intl.DisplayNames([lang()], {type:"language"}).of(a.lang) || a.lang; }catch(err){}
+    return '<div class="an"><p class="sec-h" style="margin:0">' + esc(t("anH")) + '</p>' +
+      '<div dir="auto" class="an-top"><span class="pill ' + cls + '">' + esc(a.label) + '</span><h3>' + esc(a.headline) + '</h3></div>' +
+      '<ul class="an-f" dir="auto">' + (a.factors || []).map(function(f){ return '<li><b>' + esc(f.name) + '</b><span class="v ' + esc(f.v) + '">' + esc(f.label) + '</span><span class="tp">' + esc(f.tip) + '</span></li>'; }).join("") + '</ul>' +
+      (e.level ? '<div dir="auto"><p class="sec-h">' + esc(t("anEv")) + '</p><div class="an-top"><span class="pill ' + evCls + '">' + esc(e.label) + '</span><h3>' + esc(e.headline) + '</h3></div>' +
+        (e.text ? '<p class="note" style="margin-top:6px">' + esc(e.text) + '</p>' : '') +
+        ((e.have || []).length ? '<ul class="an-f" style="margin-top:8px">' + e.have.map(function(h){ return '<li><b>' + esc(h.name) + '</b><span class="v ' + (h.strong ? "ok" : "warn") + '">' + (h.strong ? "●" : "○") + '</span><span class="tp">' + esc(h.tip) + '</span></li>'; }).join("") + '</ul>' : '') +
+        ((e.want || []).length ? '<p class="sec-h" style="margin-top:10px">' + esc(e.wantH) + '</p><ul class="an-key">' + e.want.map(function(w){ return '<li class="' + (w.has ? "has" : "miss") + '">' + (w.has ? "✓ " : "– ") + esc(w.name) + '</li>'; }).join("") + '</ul>' : '') +
+        ((e.warn || []).length ? '<ul class="flags" style="margin-top:10px">' + e.warn.map(function(w){ return '<li>' + esc(w) + '</li>'; }).join("") + '</ul>' : '') +
+      '</div>' : '') +
+      '<p class="note">' + esc(t("anNote")) + (a.lang !== lang() ? ' ' + esc(t("anLang", langName)) : '') + '</p></div>';
+  }
   /* Time limit in days per area of law (labels and rules are in the language dictionary above). */
   var AREAS = {
     dismissal:{days:60},
@@ -1160,6 +1197,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       '<dt>' + esc(t("timeLimit")) + '</dt><dd class="dl ' + dlClass(daysLeft(c)) + '">' + esc(dlText(c)) + '</dd><dt>' + esc(t("wants")) + '</dt><dd><bdi>' + esc(c.goal || "—") + '</bdi></dd>' +
       '<dt>' + esc(t("sent")) + '</dt><dd>' + fmt(c.createdAt) + (c.othersInterested ? ' · ' + esc(t("others", c.othersInterested)) : '') + '</dd></dl>' +
       '<div><p class="sec-h">' + esc(t("evidenceH")) + '</p><div class="tags">' + (c.evidence.length ? c.evidence.map(function(e){ return '<span class="tag">' + esc(evLabel(e)) + '</span>'; }).join("") : '<span class="tag none">' + esc(t("noneListed")) + '</span>') + '</div>' + (c.evidenceNote ? '<p class="ev-note" dir="auto">' + esc(c.evidenceNote) + '</p>' : '') + '</div>' +
+      analysisHTML(c) +
       '<div><p class="sec-h">' + esc(t("autoChecks")) + '</p><ul class="flags">' + flags(c).map(function(f){ return '<li class="' + f[0] + '">' + esc(f[1]) + '</li>'; }).join("") + '</ul></div>' +
       (ADMIN_VIEW ? '<p class="note"><b>' + esc(t("adminB")) + '</b> ' + esc(t("adminT")) + '</p>' :
       '<div class="rate">' + (PREVIEW ? '<p class="note" style="margin:0"><b>' + esc(t("prevB")) + '</b> ' + esc(t("prevT")) + '</p>' : '') + '<p class="sec-h" style="margin:0">' + esc(t("yourRating")) + '</p>' +
