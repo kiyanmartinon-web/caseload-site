@@ -47,7 +47,7 @@ h1,h2{text-wrap:balance}
 .pro-mini{font-size:9px;font-weight:700;letter-spacing:.06em;padding:1px 4px;border-radius:3px;background:var(--oxblood);color:var(--paper-2);margin-inline-start:4px;vertical-align:1px}
 @media(max-width:600px){.masthead-in{flex-wrap:wrap;row-gap:4px;padding-top:8px;padding-bottom:8px}.top-links{order:3;width:100%;margin-inline-start:0;flex-wrap:wrap;gap:12px}}
 
-main{max-width:880px;margin:0 auto;padding:34px 20px 70px}
+main{max-width:1180px;margin:0 auto;padding:0 24px 70px}
 .kicker{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--oxblood);margin:0 0 8px}
 .free-badge{font-size:10px;font-weight:700;letter-spacing:.06em;padding:2px 7px;border-radius:3px;background:var(--verdigris);color:var(--paper-2)}
 h1{font-family:var(--serif);font-size:34px;line-height:1.15;font-weight:600;margin:0 0 10px;letter-spacing:-.01em}
@@ -149,7 +149,7 @@ select{background:var(--paper);border:1px solid var(--rule);border-radius:5px;pa
 @media (prefers-reduced-motion:reduce){.spin{animation:none}}
 
 footer{border-top:1px solid var(--rule);background:var(--paper-2);font-size:12.5px;color:var(--ink-soft)}
-footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px;flex-wrap:wrap}
+footer div{max-width:1180px;margin:0 auto;padding:18px 20px;display:flex;gap:16px;flex-wrap:wrap}
 @media print{.masthead,.ask,.recent,footer,.a-actions,.save-row{display:none!important}.answer{border:0}}
 </style>
 <link rel="stylesheet" href="/brand.css">
@@ -170,9 +170,11 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
 </header>
 
 <main>
+  <div class="cb-top">
+  <div>
   <p class="kicker"><span class="free-badge" data-t="free">Free</span> <span data-t="kicker">Can I…?</span></p>
   <h1 data-t="h1">Ask whether you're allowed to do something.</h1>
-  <p class="lede" data-t="lede">Type a question in plain words. You get a yes or no, where it's allowed and where it isn't, and the conditions that come with it.</p>
+  <p class="lede cb-sub" data-t="lede">Type a question in plain words. You get a yes or no, where it's allowed and where it isn't, and the conditions that come with it.</p>
 
   <form class="ask" id="ask" novalidate>
     <label class="q-wrap" for="q">
@@ -189,6 +191,19 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
     <div class="meta"><span id="left"></span><span data-t="private">Your question is sent to our AI provider to write the answer. Casebound doesn't keep it.</span></div>
     <div id="msg" class="msg" hidden role="status"></div>
   </form>
+  </div>
+    <aside class="cb-ex" aria-hidden="true">
+      <span class="ex-tag" data-l="dEx">Example</span>
+      <p class="ex-q"><b data-l="caniPre">Can I</b> <span data-l="caniQ">record a phone call without telling the other person?</span></p>
+      <p class="ex-verdict"><i data-l="dep">It depends</i></p>
+      <ul class="ex-rows">
+        <li><b data-l="jIT">Italy</b><span class="y" data-l="cIT">Yes, if you take part in the call</span></li>
+        <li><b data-l="jDE">Germany</b><span class="n" data-l="cDE">No, recording private words without consent is a crime</span></li>
+        <li><b data-l="jUKl">United Kingdom</b><span class="y" data-l="cUK">Yes, for your own records</span></li>
+        <li><b data-l="jUS">United States</b><span class="d" data-l="cUS">Depends on the state: some need everyone's consent</span></li>
+      </ul>
+    </aside>
+  </div>
 
   <section id="answer" class="answer" hidden aria-live="polite"></section>
 
@@ -740,5 +755,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
   } catch(e){}
 })();
 </script>
+<script src="/concept-labels.js"></script>
+<script src="/landing-i18n.js" data-mode="panel"></script>
 </body>
 </html>

@@ -80,7 +80,7 @@ a.tab{text-decoration:none}
 #view-results{display:flex;flex-direction:column;overflow:hidden}
 
 /* ---------- page 1: new case ---------- */
-.start{max-width:860px;margin:0 auto;padding:40px 22px 56px}
+.start{max-width:1180px;margin:0 auto;padding:0 24px 56px}
 .brand-lockup{display:flex;align-items:center;gap:14px;margin-bottom:22px}
 .brand-mark{width:52px;height:52px;flex:0 0 auto;display:block}
 .brand-name{font-family:var(--serif);font-size:30px;font-weight:600;letter-spacing:-.01em;line-height:1;color:var(--ink)}
@@ -426,9 +426,24 @@ html[data-theme="dark"] .seg button[aria-checked="true"]{box-shadow:0 1px 2px rg
 <!-- ================= PAGE 1 — describe the case ================= -->
 <section id="view-start" class="view on" aria-label="New case" data-t-aria="tabNew">
   <div class="start">
+    <div class="cb-top">
+    <div>
+    <span class="cb-tag" data-l="lawTag">Case building</span>
     <h1 data-t="h1">Tell us about your case.</h1>
-    <p class="start-lede" data-t="lede">Describe what happened in plain words. Casebound finds the provisions and rulings that apply — from Italy, the EU, France, Germany, the UK, the US and international law — and ranks them by the legal concepts they share with your case.</p>
+    <p class="start-lede cb-sub" data-t="lede">Describe what happened in plain words. Casebound finds the provisions and rulings that apply — from Italy, the EU, France, Germany, the UK, the US and international law — and ranks them by the legal concepts they share with your case.</p>
     <p class="start-quick"><a href="/can-i.html" data-t="quickCanI">Just need a quick yes or no? Ask “Can I…?” — free →</a></p>
+    </div>
+    <aside class="cb-ex" aria-hidden="true">
+      <span class="ex-tag" data-l="dEx">Example</span>
+      <p class="ex-q case" data-l="dFact">Our supplier delivered the packaging machine six weeks late and we lost orders while we waited. Can we claim the profit we lost?</p>
+      <ul class="ex-chips"><li data-lc="delay">Delay in performance</li><li data-lc="sale_goods">Sale of goods</li><li data-lc="lost_profit">Lost profit</li></ul>
+      <ol class="ex-rows ex-rank">
+        <li><div class="cite">Victoria Laundry v Newman Industries [1949] <small data-l="jUK">UK</small></div><span class="score"><b>83</b> <span data-l="match">match</span></span><p class="gist" data-l="g1"></p></li>
+        <li><div class="cite">The Achilleas [2008] UKHL 48 <small data-l="jUK">UK</small></div><span class="score"><b>76</b> <span data-l="match">match</span></span><p class="gist" data-l="g2"></p></li>
+        <li><div class="cite">Art. 74 CISG <small data-l="jINT">International</small></div><span class="score"><b>64</b> <span data-l="match">match</span></span><p class="gist" data-l="g3"></p></li>
+      </ol>
+    </aside>
+    </div>
 
     <form class="start-card" id="start-form" novalidate>
       <div class="step">
@@ -4958,5 +4973,13 @@ window.addEventListener("message", ev=>{
   if(f) f.addEventListener("load", push);
 })();
 </script>
+<script>
+/* text typed in the homepage box arrives as ?facts=… : put it in "What happened?" */
+(function(){try{var f=new URLSearchParams(location.search).get("facts");if(!f)return;
+function fill(){var t=document.getElementById("hub-facts");if(!t)return;t.value=f.slice(0,4000);t.dispatchEvent(new Event("input",{bubbles:true}));
+history.replaceState(null,"",location.pathname+location.hash);t.focus();}
+if(document.readyState==="complete")setTimeout(fill,0);else addEventListener("load",function(){setTimeout(fill,0);});}catch(e){}})();
+</script>
+<script src="/landing-i18n.js" data-mode="panel"></script>
 </body>
 </html>

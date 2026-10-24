@@ -6,11 +6,20 @@
 <script src="/i18n.js"></script>
 <script src="/terms-gate.js" defer></script>
 <script src="/theme.js"></script>
-<script src="/view-switch.js" data-page="info"></script>
+<script src="/view-switch.js" data-page="home"></script>
 <script>
 /* the homepage opens on the chosen side: Client starts with Can I…?, Lawyer with Case building */
-(function(){function f(v){document.documentElement.setAttribute("data-side",v==="lawyer"?"lawyer":"client");}
-f(window.CaseboundView?CaseboundView.side():"client");document.addEventListener("cb:side",function(e){f(e.detail);});})();
+(function(){var R=document.documentElement,busy=0,reduced=false;
+try{reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;}catch(e){}
+function f(v){R.setAttribute("data-side",v==="lawyer"?"lawyer":"client");}
+f(window.CaseboundView?CaseboundView.side():"client");
+document.addEventListener("cb:side",function(e){
+  var v=e.detail==="lawyer"?"lawyer":"client";if(R.getAttribute("data-side")===v)return;
+  if(reduced){f(v);return;}
+  clearTimeout(busy);R.classList.remove("side-in");R.classList.add("side-out");
+  busy=setTimeout(function(){f(v);R.classList.remove("side-out");void R.offsetWidth;R.classList.add("side-in");
+    busy=setTimeout(function(){R.classList.remove("side-in");},420);},170);
+});})();
 </script>
 <script src="/shell.js" defer></script>
 <title>Casebound — find the law that decides your case</title>
@@ -48,13 +57,32 @@ html[data-theme="dark"] .found .btn.primary:hover{color:var(--ink)!important}
 
 /* ---------- the two openings: Can I…? for clients, Case building for lawyers ---------- */
 html[data-side="lawyer"] .hero-client,html:not([data-side="lawyer"]) .hero-lawyer,html:not([data-side="lawyer"]) #cani-row{display:none}
-.ans{display:flex;align-items:center;gap:10px}
-.ans i{font-style:normal;font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px;background:var(--amber-wash);color:var(--amber)}
-.hero-client .src::before{content:"";width:10px;height:10px;border:0;margin-top:9px;justify-self:center;background:var(--amber)}
-.hero-client .src.y::before{background:var(--verdigris)}
-.hero-client .src.n::before{background:var(--oxblood)}
-.hero-client .cite{color:var(--ink)}
-.hero-client .src.y .gist{color:var(--verdigris)}.hero-client .src.n .gist{color:var(--oxblood)}.hero-client .src.d .gist{color:var(--amber)}
+.hero-client,.hero-lawyer{align-items:center}
+.hero .tag{margin-bottom:18px}
+.hero-ask textarea.long{min-height:4.4em}
+/* switching side on the homepage: the opening fades out, swaps, and slides back in */
+.hero{transition:opacity .17s ease,transform .17s ease}
+html.side-out .hero{opacity:0;transform:translateY(6px)}
+html.side-in .hero{animation:heroIn .38s cubic-bezier(.3,.7,.2,1) both}
+html.side-in .hero .panel{animation:heroIn .46s .05s cubic-bezier(.3,.7,.2,1) both}
+@keyframes heroIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.hero{transition:none}html.side-in .hero,html.side-in .hero .panel{animation:none}}
+/* the lawyer example: the case and the rulings ranked for it */
+.panel .q.case{font-size:18.5px;line-height:1.4;padding-inline-end:76px;margin-bottom:14px}
+.panel .chips{margin:0 0 6px}
+.ranked{list-style:none;margin:0;padding:0}
+.ranked li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;padding:11px 0;border-top:1px solid var(--rule-soft)}
+.ranked .cite{font-size:17px}
+.ranked .score{font-size:13px;color:var(--ink-soft);white-space:nowrap;align-self:baseline}
+.ranked .score b{color:var(--ink)}
+.ranked .gist{grid-column:1/-1;font-size:14.5px}
+.hero-ask{display:grid;gap:12px;background:var(--paper-2);border:1px solid var(--rule);border-radius:14px;padding:14px;max-width:560px;box-shadow:0 24px 48px -32px color-mix(in srgb,var(--ink) 35%,transparent)}
+.hero-ask label{display:flex;align-items:flex-start;gap:10px;background:var(--paper);border:1px solid var(--rule);border-radius:var(--radius);padding:12px 14px;cursor:text}
+.hero-ask label:focus-within{border-color:var(--verdigris);box-shadow:0 0 0 1px var(--verdigris)}
+.hero-ask b{font-family:var(--law);font-size:20px;font-weight:500;color:var(--oxblood);white-space:nowrap;line-height:1.4}
+.hero-ask textarea{flex:1;min-width:0;border:0;background:none;resize:none;font:inherit;font-size:17px;line-height:1.45;color:var(--ink);padding:2px 0;outline:none}
+.hero-ask .btn{justify-self:end}
+.hero-client .panel{margin:0}
 
 /* the case file: the one bold element on the page */
 .file{background:var(--paper-2);border:1px solid var(--rule);border-radius:14px;box-shadow:0 1px 0 var(--rule-soft),0 24px 48px -28px color-mix(in srgb,var(--ink) 35%,transparent);overflow:hidden}
@@ -213,74 +241,49 @@ footer .wrap{padding-top:36px;padding-bottom:40px;display:grid;grid-template-col
 <main>
   <div class="wrap hero hero-client">
     <div>
+      <span class="tag free" data-t="caniTag">Free, 5 questions a day</span>
       <h1 data-t="caniH">Ask whether you're allowed to do something.</h1>
       <p class="sub" data-t="caniP">Type an everyday question. You get yes, no or it depends, country by country, with the conditions and the rules behind the answer.</p>
-      <div class="ctas">
-        <a class="btn primary" href="/can-i.html" data-t="ctaAsk">Ask a yes-or-no question</a>
-        <a class="btn quiet" href="/research.html" data-t="ctaCase">Describe your case</a>
-      </div>
-      <p class="fine" data-t="caniTag">Free, 5 questions a day</p>
+      <form class="hero-ask" action="/can-i.html" method="get">
+        <label><b data-t="caniPre">Can I</b><textarea name="q" rows="2" maxlength="600" data-t-ph="caniQ" placeholder="record a phone call without telling the other person?"></textarea></label>
+        <button class="btn primary" type="submit" data-t="caniGo">Check</button>
+      </form>
+      <p class="fine" data-t="caniP2">Casebound doesn't keep your question</p>
     </div>
-
-    <figure class="file" aria-labelledby="q-cap" style="margin:0">
-      <div class="file-head"><b id="q-cap" data-t="dQuestion">Your question</b><span class="ex" data-t="dEx">Example</span></div>
-      <p class="facts"><span data-t="caniPre">Can I</span> <span data-t="caniQ">record a phone call without telling the other person?</span></p>
-      <div class="recog">
-        <p data-t="dAnswer">The answer</p>
-        <div class="ans"><i data-t="dep">It depends</i></div>
-      </div>
-      <ol class="sources" aria-label="Answer by country" data-t-aria="dByCountry">
-        <li class="src y"><div class="cite" data-t="jIT">Italy</div><p class="gist" data-t="cIT">Yes, if you take part in the call</p></li>
-        <li class="src n"><div class="cite" data-t="jDE">Germany</div><p class="gist" data-t="cDE">No, recording private words without consent is a crime</p></li>
-        <li class="src y"><div class="cite" data-t="jUKl">United Kingdom</div><p class="gist" data-t="cUK">Yes, for your own records</p></li>
-        <li class="src d"><div class="cite" data-t="jUS">United States</div><p class="gist" data-t="cUS">Depends on the state: some need everyone's consent</p></li>
-      </ol>
-    </figure>
+    <div class="panel" aria-hidden="true">
+      <span class="ex corner" data-t="dEx">Example</span>
+      <p class="q"><b data-t="caniPre">Can I</b> <span data-t="caniQ">record a phone call without telling the other person?</span></p>
+      <p class="verdict"><i data-t="dep">It depends</i></p>
+      <ul class="countries">
+        <li><b data-t="jIT">Italy</b><span class="y" data-t="cIT">Yes, if you take part in the call</span></li>
+        <li><b data-t="jDE">Germany</b><span class="n" data-t="cDE">No, recording private words without consent is a crime</span></li>
+        <li><b data-t="jUKl">United Kingdom</b><span class="y" data-t="cUK">Yes, for your own records</span></li>
+        <li><b data-t="jUS">United States</b><span class="d" data-t="cUS">Depends on the state: some need everyone's consent</span></li>
+      </ul>
+    </div>
   </div>
 
   <div class="wrap hero hero-lawyer">
     <div>
+      <span class="tag pro" data-t="lawTag">Case building</span>
       <h1 data-t="h1">Tell us what happened. We'll find the law that decides it.</h1>
       <p class="sub" data-t="sub">Describe your situation in plain words. Casebound ranks the provisions and rulings that govern it, across Italy, the EU, France, Germany, the UK, the US and international law.</p>
-      <div class="ctas">
-        <a class="btn primary" href="/research.html" data-t="ctaCase">Describe your case</a>
-        <a class="btn quiet" href="/can-i.html" data-t="ctaAsk">Ask a yes-or-no question</a>
-      </div>
+      <form class="hero-ask" action="/research.html" method="get">
+        <label><textarea class="long" name="facts" rows="3" maxlength="4000" data-t-ph="dFact" placeholder="Our supplier delivered the packaging machine six weeks late and we lost orders while we waited. Can we claim the profit we lost?"></textarea></label>
+        <button class="btn primary" type="submit" data-t="lawGo">Find the law</button>
+      </form>
       <p class="fine" data-t="fine">Free to start. No card, no account.</p>
     </div>
-
-    <figure class="file" aria-labelledby="file-cap" style="margin:0">
-      <div class="file-head"><b id="file-cap" data-t="dWords">Your words</b><span class="ex" data-t="dEx">Example</span></div>
-      <p class="facts" data-t="dFact">Our supplier delivered the packaging machine six weeks late and we lost orders while we waited. Can we claim the profit we lost?</p>
-      <div class="recog">
-        <p data-t="dRecog">Legal concepts recognised in your case</p>
-        <ul class="chips">
-          <li data-c="delay">Delay in performance</li><li data-c="sale_goods">Sale of goods</li><li data-c="lost_profit">Lost profit</li>
-        </ul>
-      </div>
-      <ol class="sources" aria-label="Ranked sources" data-t-aria="dRanked">
-        <li class="src">
-          <div class="cite">Victoria Laundry v Newman Industries [1949] <small data-t="jUK">jUK</small></div>
-          <p class="gist" data-t="g1"></p>
-          <div class="shared"><span class="score"><b>83</b> <span data-t="match">match</span></span><span class="sc" data-cn="lost_profit"></span><span class="sc" data-cn="delay"></span><span class="sc" data-cn="sale_goods"></span></div>
-        </li>
-        <li class="src">
-          <div class="cite">The Achilleas [2008] UKHL 48 <small data-t="jUK">jUK</small></div>
-          <p class="gist" data-t="g2"></p>
-          <div class="shared"><span class="score"><b>76</b> <span data-t="match">match</span></span><span class="sc" data-cn="lost_profit"></span><span class="sc" data-cn="delay"></span></div>
-        </li>
-        <li class="src">
-          <div class="cite">Art. 74 CISG <small data-t="jINT">jINT</small></div>
-          <p class="gist" data-t="g3"></p>
-          <div class="shared"><span class="score"><b>64</b> <span data-t="match">match</span></span><span class="sc" data-cn="lost_profit"></span><span class="sc" data-cn="sale_goods"></span></div>
-        </li>
-        <li class="src">
-          <div class="cite">Hadley v Baxendale (1854) <small data-t="jUK">jUK</small></div>
-          <p class="gist" data-t="g4"></p>
-          <div class="shared"><span class="score"><b>55</b> <span data-t="match">match</span></span><span class="sc" data-cn="lost_profit"></span></div>
-        </li>
+    <div class="panel" aria-hidden="true">
+      <span class="ex corner" data-t="dEx">Example</span>
+      <p class="q case" data-t="dFact">Our supplier delivered the packaging machine six weeks late and we lost orders while we waited. Can we claim the profit we lost?</p>
+      <ul class="chips"><li data-c="delay">Delay in performance</li><li data-c="sale_goods">Sale of goods</li><li data-c="lost_profit">Lost profit</li></ul>
+      <ol class="ranked">
+        <li><div class="cite">Victoria Laundry v Newman Industries [1949] <small data-t="jUK">UK</small></div><span class="score"><b>83</b> <span data-t="match">match</span></span><p class="gist" data-t="g1"></p></li>
+        <li><div class="cite">The Achilleas [2008] UKHL 48 <small data-t="jUK">UK</small></div><span class="score"><b>76</b> <span data-t="match">match</span></span><p class="gist" data-t="g2"></p></li>
+        <li><div class="cite">Art. 74 CISG <small data-t="jINT">International</small></div><span class="score"><b>64</b> <span data-t="match">match</span></span><p class="gist" data-t="g3"></p></li>
       </ol>
-    </figure>
+    </div>
   </div>
 
   <section class="wrap cover" aria-labelledby="cov-h">
@@ -446,5 +449,10 @@ footer .wrap{padding-top:36px;padding-bottom:40px;display:grid;grid-template-col
 
 <script src="/concept-labels.js"></script>
 <script src="/landing-i18n.js"></script>
+<script>
+document.querySelectorAll(".hero-ask textarea").forEach(function(t){t.addEventListener("keydown",function(e){
+  if(e.key==="Enter"&&(e.metaKey||e.ctrlKey||(!e.shiftKey&&!t.classList.contains("long")))){e.preventDefault();if(t.value.trim())t.form.submit();}});});
+document.querySelectorAll(".hero-ask").forEach(function(f){f.addEventListener("submit",function(e){var t=f.querySelector("textarea");if(!t.value.trim()){e.preventDefault();t.focus();}});});
+</script>
 </body>
 </html>

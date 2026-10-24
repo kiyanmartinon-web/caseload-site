@@ -49,3 +49,42 @@ body>footer a{text-decoration:none!important;color:var(--ink-soft)!important}
 body>footer a:hover{color:var(--oxblood)!important}
 /* cards a step rounder than controls */
 :where(.plan,.ask,.answer,.card,.panel,.state){border-radius:12px}
+
+/* ---------- Client / Lawyer colour schemes ----------
+   The accent tokens follow the side chosen with the Client / Lawyer switch (html[data-side],
+   set by view-switch.js): rose for clients, blue for lawyers. Registered as colours so a
+   switch fades from one scheme to the other instead of jumping. */
+@property --oxblood{syntax:"<color>";inherits:true;initial-value:#A11D33}
+@property --oxblood-wash{syntax:"<color>";inherits:true;initial-value:#FBEAED}
+html{transition:--oxblood .45s ease,--oxblood-wash .45s ease}
+html[data-side="lawyer"]{--oxblood:#1E4FA6;--oxblood-wash:#E5EDFA}
+html[data-theme="dark"][data-side="lawyer"]{--oxblood:#8AB0F2;--oxblood-wash:#18243C}
+@media(prefers-reduced-motion:reduce){html{transition:none}}
+
+/* ---------- example panel + two-column opening, shared by the homepage, Can I…? and Case building ---------- */
+.cb-top{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:56px;align-items:center;padding-block:44px 52px}
+.cb-top h1{font-size:clamp(36px,4.6vw,58px)!important;line-height:1.03!important;letter-spacing:-.045em!important;font-weight:750!important;margin:0 0 20px!important;max-width:13ch;text-wrap:balance}
+.cb-top .cb-sub{font-family:var(--sans)!important;font-size:18.5px!important;line-height:1.5;color:var(--ink-soft);margin:0 0 26px!important;max-width:42ch}
+.cb-tag{display:inline-block;font-size:12.5px;font-weight:700;padding:3px 10px;border-radius:999px;margin-bottom:16px;background:var(--oxblood-wash);color:var(--oxblood)}
+.cb-tag.free{background:var(--verdigris-wash);color:var(--verdigris)}
+.cb-ex{position:relative;background:var(--paper-2);border:1px solid var(--rule);border-radius:14px;padding:24px;box-shadow:0 24px 48px -30px color-mix(in srgb,var(--ink) 35%,transparent)}
+.cb-ex .ex-tag{position:absolute;top:16px;inset-inline-end:16px;font-size:12px;color:var(--ink-soft);border:1px solid var(--rule);border-radius:999px;padding:1px 9px}
+.cb-ex .ex-q{font-family:var(--law);font-size:22px;line-height:1.3;margin:0 0 16px;padding-inline-end:76px}
+.cb-ex .ex-q b{color:var(--oxblood);font-weight:500}
+.cb-ex .ex-q.case{font-size:18.5px;line-height:1.4}
+.cb-ex .ex-verdict{margin:0 0 12px}
+.cb-ex .ex-verdict i{font-style:normal;font-size:13px;font-weight:700;padding:3px 10px;border-radius:999px;background:var(--amber-wash);color:var(--amber)}
+.cb-ex ul.ex-rows,.cb-ex ol.ex-rows{list-style:none;margin:0;padding:0}
+.cb-ex .ex-rows li{display:grid;grid-template-columns:130px 1fr;gap:12px;padding:10px 0;border-top:1px solid var(--rule-soft);font-size:14.5px}
+.cb-ex .ex-rows b{font-weight:650}
+.cb-ex .ex-rows .y{color:var(--verdigris)}.cb-ex .ex-rows .n{color:var(--oxblood)}.cb-ex .ex-rows .d{color:var(--amber)}
+.cb-ex .ex-chips{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin:0 0 8px;padding:0}
+.cb-ex .ex-chips li{font-size:13px;font-weight:600;padding:4px 10px;border-radius:999px;background:var(--slate-wash);color:var(--slate)}
+.cb-ex .ex-rank li{grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;padding:11px 0}
+.cb-ex .ex-rank .cite{font-family:var(--law);font-size:17px;line-height:1.25;font-weight:500}
+.cb-ex .ex-rank .cite small{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--ink-soft);margin-inline-start:6px}
+.cb-ex .ex-rank .score{font-size:13px;color:var(--ink-soft);white-space:nowrap}
+.cb-ex .ex-rank .score b{color:var(--ink)}
+.cb-ex .ex-rank .gist{grid-column:1/-1;margin:0;font-family:var(--law);font-size:14.5px;line-height:1.45;color:var(--ink-soft)}
+@media(max-width:900px){.cb-top{grid-template-columns:1fr;gap:28px;padding-block:28px 32px}.cb-ex .ex-rows li{grid-template-columns:100px 1fr}}
+@media(max-width:600px){.cb-ex{padding:18px}.cb-ex .ex-q{font-size:19px}}
