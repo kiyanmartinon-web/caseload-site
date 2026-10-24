@@ -132,6 +132,10 @@ select{background:var(--paper);border:1px solid var(--rule);border-radius:5px;pa
 .recent li button{width:100%;text-align:start;display:flex;gap:10px;align-items:center;background:var(--paper-2);border:1px solid var(--rule);border-radius:5px;padding:9px 12px;font-size:14px}
 .recent li button:hover{border-color:var(--verdigris)}
 .recent li .p-v{flex:none}
+.recent li{display:flex;gap:6px}
+.recent li > button:first-child{flex:1;min-width:0}
+.recent .x{flex:none;width:38px;justify-content:center;color:var(--ink-soft);font-size:16px}
+.recent .pj{flex:none;font-size:12px;color:var(--ink-soft)}
 .recent li span.t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
 .spin{display:inline-block;width:14px;height:14px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:sp .8s linear infinite;vertical-align:-2px;margin-inline-end:8px}
@@ -181,6 +185,11 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
 
   <section id="answer" class="answer" hidden aria-live="polite"></section>
 
+  <section id="saved" class="recent" hidden>
+    <div class="recent-h"><h2 data-t="savedH">Saved answers</h2><a class="linkish" href="/#cases" id="saved-all" data-t="seeAll">See all in Saved cases</a></div>
+    <ul id="saved-list"></ul>
+  </section>
+
   <section id="recent" class="recent" hidden>
     <div class="recent-h"><h2 data-t="recentH">Your recent questions</h2><button type="button" class="linkish" id="clear" data-t="clear">Clear</button></div>
     <ul id="recent-list"></ul>
@@ -214,6 +223,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
   /* ---------------- wording, by language ---------------- */
   var T = {
     en: {
+      savedH:"Saved answers", seeAll:"See all in Saved cases", removeL:"Remove",
       navSaved:"Saved cases", saveBtn:"Save", savedOk:"Saved", seeSaved:"See it in Saved cases →", projL:"Project", noProject:"No project", newProjectOpt:"+ New project…", promptProject:"Name the new project", notSaved:function(n){ return "The free plan keeps up to " + n + " saved items. Remove one in <a href=\"/#cases\">Saved cases</a> or <a href=\"/pricing.html\">go Pro</a> to keep more."; },
       docTitle:"Can I…? — Casebound", navAria:"Account", navResearch:"Research", navRisk:"Risk check", navPlans:"Plans", signIn:"Sign in", account:"Account",
       free:"Free", kicker:"Can I…?", h1:"Ask whether you're allowed to do something.",
@@ -235,6 +245,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       back:"← Back to Casebound", how:"How \"Can I…?\" works", terms:"Terms of use", privacyL:"Privacy notice", contact:"Contact / complaints: admin@case-bound.com"
     },
     it: {
+      savedH:"Risposte salvate", seeAll:"Vedi tutte in Casi salvati", removeL:"Rimuovi",
       navSaved:"Casi salvati", saveBtn:"Salva", savedOk:"Salvato", seeSaved:"Vedilo in Casi salvati →", projL:"Progetto", noProject:"Nessun progetto", newProjectOpt:"+ Nuovo progetto…", promptProject:"Dai un nome al nuovo progetto", notSaved:function(n){ return "Il piano gratuito conserva fino a " + n + " elementi salvati. Rimuovine uno in <a href=\"/#cases\">Casi salvati</a> oppure <a href=\"/pricing.html\">passa a Pro</a> per salvarne di più."; },
       docTitle:"Posso…? — Casebound", navAria:"Account", navResearch:"Ricerca", navRisk:"Verifica del rischio", navPlans:"Piani", signIn:"Accedi", account:"Account",
       free:"Gratis", kicker:"Posso…?", h1:"Chiedi se puoi fare una cosa.",
@@ -256,6 +267,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       back:"← Torna a Casebound", how:"Come funziona \"Posso…?\"", terms:"Termini d'uso", privacyL:"Informativa privacy", contact:"Contatti / reclami: admin@case-bound.com"
     },
     es: {
+      savedH:"Respuestas guardadas", seeAll:"Ver todas en Casos guardados", removeL:"Eliminar",
       navSaved:"Casos guardados", saveBtn:"Guardar", savedOk:"Guardado", seeSaved:"Verlo en Casos guardados →", projL:"Proyecto", noProject:"Sin proyecto", newProjectOpt:"+ Nuevo proyecto…", promptProject:"Pon nombre al nuevo proyecto", notSaved:function(n){ return "El plan gratuito guarda hasta " + n + " elementos. Elimina uno en <a href=\"/#cases\">Casos guardados</a> o <a href=\"/pricing.html\">hazte Pro</a> para guardar más."; },
       docTitle:"¿Puedo…? — Casebound", navAria:"Cuenta", navResearch:"Investigación", navRisk:"Evaluación de riesgo", navPlans:"Planes", signIn:"Iniciar sesión", account:"Cuenta",
       free:"Gratis", kicker:"¿Puedo…?", h1:"Pregunta si puedes hacer algo.",
@@ -277,6 +289,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       back:"← Volver a Casebound", how:"Cómo funciona \"¿Puedo…?\"", terms:"Condiciones de uso", privacyL:"Aviso de privacidad", contact:"Contacto / reclamaciones: admin@case-bound.com"
     },
     fr: {
+      savedH:"Réponses enregistrées", seeAll:"Tout voir dans Dossiers enregistrés", removeL:"Supprimer",
       navSaved:"Dossiers enregistrés", saveBtn:"Enregistrer", savedOk:"Enregistré", seeSaved:"Voir dans Dossiers enregistrés →", projL:"Projet", noProject:"Aucun projet", newProjectOpt:"+ Nouveau projet…", promptProject:"Nommez le nouveau projet", notSaved:function(n){ return "L'offre gratuite conserve jusqu'à " + n + " éléments enregistrés. Supprimez-en un dans <a href=\"/#cases\">Dossiers enregistrés</a> ou <a href=\"/pricing.html\">passez à Pro</a> pour en garder plus."; },
       docTitle:"Ai-je le droit… ? — Casebound", navAria:"Compte", navResearch:"Recherche", navRisk:"Évaluation du risque", navPlans:"Offres", signIn:"Se connecter", account:"Compte",
       free:"Gratuit", kicker:"Ai-je le droit… ?", h1:"Demandez si vous avez le droit de faire quelque chose.",
@@ -298,6 +311,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       back:"← Retour à Casebound", how:"Fonctionnement de « Ai-je le droit… ? »", terms:"Conditions d'utilisation", privacyL:"Politique de confidentialité", contact:"Contact / réclamations : admin@case-bound.com"
     },
     de: {
+      savedH:"Gespeicherte Antworten", seeAll:"Alle in Gespeicherte Fälle ansehen", removeL:"Entfernen",
       navSaved:"Gespeicherte Fälle", saveBtn:"Speichern", savedOk:"Gespeichert", seeSaved:"In Gespeicherte Fälle ansehen →", projL:"Projekt", noProject:"Kein Projekt", newProjectOpt:"+ Neues Projekt…", promptProject:"Gib dem neuen Projekt einen Namen", notSaved:function(n){ return "Der kostenlose Tarif speichert bis zu " + n + " Einträge. Entferne einen unter <a href=\"/#cases\">Gespeicherte Fälle</a> oder <a href=\"/pricing.html\">wechsle zu Pro</a>, um mehr zu behalten."; },
       docTitle:"Darf ich…? — Casebound", navAria:"Konto", navResearch:"Recherche", navRisk:"Risikocheck", navPlans:"Tarife", signIn:"Anmelden", account:"Konto",
       free:"Kostenlos", kicker:"Darf ich…?", h1:"Frag, ob du etwas darfst.",
@@ -319,6 +333,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       back:"← Zurück zu Casebound", how:"So funktioniert „Darf ich…?“", terms:"Nutzungsbedingungen", privacyL:"Datenschutzhinweis", contact:"Kontakt / Beschwerden: admin@case-bound.com"
     },
     pt: {
+      savedH:"Respostas guardadas", seeAll:"Ver todas em Casos guardados", removeL:"Remover",
       navSaved:"Casos guardados", saveBtn:"Guardar", savedOk:"Guardado", seeSaved:"Ver em Casos guardados →", projL:"Projeto", noProject:"Sem projeto", newProjectOpt:"+ Novo projeto…", promptProject:"Dê um nome ao novo projeto", notSaved:function(n){ return "O plano gratuito guarda até " + n + " itens. Remova um em <a href=\"/#cases\">Casos guardados</a> ou <a href=\"/pricing.html\">passe para Pro</a> para guardar mais."; },
       docTitle:"Posso…? — Casebound", navAria:"Conta", navResearch:"Pesquisa", navRisk:"Avaliação de risco", navPlans:"Planos", signIn:"Iniciar sessão", account:"Conta",
       free:"Grátis", kicker:"Posso…?", h1:"Pergunte se pode fazer alguma coisa.",
@@ -340,6 +355,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       back:"← Voltar à Casebound", how:"Como funciona o \"Posso…?\"", terms:"Termos de utilização", privacyL:"Aviso de privacidade", contact:"Contacto / reclamações: admin@case-bound.com"
     },
     pl: {
+      savedH:"Zapisane odpowiedzi", seeAll:"Zobacz wszystkie w Zapisanych sprawach", removeL:"Usuń",
       navSaved:"Zapisane sprawy", saveBtn:"Zapisz", savedOk:"Zapisano", seeSaved:"Zobacz w Zapisanych sprawach →", projL:"Projekt", noProject:"Bez projektu", newProjectOpt:"+ Nowy projekt…", promptProject:"Nazwij nowy projekt", notSaved:function(n){ return "Plan darmowy przechowuje do " + n + " zapisanych pozycji. Usuń jedną w <a href=\"/#cases\">Zapisanych sprawach</a> lub <a href=\"/pricing.html\">przejdź na Pro</a>, aby zapisać więcej."; },
       docTitle:"Czy mogę…? — Casebound", navAria:"Konto", navResearch:"Wyszukiwanie", navRisk:"Ocena ryzyka", navPlans:"Plany", signIn:"Zaloguj się", account:"Konto",
       free:"Za darmo", kicker:"Czy mogę…?", h1:"Zapytaj, czy wolno ci coś zrobić.",
@@ -361,6 +377,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       back:"← Wróć do Casebound", how:"Jak działa „Czy mogę…?”", terms:"Regulamin", privacyL:"Informacja o prywatności", contact:"Kontakt / reklamacje: admin@case-bound.com"
     },
     ar: {
+      savedH:"الإجابات المحفوظة", seeAll:"اعرض الكل في القضايا المحفوظة", removeL:"حذف",
       navSaved:"القضايا المحفوظة", saveBtn:"حفظ", savedOk:"تم الحفظ", seeSaved:"اعرضه في القضايا المحفوظة ←", projL:"المشروع", noProject:"بلا مشروع", newProjectOpt:"+ مشروع جديد…", promptProject:"سمِّ المشروع الجديد", notSaved:function(n){ return "تحتفظ الخطة المجانية بما يصل إلى " + n + " عناصر محفوظة. احذف واحدًا من <a href=\"/#cases\">القضايا المحفوظة</a> أو <a href=\"/pricing.html\">اشترك في Pro</a> لحفظ المزيد."; },
       docTitle:"هل يمكنني…؟ — Casebound", navAria:"الحساب", navResearch:"البحث", navRisk:"تقييم المخاطر", navPlans:"الخطط", signIn:"تسجيل الدخول", account:"الحساب",
       free:"مجاني", kicker:"هل يمكنني…؟", h1:"اسأل إن كان يحق لك القيام بأمر ما.",
@@ -483,6 +500,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
     }
     saveNote = "";
     persistCases(list);
+    paintSaved();
     render();
   }
 
@@ -529,6 +547,17 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
     all.unshift(item);
     store.set(RECENT_KEY, all.slice(0, 12));
     paintRecent();
+  }
+  function savedAnswers(){ return loadCases().filter(function(c){ return c.kind === "cani" && c.answer; }); }
+  function paintSaved(){
+    var all = savedAnswers(), projects = loadProjects();
+    $("saved").hidden = !all.length;
+    $("saved-list").innerHTML = all.slice(0, 12).map(function(c){
+      var pj = projects.filter(function(p){ return p.id === c.projectId; })[0];
+      return '<li><button type="button" data-open="' + esc(c.id) + '">' + pill(c.answer.verdict) + '<span class="t">' + esc(c.label) + '</span>' +
+        (pj ? '<span class="pj">' + esc(pj.name) + '</span>' : '') + '</button>' +
+        '<button type="button" class="x" data-del="' + esc(c.id) + '" aria-label="' + esc(t().removeL) + '" title="' + esc(t().removeL) + '">&times;</button></li>';
+    }).join("");
   }
   function paintRecent(){
     var all = recent(), box = $("recent");
@@ -598,12 +627,29 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
     setBusy(busy);
     paintLeft();
     paintRecent();
+    paintSaved();
     render();
   }
 
   $("ask").addEventListener("submit", submit);
   $("q").addEventListener("keydown", function(e){ if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); submit(); } });
   $("home").addEventListener("change", function(){ store.set(HOME_KEY, $("home").value); });
+  $("saved-list").addEventListener("click", function(e){
+    var d = e.target.closest("button[data-del]");
+    if (d) {
+      var id = d.getAttribute("data-del");
+      persistCases(loadCases().filter(function(c){ return c.id !== id; }));
+      if (current && current.savedId === id) current.savedId = null;
+      paintSaved(); render(); return;
+    }
+    var o = e.target.closest("button[data-open]"); if (!o) return;
+    var c = savedAnswers().filter(function(x){ return x.id === o.getAttribute("data-open"); })[0]; if (!c) return;
+    current = { q: c.question || c.facts, home: c.home || "", lang: c.lang || lang, answer: c.answer, at: Date.parse(c.savedAt) || Date.now(), savedId: c.id };
+    $("q").value = current.q; saveNote = "";
+    if (PLACES.indexOf(current.home) >= 0 || current.home === "") $("home").value = current.home;
+    render(); $("answer").scrollIntoView({ behavior:"smooth", block:"start" });
+  });
+  $("saved-all").addEventListener("click", function(){ try { sessionStorage.setItem("casebound:kind-filter", "cani"); } catch(e){} });
   $("clear").addEventListener("click", function(){ store.set(RECENT_KEY, []); paintRecent(); });
   $("recent-list").addEventListener("click", function(e){
     var b = e.target.closest("button[data-i]"); if (!b) return;

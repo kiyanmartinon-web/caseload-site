@@ -216,6 +216,11 @@ html[data-theme="dark"] .brand-mark text{fill:var(--paper)}
 .cases-empty-full button{margin-top:14px}
 
 /* ---------- projects + titles ---------- */
+.kind-sw{display:inline-flex;border:1px solid var(--rule);border-radius:6px;overflow:hidden;margin-bottom:12px;max-width:100%}
+.kind-sw button{background:var(--paper-2);border:0;border-inline-end:1px solid var(--rule);padding:7px 14px;font-size:13px;font-weight:600;color:var(--ink-soft);display:inline-flex;gap:7px;align-items:center;white-space:nowrap}
+.kind-sw button:last-child{border-inline-end:0}
+.kind-sw button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.kind-sw .ct{font-size:11.5px;opacity:.75}
 .proj-bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
 .proj-chip{display:inline-flex;align-items:center;gap:7px;padding:7px 12px;border:1px solid var(--rule);border-radius:999px;background:var(--paper-2);
   font-size:12.5px;font-weight:600;color:var(--ink-soft);max-width:260px}
@@ -3472,6 +3477,7 @@ window.addEventListener(&quot;message&quot;, function(ev){
         <button class="cases-clear-btn" id="cases-clear-all" data-t="clearAll">Clear all</button>
       </div>
     </div>
+    <div class="kind-sw" id="kind-sw" role="group" aria-label="Show"></div>
     <div class="proj-bar" id="proj-bar" role="toolbar" aria-label="Projects" data-t-aria="projects"></div>
     <div class="proj-head" id="proj-head" hidden></div>
     <div class="cases-grid" id="cases-grid"></div>
@@ -3537,7 +3543,7 @@ const PAGE_STR = {
     outLabel: { both: "Mindmap + sources", map: "Mindmap", sources: "Sources" },
     applyFilters: "Apply filters",
     searchPh: "Search titles, facts, projects…", searchAria: "Search saved cases", clearAll: "Clear all", projects: "Projects",
-    allCases: "All cases", noProject: "No project", newProjectChip: "+ New project", newProjectOpt: "+ New project…",
+    allCases: "All cases", kindAll: "Everything", kindCases: "Research cases", emptyCani: "No saved “Can I…?” answers yet. Ask a question and press Save under the answer.", askCani: "Ask “Can I…?”", noProject: "No project", newProjectChip: "+ New project", newProjectOpt: "+ New project…",
     projNamePh: "Project name, e.g. Contract law essay", newProjAria: "New project name", add: "Add", cancel: "Cancel",
     projNameAria: "Project name", save: "Save", nCases: P({ one: "# case", other: "# cases" }),
     newCaseHere: "+ New case here", rename: "Rename", deleteProject: "Delete project",
@@ -3606,7 +3612,7 @@ const PAGE_STR = {
     outLabel: { both: "Mappa + fonti", map: "Mappa", sources: "Fonti" },
     applyFilters: "Applica i filtri",
     searchPh: "Cerca titoli, fatti, progetti…", searchAria: "Cerca nei casi salvati", clearAll: "Elimina tutti", projects: "Progetti",
-    allCases: "Tutti i casi", noProject: "Nessun progetto", newProjectChip: "+ Nuovo progetto", newProjectOpt: "+ Nuovo progetto…",
+    allCases: "Tutti i casi", kindAll: "Tutto", kindCases: "Casi di ricerca", emptyCani: "Nessuna risposta “Posso…?” salvata. Fai una domanda e premi Salva sotto la risposta.", askCani: "Chiedi a “Posso…?”", noProject: "Nessun progetto", newProjectChip: "+ Nuovo progetto", newProjectOpt: "+ Nuovo progetto…",
     projNamePh: "Nome del progetto, es. Tesina di diritto dei contratti", newProjAria: "Nome del nuovo progetto", add: "Aggiungi", cancel: "Annulla",
     projNameAria: "Nome del progetto", save: "Salva", nCases: P({ one: "# caso", other: "# casi" }),
     newCaseHere: "+ Nuovo caso qui", rename: "Rinomina", deleteProject: "Elimina progetto",
@@ -3675,7 +3681,7 @@ const PAGE_STR = {
     outLabel: { both: "Mapa + fuentes", map: "Mapa", sources: "Fuentes" },
     applyFilters: "Aplicar filtros",
     searchPh: "Buscar títulos, hechos, proyectos…", searchAria: "Buscar en casos guardados", clearAll: "Borrar todo", projects: "Proyectos",
-    allCases: "Todos los casos", noProject: "Sin proyecto", newProjectChip: "+ Nuevo proyecto", newProjectOpt: "+ Nuevo proyecto…",
+    allCases: "Todos los casos", kindAll: "Todo", kindCases: "Casos de investigación", emptyCani: "Aún no hay respuestas de “¿Puedo…?” guardadas. Haz una pregunta y pulsa Guardar bajo la respuesta.", askCani: "Preguntar en “¿Puedo…?”", noProject: "Sin proyecto", newProjectChip: "+ Nuevo proyecto", newProjectOpt: "+ Nuevo proyecto…",
     projNamePh: "Nombre del proyecto, p. ej. Trabajo de derecho contractual", newProjAria: "Nombre del nuevo proyecto", add: "Añadir", cancel: "Cancelar",
     projNameAria: "Nombre del proyecto", save: "Guardar", nCases: P({ one: "# caso", other: "# casos" }),
     newCaseHere: "+ Nuevo caso aquí", rename: "Renombrar", deleteProject: "Eliminar proyecto",
@@ -3744,7 +3750,7 @@ const PAGE_STR = {
     outLabel: { both: "Carte + sources", map: "Carte", sources: "Sources" },
     applyFilters: "Appliquer les filtres",
     searchPh: "Rechercher titres, faits, projets…", searchAria: "Rechercher dans les dossiers enregistrés", clearAll: "Tout effacer", projects: "Projets",
-    allCases: "Tous les dossiers", noProject: "Sans projet", newProjectChip: "+ Nouveau projet", newProjectOpt: "+ Nouveau projet…",
+    allCases: "Tous les dossiers", kindAll: "Tout", kindCases: "Dossiers de recherche", emptyCani: "Aucune réponse « Ai-je le droit… ? » enregistrée. Posez une question et cliquez sur Enregistrer sous la réponse.", askCani: "Demander à « Ai-je le droit… ? »", noProject: "Sans projet", newProjectChip: "+ Nouveau projet", newProjectOpt: "+ Nouveau projet…",
     projNamePh: "Nom du projet, ex. Mémoire de droit des contrats", newProjAria: "Nom du nouveau projet", add: "Ajouter", cancel: "Annuler",
     projNameAria: "Nom du projet", save: "Enregistrer", nCases: P({ one: "# dossier", other: "# dossiers" }),
     newCaseHere: "+ Nouveau dossier ici", rename: "Renommer", deleteProject: "Supprimer le projet",
@@ -3813,7 +3819,7 @@ const PAGE_STR = {
     outLabel: { both: "Karte + Quellen", map: "Karte", sources: "Quellen" },
     applyFilters: "Filter anwenden",
     searchPh: "Titel, Fakten, Projekte durchsuchen…", searchAria: "Gespeicherte Fälle durchsuchen", clearAll: "Alle löschen", projects: "Projekte",
-    allCases: "Alle Fälle", noProject: "Kein Projekt", newProjectChip: "+ Neues Projekt", newProjectOpt: "+ Neues Projekt…",
+    allCases: "Alle Fälle", kindAll: "Alles", kindCases: "Recherchefälle", emptyCani: "Noch keine gespeicherten „Darf ich…?“-Antworten. Stell eine Frage und tippe unter der Antwort auf Speichern.", askCani: "„Darf ich…?“ fragen", noProject: "Kein Projekt", newProjectChip: "+ Neues Projekt", newProjectOpt: "+ Neues Projekt…",
     projNamePh: "Projektname, z. B. Hausarbeit Vertragsrecht", newProjAria: "Name des neuen Projekts", add: "Hinzufügen", cancel: "Abbrechen",
     projNameAria: "Projektname", save: "Speichern", nCases: P({ one: "# Fall", other: "# Fälle" }),
     newCaseHere: "+ Neuer Fall hier", rename: "Umbenennen", deleteProject: "Projekt löschen",
@@ -3882,7 +3888,7 @@ const PAGE_STR = {
     outLabel: { both: "Mapa + fontes", map: "Mapa", sources: "Fontes" },
     applyFilters: "Aplicar filtros",
     searchPh: "Pesquisar títulos, factos, projetos…", searchAria: "Pesquisar casos guardados", clearAll: "Apagar tudo", projects: "Projetos",
-    allCases: "Todos os casos", noProject: "Sem projeto", newProjectChip: "+ Novo projeto", newProjectOpt: "+ Novo projeto…",
+    allCases: "Todos os casos", kindAll: "Tudo", kindCases: "Casos de pesquisa", emptyCani: "Ainda não há respostas do “Posso…?” guardadas. Faça uma pergunta e carregue em Guardar por baixo da resposta.", askCani: "Perguntar no “Posso…?”", noProject: "Sem projeto", newProjectChip: "+ Novo projeto", newProjectOpt: "+ Novo projeto…",
     projNamePh: "Nome do projeto, ex. Trabalho de direito dos contratos", newProjAria: "Nome do novo projeto", add: "Adicionar", cancel: "Cancelar",
     projNameAria: "Nome do projeto", save: "Guardar", nCases: P({ one: "# caso", other: "# casos" }),
     newCaseHere: "+ Novo caso aqui", rename: "Mudar o nome", deleteProject: "Eliminar projeto",
@@ -3951,7 +3957,7 @@ const PAGE_STR = {
     outLabel: { both: "Mapa + źródła", map: "Mapa", sources: "Źródła" },
     applyFilters: "Zastosuj filtry",
     searchPh: "Szukaj w tytułach, faktach, projektach…", searchAria: "Szukaj w zapisanych sprawach", clearAll: "Usuń wszystkie", projects: "Projekty",
-    allCases: "Wszystkie sprawy", noProject: "Bez projektu", newProjectChip: "+ Nowy projekt", newProjectOpt: "+ Nowy projekt…",
+    allCases: "Wszystkie sprawy", kindAll: "Wszystko", kindCases: "Sprawy badawcze", emptyCani: "Brak zapisanych odpowiedzi „Czy mogę…?”. Zadaj pytanie i kliknij Zapisz pod odpowiedzią.", askCani: "Zapytaj w „Czy mogę…?”", noProject: "Bez projektu", newProjectChip: "+ Nowy projekt", newProjectOpt: "+ Nowy projekt…",
     projNamePh: "Nazwa projektu, np. Esej z prawa umów", newProjAria: "Nazwa nowego projektu", add: "Dodaj", cancel: "Anuluj",
     projNameAria: "Nazwa projektu", save: "Zapisz", nCases: P({ one: "# sprawa", few: "# sprawy", many: "# spraw", other: "# sprawy" }),
     newCaseHere: "+ Nowa sprawa tutaj", rename: "Zmień nazwę", deleteProject: "Usuń projekt",
@@ -4020,7 +4026,7 @@ const PAGE_STR = {
     outLabel: { both: "الخريطة + المصادر", map: "الخريطة", sources: "المصادر" },
     applyFilters: "تطبيق عوامل التصفية",
     searchPh: "ابحث في العناوين والوقائع والمشاريع…", searchAria: "البحث في القضايا المحفوظة", clearAll: "مسح الكل", projects: "المشاريع",
-    allCases: "كل القضايا", noProject: "بلا مشروع", newProjectChip: "+ مشروع جديد", newProjectOpt: "+ مشروع جديد…",
+    allCases: "كل القضايا", kindAll: "الكل", kindCases: "قضايا البحث", emptyCani: "لا توجد إجابات «هل يمكنني…؟» محفوظة بعد. اطرح سؤالًا واضغط حفظ أسفل الإجابة.", askCani: "اسأل «هل يمكنني…؟»", noProject: "بلا مشروع", newProjectChip: "+ مشروع جديد", newProjectOpt: "+ مشروع جديد…",
     projNamePh: "اسم المشروع، مثل: بحث في قانون العقود", newProjAria: "اسم المشروع الجديد", add: "إضافة", cancel: "إلغاء",
     projNameAria: "اسم المشروع", save: "حفظ", nCases: (n) => `القضايا: ${n}`,
     newCaseHere: "+ قضية جديدة هنا", rename: "إعادة تسمية", deleteProject: "حذف المشروع",
@@ -4457,6 +4463,10 @@ const PROJECTS_KEY = "casebound_projects_v1";
 const PROJ_FILTER_KEY = "casebound:proj-filter";
 const NEW_PROJ = "__new__";
 let PROJ_FILTER = "all";     // "all" | "none" (unfiled) | project id
+const KIND_FILTER_KEY = "casebound:kind-filter";
+let KIND_FILTER = "all";     // "all" | "cases" | "cani" (saved Can I…? answers)
+try{ KIND_FILTER = sessionStorage.getItem(KIND_FILTER_KEY) || "all"; }catch(e){}
+const kindOk = (c) => KIND_FILTER === "all" || (KIND_FILTER === "cani" ? c.kind === "cani" : c.kind !== "cani");
 try{ PROJ_FILTER = sessionStorage.getItem(PROJ_FILTER_KEY) || "all"; }catch(e){}
 let EDITING_PROJECT = false, ADDING_PROJECT = false, RENAMING_CASE = null;
 
@@ -4557,6 +4567,18 @@ function setProjFilter(f){
   try{ sessionStorage.setItem(PROJ_FILTER_KEY, f); }catch(e){}
   renderCases();
 }
+function renderKindSwitch(every){
+  if(!["all","cases","cani"].includes(KIND_FILTER)) KIND_FILTER = "all";
+  const n = (k) => every.filter(c => k === "all" || (k === "cani" ? c.kind === "cani" : c.kind !== "cani")).length;
+  const b = (k, label) => `<button type="button" data-kind="${k}" aria-pressed="${KIND_FILTER === k}">${escHtml(label)}<span class="ct">${n(k)}</span></button>`;
+  $id("kind-sw").innerHTML = b("all", t("kindAll")) + b("cases", t("kindCases")) + b("cani", t("canI"));
+}
+$id("kind-sw").addEventListener("click", e => {
+  const b = e.target.closest("[data-kind]"); if(!b) return;
+  KIND_FILTER = b.dataset.kind;
+  try{ sessionStorage.setItem(KIND_FILTER_KEY, KIND_FILTER); }catch(err){}
+  renderCases();
+});
 function renderProjectBar(all){
   const projects = loadProjects().slice().sort((a,b)=>a.name.localeCompare(b.name));
   if(PROJ_FILTER !== "all" && PROJ_FILTER !== "none" && !projects.some(p => p.id === PROJ_FILTER)) PROJ_FILTER = "all";
@@ -4589,7 +4611,9 @@ function renderProjectBar(all){
 }
 function renderCases(){
   const q = ($id("cases-search").value || "").trim().toLowerCase();
-  const all = loadCases();
+  const every = loadCases();
+  renderKindSwitch(every);
+  const all = every.filter(kindOk);
   renderProjectBar(all);
   const projIds = new Set(loadProjects().map(p => p.id));
   let list = all;
@@ -4603,6 +4627,7 @@ function renderCases(){
   if(!list.length){
     grid.innerHTML = `<div class="cases-empty-full">${
       q ? t("emptySearch") :
+      KIND_FILTER === "cani" && PROJ_FILTER === "all" ? `${escHtml(t("emptyCani"))}<br><a class="hub-btn" href="/can-i.html" style="display:inline-block;text-decoration:none">${escHtml(t("askCani"))}</a>` :
       PROJ_FILTER === "none" ? t("emptyAllFiled") :
       PROJ_FILTER !== "all" ? t("emptyProject") :
       `${t("emptyNone")}<br><button type="button" class="hub-btn" data-go="start">${t("startCase")}</button>`
