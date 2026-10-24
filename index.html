@@ -356,8 +356,9 @@ html[data-theme="dark"] .seg button[aria-checked="true"]{box-shadow:0 1px 2px rg
 @media(max-width:1279px){
   .top-links a.ci-link{display:none}
 }
-.start-quick{margin:-14px 0 22px;font-size:14px;font-weight:600}
-.start-quick a{text-decoration:none;border-bottom:1px solid currentColor}
+.start-quick{margin:-8px 0 24px;font-size:13.5px;font-weight:600}
+.start-quick a{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:999px;text-decoration:none;color:var(--verdigris);background:var(--verdigris-wash);border:1px solid color-mix(in srgb,var(--verdigris) 25%,transparent)}
+.start-quick a:hover{color:var(--paper-2);background:var(--verdigris);border-color:var(--verdigris)}
 @media(max-width:1279px){
   .tab .n{display:none}
   .tab .long{display:none}
@@ -410,12 +411,8 @@ html[data-theme="dark"] .seg button[aria-checked="true"]{box-shadow:0 1px 2px rg
 <!-- ================= PAGE 1 — describe the case ================= -->
 <section id="view-start" class="view on" aria-label="New case" data-t-aria="tabNew">
   <div class="start">
-    <div class="brand-lockup" aria-label="Casebound">
-      <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="12" fill="var(--oxblood)"/><text x="32" y="44" font-family="Georgia,serif" font-size="36" font-weight="700" text-anchor="middle" fill="#fff">C</text></svg>
-      <div class="brand-name">Case<span>bound</span><small data-t="legalResearch">Legal research</small></div>
-    </div>
     <h1 data-t="h1">Tell us about your case.</h1>
-    <p class="start-lede" data-t="lede">Describe what happened and choose what you need back. Casebound maps the facts to the governing Italian Civil Code articles and ranks matching provisions and rulings from Italy, the EU, France, the UK, the US, Germany and international law — contract, employment, data protection, competition, finance, tax, criminal, environmental and more — by the legal concepts they share with your case.</p>
+    <p class="start-lede" data-t="lede">Describe what happened in plain words. Casebound finds the provisions and rulings that apply — from Italy, the EU, France, Germany, the UK, the US and international law — and ranks them by the legal concepts they share with your case.</p>
     <p class="start-quick"><a href="/can-i.html" data-t="quickCanI">Just need a quick yes or no? Ask “Can I…?” — free →</a></p>
 
     <form class="start-card" id="start-form" novalidate>
@@ -3509,7 +3506,7 @@ const PAGE_STR = {
     savedCases: "Saved cases", tabSavedShort: "Saved", navAccount: "Account",
     riskCheck: "Risk check", canI: "Can I…?", quickCanI: "Just need a quick yes or no? Ask “Can I…?” — free →", plans: "Plans", signIn: "Sign in", account: "Account",
     h1: "Tell us about your case.",
-    lede: "Describe what happened and choose what you need back. Casebound maps the facts to the governing Italian Civil Code articles and ranks matching provisions and rulings from Italy, the EU, France, the UK, the US, Germany and international law — contract, employment, data protection, competition, finance, tax, criminal, environmental and more — by the legal concepts they share with your case.",
+    lede: "Describe what happened in plain words. Casebound finds the provisions and rulings that apply — from Italy, the EU, France, Germany, the UK, the US and international law — and ranks them by the legal concepts they share with your case.",
     q1: "What happened?", addFile: "+ Add file",
     hint1: "The parties, what was agreed, the dates, and what went wrong. Plain language is fine. You can also drop a PDF, Word or text file into the box.",
     phFacts: "e.g. A buyer ordered manufacturing equipment. Delivery was six weeks late, and the buyer now claims the profit it lost while waiting…",
@@ -3578,7 +3575,7 @@ const PAGE_STR = {
     savedCases: "Casi salvati", tabSavedShort: "Salvati", navAccount: "Account",
     riskCheck: "Verifica del rischio", canI: "Posso…?", quickCanI: "Ti basta un sì o un no? Chiedi a “Posso…?” — gratis →", plans: "Piani", signIn: "Accedi", account: "Account",
     h1: "Raccontaci il tuo caso.",
-    lede: "Descrivi cosa è successo e scegli cosa ti serve. Casebound collega i fatti agli articoli del Codice civile italiano applicabili e ordina le disposizioni e le sentenze pertinenti di Italia, UE, Francia, Regno Unito, Stati Uniti, Germania e diritto internazionale — contratti, lavoro, protezione dei dati, concorrenza, finanza, fisco, penale, ambiente e altro — in base ai concetti giuridici che hanno in comune con il tuo caso.",
+    lede: "Descrivi cosa è successo con parole semplici. Casebound trova le norme e le sentenze che si applicano — di Italia, UE, Francia, Germania, Regno Unito, Stati Uniti e diritto internazionale — e le ordina in base ai concetti giuridici che hanno in comune con il tuo caso.",
     q1: "Cosa è successo?", addFile: "+ Aggiungi file",
     hint1: "Le parti, cosa era stato concordato, le date e cosa è andato storto. Va bene un linguaggio semplice. Puoi anche trascinare nel riquadro un file PDF, Word o di testo.",
     phFacts: "es. Un acquirente ha ordinato macchinari per la produzione. La consegna è arrivata con sei settimane di ritardo e ora l'acquirente chiede il profitto perso durante l'attesa…",
@@ -3647,7 +3644,7 @@ const PAGE_STR = {
     savedCases: "Casos guardados", tabSavedShort: "Guardados", navAccount: "Cuenta",
     riskCheck: "Evaluación de riesgo", canI: "¿Puedo…?", quickCanI: "¿Solo necesitas un sí o un no? Pregunta en “¿Puedo…?” — gratis →", plans: "Planes", signIn: "Iniciar sesión", account: "Cuenta",
     h1: "Cuéntanos tu caso.",
-    lede: "Describe lo que pasó y elige qué necesitas. Casebound relaciona los hechos con los artículos aplicables del Código Civil italiano y clasifica las disposiciones y sentencias pertinentes de Italia, la UE, Francia, el Reino Unido, EE. UU., Alemania y el derecho internacional — contratos, laboral, protección de datos, competencia, finanzas, fiscal, penal, medio ambiente y más — según los conceptos jurídicos que comparten con tu caso.",
+    lede: "Describe lo que pasó con palabras sencillas. Casebound encuentra las normas y sentencias aplicables —de Italia, la UE, Francia, Alemania, el Reino Unido, EE. UU. y el derecho internacional— y las ordena según los conceptos jurídicos que comparten con tu caso.",
     q1: "¿Qué pasó?", addFile: "+ Añadir archivo",
     hint1: "Las partes, lo que se acordó, las fechas y qué salió mal. Puedes usar un lenguaje sencillo. También puedes soltar un archivo PDF, Word o de texto en el recuadro.",
     phFacts: "p. ej. Un comprador encargó maquinaria de fabricación. La entrega llegó con seis semanas de retraso y ahora el comprador reclama el beneficio que perdió mientras esperaba…",
@@ -3716,7 +3713,7 @@ const PAGE_STR = {
     savedCases: "Dossiers enregistrés", tabSavedShort: "Enregistrés", navAccount: "Compte",
     riskCheck: "Évaluation du risque", canI: "Ai-je le droit… ?", quickCanI: "Juste besoin d'un oui ou d'un non ? Demandez à « Ai-je le droit… ? » — gratuit →", plans: "Offres", signIn: "Se connecter", account: "Compte",
     h1: "Parlez-nous de votre affaire.",
-    lede: "Décrivez ce qui s'est passé et choisissez ce dont vous avez besoin. Casebound rattache les faits aux articles applicables du Code civil italien et classe les dispositions et décisions pertinentes d'Italie, de l'UE, de France, du Royaume-Uni, des États-Unis, d'Allemagne et du droit international — contrats, travail, protection des données, concurrence, finance, fiscalité, pénal, environnement et plus encore — selon les notions juridiques qu'elles partagent avec votre affaire.",
+    lede: "Décrivez ce qui s'est passé avec vos mots. Casebound trouve les textes et décisions applicables — Italie, UE, France, Allemagne, Royaume-Uni, États-Unis et droit international — et les classe selon les notions juridiques qu'ils partagent avec votre affaire.",
     q1: "Que s'est-il passé ?", addFile: "+ Ajouter un fichier",
     hint1: "Les parties, ce qui avait été convenu, les dates et ce qui a mal tourné. Un langage simple suffit. Vous pouvez aussi déposer un fichier PDF, Word ou texte dans le cadre.",
     phFacts: "ex. Un acheteur a commandé des équipements de production. La livraison a eu six semaines de retard et l'acheteur réclame maintenant le bénéfice perdu pendant l'attente…",
@@ -3785,7 +3782,7 @@ const PAGE_STR = {
     savedCases: "Gespeicherte Fälle", tabSavedShort: "Gespeichert", navAccount: "Konto",
     riskCheck: "Risikocheck", canI: "Darf ich…?", quickCanI: "Nur ein schnelles Ja oder Nein? Frag bei „Darf ich…?“ – kostenlos →", plans: "Tarife", signIn: "Anmelden", account: "Konto",
     h1: "Erzähl uns von deinem Fall.",
-    lede: "Beschreibe, was passiert ist, und wähle, was du brauchst. Casebound ordnet die Fakten den einschlägigen Artikeln des italienischen Zivilgesetzbuchs zu und sortiert passende Vorschriften und Entscheidungen aus Italien, der EU, Frankreich, dem Vereinigten Königreich, den USA, Deutschland und dem Völkerrecht – Vertrags-, Arbeits-, Datenschutz-, Wettbewerbs-, Finanz-, Steuer-, Straf-, Umweltrecht und mehr – nach den Rechtsbegriffen, die sie mit deinem Fall teilen.",
+    lede: "Beschreibe in einfachen Worten, was passiert ist. Casebound findet die einschlägigen Vorschriften und Urteile – aus Italien, der EU, Frankreich, Deutschland, dem Vereinigten Königreich, den USA und dem Völkerrecht – und ordnet sie nach den Rechtsbegriffen, die sie mit deinem Fall teilen.",
     q1: "Was ist passiert?", addFile: "+ Datei hinzufügen",
     hint1: "Die Parteien, was vereinbart war, die Daten und was schiefgelaufen ist. Einfache Sprache genügt. Du kannst auch eine PDF-, Word- oder Textdatei in das Feld ziehen.",
     phFacts: "z. B. Ein Käufer hat Fertigungsanlagen bestellt. Die Lieferung kam sechs Wochen zu spät, und der Käufer verlangt nun den Gewinn, der ihm während des Wartens entgangen ist…",
@@ -3854,7 +3851,7 @@ const PAGE_STR = {
     savedCases: "Casos guardados", tabSavedShort: "Guardados", navAccount: "Conta",
     riskCheck: "Avaliação de risco", canI: "Posso…?", quickCanI: "Só precisa de um sim ou não? Pergunte no “Posso…?” — grátis →", plans: "Planos", signIn: "Iniciar sessão", account: "Conta",
     h1: "Fale-nos do seu caso.",
-    lede: "Descreva o que aconteceu e escolha o que precisa. O Casebound relaciona os factos com os artigos aplicáveis do Código Civil italiano e ordena as disposições e decisões pertinentes de Itália, da UE, de França, do Reino Unido, dos EUA, da Alemanha e do direito internacional — contratos, trabalho, proteção de dados, concorrência, finanças, fiscal, penal, ambiente e mais — pelos conceitos jurídicos que partilham com o seu caso.",
+    lede: "Descreva o que aconteceu por palavras simples. O Casebound encontra as normas e decisões aplicáveis — de Itália, da UE, de França, da Alemanha, do Reino Unido, dos EUA e do direito internacional — e ordena-as pelos conceitos jurídicos que partilham com o seu caso.",
     q1: "O que aconteceu?", addFile: "+ Adicionar ficheiro",
     hint1: "As partes, o que foi acordado, as datas e o que correu mal. Pode usar linguagem simples. Também pode largar um ficheiro PDF, Word ou de texto na caixa.",
     phFacts: "ex. Um comprador encomendou equipamento de produção. A entrega chegou com seis semanas de atraso e o comprador reclama agora o lucro que perdeu enquanto esperava…",
@@ -3923,7 +3920,7 @@ const PAGE_STR = {
     savedCases: "Zapisane sprawy", tabSavedShort: "Zapisane", navAccount: "Konto",
     riskCheck: "Ocena ryzyka", canI: "Czy mogę…?", quickCanI: "Potrzebujesz tylko „tak” lub „nie”? Zapytaj w „Czy mogę…?” — za darmo →", plans: "Plany", signIn: "Zaloguj się", account: "Konto",
     h1: "Opowiedz nam o swojej sprawie.",
-    lede: "Opisz, co się stało, i wybierz, czego potrzebujesz. Casebound przypisuje fakty do właściwych artykułów włoskiego kodeksu cywilnego i szereguje pasujące przepisy oraz orzeczenia z Włoch, UE, Francji, Wielkiej Brytanii, USA, Niemiec i prawa międzynarodowego — umowy, prawo pracy, ochrona danych, konkurencja, finanse, podatki, prawo karne, środowisko i nie tylko — według pojęć prawnych, które łączą je z Twoją sprawą.",
+    lede: "Opisz prostymi słowami, co się stało. Casebound znajduje mające zastosowanie przepisy i orzeczenia — z Włoch, UE, Francji, Niemiec, Wielkiej Brytanii, USA i prawa międzynarodowego — i szereguje je według pojęć prawnych wspólnych z Twoją sprawą.",
     q1: "Co się stało?", addFile: "+ Dodaj plik",
     hint1: "Strony, co uzgodniono, daty i co poszło nie tak. Wystarczy prosty język. Możesz też upuścić w polu plik PDF, Word lub tekstowy.",
     phFacts: "np. Kupujący zamówił maszyny produkcyjne. Dostawa spóźniła się o sześć tygodni, a kupujący domaga się teraz zysku utraconego w czasie oczekiwania…",
@@ -3992,7 +3989,7 @@ const PAGE_STR = {
     savedCases: "القضايا المحفوظة", tabSavedShort: "المحفوظة", navAccount: "الحساب",
     riskCheck: "تقييم المخاطر", canI: "هل يمكنني…؟", quickCanI: "تحتاج فقط إلى نعم أو لا؟ اسأل في «هل يمكنني…؟» — مجانًا ←", plans: "الخطط", signIn: "تسجيل الدخول", account: "الحساب",
     h1: "أخبرنا عن قضيتك.",
-    lede: "صِف ما حدث واختر ما تحتاج إليه. يربط Casebound الوقائع بمواد القانون المدني الإيطالي ذات الصلة، ويرتّب النصوص القانونية والأحكام المطابقة من إيطاليا والاتحاد الأوروبي وفرنسا والمملكة المتحدة والولايات المتحدة وألمانيا والقانون الدولي — العقود والعمل وحماية البيانات والمنافسة والتمويل والضرائب والقانون الجنائي والبيئة وغيرها — بحسب المفاهيم القانونية المشتركة بينها وبين قضيتك.",
+    lede: "صِف ما حدث بكلمات بسيطة. يعثر Casebound على النصوص والأحكام المنطبقة — من إيطاليا والاتحاد الأوروبي وفرنسا وألمانيا والمملكة المتحدة والولايات المتحدة والقانون الدولي — ويرتّبها حسب المفاهيم القانونية المشتركة مع قضيتك.",
     q1: "ماذا حدث؟", addFile: "+ إضافة ملف",
     hint1: "الأطراف، وما اتُّفق عليه، والتواريخ، وما الذي سار على نحو خاطئ. يمكنك الكتابة بلغة بسيطة، ويمكنك أيضًا إفلات ملف PDF أو Word أو ملف نصي في المربع.",
     phFacts: "مثال: طلب مشترٍ معدات تصنيع. تأخر التسليم ستة أسابيع، ويطالب المشتري الآن بالربح الذي فاته أثناء الانتظار…",
