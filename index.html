@@ -48,15 +48,13 @@ html[data-theme="dark"] .found .btn.primary:hover{color:var(--ink)!important}
 
 /* ---------- the two openings: Can I…? for clients, Case building for lawyers ---------- */
 html[data-side="lawyer"] .hero-client,html:not([data-side="lawyer"]) .hero-lawyer,html:not([data-side="lawyer"]) #cani-row{display:none}
-.hero-client{align-items:center}
-.hero-client .tag{margin-bottom:18px}
-.hero-ask{display:grid;gap:12px;background:var(--paper-2);border:1px solid var(--rule);border-radius:14px;padding:14px;max-width:560px;box-shadow:0 24px 48px -32px color-mix(in srgb,var(--ink) 35%,transparent)}
-.hero-ask label{display:flex;align-items:flex-start;gap:10px;background:var(--paper);border:1px solid var(--rule);border-radius:var(--radius);padding:12px 14px;cursor:text}
-.hero-ask label:focus-within{border-color:var(--verdigris);box-shadow:0 0 0 1px var(--verdigris)}
-.hero-ask b{font-family:var(--law);font-size:20px;font-weight:500;color:var(--oxblood);white-space:nowrap;line-height:1.4}
-.hero-ask textarea{flex:1;min-width:0;border:0;background:none;resize:none;font:inherit;font-size:17px;line-height:1.45;color:var(--ink);padding:2px 0;outline:none}
-.hero-ask .btn{justify-self:end}
-.hero-client .panel{margin:0}
+.ans{display:flex;align-items:center;gap:10px}
+.ans i{font-style:normal;font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px;background:var(--amber-wash);color:var(--amber)}
+.hero-client .src::before{content:"";width:10px;height:10px;border:0;margin-top:9px;justify-self:center;background:var(--amber)}
+.hero-client .src.y::before{background:var(--verdigris)}
+.hero-client .src.n::before{background:var(--oxblood)}
+.hero-client .cite{color:var(--ink)}
+.hero-client .src.y .gist{color:var(--verdigris)}.hero-client .src.n .gist{color:var(--oxblood)}.hero-client .src.d .gist{color:var(--amber)}
 
 /* the case file: the one bold element on the page */
 .file{background:var(--paper-2);border:1px solid var(--rule);border-radius:14px;box-shadow:0 1px 0 var(--rule-soft),0 24px 48px -28px color-mix(in srgb,var(--ink) 35%,transparent);overflow:hidden}
@@ -215,26 +213,29 @@ footer .wrap{padding-top:36px;padding-bottom:40px;display:grid;grid-template-col
 <main>
   <div class="wrap hero hero-client">
     <div>
-      <span class="tag free" data-t="caniTag">Free, 5 questions a day</span>
       <h1 data-t="caniH">Ask whether you're allowed to do something.</h1>
       <p class="sub" data-t="caniP">Type an everyday question. You get yes, no or it depends, country by country, with the conditions and the rules behind the answer.</p>
-      <form class="hero-ask" action="/can-i.html" method="get">
-        <label><b data-t="caniPre">Can I</b><textarea name="q" rows="2" maxlength="600" data-t-ph="caniQ" placeholder="record a phone call without telling the other person?"></textarea></label>
-        <button class="btn primary" type="submit" data-t="caniGo">Check</button>
-      </form>
-      <p class="fine" data-t="caniP2">Casebound doesn't keep your question</p>
+      <div class="ctas">
+        <a class="btn primary" href="/can-i.html" data-t="ctaAsk">Ask a yes-or-no question</a>
+        <a class="btn quiet" href="/research.html" data-t="ctaCase">Describe your case</a>
+      </div>
+      <p class="fine" data-t="caniTag">Free, 5 questions a day</p>
     </div>
-    <div class="panel" aria-hidden="true">
-      <span class="ex corner" data-t="dEx">Example</span>
-      <p class="q"><b data-t="caniPre">Can I</b> <span data-t="caniQ">record a phone call without telling the other person?</span></p>
-      <p class="verdict"><i data-t="dep">It depends</i></p>
-      <ul class="countries">
-        <li><b data-t="jIT">Italy</b><span class="y" data-t="cIT">Yes, if you take part in the call</span></li>
-        <li><b data-t="jDE">Germany</b><span class="n" data-t="cDE">No, recording private words without consent is a crime</span></li>
-        <li><b data-t="jUKl">United Kingdom</b><span class="y" data-t="cUK">Yes, for your own records</span></li>
-        <li><b data-t="jUS">United States</b><span class="d" data-t="cUS">Depends on the state: some need everyone's consent</span></li>
-      </ul>
-    </div>
+
+    <figure class="file" aria-labelledby="q-cap" style="margin:0">
+      <div class="file-head"><b id="q-cap" data-t="dQuestion">Your question</b><span class="ex" data-t="dEx">Example</span></div>
+      <p class="facts"><span data-t="caniPre">Can I</span> <span data-t="caniQ">record a phone call without telling the other person?</span></p>
+      <div class="recog">
+        <p data-t="dAnswer">The answer</p>
+        <div class="ans"><i data-t="dep">It depends</i></div>
+      </div>
+      <ol class="sources" aria-label="Answer by country" data-t-aria="dByCountry">
+        <li class="src y"><div class="cite" data-t="jIT">Italy</div><p class="gist" data-t="cIT">Yes, if you take part in the call</p></li>
+        <li class="src n"><div class="cite" data-t="jDE">Germany</div><p class="gist" data-t="cDE">No, recording private words without consent is a crime</p></li>
+        <li class="src y"><div class="cite" data-t="jUKl">United Kingdom</div><p class="gist" data-t="cUK">Yes, for your own records</p></li>
+        <li class="src d"><div class="cite" data-t="jUS">United States</div><p class="gist" data-t="cUS">Depends on the state: some need everyone's consent</p></li>
+      </ol>
+    </figure>
   </div>
 
   <div class="wrap hero hero-lawyer">
@@ -445,9 +446,5 @@ footer .wrap{padding-top:36px;padding-bottom:40px;display:grid;grid-template-col
 
 <script src="/concept-labels.js"></script>
 <script src="/landing-i18n.js"></script>
-<script>
-document.querySelectorAll(".hero-ask textarea").forEach(function(t){t.addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();if(t.value.trim())t.form.submit();}});});
-document.querySelectorAll(".hero-ask").forEach(function(f){f.addEventListener("submit",function(e){if(!f.q.value.trim()){e.preventDefault();f.q.focus();}});});
-</script>
 </body>
 </html>
