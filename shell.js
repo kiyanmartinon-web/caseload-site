@@ -40,8 +40,10 @@
     ".cb-nav a.cb-acct:hover{background:var(--oxblood);color:#fff}",
     ".cb-nav a.cb-acct[aria-current=page]{box-shadow:none;border-radius:var(--radius,8px)}",
     ".masthead-in .cb-nav~.cb-lang{margin-inline-start:4px}",
+    /* the same header width on every page, so the bar never runs out of room */
+    ".masthead-in{max-width:1180px!important}",
     "@media(max-width:760px){",
-    "  .masthead-in{flex-wrap:wrap!important;height:auto!important;row-gap:0!important;padding-top:8px!important}",
+    "  .masthead-in{flex-wrap:wrap!important;height:auto!important;row-gap:0!important;column-gap:8px!important;padding-top:8px!important;padding-left:16px!important;padding-right:16px!important}",
     "  .masthead-in .wordmark{order:0}.masthead-in .cb-lang{order:1;margin-inline-start:auto!important}.masthead-in .cb-set{order:2}",
     "  .cb-nav{order:3;width:100%;margin:6px 0 0;gap:0;overflow-x:auto;scrollbar-width:none;border-top:1px solid var(--rule-soft)}",
     "  .cb-nav::-webkit-scrollbar{display:none}",
@@ -73,9 +75,9 @@
     var nav = document.createElement("nav");
     nav.className = "cb-nav";
     var links = [
+      ["cani", "/", /^\/$/],
       ["research", "/research.html", /\/research\.html$/],
       ["saved", "/research.html#cases", /^$/],
-      ["cani", "/can-i.html", /\/can-i\.html$/],
       ["risk", "/risk-check.html", /\/risk-check\.html$/],
       ["plans", "/pricing.html", /\/pricing\.html$/]
     ];
@@ -92,7 +94,8 @@
     if (/\/(account|login)\.html$/.test(path)) acct.setAttribute("aria-current", "page");
     nav.appendChild(acct);
 
-    var wm = head.querySelector(".wordmark");
+    // after the wordmark and the Client / Lawyer switch (view-switch.js), if it is already there
+    var wm = head.querySelector(".cb-viewsw") || head.querySelector(".wordmark");
     if (wm && wm.nextSibling) head.insertBefore(nav, wm.nextSibling); else head.appendChild(nav);
 
     var signedIn = null;

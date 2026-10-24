@@ -1,9 +1,11 @@
-/* Casebound — lawyer / client view switch.
-   Lawyer accounts see the case board (/lawyers.html) as their home. On the client
-   pages (research tool, risk check) they are sent to the board, unless they chose
-   "Client" in the switch. The switch sits in the top bar of those pages and the board.
-   Loaded in <head> with data-page="client" or data-page="lawyer". The role is cached
-   in this browser (local storage) so the redirect happens before the page paints. */
+/* Casebound — Client / Lawyer switch.
+   Shown to everyone in the top bar, next to the logo. "Client" leads to the Can I…?
+   homepage (/), "Lawyer" to the case board (/lawyers.html), which asks visitors who
+   aren't verified lawyers to sign up or sign in.
+   Lawyer accounts see the case board as their home: on the client pages (data-page="client")
+   they are sent to the board unless they chose "Client" in the switch. Pages that belong to
+   both sides (plans, account, legal pages) load it with data-page="info": no redirect.
+   The role is cached in this browser (local storage) so the redirect happens before the page paints. */
 (function () {
   var ROLE_KEY = "casebound:role", VIEW_KEY = "casebound:view";
   var me = document.currentScript;
@@ -11,7 +13,7 @@
   function get(k) { try { return localStorage.getItem(k) || ""; } catch (e) { return ""; } }
   function set(k, v) { try { if (v) localStorage.setItem(k, v); else localStorage.removeItem(k); } catch (e) {} }
   window.CaseboundView = {
-    toClient: function () { set(VIEW_KEY, "client"); location.href = "/research.html"; },
+    toClient: function () { set(VIEW_KEY, "client"); location.href = "/"; },
     toLawyer: function () { set(VIEW_KEY, "lawyer"); location.href = "/lawyers.html"; }
   };
 
@@ -25,8 +27,11 @@
     ".cb-viewsw{display:inline-flex;gap:2px;background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:3px;flex:none}" +
     ".cb-viewsw button{font-family:var(--sans);font-size:12.5px;font-weight:600;border:none;background:none;color:var(--ink-soft);padding:6px 12px;border-radius:4px;cursor:pointer;white-space:nowrap}" +
     ".cb-viewsw button[aria-pressed=true]{background:var(--ink);color:var(--paper-2)}" +
+    ".cb-viewsw{border-radius:var(--radius,8px)}.cb-viewsw button{border-radius:calc(var(--radius,8px) - 3px)}" +
+    ".cb-viewsw button:not([aria-pressed=true]):hover{color:var(--ink);background:var(--paper-2)}" +
+    ".wordmark+.cb-viewsw{margin-inline-start:6px}" +
     "@media(max-width:1400px){.cb-viewsw .cb-long{display:none}}" +
-    "@media(max-width:640px){.cb-viewsw{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 72px);z-index:90;box-shadow:0 4px 14px rgba(0,0,0,.18)}.cb-viewsw button{padding:8px 14px}}";
+    "@media(max-width:760px){.masthead-in .cb-viewsw{order:0}.cb-viewsw button{padding:5px 10px;font-size:12px}}";
 
   var TXT = {
     en: { aria: "Switch view", client: "Client", clientL: ": research &amp; risk check", lawyer: "Lawyer", lawyerL: ": case board" },
@@ -41,8 +46,8 @@
 
   function mount() {
     if (document.querySelector(".cb-viewsw")) return;
-    var host = document.querySelector(".top-links");
-    if (!host) return;
+    var head = document.querySelector(".masthead-in");
+    if (!head) return;
     var st = document.createElement("style"); st.textContent = CSS; document.head.appendChild(st);
     var box = document.createElement("div");
     box.className = "cb-viewsw"; box.setAttribute("role", "group");
@@ -50,7 +55,7 @@
       var I = window.CB_I18N, t = (I && I.pick(TXT)) || TXT.en;
       box.setAttribute("aria-label", t.aria);
       box.innerHTML =
-        '<button type="button" data-v="client" aria-pressed="' + (page === "client") + '">' + t.client + '<span class="cb-long">' + t.clientL + '</span></button>' +
+        '<button type="button" data-v="client" aria-pressed="' + (page !== "lawyer") + '">' + t.client + '<span class="cb-long">' + t.clientL + '</span></button>' +
         '<button type="button" data-v="lawyer" aria-pressed="' + (page === "lawyer") + '">' + t.lawyer + '<span class="cb-long">' + t.lawyerL + '</span></button>';
     }
     label();
@@ -60,16 +65,20 @@
       if (b.getAttribute("data-v") === "client") { if (page !== "client") window.CaseboundView.toClient(); }
       else if (page !== "lawyer") window.CaseboundView.toLawyer();
     });
-    host.insertBefore(box, host.firstChild);
+    // right after the logo (and its "for lawyers" label)
+    var wm = head.querySelector(".wordmark");
+    head.insertBefore(box, wm ? wm.nextSibling : head.firstChild);
   }
 
   function apply(role) {
     set(ROLE_KEY, role === "lawyer" ? "lawyer" : "");
-    if (role !== "lawyer") { set(VIEW_KEY, ""); return; }
+    if (role !== "lawyer") { if (page === "client") set(VIEW_KEY, ""); return; }
     if (page === "lawyer") set(VIEW_KEY, "lawyer");
     if (page === "client" && get(VIEW_KEY) !== "client") { location.replace("/lawyers.html"); return; }
-    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", mount); else mount();
   }
+
+  // The switch is for everyone, signed in or not.
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", mount); else mount();
 
   fetch("/api/auth/me", { credentials: "same-origin" })
     .then(function (r) { return r.ok ? r.json() : {}; })

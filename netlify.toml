@@ -7,6 +7,13 @@
   directory = "netlify/functions"
   node_bundler = "esbuild"
 
+# "Can I…?" is the homepage now; old links (emails, bookmarks, saved answers) still work.
+[[redirects]]
+  from = "/can-i.html"
+  to = "/"
+  status = 301
+  force = true
+
 # Keep the database setup notes and repo files off the public site.
 [[redirects]]
   from = "/README.md"

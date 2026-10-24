@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/i18n.js"></script>
+<script src="/theme.js"></script>
+<script src="/view-switch.js" data-page="info"></script>
+<script src="/shell.js" defer></script>
+<title>Casebound — find the law that decides your case</title>
+<meta name="description" content="Describe what happened in plain words. Casebound finds and ranks the provisions and rulings that govern it, across Italy, the EU, France, Germany, the UK, the US and international law.">
+<meta name="theme-color" content="#A11D33">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--paper)}
+body{font-family:var(--sans);color:var(--ink);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+img,svg{display:block}
+
+/* top bar (the nav itself comes from shell.js) */
+.masthead{border-bottom:1px solid var(--rule);position:sticky;top:0;z-index:50}
+.masthead-in{max-width:1180px;margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:16px;min-height:60px}
+.wordmark{font-size:22px;line-height:1;text-decoration:none;color:var(--ink)}
+
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+
+/* ---------- hero ---------- */
+.hero{padding-block:72px 88px;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:56px;align-items:start}
+.hero h1{font-size:clamp(38px,5.2vw,62px);line-height:1.02;letter-spacing:-.045em;font-weight:750;margin:0 0 22px;max-width:13ch;text-wrap:balance}
+.hero .sub{font-size:19px;line-height:1.5;color:var(--ink-soft);margin:0 0 30px;max-width:40ch}
+.ctas{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:inherit;font-size:15.5px;font-weight:650;text-decoration:none;padding:13px 20px;border-radius:var(--radius);border:1px solid transparent;cursor:pointer;transition:background .15s,color .15s,border-color .15s}
+.btn.primary{background:var(--oxblood);color:#fff}
+.btn.primary:hover{background:var(--ink)}
+.btn.quiet{background:var(--paper-2);color:var(--ink);border-color:var(--rule)}
+.btn.quiet:hover{border-color:var(--ink)}
+html[data-theme="dark"] .btn.quiet{color:var(--ink)!important}
+html[data-theme="dark"] .found .btn.primary:hover{color:var(--ink)!important}
+.fine{font-size:13.5px;color:var(--ink-soft);margin:16px 0 0}
+
+/* the case file: the one bold element on the page */
+.file{background:var(--paper-2);border:1px solid var(--rule);border-radius:14px;box-shadow:0 1px 0 var(--rule-soft),0 24px 48px -28px color-mix(in srgb,var(--ink) 35%,transparent);overflow:hidden}
+.file-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:18px 24px 0;font-size:13px;color:var(--ink-soft)}
+.file-head b{font-weight:650;color:var(--ink)}
+.ex{font-size:12px;color:var(--ink-soft);border:1px solid var(--rule);border-radius:999px;padding:1px 9px}
+.facts{margin:10px 24px 0;padding:14px 16px;background:var(--paper);border-radius:var(--radius);font-size:15.5px;line-height:1.5}
+.recog{padding:16px 24px 18px;border-bottom:1px solid var(--rule-soft)}
+.recog p{margin:0 0 8px;font-size:13px;color:var(--ink-soft)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin:0;padding:0}
+.chips li{font-size:13px;font-weight:600;padding:4px 10px;border-radius:999px;background:var(--slate-wash);color:var(--slate)}
+.sources{list-style:none;margin:0;padding:6px 0 10px;counter-reset:r}
+.src{display:grid;grid-template-columns:28px minmax(0,1fr);gap:4px 12px;padding:14px 24px;counter-increment:r}
+.src+.src{border-top:1px solid var(--rule-soft)}
+.src::before{content:counter(r);grid-row:1/span 3;font-size:13px;font-weight:700;color:var(--ink-soft);width:26px;height:26px;border-radius:50%;border:1px solid var(--rule);display:grid;place-items:center;margin-top:2px}
+.src:first-child::before{background:var(--oxblood);border-color:var(--oxblood);color:#fff}
+.cite{font-family:var(--law);font-size:21px;line-height:1.2;font-weight:500;letter-spacing:-.005em}
+.cite small{font-family:var(--sans);font-size:12.5px;font-weight:600;color:var(--ink-soft);margin-inline-start:8px;letter-spacing:0}
+.gist{font-family:var(--law);font-size:15.5px;line-height:1.45;color:var(--ink-soft);margin:0}
+.shared{display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;font-size:12.5px;color:var(--verdigris);font-weight:600}
+.score{color:var(--ink-soft);font-weight:500}.score b{color:var(--ink);font-weight:700;font-variant-numeric:tabular-nums}
+.sc+.sc::before{content:"";display:inline-block;width:3px;height:3px;border-radius:50%;background:currentColor;margin-inline-end:12px;vertical-align:middle;opacity:.5}
+@media (prefers-reduced-motion:no-preference){
+  .js .src{opacity:0;transform:translateY(6px);animation:in .45s cubic-bezier(.2,.7,.2,1) forwards}
+  .js .src:nth-child(1){animation-delay:.25s}.js .src:nth-child(2){animation-delay:.4s}
+  .js .src:nth-child(3){animation-delay:.55s}.js .src:nth-child(4){animation-delay:.7s}
+  @keyframes in{to{opacity:1;transform:none}}
+}
+
+/* ---------- coverage ---------- */
+.cover{padding-bottom:88px}
+.cover h2,.row h2,.plans h2,.found h2{font-size:clamp(28px,3.4vw,40px);line-height:1.08;letter-spacing:-.035em;font-weight:720;margin:0 0 14px;text-wrap:balance}
+.cover p.lead,.row p.lead{font-size:17.5px;color:var(--ink-soft);margin:0;max-width:52ch}
+.cover-top{display:flex;justify-content:space-between;align-items:end;gap:32px;flex-wrap:wrap;margin-bottom:26px}
+.bar{display:flex;height:14px;border-radius:999px;overflow:hidden;gap:2px;background:var(--paper)}
+.bar span{display:block;height:100%}
+.legend{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px 24px;list-style:none;margin:18px 0 0;padding:0}
+.legend li{display:flex;align-items:baseline;gap:8px;font-size:14.5px}
+.legend i{width:10px;height:10px;border-radius:3px;flex:none;transform:translateY(1px)}
+.legend b{font-weight:600;font-variant-numeric:tabular-nums;color:var(--ink-soft)}
+.j1{background:var(--oxblood)}.j2{background:#3D57A6}.j3{background:#176B66}.j4{background:#94600A}.j5{background:#7A4A9E}.j6{background:#3B475B}.j7{background:#9AA3B2}
+
+/* ---------- feature rows ---------- */
+.rows{border-top:1px solid var(--rule)}
+.row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:64px;align-items:center;padding-block:80px;border-bottom:1px solid var(--rule)}
+.row:nth-child(even) .row-copy{order:2}
+.tag{display:inline-block;font-size:12.5px;font-weight:700;padding:3px 10px;border-radius:999px;margin-bottom:16px}
+.tag.free{background:var(--verdigris-wash);color:var(--verdigris)}
+.tag.pro{background:var(--oxblood-wash);color:var(--oxblood)}
+.row ul.points{list-style:none;margin:22px 0 26px;padding:0;display:grid;gap:10px}
+.row ul.points li{display:flex;gap:10px;font-size:15.5px}
+.row ul.points li::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:var(--oxblood);margin-top:9px}
+.link{font-weight:650;text-decoration:none;border-bottom:2px solid var(--oxblood);padding-bottom:1px}
+.link:hover{color:var(--oxblood)}
+
+.panel{position:relative;background:var(--paper-2);border:1px solid var(--rule);border-radius:14px;padding:24px}
+.ex.corner{position:absolute;top:16px;inset-inline-end:16px}
+.q{font-family:var(--law);font-size:22px;line-height:1.3;margin:0 0 18px;padding-inline-end:76px}
+.q b{color:var(--oxblood);font-weight:500}
+.verdict{display:flex;align-items:center;gap:10px;margin:0 0 12px;font-weight:700;font-size:15px}
+.verdict i{font-style:normal;font-size:13px;font-weight:700;padding:3px 10px;border-radius:999px;background:var(--amber-wash);color:var(--amber)}
+.countries{list-style:none;margin:0;padding:0}
+.countries li{display:grid;grid-template-columns:120px 1fr;gap:12px;padding:10px 0;border-top:1px solid var(--rule-soft);font-size:14.5px}
+.countries b{font-weight:650}
+.y{color:var(--verdigris)}.n{color:var(--oxblood)}.d{color:var(--amber)}
+
+.rating{display:flex;align-items:center;gap:16px;margin:0 0 18px;padding-inline-end:76px}
+.dial{width:64px;height:64px;flex:none}
+.rating b{display:block;font-size:22px;letter-spacing:-.02em}
+.rating span{font-size:14px;color:var(--ink-soft)}
+.factors{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.factors li{border:1px solid var(--rule-soft);border-radius:var(--radius);padding:12px 14px;font-size:13.5px;color:var(--ink-soft)}
+.factors li b{display:block;font-size:14.5px;color:var(--ink);margin-bottom:2px}
+.factors .ok b::after{content:" ✓";color:var(--verdigris)}
+.factors .warn b::after{content:" !";color:var(--amber);font-weight:800}
+
+.lawyer{padding-inline-end:76px;display:grid;grid-template-columns:44px 1fr;gap:4px 14px;align-items:center}
+.lawyer .av{grid-row:1/span 2;width:44px;height:44px;border-radius:50%;background:var(--slate-wash);color:var(--slate);display:grid;place-items:center;font-weight:700}
+.lawyer b{font-size:15.5px}
+.lawyer span{font-size:13.5px;color:var(--ink-soft)}
+.msg{font-family:var(--law);font-size:16px;line-height:1.45;margin:16px 0;padding:14px 16px;background:var(--paper);border-radius:var(--radius)}
+.panel-actions{display:flex;gap:8px;flex-wrap:wrap}
+.panel-actions span{font-size:13.5px;font-weight:650;padding:9px 14px;border-radius:var(--radius);border:1px solid var(--rule)}
+.panel-actions span:first-child{background:var(--ink);color:var(--paper-2);border-color:var(--ink)}
+
+/* ---------- founding lawyers ---------- */
+.found{background:var(--ink);color:#EEF0F4;margin:0}
+.row:last-child{border-bottom:0}
+.found .wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:56px;padding-top:80px;padding-bottom:80px;align-items:center}
+.found h2{color:#fff}
+.found p{font-size:17.5px;color:#B9C0CD;margin:0 0 26px;max-width:48ch}
+.found .btn.primary:hover{background:#fff;color:var(--ink)}
+.found ol{list-style:none;margin:0;padding:0;counter-reset:s;display:grid;gap:0}
+.found ol li{counter-increment:s;display:grid;grid-template-columns:36px 1fr;gap:14px;padding:16px 0;border-top:1px solid #2C3446;font-size:15.5px;color:#D9DDE5}
+.found ol li:last-child{border-bottom:1px solid #2C3446}
+.found ol li::before{content:counter(s);font-family:var(--law);font-size:22px;line-height:1;color:#F08A9B}
+html[data-theme="dark"] .found{background:#06080C}
+
+/* ---------- plans ---------- */
+.plans{padding-block:96px}
+.plans-top{max-width:56ch;margin-bottom:34px}
+.plans-top p{font-size:17.5px;color:var(--ink-soft);margin:0}
+.plan-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:900px}
+.plan{background:var(--paper-2);border:1px solid var(--rule);border-radius:14px;padding:28px;display:flex;flex-direction:column}
+.plan.pro{border:2px solid var(--ink)}
+.plan h3{font-size:20px;margin:0 0 6px}
+.price{font-size:40px;font-weight:750;letter-spacing:-.04em;line-height:1;margin:14px 0 4px}
+.price small{font-size:15px;font-weight:500;letter-spacing:0;color:var(--ink-soft)}
+.per{font-size:14px;color:var(--ink-soft);margin:0 0 18px}
+.plan ul{list-style:none;margin:0 0 24px;padding:0;display:grid;gap:9px;flex:1}
+.plan li{display:flex;gap:10px;font-size:15px}
+.plan li::before{content:"✓";color:var(--verdigris);font-weight:700}
+.launch{font-size:14px;color:var(--ink-soft);margin:18px 0 0;max-width:62ch}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--rule);background:var(--paper-2)}
+footer .wrap{padding-top:36px;padding-bottom:40px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px 48px}
+.disclaim{font-size:14px;color:var(--ink-soft);margin:8px 0 0;max-width:52ch}
+.foot-links{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:14px;align-content:start;justify-content:flex-end}
+.foot-links a{text-decoration:none;color:var(--ink-soft)}
+.foot-links a:hover{color:var(--oxblood)}
+.copy{grid-column:1/-1;font-size:13px;color:var(--ink-soft)}
+
+/* ---------- responsive ---------- */
+@media (max-width:960px){
+  .hero{grid-template-columns:1fr;gap:40px;padding-block:48px 64px}
+  .hero h1{max-width:16ch}
+  .row{grid-template-columns:1fr;gap:32px;padding-block:56px}
+  .row:nth-child(even) .row-copy{order:0}
+  .found .wrap{grid-template-columns:1fr;gap:36px;padding-top:56px;padding-bottom:56px}
+  .plan-grid{grid-template-columns:1fr}
+  footer .wrap{grid-template-columns:1fr}.foot-links{justify-content:flex-start}
+}
+@media (max-width:560px){
+  .wrap,.masthead-in{padding-left:16px;padding-right:16px}
+  .hero .sub{font-size:17px}
+  .ctas .btn{flex:1 1 100%}
+  .file-head,.recog,.src{padding-left:16px;padding-right:16px}.facts{margin-left:16px;margin-right:16px}
+  .cite{font-size:19px}
+  .countries li{grid-template-columns:96px 1fr}
+  .factors{grid-template-columns:1fr}
+  .panel{padding:18px}
+}
+</style>
+<link rel="stylesheet" href="/brand.css">
+</head>
+<body>
+<script>document.documentElement.classList.add("js");if(location.hash==="#cases")location.replace("/research.html#cases");</script>
+
+<header class="masthead">
+  <div class="masthead-in">
+    <a class="wordmark" href="/">Case<span>bound</span></a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <div>
+      <h1 data-t="h1">Tell us what happened. We'll find the law that decides it.</h1>
+      <p class="sub" data-t="sub">Describe your situation in plain words. Casebound ranks the provisions and rulings that govern it, across Italy, the EU, France, Germany, the UK, the US and international law.</p>
+      <div class="ctas">
+        <a class="btn primary" href="/research.html" data-t="ctaCase">Describe your case</a>
+        <a class="btn quiet" href="/" data-t="ctaAsk">Ask a yes-or-no question</a>
+      </div>
+      <p class="fine" data-t="fine">Free to start. No card, no account.</p>
+    </div>
+
+    <figure class="file" aria-labelledby="file-cap" style="margin:0">
+      <div class="file-head"><b id="file-cap" data-t="dWords">Your words</b><span class="ex" data-t="dEx">Example</span></div>
+      <p class="facts" data-t="dFact">Our supplier delivered the packaging machine six weeks late and we lost orders while we waited. Can we claim the profit we lost?</p>
+      <div class="recog">
+        <p data-t="dRecog">Legal concepts recognised in your case</p>
+        <ul class="chips">
+          <li data-c="delay">Delay in performance</li><li data-c="sale_goods">Sale of goods</li><li data-c="lost_profit">Lost profit</li>
+        </ul>
+      </div>
+      <ol class="sources" aria-label="Ranked sources" data-t-aria="dRanked">
+        <li class="src">
+          <div class="cite">Victoria Laundry v Newman Industries [1949] <small data-t="jUK">jUK</small></div>
+          <p class="gist" data-t="g1"></p>
+          <div class="shared"><span class="score"><b>83</b> <span data-t="match">match</span></span><span class="sc" data-cn="lost_profit"></span><span class="sc" data-cn="delay"></span><span class="sc" data-cn="sale_goods"></span></div>
+        </li>
+        <li class="src">
+          <div class="cite">The Achilleas [2008] UKHL 48 <small data-t="jUK">jUK</small></div>
+          <p class="gist" data-t="g2"></p>
+          <div class="shared"><span class="score"><b>76</b> <span data-t="match">match</span></span><span class="sc" data-cn="lost_profit"></span><span class="sc" data-cn="delay"></span></div>
+        </li>
+        <li class="src">
+          <div class="cite">Art. 74 CISG <small data-t="jINT">jINT</small></div>
+          <p class="gist" data-t="g3"></p>
+          <div class="shared"><span class="score"><b>64</b> <span data-t="match">match</span></span><span class="sc" data-cn="lost_profit"></span><span class="sc" data-cn="sale_goods"></span></div>
+        </li>
+        <li class="src">
+          <div class="cite">Hadley v Baxendale (1854) <small data-t="jUK">jUK</small></div>
+          <p class="gist" data-t="g4"></p>
+          <div class="shared"><span class="score"><b>55</b> <span data-t="match">match</span></span><span class="sc" data-cn="lost_profit"></span></div>
+        </li>
+      </ol>
+    </figure>
+  </div>
+
+  <section class="wrap cover" aria-labelledby="cov-h">
+    <div class="cover-top">
+      <div>
+        <h2 id="cov-h" data-t="covH">745 provisions and rulings, matched by meaning.</h2>
+        <p class="lead" data-t="covP">Casebound doesn't search for your words. It reads the legal concepts in your story, so a late delivery in Milan also finds the English case on lost profit.</p>
+      </div>
+    </div>
+    <div class="bar" role="img" aria-label="Sources by jurisdiction" data-t-aria="covAria">
+      <span class="j1" style="flex:183"></span><span class="j2" style="flex:126"></span><span class="j3" style="flex:111"></span><span class="j4" style="flex:107"></span><span class="j5" style="flex:92"></span><span class="j6" style="flex:77"></span><span class="j7" style="flex:49"></span>
+    </div>
+    <ul class="legend">
+      <li><i class="j1"></i><span data-t="jIT">Italy</span><b>183</b></li>
+      <li><i class="j2"></i><span data-t="jEU">European Union</span><b>126</b></li>
+      <li><i class="j3"></i><span data-t="jUS">United States</span><b>111</b></li>
+      <li><i class="j4"></i><span data-t="jUKl">United Kingdom</span><b>107</b></li>
+      <li><i class="j5"></i><span data-t="jFR">France</span><b>92</b></li>
+      <li><i class="j6"></i><span data-t="jDE">Germany</span><b>77</b></li>
+      <li><i class="j7"></i><span data-t="jINT">International</span><b>49</b></li>
+    </ul>
+  </section>
+
+  <div class="rows">
+    <section class="wrap row" aria-labelledby="cani-h">
+      <div class="row-copy">
+        <span class="tag free" data-t="caniTag">Free, 5 questions a day</span>
+        <h2 id="cani-h" data-t="caniH">Ask whether you're allowed to do something.</h2>
+        <p class="lead" data-t="caniP">Type an everyday question. You get yes, no or it depends, country by country, with the conditions and the rules behind the answer.</p>
+        <ul class="points">
+          <li data-t="caniP1">Answers for Italy, Spain, France, Germany, Portugal, Poland, the UK and the US, your own country first</li>
+          <li data-t="caniP2">Casebound doesn't keep your question</li>
+        </ul>
+        <a class="link" href="/" data-t="caniCta">Ask a question</a>
+      </div>
+      <div class="panel" aria-hidden="true">
+        <span class="ex corner" data-t="dEx">Example</span>
+        <p class="q"><b data-t="caniPre">Can I</b> <span data-t="caniQ">record a phone call without telling the other person?</span></p>
+        <p class="verdict"><i data-t="dep">It depends</i></p>
+        <ul class="countries">
+          <li><b data-t="jIT">Italy</b><span class="y" data-t="cIT">Yes, if you take part in the call</span></li>
+          <li><b data-t="jDE">Germany</b><span class="n" data-t="cDE">No, recording private words without consent is a crime</span></li>
+          <li><b data-t="jUKl">United Kingdom</b><span class="y" data-t="cUK">Yes, for your own records</span></li>
+          <li><b data-t="jUS">United States</b><span class="d" data-t="cUS">Depends on the state: some need everyone's consent</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="wrap row" aria-labelledby="risk-h">
+      <div class="row-copy">
+        <span class="tag pro">Casebound Pro</span>
+        <h2 id="risk-h" data-t="riskH">Know where your case stands before you spend on it.</h2>
+        <p class="lead" data-t="riskP">The risk check rates your case low, medium or high and tells you why: how long you have left to act, what your evidence is missing and what to gather next.</p>
+        <ul class="points">
+          <li data-t="riskP1">Time limits for each type of claim, from 30 days to 10 years</li>
+          <li data-t="riskP2">Runs in your browser: your facts aren't sent anywhere</li>
+        </ul>
+        <a class="link" href="/risk-check.html" data-t="riskCta">See how the risk check works</a>
+      </div>
+      <div class="panel" aria-hidden="true">
+        <span class="ex corner" data-t="dEx">Example</span>
+        <div class="rating">
+          <svg class="dial" viewBox="0 0 64 64"><circle cx="32" cy="32" r="27" fill="none" stroke="var(--rule-soft)" stroke-width="8"/><circle cx="32" cy="32" r="27" fill="none" stroke="var(--amber)" stroke-width="8" stroke-linecap="round" stroke-dasharray="84 170" transform="rotate(-90 32 32)"/></svg>
+          <div><b data-t="rMed">Medium risk</b><span data-t="rCase">Unpaid invoice for goods delivered, €4,800</span></div>
+        </div>
+        <ul class="factors">
+          <li class="ok"><b data-t="fTime">Time limit</b><span data-t="fTimeV">Well inside the limit</span></li>
+          <li class="warn"><b data-t="fEv">Evidence</b><span data-t="fEvV">Add the signed delivery note</span></li>
+          <li class="ok"><b data-t="fDet">Detail</b><span data-t="fDetV">Dates and parties are clear</span></li>
+          <li class="ok"><b data-t="fAmt">Amount</b><span data-t="fAmtV">Fits small-claims procedures</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="wrap row" aria-labelledby="conn-h">
+      <div class="row-copy">
+        <span class="tag pro">Casebound Pro</span>
+        <h2 id="conn-h" data-t="connH">Hear from verified lawyers, on your terms.</h2>
+        <p class="lead" data-t="connP">Send your case to lawyers we've checked on the official bar register. They see the facts, not who you are. You choose who gets your name and email.</p>
+        <ul class="points">
+          <li data-t="connP1">Up to 5 open cases at a time</li>
+          <li data-t="connP2">Withdraw a case or add details whenever you like</li>
+        </ul>
+        <a class="link" href="/risk-check.html#connect" data-t="connCta">Start with a risk check</a>
+      </div>
+      <div class="panel" aria-hidden="true">
+        <span class="ex corner" data-t="dEx">Example</span>
+        <div class="lawyer"><span class="av">GR</span><b data-t="lName">Avv. G. R., Milan bar</b><span data-t="lAreas">Contracts, sale of goods</span></div>
+        <p class="msg" data-t="lMsg">I'd like to take this on. Can you send the purchase order and the emails about the delivery date?</p>
+        <div class="panel-actions"><span data-t="lShare">Share my contact details</span><span data-t="lNot">Not now</span></div>
+      </div>
+    </section>
+  </div>
+
+  <section class="found" aria-labelledby="found-h">
+    <div class="wrap">
+      <div>
+        <h2 id="found-h" data-t="foundH">For lawyers: become one of our first 50 Founding Lawyers.</h2>
+        <p data-t="foundP">Clients arrive with a risk check already done. You read the case, rate it privately and decide whether to ask for it. Joining is free.</p>
+        <a class="btn primary" href="/login.html?mode=register" data-t="foundCta">Join as a lawyer</a>
+      </div>
+      <ol>
+        <li data-t="foundS1">Create an account and give your bar association and register number</li>
+        <li data-t="foundS2">We check you on the official register before you see any case</li>
+        <li data-t="foundS3">Mark the cases you want; the client decides whether to share their details</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="wrap plans" aria-labelledby="plans-h">
+    <div class="plans-top">
+      <h2 id="plans-h" data-t="plansH">Start free. Upgrade when your case needs it.</h2>
+    </div>
+    <div class="plan-grid">
+      <div class="plan">
+        <h3 data-t="freeN">Free</h3>
+        <div class="price">€0</div>
+        <p class="per" data-t="freePer">No card, no account</p>
+        <ul>
+          <li data-t="free1">3 new analyses a day</li>
+          <li data-t="free2">Up to 3 saved cases</li>
+          <li data-t="free3">Case mindmap and ranked sources</li>
+          <li data-t="free4">5 “Can I…?” questions a day</li>
+        </ul>
+        <a class="btn quiet" href="/research.html" data-t="freeCta">Start free</a>
+      </div>
+      <div class="plan pro">
+        <h3>Casebound Pro</h3>
+        <div class="price">€9.99 <small data-t="perMonth">a month</small></div>
+        <p class="per" data-t="proPer">or €89 a year</p>
+        <ul>
+          <li data-t="pro1">Risk check for your case</li>
+          <li data-t="pro2">Send your case to verified lawyers</li>
+          <li data-t="pro3">Unlimited analyses and saved cases</li>
+          <li data-t="pro4">Read PDF, Word and text files into your facts</li>
+        </ul>
+        <a class="btn primary" href="/pricing.html" data-t="proCta">Get Pro</a>
+      </div>
+    </div>
+    <p class="launch" data-t="launch">Subscribe now and you keep today's price for as long as you stay subscribed. Cancel any time; EU consumers can withdraw within 14 days.</p>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <a class="wordmark" href="/">Case<span>bound</span></a>
+      <p class="disclaim" data-t="disc">A research aid, not legal advice. Check every source before relying on it, and talk to a lawyer about decisions that matter.</p>
+    </div>
+    <nav class="foot-links" aria-label="Footer" data-t-aria="footAria">
+      <a href="/research.html" data-t="fResearch">Research</a>
+      <a href="/" data-t="fCani">Can I…?</a>
+      <a href="/risk-check.html" data-t="fRisk">Risk check</a>
+      <a href="/lawyers.html" data-t="fLaw">For lawyers</a>
+      <a href="/pricing.html" data-t="fPlans">Plans</a>
+      <a href="/terms.html" data-t="fTerms">Terms</a>
+      <a href="/privacy.html" data-t="fPriv">Privacy</a>
+      <a href="mailto:admin@case-bound.com" data-t="fContact">Contact and complaints</a>
+    </nav>
+    <p class="copy">© 2026 Kiyan Martinon</p>
+  </div>
+</footer>
+
+<script src="/concept-labels.js"></script>
+<script src="/landing-i18n.js"></script>
+</body>
+</html>

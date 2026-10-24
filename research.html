@@ -401,7 +401,7 @@ html[data-theme="dark"] .seg button[aria-checked="true"]{box-shadow:0 1px 2px rg
   <div class="masthead-in">
     <a class="wordmark" href="#" data-go="start">Case<span>bound</span><small data-t="legalResearch">Legal research</small></a>
     <nav class="tabs" aria-label="Sections" data-t-aria="navSections">
-      <a class="tab" href="/can-i.html"><span data-t="canI">Can I…?</span></a>
+      <a class="tab" href="/"><span data-t="canI">Can I…?</span></a>
       <button class="tab on" data-go="start"><span class="n">1</span><span data-t="tabNew">New case</span></button>
       <button class="tab" data-go="results" id="tab-results" disabled><span class="n">2</span><span data-t="tabResults">Results</span></button>
       <button class="tab" data-go="cases"><span class="long" data-t="savedCases">Saved cases</span><span class="short" data-t="tabSavedShort">Saved</span></button>
@@ -421,7 +421,7 @@ html[data-theme="dark"] .seg button[aria-checked="true"]{box-shadow:0 1px 2px rg
   <div class="start">
     <h1 data-t="h1">Tell us about your case.</h1>
     <p class="start-lede" data-t="lede">Describe what happened in plain words. Casebound finds the provisions and rulings that apply — from Italy, the EU, France, Germany, the UK, the US and international law — and ranks them by the legal concepts they share with your case.</p>
-    <p class="start-quick"><a href="/can-i.html" data-t="quickCanI">Just need a quick yes or no? Ask “Can I…?” — free →</a></p>
+    <p class="start-quick"><a href="/" data-t="quickCanI">Just need a quick yes or no? Ask “Can I…?” — free →</a></p>
 
     <form class="start-card" id="start-form" novalidate>
       <div class="step">
@@ -3487,7 +3487,7 @@ window.addEventListener(&quot;message&quot;, function(ev){
 <footer class="site-foot">
   <div class="site-foot-in">
     <span class="sf-note" data-th="footNote"><b>Research aid, not legal advice.</b> Check every source before relying on it. What you type stays in this browser.</span>
-    <span class="sf-links"><a href="/can-i.html" data-t="canI">Can I…?</a><a href="/risk-check.html"><span data-t="riskCheck">Risk check</span><span class="pro-mini">PRO</span></a><a href="/lawyers.html" data-t="forLawyers">For lawyers</a><a href="/pricing.html" data-t="plans">Plans</a><a href="/account.html" data-t="account">Account</a><a href="/terms.html" data-t="terms">Terms</a><a href="/privacy.html" data-t="privacy">Privacy</a><a data-t="contact" href="mailto:admin@case-bound.com?subject=Casebound%20%E2%80%94%20contact%20or%20complaint">Contact</a></span>
+    <span class="sf-links"><a href="/" data-t="canI">Can I…?</a><a href="/risk-check.html"><span data-t="riskCheck">Risk check</span><span class="pro-mini">PRO</span></a><a href="/lawyers.html" data-t="forLawyers">For lawyers</a><a href="/pricing.html" data-t="plans">Plans</a><a href="/account.html" data-t="account">Account</a><a href="/terms.html" data-t="terms">Terms</a><a href="/privacy.html" data-t="privacy">Privacy</a><a data-t="contact" href="mailto:admin@case-bound.com?subject=Casebound%20%E2%80%94%20contact%20or%20complaint">Contact</a></span>
     <label class="consent" data-t-title="consentTitle" title="Shares your result ratings and the legal concepts recognised in your case — never your text or files. Off by default."><input type="checkbox" id="improve-consent"> <span data-t="consent">Help improve rankings</span> <a href="/privacy.html#improve" data-t="consentWhat">(what's sent)</a></label>
   </div>
 </footer>
@@ -4625,7 +4625,7 @@ function renderCases(){
   if(!list.length){
     grid.innerHTML = `<div class="cases-empty-full">${
       q ? t("emptySearch") :
-      KIND_FILTER === "cani" && PROJ_FILTER === "all" ? `${escHtml(t("emptyCani"))}<br><a class="hub-btn" href="/can-i.html" style="display:inline-block;text-decoration:none">${escHtml(t("askCani"))}</a>` :
+      KIND_FILTER === "cani" && PROJ_FILTER === "all" ? `${escHtml(t("emptyCani"))}<br><a class="hub-btn" href="/" style="display:inline-block;text-decoration:none">${escHtml(t("askCani"))}</a>` :
       PROJ_FILTER === "none" ? t("emptyAllFiled") :
       PROJ_FILTER !== "all" ? t("emptyProject") :
       `${t("emptyNone")}<br><button type="button" class="hub-btn" data-go="start">${t("startCase")}</button>`
@@ -4654,8 +4654,8 @@ function renderCases(){
   const ti = grid.querySelector(".case-card-title-in");
   if(ti){ ti.focus(); ti.select(); }
 }
-/* a saved "Can I…?" answer (saved from /can-i.html into the same list) */
-const caniUrl = (c) => "/can-i.html?open=" + encodeURIComponent(c.id);
+/* a saved "Can I…?" answer (saved from the Can I…? page, /, into the same list) */
+const caniUrl = (c) => "/?open=" + encodeURIComponent(c.id);
 function caniPill(c){
   const v = (c.answer && c.answer.verdict) || "unclear";
   return `<span class="ci-v ${escHtml(v)}">${escHtml((t("caniV") || {})[v] || v)}</span>`;
