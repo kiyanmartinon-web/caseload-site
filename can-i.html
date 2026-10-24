@@ -7,6 +7,7 @@
 <script src="/theme.js"></script>
 <script src="/shell.js" defer></script>
 <script src="/view-switch.js" data-page="client"></script>
+<script src="/plan-limits.js"></script>
 <title>Can I…? — Casebound</title>
 <meta name="description" content="Ask whether you're allowed to do something. Get a yes or no, where it's allowed and where it isn't, and the conditions that come with it. Free.">
 <meta name="theme-color" content="#6E1F2A">
@@ -114,6 +115,12 @@ select{background:var(--paper);border:1px solid var(--rule);border-radius:5px;pa
 .laws{display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;list-style:none}
 .laws li{font-size:12.5px;border:1px solid var(--rule);border-radius:14px;padding:4px 10px;background:var(--paper)}
 .a-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.save-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;padding:14px 20px;background:var(--paper);border-bottom:1px solid var(--rule-soft)}
+.save-row label{font-size:13px;font-weight:600;display:flex;gap:8px;align-items:center}
+.save-row select{min-width:0;padding:7px 9px;font-size:13.5px}
+.save-row .btn{padding:8px 16px}
+.save-ok{font-size:13.5px;font-weight:600;color:var(--verdigris)}
+.save-note{font-size:13px;color:var(--oxblood);flex-basis:100%}
 .fine{font-size:12.5px;color:var(--ink-soft);margin:0;line-height:1.5}
 
 /* ---------- recent ---------- */
@@ -133,7 +140,7 @@ select{background:var(--paper);border:1px solid var(--rule);border-radius:5px;pa
 
 footer{border-top:1px solid var(--rule);background:var(--paper-2);font-size:12.5px;color:var(--ink-soft)}
 footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px;flex-wrap:wrap}
-@media print{.masthead,.ask,.recent,footer,.a-actions{display:none!important}.answer{border:0}}
+@media print{.masthead,.ask,.recent,footer,.a-actions,.save-row{display:none!important}.answer{border:0}}
 </style>
 </head>
 <body>
@@ -143,6 +150,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
     <a class="wordmark" href="/">Case<span>bound</span></a>
     <nav class="top-links" aria-label="Account" data-ta="navAria">
       <a href="/" data-t="navResearch">Research</a>
+      <a href="/#cases" data-t="navSaved">Saved cases</a>
       <a href="/risk-check.html"><span data-t="navRisk">Risk check</span><span class="pro-mini">PRO</span></a>
       <a href="/pricing.html" data-t="navPlans">Plans</a>
       <a href="/account.html" id="top-account">Sign in</a>
@@ -206,6 +214,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
   /* ---------------- wording, by language ---------------- */
   var T = {
     en: {
+      navSaved:"Saved cases", saveBtn:"Save", savedOk:"Saved", seeSaved:"See it in Saved cases →", projL:"Project", noProject:"No project", newProjectOpt:"+ New project…", promptProject:"Name the new project", notSaved:function(n){ return "The free plan keeps up to " + n + " saved items. Remove one in <a href=\"/#cases\">Saved cases</a> or <a href=\"/pricing.html\">go Pro</a> to keep more."; },
       docTitle:"Can I…? — Casebound", navAria:"Account", navResearch:"Research", navRisk:"Risk check", navPlans:"Plans", signIn:"Sign in", account:"Account",
       free:"Free", kicker:"Can I…?", h1:"Ask whether you're allowed to do something.",
       lede:"Type a question in plain words. You get a yes or no, where it's allowed and where it isn't, and the conditions that come with it.",
@@ -226,6 +235,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       back:"← Back to Casebound", how:"How \"Can I…?\" works", terms:"Terms of use", privacyL:"Privacy notice", contact:"Contact / complaints: admin@case-bound.com"
     },
     it: {
+      navSaved:"Casi salvati", saveBtn:"Salva", savedOk:"Salvato", seeSaved:"Vedilo in Casi salvati →", projL:"Progetto", noProject:"Nessun progetto", newProjectOpt:"+ Nuovo progetto…", promptProject:"Dai un nome al nuovo progetto", notSaved:function(n){ return "Il piano gratuito conserva fino a " + n + " elementi salvati. Rimuovine uno in <a href=\"/#cases\">Casi salvati</a> oppure <a href=\"/pricing.html\">passa a Pro</a> per salvarne di più."; },
       docTitle:"Posso…? — Casebound", navAria:"Account", navResearch:"Ricerca", navRisk:"Verifica del rischio", navPlans:"Piani", signIn:"Accedi", account:"Account",
       free:"Gratis", kicker:"Posso…?", h1:"Chiedi se puoi fare una cosa.",
       lede:"Scrivi la domanda con parole semplici. Ottieni un sì o un no, dove è consentito e dove no, e le condizioni da rispettare.",
@@ -246,6 +256,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       back:"← Torna a Casebound", how:"Come funziona \"Posso…?\"", terms:"Termini d'uso", privacyL:"Informativa privacy", contact:"Contatti / reclami: admin@case-bound.com"
     },
     es: {
+      navSaved:"Casos guardados", saveBtn:"Guardar", savedOk:"Guardado", seeSaved:"Verlo en Casos guardados →", projL:"Proyecto", noProject:"Sin proyecto", newProjectOpt:"+ Nuevo proyecto…", promptProject:"Pon nombre al nuevo proyecto", notSaved:function(n){ return "El plan gratuito guarda hasta " + n + " elementos. Elimina uno en <a href=\"/#cases\">Casos guardados</a> o <a href=\"/pricing.html\">hazte Pro</a> para guardar más."; },
       docTitle:"¿Puedo…? — Casebound", navAria:"Cuenta", navResearch:"Investigación", navRisk:"Evaluación de riesgo", navPlans:"Planes", signIn:"Iniciar sesión", account:"Cuenta",
       free:"Gratis", kicker:"¿Puedo…?", h1:"Pregunta si puedes hacer algo.",
       lede:"Escribe tu pregunta con palabras sencillas. Obtienes un sí o un no, dónde está permitido y dónde no, y las condiciones que lo acompañan.",
@@ -266,6 +277,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       back:"← Volver a Casebound", how:"Cómo funciona \"¿Puedo…?\"", terms:"Condiciones de uso", privacyL:"Aviso de privacidad", contact:"Contacto / reclamaciones: admin@case-bound.com"
     },
     fr: {
+      navSaved:"Dossiers enregistrés", saveBtn:"Enregistrer", savedOk:"Enregistré", seeSaved:"Voir dans Dossiers enregistrés →", projL:"Projet", noProject:"Aucun projet", newProjectOpt:"+ Nouveau projet…", promptProject:"Nommez le nouveau projet", notSaved:function(n){ return "L'offre gratuite conserve jusqu'à " + n + " éléments enregistrés. Supprimez-en un dans <a href=\"/#cases\">Dossiers enregistrés</a> ou <a href=\"/pricing.html\">passez à Pro</a> pour en garder plus."; },
       docTitle:"Ai-je le droit… ? — Casebound", navAria:"Compte", navResearch:"Recherche", navRisk:"Évaluation du risque", navPlans:"Offres", signIn:"Se connecter", account:"Compte",
       free:"Gratuit", kicker:"Ai-je le droit… ?", h1:"Demandez si vous avez le droit de faire quelque chose.",
       lede:"Posez votre question avec des mots simples. Vous obtenez un oui ou un non, où c'est permis et où ça ne l'est pas, et les conditions à respecter.",
@@ -286,6 +298,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       back:"← Retour à Casebound", how:"Fonctionnement de « Ai-je le droit… ? »", terms:"Conditions d'utilisation", privacyL:"Politique de confidentialité", contact:"Contact / réclamations : admin@case-bound.com"
     },
     de: {
+      navSaved:"Gespeicherte Fälle", saveBtn:"Speichern", savedOk:"Gespeichert", seeSaved:"In Gespeicherte Fälle ansehen →", projL:"Projekt", noProject:"Kein Projekt", newProjectOpt:"+ Neues Projekt…", promptProject:"Gib dem neuen Projekt einen Namen", notSaved:function(n){ return "Der kostenlose Tarif speichert bis zu " + n + " Einträge. Entferne einen unter <a href=\"/#cases\">Gespeicherte Fälle</a> oder <a href=\"/pricing.html\">wechsle zu Pro</a>, um mehr zu behalten."; },
       docTitle:"Darf ich…? — Casebound", navAria:"Konto", navResearch:"Recherche", navRisk:"Risikocheck", navPlans:"Tarife", signIn:"Anmelden", account:"Konto",
       free:"Kostenlos", kicker:"Darf ich…?", h1:"Frag, ob du etwas darfst.",
       lede:"Stell deine Frage in einfachen Worten. Du bekommst ein Ja oder Nein, wo es erlaubt ist und wo nicht, und welche Bedingungen gelten.",
@@ -306,6 +319,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       back:"← Zurück zu Casebound", how:"So funktioniert „Darf ich…?“", terms:"Nutzungsbedingungen", privacyL:"Datenschutzhinweis", contact:"Kontakt / Beschwerden: admin@case-bound.com"
     },
     pt: {
+      navSaved:"Casos guardados", saveBtn:"Guardar", savedOk:"Guardado", seeSaved:"Ver em Casos guardados →", projL:"Projeto", noProject:"Sem projeto", newProjectOpt:"+ Novo projeto…", promptProject:"Dê um nome ao novo projeto", notSaved:function(n){ return "O plano gratuito guarda até " + n + " itens. Remova um em <a href=\"/#cases\">Casos guardados</a> ou <a href=\"/pricing.html\">passe para Pro</a> para guardar mais."; },
       docTitle:"Posso…? — Casebound", navAria:"Conta", navResearch:"Pesquisa", navRisk:"Avaliação de risco", navPlans:"Planos", signIn:"Iniciar sessão", account:"Conta",
       free:"Grátis", kicker:"Posso…?", h1:"Pergunte se pode fazer alguma coisa.",
       lede:"Escreva a pergunta em palavras simples. Recebe um sim ou um não, onde é permitido e onde não é, e as condições que se aplicam.",
@@ -326,6 +340,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       back:"← Voltar à Casebound", how:"Como funciona o \"Posso…?\"", terms:"Termos de utilização", privacyL:"Aviso de privacidade", contact:"Contacto / reclamações: admin@case-bound.com"
     },
     pl: {
+      navSaved:"Zapisane sprawy", saveBtn:"Zapisz", savedOk:"Zapisano", seeSaved:"Zobacz w Zapisanych sprawach →", projL:"Projekt", noProject:"Bez projektu", newProjectOpt:"+ Nowy projekt…", promptProject:"Nazwij nowy projekt", notSaved:function(n){ return "Plan darmowy przechowuje do " + n + " zapisanych pozycji. Usuń jedną w <a href=\"/#cases\">Zapisanych sprawach</a> lub <a href=\"/pricing.html\">przejdź na Pro</a>, aby zapisać więcej."; },
       docTitle:"Czy mogę…? — Casebound", navAria:"Konto", navResearch:"Wyszukiwanie", navRisk:"Ocena ryzyka", navPlans:"Plany", signIn:"Zaloguj się", account:"Konto",
       free:"Za darmo", kicker:"Czy mogę…?", h1:"Zapytaj, czy wolno ci coś zrobić.",
       lede:"Napisz pytanie prostymi słowami. Dostaniesz odpowiedź tak lub nie, gdzie jest to dozwolone, a gdzie nie, oraz warunki, które trzeba spełnić.",
@@ -346,6 +361,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       back:"← Wróć do Casebound", how:"Jak działa „Czy mogę…?”", terms:"Regulamin", privacyL:"Informacja o prywatności", contact:"Kontakt / reklamacje: admin@case-bound.com"
     },
     ar: {
+      navSaved:"القضايا المحفوظة", saveBtn:"حفظ", savedOk:"تم الحفظ", seeSaved:"اعرضه في القضايا المحفوظة ←", projL:"المشروع", noProject:"بلا مشروع", newProjectOpt:"+ مشروع جديد…", promptProject:"سمِّ المشروع الجديد", notSaved:function(n){ return "تحتفظ الخطة المجانية بما يصل إلى " + n + " عناصر محفوظة. احذف واحدًا من <a href=\"/#cases\">القضايا المحفوظة</a> أو <a href=\"/pricing.html\">اشترك في Pro</a> لحفظ المزيد."; },
       docTitle:"هل يمكنني…؟ — Casebound", navAria:"الحساب", navResearch:"البحث", navRisk:"تقييم المخاطر", navPlans:"الخطط", signIn:"تسجيل الدخول", account:"الحساب",
       free:"مجاني", kicker:"هل يمكنني…؟", h1:"اسأل إن كان يحق لك القيام بأمر ما.",
       lede:"اكتب سؤالك بكلمات بسيطة. ستحصل على نعم أو لا، وأين يُسمح بذلك وأين لا يُسمح، والشروط المرتبطة به.",
@@ -411,6 +427,65 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
   function list(items, cls){
     return '<ul class="ticks' + (cls ? " " + cls : "") + '">' + items.map(function(x){ return "<li>" + esc(x) + "</li>"; }).join("") + "</ul>";
   }
+  /* ---------------- saving into Saved cases (same list as the research tool) ---------------- */
+  var CASES_KEY = "casebound_cases_v1", PROJECTS_KEY = "casebound_projects_v1", NEW_PROJ = "__new__";
+  var FREE = Object.assign({ savedCases: 3 }, window.CASEBOUND_FREE || {});
+  var saveNote = "";
+  function loadCases(){ var l = store.get(CASES_KEY, []); return Array.isArray(l) ? l : []; }
+  function persistCases(l){ store.set(CASES_KEY, l.slice(0, 60)); }
+  function loadProjects(){ var l = store.get(PROJECTS_KEY, []); return Array.isArray(l) ? l : []; }
+  function savedEntry(){
+    if (!current) return null;
+    return loadCases().filter(function(c){ return c.kind === "cani" && (c.id === current.savedId || (c.question === current.q && c.home === current.home && c.lang === current.lang)); })[0] || null;
+  }
+  function projectOptions(sel){
+    var tt = t();
+    return '<option value="">' + esc(tt.noProject) + '</option>' +
+      loadProjects().slice().sort(function(a,b){ return a.name.localeCompare(b.name); }).map(function(p){
+        return '<option value="' + esc(p.id) + '"' + (p.id === sel ? " selected" : "") + '>' + esc(p.name) + '</option>';
+      }).join("") + '<option value="' + NEW_PROJ + '">' + esc(tt.newProjectOpt) + '</option>';
+  }
+  function saveRow(){
+    var tt = t(), s = savedEntry();
+    return '<div class="save-row">' +
+      '<label for="a-proj">' + esc(tt.projL) + ' <select id="a-proj">' + projectOptions(s ? s.projectId : "") + '</select></label>' +
+      (s ? '<span class="save-ok">✓ ' + esc(tt.savedOk) + '</span> <a href="/#cases">' + esc(tt.seeSaved) + '</a>'
+         : '<button type="button" class="btn" id="a-save">' + esc(tt.saveBtn) + '</button>') +
+      (saveNote ? '<span class="save-note">' + saveNote + '</span>' : "") +
+      '</div>';
+  }
+  function chosenProject(){
+    var sel = $("a-proj"); if (!sel) return null;
+    if (sel.value !== NEW_PROJ) return sel.value || null;
+    var name = String(prompt(t().promptProject) || "").replace(/\s+/g, " ").trim().slice(0, 60);
+    if (!name) { sel.value = ""; return undefined; }
+    var list = loadProjects();
+    var dup = list.filter(function(p){ return p.name.toLowerCase() === name.toLowerCase(); })[0];
+    if (dup) return dup.id;
+    var p = { id: "p" + Date.now().toString(36) + Math.random().toString(36).slice(2,5), name: name, createdAt: new Date().toISOString() };
+    list.push(p); store.set(PROJECTS_KEY, list);
+    return p.id;
+  }
+  function saveAnswer(){
+    if (!current) return;
+    var proj = chosenProject(); if (proj === undefined) { render(); return; }
+    var list = loadCases(), s = savedEntry();
+    if (s) {
+      list = list.map(function(c){ return c.id === s.id ? Object.assign(c, { projectId: proj }) : c; });
+    } else {
+      if (STATE.tier !== "pro" && list.length >= FREE.savedCases) { saveNote = t().notSaved(FREE.savedCases); render(); return; }
+      var label = (t().qPre + " " + current.q).replace(/\s+/g, " ").trim();
+      var rec = { id: "ci-" + Date.now() + "-" + Math.random().toString(36).slice(2,7), kind: "cani", output: "cani",
+        label: label.length > 120 ? label.slice(0, 119) + "…" : label, facts: current.q, claim: "",
+        question: current.q, home: current.home, lang: current.lang, answer: current.answer,
+        projectId: proj, savedAt: new Date().toISOString() };
+      list.unshift(rec); current.savedId = rec.id;
+    }
+    saveNote = "";
+    persistCases(list);
+    render();
+  }
+
   function render(){
     var box = $("answer");
     if (!current) { box.hidden = true; box.innerHTML = ""; return; }
@@ -436,6 +511,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
     if (a.ifNot && a.ifNot.length) h += '<div class="sec"><h3>' + esc(tt.ifNotH) + '</h3>' + list(a.ifNot, "warns") + '</div>';
     if (a.nextSteps && a.nextSteps.length) h += '<div class="sec"><h3>' + esc(tt.stepsH) + '</h3><ol class="steps">' + a.nextSteps.map(function(x){ return "<li>" + esc(x) + "</li>"; }).join("") + '</ol></div>';
     if (a.laws && a.laws.length) h += '<div class="sec"><h3>' + esc(tt.lawsH) + '</h3><ul class="laws">' + a.laws.map(function(x){ return '<li><bdi>' + esc(x) + '</bdi></li>'; }).join("") + '</ul></div>';
+    h += saveRow();
     h += '<div class="sec"><div class="a-actions">' +
       '<button type="button" class="btn" id="a-research">' + esc(tt.research) + '</button>' +
       '<a class="btn ghost" href="/risk-check.html">' + esc(tt.lawyer) + '</a>' +
@@ -492,7 +568,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
         if (b.tier) STATE.tier = b.tier;
         paintLeft();
         if (res.ok && b.answer) {
-          current = { q: q, home: home, lang: lang, answer: b.answer, at: Date.now() };
+          current = { q: q, home: home, lang: lang, answer: b.answer, at: Date.now() }; saveNote = "";
           remember(current);
           render();
           $("answer").scrollIntoView({ behavior:"smooth", block:"start" });
@@ -543,6 +619,10 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
     }
     if (id === "a-another") { current = null; render(); $("q").value = ""; $("q").focus(); window.scrollTo({ top:0, behavior:"smooth" }); }
     if (id === "a-print") window.print();
+    if (id === "a-save") saveAnswer();
+  });
+  $("answer").addEventListener("change", function(e){
+    if (e.target && e.target.id === "a-proj" && savedEntry()) saveAnswer();
   });
   if (I) I.onChange(function(c){ lang = c; applyLang(); });
 
@@ -556,6 +636,17 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
     if (!STATE.configured) say(esc(t().notConfigured), "info");
   }).catch(function(){});
   try { var pre = new URLSearchParams(location.search).get("q"); if (pre) $("q").value = pre.slice(0, 600); } catch(e){}
+  /* opened from Saved cases: /can-i.html?open=<id> */
+  try {
+    var openId = new URLSearchParams(location.search).get("open");
+    var hit = openId && loadCases().filter(function(c){ return c.kind === "cani" && c.id === openId; })[0];
+    if (hit && hit.answer) {
+      current = { q: hit.question || hit.facts, home: hit.home || "", lang: hit.lang || lang, answer: hit.answer, at: Date.parse(hit.savedAt) || Date.now(), savedId: hit.id };
+      $("q").value = current.q;
+      if (PLACES.indexOf(current.home) >= 0 || current.home === "") $("home").value = current.home;
+      render();
+    }
+  } catch(e){}
 })();
 </script>
 </body>

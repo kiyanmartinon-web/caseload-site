@@ -57,6 +57,9 @@ button,a{-webkit-tap-highlight-color:rgba(110,31,42,.12)}
 /* the language menu (mounted by /i18n.js) sits right after the top links; .top-links already takes the free space */
 .masthead-in .cb-lang{margin-inline-start:0}
 .tab .short{display:none}
+a.tab{text-decoration:none}
+.ci-v{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:3px;margin-inline-end:6px;vertical-align:1px}
+.ci-v.yes{background:var(--verdigris-wash);color:var(--verdigris)}.ci-v.no{background:var(--oxblood-wash);color:var(--oxblood)}.ci-v.depends{background:var(--amber-wash);color:var(--amber)}.ci-v.unclear{background:var(--slate-wash,var(--paper));color:var(--ink-soft)}
 .top-links a{font-size:13px;font-weight:600;color:var(--ink-soft);text-decoration:none;white-space:nowrap}
 .top-links a:hover{color:var(--oxblood)}
 .top-links a#top-account{color:var(--paper-2);background:var(--ink);padding:7px 12px;border-radius:5px}
@@ -396,9 +399,9 @@ html[data-theme="dark"] .seg button[aria-checked="true"]{box-shadow:0 1px 2px rg
       <button class="tab on" data-go="start"><span class="n">1</span><span data-t="tabNew">New case</span></button>
       <button class="tab" data-go="results" id="tab-results" disabled><span class="n">2</span><span data-t="tabResults">Results</span></button>
       <button class="tab" data-go="cases"><span class="long" data-t="savedCases">Saved cases</span><span class="short" data-t="tabSavedShort">Saved</span></button>
+      <a class="tab" href="/can-i.html"><span data-t="canI">Can I…?</span></a>
     </nav>
     <nav class="top-links" aria-label="Account" data-t-aria="navAccount">
-      <a href="/can-i.html" class="ci-link" data-t="canI">Can I…?</a>
       <a href="/risk-check.html" class="rc-link"><span data-t="riskCheck">Risk check</span><span class="pro-mini">PRO</span></a>
       <a href="/pricing.html" data-t="plans">Plans</a>
       <a href="/account.html" id="top-account">Sign in</a>
@@ -3504,7 +3507,7 @@ const PAGE_STR = {
     metaDesc: "Casebound maps your case facts to the governing Italian Civil Code articles, ranks similar Cassazione rulings, and compares sources across Italy, the EU, France, the UK, the US, Germany and international law, matched by shared legal concepts.",
     legalResearch: "Legal research", navSections: "Sections", tabNew: "New case", tabResults: "Results",
     savedCases: "Saved cases", tabSavedShort: "Saved", navAccount: "Account",
-    riskCheck: "Risk check", canI: "Can I…?", quickCanI: "Just need a quick yes or no? Ask “Can I…?” — free →", plans: "Plans", signIn: "Sign in", account: "Account",
+    riskCheck: "Risk check", caniV: { yes: "Yes", no: "No", depends: "It depends", unclear: "Unclear" }, canI: "Can I…?", quickCanI: "Just need a quick yes or no? Ask “Can I…?” — free →", plans: "Plans", signIn: "Sign in", account: "Account",
     h1: "Tell us about your case.",
     lede: "Describe what happened in plain words. Casebound finds the provisions and rulings that apply — from Italy, the EU, France, Germany, the UK, the US and international law — and ranks them by the legal concepts they share with your case.",
     q1: "What happened?", addFile: "+ Add file",
@@ -3573,7 +3576,7 @@ const PAGE_STR = {
     metaDesc: "Casebound collega i fatti del tuo caso agli articoli del Codice civile italiano applicabili, ordina le sentenze della Cassazione più simili e confronta fonti di Italia, UE, Francia, Regno Unito, Stati Uniti, Germania e diritto internazionale, abbinate per concetti giuridici comuni.",
     legalResearch: "Ricerca giuridica", navSections: "Sezioni", tabNew: "Nuovo caso", tabResults: "Risultati",
     savedCases: "Casi salvati", tabSavedShort: "Salvati", navAccount: "Account",
-    riskCheck: "Verifica del rischio", canI: "Posso…?", quickCanI: "Ti basta un sì o un no? Chiedi a “Posso…?” — gratis →", plans: "Piani", signIn: "Accedi", account: "Account",
+    riskCheck: "Verifica del rischio", caniV: { yes: "Sì", no: "No", depends: "Dipende", unclear: "Non chiaro" }, canI: "Posso…?", quickCanI: "Ti basta un sì o un no? Chiedi a “Posso…?” — gratis →", plans: "Piani", signIn: "Accedi", account: "Account",
     h1: "Raccontaci il tuo caso.",
     lede: "Descrivi cosa è successo con parole semplici. Casebound trova le norme e le sentenze che si applicano — di Italia, UE, Francia, Germania, Regno Unito, Stati Uniti e diritto internazionale — e le ordina in base ai concetti giuridici che hanno in comune con il tuo caso.",
     q1: "Cosa è successo?", addFile: "+ Aggiungi file",
@@ -3642,7 +3645,7 @@ const PAGE_STR = {
     metaDesc: "Casebound relaciona los hechos de tu caso con los artículos aplicables del Código Civil italiano, clasifica las sentencias más parecidas de la Cassazione y compara fuentes de Italia, la UE, Francia, el Reino Unido, EE. UU., Alemania y el derecho internacional, enlazadas por conceptos jurídicos comunes.",
     legalResearch: "Investigación jurídica", navSections: "Secciones", tabNew: "Nuevo caso", tabResults: "Resultados",
     savedCases: "Casos guardados", tabSavedShort: "Guardados", navAccount: "Cuenta",
-    riskCheck: "Evaluación de riesgo", canI: "¿Puedo…?", quickCanI: "¿Solo necesitas un sí o un no? Pregunta en “¿Puedo…?” — gratis →", plans: "Planes", signIn: "Iniciar sesión", account: "Cuenta",
+    riskCheck: "Evaluación de riesgo", caniV: { yes: "Sí", no: "No", depends: "Depende", unclear: "No está claro" }, canI: "¿Puedo…?", quickCanI: "¿Solo necesitas un sí o un no? Pregunta en “¿Puedo…?” — gratis →", plans: "Planes", signIn: "Iniciar sesión", account: "Cuenta",
     h1: "Cuéntanos tu caso.",
     lede: "Describe lo que pasó con palabras sencillas. Casebound encuentra las normas y sentencias aplicables —de Italia, la UE, Francia, Alemania, el Reino Unido, EE. UU. y el derecho internacional— y las ordena según los conceptos jurídicos que comparten con tu caso.",
     q1: "¿Qué pasó?", addFile: "+ Añadir archivo",
@@ -3711,7 +3714,7 @@ const PAGE_STR = {
     metaDesc: "Casebound rattache les faits de votre affaire aux articles applicables du Code civil italien, classe les arrêts de la Cassazione les plus proches et compare les sources d'Italie, de l'UE, de France, du Royaume-Uni, des États-Unis, d'Allemagne et du droit international, reliées par des notions juridiques communes.",
     legalResearch: "Recherche juridique", navSections: "Rubriques", tabNew: "Nouveau dossier", tabResults: "Résultats",
     savedCases: "Dossiers enregistrés", tabSavedShort: "Enregistrés", navAccount: "Compte",
-    riskCheck: "Évaluation du risque", canI: "Ai-je le droit… ?", quickCanI: "Juste besoin d'un oui ou d'un non ? Demandez à « Ai-je le droit… ? » — gratuit →", plans: "Offres", signIn: "Se connecter", account: "Compte",
+    riskCheck: "Évaluation du risque", caniV: { yes: "Oui", no: "Non", depends: "Ça dépend", unclear: "Incertain" }, canI: "Ai-je le droit… ?", quickCanI: "Juste besoin d'un oui ou d'un non ? Demandez à « Ai-je le droit… ? » — gratuit →", plans: "Offres", signIn: "Se connecter", account: "Compte",
     h1: "Parlez-nous de votre affaire.",
     lede: "Décrivez ce qui s'est passé avec vos mots. Casebound trouve les textes et décisions applicables — Italie, UE, France, Allemagne, Royaume-Uni, États-Unis et droit international — et les classe selon les notions juridiques qu'ils partagent avec votre affaire.",
     q1: "Que s'est-il passé ?", addFile: "+ Ajouter un fichier",
@@ -3780,7 +3783,7 @@ const PAGE_STR = {
     metaDesc: "Casebound ordnet die Fakten deines Falls den einschlägigen Artikeln des italienischen Zivilgesetzbuchs zu, sortiert ähnliche Entscheidungen der Cassazione und vergleicht Quellen aus Italien, der EU, Frankreich, dem Vereinigten Königreich, den USA, Deutschland und dem Völkerrecht – verknüpft über gemeinsame Rechtsbegriffe.",
     legalResearch: "Juristische Recherche", navSections: "Bereiche", tabNew: "Neuer Fall", tabResults: "Ergebnisse",
     savedCases: "Gespeicherte Fälle", tabSavedShort: "Gespeichert", navAccount: "Konto",
-    riskCheck: "Risikocheck", canI: "Darf ich…?", quickCanI: "Nur ein schnelles Ja oder Nein? Frag bei „Darf ich…?“ – kostenlos →", plans: "Tarife", signIn: "Anmelden", account: "Konto",
+    riskCheck: "Risikocheck", caniV: { yes: "Ja", no: "Nein", depends: "Kommt darauf an", unclear: "Unklar" }, canI: "Darf ich…?", quickCanI: "Nur ein schnelles Ja oder Nein? Frag bei „Darf ich…?“ – kostenlos →", plans: "Tarife", signIn: "Anmelden", account: "Konto",
     h1: "Erzähl uns von deinem Fall.",
     lede: "Beschreibe in einfachen Worten, was passiert ist. Casebound findet die einschlägigen Vorschriften und Urteile – aus Italien, der EU, Frankreich, Deutschland, dem Vereinigten Königreich, den USA und dem Völkerrecht – und ordnet sie nach den Rechtsbegriffen, die sie mit deinem Fall teilen.",
     q1: "Was ist passiert?", addFile: "+ Datei hinzufügen",
@@ -3849,7 +3852,7 @@ const PAGE_STR = {
     metaDesc: "O Casebound relaciona os factos do seu caso com os artigos aplicáveis do Código Civil italiano, ordena as decisões mais semelhantes da Cassazione e compara fontes de Itália, da UE, de França, do Reino Unido, dos EUA, da Alemanha e do direito internacional, ligadas por conceitos jurídicos comuns.",
     legalResearch: "Pesquisa jurídica", navSections: "Secções", tabNew: "Novo caso", tabResults: "Resultados",
     savedCases: "Casos guardados", tabSavedShort: "Guardados", navAccount: "Conta",
-    riskCheck: "Avaliação de risco", canI: "Posso…?", quickCanI: "Só precisa de um sim ou não? Pergunte no “Posso…?” — grátis →", plans: "Planos", signIn: "Iniciar sessão", account: "Conta",
+    riskCheck: "Avaliação de risco", caniV: { yes: "Sim", no: "Não", depends: "Depende", unclear: "Pouco claro" }, canI: "Posso…?", quickCanI: "Só precisa de um sim ou não? Pergunte no “Posso…?” — grátis →", plans: "Planos", signIn: "Iniciar sessão", account: "Conta",
     h1: "Fale-nos do seu caso.",
     lede: "Descreva o que aconteceu por palavras simples. O Casebound encontra as normas e decisões aplicáveis — de Itália, da UE, de França, da Alemanha, do Reino Unido, dos EUA e do direito internacional — e ordena-as pelos conceitos jurídicos que partilham com o seu caso.",
     q1: "O que aconteceu?", addFile: "+ Adicionar ficheiro",
@@ -3918,7 +3921,7 @@ const PAGE_STR = {
     metaDesc: "Casebound przypisuje fakty Twojej sprawy do właściwych artykułów włoskiego kodeksu cywilnego, szereguje najbardziej podobne orzeczenia Cassazione i porównuje źródła z Włoch, UE, Francji, Wielkiej Brytanii, USA, Niemiec i prawa międzynarodowego, dopasowane według wspólnych pojęć prawnych.",
     legalResearch: "Badania prawne", navSections: "Sekcje", tabNew: "Nowa sprawa", tabResults: "Wyniki",
     savedCases: "Zapisane sprawy", tabSavedShort: "Zapisane", navAccount: "Konto",
-    riskCheck: "Ocena ryzyka", canI: "Czy mogę…?", quickCanI: "Potrzebujesz tylko „tak” lub „nie”? Zapytaj w „Czy mogę…?” — za darmo →", plans: "Plany", signIn: "Zaloguj się", account: "Konto",
+    riskCheck: "Ocena ryzyka", caniV: { yes: "Tak", no: "Nie", depends: "To zależy", unclear: "Niejasne" }, canI: "Czy mogę…?", quickCanI: "Potrzebujesz tylko „tak” lub „nie”? Zapytaj w „Czy mogę…?” — za darmo →", plans: "Plany", signIn: "Zaloguj się", account: "Konto",
     h1: "Opowiedz nam o swojej sprawie.",
     lede: "Opisz prostymi słowami, co się stało. Casebound znajduje mające zastosowanie przepisy i orzeczenia — z Włoch, UE, Francji, Niemiec, Wielkiej Brytanii, USA i prawa międzynarodowego — i szereguje je według pojęć prawnych wspólnych z Twoją sprawą.",
     q1: "Co się stało?", addFile: "+ Dodaj plik",
@@ -3987,7 +3990,7 @@ const PAGE_STR = {
     metaDesc: "يربط Casebound وقائع قضيتك بمواد القانون المدني الإيطالي ذات الصلة، ويرتّب أحكام محكمة النقض الإيطالية الأكثر تشابهًا، ويقارن المصادر من إيطاليا والاتحاد الأوروبي وفرنسا والمملكة المتحدة والولايات المتحدة وألمانيا والقانون الدولي وفق المفاهيم القانونية المشتركة.",
     legalResearch: "البحث القانوني", navSections: "الأقسام", tabNew: "قضية جديدة", tabResults: "النتائج",
     savedCases: "القضايا المحفوظة", tabSavedShort: "المحفوظة", navAccount: "الحساب",
-    riskCheck: "تقييم المخاطر", canI: "هل يمكنني…؟", quickCanI: "تحتاج فقط إلى نعم أو لا؟ اسأل في «هل يمكنني…؟» — مجانًا ←", plans: "الخطط", signIn: "تسجيل الدخول", account: "الحساب",
+    riskCheck: "تقييم المخاطر", caniV: { yes: "نعم", no: "لا", depends: "يعتمد", unclear: "غير واضح" }, canI: "هل يمكنني…؟", quickCanI: "تحتاج فقط إلى نعم أو لا؟ اسأل في «هل يمكنني…؟» — مجانًا ←", plans: "الخطط", signIn: "تسجيل الدخول", account: "الحساب",
     h1: "أخبرنا عن قضيتك.",
     lede: "صِف ما حدث بكلمات بسيطة. يعثر Casebound على النصوص والأحكام المنطبقة — من إيطاليا والاتحاد الأوروبي وفرنسا وألمانيا والمملكة المتحدة والولايات المتحدة والقانون الدولي — ويرتّبها حسب المفاهيم القانونية المشتركة مع قضيتك.",
     q1: "ماذا حدث؟", addFile: "+ إضافة ملف",
@@ -4494,7 +4497,7 @@ function updateCase(id, patch){
   persistCases(loadCases().map(c => c.id === id ? Object.assign(c, patch) : c));
 }
 function findSaved(c){
-  return c ? loadCases().find(x => x.facts === c.facts && x.claim === c.claim) || null : null;
+  return c ? loadCases().find(x => !x.kind && x.facts === c.facts && x.claim === c.claim) || null : null;
 }
 /* fills a <select> with Unfiled + projects + "New project…" */
 function fillProjectSelect(sel, current){
@@ -4526,7 +4529,7 @@ function fmtSavedAt(iso){
 /* returns "" when saved, or a function giving the note that explains why it wasn't */
 function saveCase(c, projectId){
   let list = loadCases();
-  const i = list.findIndex(x => x.facts === c.facts && x.claim === c.claim);
+  const i = list.findIndex(x => !x.kind && x.facts === c.facts && x.claim === c.claim);
   const rec = { output: c.output, jur: c.jur, dtype: c.dtype, savedAt: new Date().toISOString() };
   if(i !== -1){
     const [existing] = list.splice(i, 1);
@@ -4606,7 +4609,7 @@ function renderCases(){
     }</div>`;
     return;
   }
-  grid.innerHTML = list.map(c => `
+  grid.innerHTML = list.map(c => c.kind === "cani" ? caniCard(c) : `
     <div class="case-card">
       <div class="case-card-top">${RENAMING_CASE === c.id
         ? `<input type="text" class="case-card-title-in" data-title-for="${c.id}" maxlength="120" value="${escHtml(c.label)}" aria-label="${escHtml(t("caseTitleAria"))}">`
@@ -4628,6 +4631,29 @@ function renderCases(){
   const ti = grid.querySelector(".case-card-title-in");
   if(ti){ ti.focus(); ti.select(); }
 }
+/* a saved "Can I…?" answer (saved from /can-i.html into the same list) */
+const caniUrl = (c) => "/can-i.html?open=" + encodeURIComponent(c.id);
+function caniPill(c){
+  const v = (c.answer && c.answer.verdict) || "unclear";
+  return `<span class="ci-v ${escHtml(v)}">${escHtml((t("caniV") || {})[v] || v)}</span>`;
+}
+function caniCard(c){
+  const a = c.answer || {};
+  return `
+    <div class="case-card">
+      <div class="case-card-top">${RENAMING_CASE === c.id
+        ? `<input type="text" class="case-card-title-in" data-title-for="${c.id}" maxlength="120" value="${escHtml(c.label)}" aria-label="${escHtml(t("caseTitleAria"))}">`
+        : `<div class="case-card-label">${escHtml(c.label)}</div><button type="button" class="case-card-rename" data-act="rename" data-id="${c.id}" title="${escHtml(t("rename"))}" aria-label="${escHtml(t("renameCase"))}">&#9998;</button>`}</div>
+      <div class="case-card-date">${fmtSavedAt(c.savedAt)} · ${escHtml(t("canI"))}</div>
+      <div class="case-card-claim">${caniPill(c)}${escHtml(a.headline || "")}</div>
+      <div class="case-card-facts">${escHtml(a.explanation || "")}</div>
+      <label class="case-card-proj">${t("project")} <select class="proj-select" data-proj-for="${c.id}" aria-label="${escHtml(t("projForCase"))}"></select></label>
+      <div class="case-card-actions">
+        <a class="case-card-open" href="${caniUrl(c)}" style="text-align:center;text-decoration:none">${t("open")}</a>
+        <button class="case-card-del" data-act="del" data-id="${c.id}" title="${escHtml(t("remove"))}" aria-label="${escHtml(t("remove"))}">&times;</button>
+      </div>
+    </div>`;
+}
 function renderRecent(){
   const list = loadCases().slice(0, 3);
   $id("recent").hidden = !list.length;
@@ -4636,7 +4662,7 @@ function renderRecent(){
     return `
     <button type="button" class="recent-item" data-act="load" data-id="${c.id}">
       <span class="ri-main"><span class="ri-t">${escHtml(c.label)}</span>
-      <span class="ri-m">${fmtSavedAt(c.savedAt)}${pn ? " · " + escHtml(pn) : ""}${c.claim ? " · " + escHtml(c.claim) : ""}</span></span>
+      <span class="ri-m">${c.kind === "cani" ? caniPill(c) : ""}${fmtSavedAt(c.savedAt)}${pn ? " · " + escHtml(pn) : ""}${c.claim ? " · " + escHtml(c.claim) : ""}</span></span>
       <span class="ri-go">${t("open")}</span>
     </button>`; }).join("");
 }
@@ -4650,6 +4676,7 @@ function onCaseAction(e){
   if(b.dataset.act === "del"){ deleteCase(b.dataset.id); return; }
   if(b.dataset.act === "rename"){ RENAMING_CASE = b.dataset.id; renderCases(); return; }
   const c = loadCases().find(x => x.id === b.dataset.id); if(!c) return;
+  if(c.kind === "cani"){ location.href = caniUrl(c); return; }
   fillForm(c);
   renderHubProject(c.projectId || "");
   if(b.dataset.act === "edit"){ showView("start"); return; }
