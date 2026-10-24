@@ -137,6 +137,11 @@ select{background:var(--paper);border:1px solid var(--rule);border-radius:5px;pa
 .recent .x{flex:none;width:38px;justify-content:center;color:var(--ink-soft);font-size:16px}
 .recent .pj{flex:none;font-size:12px;color:var(--ink-soft)}
 .recent li span.t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.recent li .when{flex:none;font-size:12px;color:var(--ink-soft);white-space:nowrap}
+.recent li.on > button:first-child{border-color:var(--verdigris);box-shadow:inset 3px 0 0 var(--verdigris)}
+.prev-empty{padding:12px 14px;border:1px dashed var(--rule);border-radius:5px}
+#recent-more{justify-self:start}
+@media (max-width:560px){.recent li .when{display:none}}
 
 .spin{display:inline-block;width:14px;height:14px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:sp .8s linear infinite;vertical-align:-2px;margin-inline-end:8px}
 @keyframes sp{to{transform:rotate(360deg)}}
@@ -185,16 +190,20 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
 
   <section id="answer" class="answer" hidden aria-live="polite"></section>
 
+  <section id="recent" class="recent prev">
+    <div class="recent-h"><h2 data-t="recentH">Your previous Can I…? questions</h2><button type="button" class="linkish" id="clear" data-t="clear" hidden>Clear</button></div>
+    <p class="prev-empty fine" id="recent-empty" data-t="prevEmpty">Questions you ask will show up here, so you can open an answer again without using another question.</p>
+    <ul id="recent-list"></ul>
+    <button type="button" class="linkish" id="recent-more" hidden></button>
+    <p class="fine" data-t="recentNote">Kept only in this browser.</p>
+  </section>
+
+
   <section id="saved" class="recent" hidden>
     <div class="recent-h"><h2 data-t="savedH">Saved answers</h2><a class="linkish" href="/#cases" id="saved-all" data-t="seeAll">See all in Saved cases</a></div>
     <ul id="saved-list"></ul>
   </section>
 
-  <section id="recent" class="recent" hidden>
-    <div class="recent-h"><h2 data-t="recentH">Your recent questions</h2><button type="button" class="linkish" id="clear" data-t="clear">Clear</button></div>
-    <ul id="recent-list"></ul>
-    <p class="fine" data-t="recentNote">Kept only in this browser.</p>
-  </section>
 </main>
 
 <footer>
@@ -241,7 +250,8 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       condH:"Conditions that apply", ifNotH:"If you do it where it's not allowed", lawsH:"The rules behind it", stepsH:"What to do next", askBackH:"To give a sharper answer:",
       research:"Find the law behind it", lawyer:"Talk to a lawyer", another:"Ask another question", print:"Print",
       fine:"General information written by AI from the rules as we understand them, not legal advice. Laws change and details matter: check with the authority or a lawyer before you act.",
-      recentH:"Your recent questions", clear:"Clear", recentNote:"Kept only in this browser.",
+      prevEmpty:"Questions you ask will show up here, so you can open an answer again without using another question.", showAll:"Show all", showLess:"Show fewer", clearAsk:"Clear all your previous questions from this browser?",
+      recentH:"Your previous Can I…? questions", clear:"Clear", recentNote:"Kept only in this browser.",
       back:"← Back to Casebound", how:"How \"Can I…?\" works", terms:"Terms of use", privacyL:"Privacy notice", contact:"Contact / complaints: admin@case-bound.com"
     },
     it: {
@@ -263,7 +273,8 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       condH:"Condizioni da rispettare", ifNotH:"Se lo fai dove non è consentito", lawsH:"Le norme di riferimento", stepsH:"Cosa fare adesso", askBackH:"Per una risposta più precisa:",
       research:"Trova le norme", lawyer:"Parla con un avvocato", another:"Fai un'altra domanda", print:"Stampa",
       fine:"Informazione generale scritta dall'IA in base alle norme come le intendiamo, non consulenza legale. Le leggi cambiano e i dettagli contano: verifica con l'autorità competente o un avvocato prima di agire.",
-      recentH:"Le tue domande recenti", clear:"Cancella", recentNote:"Conservate solo in questo browser.",
+      prevEmpty:"Le domande che fai compariranno qui, così puoi riaprire una risposta senza usare un’altra domanda.", showAll:"Mostra tutte", showLess:"Mostra meno", clearAsk:"Cancellare tutte le domande precedenti da questo browser?",
+      recentH:"Posso…? precedenti", clear:"Cancella", recentNote:"Conservate solo in questo browser.",
       back:"← Torna a Casebound", how:"Come funziona \"Posso…?\"", terms:"Termini d'uso", privacyL:"Informativa privacy", contact:"Contatti / reclami: admin@case-bound.com"
     },
     es: {
@@ -285,7 +296,8 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       condH:"Condiciones que se aplican", ifNotH:"Si lo haces donde no está permitido", lawsH:"Las normas aplicables", stepsH:"Qué hacer ahora", askBackH:"Para darte una respuesta más precisa:",
       research:"Encuentra la ley aplicable", lawyer:"Habla con un abogado", another:"Haz otra pregunta", print:"Imprimir",
       fine:"Información general redactada por IA según las normas tal como las entendemos, no asesoramiento jurídico. Las leyes cambian y los detalles importan: consulta a la autoridad o a un abogado antes de actuar.",
-      recentH:"Tus preguntas recientes", clear:"Borrar", recentNote:"Guardadas solo en este navegador.",
+      prevEmpty:"Las preguntas que hagas aparecerán aquí, para que puedas volver a abrir una respuesta sin gastar otra pregunta.", showAll:"Ver todas", showLess:"Ver menos", clearAsk:"¿Borrar todas tus preguntas anteriores de este navegador?",
+      recentH:"¿Puedo…? anteriores", clear:"Borrar", recentNote:"Guardadas solo en este navegador.",
       back:"← Volver a Casebound", how:"Cómo funciona \"¿Puedo…?\"", terms:"Condiciones de uso", privacyL:"Aviso de privacidad", contact:"Contacto / reclamaciones: admin@case-bound.com"
     },
     fr: {
@@ -307,7 +319,8 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       condH:"Conditions à respecter", ifNotH:"Si vous le faites là où c'est interdit", lawsH:"Les règles applicables", stepsH:"Que faire maintenant", askBackH:"Pour une réponse plus précise :",
       research:"Trouver les textes applicables", lawyer:"Parler à un avocat", another:"Poser une autre question", print:"Imprimer",
       fine:"Information générale rédigée par une IA d'après les règles telles que nous les comprenons, pas un conseil juridique. Les lois évoluent et les détails comptent : vérifiez auprès de l'autorité compétente ou d'un avocat avant d'agir.",
-      recentH:"Vos questions récentes", clear:"Effacer", recentNote:"Conservées uniquement dans ce navigateur.",
+      prevEmpty:"Vos questions apparaîtront ici : vous pourrez rouvrir une réponse sans utiliser une autre question.", showAll:"Tout afficher", showLess:"Afficher moins", clearAsk:"Effacer toutes vos questions précédentes de ce navigateur ?",
+      recentH:"« Puis-je… ? » précédents", clear:"Effacer", recentNote:"Conservées uniquement dans ce navigateur.",
       back:"← Retour à Casebound", how:"Fonctionnement de « Ai-je le droit… ? »", terms:"Conditions d'utilisation", privacyL:"Politique de confidentialité", contact:"Contact / réclamations : admin@case-bound.com"
     },
     de: {
@@ -329,7 +342,8 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       condH:"Bedingungen", ifNotH:"Wenn du es tust, wo es nicht erlaubt ist", lawsH:"Die zugrunde liegenden Vorschriften", stepsH:"Was du jetzt tun kannst", askBackH:"Für eine genauere Antwort:",
       research:"Rechtsgrundlagen finden", lawyer:"Mit einem Anwalt sprechen", another:"Weitere Frage stellen", print:"Drucken",
       fine:"Allgemeine Information, von einer KI auf Grundlage der Vorschriften verfasst, wie wir sie verstehen – keine Rechtsberatung. Gesetze ändern sich und Details zählen: Kläre es vor dem Handeln mit der Behörde oder einem Anwalt.",
-      recentH:"Deine letzten Fragen", clear:"Löschen", recentNote:"Nur in diesem Browser gespeichert.",
+      prevEmpty:"Deine Fragen erscheinen hier, damit du eine Antwort erneut öffnen kannst, ohne eine weitere Frage zu verbrauchen.", showAll:"Alle anzeigen", showLess:"Weniger anzeigen", clearAsk:"Alle früheren Fragen aus diesem Browser löschen?",
+      recentH:"Frühere „Darf ich…?“-Fragen", clear:"Löschen", recentNote:"Nur in diesem Browser gespeichert.",
       back:"← Zurück zu Casebound", how:"So funktioniert „Darf ich…?“", terms:"Nutzungsbedingungen", privacyL:"Datenschutzhinweis", contact:"Kontakt / Beschwerden: admin@case-bound.com"
     },
     pt: {
@@ -351,7 +365,8 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       condH:"Condições aplicáveis", ifNotH:"Se o fizer onde não é permitido", lawsH:"As regras aplicáveis", stepsH:"O que fazer a seguir", askBackH:"Para uma resposta mais precisa:",
       research:"Encontrar a lei aplicável", lawyer:"Falar com um advogado", another:"Fazer outra pergunta", print:"Imprimir",
       fine:"Informação geral redigida por IA com base nas regras tal como as entendemos, não aconselhamento jurídico. As leis mudam e os pormenores contam: confirme junto da autoridade ou de um advogado antes de agir.",
-      recentH:"As suas perguntas recentes", clear:"Apagar", recentNote:"Guardadas apenas neste navegador.",
+      prevEmpty:"As perguntas que fizer aparecem aqui, para poder reabrir uma resposta sem gastar outra pergunta.", showAll:"Ver todas", showLess:"Ver menos", clearAsk:"Apagar todas as perguntas anteriores deste navegador?",
+      recentH:"«Posso…?» anteriores", clear:"Apagar", recentNote:"Guardadas apenas neste navegador.",
       back:"← Voltar à Casebound", how:"Como funciona o \"Posso…?\"", terms:"Termos de utilização", privacyL:"Aviso de privacidade", contact:"Contacto / reclamações: admin@case-bound.com"
     },
     pl: {
@@ -373,7 +388,8 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       condH:"Warunki", ifNotH:"Jeśli zrobisz to tam, gdzie jest zabronione", lawsH:"Przepisy, na których to się opiera", stepsH:"Co zrobić dalej", askBackH:"Aby odpowiedź była dokładniejsza:",
       research:"Znajdź przepisy", lawyer:"Porozmawiaj z prawnikiem", another:"Zadaj kolejne pytanie", print:"Drukuj",
       fine:"Informacja ogólna przygotowana przez AI na podstawie przepisów w naszym rozumieniu, a nie porada prawna. Przepisy się zmieniają, a szczegóły mają znaczenie: przed działaniem sprawdź w urzędzie lub u prawnika.",
-      recentH:"Twoje ostatnie pytania", clear:"Wyczyść", recentNote:"Przechowywane tylko w tej przeglądarce.",
+      prevEmpty:"Tu pojawią się Twoje pytania, aby można było ponownie otworzyć odpowiedź bez zużywania kolejnego pytania.", showAll:"Pokaż wszystkie", showLess:"Pokaż mniej", clearAsk:"Usunąć wszystkie poprzednie pytania z tej przeglądarki?",
+      recentH:"Poprzednie „Czy mogę…?”", clear:"Wyczyść", recentNote:"Przechowywane tylko w tej przeglądarce.",
       back:"← Wróć do Casebound", how:"Jak działa „Czy mogę…?”", terms:"Regulamin", privacyL:"Informacja o prywatności", contact:"Kontakt / reklamacje: admin@case-bound.com"
     },
     ar: {
@@ -395,7 +411,8 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
       condH:"الشروط المطبّقة", ifNotH:"إذا فعلته حيث لا يُسمح به", lawsH:"القواعد التي يستند إليها", stepsH:"ماذا تفعل الآن", askBackH:"للحصول على إجابة أدق:",
       research:"ابحث عن القانون المطبّق", lawyer:"تحدّث إلى محامٍ", another:"اطرح سؤالًا آخر", print:"طباعة",
       fine:"معلومات عامة كتبها الذكاء الاصطناعي استنادًا إلى القواعد كما نفهمها، وليست استشارة قانونية. القوانين تتغير والتفاصيل مهمة: تحقّق لدى الجهة المختصة أو محامٍ قبل التصرف.",
-      recentH:"أسئلتك الأخيرة", clear:"مسح", recentNote:"محفوظة في هذا المتصفح فقط.",
+      prevEmpty:"ستظهر أسئلتك هنا، لتتمكن من فتح الإجابة مجددًا دون استهلاك سؤال آخر.", showAll:"عرض الكل", showLess:"عرض أقل", clearAsk:"هل تريد مسح كل أسئلتك السابقة من هذا المتصفح؟",
+      recentH:"أسئلة «هل يمكنني…؟» السابقة", clear:"مسح", recentNote:"محفوظة في هذا المتصفح فقط.",
       back:"→ العودة إلى Casebound", how:"كيف تعمل خدمة «هل يمكنني…؟»", terms:"شروط الاستخدام", privacyL:"إشعار الخصوصية", contact:"التواصل / الشكاوى: admin@case-bound.com"
     }
   };
@@ -505,6 +522,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
   }
 
   function render(){
+    paintRecent();
     var box = $("answer");
     if (!current) { box.hidden = true; box.innerHTML = ""; return; }
     var a = current.answer, tt = t(), h = "";
@@ -545,7 +563,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
   function remember(item){
     var all = recent().filter(function(r){ return !(r.q === item.q && r.home === item.home && r.lang === item.lang); });
     all.unshift(item);
-    store.set(RECENT_KEY, all.slice(0, 12));
+    store.set(RECENT_KEY, all.slice(0, 40));
     paintRecent();
   }
   function savedAnswers(){ return loadCases().filter(function(c){ return c.kind === "cani" && c.answer; }); }
@@ -559,12 +577,31 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
         '<button type="button" class="x" data-del="' + esc(c.id) + '" aria-label="' + esc(t().removeL) + '" title="' + esc(t().removeL) + '">&times;</button></li>';
     }).join("");
   }
+  var showAllRecent = false, RECENT_SHOWN = 6;
+  function when(ts){
+    if (!ts) return "";
+    var d = new Date(ts), now = new Date();
+    try {
+      var same = d.toDateString() === now.toDateString();
+      return same ? d.toLocaleTimeString(loc(), { hour:"2-digit", minute:"2-digit" })
+                  : d.toLocaleDateString(loc(), { day:"numeric", month:"short", year: d.getFullYear() === now.getFullYear() ? undefined : "numeric" });
+    } catch(e){ return ""; }
+  }
   function paintRecent(){
-    var all = recent(), box = $("recent");
-    box.hidden = !all.length;
-    $("recent-list").innerHTML = all.map(function(r, i){
-      return '<li><button type="button" data-i="' + i + '">' + pill(r.answer.verdict) + '<span class="t">' + esc(r.q) + '</span></button></li>';
+    var all = recent(), tt = t();
+    $("recent-empty").hidden = !!all.length;
+    $("clear").hidden = !all.length;
+    var shown = showAllRecent ? all : all.slice(0, RECENT_SHOWN);
+    $("recent-list").innerHTML = shown.map(function(r, i){
+      var on = current && current.q === r.q && current.home === r.home && current.lang === r.lang;
+      var meta = [r.home ? regionName(r.home) : tt.elsewhere, when(r.at)].filter(Boolean).join(" · ");
+      return '<li' + (on ? ' class="on"' : '') + '><button type="button" data-i="' + i + '"' + (on ? ' aria-current="true"' : '') + '>' + pill(r.answer.verdict) +
+        '<span class="t">' + esc(r.q) + '</span><span class="when">' + esc(meta) + '</span></button>' +
+        '<button type="button" class="x" data-rm="' + i + '" aria-label="' + esc(tt.removeL) + '" title="' + esc(tt.removeL) + '">&times;</button></li>';
     }).join("");
+    var more = $("recent-more");
+    more.hidden = all.length <= RECENT_SHOWN;
+    more.textContent = showAllRecent ? tt.showLess : tt.showAll + " (" + all.length + ")";
   }
 
   /* ---------------- asking ---------------- */
@@ -650,11 +687,17 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
     render(); $("answer").scrollIntoView({ behavior:"smooth", block:"start" });
   });
   $("saved-all").addEventListener("click", function(){ try { sessionStorage.setItem("casebound:kind-filter", "cani"); } catch(e){} });
-  $("clear").addEventListener("click", function(){ store.set(RECENT_KEY, []); paintRecent(); });
+  $("clear").addEventListener("click", function(){ if (!confirm(t().clearAsk)) return; store.set(RECENT_KEY, []); showAllRecent = false; paintRecent(); });
+  $("recent-more").addEventListener("click", function(){ showAllRecent = !showAllRecent; paintRecent(); });
   $("recent-list").addEventListener("click", function(e){
+    var x = e.target.closest("button[data-rm]");
+    if (x) {
+      var all = recent(); all.splice(Number(x.getAttribute("data-rm")), 1);
+      store.set(RECENT_KEY, all); paintRecent(); return;
+    }
     var b = e.target.closest("button[data-i]"); if (!b) return;
     var r = recent()[Number(b.getAttribute("data-i"))]; if (!r) return;
-    current = r; $("q").value = r.q; if (PLACES.indexOf(r.home) >= 0 || r.home === "") $("home").value = r.home;
+    current = r; saveNote = ""; $("q").value = r.q; if (PLACES.indexOf(r.home) >= 0 || r.home === "") $("home").value = r.home;
     render(); $("answer").scrollIntoView({ behavior:"smooth", block:"start" });
   });
   $("answer").addEventListener("click", function(e){
