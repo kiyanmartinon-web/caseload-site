@@ -1,4 +1,4 @@
-/* Casebound — homepage text in every language (about.html).
+/* Casebound — homepage text in every language (index.html).
    Elements carry data-t="key" (text), data-t-aria="key" (aria-label); concept chips carry
    data-c / data-cn with a concept id, named from concept-labels.js. Keys missing in a
    language fall back to English. */

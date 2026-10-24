@@ -285,8 +285,8 @@
       var go = wrap.querySelector("#cb-go");
       if (go) {
         var links = vc === "lawyer" ? [["/lawyers.html", t.gBoard], ["/account.html", t.gAcc]]
-          : vc === "client" ? [["/", t.gCanI], ["/risk-check.html", t.gRisk], ["/account.html#mycases", t.gMine]]
-          : [["/", t.gCanI], ["/risk-check.html", t.gRisk], ["/lawyers.html", t.gBoard], ["/account.html", t.gAcc]];
+          : vc === "client" ? [["/can-i.html", t.gCanI], ["/risk-check.html", t.gRisk], ["/account.html#mycases", t.gMine]]
+          : [["/can-i.html", t.gCanI], ["/risk-check.html", t.gRisk], ["/lawyers.html", t.gBoard], ["/account.html", t.gAcc]];
         go.innerHTML = links.map(function (l) { return '<a href="' + l[0] + '">' + l[1] + '</a>'; }).join("");
       }
       if (bar) paintBar();
