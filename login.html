@@ -12,7 +12,6 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%236E1F2A'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='36' font-weight='700' text-anchor='middle' fill='%23fff'%3EC%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
 <style>
 :root{
   --paper:#F7F7F4; --paper-2:#FFFFFF; --ink:#1A2438; --ink-soft:#5A6376;
@@ -93,6 +92,7 @@ textarea.f-in{width:100%;font:inherit;font-size:15px;padding:10px 12px;border:1p
 [hidden]{display:none!important}
 @media(max-width:600px){h1{font-size:28px}body{font-size:16px}}
 </style>
+<link rel="stylesheet" href="/brand.css">
 </head>
 <body>
 
@@ -439,7 +439,7 @@ textarea.f-in{width:100%;font:inherit;font-size:15px;padding:10px 12px;border:1p
       .then(function(j){
         var law = j && j.user && j.user.role === "lawyer";
         try { if (law) { localStorage.setItem("casebound:role", "lawyer"); localStorage.setItem("casebound:view", "lawyer"); } else { localStorage.removeItem("casebound:role"); localStorage.removeItem("casebound:view"); } } catch (e) {}
-        location.href = law && (next === "/account.html" || next === "/") ? "/lawyers.html" : next;
+        location.href = law && (next === "/account.html" || next === "/" || next === "/research.html") ? "/lawyers.html" : next;
       })
       .catch(function(e){ b.disabled = false; err(e && e.server ? { s: e.server } : { k: "generic" }); });
   }

@@ -1,28 +1,28 @@
 /* Casebound — shared page shell.
    Gives every standalone page the same top navigation (Research · Can I…? · Risk check · Plans ·
    Sign in / Account), marks the page you are on, and keeps the footer at the bottom of the window
-   on short pages. Load it after i18n.js and theme.js. The research app (index.html) and the
+   on short pages. Load it after i18n.js and theme.js. The research app (research.html) and the
    lawyers' case board keep their own top bars. Nothing here is sent anywhere except the usual
    /api/auth/me check, used only to label the account link. */
 (function () {
   "use strict";
 
   var T = {
-    en: { research: "Research", cani: "Can I…?", risk: "Risk check", plans: "Plans", signIn: "Sign in", account: "Account", nav: "Main" },
-    it: { research: "Ricerca", cani: "Posso…?", risk: "Verifica rischio", plans: "Piani", signIn: "Accedi", account: "Account", nav: "Principale" },
-    es: { research: "Investigación", cani: "¿Puedo…?", risk: "Evaluación de riesgo", plans: "Planes", signIn: "Iniciar sesión", account: "Cuenta", nav: "Principal" },
-    fr: { research: "Recherche", cani: "Puis-je… ?", risk: "Évaluation du risque", plans: "Offres", signIn: "Se connecter", account: "Compte", nav: "Principal" },
-    de: { research: "Recherche", cani: "Darf ich…?", risk: "Risikoprüfung", plans: "Tarife", signIn: "Anmelden", account: "Konto", nav: "Hauptmenü" },
-    pt: { research: "Pesquisa", cani: "Posso…?", risk: "Avaliação de risco", plans: "Planos", signIn: "Entrar", account: "Conta", nav: "Principal" },
-    pl: { research: "Wyszukiwanie", cani: "Czy mogę…?", risk: "Ocena ryzyka", plans: "Plany", signIn: "Zaloguj się", account: "Konto", nav: "Główne" },
-    ar: { research: "البحث", cani: "هل يمكنني…؟", risk: "تقييم المخاطر", plans: "الخطط", signIn: "تسجيل الدخول", account: "الحساب", nav: "الرئيسية" }
+    en: { saved: "Saved cases", research: "Research", cani: "Can I…?", risk: "Risk check", plans: "Plans", signIn: "Sign in", account: "Account", nav: "Main" },
+    it: { saved: "Casi salvati", research: "Ricerca", cani: "Posso…?", risk: "Verifica rischio", plans: "Piani", signIn: "Accedi", account: "Account", nav: "Principale" },
+    es: { saved: "Casos guardados", research: "Investigación", cani: "¿Puedo…?", risk: "Evaluación de riesgo", plans: "Planes", signIn: "Iniciar sesión", account: "Cuenta", nav: "Principal" },
+    fr: { saved: "Dossiers enregistrés", research: "Recherche", cani: "Puis-je… ?", risk: "Évaluation du risque", plans: "Offres", signIn: "Se connecter", account: "Compte", nav: "Principal" },
+    de: { saved: "Gespeicherte Fälle", research: "Recherche", cani: "Darf ich…?", risk: "Risikoprüfung", plans: "Tarife", signIn: "Anmelden", account: "Konto", nav: "Hauptmenü" },
+    pt: { saved: "Casos guardados", research: "Pesquisa", cani: "Posso…?", risk: "Avaliação de risco", plans: "Planos", signIn: "Entrar", account: "Conta", nav: "Principal" },
+    pl: { saved: "Zapisane sprawy", research: "Wyszukiwanie", cani: "Czy mogę…?", risk: "Ocena ryzyka", plans: "Plany", signIn: "Zaloguj się", account: "Konto", nav: "Główne" },
+    ar: { saved: "القضايا المحفوظة", research: "البحث", cani: "هل يمكنني…؟", risk: "تقييم المخاطر", plans: "الخطط", signIn: "تسجيل الدخول", account: "الحساب", nav: "الرئيسية" }
   };
   var I = window.CB_I18N || null;
   function t() { var l = I ? I.get() : "en"; return T[l] || T.en; }
 
   var path = location.pathname.replace(/\/index\.html$/, "/");
   // The research app and the lawyers' board have their own top bars.
-  if (path === "/" || /\/lawyers\.html$/.test(path)) return;
+  if (/\/(research|lawyers)\.html$/.test(path)) return;
 
   var CSS = [
     /* footer stays at the bottom of the window on short pages */
@@ -36,9 +36,9 @@
     ".cb-nav a[aria-current=page]{color:var(--ink);box-shadow:inset 0 -2px 0 var(--oxblood);border-radius:0}",
     ".cb-nav a[aria-current=page]:hover{background:none}",
     ".cb-nav .cb-pro{font-size:9px;font-weight:700;letter-spacing:.06em;padding:1px 4px;border-radius:3px;background:var(--oxblood);color:var(--paper-2)}",
-    ".cb-nav a.cb-acct{margin-inline-start:6px;border:1px solid var(--rule);background:var(--paper-2);color:var(--ink)}",
-    ".cb-nav a.cb-acct:hover{border-color:var(--oxblood);color:var(--oxblood);background:var(--paper-2)}",
-    ".cb-nav a.cb-acct[aria-current=page]{border-color:var(--ink);box-shadow:none;border-radius:5px}",
+    ".cb-nav a.cb-acct{margin-inline-start:8px;padding:7px 14px;border-radius:var(--radius,8px);background:var(--ink);color:var(--paper-2)}",
+    ".cb-nav a.cb-acct:hover{background:var(--oxblood);color:#fff}",
+    ".cb-nav a.cb-acct[aria-current=page]{box-shadow:none;border-radius:var(--radius,8px)}",
     ".masthead-in .cb-nav~.cb-lang{margin-inline-start:4px}",
     "@media(max-width:760px){",
     "  .masthead-in{flex-wrap:wrap!important;height:auto!important;row-gap:0!important;padding-top:8px!important}",
@@ -46,6 +46,7 @@
     "  .cb-nav{order:3;width:100%;margin:6px 0 0;gap:0;overflow-x:auto;scrollbar-width:none;border-top:1px solid var(--rule-soft)}",
     "  .cb-nav::-webkit-scrollbar{display:none}",
     "  .cb-nav{font-size:12.5px}.cb-nav a{padding:10px 7px}.cb-nav .cb-pro{display:none}",
+    "  .cb-nav a[data-cb-nav=saved]{display:none}",
     /* language menu shrinks to its globe icon, as in the research app */
     "  html .masthead-in .cb-lang select{width:34px;max-width:34px;min-width:0;padding:6px 0;color:transparent}",
     "  html .masthead-in .cb-lang select option{color:var(--ink)}",
@@ -72,7 +73,8 @@
     var nav = document.createElement("nav");
     nav.className = "cb-nav";
     var links = [
-      ["research", "/", /^\/$/],
+      ["research", "/research.html", /\/research\.html$/],
+      ["saved", "/research.html#cases", /^$/],
       ["cani", "/can-i.html", /\/can-i\.html$/],
       ["risk", "/risk-check.html", /\/risk-check\.html$/],
       ["plans", "/pricing.html", /\/pricing\.html$/]

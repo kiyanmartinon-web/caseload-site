@@ -17,7 +17,6 @@
 <meta property="og:description" content="A yes or no to everyday legal questions, country by country, with the conditions that apply.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
 <style>
 :root{
   --paper:#F7F7F4; --paper-2:#FFFFFF; --ink:#1A2438; --ink-soft:#5A6376;
@@ -151,6 +150,7 @@ footer{border-top:1px solid var(--rule);background:var(--paper-2);font-size:12.5
 footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px;flex-wrap:wrap}
 @media print{.masthead,.ask,.recent,footer,.a-actions,.save-row{display:none!important}.answer{border:0}}
 </style>
+<link rel="stylesheet" href="/brand.css">
 </head>
 <body>
 
@@ -158,8 +158,8 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
   <div class="masthead-in">
     <a class="wordmark" href="/">Case<span>bound</span></a>
     <nav class="top-links" aria-label="Account" data-ta="navAria">
-      <a href="/" data-t="navResearch">Research</a>
-      <a href="/#cases" data-t="navSaved">Saved cases</a>
+      <a href="/research.html" data-t="navResearch">Research</a>
+      <a href="/research.html#cases" data-t="navSaved">Saved cases</a>
       <a href="/risk-check.html"><span data-t="navRisk">Risk check</span><span class="pro-mini">PRO</span></a>
       <a href="/pricing.html" data-t="navPlans">Plans</a>
       <a href="/account.html" id="top-account">Sign in</a>
@@ -168,7 +168,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
 </header>
 
 <main>
-  <p class="kicker"><span class="free-badge" data-t="free">FREE</span> <span data-t="kicker">Can I…?</span></p>
+  <p class="kicker"><span class="free-badge" data-t="free">Free</span> <span data-t="kicker">Can I…?</span></p>
   <h1 data-t="h1">Ask whether you're allowed to do something.</h1>
   <p class="lede" data-t="lede">Type a question in plain words. You get a yes or no, where it's allowed and where it isn't, and the conditions that come with it.</p>
 
@@ -200,7 +200,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
 
 
   <section id="saved" class="recent" hidden>
-    <div class="recent-h"><h2 data-t="savedH">Saved answers</h2><a class="linkish" href="/#cases" id="saved-all" data-t="seeAll">See all in Saved cases</a></div>
+    <div class="recent-h"><h2 data-t="savedH">Saved answers</h2><a class="linkish" href="/research.html#cases" id="saved-all" data-t="seeAll">See all in Saved cases</a></div>
     <ul id="saved-list"></ul>
   </section>
 
@@ -483,7 +483,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
     var tt = t(), s = savedEntry();
     return '<div class="save-row">' +
       '<label for="a-proj">' + esc(tt.projL) + ' <select id="a-proj">' + projectOptions(s ? s.projectId : "") + '</select></label>' +
-      (s ? '<span class="save-ok">✓ ' + esc(tt.savedOk) + '</span> <a href="/#cases">' + esc(tt.seeSaved) + '</a>'
+      (s ? '<span class="save-ok">✓ ' + esc(tt.savedOk) + '</span> <a href="/research.html#cases">' + esc(tt.seeSaved) + '</a>'
          : '<button type="button" class="btn" id="a-save">' + esc(tt.saveBtn) + '</button>') +
       (saveNote ? '<span class="save-note">' + saveNote + '</span>' : "") +
       '</div>';
@@ -704,7 +704,7 @@ footer div{max-width:880px;margin:0 auto;padding:18px 20px;display:flex;gap:16px
     var id = e.target && e.target.id;
     if (id === "a-research" && current) {
       try { sessionStorage.setItem("casebound:prefill", (current.answer.researchQuery || current.q)); } catch(err){}
-      location.href = "/";
+      location.href = "/research.html";
     }
     if (id === "a-another") { current = null; render(); $("q").value = ""; $("q").focus(); window.scrollTo({ top:0, behavior:"smooth" }); }
     if (id === "a-print") window.print();

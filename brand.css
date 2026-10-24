@@ -1,0 +1,51 @@
+/* Casebound — brand layer, loaded last in <head> on every page (and inside the research panes).
+   It re-tunes the shared tokens every page already uses, so pages keep their own layout CSS.
+   Schibsted Grotesk = everything Casebound says. Newsreader (--law) = the law's own words. */
+@import url("https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:ital,wght@0,400..800;1,400..600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap");
+
+:root{
+  --paper:#F4F5F7; --paper-2:#FFFFFF; --ink:#14192A; --ink-soft:#586273;
+  --rule:#DCE0E6; --rule-soft:#EAEDF1;
+  --oxblood:#A11D33; --oxblood-wash:#FBEAED;
+  --verdigris:#176B66; --verdigris-wash:#E2F1EF;
+  --amber:#94600A; --amber-wash:#FAF0DC;
+  --slate:#3B475B; --slate-wash:#ECEFF4;
+  --serif:"Schibsted Grotesk",system-ui,sans-serif;
+  --sans:"Schibsted Grotesk",system-ui,sans-serif;
+  --law:"Newsreader",Georgia,serif;
+  --radius:8px;
+}
+
+body{font-feature-settings:"ss01","tnum" 0;text-rendering:optimizeLegibility}
+:where(h1,h2,h3){font-family:var(--sans);letter-spacing:-.022em}
+:where(h1){font-weight:700}
+:where(h2,h3){font-weight:650}
+
+/* top bar: white, slightly translucent, hairline below */
+.masthead{background:color-mix(in srgb,var(--paper-2) 92%,transparent)!important;backdrop-filter:saturate(1.4) blur(10px);-webkit-backdrop-filter:saturate(1.4) blur(10px)}
+.wordmark{font-family:var(--sans)!important;font-weight:750!important;letter-spacing:-.035em!important}
+.wordmark span{color:var(--oxblood)}
+
+/* controls: one radius for controls, cards keep theirs a step larger */
+:where(.btn,button.btn,a.btn,.cb-set-btn,.cb-lang select,input,select,textarea){border-radius:var(--radius)}
+:where(.btn){font-weight:650;letter-spacing:-.005em}
+
+::selection{background:var(--oxblood-wash);color:var(--ink)}
+:focus-visible{outline:2px solid var(--oxblood);outline-offset:2px}
+
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* ---- shared refinements for the inner pages ---- */
+main h1{font-weight:740!important;letter-spacing:-.035em!important}
+main h2{letter-spacing:-.025em}
+/* small labels: sentence case, no tracking */
+.kicker,.plan .tag,.wordmark small,.free-badge,.pro-badge{text-transform:none!important;letter-spacing:0!important}
+.kicker{font-size:13.5px!important;font-weight:650!important}
+.plan .tag{font-size:12px!important;border-radius:999px!important;padding:3px 10px!important}
+.free-badge{border-radius:999px!important;padding:2px 9px!important}
+.wordmark small{font-size:11.5px!important;font-weight:600!important;color:var(--ink-soft)}
+/* footers: quiet links */
+body>footer a{text-decoration:none!important;color:var(--ink-soft)!important}
+body>footer a:hover{color:var(--oxblood)!important}
+/* cards a step rounder than controls */
+:where(.plan,.ask,.answer,.card,.panel,.state){border-radius:12px}

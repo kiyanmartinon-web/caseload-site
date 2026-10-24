@@ -22,12 +22,12 @@
      solid buttons get dark text instead of white. */
   var CSS = [
     'html[data-theme="dark"]{color-scheme:dark;',
-    '--paper:#14171E;--paper-2:#1B1F28;--ink:#E7E9EE;--ink-soft:#A4ABBA;',
-    '--rule:#343A47;--rule-soft:#272C37;',
-    '--oxblood:#E0939C;--oxblood-wash:#3A2328;',
-    '--verdigris:#86C3C6;--verdigris-wash:#1D3234;',
-    '--amber:#E3B76B;--amber-wash:#382D1B;',
-    '--slate:#BAC4D2;--slate-wash:#262C37}',
+    '--paper:#0F131B;--paper-2:#171C26;--ink:#E8EBF1;--ink-soft:#9BA4B4;',
+    '--rule:#2C3442;--rule-soft:#222935;',
+    '--oxblood:#F08A9B;--oxblood-wash:#3A1D24;',
+    '--verdigris:#7CCBC4;--verdigris-wash:#16302F;',
+    '--amber:#E8BC6E;--amber-wash:#352A17;',
+    '--slate:#BAC4D2;--slate-wash:#232A36}',
     /* solid dark-ink or oxblood buttons → light fill, dark label */
     'html[data-theme="dark"] .lang button[aria-pressed="true"],html[data-theme="dark"] .btn,html[data-theme="dark"] .btn:hover,',
     'html[data-theme="dark"] .btn.danger:hover,html[data-theme="dark"] .plan .tag,html[data-theme="dark"] .hub-btn,',
@@ -37,7 +37,7 @@
     'html[data-theme="dark"] .btn.ghost{color:var(--ink)!important}',
     'html[data-theme="dark"] .btn.danger{color:var(--oxblood)!important}',
     'html[data-theme="dark"] .btn.danger:hover{color:var(--paper)!important}',
-    'html[data-theme="dark"] .hub-btn:hover,html[data-theme="dark"] .case-card-open:hover{background:#EBA9B1!important}',
+    'html[data-theme="dark"] .hub-btn:hover,html[data-theme="dark"] .case-card-open:hover{background:#F6AAB6!important}',
     'html[data-theme="dark"] .build-btn:hover,html[data-theme="dark"] .run:hover,html[data-theme="dark"] .add-doc-btn:hover{background:#FFFFFF!important}',
     'html[data-theme="dark"] .run:disabled{background:#4A5160!important;color:#A4ABBA!important}',
     'html[data-theme="dark"] .hub-btn.secondary{color:var(--ink)!important;background:var(--paper)!important}',

@@ -11,7 +11,7 @@
   function get(k) { try { return localStorage.getItem(k) || ""; } catch (e) { return ""; } }
   function set(k, v) { try { if (v) localStorage.setItem(k, v); else localStorage.removeItem(k); } catch (e) {} }
   window.CaseboundView = {
-    toClient: function () { set(VIEW_KEY, "client"); location.href = "/"; },
+    toClient: function () { set(VIEW_KEY, "client"); location.href = "/research.html"; },
     toLawyer: function () { set(VIEW_KEY, "lawyer"); location.href = "/lawyers.html"; }
   };
 
