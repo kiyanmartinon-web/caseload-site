@@ -8,7 +8,7 @@ import { getJSON, putJSON, del } from "./store.mjs";
 const SESSION_DAYS = 30;
 const MAX_FAILS = 8;
 const LOCK_MINUTES = 15;
-export const TERMS_VERSION = "2026-10-07";
+export const TERMS_VERSION = "2026-10-24";
 
 const scrypt = (pw, salt) =>
   new Promise((res, rej) => crypto.scrypt(pw, salt, 64, { N: 16384, r: 8, p: 1, maxmem: 64 * 1024 * 1024 }, (e, k) => (e ? rej(e) : res(k))));
