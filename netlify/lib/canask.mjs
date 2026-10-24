@@ -21,7 +21,7 @@ async function store() {
   return getStore({ name: "canask", consistency: "strong" });
 }
 
-export const LIMITS = { free: 5, pro: 60 };
+export const LIMITS = { free: 5, pro: 5 };
 export const MAX_QUESTION = 600;
 export const DEFAULT_MODEL = "claude-sonnet-5-5";
 
